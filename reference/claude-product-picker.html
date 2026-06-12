@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>速查表：Claude / Cowork / Claude Code 選用指南</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #222; line-height: 1.7; }
+  h1 { font-size: 1.5rem; border-bottom: 2px solid #c2571a; padding-bottom: .4rem; }
+  h2 { font-size: 1.1rem; margin-top: 2rem; color: #c2571a; }
+  table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+  th, td { border: 1px solid #ddd; padding: .5rem .7rem; text-align: left; vertical-align: top; }
+  th { background: #faf3ee; }
+  code { background: #f4f4f4; padding: .1rem .3rem; border-radius: 3px; font-size: .88em; }
+  .rule { background: #faf3ee; border-left: 4px solid #c2571a; padding: .7rem 1rem; margin: .6rem 0; }
+  @media print { body { margin: 1rem auto; } }
+</style>
+</head>
+<body>
+<h1>速查表：該用哪一個？</h1>
+
+<table>
+<tr><th></th><th>Claude（claude.ai）</th><th>Claude Cowork</th><th>Claude Code</th></tr>
+<tr><th>本質</th><td>對話助理</td><td>知識工作代理（agent）</td><td>軟體工程代理（agent）</td></tr>
+<tr><th>工作對象</th><td>你貼上的內容</td><td>你授權的資料夾與檔案</td><td>整個程式碼 repo</td></tr>
+<tr><th>產出</th><td>回答、草稿</td><td>完成的文件、整理好的檔案</td><td>程式碼變更、commit、PR</td></tr>
+<tr><th>執行方式</th><td>一問一答</td><td>描述目標，離開，回來收成果</td><td>讀 code、改檔、跑指令、跑測試</td></tr>
+<tr><th>使用場所</th><td>網頁 / App</td><td>桌面 App（付費方案）</td><td>終端機 / IDE / 桌面 App / 網頁</td></tr>
+</table>
+
+<h2>一句話判斷規則</h2>
+<div class="rule">需要<strong>思考、回答、草稿</strong>，內容自己貼得進去 → <strong>Claude</strong></div>
+<div class="rule">需要 AI <strong>動手處理電腦裡的檔案與文件</strong>（非程式碼）→ <strong>Cowork</strong></div>
+<div class="rule">需要 AI <strong>在 git repo 裡讀、寫、執行程式碼</strong> → <strong>Claude Code</strong></div>
+
+<h2>正式專案安全要點（Claude Code）</h2>
+<ul>
+  <li>預設權限模式會在改檔、跑指令前<strong>逐項詢問</strong> — 正式 repo 請保持此模式。</li>
+  <li>先開分支再讓它動手；用 PR review 把關，不直接推 main。</li>
+  <li><code>CLAUDE.md</code> 放在 repo 根目錄，記錄專案規範，每次 session 自動讀取。</li>
+</ul>
+
+<h2>常用指令</h2>
+<table>
+<tr><td><code>claude</code></td><td>在專案目錄啟動互動 session</td></tr>
+<tr><td><code>claude "任務描述"</code></td><td>啟動並直接下任務</td></tr>
+<tr><td><code>/init</code></td><td>產生 CLAUDE.md</td></tr>
+<tr><td><code>/help</code></td><td>列出可用指令</td></tr>
+</table>
+
+<p style="margin-top:2rem;font-size:.85rem;color:#777">來源：<a href="https://code.claude.com/docs/en/overview">Claude Code Docs</a>、<a href="https://claude.com/product/cowork">Cowork 產品頁</a>。更新：2026-06-12</p>
+</body>
+</html>
