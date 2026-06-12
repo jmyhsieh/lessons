@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>課目表 — Claude / Claude Code / mattpocock/skills</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.6rem; margin-bottom: .2rem; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.15rem; margin-top: 2.2rem; padding-bottom: .3rem; }
+  h2.p1 { color: #c2571a; border-bottom: 2px solid #c2571a; }
+  h2.p2 { color: #1a6b5a; border-bottom: 2px solid #1a6b5a; }
+  table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+  td { border-bottom: 1px solid #eee; padding: .5rem .6rem; vertical-align: top; }
+  td.no { width: 2.5rem; color: #999; font-variant-numeric: tabular-nums; }
+  td.track { width: 7.5rem; color: #777; font-size: .85rem; }
+  a { color: #b04a12; text-decoration: none; }
+  .p2sec a { color: #15564a; }
+  a:hover { text-decoration: underline; }
+  .ref { background: #faf7f4; border: 1px solid #e8e0d8; border-radius: 8px; padding: .8rem 1.2rem; margin-top: 2rem; }
+  .done { color: #2e7d32; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #888; border-top: 1px solid #eee; padding-top: .8rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="index.html" style="font-size:.85rem">← 封面</a></p>
+<h1>課目表</h1>
+<p class="sub">Claude 三產品 → Claude Code 實戰 → mattpocock/skills 封閉系統工作流 · 共 20 課</p>
+
+<h2 class="p1">Phase 1 — Claude 三產品與 Claude Code（第 1–13 課）</h2>
+<table>
+<tr><td class="no">01</td><td><a href="lessons/0001-three-claudes.html">三個 Claude，三種工作流</a></td><td class="track">產品判斷</td></tr>
+<tr><td class="no">02</td><td><a href="lessons/0002-first-session-read-only.html">安裝 Claude Code，跑第一個唯讀任務</a></td><td class="track">入門</td></tr>
+<tr><td class="no">03</td><td><a href="lessons/0003-first-safe-code-change.html">第一次讓它改程式碼 — 分支、小改動、review</a></td><td class="track">安全工作流</td></tr>
+<tr><td class="no">04</td><td><a href="lessons/0004-claude-md.html">CLAUDE.md — 讓它記住你們團隊的規範</a></td><td class="track">設定</td></tr>
+<tr><td class="no">05</td><td><a href="lessons/0005-permission-modes.html">權限模式與 plan mode — 省力但同樣安全</a></td><td class="track">安全工作流</td></tr>
+<tr><td class="no">06</td><td><a href="lessons/0006-cowork-hands-on.html">Cowork 實際上手 — 補齊三產品的最後一塊</a></td><td class="track">產品判斷</td></tr>
+<tr><td class="no">07</td><td><a href="lessons/0007-full-workflow.html">綜合演練 — 從任務描述到 PR 的完整一輪</a></td><td class="track">總驗收</td></tr>
+<tr><td class="no">08</td><td><a href="lessons/0008-hooks.html">Hooks — 把規則變成保證</a></td><td class="track">進階四件套</td></tr>
+<tr><td class="no">09</td><td><a href="lessons/0009-skills.html">Skills — 把重複的工作流打包成 / 指令</a></td><td class="track">進階四件套</td></tr>
+<tr><td class="no">10</td><td><a href="lessons/0010-mcp.html">MCP — 把外部工具接進 Claude Code</a></td><td class="track">進階四件套</td></tr>
+<tr><td class="no">11</td><td><a href="lessons/0011-subagents.html">Subagents — 用分身保護你的 context</a></td><td class="track">進階四件套</td></tr>
+<tr><td class="no">12</td><td><a href="lessons/0012-parallel-worktrees.html">平行 session 與 worktrees — 多個 Claude 同時開工</a></td><td class="track">擴展</td></tr>
+<tr><td class="no">13</td><td><a href="lessons/0013-headless-ci.html">Headless 與 CI 自動化 — 沒有人在場的 Claude</a></td><td class="track">擴展</td></tr>
+</table>
+
+<div class="p2sec">
+<h2 class="p2">Phase 2 — mattpocock/skills：封閉系統維運與開發（第 14–20 課）</h2>
+<table>
+<tr><td class="no">14</td><td><a href="lessons/0014-matt-pocock-skills-foundation.html">入門 — 四大失敗模式與 CONTEXT.md</a></td><td class="track">地基</td></tr>
+<tr><td class="no">15</td><td><a href="lessons/0015-grill.html">Grill 系列 — 把模糊需求磨成對齊的計劃</a></td><td class="track">對齊線</td></tr>
+<tr><td class="no">16</td><td><a href="lessons/0016-prd-issues.html">/to-prd 與 /to-issues — 計劃變成可認領的工作</a></td><td class="track">開發線</td></tr>
+<tr><td class="no">17</td><td><a href="lessons/0017-tdd.html">/tdd — 紅綠燈實作，跑完整條 pipeline</a></td><td class="track">開發線</td></tr>
+<tr><td class="no">18</td><td><a href="lessons/0018-architecture.html">/improve-codebase-architecture — 對抗架構腐化</a></td><td class="track">架構線</td></tr>
+<tr><td class="no">19</td><td><a href="lessons/0019-diagnose.html">/diagnose — 維運除錯的紀律迴圈</a></td><td class="track">維運線</td></tr>
+<tr><td class="no">20</td><td><a href="lessons/0020-qa-triage.html">/qa 與 /triage — 把維運變成一條流水線</a></td><td class="track">維運線</td></tr>
+</table>
+</div>
+
+<div class="ref">
+<strong>參考文件</strong>：<a href="reference/claude-product-picker.html">產品選用速查表</a>（可列印）<br>
+<strong>學習狀態</strong>：<span class="done">第 1–19 課已完成</span> · 第 20 課進行中 — 完成後 Phase 2 收官，轉入實戰陪跑模式。
+</div>
+
+<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件與 SKILL.md 原文 · 2026-06-12</footer>
+</body>
+</html>
