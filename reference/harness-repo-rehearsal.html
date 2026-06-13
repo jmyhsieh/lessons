@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Repo rehearsal 速查表</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #4f5d75; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #4f5d75; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #eef1f6; }
+  pre, code { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .1rem .35rem; }
+  pre { padding: .9rem 1rem; white-space: pre-wrap; overflow-x: auto; }
+  a { color: #36506f; }
+  .rule { border-left: 4px solid #4f5d75; background: #f8fafc; padding: .8rem 1rem; margin: 1rem 0; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print {
+    body { margin: 1rem auto; }
+    .rule, tr { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Repo rehearsal 速查表</h1>
+<p class="sub">用一個低風險真實任務演練完整 harness 流程。</p>
+
+<div class="rule">
+  <strong>Rehearsal 的驗收句：</strong>一個真實 repo 任務從 brief 到 closeout 都跑完，並留下至少一個流程改進發現。
+</div>
+
+<h2>任務挑選</h2>
+<table>
+<tr><th>選它</th><th>避開它</th></tr>
+<tr><td>低風險、可 revert。</td><td>資料刪除、付費、權限變更。</td></tr>
+<tr><td>單 repo、單 branch。</td><td>多 repo、多團隊同步。</td></tr>
+<tr><td>本機可驗證。</td><td>只能靠 production 驗證。</td></tr>
+<tr><td>驗收條件清楚。</td><td>目標抽象或仍在探索。</td></tr>
+</table>
+
+<h2>Run order</h2>
+<table>
+<tr><th>順序</th><th>Artifact</th><th>成功訊號</th></tr>
+<tr><td>1</td><td>Brief</td><td>Outcome、scope、gates、stop 都清楚。</td></tr>
+<tr><td>2</td><td>Dry-run</td><td>能預覽任務，不改檔。</td></tr>
+<tr><td>3</td><td>Agent evidence</td><td>stdout、stderr、exit code 留下。</td></tr>
+<tr><td>4</td><td>Gate results</td><td>Pass/fail 由 command 或檢查決定。</td></tr>
+<tr><td>5</td><td>Run history</td><td><code>history show</code> 找得到 artifacts。</td></tr>
+<tr><td>6</td><td>Final handoff</td><td>Reviewer 不看聊天也能接手。</td></tr>
+<tr><td>7</td><td>Closeout</td><td>ship、review、rerun、blocked 或 downgrade。</td></tr>
+</table>
+
+<h2>Rehearsal record</h2>
+<pre>{
+  "inputId": "",
+  "repo": "",
+  "branch": "",
+  "briefPath": "",
+  "runId": "",
+  "gateResultsPath": "",
+  "handoffPath": "",
+  "closeoutDecision": "",
+  "rehearsalFinding": ""
+}</pre>
+
+<h2>完成定義</h2>
+<pre>Done when:
+- The task was small enough to inspect.
+- Every artifact path exists.
+- Closeout decision is explicit.
+- One process finding is recorded.
+- The next improvement is smaller than one lesson.</pre>
+
+<footer>
+  索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
+  對應課程：<a href="../lessons/0038-rehearsal-finding.html">第 38 課 — workflow patch</a> · <a href="../lessons/0037-repo-rehearsal.html">第 37 課 — repo rehearsal</a> · <a href="../lessons/0036-closeout-decision.html">第 36 課 — closeout decision</a><br>
+  主要來源：<a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a> · <a href="https://code.claude.com/docs/en/cli-reference">CLI reference</a> · <a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>
+</footer>
+</body>
+</html>

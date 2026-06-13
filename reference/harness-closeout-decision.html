@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Closeout decision 速查表</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #4f5d75; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #4f5d75; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #eef1f6; }
+  pre, code { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .1rem .35rem; }
+  pre { padding: .9rem 1rem; white-space: pre-wrap; overflow-x: auto; }
+  a { color: #36506f; }
+  .rule { border-left: 4px solid #4f5d75; background: #f8fafc; padding: .8rem 1rem; margin: 1rem 0; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print {
+    body { margin: 1rem auto; }
+    .rule, tr { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Closeout decision 速查表</h1>
+<p class="sub">決定一輪 harness run 應該 ship、review、rerun、blocked，或降級回單次 agent。</p>
+
+<div class="rule">
+  <strong>Closeout 的驗收句：</strong>每個 run 都能回答「可以停止嗎？」以及「如果不能，誰要做什麼」。
+</div>
+
+<h2>Decision table</h2>
+<table>
+<tr><th>Decision</th><th>條件</th><th>必填</th></tr>
+<tr><td><code>ship</code></td><td>Gates 通過、evidence 可開、handoff 可接手。</td><td>report path。</td></tr>
+<tr><td><code>review</code></td><td>證據足夠，但需要產品、安全、風險或架構判斷。</td><td>review owner。</td></tr>
+<tr><td><code>rerun</code></td><td>已有修正、原因明確、retry budget 未用完。</td><td>parentRunId、rerun reason。</td></tr>
+<tr><td><code>blocked</code></td><td>缺 credential、資料、環境、權限或外部回覆。</td><td>unblock condition。</td></tr>
+<tr><td><code>downgrade</code></td><td>任務不重複、input 不穩、gate 不值得維護。</td><td>降級理由。</td></tr>
+</table>
+
+<h2>Record template</h2>
+<pre>{
+  "runId": "",
+  "decision": "ship | review | rerun | blocked | downgrade",
+  "reason": "",
+  "evidenceVerified": false,
+  "handoffPath": "",
+  "retryBudgetRemaining": 0,
+  "owner": "",
+  "nextAction": ""
+}</pre>
+
+<h2>停止檢查</h2>
+<table>
+<tr><th>檢查</th><th>失敗時</th></tr>
+<tr><td>Final handoff 指向最新 run。</td><td>先修 handoff。</td></tr>
+<tr><td>Evidence paths 都存在。</td><td>標成 stale，不可 ship。</td></tr>
+<tr><td>Open risks 都有 owner。</td><td>轉 review。</td></tr>
+<tr><td>Retry budget 未超過。</td><td>停止 rerun。</td></tr>
+<tr><td>任務仍值得 harness。</td><td>降級回單次 agent。</td></tr>
+</table>
+
+<h2>完成定義</h2>
+<pre>Done when:
+- Closeout decision is one of five allowed values.
+- Reason is specific and tied to evidence.
+- Non-ship decisions have owner and nextAction.
+- Rerun cannot loop without budget.
+- Downgrade is allowed when harness no longer pays off.</pre>
+
+<footer>
+  索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
+  對應課程：<a href="../lessons/0037-repo-rehearsal.html">第 37 課 — repo rehearsal</a> · <a href="../lessons/0036-closeout-decision.html">第 36 課 — closeout decision</a> · <a href="../lessons/0035-final-handoff-package.html">第 35 課 — final handoff package</a><br>
+  主要來源：<a href="https://code.claude.com/docs/en/hooks">Hooks reference</a> · <a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a> · <a href="https://code.claude.com/docs/en/agent-sdk/cost-tracking">Track cost and usage</a>
+</footer>
+</body>
+</html>

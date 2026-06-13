@@ -25,13 +25,13 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <h1>Harness 工作流速查索引</h1>
-<p class="sub">把第 25–35 課的 Harness 速查表集中成一個入口，依任務成熟度逐步使用。</p>
+<p class="sub">把第 25–40 課的 Harness 速查表集中成一個入口，依任務成熟度逐步使用。</p>
 
 <div class="rule">
-  <strong>使用順序：</strong>先判斷值不值得 harness，再穩住 input，接著設計 gates/evidence，產出 report/handoff，設計最小 runner，只實作 list/show/dry-run 第一片，接真 agent call，執行 gates，建立 run history，定義 rerun policy，最後整理 final handoff package。
+  <strong>使用順序：</strong>先判斷值不值得 harness，再穩住 input，接著設計 gates/evidence，產出 report/handoff，設計最小 runner，只實作 list/show/dry-run 第一片，接真 agent call，執行 gates，建立 run history，定義 rerun policy，整理 final handoff package，做 closeout decision，用 repo rehearsal 跑完整輪，把 finding 收斂成 workflow patch，用第二輪 rehearsal 驗證 patch，最後把 verified workflow 固化成 repo contract。
 </div>
 
-<h2>十一張速查表</h2>
+<h2>十六張速查表</h2>
 <table>
 <tr><th>順序</th><th>速查表</th><th>何時使用</th><th>對應課程</th></tr>
 <tr>
@@ -100,6 +100,36 @@
   <td>把 latest run、parent chain、evidence 與未解風險整理成可接手交付包。</td>
   <td><a href="../lessons/0035-final-handoff-package.html">第 35 課</a></td>
 </tr>
+<tr>
+  <td>12</td>
+  <td><a href="harness-closeout-decision.html">Closeout decision 速查表</a></td>
+  <td>決定一輪 run 應該 ship、review、rerun、blocked，或降級回單次 agent。</td>
+  <td><a href="../lessons/0036-closeout-decision.html">第 36 課</a></td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><a href="harness-repo-rehearsal.html">Repo rehearsal 速查表</a></td>
+  <td>用一個低風險真實 repo 任務演練完整 harness 流程。</td>
+  <td><a href="../lessons/0037-repo-rehearsal.html">第 37 課</a></td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><a href="harness-workflow-patch.html">Workflow patch 速查表</a></td>
+  <td>把 rehearsal finding 分類，收斂成一個可驗收的小改進。</td>
+  <td><a href="../lessons/0038-rehearsal-finding.html">第 38 課</a></td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><a href="harness-patch-verification.html">Patch verification 速查表</a></td>
+  <td>用第二輪同類型 rehearsal 驗證 workflow patch 是否值得保留。</td>
+  <td><a href="../lessons/0039-patch-verification.html">第 39 課</a></td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><a href="harness-repo-contract.html">Repo contract 速查表</a></td>
+  <td>把 verified workflow patch 固化到最小、最合適的 repo-level 規範。</td>
+  <td><a href="../lessons/0040-repo-contract.html">第 40 課</a></td>
+</tr>
 </table>
 
 <h2>最小路線</h2>
@@ -116,10 +146,15 @@
 <tr><td>Report 已產出，但下一次很難找到同一輪 run 的 artifacts。</td><td>Run history</td><td>不要先做 dashboard。</td></tr>
 <tr><td>已有 run history，但不知道哪些狀態能重跑。</td><td>Rerun policy</td><td>不要覆蓋舊 evidence。</td></tr>
 <tr><td>已有 latest run，但 reviewer 還不能直接接手。</td><td>Final handoff</td><td>不要依賴聊天紀錄。</td></tr>
+<tr><td>已有 final handoff，但不知道能不能停止。</td><td>Closeout decision</td><td>不要無限重跑。</td></tr>
+<tr><td>流程都定義好了，但還沒在真實 repo 試過。</td><td>Repo rehearsal</td><td>不要直接推成團隊平台。</td></tr>
+<tr><td>演練已完成，但不知道該改哪個流程點。</td><td>Workflow patch</td><td>不要一次修全部問題。</td></tr>
+<tr><td>Patch 已寫好，但不知道是否真的有效。</td><td>Patch verification</td><td>不要直接固化 runner。</td></tr>
+<tr><td>Patch 已驗證為 keep，但不知道該放哪。</td><td>Repo contract</td><td>不要直接平台化。</td></tr>
 </table>
 
 <footer>
-  對應課程：<a href="../lessons/0025-from-agent-session-to-harness.html">第 25 課</a> · <a href="../lessons/0026-harness-input-contract.html">第 26 課</a> · <a href="../lessons/0027-gates-evidence.html">第 27 課</a> · <a href="../lessons/0028-report-handoff.html">第 28 課</a> · <a href="../lessons/0029-minimal-runner.html">第 29 課</a> · <a href="../lessons/0030-runner-list-show-dry-run.html">第 30 課</a> · <a href="../lessons/0031-agent-call-evidence.html">第 31 課</a> · <a href="../lessons/0032-gate-execution-report.html">第 32 課</a> · <a href="../lessons/0033-run-history-index.html">第 33 課</a> · <a href="../lessons/0034-rerun-policy.html">第 34 課</a> · <a href="../lessons/0035-final-handoff-package.html">第 35 課</a>
+  對應課程：<a href="../lessons/0025-from-agent-session-to-harness.html">第 25 課</a> · <a href="../lessons/0026-harness-input-contract.html">第 26 課</a> · <a href="../lessons/0027-gates-evidence.html">第 27 課</a> · <a href="../lessons/0028-report-handoff.html">第 28 課</a> · <a href="../lessons/0029-minimal-runner.html">第 29 課</a> · <a href="../lessons/0030-runner-list-show-dry-run.html">第 30 課</a> · <a href="../lessons/0031-agent-call-evidence.html">第 31 課</a> · <a href="../lessons/0032-gate-execution-report.html">第 32 課</a> · <a href="../lessons/0033-run-history-index.html">第 33 課</a> · <a href="../lessons/0034-rerun-policy.html">第 34 課</a> · <a href="../lessons/0035-final-handoff-package.html">第 35 課</a> · <a href="../lessons/0036-closeout-decision.html">第 36 課</a> · <a href="../lessons/0037-repo-rehearsal.html">第 37 課</a> · <a href="../lessons/0038-rehearsal-finding.html">第 38 課</a> · <a href="../lessons/0039-patch-verification.html">第 39 課</a> · <a href="../lessons/0040-repo-contract.html">第 40 課</a>
 </footer>
 </body>
 </html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Repo contract 速查表</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #4f5d75; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #4f5d75; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #eef1f6; }
+  pre, code { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .1rem .35rem; }
+  pre { padding: .9rem 1rem; white-space: pre-wrap; overflow-x: auto; }
+  a { color: #36506f; }
+  .rule { border-left: 4px solid #4f5d75; background: #f8fafc; padding: .8rem 1rem; margin: 1rem 0; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print {
+    body { margin: 1rem auto; }
+    .rule, tr { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Repo contract 速查表</h1>
+<p class="sub">把 verified workflow patch 固化到最小、最合適的 repo-level 規範。</p>
+
+<div class="rule">
+  <strong>Repo contract 的驗收句：</strong>下一個 agent 不看聊天紀錄，也能在正確位置讀到規則，並用 evidence 判斷它是否仍有效。
+</div>
+
+<h2>Contract target selector</h2>
+<table>
+<tr><th>Target</th><th>適合使用</th><th>升級條件</th></tr>
+<tr><td><code>CLAUDE.md</code></td><td>每個 session 都需要的短規則。</td><td>同一件事已重複解釋或被 review 抓到。</td></tr>
+<tr><td><code>.claude/rules/*.md</code></td><td>可依路徑或主題拆分的 repo 規範。</td><td>規則只適用某類檔案或模組。</td></tr>
+<tr><td><code>AGENTS.md</code></td><td>Codex 或多 agent 共用指南。</td><td>repo 同時服務不同 agent。</td></tr>
+<tr><td>Issue template</td><td>任務啟動時必填的 input contract。</td><td>每次 brief 都缺同一欄。</td></tr>
+<tr><td>Reference checklist</td><td>半手動流程、reviewer 或 handoff 判斷。</td><td>規則還需要人類語境判斷。</td></tr>
+<tr><td>Hook / runner gate</td><td>低誤判、必須強制的檢查。</td><td>同類任務連續驗證，且 failure signal 清楚。</td></tr>
+</table>
+
+<h2>Contract note template</h2>
+<pre># Repo workflow contract
+sourceVerification:
+verifiedPatch:
+contractTarget:
+rule:
+enforcement:
+verification:
+rollback:</pre>
+
+<h2>Decision rules</h2>
+<table>
+<tr><th>情境</th><th>處理方式</th></tr>
+<tr><td>只是少問一個 brief 欄位。</td><td>更新 issue template 或 reference checklist。</td></tr>
+<tr><td>每個 session 都需要知道。</td><td>更新 <code>CLAUDE.md</code>；若給 Codex 用，更新 <code>AGENTS.md</code>。</td></tr>
+<tr><td>只適用某路徑。</td><td>放進 <code>.claude/rules/*.md</code>，並加 paths scope。</td></tr>
+<tr><td>必須阻擋危險指令或收工。</td><td>用 settings、hook 或 runner gate。</td></tr>
+<tr><td>還沒被第二輪驗證。</td><td>不要固化，回第 39 課。</td></tr>
+</table>
+
+<h2>完成定義</h2>
+<pre>Done when:
+- Source verification points to a keep result.
+- Contract target is the smallest useful location.
+- The rule is short, specific, and reviewable.
+- Verification evidence is named.
+- Rollback condition is explicit.</pre>
+
+<footer>
+  索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
+  對應課程：<a href="../lessons/0040-repo-contract.html">第 40 課 — repo contract</a> · <a href="../lessons/0039-patch-verification.html">第 39 課 — patch verification</a><br>
+  主要來源：<a href="https://code.claude.com/docs/en/memory">How Claude remembers your project</a> · <a href="https://code.claude.com/docs/en/settings">Claude Code settings</a> · <a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>
+</footer>
+</body>
+</html>

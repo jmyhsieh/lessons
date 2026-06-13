@@ -6,7 +6,7 @@
 ## Success looks like
 - 能依任務性質選擇 Claude Chat、Cowork、Claude Code 或本地 skill。
 - 能在陌生 repo 中用唯讀探索、plan mode、測試與 review 控制風險。
-- 能把常見工作流整理成 brief、gate、evidence、report、handoff，並用最小 runner、agent-call evidence、gate execution、run history、rerun policy 與 final handoff package 驗證可重跑性。
+- 能把常見工作流整理成 brief、gate、evidence、report、handoff，並用最小 runner、agent-call evidence、gate execution、run history、rerun policy、final handoff package、closeout decision、repo rehearsal、workflow patch、patch verification 與 repo contract 驗證可重跑性並固化可傳承規範。
 
 ## Constraints
 - 課程使用繁體中文與台灣用語；命令、檔名、API 名稱保留英文。

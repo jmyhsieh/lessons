@@ -71,6 +71,10 @@
   Benchmark: evaluates prompt-to-app systems by usability, visual quality, completeness, and trust. Use for: why prototype validation needs more than "it generated something."
 - [Guide: "Best practices for Claude Code" — Anthropic](https://code.claude.com/docs/en/best-practices)
   Developer workflow guidance: verification-first, explore-plan-code, commit/PR, subagents, hooks, and parallel sessions. Use for: turning engineering tasks into agent-ready workflows.
+- [Guide: "How Claude remembers your project" — Anthropic](https://code.claude.com/docs/en/memory)
+  Official Claude Code memory guide for CLAUDE.md, .claude/rules, auto memory, load order, and when instructions should become project memory. Use for: deciding what belongs in repo-level guidance.
+- [Guide: "Claude Code settings" — Anthropic](https://code.claude.com/docs/en/settings)
+  Official settings and permissions reference for user/project/local/managed scopes, .claude/settings.json, permissions, hooks, MCP servers, and shared team configuration. Use for: deciding when a contract should become enforceable project configuration.
 - Local skill: `/Users/jmh/.agents/skills/handoff/SKILL.md`
   Local handoff workflow source: save a focused handoff document to OS temp, include suggested skills, reference existing artifacts by path, redact sensitive data, and tailor the summary to the next session. Use for: report-to-handoff boundaries.
 - [Reference: "Hooks reference" — Anthropic](https://code.claude.com/docs/en/hooks)
