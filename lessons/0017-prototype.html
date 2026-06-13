@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>第 17 課：/prototype — 用拋棄式原型敲定設計</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #1a6b5a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #1a6b5a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #1a6b5a; }
+  code, pre { background: #eef4f2; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #15564a; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef4f2; }
+  .step { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #f8fbfa; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .tip { background: #eef4f2; border-left: 4px solid #1a6b5a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .safety { background: #fbeaea; border-left: 4px solid #c62828; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #1a6b5a; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef4f2; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d3e2dd; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<div class="kicker">Phase 2 · Lesson 0017 · 約 30 分鐘 · 實作課（開發線）</div>
+<h1>/prototype — 用拋棄式原型敲定設計</h1>
+<p class="mission">目標：在 grill 對齊之後、寫 PRD 之前，用 <code>/prototype</code> 做一個<strong>回答單一問題的拋棄式原型</strong>，把設計風險排掉再往下走。pipeline 多了一道「先玩過再承諾」的保險。</p>
+
+<h2>它在 pipeline 的位置</h2>
+<pre>grill（對齊需求）→ <strong>prototype（玩過設計）</strong> → /to-prd → /to-issues → /tdd
+   第 16 課              本課                第 18 課</pre>
+<p>不是每個需求都需要 prototype — 但當「這個 state machine 對不對」「這頁該長怎樣」用想的講不清時，原型用<strong>能跑的東西</strong>取代爭論。to-issues 甚至會把原型敲定的關鍵片段（state machine、schema）收進 issue。</p>
+
+<h2>核心定義（SKILL.md 原文）</h2>
+<p>「<strong>A prototype is throwaway code that answers a question. The question decides the shape.</strong>」— 問題決定形狀，所以第一步是<strong>選分支</strong>：</p>
+<table>
+<tr><th>你的問題</th><th>分支</th><th>產出</th></tr>
+<tr><td>「這個邏輯／狀態模型對嗎？」</td><td><strong>LOGIC</strong></td><td>小型互動<strong>終端機 app</strong>，把狀態機推過紙上難想的案例</td></tr>
+<tr><td>「這東西該長什麼樣？」</td><td><strong>UI</strong></td><td>同一個路由上<strong>數種差異極大的 UI 變體</strong>，用 URL 參數＋浮動列切換</td></tr>
+</table>
+<div class="safety"><strong>選錯分支等於整個原型白做</strong>（skill 原文）。問題若真的模糊且你不在線上，它會依周邊程式碼預設（後端模組→logic，頁面/元件→UI）並在原型開頭註明假設 — 但最好你自己先想清楚要回答哪個問題。</div>
+
+<h2>兩個分支都遵守的鐵律</h2>
+<ol>
+  <li><strong>第一天就是拋棄式，且標明</strong> — 放在它將被使用的程式碼旁（脈絡清楚），但命名要讓人一眼看出是原型不是正式碼。</li>
+  <li><strong>一個指令就能跑</strong> — 用專案既有的 task runner，使用者不用思考怎麼啟動。</li>
+  <li><strong>預設不持久化</strong> — 狀態存記憶體。持久化是原型要<em>檢驗</em>的東西，不是它該依賴的。</li>
+  <li><strong>跳過所有打磨</strong> — 無測試、無錯誤處理（除了能跑起來所需）、無抽象。學到東西就刪。</li>
+  <li><strong>把狀態攤開</strong> — 每個動作後（logic）或每次切換變體後（UI），印出/渲染完整相關狀態，讓你看見變化。</li>
+  <li><strong>用完刪掉或吸收</strong> — 原型回答完問題，要嘛刪掉、要嘛把驗證過的決策折進正式碼，別讓它爛在 repo 裡。</li>
+</ol>
+<div class="tip"><strong>唯一值得留下的是「答案」</strong>（skill 原文）：把問題與結論記到耐久的地方 — commit message、ADR、issue 或原型旁的 NOTES.md。原型本身是消耗品，答案才進你的文件制度（接第 14 課地基）。</div>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 找一個值得原型的設計問題</label>
+  <p>從 grill 出來的計劃裡，挑一個「講不清、用想的會吵架」的點：一個棘手的狀態轉移、一個你拿不定的畫面。明確寫下「我要回答的問題是 X」。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 啟動並確認分支</label>
+  <pre>/prototype 我想搞清楚 [你的問題]</pre>
+  <p>看它選 LOGIC 還是 UI — 對照你的問題，選對了嗎？選錯立刻糾正。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 一個指令跑起來、玩它</label>
+  <p>用它給的單一指令啟動。LOGIC：把狀態機推過邊界案例；UI：切換變體比較。重點是<strong>親手玩</strong>，不是看它描述。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 記下答案</label>
+  <p>玩出結論後，把「問題＋結論」寫進耐久處（若這決策難回頭→ADR；否則 commit message 或 NOTES.md）。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5. 刪掉或吸收原型</label>
+  <p>確認原型已標明拋棄式 → 刪掉它，或把驗證過的設計折進真正要寫的地方。別留殭屍原型。然後帶著答案接 <code>/to-prd</code>。</p>
+</div>
+
+<div class="done-banner" id="done">
+  🎉 <strong>你用能跑的東西取代了一場設計爭論。</strong>回對話視窗回報：你回答了什麼問題？原型推翻了你原本的假設嗎？
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="1">
+  <p>1. prototype 預設不做持久化（state 存記憶體）的理由是？</p>
+  <button>因為原型的執行時間很短，不需要存檔</button>
+  <button>持久化是原型要檢驗的對象，不是依賴</button>
+  <button>因為寫資料庫會讓原型跑得比較慢</button>
+  <div class="why">skill 原文：persistence is the thing the prototype is checking。讓原型依賴它要驗證的東西，就失去了快速試錯的意義。</div>
+</div>
+
+<div class="quiz" data-answer="2">
+  <p>2. 原型回答完問題後，唯一值得保留的是？</p>
+  <button>原型程式碼本身，之後可以重複利用</button>
+  <button>原型的執行截圖，方便向團隊展示成果</button>
+  <button>答案 — 問題與結論，寫進耐久的文件</button>
+  <div class="why">「The answer is the only thing worth keeping.」原型是拋棄式的；結論進 ADR/commit/NOTES，程式碼刪掉或吸收。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>3.（複習第 16 課）「這個取消流程的狀態機對不對」該選哪個分支？</p>
+  <button>LOGIC — 用終端機 app 把狀態機推過難想的案例</button>
+  <button>UI — 用數種畫面變體比較哪個比較好看</button>
+  <button>兩個都要做，才能完整覆蓋整個流程</button>
+  <div class="why">狀態/邏輯問題 → LOGIC 分支。grill 銳化了「取消」的定義（第 16 課），prototype 用可跑的狀態機驗證它在邊界案例下行不行得通。</div>
+</div>
+
+<h2>下一步</h2>
+<p>完成後回對話視窗回報。下一課：<a href="0018-prd-issues.html">第 18 課 — /to-prd 與 /to-issues：計劃變成可認領的工作</a>，把對齊＋驗證過的設計凝結成 PRD 與切片。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — prototype 的 SKILL.md 與 LOGIC.md / UI.md 兩個分支說明。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  上一課：<a href="0016-grill.html">第 16 課 — Grill 系列</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

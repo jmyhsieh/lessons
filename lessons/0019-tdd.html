@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>第 17 課：/tdd — 紅綠燈實作，跑完整條 pipeline</title>
+<title>第 19 課：/tdd — 紅綠燈實作，跑完整條 pipeline</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -34,9 +34,9 @@
 </style>
 </head>
 <body>
-<div class="kicker">Phase 2 · Lesson 0017 · 約 60 分鐘 · 實作課（pipeline 收官）</div>
+<div class="kicker">Phase 2 · Lesson 0019 · 約 60 分鐘 · 實作課（pipeline 收官）</div>
 <h1>/tdd — 紅綠燈實作，跑完整條 pipeline</h1>
-<p class="mission">目標：認領第 16 課切出的第一張 issue，用 <code>/tdd</code> 紅綠燈循環實作到驗收條件全過。完成即達成 Phase 2 成功條件第二條：<strong>對齊 → PRD → issues → TDD 實作</strong>的完整 pipeline。</p>
+<p class="mission">目標：認領第 18 課切出的第一張 issue，用 <code>/tdd</code> 紅綠燈循環實作到驗收條件全過。完成即達成 Phase 2 成功條件第二條：<strong>對齊 → PRD → issues → TDD 實作</strong>的完整 pipeline。</p>
 
 <h2>核心哲學（skill 原文）</h2>
 <p>「<strong>測試應該透過公開介面驗證行為，不是實作細節。程式碼可以整個換掉；測試不應該動。</strong>」</p>
@@ -48,7 +48,7 @@
 <div class="tip">對你的遺產系統，這條哲學就是保命符：耦合實作的測試會把爛架構焊死（動不了）；驗證行為的測試才給你日後重構的自由。這也是你 CLAUDE.md 裡 Rule 9 的同一件事：測試要編碼「為什麼重要」。</div>
 
 <h2>最大反模式：水平切（又來了）</h2>
-<p>skill 用最重的語氣警告：<strong>不要先寫完所有測試、再寫完所有實作</strong>。一批寫好的測試測的是「想像中的行為」，會變成測資料形狀而非使用者行為。正確節奏與第 16 課的 issue 切法同一個道理 — 垂直：</p>
+<p>skill 用最重的語氣警告：<strong>不要先寫完所有測試、再寫完所有實作</strong>。一批寫好的測試測的是「想像中的行為」，會變成測資料形狀而非使用者行為。正確節奏與第 18 課的 issue 切法同一個道理 — 垂直：</p>
 <pre>錯（水平）： RED: test1..test5 → GREEN: impl1..impl5
 對（垂直）： test1→impl1，test2→impl2，每輪都帶著上一輪學到的</pre>
 
@@ -65,7 +65,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 1. 認領 issue、開分支</label>
-  <p>挑第 16 課標 AFK、無 blocked-by 的第一張。開分支（第 3 課的護欄不因 Phase 2 而免除）。</p>
+  <p>挑第 18 課標 AFK、無 blocked-by 的第一張。開分支（第 3 課的護欄不因 Phase 2 而免除）。</p>
 </div>
 
 <div class="step">
@@ -120,12 +120,12 @@
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗交報告 — Phase 2 兩大成功條件就達成了。下一課（架構線）：<a href="0018-architecture.html">第 18 課 — /improve-codebase-architecture：對抗架構腐化</a>。</p>
+<p>完成後回對話視窗交報告 — Phase 2 兩大成功條件就達成了。下一課：<a href="0020-review.html">第 20 課 — /review：Standards × Spec 兩軸審查</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — tdd 的 SKILL.md 與附帶的 tests.md/mocking.md/deep-modules.md。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="0016-prd-issues.html">第 16 課 — /to-prd 與 /to-issues</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+  上一課：<a href="0018-prd-issues.html">第 18 課 — /to-prd 與 /to-issues</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 
 <script>
