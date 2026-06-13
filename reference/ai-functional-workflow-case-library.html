@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>AI 職能工作流案例總覽</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 980px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #4f5d75; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #4f5d75; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .86rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #eef1f6; }
+  a { color: #36506f; }
+  code { background: #eef1f6; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; }
+  .rule { border-left: 4px solid #4f5d75; background: #f8fafc; padding: .75rem 1rem; margin: 1rem 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: .8rem; }
+  .card { border: 1px solid #ddd; border-radius: 8px; padding: .9rem 1rem; background: #fff; }
+  .card strong { color: #4f5d75; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print {
+    body { margin: 1rem auto; }
+    .card, .rule, tr { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>AI 職能工作流案例總覽</h1>
+<p class="sub">把案例按「工作責任」整理，而不是按職稱整理。本頁只收 2026/04/01 起發布，且案例本身明確使用 Claude Code 的來源。</p>
+
+<div class="rule">
+  <strong>讀法：</strong>先找你現在負責的職能，再看該職能的下一個可驗收 artifact。不要照抄公司或工具名稱；要抄的是流程槽位、驗證方式與交接證據。未明確使用 Claude Code 的 Claude 生態案例不放進主表。
+</div>
+
+<h2>職能對照表</h2>
+<table>
+<tr><th>職能</th><th>適用情境</th><th>細部案例</th></tr>
+<tr>
+  <td>產品職能</td>
+  <td>收斂需求、做可驗收原型、對齊 stakeholder 與上線條件。</td>
+  <td><a href="ai-workflow-case-library.html">產品細部案例</a></td>
+</tr>
+<tr>
+  <td>工程職能</td>
+  <td>改 repo、切小 diff、跑 tests / review / PR，或處理長任務 agent session。</td>
+  <td><a href="ai-developer-workflow-case-library.html">工程細部案例</a></td>
+</tr>
+<tr>
+  <td>研究 / 資料職能</td>
+  <td>重現 paper / data、設 oracle tests、做 domain review 與 bias check。</td>
+  <td><a href="ai-research-data-workflow-case-library.html">研究 / 資料細部案例</a></td>
+</tr>
+<tr>
+  <td>營運 / IT / RevOps 職能</td>
+  <td>處理活動資料、CRM 匯入、incident / runbook 或內部工具流程。</td>
+  <td><a href="ai-ops-revops-workflow-case-library.html">營運 / IT / RevOps 細部案例</a></td>
+</tr>
+<tr>
+  <td>創業 / Founder 職能</td>
+  <td>從使用者洞察做產品切片、demo、回饋收集與下一輪假設。</td>
+  <td><a href="ai-founder-workflow-case-library.html">創業 / Founder 細部案例</a></td>
+</tr>
+<tr>
+  <td>平台 / 治理職能</td>
+  <td>管理 access、成本、eval gates、政策、長任務執行與 incident review。</td>
+  <td><a href="ai-platform-governance-workflow-case-library.html">平台 / 治理細部案例</a></td>
+</tr>
+</table>
+
+<div class="rule">
+  <strong>本次排除：</strong>Claude Managed Agents、finance agents、Claude Cowork、Figma Make、Walmart Code Puppy 等仍可作為延伸脈絡，但目前不是「2026/04 起發布且案例本身明確使用 Claude Code」的主案例。
+</div>
+
+<h2>如何選案例</h2>
+<div class="grid">
+  <div class="card"><strong>你要收斂需求</strong><br>從產品職能開始，看 artifact 是否能被使用者或 stakeholder 驗收。</div>
+  <div class="card"><strong>你要改 repo</strong><br>從工程職能開始，先定義 test、review、PR 與 rollback。</div>
+  <div class="card"><strong>你要處理資料</strong><br>從研究 / 資料職能開始，把可重跑、oracle tests 與 bias check 寫進流程。</div>
+  <div class="card"><strong>你要導入團隊工具</strong><br>從平台 / 治理職能開始，先定義權限、成本、替換性與審計。</div>
+</div>
+
+<h2>延伸細節</h2>
+<p>本頁是嚴格篩選後的主入口。每個職能都有細部案例頁：<a href="ai-workflow-case-library.html">產品</a>、<a href="ai-developer-workflow-case-library.html">工程</a>、<a href="ai-research-data-workflow-case-library.html">研究 / 資料</a>、<a href="ai-ops-revops-workflow-case-library.html">營運 / IT / RevOps</a>、<a href="ai-founder-workflow-case-library.html">創業 / Founder</a>、<a href="ai-platform-governance-workflow-case-library.html">平台 / 治理</a>。</p>
+
+<footer>
+  相關：<a href="ai-workflow-skill-composer.html">AI 工作流編排速查表</a> · <a href="../lessons/0025-ai-skill-composition.html">第 25 課</a> · <a href="../RESOURCES.md">RESOURCES.md</a>
+</footer>
+</body>
+</html>

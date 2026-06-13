@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>課目表 — Claude / Claude Code / mattpocock/skills</title>
+<title>課目表 — Claude / Claude Code / AI workflow skills</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
@@ -11,12 +11,14 @@
   h2 { font-size: 1.15rem; margin-top: 2.2rem; padding-bottom: .3rem; }
   h2.p1 { color: #c2571a; border-bottom: 2px solid #c2571a; }
   h2.p2 { color: #1a6b5a; border-bottom: 2px solid #1a6b5a; }
+  h2.p3 { color: #6f4dbf; border-bottom: 2px solid #6f4dbf; }
   table { border-collapse: collapse; width: 100%; font-size: .92rem; }
   td { border-bottom: 1px solid #eee; padding: .5rem .6rem; vertical-align: top; }
   td.no { width: 2.5rem; color: #999; font-variant-numeric: tabular-nums; }
   td.track { width: 7.5rem; color: #777; font-size: .85rem; }
   a { color: #b04a12; text-decoration: none; }
   .p2sec a { color: #15564a; }
+  .p3sec a { color: #5a3ba8; }
   a:hover { text-decoration: underline; }
   .ref { background: #faf7f4; border: 1px solid #e8e0d8; border-radius: 8px; padding: .8rem 1.2rem; margin-top: 2rem; }
   .done { color: #2e7d32; }
@@ -26,7 +28,7 @@
 <body>
 <p style="margin:0"><a href="index.html" style="font-size:.85rem">← 封面</a></p>
 <h1>課目表</h1>
-<p class="sub">Claude 三產品 → Claude Code 實戰 → mattpocock/skills 封閉系統工作流 · 共 20 課</p>
+<p class="sub">Claude 三產品 → Claude Code 實戰 → 封閉系統工作流 → 任意 skill 編排 · 共 25 課</p>
 
 <h2 class="p1">Phase 1 — Claude 三產品與 Claude Code（第 1–13 課）</h2>
 <table>
@@ -63,11 +65,18 @@
 <p style="font-size:.85rem;color:#777;margin-top:.5rem">實戰使用順序：陌生區域先 <code>/zoom-out</code> → <code>/grill-with-docs</code> → <code>/prototype</code> → <code>/to-prd</code> → <code>/to-issues</code> → <code>/tdd</code> → <code>/review</code>；出 bug 走 <code>/qa</code> → <code>/triage</code> → <code>/diagnose</code>。</p>
 </div>
 
-<div class="ref">
-<strong>參考文件</strong>：<a href="reference/claude-product-picker.html">產品選用速查表</a>（可列印）<br>
-<strong>學習狀態</strong>：共 24 課 · Phase 1（1–13）＋ Phase 2（14–24）皆已備齊，可供新人從頭循序學習。
+<div class="p3sec">
+<h2 class="p3">Phase 3 — 任意 skill 編排（第 25 課）</h2>
+<table>
+<tr><td class="no">25</td><td><a href="lessons/0025-ai-skill-composition.html">PM 如何把任意 skill 組成可交付流程</a></td><td class="track">流程編排</td></tr>
+</table>
+<p style="font-size:.85rem;color:#777;margin-top:.5rem">實戰使用順序：先判斷目前卡在「收斂、發散、製作、驗證、交付」哪一槽，再選能產出下一個可驗收 artifact 的 skill。</p>
 </div>
 
-<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件與 SKILL.md 原文 · 2026-06-12</footer>
+<div class="ref">
+<strong>參考文件</strong>：<a href="reference/claude-product-picker.html">產品選用速查表</a>、<a href="reference/ai-workflow-skill-composer.html">AI 工作流編排速查表</a>、<a href="reference/ai-functional-workflow-case-library.html">職能工作流案例總覽</a>（含六個職能細部案例，皆可列印）
+</div>
+
+<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-06-13</footer>
 </body>
 </html>

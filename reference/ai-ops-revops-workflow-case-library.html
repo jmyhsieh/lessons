@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>AI 營運 / IT / RevOps 職能工作流案例庫：2026/04 起 Claude Code 案例</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 920px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #8a4b12; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #8a4b12; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .88rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #f6eee5; }
+  a { color: #8a4b12; }
+  code { background: #f6eee5; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; }
+  pre { background: #fbf6f0; padding: .8rem 1rem; overflow-x: auto; }
+  .pattern { border-left: 4px solid #a6601d; background: #fdf8f2; padding: .75rem 1rem; margin: 1rem 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: .8rem; }
+  .card { border: 1px solid #ddd; border-radius: 8px; padding: .9rem 1rem; background: #fff; }
+  .card strong { color: #8a4b12; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print {
+    body { margin: 1rem auto; }
+    .card, .pattern, tr { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>AI 營運 / IT / RevOps 職能工作流案例庫</h1>
+<p class="sub">2026/04 起公開案例，聚焦 Claude Code 如何進入 CRM、incident investigation、內部工具與長任務營運流程。</p>
+
+<div class="pattern">
+  <strong>篩選規則：</strong>來源需在 2026-04-01 之後發布，且案例本身明確使用 Claude Code。這類工作流的核心風險是資料權限、批次變更、rollback 與人工確認。
+</div>
+
+<h2>案例對照表</h2>
+<table>
+<tr><th>日期</th><th>案例</th><th>流程片段</th><th>對應槽位</th><th>可學走的模式</th></tr>
+<tr>
+  <td>2026-05-12</td>
+  <td><a href="https://www.businessinsider.com/coders-keep-laptops-open-in-public-ai-agent-2026-5">Mach 1 sales / CRM 匯入案例</a></td>
+  <td>Head of sales 使用 Claude Code 掃描 conference selfies、辨識相關公司，並把結果載入 CRM。</td>
+  <td>活動資料 → entity matching → CRM update → review</td>
+  <td>先產生 import diff 與信心分數，再由人核准寫入；不要讓 agent 直接覆蓋 CRM 真實資料。</td>
+</tr>
+<tr>
+  <td>2026-05-12</td>
+  <td><a href="https://www.businessinsider.com/coders-keep-laptops-open-in-public-ai-agent-2026-5">長時間 Claude Code session 的營運狀態</a></td>
+  <td>文章記錄 Claude Code 等 agent 任務會因本機、Wi-Fi 或筆電休眠而中斷；使用者因此管理筆電喚醒、網路、移動與等待時間。</td>
+  <td>long-running job → checkpoint → resume / handoff</td>
+  <td>把 session survival 當成營運需求：要能看進度、可中止、可重跑、可交接。</td>
+</tr>
+<tr>
+  <td>2026-05-23</td>
+  <td><a href="https://www.businessinsider.com/inside-startups-claude-has-already-won-the-ai-coding-wars-2026-5">VaryAI incident investigation / project management</a></td>
+  <td>Startup 團隊把 Claude Code 用於 QA pipelines、deployment workflows、incident investigation 與 project management。</td>
+  <td>incident / workflow issue → diagnosis → task update → human review</td>
+  <td>營運工作流要把 Claude Code 的輸出接到 issue、runbook 或 project tracker，而不是只停在聊天紀錄。</td>
+</tr>
+<tr>
+  <td>2026-05-23</td>
+  <td><a href="https://www.businessinsider.com/inside-startups-claude-has-already-won-the-ai-coding-wars-2026-5">Tenzai / startup internal tooling</a></td>
+  <td>Tenzai 將 Claude Code 裝到會議廳 video controller 上做 IT 診斷，約 25 分鐘找出硬體相容性問題；同一脈絡下，團隊也用 vibe coding 取代舊試算表與內部工具流程。</td>
+  <td>system access → diagnosis → suggested fix → operational handoff</td>
+  <td>給 agent 系統權限前，要先定義可讀範圍、可改範圍與回報格式；診斷結果仍要由人核准。</td>
+</tr>
+</table>
+
+<h2>重複出現的模式</h2>
+<div class="grid">
+  <div class="card"><strong>資料寫入要分兩段</strong><br>先產生候選更新與 diff，再由人核准寫入 CRM、ticket 或內部系統。</div>
+  <div class="card"><strong>營運任務需要 runbook</strong><br>Claude Code 可以協助診斷，但 runbook 要規定何時升級、何時 rollback、何時停止。</div>
+  <div class="card"><strong>長任務要可恢復</strong><br>保活只是表面問題；真正要設計的是 checkpoint、輸出檔、狀態摘要與 handoff。</div>
+  <div class="card"><strong>內部工具也要治理</strong><br>小工具若碰到客戶、營收或 production 資料，就需要權限、審計與 owner。</div>
+</div>
+
+<h2>套回第 25 課</h2>
+<pre>營運事件 / 活動資料 → Claude Code 擷取或診斷 → diff / runbook update → 人工核准 → 系統寫入</pre>
+<p>下一個可驗收 artifact 應該是 import diff、incident note、runbook patch 或 rollback checklist，而不是只有「Claude 說可以」。</p>
+
+<footer>
+  相關：<a href="ai-functional-workflow-case-library.html">職能工作流案例總覽</a> · <a href="ai-platform-governance-workflow-case-library.html">平台 / 治理細部案例</a> · <a href="ai-workflow-skill-composer.html">AI 工作流編排速查表</a> · <a href="../RESOURCES.md">RESOURCES.md</a>
+</footer>
+</body>
+</html>

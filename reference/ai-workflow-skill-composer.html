@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>AI 工作流編排速查表</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 880px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #5a3ba8; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.05rem; color: #5a3ba8; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #f1eef9; }
+  code { background: #f1eef9; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; }
+  .rule { border-left: 4px solid #6f4dbf; background: #faf8ff; padding: .8rem 1rem; margin: 1rem 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: .8rem; }
+  .card { border: 1px solid #ddd; border-radius: 8px; padding: .9rem 1rem; background: #fff; }
+  .card strong { color: #5a3ba8; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print {
+    body { margin: 1rem auto; }
+    .card, .rule { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem;color:#5a3ba8">← 課目表</a></p>
+<h1>AI 工作流編排速查表</h1>
+<p class="sub">不要先問「該用哪個 skill」。先問：下一個可驗收 artifact 是什麼？需要實例時，先看 <a href="ai-functional-workflow-case-library.html">職能工作流案例總覽</a>。</p>
+
+<div class="rule">
+  <strong>核心規則：</strong>把 skill 當成工作槽位，而不是固定菜單。只要能把上一個輸出變成下一個可驗收 artifact，就可以替換工具。
+</div>
+
+<h2>七個工作槽位</h2>
+<table>
+<tr><th>槽位</th><th>輸入</th><th>可替換 skill / 工具</th><th>輸出與驗收訊號</th></tr>
+<tr><td>1. 定義範圍</td><td>口頭需求、截圖、會議筆記</td><td><code>obsidian-vault</code>、文件、一般筆記</td><td>一頁需求摘要：目標、非目標、使用者、成功條件</td></tr>
+<tr><td>2. 收斂假設</td><td>需求摘要</td><td><code>grill-me</code>、<code>grill-with-docs</code>、<code>ubiquitous-language</code></td><td>風險、開放問題、必須驗證的假設被列出</td></tr>
+<tr><td>3. 固化專案文件</td><td>已收斂的假設</td><td><code>to-prd</code>、<code>documents</code>、PROJECT.md</td><td>決策、驗收條件、範圍邊界可被引用</td></tr>
+<tr><td>4. 發散方案</td><td>專案文件</td><td><code>design-an-interface</code>、<code>writing-fragments</code>、<code>imagegen</code>、brainstorm prompt</td><td>至少 2-3 個可比較方案，不只一個漂亮答案</td></tr>
+<tr><td>5. 製作原型</td><td>選定方案</td><td><code>prototype</code>、<code>presentations</code>、<code>spreadsheets</code>、<code>hyperframes</code></td><td>使用者能打開、操作、閱讀或播放</td></tr>
+<tr><td>6. 驗證校準</td><td>原型或內容</td><td><code>playwright</code>、Browser、<code>review</code>、設計 token 檢查</td><td>截圖、測試、審查回饋顯示問題已收斂</td></tr>
+<tr><td>7. 交付接力</td><td>通過驗證的 artifact</td><td><code>handoff</code>、PR、deck、文件、issue</td><td>下一個人知道成果、限制、後續動作</td></tr>
+</table>
+
+<h2>常見組合</h2>
+<div class="grid">
+  <div class="card"><strong>PM 原型</strong><br><code>grill-me</code> → <code>prototype</code> → <code>playwright</code> → <code>handoff</code></div>
+  <div class="card"><strong>決策文件</strong><br><code>grill-with-docs</code> → <code>to-prd</code> → <code>review</code> → issue</div>
+  <div class="card"><strong>數據報告</strong><br><code>spreadsheets</code> → <code>documents</code> → <code>presentations</code> → review</div>
+  <div class="card"><strong>文章內容</strong><br><code>writing-fragments</code> → <code>writing-shape</code> → <code>edit-article</code> → handoff</div>
+</div>
+
+<h2>三問選 skill</h2>
+<ol>
+  <li>現在卡在收斂、發散、製作、驗證，還是交付？</li>
+  <li>下一個 artifact 要被誰使用：PM、設計師、工程師、主管、客戶？</li>
+  <li>這一步失敗最貴的是什麼：方向錯、品質差、不可驗證、交接斷裂？</li>
+</ol>
+
+<footer>
+  對應課程：<a href="../lessons/0025-ai-skill-composition.html">第 25 課 — PM 如何把任意 skill 組成可交付流程</a> · <a href="ai-functional-workflow-case-library.html">職能工作流案例總覽</a>
+</footer>
+</body>
+</html>
