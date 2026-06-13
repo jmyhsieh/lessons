@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>第 28 課：研究 / 資料職能 — 從 paper 到可重跑結果</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #4c5f1f; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #6f812f; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #4c5f1f; }
+  code, pre { background: #f1f4e8; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #4c5f1f; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #f1f4e8; }
+  .step, .quiz { border: 1px solid #dbe5bd; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fafbf3; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #f1f4e8; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #dbe5bd; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<div class="kicker">Phase 4 · Lesson 0028 · 約 20 分鐘 · 研究 / 資料職能</div>
+<h1>研究 / 資料職能 — 從 paper 到可重跑結果</h1>
+<p class="mission">目標：把 Claude Code 用成研究助理，而不是結論製造機。你要練的是交付能重跑、能質疑、能說明限制的研究包。</p>
+
+<h2>研究 / 資料職能的穩定流程</h2>
+<pre>研究問題 → paper / data inventory → Claude Code 重現 → oracle tests → domain review → limitation note</pre>
+<p>研究案例提醒我們：測試通過不代表理論正確。prompt、資料版本、domain invariant 與失敗原因都要留下。</p>
+
+<h2>槽位對照</h2>
+<table>
+<tr><th>槽位</th><th>研究問題</th><th>下一個 artifact</th></tr>
+<tr><td>定義</td><td>要重現哪個 claim？</td><td>paper / data inventory</td></tr>
+<tr><td>製作</td><td>如何把方法轉成可跑流程？</td><td>script / notebook</td></tr>
+<tr><td>驗證</td><td>結果是否對得上？</td><td>oracle tests / comparison table</td></tr>
+<tr><td>校準</td><td>哪些地方需要專家判斷？</td><td>domain review 與 limitation note</td></tr>
+</table>
+
+<h2>實作步驟</h2>
+<div class="step"><label><input type="checkbox"> 1. 列出可重跑材料</label><p>列 paper、data、環境、版本、預期輸出。缺一項就標成風險，不要假裝完整。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 要求 Claude Code 寫重現流程</label><p>請它先產 script / notebook 與執行方式，再跑測試或輸出比較表。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 加上 oracle tests</label><p>把已知不變條件、數值範圍、資料筆數、baseline 結果寫成檢查。</p></div>
+<div class="step"><label><input type="checkbox"> 4. 寫 limitation note</label><p>記錄失敗、偏誤、prompt framing、資料限制與哪些地方需要 domain reviewer。</p></div>
+
+<div class="done-banner" id="done"><strong>完成研究 / 資料職能演練。</strong>把你的研究問題貼回對話，請 AI 老師幫你找最脆弱的驗證點。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="0"><p>1. 研究職能最重要的交付是？</p><button>可重跑流程與限制說明</button><button>漂亮但不可重跑的圖</button><button>只有成功結論的摘要</button><div class="why">研究要能被重跑與質疑，不能只留下結論。</div></div>
+<div class="quiz" data-answer="2"><p>2. oracle tests 的限制是？</p><button>完全沒有用</button><button>只能用在前端</button><button>不能取代 domain review</button><div class="why">測試抓得到一部分錯誤，但理論假設與 domain invariant 仍要專家判斷。</div></div>
+<div class="quiz" data-answer="1"><p>3. prompt framing 應該怎麼處理？</p><button>不要記錄，避免污染結果</button><button>和版本一起留下</button><button>只在失敗時才寫</button><div class="why">prompt framing 會影響偏誤，應和資料、程式碼、版本一起留下。</div></div>
+
+<h2>下一步</h2>
+<p>讀 <a href="../reference/ai-research-data-workflow-case-library.html">研究 / 資料職能細部案例</a>，用本課流程整理一個你想重現的 claim。</p>
+
+<footer>相關課程：<a href="0025-ai-skill-composition.html">第 25 課</a> · <a href="0029-ops-revops-function-workflow.html">第 29 課</a> · <a href="../toc.html">課目表</a></footer>
+<script>
+const boxes=document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none';}));
+document.querySelectorAll('.quiz').forEach(q=>{const ans=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[ans].classList.add('correct');if(i!==ans)b.classList.add('wrong');q.querySelector('.why').style.display='block';}));});
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>第 26 課：產品職能 — 從需求到可驗收原型</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #6f4dbf; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #6f4dbf; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #6f4dbf; }
+  code, pre { background: #f1eef9; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #5a3ba8; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #f1eef9; }
+  .step, .quiz { border: 1px solid #ddd5ef; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fbfaff; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #f1eef9; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #ddd5ef; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<div class="kicker">Phase 4 · Lesson 0026 · 約 20 分鐘 · 產品職能</div>
+<h1>產品職能 — 從需求到可驗收原型</h1>
+<p class="mission">目標：把第 25 課的通用流程套到產品職能。你要練的是把需求霧氣變成可驗收 prototype，而不是讓 Claude Code 產生越多畫面越好。</p>
+
+<h2>產品職能的穩定流程</h2>
+<pre>需求痛點 → 範圍切片 → 原型行為 → 使用者回饋 → 驗收證據 → handoff</pre>
+<p>產品職能最容易誤用 AI 的地方，是把「能做出來」當成「值得做」。Postcard Press 案例的重點不是四小時，而是更早拿到 ProductCon 回饋、付款整合與資安修正。</p>
+
+<h2>槽位對照</h2>
+<table>
+<tr><th>槽位</th><th>產品問題</th><th>下一個 artifact</th></tr>
+<tr><td>收斂</td><td>誰的哪個痛點要先解？</td><td>一頁範圍與非目標</td></tr>
+<tr><td>製作</td><td>哪個行為必須被看見？</td><td>可點 prototype 或 demo</td></tr>
+<tr><td>驗證</td><td>誰確認這真的有用？</td><td>回饋紀錄、截圖、驗收條件</td></tr>
+<tr><td>交付</td><td>下一個人怎麼接？</td><td>handoff 註記、風險、待辦</td></tr>
+</table>
+
+<h2>實作步驟</h2>
+<div class="step"><label><input type="checkbox"> 1. 寫一頁範圍</label><p>用三行寫出使用者、目標、非目標。沒有非目標，Claude Code 很容易擴張範圍。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 指定 demo 行為</label><p>不要說「做一個設定頁」。改成「使用者能打開通知設定、切換三個頻道、儲存後看到成功狀態」。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 要求驗收證據</label><p>請 Claude Code 交付 prototype 時，同時附測試方式、已知限制、下一輪要問使用者的問題。</p></div>
+<div class="step"><label><input type="checkbox"> 4. 安排 handoff</label><p>把 prototype、回饋、風險與未解問題交給設計、工程或下一個 agent，而不是只貼一個連結。</p></div>
+
+<div class="done-banner" id="done"><strong>完成產品職能演練。</strong>把你的產品需求貼回對話，請 AI 老師檢查範圍是否過大。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="1"><p>1. 產品職能最該先定義什麼？</p><button>要用哪個模型</button><button>下一個可驗收行為</button><button>畫面要多漂亮</button><div class="why">產品課的核心是行為與驗收，不是工具或畫面數量。</div></div>
+<div class="quiz" data-answer="2"><p>2. Postcard Press 案例最值得學的是？</p><button>四小時一定能上線</button><button>PM 不需要工程 review</button><button>快速拿到真實回饋</button><div class="why">速度的價值在縮短 feedback loop，不是跳過付款、資安與上線檢查。</div></div>
+<div class="quiz" data-answer="0"><p>3. prototype 交付前要補什麼？</p><button>驗收條件與已知限制</button><button>更多未驗證功能</button><button>更長的工具清單</button><div class="why">下一個人要能接手，所以交付要包含限制、測試方式與待辦。</div></div>
+
+<h2>下一步</h2>
+<p>讀 <a href="../reference/ai-workflow-case-library.html">產品職能細部案例</a>，挑一個你現在最像的情境，套用本課四步驟。</p>
+
+<footer>相關課程：<a href="0025-ai-skill-composition.html">第 25 課</a> · <a href="0027-engineering-function-workflow.html">第 27 課</a> · <a href="../toc.html">課目表</a></footer>
+<script>
+const boxes=document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none';}));
+document.querySelectorAll('.quiz').forEach(q=>{const ans=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[ans].classList.add('correct');if(i!==ans)b.classList.add('wrong');q.querySelector('.why').style.display='block';}));});
+</script>
+</body>
+</html>

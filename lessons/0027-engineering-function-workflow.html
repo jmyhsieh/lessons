@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>第 27 課：工程職能 — 從 issue 到可 review diff</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #1a6b5a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #1a6b5a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #1a6b5a; }
+  code, pre { background: #eef4f2; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #15564a; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef4f2; }
+  .step, .quiz { border: 1px solid #cfe2dc; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #f8fbfa; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef4f2; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #cfe2dc; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<div class="kicker">Phase 4 · Lesson 0027 · 約 20 分鐘 · 工程職能</div>
+<h1>工程職能 — 從 issue 到可 review diff</h1>
+<p class="mission">目標：把 Claude Code 放進工程紀律，而不是讓它無限制寫 code。你要練的是把 issue 切成可測、可 review、可交接的小 diff。</p>
+
+<h2>工程職能的穩定流程</h2>
+<pre>Issue → Codebase 探索 → Plan / Spec → 小 diff → Test / Build / Lint → Review → PR / handoff</pre>
+<p>工程案例反覆出現三個 gate：session 能不能重跑、diff 是否小到能 review、工具層風險是否有被檢查。</p>
+
+<h2>槽位對照</h2>
+<table>
+<tr><th>槽位</th><th>工程問題</th><th>下一個 artifact</th></tr>
+<tr><td>探索</td><td>這段 codebase 怎麼運作？</td><td>檔案地圖與修改點</td></tr>
+<tr><td>計畫</td><td>要改哪裡、不改哪裡？</td><td>小 spec / plan</td></tr>
+<tr><td>製作</td><td>最小可驗證 diff 是什麼？</td><td>小 diff 與測試</td></tr>
+<tr><td>驗證</td><td>什麼會證明它沒壞？</td><td>test / build / lint / review 結果</td></tr>
+</table>
+
+<h2>實作步驟</h2>
+<div class="step"><label><input type="checkbox"> 1. 要求先探索</label><p>請 Claude Code 先讀相關檔案、找 immediate callers、測試與現有 pattern，不要直接改。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 寫出小 plan</label><p>plan 至少包含改動範圍、驗證指令、風險、rollback 或不做事項。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 限制 diff 大小</label><p>要求一次只交最小可驗證 diff。若需要多步，先切 issue 或 checkpoint。</p></div>
+<div class="step"><label><input type="checkbox"> 4. 分離 writer / reviewer</label><p>用 review、subagent 或另一個 session 檢查 spec 與 standards，不讓寫 code 的同一條脈絡自己放行。</p></div>
+
+<div class="done-banner" id="done"><strong>完成工程職能演練。</strong>把你的 issue 貼回對話，請 AI 老師檢查能不能切成更小 diff。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="2"><p>1. Claude Code 開始改 repo 前，最該先做什麼？</p><button>先大改一次再看結果</button><button>先找最強模型</button><button>先探索現有 pattern</button><div class="why">工程職能要讀相關檔案、caller、測試與工具，再決定改法。</div></div>
+<div class="quiz" data-answer="0"><p>2. 好的工程 artifact 是？</p><button>小 diff 加驗證輸出</button><button>很多 code 加長解釋</button><button>一個看起來完整的猜測</button><div class="why">可 review、可測、可回復的小 diff 比大量 code 更可靠。</div></div>
+<div class="quiz" data-answer="1"><p>3. 為什麼要分離 writer / reviewer？</p><button>讓流程看起來比較正式</button><button>降低同一脈絡自我放行</button><button>讓 commit 數量增加</button><div class="why">寫作者容易合理化自己的改動；獨立 review 能補 spec 與 standards 缺口。</div></div>
+
+<h2>下一步</h2>
+<p>讀 <a href="../reference/ai-developer-workflow-case-library.html">工程職能細部案例</a>，用本課流程重寫你下一個 issue 的指令。</p>
+
+<footer>相關課程：<a href="0025-ai-skill-composition.html">第 25 課</a> · <a href="0028-research-data-function-workflow.html">第 28 課</a> · <a href="../toc.html">課目表</a></footer>
+<script>
+const boxes=document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none';}));
+document.querySelectorAll('.quiz').forEach(q=>{const ans=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[ans].classList.add('correct');if(i!==ans)b.classList.add('wrong');q.querySelector('.why').style.display='block';}));});
+</script>
+</body>
+</html>
