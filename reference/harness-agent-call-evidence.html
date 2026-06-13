@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Agent call evidence 速查表</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #4f5d75; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #4f5d75; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #eef1f6; }
+  pre, code { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .1rem .35rem; }
+  pre { padding: .9rem 1rem; white-space: pre-wrap; overflow-x: auto; }
+  a { color: #36506f; }
+  .rule { border-left: 4px solid #4f5d75; background: #f8fafc; padding: .8rem 1rem; margin: 1rem 0; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print {
+    body { margin: 1rem auto; }
+    .rule, tr { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Agent call evidence 速查表</h1>
+<p class="sub">把 dry-run plan 接成真 agent call 時，先保護呼叫邊界與可回看的 evidence。</p>
+
+<div class="rule">
+  <strong>第一個真 call 的驗收句：</strong>即使任務失敗，reviewer 也能從 evidence 重建 prompt、限制、輸出、錯誤與停止原因。
+</div>
+
+<h2>Wrapper contract</h2>
+<table>
+<tr><th>欄位</th><th>必留內容</th><th>用途</th></tr>
+<tr><td><code>command.json</code></td><td>argv、cwd、startedAt、endedAt、duration。</td><td>重建實際呼叫。</td></tr>
+<tr><td><code>prompt.txt</code></td><td>送入 agent 的 prompt 或 redacted prompt。</td><td>確認 input 沒跑偏。</td></tr>
+<tr><td><code>agent.stdout.json</code></td><td>模型輸出或 structured output。</td><td>供 gate 與 report 摘要使用。</td></tr>
+<tr><td><code>agent.stderr.txt</code></td><td>CLI 錯誤、警告、debug 摘要。</td><td>判斷 blocked / failed。</td></tr>
+<tr><td><code>exit.json</code></td><td>exit code、status、分類理由。</td><td>讓 runner 不靠聊天記憶。</td></tr>
+</table>
+
+<h2>最小 argv</h2>
+<pre>[
+  "claude",
+  "-p",
+  "&lt;prompt&gt;",
+  "--output-format",
+  "json",
+  "--max-turns",
+  "3",
+  "--max-budget-usd",
+  "2.00",
+  "--tools",
+  "Read,Edit,Bash",
+  "--allowedTools",
+  "Bash(npm test -- auth)"
+]</pre>
+
+<h2>狀態分類</h2>
+<table>
+<tr><th>Status</th><th>何時使用</th><th>下一步</th></tr>
+<tr><td><code>passed</code></td><td>Agent 完成，且本片允許的基本檢查通過。</td><td>進入 gate execution。</td></tr>
+<tr><td><code>needs-review</code></td><td>Agent 有輸出，但尚未由 reviewer 或 gates 確認。</td><td>先讀 stdout 摘要。</td></tr>
+<tr><td><code>failed</code></td><td>CLI exit code 非零，或 structured output 不可解析。</td><td>修 wrapper 或 prompt。</td></tr>
+<tr><td><code>blocked</code></td><td>缺權限、缺 credential、budget/turn limit 觸發。</td><td>回到 input 或環境設定。</td></tr>
+</table>
+
+<h2>不要放進 report</h2>
+<table>
+<tr><th>內容</th><th>放哪裡</th><th>原因</th></tr>
+<tr><td>完整 stdout/stderr</td><td>Evidence artifact。</td><td>Report 只需要摘要與路徑。</td></tr>
+<tr><td>含祕密的 prompt</td><td>Redacted evidence。</td><td>避免把 credential 或客戶資料擴散。</td></tr>
+<tr><td>Telemetry raw body</td><td>受控 observability backend。</td><td>內容型資料需要額外同意與保護。</td></tr>
+</table>
+
+<h2>完成定義</h2>
+<pre>Done when:
+- The wrapper reads exactly one dry-run plan.
+- The real agent call uses bounded tools, turns, and budget.
+- stdout, stderr, command metadata, and exit status are written to evidence.
+- Report only links to evidence and summarizes status.
+- Failed or blocked calls are explicit, not hidden as success.</pre>
+
+<footer>
+  索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
+  對應課程：<a href="../lessons/0032-gate-execution-report.html">第 32 課 — gate execution report</a> · <a href="../lessons/0031-agent-call-evidence.html">第 31 課 — agent call evidence</a> · <a href="../lessons/0030-runner-list-show-dry-run.html">第 30 課 — runner 第一片</a><br>
+  主要來源：<a href="https://code.claude.com/docs/en/cli-reference">Claude Code CLI reference</a> · <a href="https://code.claude.com/docs/en/agent-sdk/overview">Agent SDK overview</a> · <a href="https://code.claude.com/docs/en/agent-sdk/observability">Agent SDK observability</a>
+</footer>
+</body>
+</html>

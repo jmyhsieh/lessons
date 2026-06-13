@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Minimal runner 速查表</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #4f5d75; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #4f5d75; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #eef1f6; }
+  pre, code { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .1rem .35rem; }
+  pre { padding: .9rem 1rem; white-space: pre-wrap; overflow-x: auto; }
+  a { color: #36506f; }
+  .rule { border-left: 4px solid #4f5d75; background: #f8fafc; padding: .8rem 1rem; margin: 1rem 0; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print {
+    body { margin: 1rem auto; }
+    .rule, tr { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Minimal runner 速查表</h1>
+<p class="sub">把成熟的 issue / brief、gates、evidence、report/handoff 串成一條可重跑的單任務路徑。</p>
+
+<div class="rule">
+  <strong>先做 runner，不做平台。</strong>最小 runner 只讀一份 input、跑一個任務、產出一份 report。多任務、排程、資料庫與 UI 都是後續層。
+</div>
+
+<h2>Runner contract</h2>
+<pre>Runner:
+Input:
+Prompt template:
+Allowed tools:
+Workspace:
+Gates:
+Evidence dir:
+Report path:
+Stop conditions:
+Dry-run behavior:</pre>
+
+<h2>五段式</h2>
+<table>
+<tr><th>段落</th><th>輸入</th><th>輸出</th><th>誰負責</th></tr>
+<tr><td>Load</td><td>issue / brief path</td><td>parsed input</td><td>code</td></tr>
+<tr><td>Prompt</td><td>input + template</td><td>agent prompt</td><td>code</td></tr>
+<tr><td>Run</td><td>prompt + allowed tools</td><td>agent transcript / diff</td><td>agent</td></tr>
+<tr><td>Gate</td><td>diff + commands</td><td>pass / fail / blocked</td><td>code</td></tr>
+<tr><td>Report</td><td>results + artifacts</td><td>report / handoff</td><td>code</td></tr>
+</table>
+
+<h2>CLI 或 SDK</h2>
+<table>
+<tr><th>情境</th><th>先選</th><th>理由</th></tr>
+<tr><td>單一任務、單一 prompt、固定 gates。</td><td><code>claude -p</code></td><td>最少 moving parts，容易 dry run。</td></tr>
+<tr><td>需要 parse agent output。</td><td><code>--output-format json</code></td><td>讓 runner 用結構化輸出寫 report。</td></tr>
+<tr><td>需要程式化 session、工具、權限、telemetry。</td><td>Agent SDK</td><td>SDK 提供可嵌入的 agent loop 與控制點。</td></tr>
+</table>
+
+<h2>先擋掉</h2>
+<table>
+<tr><th>想加的東西</th><th>何時再加</th></tr>
+<tr><td>多任務 batch</td><td>單任務 runner 可穩定重跑後。</td></tr>
+<tr><td>資料庫 run history</td><td>report 檔案太多、需要查詢時。</td></tr>
+<tr><td>排程或 queue</td><td>人工觸發已穩，且任務輸入來源穩定時。</td></tr>
+<tr><td>Web UI</td><td>CLI contract 已被多人使用且欄位穩定時。</td></tr>
+</table>
+
+<footer>
+  索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
+  對應課程：<a href="../lessons/0031-agent-call-evidence.html">第 31 課 — agent call evidence</a> · <a href="../lessons/0030-runner-list-show-dry-run.html">第 30 課 — runner 第一片</a> · <a href="../lessons/0029-minimal-runner.html">第 29 課 — 串成最小 runner</a> · <a href="../lessons/0028-report-handoff.html">第 28 課 — report / handoff</a><br>
+  主要來源：<a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a> · <a href="https://code.claude.com/docs/en/cli-reference">Claude Code CLI reference</a> · <a href="https://code.claude.com/docs/en/agent-sdk/overview">Agent SDK overview</a>
+</footer>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>第 30 課：實作 runner 第一片 — list / show / dry-run</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #4f5d75; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #4f5d75; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #4f5d75; }
+  code, pre { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #36506f; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef1f6; }
+  .step { border: 1px solid #d7dde8; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fbfcfe; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .rule { background: #eef1f6; border-left: 4px solid #4f5d75; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d7dde8; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #4f5d75; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef1f6; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d7dde8; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<div class="kicker">Phase 3 · Lesson 0030 · 約 25 分鐘 · Runner first slice</div>
+<h1>實作 runner 第一片 — list / show / dry-run</h1>
+<p class="mission">目標：把第 29 課的 runner contract 變成第一個可測 CLI 切片。這一課只做 <code>list</code>、<code>show</code>、<code>dry-run</code>，不呼叫真 agent、不改檔、不產 PR。</p>
+
+<h2>為什麼先不跑 agent</h2>
+<p><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a> 建議用 <code>claude -p</code> 和結構化輸出來自動化，但在接上模型前，runner 本身要先能穩定回答三件事：有哪些 input、某個 input 解析成什麼、真正執行前會送出什麼 prompt 與 gates。</p>
+<p><a href="https://code.claude.com/docs/en/cli-reference">Claude Code CLI reference</a> 提到 <code>--output-format json</code>、<code>--tools</code>、<code>--allowedTools</code> 等旗標；這些只有在 dry-run 能清楚列出時，才適合交給 unattended run。</p>
+
+<h2>第一片只做三個命令</h2>
+<table>
+<tr><th>命令</th><th>要回答的問題</th><th>不做什麼</th></tr>
+<tr><td><code>runner list</code></td><td>目前有哪些可跑 input？ID、來源、狀態。</td><td>不解析完整 prompt。</td></tr>
+<tr><td><code>runner show &lt;id&gt;</code></td><td>這個 input 被正規化後長什麼樣？</td><td>不呼叫 agent。</td></tr>
+<tr><td><code>runner run --dry &lt;id&gt;</code></td><td>真的執行前會用哪些 prompt、tools、gates、paths？</td><td>不改檔、不跑模型。</td></tr>
+</table>
+
+<div class="rule"><strong>判斷規則：</strong>如果 <code>show</code> 和 <code>dry-run</code> 的輸出無法讓 reviewer 判斷 runner 會做什麼，就還不能接 <code>claude -p</code>。</div>
+
+<h2>Dry-run 輸出要固定</h2>
+<pre>{
+  "id": "issue-0042-login-timeout",
+  "source": "issues/0042.md",
+  "promptPreview": "...",
+  "allowedTools": ["Read", "Edit", "Bash(npm test -- auth)"],
+  "gates": ["scope", "npm test -- auth"],
+  "evidenceDir": ".harness/evidence/run-preview",
+  "reportPath": ".harness/reports/run-preview.md",
+  "willCallAgent": false,
+  "willModifyFiles": false
+}</pre>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 選定 input 目錄與檔名規則</label>
+  <p>例如 <code>issues/*.md</code> 或 <code>.harness/inputs/*.md</code>。先固定一種，不要同時支援 GitHub、Linear、Notion。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 定義正規化格式</label>
+  <p>打開 <a href="../reference/harness-runner-first-slice.html">Runner 第一片速查表</a>，先寫出 <code>id</code>、<code>source</code>、<code>outcome</code>、<code>scope</code>、<code>gates</code>、<code>stop</code>。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 寫兩個 fixture</label>
+  <p>一個完整 input 應該通過；一個缺少 <code>Outcome</code> 或 <code>Gates</code> 應該失敗。測試先保護 parser，不保護 agent。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 實作 list / show / dry-run</label>
+  <p>先讓三個命令輸出 deterministic JSON。文字版可以晚點加，JSON 先穩才方便測試與 report。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5. 驗證 dry-run 絕不改檔</label>
+  <p>跑完 dry-run 後檢查 <code>git diff --stat</code> 或 temp fixture 目錄。若 dry-run 會寫 report 或 evidence，它就不是 dry-run。</p>
+</div>
+
+<div class="done-banner" id="done">
+  <strong>你已完成 runner 的第一個可測切片。</strong>回對話視窗貼上三個命令的輸出摘要，請 AI 老師檢查是否已經能安全接下一片。
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="2">
+  <p>1. 第一片 runner 不應該做什麼？</p>
+  <button>列出任務</button>
+  <button>顯示輸入</button>
+  <button>呼叫模型</button>
+  <div class="why">第一片只保護 input、parser、prompt preview、gate plan。還沒驗證前，不應呼叫真 agent。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>2. Dry-run 最應該輸出什麼？</p>
+  <button>執行計畫</button>
+  <button>完成宣告</button>
+  <button>完整報告</button>
+  <div class="why">Dry-run 要讓 reviewer 看見將要送出的 prompt、tools、gates、paths，證明 runner 不會跑錯任務。</div>
+</div>
+
+<div class="quiz" data-answer="1">
+  <p>3. 測試第一片時，最該先保護哪一層？</p>
+  <button>模型品質</button>
+  <button>輸入解析</button>
+  <button>排程速度</button>
+  <div class="why">這一片還不碰模型與排程。最重要的是 input 解析與 dry-run 輸出穩定。</div>
+</div>
+
+<h2>下一步</h2>
+<p>先把 <code>list/show/dry-run</code> 做到可測、可重跑、可被 reviewer 看懂。接著進入 <a href="0031-agent-call-evidence.html">第 31 課</a>：讀 dry-run 的 prompt plan，呼叫 <code>claude -p</code> 或 SDK，並把 stdout/stderr 放進 evidence。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a>。延伸對照：<a href="https://code.claude.com/docs/en/cli-reference">Claude Code CLI reference</a>、<a href="0029-minimal-runner.html">第 29 課 — minimal runner</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  相關課程：<a href="0031-agent-call-evidence.html">第 31 課 — agent call evidence</a> · <a href="0029-minimal-runner.html">第 29 課 — minimal runner</a> · <a href="../reference/harness-runner-first-slice.html">Runner 第一片速查表</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

@@ -71,6 +71,26 @@
   Benchmark: evaluates prompt-to-app systems by usability, visual quality, completeness, and trust. Use for: why prototype validation needs more than "it generated something."
 - [Guide: "Best practices for Claude Code" — Anthropic](https://code.claude.com/docs/en/best-practices)
   Developer workflow guidance: verification-first, explore-plan-code, commit/PR, subagents, hooks, and parallel sessions. Use for: turning engineering tasks into agent-ready workflows.
+- Local skill: `/Users/jmh/.agents/skills/handoff/SKILL.md`
+  Local handoff workflow source: save a focused handoff document to OS temp, include suggested skills, reference existing artifacts by path, redact sensitive data, and tailor the summary to the next session. Use for: report-to-handoff boundaries.
+- [Reference: "Hooks reference" — Anthropic](https://code.claude.com/docs/en/hooks)
+  Official Claude Code hooks reference, including blocking behavior, exit code 2, Stop hooks, and task-completion enforcement. Use for: turning gates from prompt instructions into deterministic checks.
+- [Guide: "Agent SDK overview" — Anthropic](https://code.claude.com/docs/en/agent-sdk/overview)
+  Official Agent SDK overview for building programmable agents with Claude Code's file, command, editing, context-management, permissions, hooks, and observability capabilities. Use for: deciding when a stable contract is ready to become a runner.
+- [Guide: "Observability with OpenTelemetry" — Anthropic](https://code.claude.com/docs/en/agent-sdk/observability)
+  Official Agent SDK observability guide for traces, metrics, events, token/cost counters, tool calls, and failure locations. Use for: deciding which evidence belongs in long-running harness telemetry.
+- [Guide: "Persist sessions to external storage" — Anthropic](https://code.claude.com/docs/en/agent-sdk/session-storage)
+  Official Agent SDK session store guide for mirroring transcripts to S3, Redis, Postgres, or custom stores. Use for: distinguishing run history from resumable session storage.
+- [Guide: "Track cost and usage" — Anthropic](https://code.claude.com/docs/en/agent-sdk/cost-tracking)
+  Official Agent SDK cost and usage guide explaining per-call cost estimates, token accounting, and failed-conversation usage. Use for: deciding what cost metadata belongs in run history.
+- [Reference: "Checkpointing" — Anthropic](https://code.claude.com/docs/en/checkpointing)
+  Official Claude Code checkpointing reference for session-level restore, summarize, and limitations around Bash/external changes. Use for: defining rerun and recovery boundaries.
+- [Reference: "CLI reference" — Anthropic](https://code.claude.com/docs/en/cli-reference)
+  Official Claude Code CLI flags and subcommands, including non-interactive, background, permission, and tool-selection options. Use for: runner design after input contracts are stable.
+- [Guide: "Best practices for Claude Code" — Anthropic, non-interactive mode section](https://code.claude.com/docs/en/best-practices#run-non-interactive-mode)
+  Official guidance for using `claude -p`, structured output, fan-out scripts, scoped allowed tools, and first testing a few files before scaling. Use for: deciding the first minimal runner slice.
+- [Reference: "CLI reference" — Anthropic, print/output/tool flags](https://code.claude.com/docs/en/cli-reference)
+  Official CLI reference for `--print`, `--output-format`, `--json-schema`, `--tools`, `--allowedTools`, and related flags. Use for: deciding what dry-run should preview before a runner calls Claude Code.
 - [Article: "GitHub Copilot Workspace" — GitHub Blog](https://github.blog/news-insights/product-news/github-copilot-workspace/)
   Official task-centric workflow from GitHub issue/repo to plan, code, tests, PR, and human review. Use for: developer workflow artifacts.
 - [Article: "Nvidia now produces three times as much code as before AI" — Tom's Hardware](https://www.tomshardware.com/tech-industry/artificial-intelligence/nvidia-now-produces-three-times-as-much-code-as-before-ai-specialized-version-of-cursor-is-being-used-by-over-30-000-nvidia-engineers-internally)

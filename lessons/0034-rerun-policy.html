@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>第 34 課：設計 rerun policy</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #4f5d75; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #4f5d75; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #4f5d75; }
+  code, pre { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #36506f; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef1f6; }
+  .step { border: 1px solid #d7dde8; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fbfcfe; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .rule { background: #eef1f6; border-left: 4px solid #4f5d75; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d7dde8; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #4f5d75; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef1f6; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d7dde8; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<div class="kicker">Phase 3 · Lesson 0034 · 約 25 分鐘 · Rerun policy</div>
+<h1>設計 rerun policy</h1>
+<p class="mission">目標：替第 33 課的 run history 補上重跑規則。這一課只定義什麼狀態可以 rerun、如何保留舊 evidence、何時必須人工介入；不做自動排程、不做 repair loop。</p>
+
+<h2>Rerun 不是覆蓋舊結果</h2>
+<p><a href="https://code.claude.com/docs/en/checkpointing">Claude Code checkpointing</a> 可以回復 Claude 直接編輯的檔案與對話，但官方也明說 Bash command 造成的檔案變更、外部變更不在 checkpoint 追蹤範圍內，而且 checkpoint 不是 Git 的替代品。Harness rerun 不能假設「重跑一次就等於回到乾淨狀態」。</p>
+<p><a href="https://code.claude.com/docs/en/agent-sdk/cost-tracking">Cost tracking</a> 也提醒失敗 conversation 仍可能消耗 token 與成本。因此 rerun policy 要能回答：誰允許重跑、為什麼重跑、上一輪 evidence 怎麼保留、這一輪是不是新 run。</p>
+
+<h2>先定義狀態能不能重跑</h2>
+<table>
+<tr><th>上一輪狀態</th><th>預設動作</th><th>原因</th></tr>
+<tr><td><code>passed</code></td><td>不自動重跑。</td><td>除非 input 或 gate 版本改變，否則重跑只會製造噪音。</td></tr>
+<tr><td><code>needs-review</code></td><td>先人工判斷。</td><td>需要 review 的不是 runner 壞掉，而是缺人類決策。</td></tr>
+<tr><td><code>failed</code></td><td>修正後可重跑。</td><td>必須先改 input、prompt、code 或 gate，並記錄 reason。</td></tr>
+<tr><td><code>blocked</code></td><td>解除阻塞後可重跑。</td><td>credential、權限、環境未解決前，重跑只會重複失敗。</td></tr>
+<tr><td><code>stale</code></td><td>先 verify artifacts。</td><td>證據缺失時，不能把缺證據當作任務失敗。</td></tr>
+</table>
+
+<div class="rule"><strong>判斷規則：</strong>每次 rerun 都是新 <code>runId</code>，用 <code>parentRunId</code> 指回上一輪；舊 evidence 永遠不覆蓋。</div>
+
+<h2>Rerun record 範例</h2>
+<pre>{
+  "runId": "run-0043",
+  "parentRunId": "run-0042",
+  "inputId": "issue-0042-login-timeout",
+  "rerunReason": "gate failed after auth test timeout",
+  "changedSinceParent": ["gate timeout 120s -> 240s"],
+  "preRunState": {
+    "gitRef": "abc1234",
+    "dirty": false,
+    "inputHash": "sha256:..."
+  },
+  "artifactPolicy": "preserve-parent-evidence",
+  "status": "running"
+}</pre>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 替每個 status 寫 rerun rule</label>
+  <p>先在 <a href="../reference/harness-rerun-policy.html">Rerun policy 速查表</a> 填上 <code>passed</code>、<code>needs-review</code>、<code>failed</code>、<code>blocked</code>、<code>stale</code>。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 記錄 parent run</label>
+  <p>重跑時新增 <code>runId</code>，保留 <code>parentRunId</code>、上一輪 status、rerun reason、觸發者。不要覆寫 <code>runs.jsonl</code> 的舊行。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 捕捉 pre-run state</label>
+  <p>至少記錄 <code>gitRef</code>、dirty 狀態、input hash。若有 Bash 或外部 side effect，標成需要人工確認。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 設定 retry budget</label>
+  <p>同一個 parent 最多自動重跑一次。第二次失敗後改成 <code>needs-review</code>，避免 agent loop 消耗成本又沒有新資訊。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5. 產出 rerun report note</label>
+  <p>Report 補一段 rerun note：上一輪為何不能收工、本輪改了什麼、保留哪些舊 evidence、還有哪些 side effect 未確認。</p>
+</div>
+
+<div class="done-banner" id="done">
+  <strong>你已完成 rerun policy 切片。</strong>回對話視窗貼上 status table 與一筆 rerun record，請 AI 老師檢查哪些情況還不該自動重跑。
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="0">
+  <p>1. Rerun 時最不能做什麼？</p>
+  <button>覆蓋證據</button>
+  <button>新增 run</button>
+  <button>記錄原因</button>
+  <div class="why">舊 evidence 是審查材料，不能覆蓋。每次 rerun 都要是新 run，並用 parentRunId 串回上一輪。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>2. 哪種狀態不該直接自動重跑？</p>
+  <button>需要審查</button>
+  <button>測試失敗</button>
+  <button>超時已修</button>
+  <div class="why">needs-review 缺的是人類判斷，不是 runner 重跑。自動重跑會把決策問題偽裝成執行問題。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>3. Checkpoint 不能取代什麼？</p>
+  <button>版本控制</button>
+  <button>本機復原</button>
+  <button>對話摘要</button>
+  <div class="why">官方文件明確把 checkpoint 定位為 session-level recovery，長期歷史與協作仍要靠 Git 等版本控制。</div>
+</div>
+
+<h2>下一步</h2>
+<p>先讓 rerun policy 能擋掉不該自動重跑的狀態。接著進入 <a href="0035-final-handoff-package.html">第 35 課</a>：把 latest run、parent chain、evidence、未解風險整理成下一個 agent 或 reviewer 能接手的交付包。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/checkpointing">Claude Code checkpointing</a>。延伸對照：<a href="https://code.claude.com/docs/en/agent-sdk/cost-tracking">Track cost and usage</a>、<a href="../reference/harness-rerun-policy.html">Rerun policy 速查表</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  相關課程：<a href="0035-final-handoff-package.html">第 35 課 — final handoff package</a> · <a href="0033-run-history-index.html">第 33 課 — run history</a> · <a href="../reference/harness-rerun-policy.html">Rerun policy 速查表</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

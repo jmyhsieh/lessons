@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Final handoff 速查表</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #4f5d75; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #4f5d75; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #eef1f6; }
+  pre, code { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .1rem .35rem; }
+  pre { padding: .9rem 1rem; white-space: pre-wrap; overflow-x: auto; }
+  a { color: #36506f; }
+  .rule { border-left: 4px solid #4f5d75; background: #f8fafc; padding: .8rem 1rem; margin: 1rem 0; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print {
+    body { margin: 1rem auto; }
+    .rule, tr { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Final handoff 速查表</h1>
+<p class="sub">把 latest run、parent chain、evidence 與未解風險整理成可接手交付包。</p>
+
+<div class="rule">
+  <strong>Final handoff 的驗收句：</strong>下一個 agent 或 reviewer 不看聊天紀錄，也能知道本輪決策、證據位置、未解風險與下一步。
+</div>
+
+<h2>Package sections</h2>
+<table>
+<tr><th>Section</th><th>必填內容</th><th>檢查問題</th></tr>
+<tr><td>Decision</td><td>Status 與一句理由。</td><td>能不能判斷是否可收工？</td></tr>
+<tr><td>Latest run</td><td><code>runId</code>、<code>inputId</code>、<code>reportPath</code>。</td><td>是否指向單一最新 run？</td></tr>
+<tr><td>Parent chain</td><td><code>parentRunId</code> 與差異摘要。</td><td>是否保留 rerun 歷史？</td></tr>
+<tr><td>Evidence index</td><td>Gate、report、stdout/stderr、截圖路徑。</td><td>是否能打開 artifacts？</td></tr>
+<tr><td>Open risks</td><td>Risk、owner、next action。</td><td>是否每項都有負責人？</td></tr>
+<tr><td>Suggested skills</td><td>下一輪 skill 或命令。</td><td>是否具體到可執行？</td></tr>
+<tr><td>Redactions</td><td>敏感資訊檢查結果。</td><td>是否移除 secret、token、PII？</td></tr>
+</table>
+
+<h2>Template</h2>
+<pre># Final handoff: &lt;inputId&gt;
+
+Decision: passed | failed | blocked | needs-review
+Reason:
+Latest run:
+Parent chain:
+Report:
+Gate results:
+Evidence directory:
+
+What changed since parent:
+-
+
+Open risks:
+- Risk:
+  Owner:
+  Next action:
+
+Suggested next skills:
+-
+
+Redactions:
+- No secrets, tokens, credentials, or PII included.</pre>
+
+<h2>不要放進 handoff</h2>
+<table>
+<tr><th>不要放</th><th>改放</th></tr>
+<tr><td>完整 transcript。</td><td>Session ID 或 artifact path。</td></tr>
+<tr><td>完整 stdout/stderr。</td><td>Evidence path 與一行摘要。</td></tr>
+<tr><td>secret、token、credential、PII。</td><td>脫敏說明與 owner。</td></tr>
+<tr><td>已在 PRD、issue、report 裡的全文。</td><td>路徑、URL、run id。</td></tr>
+</table>
+
+<h2>完成定義</h2>
+<pre>Done when:
+- The package points to one latest run.
+- Parent chain and rerun reason are visible.
+- Evidence paths are canonical and verified.
+- Every open risk has owner and next action.
+- Suggested skills are specific.
+- Sensitive data has been redacted.</pre>
+
+<footer>
+  索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
+  對應課程：<a href="../lessons/0035-final-handoff-package.html">第 35 課 — final handoff package</a> · <a href="../lessons/0034-rerun-policy.html">第 34 課 — rerun policy</a><br>
+  主要來源：<code>/Users/jmh/.agents/skills/handoff/SKILL.md</code> · <a href="https://code.claude.com/docs/en/agent-sdk/session-storage">Persist sessions to external storage</a> · <a href="https://code.claude.com/docs/en/agent-sdk/observability">Observability with OpenTelemetry</a>
+</footer>
+</body>
+</html>

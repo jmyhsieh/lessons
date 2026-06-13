@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Report / handoff 速查表</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #4f5d75; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #4f5d75; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #eef1f6; }
+  pre, code { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .1rem .35rem; }
+  pre { padding: .9rem 1rem; white-space: pre-wrap; overflow-x: auto; }
+  a { color: #36506f; }
+  .rule { border-left: 4px solid #4f5d75; background: #f8fafc; padding: .8rem 1rem; margin: 1rem 0; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print {
+    body { margin: 1rem auto; }
+    .rule, tr { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Report / handoff 速查表</h1>
+<p class="sub">把 gates/evidence 收束成 reviewer 可判斷的 report，並交接給下一個 session。</p>
+
+<div class="rule">
+  <strong>Report 給人判斷；handoff 給下一輪接手。</strong>report 說明這次 run 是否可信，handoff 說明下一步怎麼繼續。
+</div>
+
+<h2>Report 模板</h2>
+<pre># Run Report: [ID]
+
+Status:
+Input:
+Scope:
+Changes:
+
+Gate Results:
+- Gate:
+  Result:
+  Evidence:
+  Artifact:
+
+Open Questions:
+Exceptions:
+Next:</pre>
+
+<h2>Handoff 模板</h2>
+<pre># Handoff: [next focus]
+
+Current state:
+Canonical links:
+- Issue / brief:
+- Report:
+- Evidence:
+- PR / diff:
+
+Decisions made:
+Risks / blockers:
+Suggested skills:
+Next action:</pre>
+
+<h2>放哪裡</h2>
+<table>
+<tr><th>內容</th><th>建議位置</th><th>理由</th></tr>
+<tr><td>Report</td><td><code>.harness/reports/</code>、PR comment、issue comment。</td><td>它是可審查結果，應該能被團隊回看。</td></tr>
+<tr><td>Evidence</td><td><code>.harness/evidence/&lt;run-id&gt;/</code> 或 CI artifacts。</td><td>大 log、截圖、輸出檔不適合塞進 report。</td></tr>
+<tr><td>Handoff</td><td>OS temp、handoff note、下一個 session prompt。</td><td>它是交接脈絡，不一定要進 repo。</td></tr>
+</table>
+
+<h2>常見錯誤</h2>
+<table>
+<tr><th>錯誤</th><th>修正</th></tr>
+<tr><td>Report 只有「完成」。</td><td>補 status、gate result、evidence path、未驗證項目。</td></tr>
+<tr><td>Handoff 複製整份 issue。</td><td>改成引用 issue path，只寫正本沒有的決策與下一步。</td></tr>
+<tr><td>Evidence 塞滿 report。</td><td>report 放摘要與 artifact path，完整輸出放 evidence 目錄。</td></tr>
+<tr><td>下一個 agent 不知道用什麼方法接手。</td><td>加 suggested skills 與下一步 prompt。</td></tr>
+</table>
+
+<footer>
+  索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
+  對應課程：<a href="../lessons/0032-gate-execution-report.html">第 32 課 — gate execution report</a> · <a href="../lessons/0028-report-handoff.html">第 28 課 — 產出 report / handoff</a> · <a href="../lessons/0027-gates-evidence.html">第 27 課 — gates 與 evidence</a><br>
+  主要來源：<a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a> · <a href="https://code.claude.com/docs/en/cli-reference">Claude Code CLI reference</a> · <code>/Users/jmh/.agents/skills/handoff/SKILL.md</code>
+</footer>
+</body>
+</html>

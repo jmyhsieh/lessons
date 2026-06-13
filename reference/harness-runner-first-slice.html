@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Runner 第一片速查表</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #4f5d75; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #4f5d75; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #eef1f6; }
+  pre, code { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .1rem .35rem; }
+  pre { padding: .9rem 1rem; white-space: pre-wrap; overflow-x: auto; }
+  a { color: #36506f; }
+  .rule { border-left: 4px solid #4f5d75; background: #f8fafc; padding: .8rem 1rem; margin: 1rem 0; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print {
+    body { margin: 1rem auto; }
+    .rule, tr { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Runner 第一片速查表</h1>
+<p class="sub">先實作 <code>list</code>、<code>show</code>、<code>dry-run</code>，確認 runner 會跑對任務，再接真 agent。</p>
+
+<div class="rule">
+  <strong>第一片的驗收句：</strong>不呼叫模型、不改檔，也能清楚顯示 runner 會讀什麼、送什麼、跑哪些 gates、把 evidence 寫去哪。
+</div>
+
+<h2>命令契約</h2>
+<table>
+<tr><th>命令</th><th>成功輸出</th><th>失敗條件</th></tr>
+<tr><td><code>runner list --json</code></td><td>input id、source、status。</td><td>input 目錄不存在。</td></tr>
+<tr><td><code>runner show &lt;id&gt; --json</code></td><td>正規化後的 input contract。</td><td>找不到 id、必填欄位缺漏。</td></tr>
+<tr><td><code>runner run --dry &lt;id&gt; --json</code></td><td>prompt preview、allowed tools、gates、paths、<code>willCallAgent:false</code>。</td><td>stop condition 已觸發、gate 設定不完整。</td></tr>
+</table>
+
+<h2>正規化格式</h2>
+<pre>{
+  "id": "",
+  "source": "",
+  "outcome": "",
+  "scope": [],
+  "gates": [],
+  "stop": [],
+  "evidenceDir": "",
+  "reportPath": ""
+}</pre>
+
+<h2>Fixture 組合</h2>
+<table>
+<tr><th>Fixture</th><th>目的</th><th>期待</th></tr>
+<tr><td>完整 issue</td><td>happy path。</td><td><code>show</code> 與 <code>dry-run</code> 都成功。</td></tr>
+<tr><td>缺 Outcome</td><td>驗證 parser 不接受模糊任務。</td><td><code>show</code> 失敗，指出缺漏欄位。</td></tr>
+<tr><td>缺 Gates</td><td>避免無驗收 runner。</td><td><code>dry-run</code> 失敗，不產 prompt。</td></tr>
+<tr><td>Scope 越界</td><td>保護路徑。</td><td><code>dry-run</code> 顯示 blocked。</td></tr>
+</table>
+
+<h2>完成定義</h2>
+<pre>Done when:
+- list can enumerate valid inputs.
+- show can normalize one input and reject malformed input.
+- dry-run prints prompt/tools/gates/paths.
+- dry-run always reports willCallAgent:false and willModifyFiles:false.
+- fixtures cover pass and fail cases.</pre>
+
+<footer>
+  索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
+  對應課程：<a href="../lessons/0031-agent-call-evidence.html">第 31 課 — agent call evidence</a> · <a href="../lessons/0030-runner-list-show-dry-run.html">第 30 課 — runner 第一片</a> · <a href="../lessons/0029-minimal-runner.html">第 29 課 — minimal runner</a><br>
+  主要來源：<a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a> · <a href="https://code.claude.com/docs/en/cli-reference">Claude Code CLI reference</a>
+</footer>
+</body>
+</html>
