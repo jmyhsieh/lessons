@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>第 25 課：PM 如何把任意 skill 組成可交付流程</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #6f4dbf; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #6f4dbf; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #6f4dbf; }
+  code, pre { background: #f1eef9; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #5a3ba8; }
+  figure { margin: 1.4rem 0; }
+  figure img { width: 100%; border: 1px solid #ddd; border-radius: 8px; display: block; }
+  figcaption { font-size: .86rem; color: #666; margin-top: .45rem; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #f1eef9; }
+  .step { border: 1px solid #ddd5ef; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fbfaff; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .tip { background: #f1eef9; border-left: 4px solid #6f4dbf; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #ddd5ef; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #6f4dbf; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #f1eef9; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #ddd5ef; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<div class="kicker">Phase 3 · Lesson 0025 · 約 25 分鐘 · 編排課</div>
+<h1>PM 如何把任意 skill 組成可交付流程</h1>
+<p class="mission">目標：把圖片裡「從需求到可交付內容」的流程，轉成一套可重複使用的 skill 編排法。重點不是背哪個 skill，而是判斷每一步需要什麼 artifact，然後選能產生它的工具。</p>
+
+<figure>
+  <img src="../assets/pm-ai-workflow.png" alt="PM 如何運用 AI 在工作流程，從需求整理到 prototype、UI 校準、自動測試與設計往返">
+  <figcaption>本課主素材：你提供的 PM AI workflow 圖。圖上的 skill 名稱可替換；工作槽位才是穩定的。</figcaption>
+</figure>
+
+<h2>先看流程，不要先看 skill</h2>
+<p>圖片的主線其實是這句話：</p>
+<pre>需求 → 收斂 → 文件 → 發散 → 原型 → 校準 → 驗證 → 交付</pre>
+<p>這條線可以用 mattpocock/skills，也可以混用 Obsidian、Figma、Playwright、文件、簡報、試算表、圖片生成、browser QA，甚至一般 prompt。判斷標準只有一個：<strong>這一步有沒有把上一個輸入變成下一個可驗收 artifact？</strong></p>
+
+<h2>把圖片拆成七個工作槽位</h2>
+<table>
+<tr><th>槽位</th><th>圖片例子</th><th>可替換選項</th><th>輸出</th></tr>
+<tr><td>1. 定義範圍</td><td>接受需求、轉成開發範圍</td><td>Obsidian、<code>obsidian-vault</code>、文件筆記</td><td>需求摘要</td></tr>
+<tr><td>2. 收斂假設</td><td><code>/grill-me</code> 收斂想像</td><td><code>grill-with-docs</code>、訪談、問題清單</td><td>風險與開放問題</td></tr>
+<tr><td>3. 固化文件</td><td>產出 PROJECT.md</td><td><code>to-prd</code>、設計 brief、issue spec</td><td>可引用的專案文件</td></tr>
+<tr><td>4. 發散方案</td><td><code>/superpowers</code> brainstorming</td><td><code>design-an-interface</code>、<code>writing-fragments</code>、<code>imagegen</code></td><td>可比較的候選方案</td></tr>
+<tr><td>5. 製作原型</td><td>Claude Code 實作 UI</td><td><code>prototype</code>、<code>presentations</code>、<code>spreadsheets</code>、<code>hyperframes</code></td><td>可打開的 artifact</td></tr>
+<tr><td>6. 校準驗證</td><td><code>/impeccable</code>、Playwright 自測</td><td>Browser 截圖、<code>playwright</code>、<code>review</code>、設計 token 檢查</td><td>測試與回饋紀錄</td></tr>
+<tr><td>7. 交付接力</td><td>Figma/Claude Code 往返</td><td><code>handoff</code>、PR、簡報、文件、prototype 連結</td><td>下一個人能接手</td></tr>
+</table>
+
+<div class="tip"><strong>替換原則：</strong>如果你沒有圖上的 <code>/superpowers</code>、<code>/impeccable</code> 或 <code>/normalize</code>，不要硬找同名工具。問自己它在流程裡扮演什麼角色：發散、校準，還是統一設計 token？再選等價工具。</div>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 寫下真實需求</label>
+  <p>用一句話寫出：誰要什麼、為什麼現在要、最後要交付什麼。例：PM 需要一個可點的設定頁 prototype，讓設計師明天 review。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 標出目前卡住的槽位</label>
+  <p>如果需求還霧，先收斂；如果方向已定，做 prototype；如果 artifact 已有，跑驗證。不要因為某個 skill 很酷就先用它。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 為每一槽指定輸出</label>
+  <p>例：需求摘要、PROJECT.md、三個方案、可點 prototype、Playwright 截圖、handoff 文件。沒有輸出的步驟先砍掉。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 跑一輪最短流程</label>
+  <p>不要一次開滿所有工具。先跑：需求摘要 → grill → prototype → browser/Playwright 檢查 → handoff。真的缺發散或設計 token，再插入對應槽位。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5. 交付並記錄下一步</label>
+  <p>交付成果要包含三件事：artifact 本身、怎麼驗證過、下一個人該怎麼接。這讓 AI workflow 不只是產出，而是能接進團隊流程。</p>
+</div>
+
+<div class="done-banner" id="done">
+  <strong>你已經把 skill 清單轉成工作流編排了。</strong>回對話視窗貼上你的需求、選到的槽位、以及第一輪交付成果。
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="1">
+  <p>1. 選 skill 前，第一個問題該問什麼？</p>
+  <button>哪個 skill 最近最熱門、最值得試</button>
+  <button>下一個可驗收 artifact 是什麼</button>
+  <button>哪個工具可以一次完成全部流程</button>
+  <div class="why">本課的核心是 artifact-driven workflow。先知道下一個輸出，才知道要選收斂、發散、製作、驗證或交付類工具。</div>
+</div>
+
+<div class="quiz" data-answer="2">
+  <p>2. 圖上有你沒有的 skill 名稱時，該怎麼辦？</p>
+  <button>跳過整條流程，等安裝同名 skill</button>
+  <button>改用最熟悉的工具，不管流程位置</button>
+  <button>辨認它的槽位，再找等價工具</button>
+  <div class="why">skill 名稱會變，槽位比較穩定。/superpowers 在圖上是發散；/impeccable 是 UI 校準；/normalize 是設計 token 統一。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>3. Playwright 自測最適合放在哪裡？</p>
+  <button>原型已可打開，交付給別人之前</button>
+  <button>需求還沒收斂，先測再說</button>
+  <button>交付完成之後，有空再補</button>
+  <div class="why">Playwright 屬於驗證槽位。它需要一個可打開的 artifact，也應該早於交付，否則下一個人拿到的是未驗證成果。</div>
+</div>
+
+<h2>下一步</h2>
+<p>拿一個本週真實產品、工程、研究、營運或治理需求，照 <a href="../reference/ai-workflow-skill-composer.html">AI 工作流編排速查表</a> 填一次七個槽位；需要對照實例時，先看 <a href="../reference/ai-functional-workflow-case-library.html">職能工作流案例總覽</a>。做完後回對話視窗問你的 AI 老師：「這條 workflow 哪一步可以縮短？」</p>
+<p><strong>主要閱讀資源：</strong><a href="../assets/pm-ai-workflow.png">PM 如何運用 AI 在工作流程圖</a>（本課主素材）、<a href="../reference/ai-workflow-skill-composer.html">AI 工作流編排速查表</a>與 <a href="../reference/ai-functional-workflow-case-library.html">職能工作流案例總覽</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  相關課程：<a href="0009-skills.html">第 9 課 — Skills</a> · <a href="0017-prototype.html">第 17 課 — /prototype</a> · <a href="0024-handoff.html">第 24 課 — /handoff</a> · <a href="../toc.html">課目表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

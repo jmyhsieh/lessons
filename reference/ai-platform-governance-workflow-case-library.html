@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>AI 平台 / 治理職能工作流案例庫：2026/04 起 Claude Code 案例</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 920px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #36506f; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #36506f; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .88rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #eef1f6; }
+  a { color: #36506f; }
+  code { background: #eef1f6; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; }
+  pre { background: #f7f9fc; padding: .8rem 1rem; overflow-x: auto; }
+  .pattern { border-left: 4px solid #4f5d75; background: #f8fafc; padding: .75rem 1rem; margin: 1rem 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: .8rem; }
+  .card { border: 1px solid #ddd; border-radius: 8px; padding: .9rem 1rem; background: #fff; }
+  .card strong { color: #36506f; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print {
+    body { margin: 1rem auto; }
+    .card, .pattern, tr { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>AI 平台 / 治理職能工作流案例庫</h1>
+<p class="sub">2026/04 起公開案例，聚焦 Claude Code 如何被企業導入、監控、限額、評估與事故復盤。</p>
+
+<div class="pattern">
+  <strong>篩選規則：</strong>來源需在 2026-04-01 之後發布，且案例本身明確使用 Claude Code。這裡不收只談 Claude agent 或模型策略、但沒有 Claude Code 使用情境的案例。
+</div>
+
+<h2>案例對照表</h2>
+<table>
+<tr><th>日期</th><th>案例</th><th>流程片段</th><th>對應槽位</th><th>可學走的模式</th></tr>
+<tr>
+  <td>2026-04-23</td>
+  <td><a href="https://www.anthropic.com/engineering/april-23-postmortem">Claude Code 品質事件 postmortem</a></td>
+  <td>Anthropic 追查 Claude Code、SDK、Cowork 品質問題，定位到 reasoning effort、cache optimization bug 與系統 prompt 變更，並補強 dogfooding、review、evals 與 rollout。</td>
+  <td>quality report → root cause → eval / rollout gate</td>
+  <td>平台治理要把 prompt、cache、model default、release gate 都當成 production surface 管。</td>
+</tr>
+<tr>
+  <td>2026-05-04</td>
+  <td><a href="https://www.businessinsider.com/amazon-claude-code-codex-all-employees-after-pushback-2026-5">Amazon 全公司標準化 Claude Code access</a></td>
+  <td>Amazon 在員工 pushback 後，將 Claude Code 與 Codex 提供給 corporate employees，並透過 Bedrock / AWS 管理。</td>
+  <td>ad hoc access → approved channel → managed environment</td>
+  <td>企業導入要先解 access、資料邊界、雲端執行、支援與政策，而不是讓團隊各自找 workaround。</td>
+</tr>
+<tr>
+  <td>2026-05-12</td>
+  <td><a href="https://www.businessinsider.com/coders-keep-laptops-open-in-public-ai-agent-2026-5">長任務 Claude Code 的環境治理</a></td>
+  <td>文章中的 Claude Code power user 與其他長任務 agent 使用者，需要管理筆電、網路與移動場景，顯示長任務 agent 需要更可靠的執行環境。</td>
+  <td>local session → fragile runtime → managed execution</td>
+  <td>平台 owner 要提供可恢復的 session、日誌、artifact storage 與安全停止機制。</td>
+</tr>
+<tr>
+  <td>2026-06-10</td>
+  <td><a href="https://www.businessinsider.com/ai-companies-raising-prices-internal-token-limits-openai-anthropic-ipo-2026-6">Business Insider 報導 Harness 的 Claude Code 成本治理</a></td>
+  <td>報導指出，在軟體新創 Harness，Claude Code 使用讓 AI 成本從 2025/10 到 2026/03 快速上升；文章接著寫道，公司透過工程師訓練與內部工具，在近幾個月收斂成本。</td>
+  <td>usage spike → cost signal → training / tooling → ROI review</td>
+  <td>治理不是禁止使用；是把任務類型、模型等級、token spend 與產出價值連到同一張儀表板。</td>
+</tr>
+</table>
+
+<h2>重複出現的模式</h2>
+<div class="grid">
+  <div class="card"><strong>Access 要標準化</strong><br>企業若不提供受控路徑，團隊會用 workaround，資料與成本更難治理。</div>
+  <div class="card"><strong>品質事故要回到系統層</strong><br>Claude Code 品質可能受 prompt、cache、reasoning default 與 rollout 影響。</div>
+  <div class="card"><strong>成本要連到任務價值</strong><br>token budget 應該按任務價值、風險與驗收方式分級，而不是只看總金額。</div>
+  <div class="card"><strong>長任務需要平台承接</strong><br>如果 agent 工作跨小時，平台就要提供 log、checkpoint、artifact 與可恢復執行。</div>
+</div>
+
+<h2>套回第 25 課</h2>
+<pre>零散使用 → approved access → usage / quality signals → eval gates → training / policy → incident review</pre>
+<p>下一個可驗收 artifact 是 access policy、cost dashboard、eval gate、CLAUDE.md / rules 或 incident review，而不是單純宣布「可以使用 Claude Code」。</p>
+
+<footer>
+  相關：<a href="ai-functional-workflow-case-library.html">職能工作流案例總覽</a> · <a href="ai-developer-workflow-case-library.html">工程職能細部案例</a> · <a href="ai-ops-revops-workflow-case-library.html">營運 / IT / RevOps 細部案例</a> · <a href="ai-workflow-skill-composer.html">AI 工作流編排速查表</a> · <a href="../RESOURCES.md">RESOURCES.md</a>
+</footer>
+</body>
+</html>

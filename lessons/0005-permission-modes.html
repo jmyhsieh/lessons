@@ -68,7 +68,7 @@
   }
 }</pre>
 <p>常用 pattern：<code>Bash(npm run *)</code> 萬用字元、<code>Read(.env)</code> 擋敏感檔（任意深度）、<code>WebFetch(domain:example.com)</code> 限定網域。專案的 <code>.claude/settings.json</code> 進版控全隊共享；個人的放 <code>settings.local.json</code>。</p>
-<div class="safety"><strong>注意：</strong>deny 規則擋得住內建檔案工具與常見指令（cat、sed 等），但擋不住任意子程序（例如它寫一支 Python script 自己開檔）。要 OS 層級的隔離需啟用 sandbox — 進階主題，之後有需要再教。</div>
+<div class="safety"><strong>注意：</strong>deny 規則擋得住內建檔案工具與常見指令（cat、sed 等），但擋不住任意子程式（例如它寫一支 Python script 自己開檔）。要 OS 層級的隔離需啟用 sandbox — 進階主題，之後有需要再教。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 

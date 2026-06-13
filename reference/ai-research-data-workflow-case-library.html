@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>AI 研究 / 資料職能工作流案例庫：2026/04 起 Claude Code 案例</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 920px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #4c5f1f; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #4c5f1f; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .88rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #f1f4e8; }
+  a { color: #4c5f1f; }
+  code { background: #f1f4e8; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; }
+  pre { background: #f7f9f0; padding: .8rem 1rem; overflow-x: auto; }
+  .pattern { border-left: 4px solid #6f812f; background: #fafbf3; padding: .75rem 1rem; margin: 1rem 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: .8rem; }
+  .card { border: 1px solid #ddd; border-radius: 8px; padding: .9rem 1rem; background: #fff; }
+  .card strong { color: #4c5f1f; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print {
+    body { margin: 1rem auto; }
+    .card, .pattern, tr { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>AI 研究 / 資料職能工作流案例庫</h1>
+<p class="sub">2026/04 起公開案例，聚焦 Claude Code 如何支援研究重現、科學軟體、資料驗證與 domain review。</p>
+
+<div class="pattern">
+  <strong>篩選規則：</strong>來源需在 2026-04-01 之後發布，且案例本身明確使用 Claude Code。這裡的重點不是「產生程式碼」，而是研究結論能否被重跑、檢查與質疑。
+</div>
+
+<h2>案例對照表</h2>
+<table>
+<tr><th>日期</th><th>案例</th><th>流程片段</th><th>對應槽位</th><th>可學走的模式</th></tr>
+<tr>
+  <td>2026-05-28</td>
+  <td><a href="https://arxiv.org/abs/2605.30353">物理學家監督 Claude Code 開發科學軟體</a></td>
+  <td>研究者在 12 個工作天、57 個 Claude Code sessions 中建立 JAX 科學模組；15 個 supervision events 中，agent 透過 oracle tests 自主處理 10 個，另有 2 個靠物理 domain knowledge，3 個繞過 oracle detection。</td>
+  <td>paper / model → implementation → oracle tests → domain review</td>
+  <td>把 domain invariant 寫成明確檢查；不要讓 Claude Code 用「看似可跑」的修補取代理論正確。</td>
+</tr>
+<tr>
+  <td>2026-06-09</td>
+  <td><a href="https://arxiv.org/abs/2606.11447">Claude Code 重現社會科學研究結果</a></td>
+  <td>SocSci-Repro-Bench 用 221 個 computational social science tasks 評估 Claude Code 與 Codex；Claude Code 表現較強，但 prompt framing 會影響 bias。</td>
+  <td>paper / data → reproduce → compare → bias check</td>
+  <td>把 reproduction script、輸出差異、prompt framing 與失敗原因一起留下；不要只交一個成功結果。</td>
+</tr>
+</table>
+
+<h2>重複出現的模式</h2>
+<div class="grid">
+  <div class="card"><strong>重現比生成重要</strong><br>研究職能要優先交付可重跑的 script、notebook、資料切分與環境說明。</div>
+  <div class="card"><strong>oracle tests 不夠</strong><br>測試可以抓數值錯誤，但 domain invariant、研究限制與模型假設仍要由專家審查。</div>
+  <div class="card"><strong>prompt 也是研究條件</strong><br>prompt framing 會影響結果與偏誤，應該和資料、程式碼、版本一起記錄。</div>
+  <div class="card"><strong>失敗要可解釋</strong><br>失敗案例要分成資料缺口、環境問題、推論錯誤、理論假設錯誤，而不是只寫「agent failed」。</div>
+</div>
+
+<h2>套回第 25 課</h2>
+<pre>研究問題 → paper / data inventory → Claude Code 重現 → oracle tests → domain review → limitation note</pre>
+<p>下一個可驗收 artifact 不是漂亮圖表，而是一組能重跑、能被 domain reviewer 質疑、且能說明限制的研究交付包。</p>
+
+<footer>
+  相關：<a href="ai-functional-workflow-case-library.html">職能工作流案例總覽</a> · <a href="ai-developer-workflow-case-library.html">工程職能細部案例</a> · <a href="ai-workflow-skill-composer.html">AI 工作流編排速查表</a> · <a href="../RESOURCES.md">RESOURCES.md</a>
+</footer>
+</body>
+</html>
