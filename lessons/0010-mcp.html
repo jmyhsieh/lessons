@@ -45,11 +45,11 @@
 <div class="tip">先想一下你是否已經有更簡單的路：官方 best practices 提過 <strong>CLI 工具往往比 MCP 更省 context</strong> — GitHub 用 <code>gh</code> CLI 就很夠。MCP 的價值在沒有好 CLI 的系統（Jira、Notion、Figma、內部 API）。</div>
 
 <h2>接法與範圍</h2>
-<p>三種 transport：<strong>http</strong>（遠端服務，支援 OAuth，最常見）、<strong>sse</strong>、<strong>stdio</strong>（本機程式，適合需要直接存取系統的工具）。</p>
+<p>三種 transport：<strong>http</strong>（遠端服務，支援 OAuth，最常見）、<strong>sse</strong>、<strong>stdio</strong>（本機程序，適合需要直接存取系統的工具）。</p>
 <pre># 遠端服務（例：Notion）
 claude mcp add --transport http notion https://mcp.notion.com/mcp
 
-# 本機程式（-- 之後是 server 的啟動指令）
+# 本機程序（-- 之後是 server 的啟動指令）
 claude mcp add --transport stdio myserver -- npx some-mcp-server</pre>
 <p><code>--scope</code> 決定設定存哪裡：</p>
 <table>
