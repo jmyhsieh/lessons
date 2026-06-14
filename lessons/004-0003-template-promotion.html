@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>第 43 課：把穩定 contract 升級成 template</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #4f5d75; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #4f5d75; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #4f5d75; }
+  code, pre { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #36506f; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef1f6; }
+  .step { border: 1px solid #d7dde8; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fbfcfe; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .rule { background: #eef1f6; border-left: 4px solid #4f5d75; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d7dde8; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #4f5d75; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef1f6; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d7dde8; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 4 · Lesson 0043 · 約 25 分鐘 · Template promotion</div>
+<h1>把穩定 contract 升級成 template</h1>
+<p class="mission">目標：把多次有效的 input 或 review contract，放進 issue、PR 或 handoff template。這一課只做 template promotion，不把規則升級成強制 gate。</p>
+
+<h2>Template 是讓正確輸入提早出現</h2>
+<p>如果 contract 每次都在 review 才提醒，代表它可能應該更早進入任務輸入。Template promotion 的目的，是讓任務建立時就帶著必要欄位，減少 agent 或 reviewer 事後追問。</p>
+<p>Template 仍是人類與 agent 共用的工作介面，不是技術閘門。只要欄位還需要判斷、例外很多，先放 template；等到條件穩定且可判定，再考慮第 44 課的 hook/gate promotion。</p>
+
+<h2>Promotion target selector</h2>
+<table>
+<tr><th>Target</th><th>適合放</th><th>不要放</th></tr>
+<tr><td>Issue template</td><td>任務啟動前必須知道的 outcome、scope、gates、stop condition。</td><td>實作中才會知道的細節。</td></tr>
+<tr><td>PR template</td><td>reviewer 每次都需要的 evidence、risk、manual check。</td><td>只適用單一任務的描述。</td></tr>
+<tr><td>Handoff template</td><td>下一個 agent 或 reviewer 要接手的 state、artifact、decision。</td><td>完整聊天紀錄或未整理 log。</td></tr>
+<tr><td>Reference template</td><td>低頻但需要一致格式的 report、decision note、run note。</td><td>每次任務都必填的欄位。</td></tr>
+</table>
+
+<div class="rule"><strong>判斷規則：</strong>template promotion 只處理「重複缺同一欄」或「review 重複追同一證據」。如果問題是需要強制阻擋，先不要塞更多模板欄位。</div>
+
+<h2>Promotion note 範例</h2>
+<pre>templatePromotion:
+  sourceContract: reference/harness-input-contract.html
+  evidenceWindow: last-3-doc-tasks
+  repeatedNeed: validation scope and evidence path
+  targetTemplate: .github/ISSUE_TEMPLATE/doc-change.md
+  newFields:
+    - validationScope
+    - evidencePath
+  notPromoted:
+    - cost estimate: not required for this task class
+  nextReview: after 5 uses</pre>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 從 effectiveness log 選 promotion candidate</label>
+  <p>只選已多次有效、且每次都出現在同一時點的 contract。一次有效不升級。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 判斷它應該更早或更晚出現</label>
+  <p>缺 input 就放 issue template；缺 review evidence 就放 PR template；缺交接狀態就放 handoff template。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 新增最少欄位</label>
+  <p>只新增一到三欄。欄位名稱要具體，例如 <code>validationScope</code>，不要寫「其他注意事項」。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 寫明不升級的內容</label>
+  <p>把這次不放進 template 的項目列出來，避免模板逐次膨脹。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5. 設 template review 條件</label>
+  <p>例如「使用五次後檢查哪些欄位常空白」。Template 也需要維護，不是只加不減。</p>
+</div>
+
+<div class="done-banner" id="done">
+  <strong>你已完成 template promotion note。</strong>回對話視窗貼上 note，請 AI 老師檢查欄位是否過多、target 是否放對。
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="0">
+  <p>1. Template promotion 適合處理？</p>
+  <button>重複缺少的欄位</button>
+  <button>低誤判技術檢查</button>
+  <button>一次性心得</button>
+  <div class="why">template 用來讓重複缺少的輸入或 review 欄位提早出現。低誤判技術檢查才可能進 hook/gate。</div>
+</div>
+
+<div class="quiz" data-answer="2">
+  <p>2. 新增 template 欄位時，應該？</p>
+  <button>一次補滿所有可能欄位</button>
+  <button>加入自由發揮區</button>
+  <button>只加最少必要欄位</button>
+  <div class="why">欄位越多，越容易被跳過。只加能直接減少追問或返工的欄位。</div>
+</div>
+
+<div class="quiz" data-answer="1">
+  <p>3. 欄位需要大量判斷與例外時，應該？</p>
+  <button>立刻強制阻擋</button>
+  <button>先保留在 template 或 checklist</button>
+  <button>直接刪除所有規範</button>
+  <div class="why">還需要人類判斷的規則適合放 template 或 checklist，不適合直接變成強制 gate。</div>
+</div>
+
+<h2>下一步</h2>
+<p>如果某個 template 欄位已經穩定、可機械判斷，而且錯了會造成實際風險，進入 <a href="004-0004-hook-gate-promotion.html">第 44 課</a>：判斷是否升級成 hook 或 runner gate。</p>
+<p><strong>主要閱讀資源：</strong><a href="../reference/harness-template-promotion.html">Template promotion 速查表</a>。延伸對照：<a href="../reference/harness-contract-effectiveness.html">Contract effectiveness 速查表</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  相關課程：<a href="004-0002-contract-effectiveness-evidence.html">第 42 課 — effectiveness evidence</a> · <a href="004-0004-hook-gate-promotion.html">第 44 課 — hook / gate promotion</a> · <a href="../reference/harness-template-promotion.html">Template promotion 速查表</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

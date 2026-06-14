@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>001-09：/model、/effort、opusplan</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #c2571a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #c2571a; }
+  code, pre { background: #f4f0ec; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #b04a12; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #faf3ee; }
+  .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #faf3ee; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Lesson 001-09 · 約 15 分鐘 · 模型取捨</div>
+<h1>/model、/effort、opusplan</h1>
+<p class="mission">任務目標：能用任務風險選模型，用不確定性選 effort。這一課的重點是取捨，不是把所有任務都升到最高。</p>
+
+<h2>不是越高越好</h2>
+<table>
+<tr><th>情境</th><th>建議</th><th>理由</th></tr>
+<tr><td>日常 coding、小功能、測試可驗證</td><td><code>sonnet</code> + <code>high</code></td><td>速度與能力的平衡點。</td></tr>
+<tr><td>跨模組設計、需求模糊</td><td><code>opusplan</code> 或 <code>opus</code> + <code>xhigh</code></td><td>先讓規劃更穩，再控制實作成本。</td></tr>
+<tr><td>短小整理、低風險改字</td><td><code>low</code>/<code>medium</code></td><td>不要為簡單任務支付高推理成本。</td></tr>
+<tr><td>無人值守 runner</td><td>預設 <code>high</code>，避免 <code>max</code></td><td>沒有明確 gate 時，高 effort 會放大成本與風險。</td></tr>
+</table>
+
+<h2>實作步驟（做完打勾）</h2>
+<div class="step">
+  <label><input type="checkbox"> 1. 打開 <code>/model</code></label>
+  <p>看目前模型與可選項。不要急著改，先記錄預設值。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 2. 打開 <code>/effort</code></label>
+  <p>看目前支援的 effort levels。不同模型支援範圍可能不同。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 3. 替一個任務寫 effort policy</label>
+  <pre>Default: sonnet + high.
+Escalate to xhigh only if the plan crosses three modules
+or review finds architecture tradeoffs.</pre>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 4. 任務結束後降回預設</label>
+  <p>高 effort 是例外，不是 session 的永久狀態。</p>
+</div>
+
+<div class="done-banner" id="done">🎉 <strong>完成！</strong>你現在能說明為什麼升高或降低 effort。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="2">
+  <p>1. 跨模組、需求模糊的任務，較好的起手式是？</p>
+  <button>low effort 直接改</button>
+  <button>先 clear 再忽略 repo 脈絡</button>
+  <button>plan mode 搭配較深推理</button>
+  <div class="why">方向錯比慢更貴；先把計劃做穩。</div>
+</div>
+<div class="quiz" data-answer="1">
+  <p>2. 任務完成後還留在最高 effort，主要風險是？</p>
+  <button>會讓 Claude 無法讀檔</button>
+  <button>後續小任務成本與延遲增加</button>
+  <button>會自動跳過 permission rules</button>
+  <div class="why">effort 影響推理深度與成本，不會取代權限規則。</div>
+</div>
+
+<h2>下一步</h2>
+<p>下一課：<a href="001-0010-cowork-hands-on.html">001-10 — Cowork 實際上手</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/model-config">Model configuration（官方）</a>。</p>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0008-session-commands.html">001-08 — session commands</a> · <a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a></footer>
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display = [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

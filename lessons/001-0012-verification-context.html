@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>001-12：驗證條件與 context 收尾</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #c2571a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #c2571a; }
+  code, pre { background: #f4f0ec; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #b04a12; }
+  .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .tip { background: #faf3ee; border-left: 4px solid #c2571a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #faf3ee; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Lesson 001-12 · 約 15 分鐘 · 驗證與收尾</div>
+<h1>驗證條件與 context 收尾</h1>
+<p class="mission">任務目標：替 Claude Code 任務寫出可跑的成功條件，並在 session 變髒時知道該 compact、handoff 或重開。</p>
+
+<h2>可驗證比「完成了」可靠</h2>
+<pre>不夠好：實作 email 驗證函式。
+較好：實作 validateEmail，並加入測試：
+user@example.com → true
+invalid → false
+user@.com → false
+實作後執行測試，失敗就修到通過。</pre>
+<p>要求它出示指令與結果，不只說「已完成」。</p>
+
+<h2>context 收尾三原則</h2>
+<ul>
+  <li>不相關的新任務 → <code>/clear</code> 或開新 session。</li>
+  <li>長對話但方向正確 → <code>/compact</code>。</li>
+  <li>糾正兩次同一問題仍失敗 → 停止，整理教訓後重開。</li>
+</ul>
+<div class="tip"><code>/rewind</code> 可回到 checkpoint，但它不取代 git。重要節點仍要 commit。</div>
+
+<h2>實作步驟（做完打勾）</h2>
+<div class="step">
+  <label><input type="checkbox"> 1. 替剛剛的任務補驗證條件</label>
+  <p>寫成一條 Claude 能自己跑或你能手動檢查的句子。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 2. 要求 evidence</label>
+  <pre>Run the relevant verification and show me the exact command
+and output. If it fails, fix and rerun.</pre>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 3. 做 session 收尾</label>
+  <p>確認是否要 <code>/compact</code>、<code>/clear</code>，或把教訓補回 CLAUDE.md。</p>
+</div>
+
+<div class="done-banner" id="done">🎉 <strong>完成！</strong>你的任務現在有驗證條件與乾淨收尾。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="1">
+  <p>1. Claude 說「測試都過了」，你下一步該？</p>
+  <button>直接相信並合併</button>
+  <button>要求指令與輸出</button>
+  <button>提高 effort 再問一次</button>
+  <div class="why">交付看 evidence，不看自述。</div>
+</div>
+<div class="quiz" data-answer="2">
+  <p>2. 同一問題糾正兩次仍不對，較好的做法是？</p>
+  <button>在同一對話補更多背景</button>
+  <button>立刻讓它自動 commit</button>
+  <button>整理教訓後重開 session</button>
+  <div class="why">長對話已被失敗嘗試污染，乾淨 session 通常更有效。</div>
+</div>
+
+<h2>下一步</h2>
+<p>下一課：<a href="001-0013-hooks-basics.html">001-13 — Hooks 基礎與 exit code</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code（官方）</a>。</p>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0011-explore-plan-implement-commit.html">001-11 — 四階段流程</a></footer>
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display = [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

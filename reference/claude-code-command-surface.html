@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Claude Code 操作必備 command 速查表</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #c2571a; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #c2571a; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #faf3ee; }
+  code { background: #f4f0ec; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; }
+  a { color: #b04a12; }
+  .rule { border-left: 4px solid #c2571a; background: #fdfbf9; padding: .8rem 1rem; margin: 1rem 0; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print { body { margin: 1rem auto; } .rule, tr { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Claude Code 操作必備 command 速查表</h1>
+<p class="sub">先記住工作流控制用 command，不需要背完整清單。</p>
+
+<div class="rule">
+  <strong>使用原則：</strong>commands 是 session 控制台。先用它控制風險、上下文、驗證與交付，再考慮大型自動化。
+</div>
+
+<h2>起手式</h2>
+<table>
+<tr><th>Command</th><th>用途</th><th>何時使用</th></tr>
+<tr><td><code>/help</code></td><td>列出可用 command。</td><td>不確定環境支援哪些指令時。</td></tr>
+<tr><td><code>/init</code></td><td>產生 starter <code>CLAUDE.md</code>。</td><td>第一次進 repo。</td></tr>
+<tr><td><code>/memory</code></td><td>編輯或查看 memory。</td><td>團隊規範需要被每次 session 記住。</td></tr>
+<tr><td><code>/permissions</code></td><td>管理 allow、ask、deny 規則。</td><td>正式 repo 設定安全邊界。</td></tr>
+</table>
+
+<h2>任務中控制</h2>
+<table>
+<tr><th>Command</th><th>用途</th><th>何時使用</th></tr>
+<tr><td><code>/plan</code></td><td>進入 plan mode。</td><td>跨檔案、大改動、需求不清楚。</td></tr>
+<tr><td><code>/model</code></td><td>切換模型，也可在 picker 調 effort。</td><td>任務風險或複雜度改變。</td></tr>
+<tr><td><code>/effort</code></td><td>調整推理程度。</td><td>需要在速度、成本、深度之間取捨。</td></tr>
+<tr><td><code>/context</code></td><td>查看 context 使用狀態。</td><td>長 session 開始變慢或變散。</td></tr>
+<tr><td><code>/compact</code></td><td>壓縮目前對話。</td><td>要保留任務脈絡，但釋放 context。</td></tr>
+</table>
+
+<h2>交付前</h2>
+<table>
+<tr><th>Command</th><th>用途</th><th>何時使用</th></tr>
+<tr><td><code>/diff</code></td><td>看目前變更與每回合 diff。</td><td>準備 review 或 commit 前。</td></tr>
+<tr><td><code>/run</code></td><td>啟動並檢查 app 行為。</td><td>需要看真實 UI 或互動結果。</td></tr>
+<tr><td><code>/code-review</code></td><td>檢查目前 diff 的 bug 與清理點。</td><td>交付前做一輪本地審查。</td></tr>
+<tr><td><code>/review</code></td><td>對 PR 做較深的 read-only review。</td><td>需要審 PR，而不是只看本機 diff。</td></tr>
+<tr><td><code>/security-review</code></td><td>檢查安全風險。</td><td>變更碰 auth、資料、權限、輸入處理。</td></tr>
+</table>
+
+<h2>換任務或復原</h2>
+<table>
+<tr><th>Command</th><th>用途</th><th>何時使用</th></tr>
+<tr><td><code>/clear</code></td><td>開始新對話，保留 project memory。</td><td>換成不相關任務。</td></tr>
+<tr><td><code>/resume</code></td><td>回到之前 session。</td><td>接續舊任務。</td></tr>
+<tr><td><code>/rewind</code></td><td>回到 checkpoint 或摘要部分對話。</td><td>方向錯了，需要退回。</td></tr>
+<tr><td><code>/goal</code></td><td>設定完成條件，讓 Claude 跨回合持續工作。</td><td>已有清楚 stop condition、gate 與 evidence。</td></tr>
+</table>
+
+<footer>
+  對應課程：<a href="../lessons/001-0008-session-commands.html">001-08 — session commands</a><br>
+  主要來源：<a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a>
+</footer>
+</body>
+</html>

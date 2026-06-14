@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>001-20：Writer / Reviewer 雙 session</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #c2571a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #c2571a; }
+  code, pre { background: #f4f0ec; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #b04a12; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #faf3ee; }
+  .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #faf3ee; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Lesson 001-20 · 約 20 分鐘 · 品質工作流</div>
+<h1>Writer / Reviewer 雙 session</h1>
+<p class="mission">任務目標：用兩個乾淨 session 分工：一個寫，一個審。你要練的是把 review 意見帶回 writer，而不是讓同一個對話自我確認。</p>
+
+<h2>雙 session 流程</h2>
+<table>
+<tr><th>Writer session</th><th>Reviewer session</th></tr>
+<tr><td>實作任務，留下 diff 與驗證輸出。</td><td></td></tr>
+<tr><td></td><td>只看 diff、brief、測試，找正確性缺口。</td></tr>
+<tr><td>逐項處理 reviewer 意見。</td><td></td></tr>
+</table>
+
+<h2>實作步驟（做完打勾）</h2>
+<div class="step">
+  <label><input type="checkbox"> 1. Writer 完成一個小任務</label>
+  <p>照 001-11/001-12：四階段、驗證、看 diff。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 2. Reviewer 只審查</label>
+  <pre>Review this diff against the task brief.
+Only report correctness gaps, missing tests, or scope creep.</pre>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 3. 把有效意見帶回 Writer</label>
+  <p>不要全部照單全收。先分類：must fix / optional / not relevant。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 4. 再跑驗證</label>
+  <p>修完 reviewer 意見後，重新跑原本的成功條件。</p>
+</div>
+
+<div class="done-banner" id="done">🎉 <strong>完成！</strong>你完成了一輪雙 session 品質工作流。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="1">
+  <p>1. 雙 session 比同一對話直接 review 的主要優點是？</p>
+  <button>可以自動降低成本</button>
+  <button>reviewer context 較乾淨</button>
+  <button>不用再跑測試</button>
+  <div class="why">乾淨 context 比「自己檢查自己」更接近獨立審查。</div>
+</div>
+<div class="quiz" data-answer="2">
+  <p>2. reviewer 回報很多建議時，第一步是？</p>
+  <button>全部交給 writer 實作</button>
+  <button>全部忽略避免過度工程</button>
+  <button>分類 must fix / optional</button>
+  <div class="why">review 意見仍要人類判斷，不是新的命令來源。</div>
+</div>
+
+<h2>下一步</h2>
+<p>下一課：<a href="001-0021-headless-one-shot.html">001-21 — Headless：claude -p one-shot</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/worktrees">Run parallel sessions with worktrees（官方）</a>。</p>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0019-worktrees.html">001-19 — Worktrees</a></footer>
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display = [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

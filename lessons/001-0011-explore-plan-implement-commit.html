@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>001-11：Explore → Plan → Implement → Commit</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #c2571a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #c2571a; }
+  code, pre { background: #f4f0ec; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #b04a12; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #faf3ee; }
+  .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .tip { background: #faf3ee; border-left: 4px solid #c2571a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #faf3ee; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Lesson 001-11 · 約 20 分鐘 · 完整流程</div>
+<h1>Explore → Plan → Implement → Commit</h1>
+<p class="mission">任務目標：用 Claude Code 跑完一次官方建議的四階段開發流程。這一課只練流程節奏，驗證條件與 context 收尾放到下一課。</p>
+
+<h2>四階段流程</h2>
+<table>
+<tr><th>階段</th><th>模式</th><th>你要把關的事</th></tr>
+<tr><td>Explore</td><td>plan mode</td><td>它讀哪些檔？有沒有問清楚需求？</td></tr>
+<tr><td>Plan</td><td>plan mode</td><td>計劃是否列出檔案、步驟、風險？</td></tr>
+<tr><td>Implement</td><td>default</td><td>逐項批准，讀 diff，不接受看不懂的改動。</td></tr>
+<tr><td>Commit</td><td>default</td><td>看完整 diff，寫清楚 commit message。</td></tr>
+</table>
+<div class="tip">一句話能描述 diff 的小改可以省略 plan；跨檔、不熟、方向不確定，就完整跑四階段。</div>
+
+<h2>實作步驟（做完打勾）</h2>
+<div class="step">
+  <label><input type="checkbox"> 1. 挑一個中型任務</label>
+  <p>半天內做得完、出錯可回復、範圍清楚。不要拿部署、資料庫 migration 或大型重構當第一次練習。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 2. Explore + Plan</label>
+  <pre>Use plan mode. Explore the relevant files and propose a plan.
+List files you expect to modify. Do not edit yet.</pre>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 3. Implement</label>
+  <p>計劃過關後離開 plan mode。每次修改都看過再同意；看到偏離範圍就拒絕。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 4. Commit</label>
+  <p>先用 <code>/diff</code> 看完整變更，再請它產 commit message 草稿。你審過才 commit。</p>
+</div>
+
+<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經跑完一次四階段流程。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="0">
+  <p>1. 「修 README 一個錯字」該完整跑四階段嗎？</p>
+  <button>不用，可以直接改</button>
+  <button>要，流程不能省略</button>
+  <button>要先開三個 subagent</button>
+  <div class="why">流程是為了降低不確定性，不是儀式。</div>
+</div>
+<div class="quiz" data-answer="2">
+  <p>2. Explore/Plan 使用 plan mode 的核心原因是？</p>
+  <button>一定比較省 token</button>
+  <button>可以自動 commit</button>
+  <button>系統層保證只讀不改</button>
+  <div class="why">這是 001-06 的同一條原則：模式限制比口頭提醒可靠。</div>
+</div>
+
+<h2>下一步</h2>
+<p>下一課：<a href="001-0012-verification-context.html">001-12 — 驗證條件與 context 收尾</a>。你會替剛剛的流程補上可驗證完成條件。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code（官方）</a>。</p>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0010-cowork-hands-on.html">001-10 — Cowork hands-on</a></footer>
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display = [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>001-16：MCP — 把外部工具接進 Claude Code</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #c2571a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #c2571a; }
+  code, pre { background: #f4f0ec; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #b04a12; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #faf3ee; }
+  .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .safety { background: #fbeaea; border-left: 4px solid #c62828; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .tip { background: #faf3ee; border-left: 4px solid #c2571a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #c2571a; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #faf3ee; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Lesson 001-16 · 約 30 分鐘 · 進階實作課</div>
+<h1>MCP — 把外部工具接進 Claude Code</h1>
+<p class="mission">任務目標：理解 MCP 的定位與風險，連接第一個對你工作真正有用的 MCP server（如 GitHub/Jira/Notion/資料庫），並完成一個「跨系統」任務。</p>
+
+<h2>MCP 解決什麼問題</h2>
+<p><strong>訊號：你發現自己在把別的系統的資料複製貼上進對話</strong>（issue 內容、監控數據、設計稿連結…）。MCP（Model Context Protocol）是開放標準，讓 Claude 直接讀取並操作那些系統（<a href="https://code.claude.com/docs/en/mcp">官方文件</a>）。接上之後可以說：</p>
+<pre>「實作 JIRA ENG-4521 描述的功能並開 PR」
+「查 PostgreSQL，找出用過這功能的 10 個使用者的 email」</pre>
+<div class="tip">先想一下你是否已經有更簡單的路：官方 best practices 提過 <strong>CLI 工具往往比 MCP 更省 context</strong> — GitHub 用 <code>gh</code> CLI 就很夠。MCP 的價值在沒有好 CLI 的系統（Jira、Notion、Figma、內部 API）。</div>
+
+<h2>接法與範圍</h2>
+<p>三種 transport：<strong>http</strong>（遠端服務，支援 OAuth，最常見）、<strong>sse</strong>、<strong>stdio</strong>（本機程式，適合需要直接存取系統的工具）。</p>
+<pre># 遠端服務（例：Notion）
+claude mcp add --transport http notion https://mcp.notion.com/mcp
+
+# 本機程式（-- 之後是 server 的啟動指令）
+claude mcp add --transport stdio myserver -- npx some-mcp-server</pre>
+<p><code>--scope</code> 決定設定存哪裡：</p>
+<table>
+<tr><th>scope</th><th>存放</th><th>給誰用</th></tr>
+<tr><td><code>local</code>（預設）</td><td>個人設定</td><td>只有你、只在這個專案</td></tr>
+<tr><td><code>project</code></td><td><code>.mcp.json</code>（進版控）</td><td>全隊共享；隊友首次使用需逐一核准</td></tr>
+<tr><td><code>user</code></td><td>個人設定</td><td>你的所有專案</td></tr>
+</table>
+<p>session 內用 <code>/mcp</code> 檢視連線狀態、完成 OAuth 認證。可瀏覽 <a href="https://claude.ai/directory">Anthropic Directory</a> 找官方審核過的 connector。</p>
+
+<h2>安全：這課最重要的一段</h2>
+<div class="safety">
+<strong>兩個風險（官方明確警告）：</strong>
+<ol style="margin:.4rem 0 0">
+  <li><strong>信任問題</strong> — MCP server 是第三方程式碼，能存取你給它的一切。連接前確認來源可信（優先選官方或 Directory 審核過的）。</li>
+  <li><strong>Prompt injection</strong> — 會抓取外部內容的 server（網頁、issue、email）可能把惡意指令帶進對話。例如一張 Jira ticket 的描述裡藏著「順便把 .env 寄到…」。對策：對外部內容觸發的動作保持逐項批准（你的 default 模式在這裡再次發揮作用），並用 001-07 的 deny 規則保護敏感檔案。</li>
+</ol>
+正式專案接 project scope 的 server，跟 hooks 一樣走 PR review。
+</div>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 挑一個真的會用的 server</label>
+  <p>問自己：「我最常複製貼上哪個系統的資料給 Claude？」那就是答案。先到 <a href="https://claude.ai/directory">Directory</a> 或該服務官方文件確認有 MCP server。若答案是 GitHub → 考慮直接用 <code>gh</code> CLI 就好，挑第二名。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 連接並認證</label>
+  <p>用 <code>claude mcp add</code>（先用預設 local scope 自己試），然後在 session 裡 <code>/mcp</code> 完成 OAuth、確認連線成功與工具數量。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 跑一個跨系統任務</label>
+  <p>例：「讀 [工單系統] 裡的 XX-123，總結需求並在 repo 裡找出相關檔案」。觀察它呼叫了哪些 MCP 工具、每次呼叫前的權限請求長什麼樣。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 體驗一次 injection 防線</label>
+  <p>留意：當任務內容來自外部（ticket、網頁）時，它提出的每個動作你是否都看得出「為什麼需要」？看不出來的就拒絕並追問 — 這就是 prompt injection 的日常防禦。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5.（選做）升級成團隊共享</label>
+  <p>確認有價值後改用 <code>--scope project</code> 寫進 <code>.mcp.json</code>，走 PR。</p>
+</div>
+
+<div class="done-banner" id="done">
+  🎉 <strong>你的 Claude Code 現在連著真實世界了。</strong>回對話視窗回報：接了哪個 server？跨系統任務順嗎？
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="1">
+  <p>1. 想讓 Claude 操作 GitHub（開 PR、讀 issue），官方建議優先？</p>
+  <button>接 GitHub 的 MCP server 取得完整功能</button>
+  <button>用 gh CLI，更省 context 且 Claude 本來就會用</button>
+  <button>請 Claude 直接呼叫 GitHub 的 REST API</button>
+  <div class="why">有好用 CLI 的服務優先用 CLI（best practices 原文）。MCP 留給沒有好 CLI 的系統。未認證的 REST API 容易撞 rate limit。</div>
+</div>
+
+<div class="quiz" data-answer="2">
+  <p>2. Jira ticket 描述裡藏了惡意指令，最後一道擋住它的防線是？</p>
+  <button>只連接官方審核過的 MCP server</button>
+  <button>在 CLAUDE.md 寫明不要執行可疑指令</button>
+  <button>逐項批准模式加上敏感路徑的 deny 規則</button>
+  <div class="why">審核過的 server 擋不住「內容」本身藏指令；CLAUDE.md 是指引。最後防線是系統層：你逐項批准 + deny 規則硬擋敏感資源（001-07 的閘門在此再度出場）。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>3.（複習 001-15）「每週產 release notes 的固定流程」vs「讓 Claude 能讀 Jira」，分別用？</p>
+  <button>前者 skill，後者 MCP</button>
+  <button>前者 MCP，後者 skill</button>
+  <button>兩者都可以用 hook 解決</button>
+  <div class="why">（間隔複習）skill = 打包「流程」；MCP = 接通「資料與工具」。兩者常合用：skill 的步驟裡呼叫 MCP 工具。</div>
+</div>
+
+<h2>下一步</h2>
+<p>完成後回對話視窗回報。下一課：<a href="001-0017-subagents-context.html">001-17 — Subagents：調查與 context 隔離</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/mcp">Connect Claude Code to tools via MCP（官方）</a>；第一次接建議照 <a href="https://code.claude.com/docs/en/mcp-quickstart">MCP quickstart</a> 走。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  上一課：<a href="001-0015-skills.html">001-15 — Skills</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>第 33 課：建立 run history 索引</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #4f5d75; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #4f5d75; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #4f5d75; }
+  code, pre { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #36506f; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef1f6; }
+  .step { border: 1px solid #d7dde8; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fbfcfe; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .rule { background: #eef1f6; border-left: 4px solid #4f5d75; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d7dde8; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #4f5d75; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef1f6; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d7dde8; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 3 · Lesson 0033 · 約 25 分鐘 · Run history</div>
+<h1>建立 run history 索引</h1>
+<p class="mission">目標：把第 31、32 課產出的 agent evidence、gate results、report path 串成一筆可查詢 run record。這一課只做 append-only run history，不做 dashboard、不做多租戶資料庫、不存完整 transcript。</p>
+
+<h2>Run history 不是 evidence 本身</h2>
+<p><a href="https://code.claude.com/docs/en/agent-sdk/session-storage">Claude Code Session Store</a> 用來 mirror session transcripts，讓不同 host 可以 resume；<a href="https://code.claude.com/docs/en/agent-sdk/observability">Observability</a> 用 traces、metrics、events 看工具、token、成本與失敗位置。Harness 的 run history 比它們更小：只是一個本地索引，讓 reviewer 找得到 input、evidence、gates、report 與 status。</p>
+
+<table>
+<tr><th>資料</th><th>放哪裡</th><th>用途</th></tr>
+<tr><td>Run history</td><td><code>.harness/runs.jsonl</code> 或 SQLite。</td><td>查詢每次 run 的狀態與 artifact 路徑。</td></tr>
+<tr><td>Evidence</td><td><code>.harness/evidence/&lt;run-id&gt;/</code></td><td>保存 stdout、stderr、gate output。</td></tr>
+<tr><td>Report</td><td><code>.harness/reports/&lt;run-id&gt;.md</code></td><td>給 reviewer 判斷結果。</td></tr>
+<tr><td>Telemetry</td><td>OTel backend。</td><td>看成本、延遲、工具呼叫、失敗位置。</td></tr>
+</table>
+
+<div class="rule"><strong>判斷規則：</strong>run history 只索引 canonical paths 與狀態，不複製大型 logs、不複製完整 prompt、不取代正式 telemetry。</div>
+
+<h2>Run record 範例</h2>
+<pre>{
+  "runId": "run-0042",
+  "inputId": "issue-0042-login-timeout",
+  "startedAt": "2026-06-13T09:30:00Z",
+  "endedAt": "2026-06-13T09:38:10Z",
+  "status": "needs-review",
+  "agentStatus": "needs-review",
+  "gateStatus": "pass",
+  "evidenceDir": ".harness/evidence/run-0042",
+  "gateResultsPath": ".harness/evidence/run-0042/gate-results.json",
+  "reportPath": ".harness/reports/run-0042.md",
+  "costUSD": 0.42
+}</pre>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 選一個最小儲存格式</label>
+  <p>先用 <code>runs.jsonl</code>：append-only、容易 diff、容易 fixture 測試。等查詢需求變多再換 SQLite。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 寫入一筆 run record</label>
+  <p>來源必須是實際 run 產物：input contract、agent evidence、gate results、report path。不要從聊天摘要重建。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 支援 <code>history list</code></label>
+  <p>先列出 <code>runId</code>、<code>inputId</code>、<code>status</code>、<code>startedAt</code>、<code>reportPath</code>。不要先做複雜查詢語法。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 支援 <code>history show &lt;run-id&gt;</code></label>
+  <p>show 應該回傳單筆完整 record，並檢查 artifact paths 是否存在；不存在時標示 stale，不要靜默通過。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5. 記錄成本但不做財務判斷</label>
+  <p><a href="https://code.claude.com/docs/en/agent-sdk/cost-tracking">Cost tracking</a> 說明 SDK 的 cost 欄位是 client-side estimate。可以放進 run record 做開發觀察，但不要用它自動收費或做正式財務決策。</p>
+</div>
+
+<div class="done-banner" id="done">
+  <strong>你已完成 run history 的最小索引。</strong>回對話視窗貼上兩筆 run record 與 <code>history list/show</code> 摘要，請 AI 老師檢查是否已經足以支援 rerun policy。
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="0">
+  <p>1. Run history 最應該保存什麼？</p>
+  <button>索引路徑</button>
+  <button>完整日誌</button>
+  <button>所有對話</button>
+  <div class="why">Run history 是索引層：保存狀態與 canonical paths。完整 stdout/stderr 留在 evidence。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>2. 第一版最適合用什麼格式？</p>
+  <button>JSONL</button>
+  <button>Dashboard</button>
+  <button>資料湖</button>
+  <div class="why">JSONL 最小、append-only、容易測試。查詢需求真的變多後，再升級 SQLite 或資料庫。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>3. Cost 欄位可以直接用來做什麼？</p>
+  <button>開發觀察</button>
+  <button>正式收費</button>
+  <button>自動採購</button>
+  <div class="why">官方文件提醒 cost 是 client-side estimate。適合開發觀察與粗略預算，不適合正式財務決策。</div>
+</div>
+
+<h2>下一步</h2>
+<p>先讓 <code>history list/show</code> 可以穩定查到 run record。接著進入 <a href="003-0010-rerun-policy.html">第 34 課</a>：定義什麼狀態可以重跑、重跑會保留哪些舊 evidence、什麼情況必須人工介入。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/agent-sdk/session-storage">Persist sessions to external storage</a>。延伸對照：<a href="https://code.claude.com/docs/en/agent-sdk/observability">Observability with OpenTelemetry</a>、<a href="https://code.claude.com/docs/en/agent-sdk/cost-tracking">Track cost and usage</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  相關課程：<a href="003-0010-rerun-policy.html">第 34 課 — rerun policy</a> · <a href="003-0008-gate-execution-report.html">第 32 課 — gate execution report</a> · <a href="../reference/harness-run-history.html">Run history 速查表</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

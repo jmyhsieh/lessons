@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>001-05：CLAUDE.md — 讓它記住你們團隊的規範</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #c2571a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #c2571a; }
+  code, pre { background: #f4f0ec; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #b04a12; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; }
+  th { background: #faf3ee; }
+  .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .tip { background: #faf3ee; border-left: 4px solid #c2571a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #c2571a; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #faf3ee; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Lesson 001-05 · 約 20 分鐘 · 實作課（桌面 App 優先）</div>
+<h1>CLAUDE.md — 讓它記住你們團隊的規範</h1>
+<p class="mission">任務目標：在工作 repo 建立一份 <code>CLAUDE.md</code>，讓 Claude Code 每次 session 自動遵守你們的建置指令、程式風格與專案慣例 — 不用每次重講一遍。</p>
+
+<h2>它是什麼</h2>
+<p>每個 session 都從全新的 context 開始。<code>CLAUDE.md</code> 是放在 repo 根目錄的 markdown 檔，<strong>每次 session 開始時自動完整載入</strong>，等於團隊給 AI 的 onboarding 文件（<a href="https://code.claude.com/docs/en/memory">官方文件</a>）。判斷該不該寫進去的訊號：</p>
+<ul>
+  <li>它第二次犯同一個錯</li>
+  <li>code review 抓到它本該知道的本專案慣例</li>
+  <li>你發現自己每個 session 都在重打同一句說明</li>
+</ul>
+
+<h2>放哪裡、給誰看</h2>
+<table>
+<tr><th>位置</th><th>範圍</th><th>用途</th></tr>
+<tr><td><code>./CLAUDE.md</code></td><td>專案（隨 git 共享給全隊）</td><td>建置/測試指令、架構、命名慣例</td></tr>
+<tr><td><code>./CLAUDE.local.md</code></td><td>專案 · 只有你（加進 <code>.gitignore</code>）</td><td>個人沙箱網址、測試資料</td></tr>
+<tr><td><code>~/.claude/CLAUDE.md</code></td><td>你的所有專案</td><td>個人偏好</td></tr>
+</table>
+<div class="tip"><strong>正式專案提醒：</strong><code>./CLAUDE.md</code> 會進版控、全隊共用 — 提交前讓同事 review，跟一般程式碼一樣走 PR。</div>
+
+<h2>寫得有效的三原則（官方建議）</h2>
+<ul>
+  <li><strong>短</strong>：目標 200 行以內，越長遵守度越差。</li>
+  <li><strong>具體可驗證</strong>：「縮排用 2 空格」優於「格式要乾淨」；「commit 前跑 <code>npm test</code>」優於「記得測試」。</li>
+  <li><strong>不自相矛盾</strong>：兩條規則衝突時它會隨機挑一條。</li>
+</ul>
+<p>注意：CLAUDE.md 是<strong>指引不是強制</strong> — 它是 context，不是程式閘門。必須百分之百擋下的事（例如禁推 main）要用 hooks 或 permission 設定，之後的課會教。</p>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 在工作 repo 的 session 裡執行 <code>/init</code></label>
+  <p>它會分析 codebase，自動產生含建置指令、測試方式、專案慣例的初稿（已有 CLAUDE.md 則建議改進而非覆蓋）。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 審稿並補上它猜不到的東西</label>
+  <p>初稿只包含它能從程式碼推斷的內容。加上只有你們團隊知道的：例如「新 API 一律走 <code>src/api/handlers/</code>」「不要動 legacy 目錄」「PR 標題格式」。記得套用三原則。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 驗證它真的讀到了</label>
+  <p>開新 session，輸入 <code>/memory</code> — 確認你的 CLAUDE.md 出現在已載入清單。再問一個答案寫在 CLAUDE.md 裡的問題，看它答得對不對。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 走正常流程提交</label>
+  <p>開分支、commit、開 PR 讓同事 review（複習 001-04 的三道護欄）。</p>
+</div>
+
+<div class="done-banner" id="done">
+  🎉 <strong>完成！你們 repo 現在有了 AI 的 onboarding 文件。</strong>之後每次它犯「本該知道」的錯，就回來補一條 — CLAUDE.md 是活文件。
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="0">
+  <p>1. 「禁止直接推送 main」這條規定，最可靠的實作方式是？</p>
+  <button>用 hooks 或 permission 設定強制阻擋</button>
+  <button>寫進 CLAUDE.md 讓它每次自動讀到</button>
+  <button>每次開新 session 時口頭提醒它一次</button>
+  <div class="why">CLAUDE.md 是指引（context），不保證百分之百遵守；必須強制的規則要用技術閘門（hooks / permissions）。這是官方文件明確的分工。</div>
+</div>
+
+<div class="quiz" data-answer="2">
+  <p>2. 哪一條最適合寫進團隊共享的 CLAUDE.md？</p>
+  <button>我自己本機沙箱環境的網址與帳號</button>
+  <button>這次任務要修的那個表單驗證 bug</button>
+  <button>commit 前必須先跑 npm run lint</button>
+  <div class="why">共享 CLAUDE.md 放全隊通用、每個 session 都需要的事實。個人環境放 CLAUDE.local.md；單次任務內容直接在對話講即可。</div>
+</div>
+
+<div class="quiz" data-answer="1">
+  <p>3.（複習 001-01）「把這個資料夾的 50 份 PDF 報告彙整成一頁摘要」該用？</p>
+  <button>Claude Code</button>
+  <button>Claude Cowork</button>
+  <button>Claude（claude.ai）</button>
+  <div class="why">（間隔複習）多步驟檔案處理、非程式碼 → Cowork。判斷軸永遠是「它需要碰到什麼」。</div>
+</div>
+
+<h2>下一步</h2>
+<p>完成後回到對話視窗回報 <code>/init</code> 產出的品質。下一課：<a href="001-0006-permission-plan-mode.html">001-06 — 權限模式與 plan mode</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/memory">How Claude remembers your project（官方）</a> — 含 <code>.claude/rules/</code> 進階組織方式與 auto memory。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  上一課：<a href="001-0004-first-safe-code-change.html">001-04 — 第一次讓它改程式碼</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

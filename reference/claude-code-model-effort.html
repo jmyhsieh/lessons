@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Claude Code 模型與推理程度速查表</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #c2571a; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #c2571a; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #faf3ee; }
+  code { background: #f4f0ec; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; }
+  a { color: #b04a12; }
+  .rule { border-left: 4px solid #c2571a; background: #fdfbf9; padding: .8rem 1rem; margin: 1rem 0; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print { body { margin: 1rem auto; } .rule, tr { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Claude Code 模型與推理程度速查表</h1>
+<p class="sub">用任務風險選模型，用不確定性選 effort。</p>
+
+<div class="rule">
+  <strong>核心判斷：</strong>不是一律開最強。先問任務是否需要更深推理，再決定是否提高模型或 effort。
+</div>
+
+<h2>模型 alias</h2>
+<table>
+<tr><th>Alias</th><th>適合任務</th><th>注意事項</th></tr>
+<tr><td><code>sonnet</code></td><td>日常 coding、局部修改、測試可驗證的任務。</td><td>多數工作先從這裡開始。</td></tr>
+<tr><td><code>opus</code></td><td>架構判斷、模糊需求、跨模組推理、困難 review。</td><td>成本與延遲通常較高。</td></tr>
+<tr><td><code>opusplan</code></td><td>先深度規劃，再有效率實作。</td><td>plan mode 用 Opus，執行回 Sonnet。</td></tr>
+<tr><td><code>haiku</code></td><td>簡單整理、格式化、低風險小任務。</td><td>不適合複雜推理。</td></tr>
+<tr><td><code>fable</code></td><td>大型、長時間、自主性高的困難任務。</td><td>不是預設模型，且可用性受方案與環境影響。</td></tr>
+</table>
+
+<h2>Effort levels</h2>
+<table>
+<tr><th>Level</th><th>何時使用</th><th>不要用在</th></tr>
+<tr><td><code>low</code></td><td>短、明確、低風險、重視速度。</td><td>架構或疑難除錯。</td></tr>
+<tr><td><code>medium</code></td><td>想省成本，但仍需要一些判斷。</td><td>高風險改動。</td></tr>
+<tr><td><code>high</code></td><td>多數 coding 任務的基準選擇。</td><td>不需要思考的批次小事。</td></tr>
+<tr><td><code>xhigh</code></td><td>跨檔案推理、設計取捨、困難 bug。</td><td>簡單文案或格式整理。</td></tr>
+<tr><td><code>max</code></td><td>真的困難且有明確 stop condition 的任務。</td><td>長期預設設定。</td></tr>
+<tr><td><code>ultracode</code></td><td>需要 Claude Code 規劃 dynamic workflow 的實質任務。</td><td>Phase 1 初學日常工作。</td></tr>
+</table>
+
+<h2>操作方式</h2>
+<table>
+<tr><th>方式</th><th>用途</th></tr>
+<tr><td><code>/model</code></td><td>開 picker；可選模型，部分模型可用左右鍵調 effort。</td></tr>
+<tr><td><code>/model sonnet</code></td><td>切到指定 alias，並依目前版本行為保存預設。</td></tr>
+<tr><td><code>/effort</code></td><td>開 effort slider。</td></tr>
+<tr><td><code>/effort auto</code></td><td>回到模型預設 effort。</td></tr>
+<tr><td><code>ultrathink</code></td><td>單回合要求更深思考，不改 session effort 設定。</td></tr>
+</table>
+
+<h2>決策句</h2>
+<table>
+<tr><th>任務</th><th>建議</th></tr>
+<tr><td>修 README typo。</td><td><code>sonnet</code> + <code>low</code> 或 <code>medium</code>。</td></tr>
+<tr><td>新增小功能，有測試可跑。</td><td><code>sonnet</code> + <code>high</code>。</td></tr>
+<tr><td>跨模組改 API。</td><td><code>opusplan</code> 或 <code>opus</code> + <code>xhigh</code>。</td></tr>
+<tr><td>疑難 bug、根因不明。</td><td><code>opus</code> + <code>xhigh</code>，必要時單回合 <code>ultrathink</code>。</td></tr>
+<tr><td>長時間自主任務。</td><td>先確認 goal、gate、evidence，再考慮 <code>fable</code> 或較高 effort。</td></tr>
+</table>
+
+<h2>課程路線中的使用位置</h2>
+<table>
+<tr><th>Phase</th><th>重點</th><th>規則</th></tr>
+<tr><td>Phase 1</td><td><code>/model</code>、<code>/effort</code>、<code>opusplan</code> 基本取捨。</td><td>不是越高越好。</td></tr>
+<tr><td>Phase 2</td><td>在 <code>/zoom-out</code>、<code>/grill</code>、<code>/review</code> 判斷何時升高 effort。</td><td>不確定性高才升級。</td></tr>
+<tr><td>Phase 3</td><td><code>/goal</code> 必須接 gate、evidence、stop condition。</td><td>沒有 gate 不設 goal。</td></tr>
+<tr><td>Phase 4</td><td>追蹤成本、限制 <code>max</code>、穩定後降回 <code>high</code>。</td><td>高 effort 是例外。</td></tr>
+</table>
+
+<h2>降級規則</h2>
+<table>
+<tr><th>觀察</th><th>下一次設定</th></tr>
+<tr><td><code>xhigh</code> 沒帶來更清楚的 evidence。</td><td>降回 <code>high</code>。</td></tr>
+<tr><td><code>max</code> 只是在重跑同一個失敗。</td><td>停止，修 goal 或 gate。</td></tr>
+<tr><td>同類任務連續三次在 <code>high</code> 通過。</td><td>移除高 effort 例外。</td></tr>
+</table>
+
+<footer>
+  對應課程：<a href="../lessons/001-0009-model-effort.html">001-09 — /model、/effort、opusplan</a><br>
+  主要來源：<a href="https://code.claude.com/docs/en/model-config">Claude Code Model configuration</a> · <a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a>
+</footer>
+</body>
+</html>

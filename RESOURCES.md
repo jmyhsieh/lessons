@@ -71,6 +71,10 @@
   Benchmark: evaluates prompt-to-app systems by usability, visual quality, completeness, and trust. Use for: why prototype validation needs more than "it generated something."
 - [Guide: "Best practices for Claude Code" — Anthropic](https://code.claude.com/docs/en/best-practices)
   Developer workflow guidance: verification-first, explore-plan-code, commit/PR, subagents, hooks, and parallel sessions. Use for: turning engineering tasks into agent-ready workflows.
+- [Reference: "Commands" — Anthropic](https://code.claude.com/docs/en/commands)
+  Official Claude Code command reference for slash commands such as /plan, /model, /effort, /diff, /compact, /goal, /run, /review, and /permissions. Use for: Phase 1 session-control teaching.
+- [Guide: "Model configuration" — Anthropic](https://code.claude.com/docs/en/model-config)
+  Official Claude Code model and effort configuration guide covering model aliases, /model, /effort, opusplan, effort levels, extended thinking, and extended context. Use for: teaching model/effort decisions.
 - [Guide: "How Claude remembers your project" — Anthropic](https://code.claude.com/docs/en/memory)
   Official Claude Code memory guide for CLAUDE.md, .claude/rules, auto memory, load order, and when instructions should become project memory. Use for: deciding what belongs in repo-level guidance.
 - [Guide: "Claude Code settings" — Anthropic](https://code.claude.com/docs/en/settings)

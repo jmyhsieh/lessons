@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-This repository is a static HTML learning site. The root contains the entry pages: `index.html` for the cover and `toc.html` for the lesson table of contents. Lesson pages live in `lessons/` and use zero-padded numeric filenames such as `lessons/0001-three-claudes.html`. Printable or reusable reference material lives in `reference/`, for example `reference/claude-product-picker.html`. Durable images and diagrams live in `assets/`. There is no separate source/build output split; edit the checked-in HTML directly.
+This repository is a static HTML learning site. The root contains the entry pages: `index.html` for the cover and `toc.html` for the lesson table of contents. Lesson pages live in `lessons/` and use phase-prefixed, zero-padded numeric filenames such as `lessons/001-0001-three-claudes.html`. Printable or reusable reference material lives in `reference/`, for example `reference/claude-product-picker.html`. Durable images and diagrams live in `assets/`. There is no separate source/build output split; edit the checked-in HTML directly.
 
 ## Build, Test, and Development Commands
 
@@ -23,7 +23,7 @@ git status --short
 
 ## Coding Style & Naming Conventions
 
-Keep pages as standalone HTML documents with embedded CSS, matching the existing pattern. Use `lang="zh-Hant"` for Chinese learning content and keep visible course prose in Traditional Chinese unless a task explicitly asks otherwise. Preserve the current indentation style: two spaces inside CSS blocks where already used, compact HTML for table-heavy pages, and readable spacing around major sections. New lessons should follow `lessons/NNNN-short-slug.html`; update `toc.html` whenever the lesson list changes.
+Keep pages as standalone HTML documents with embedded CSS, matching the existing pattern. Use `lang="zh-Hant"` for Chinese learning content and keep visible course prose in Traditional Chinese unless a task explicitly asks otherwise. Preserve the current indentation style: two spaces inside CSS blocks where already used, compact HTML for table-heavy pages, and readable spacing around major sections. New lessons should follow `lessons/PPP-NNNN-short-slug.html`, where `PPP` is the phase number and `NNNN` is the phase-local lesson number; update `toc.html` whenever the lesson list changes.
 
 ## Testing Guidelines
 

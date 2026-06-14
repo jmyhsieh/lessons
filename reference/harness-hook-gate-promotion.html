@@ -40,6 +40,15 @@
 <tr><td>可回退</td><td>有 rollback 條件與 owner。</td></tr>
 </table>
 
+<h2>Effort policy checklist</h2>
+<table>
+<tr><th>規則</th><th>適合層級</th></tr>
+<tr><td><code>max</code> 只允許人工確認的高風險 review。</td><td>review checklist / settings policy。</td></tr>
+<tr><td>Unattended runner 不允許 <code>max</code>。</td><td>runner gate。</td></tr>
+<tr><td><code>xhigh</code> 需要 reason 與 evidence path。</td><td>report gate。</td></tr>
+<tr><td>任務穩定後降回 <code>high</code>。</td><td>contract cleanup。</td></tr>
+</table>
+
 <h2>Hook or gate?</h2>
 <table>
 <tr><th>機制</th><th>適合時點</th><th>例子</th></tr>
@@ -55,12 +64,13 @@
   deterministicSignal:
   falsePositiveRisk:
   failureMessage:
+  effortPolicy:
   rolloutMode:
   rollback:</pre>
 
 <footer>
   索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
-  對應課程：<a href="../lessons/0044-hook-gate-promotion.html">第 44 課 — hook / gate promotion</a> · <a href="../lessons/0043-template-promotion.html">第 43 課 — template promotion</a><br>
+  對應課程：<a href="../lessons/004-0004-hook-gate-promotion.html">第 44 課 — hook / gate promotion</a> · <a href="../lessons/004-0003-template-promotion.html">第 43 課 — template promotion</a><br>
   主要來源：<a href="https://code.claude.com/docs/en/hooks">Hooks reference</a> · <a href="https://code.claude.com/docs/en/settings">Claude Code settings</a>
 </footer>
 </body>

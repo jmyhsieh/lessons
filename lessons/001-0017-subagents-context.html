@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>001-17：Subagents：調查與 context 隔離</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #c2571a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #c2571a; }
+  code, pre { background: #f4f0ec; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #b04a12; }
+  .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .tip { background: #faf3ee; border-left: 4px solid #c2571a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #faf3ee; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Lesson 001-17 · 約 15 分鐘 · Context 隔離</div>
+<h1>Subagents：調查與 context 隔離</h1>
+<p class="mission">任務目標：知道什麼時候把調查交給 subagent，避免主對話被大量檔案與探索過程塞滿。</p>
+
+<h2>為什麼需要 subagent</h2>
+<p>調查一個子系統常會讀很多檔案；如果全部塞進主對話，後續實作就容易變慢、變亂。subagent 在自己的 context 裡探索，主對話只收摘要。</p>
+<pre>主對話：用 subagent 調查 token refresh 流程。
+subagent：在獨立 context 讀檔與整理。
+主對話：只收到結論、檔案依據與風險。</pre>
+<div class="tip">判斷句：如果任務只是「為主任務蒐集資訊」，先想 subagent；如果它要獨立改檔，改用 worktree session。</div>
+
+<h2>實作步驟（做完打勾）</h2>
+<div class="step">
+  <label><input type="checkbox"> 1. 選一個你不熟的子系統</label>
+  <p>例如 auth、billing、cache、routing。不要選整個 repo。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 2. 明確委派調查</label>
+  <pre>Use a subagent to investigate how [子系統] works.
+Return only: summary, key files, risks, open questions.</pre>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 3. 驗證摘要</label>
+  <p>抽查它列出的 2–3 個 key files，確認摘要不是空泛推論。</p>
+</div>
+
+<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經用 subagent 保護主對話 context。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="2">
+  <p>1. 調查會讀大量檔案時，不用 subagent 的主要代價是？</p>
+  <button>權限請求比較多</button>
+  <button>模型一定變便宜</button>
+  <button>主對話 context 被塞滿</button>
+  <div class="why">subagent 的核心價值是 context 隔離。</div>
+</div>
+<div class="quiz" data-answer="0">
+  <p>2. 子任務只需要回報摘要，不改檔，適合？</p>
+  <button>subagent</button>
+  <button>worktree session</button>
+  <button>CI job</button>
+  <div class="why">調查與摘要是 subagent 的典型場景。</div>
+</div>
+
+<h2>下一步</h2>
+<p>下一課：<a href="001-0018-custom-subagent-review.html">001-18 — Custom subagent 與獨立 review</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/sub-agents">Create custom subagents（官方）</a>。</p>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0016-mcp.html">001-16 — MCP</a></footer>
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display = [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

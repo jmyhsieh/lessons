@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>第 32 課：執行 gates 與產出最小 report</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #4f5d75; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #4f5d75; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #4f5d75; }
+  code, pre { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #36506f; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef1f6; }
+  .step { border: 1px solid #d7dde8; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fbfcfe; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .rule { background: #eef1f6; border-left: 4px solid #4f5d75; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d7dde8; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #4f5d75; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef1f6; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d7dde8; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 3 · Lesson 0032 · 約 25 分鐘 · Gate execution</div>
+<h1>執行 gates 與產出最小 report</h1>
+<p class="mission">目標：把第 31 課留下的 agent evidence 接到第 27 課設計好的 gates。這一課只跑 deterministic gates、寫 gate results、產出最小 report；不做 batch、不做 scheduler、不讓模型自評通過。</p>
+
+<h2>Gate 是收工判斷，不是建議</h2>
+<p><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a> 建議提供測試、build、screenshot comparison 等可執行檢查，讓 Claude 能讀到 pass/fail 訊號。Harness 的 gate layer 要把這件事從 prompt 變成 runner 可以重跑的 code。</p>
+<p><a href="https://code.claude.com/docs/en/hooks">Hooks reference</a> 也把 hook event、tool result、decision control 與 blocking behavior 寫成結構化規則。你可以先在 runner 內執行 gates；等規則穩定後，再考慮把其中一部分變成 Claude Code hooks。</p>
+
+<h2>Gate runner 只做四件事</h2>
+<table>
+<tr><th>段落</th><th>輸入</th><th>輸出</th></tr>
+<tr><td>Load</td><td><code>agent.stdout.json</code>、<code>exit.json</code>、gate plan。</td><td>可執行的 gate list。</td></tr>
+<tr><td>Execute</td><td>allowlisted command、cwd、timeout。</td><td>stdout、stderr、exit code。</td></tr>
+<tr><td>Classify</td><td>command result、agent status。</td><td>pass、fail、blocked、needs-review。</td></tr>
+<tr><td>Report</td><td>gate results、evidence paths。</td><td>最小 markdown report。</td></tr>
+</table>
+
+<div class="rule"><strong>判斷規則：</strong>只有 deterministic code 可以把 gate 標成 pass。模型摘要、口頭保證、沒有 artifact 的「看起來可以」都只能是 needs-review。</div>
+
+<h2>Gate report 要回扣 goal</h2>
+<p>若第 27 或 29 課已定義 <code>Goal condition</code>，gate report 不能只列測試結果，還要說明 goal 是否達成、是否需要繼續跑、是否應降級為人工 review。這讓 <code>/goal</code> 不會變成無限迭代。</p>
+<table>
+<tr><th>Goal 狀態</th><th>Runner decision</th></tr>
+<tr><td>所有 gates pass，evidence 完整。</td><td><code>goal-met</code>，進入 review / handoff。</td></tr>
+<tr><td>gate fail，但 failure 明確且仍在 scope。</td><td><code>continue-once</code>，可允許下一輪修正。</td></tr>
+<tr><td>同一 gate 重複失敗或超出 scope。</td><td><code>stop</code>，不要再讓 goal 自動推進。</td></tr>
+<tr><td>需要人類判斷。</td><td><code>needs-review</code>，停止自動迭代。</td></tr>
+</table>
+
+<h2>Gate result 範例</h2>
+<pre>{
+  "runId": "run-0042",
+  "agentStatus": "needs-review",
+  "gates": [
+    {
+      "id": "unit-auth",
+      "command": "npm test -- auth",
+      "cwd": ".",
+      "timeoutSeconds": 120,
+      "exitCode": 0,
+      "status": "pass",
+      "stdoutPath": ".harness/evidence/run-0042/gates/unit-auth.stdout.txt",
+      "stderrPath": ".harness/evidence/run-0042/gates/unit-auth.stderr.txt"
+    }
+  ],
+  "goalStatus": "needs-review",
+  "overallStatus": "needs-review"
+}</pre>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 從 input contract 讀 gate plan</label>
+  <p>Gate plan 應該來自第 26、27 課的 issue / brief，不要從 agent 輸出臨時猜測。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 只執行 allowlisted commands</label>
+  <p>先支援 <code>npm test -- auth</code> 這種明確命令。沒有在清單內、需要 credential、或會寫外部系統的 command，先標成 <code>blocked</code>。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 每個 gate 都寫 evidence</label>
+  <p>每個 command result 至少要有 command、cwd、timeout、exit code、stdout path、stderr path。Report 不塞完整 log，只連到 artifact。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 套用 status precedence</label>
+  <p>最小規則：任何 gate blocked → overall blocked；任何 gate fail → overall fail；agent 還沒 review → needs-review；全部 pass 且無未驗證項目 → passed。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5. 產出最小 report</label>
+  <p>Report 只需要 status、scope、agent evidence、gate table、goal status、unverified items、next step。漂亮版面可以晚點做。</p>
+</div>
+
+<div class="done-banner" id="done">
+  <strong>你已完成 gate execution 切片。</strong>回對話視窗貼上 <code>gate-results.json</code> 與最小 report 摘要，請 AI 老師檢查 status precedence 是否合理。
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="0">
+  <p>1. Gate layer 的主要責任是什麼？</p>
+  <button>判斷收工</button>
+  <button>增加排程</button>
+  <button>美化報表</button>
+  <div class="why">Gate 是收工判斷。它要用可重跑 evidence 判斷 pass/fail，而不是讓模型自己說完成。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>2. Gate command 結果最少要存什麼？</p>
+  <button>命令結果</button>
+  <button>版面美感</button>
+  <button>主觀信心</button>
+  <div class="why">最少要存 command、cwd、timeout、exit code、stdout/stderr path，讓 reviewer 能回看。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>3. Gate failed 時 report 不能寫什麼？</p>
+  <button>已經通過</button>
+  <button>失敗原因</button>
+  <button>證據路徑</button>
+  <div class="why">失敗時要誠實標示 fail 或 blocked。Report 可以寫原因與證據路徑，但不能說已通過。</div>
+</div>
+
+<div class="quiz" data-answer="1">
+  <p>4. 同一 gate 重複失敗時，goal 應該？</p>
+  <button>繼續無限跑</button>
+  <button>停止回報</button>
+  <button>隱藏失敗</button>
+  <div class="why">重複失敗代表需要人類判斷或修正 goal/gate，不應讓 goal 迭代無限延伸。</div>
+</div>
+
+<h2>下一步</h2>
+<p>先讓單一 run 的 gates 與最小 report 穩定。接著進入 <a href="003-0009-run-history-index.html">第 33 課</a>：把每次 run 的 input、agent evidence、gate results、report path 連成可查詢的紀錄。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a>。延伸對照：<a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>、<a href="../reference/harness-gate-execution-report.html">Gate execution 速查表</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  相關課程：<a href="003-0009-run-history-index.html">第 33 課 — run history</a> · <a href="003-0007-agent-call-evidence.html">第 31 課 — agent call evidence</a> · <a href="003-0003-gates-evidence.html">第 27 課 — gates 與 evidence</a> · <a href="../reference/harness-gate-execution-report.html">Gate execution 速查表</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

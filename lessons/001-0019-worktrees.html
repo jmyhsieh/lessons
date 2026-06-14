@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>001-19：Worktrees：平行 session 隔離</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #c2571a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #c2571a; }
+  code, pre { background: #f4f0ec; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #b04a12; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #faf3ee; }
+  .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .tip { background: #faf3ee; border-left: 4px solid #c2571a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #faf3ee; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Lesson 001-19 · 約 15 分鐘 · 平行隔離</div>
+<h1>Worktrees：平行 session 隔離</h1>
+<p class="mission">任務目標：理解 worktree 如何讓多個 Claude Code session 同時改不同分支而不互踩。</p>
+
+<h2>worktree 解決什麼</h2>
+<p>git worktree 是同一個 repo 的另一個工作目錄：自己的檔案、自己的分支、共用同一份歷史。</p>
+<table>
+<tr><th>機制</th><th>隔離什麼</th><th>適合</th></tr>
+<tr><td>subagent</td><td>context</td><td>調查、review。</td></tr>
+<tr><td>worktree session</td><td>檔案修改</td><td>同時做多個獨立任務。</td></tr>
+</table>
+<div class="tip">桌面 App 的新 session 會自動使用隔離工作區；CLI 可用 <code>claude --worktree feature-auth</code>。</div>
+
+<h2>實作步驟（做完打勾）</h2>
+<div class="step">
+  <label><input type="checkbox"> 1. 確認忽略目錄</label>
+  <p>把 <code>.claude/worktrees/</code> 加到 <code>.gitignore</code>。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 2. 開兩個 session</label>
+  <p>一個做小功能、一個修小 bug。確認兩邊各自有分支與變更。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 3. 各自收尾</label>
+  <p>兩邊都照既有流程：看 diff、驗證、commit、PR。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 4. 清理</label>
+  <p>用 <code>git worktree list</code> 確認沒有不需要的 worktree。</p>
+</div>
+
+<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經能安全平行開多個 session。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="2">
+  <p>1. 同時做 feature A 與 bugfix B，適合？</p>
+  <button>同一 session 交錯做</button>
+  <button>同一 subagent 改兩邊</button>
+  <button>兩個 worktree session</button>
+  <div class="why">獨立任務需要檔案隔離，不只是 context 隔離。</div>
+</div>
+<div class="quiz" data-answer="0">
+  <p>2. 新 worktree 跑不起來，常見原因是？</p>
+  <button>gitignored 設定或依賴不在新 checkout</button>
+  <button>同一 repo 不能有兩個資料夾</button>
+  <button>Claude Code 不支援 git</button>
+  <div class="why">worktree 是新 checkout，.env、node_modules 這類通常要另處理。</div>
+</div>
+
+<h2>下一步</h2>
+<p>下一課：<a href="001-0020-writer-reviewer-session.html">001-20 — Writer / Reviewer 雙 session</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/worktrees">Run parallel sessions with worktrees（官方）</a>。</p>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0018-custom-subagent-review.html">001-18 — Custom subagent review</a></footer>
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display = [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

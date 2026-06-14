@@ -36,6 +36,7 @@
 <tr><td><code>contract</code></td><td>檔案或 gate 名稱。</td></tr>
 <tr><td><code>owner</code></td><td>誰負責維護或判斷。</td></tr>
 <tr><td><code>lastEvidence</code></td><td>最近一次使用或有效性 evidence。</td></tr>
+<tr><td><code>effortException</code></td><td>是否允許 <code>xhigh</code>/<code>max</code>，以及最近一次 reason。</td></tr>
 <tr><td><code>decision</code></td><td>keep、merge、move、retire。</td></tr>
 <tr><td><code>nextReview</code></td><td>下次檢查時點。</td></tr>
 </table>
@@ -49,6 +50,14 @@
 <tr><td>Retire</td><td>過時、無 evidence、常被跳過、已被取代。</td><td>留下 reason、replacement、rollback。</td></tr>
 </table>
 
+<h2>Effort cleanup</h2>
+<table>
+<tr><th>觀察</th><th>處理方式</th></tr>
+<tr><td>任務已可用 <code>high</code> 穩定完成。</td><td>移除 <code>xhigh</code>/<code>max</code> 例外。</td></tr>
+<tr><td><code>max</code> 沒有改善 evidence。</td><td>降回 <code>high</code>，修 input/gate。</td></tr>
+<tr><td>高 effort 例外沒有 owner。</td><td>retire 或補 owner 與 next review。</td></tr>
+</table>
+
 <h2>Retirement template</h2>
 <pre>contractCleanup:
   contract:
@@ -60,7 +69,7 @@
 
 <footer>
   索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
-  對應課程：<a href="../lessons/0045-contract-retirement.html">第 45 課 — contract cleanup</a> · <a href="../lessons/0044-hook-gate-promotion.html">第 44 課 — hook / gate promotion</a>
+  對應課程：<a href="../lessons/004-0005-contract-retirement.html">第 45 課 — contract cleanup</a> · <a href="../lessons/004-0004-hook-gate-promotion.html">第 44 課 — hook / gate promotion</a>
 </footer>
 </body>
 </html>

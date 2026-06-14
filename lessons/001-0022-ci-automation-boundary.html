@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>001-22：CI：allowedTools、報告與營運邊界</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #c2571a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #c2571a; }
+  code, pre { background: #f4f0ec; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #b04a12; }
+  .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .safety { background: #fbeaea; border-left: 4px solid #c62828; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #faf3ee; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Lesson 001-22 · 約 20 分鐘 · CI 邊界</div>
+<h1>CI：allowedTools、報告與營運邊界</h1>
+<p class="mission">任務目標：評估什麼 headless 任務可以放進 CI，並用最小權限、穩定輸出與成本紀錄包住它。</p>
+
+<div class="safety"><strong>沒有人在場 = 權限設計取代你的眼睛。</strong>CI 裡先做唯讀摘要、diff review、文件檢查；會寫檔、會 push、會修改環境的任務不要直接無人值守。</div>
+
+<h2>CI 任務的三個條件</h2>
+<ul>
+  <li><strong>最小權限：</strong><code>--allowedTools</code> 只給需要的工具；能從 stdin 餵資料就不給工具。</li>
+  <li><strong>穩定輸出：</strong>要求固定格式，必要時用 <code>--output-format json</code>。</li>
+  <li><strong>可營運：</strong>記錄成本、時間、失敗率與誤報率。</li>
+</ul>
+
+<h2>安全 diff review 範例</h2>
+<pre>git diff main |
+claude --bare -p "Review this diff for risky production config changes.
+Return only filename:line and reason. Return empty output if none."</pre>
+<p>這個設計沒有給 Claude git 權限；diff 已經從管線餵進去。</p>
+
+<h2>實作步驟（做完打勾）</h2>
+<div class="step">
+  <label><input type="checkbox"> 1. 選一個唯讀 CI 候選</label>
+  <p>例如 typo linter、dangerous config review、release note 摘要。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 2. 寫明 allowedTools</label>
+  <p>能不用工具就不用；真的需要也只列最小集合。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 3. 測三種輸入</label>
+  <p>正常 diff、有問題 diff、空 diff。輸出都要穩定。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 4. 決定 report 形狀</label>
+  <p>CI log、PR comment、artifact 或 JSON 檔。要讓人能判斷是否採納。</p>
+</div>
+
+<div class="done-banner" id="done">🎉 <strong>Phase 1 完成！</strong>你已經從產品選擇一路走到基本自動化邊界。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="0">
+  <p>1. CI 裡要讀 diff，較安全的做法是？</p>
+  <button>用管線餵 diff，不授予 git 權限</button>
+  <button>給完整 Bash 權限讓它自己處理</button>
+  <button>讓它直接 push 修正</button>
+  <div class="why">能用資料輸入解決，就不要給工具權限。</div>
+</div>
+<div class="quiz" data-answer="2">
+  <p>2. headless 任務進 CI 前，最不該忽略的是？</p>
+  <button>把 prompt 寫得比較有禮貌</button>
+  <button>把模型永遠設成 max</button>
+  <button>權限、輸出格式與成本紀錄</button>
+  <div class="why">CI 是營運介面，不只是一次命令能跑。</div>
+</div>
+
+<h2>下一步</h2>
+<p>完成後進入 Phase 2：<a href="002-0001-matt-pocock-skills-foundation.html">002-01 — mattpocock/skills 入門</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/github-actions">Claude Code GitHub Actions（官方）</a>、<a href="https://code.claude.com/docs/en/headless">Run Claude Code programmatically（官方）</a>。</p>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0021-headless-one-shot.html">001-21 — Headless one-shot</a></footer>
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display = [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

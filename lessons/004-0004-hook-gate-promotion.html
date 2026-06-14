@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>第 44 課：判斷何時升級成 hook / gate</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #4f5d75; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #4f5d75; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #4f5d75; }
+  code, pre { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #36506f; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef1f6; }
+  .step { border: 1px solid #d7dde8; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fbfcfe; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .rule { background: #eef1f6; border-left: 4px solid #4f5d75; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d7dde8; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #4f5d75; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef1f6; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d7dde8; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 4 · Lesson 0044 · 約 25 分鐘 · Hook / gate promotion</div>
+<h1>判斷何時升級成 hook / gate</h1>
+<p class="mission">目標：判斷一條 contract 是否已穩定到可以升級成 Claude Code hook 或 runner gate。這一課產出 promotion spec，不急著實作 hook。</p>
+
+<h2>強制化要比提醒更嚴格</h2>
+<p><a href="https://code.claude.com/docs/en/hooks">Claude Code hooks</a> 可在工具使用前後執行自訂 command；runner gate 也可以在收工前判定 pass/fail。這些機制能提供保證，但也會放大誤判成本。</p>
+<p>因此，只有當規則低誤判、可機械判定、失敗時有明確修正方式，且錯過會造成實際風險時，才值得升級成 hook 或 gate。仍需要語境判斷的規則，留在 template、checklist 或 review loop。</p>
+
+<h2>Promotion ladder</h2>
+<table>
+<tr><th>層級</th><th>用途</th><th>例子</th></tr>
+<tr><td>Reminder</td><td>提醒 agent 或人類注意。</td><td>CLAUDE.md 中的工作慣例。</td></tr>
+<tr><td>Template</td><td>讓必要欄位提早出現。</td><td>issue template 的 evidence 欄。</td></tr>
+<tr><td>Review checklist</td><td>由 reviewer 判斷是否合格。</td><td>handoff 是否列出未驗證項目。</td></tr>
+<tr><td>Runner gate</td><td>收工前自動判斷 pass/fail。</td><td>link check、unit tests、schema validation。</td></tr>
+<tr><td>Hook</td><td>在工具使用時點攔截或記錄。</td><td>阻擋危險 git command、要求特定檔案不可直接改。</td></tr>
+</table>
+
+<div class="rule"><strong>判斷規則：</strong>如果你無法用一句話說明「失敗 signal 是什麼、修正方式是什麼」，就不要升級成 hook/gate。</div>
+
+<h2>Effort 也可以被治理</h2>
+<p>Phase 4 的 hook/gate 不只治理檔案和命令，也可以治理模型成本。不要禁止高 effort，而是把它變成有條件、可回看的例外：誰允許、為什麼、對應哪個 gate、下一次何時降回 <code>high</code>。</p>
+<table>
+<tr><th>規則</th><th>適合層級</th></tr>
+<tr><td><code>max</code> 只允許在已標記 high-risk review 的 session。</td><td>review checklist 或 settings policy。</td></tr>
+<tr><td>Unattended runner 不允許 <code>max</code>。</td><td>runner gate。</td></tr>
+<tr><td>連續三次 <code>xhigh</code> 仍 blocked，停止自動迭代。</td><td>runner gate。</td></tr>
+<tr><td>任務完成後 effort 自動回到 <code>high</code>。</td><td>team practice 或 settings review。</td></tr>
+</table>
+
+<h2>Promotion spec 範例</h2>
+<pre>hookGatePromotion:
+  sourceContract: PR template requires link-check evidence
+  candidateType: runner-gate
+  deterministicSignal: command exits non-zero when links are broken
+  falsePositiveRisk: low
+  failureMessage: "Run pnpm link-check and attach artifact path."
+  effortPolicy: max is not allowed for unattended runs; xhigh requires reason
+  rolloutMode: warn-only for 2 weeks
+  rollback: remove gate if more than 2 valid exceptions in 5 runs</pre>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 從 template 或 effectiveness log 選 candidate</label>
+  <p>只選多次出現、結果明確、且錯過會造成風險的 contract。不要把所有 checklist 都強制化。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 寫出 deterministic signal</label>
+  <p>例如 command exit code、schema validation、檔案存在、禁止指令。若只能靠人類讀懂，就先留在 review。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 選 hook 或 runner gate</label>
+  <p>工具使用當下要攔截，就考慮 hook；收工前驗收，就考慮 runner gate。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 設 warn-only rollout</label>
+  <p>先用警告或 report-only 觀察誤判。若是 effort policy，也先記錄哪些任務要求 <code>xhigh</code>/<code>max</code>，不要第一天就阻擋所有人。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5. 寫 rollback 條件</label>
+  <p>例如「五次內出現兩次合理例外就退回 checklist」。強制規則也要能撤回。</p>
+</div>
+
+<div class="done-banner" id="done">
+  <strong>你已完成 hook/gate promotion spec。</strong>回對話視窗貼上 spec，請 AI 老師檢查是否真的低誤判、可機械判定。
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="1">
+  <p>1. 最適合升級成 gate 的規則是？</p>
+  <button>需要 reviewer 判斷語氣</button>
+  <button>可由 command 明確 pass/fail</button>
+  <button>只出現過一次</button>
+  <div class="why">gate 需要可機械判定的 pass/fail。仍需人類語境判斷的規則不適合強制化。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>2. Hook/gate 初次推出時，建議先？</p>
+  <button>warn-only</button>
+  <button>立即阻擋所有流程</button>
+  <button>不留紀錄</button>
+  <div class="why">warn-only 或 report-only 能先觀察誤判與例外，再決定是否強制。</div>
+</div>
+
+<div class="quiz" data-answer="2">
+  <p>3. 需要在工具使用當下攔截，較適合？</p>
+  <button>handoff template</button>
+  <button>review note</button>
+  <button>hook</button>
+  <div class="why">hook 的價值是在工具使用前後執行檢查或攔截。收工驗收則偏向 runner gate。</div>
+</div>
+
+<div class="quiz" data-answer="1">
+  <p>4. 哪個 effort 規則適合 unattended runner？</p>
+  <button>預設 max</button>
+  <button>禁止 max</button>
+  <button>不留紀錄</button>
+  <div class="why">Unattended runner 應保持成本與行為可控；max 只能作為人工審查下的例外，不宜作為預設。</div>
+</div>
+
+<h2>下一步</h2>
+<p>Hook/gate promotion spec 完成後，進入 <a href="004-0005-contract-retirement.html">第 45 課</a>：定期清理已被 template/gate 取代、重複、過時或增加負擔的 contract。</p>
+<p><strong>主要閱讀資源：</strong><a href="../reference/harness-hook-gate-promotion.html">Hook / gate promotion 速查表</a>。延伸對照：<a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>、<a href="https://code.claude.com/docs/en/settings">Claude Code settings</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  相關課程：<a href="004-0003-template-promotion.html">第 43 課 — template promotion</a> · <a href="004-0005-contract-retirement.html">第 45 課 — contract retirement</a> · <a href="../reference/harness-hook-gate-promotion.html">Hook / gate promotion 速查表</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

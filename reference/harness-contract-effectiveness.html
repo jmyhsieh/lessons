@@ -37,6 +37,7 @@
 <tr><td>Review faster</td><td>review note 能直接指到 artifact。</td><td>keep。</td></tr>
 <tr><td>Handoff quality</td><td>下一個 agent 可接手，不需重問背景。</td><td>keep 或 template promotion。</td></tr>
 <tr><td>Noise</td><td>欄位常空白、常被改寫、常出現合理例外。</td><td>revise 或 retire。</td></tr>
+<tr><td>Effort cost</td><td>同類任務是否反覆需要 <code>xhigh</code>/<code>max</code> 或多輪 rerun。</td><td>revise input/gate，或降回 <code>high</code>。</td></tr>
 </table>
 
 <h2>Log template</h2>
@@ -47,6 +48,10 @@
     - 
   evidence:
     - 
+  effort:
+    model:
+    level:
+    reason:
   decision:
   nextReview:</pre>
 
@@ -57,11 +62,13 @@
 <tr><td>改善只出現在單一任務。</td><td>繼續觀察，不升級。</td></tr>
 <tr><td>常被跳過或補例外。</td><td>revise、move 或 retire。</td></tr>
 <tr><td>需要 dashboard 才能看懂。</td><td>先把 contract 切小。</td></tr>
+<tr><td>連續依賴 <code>max</code>。</td><td>不要視為成熟；回頭修 contract 或 gate。</td></tr>
+<tr><td><code>max</code> 沒改善 evidence。</td><td>下次降回 <code>high</code>。</td></tr>
 </table>
 
 <footer>
   索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
-  對應課程：<a href="../lessons/0042-contract-effectiveness-evidence.html">第 42 課 — effectiveness evidence</a> · <a href="../lessons/0041-contract-review-loop.html">第 41 課 — review loop</a><br>
+  對應課程：<a href="../lessons/004-0002-contract-effectiveness-evidence.html">第 42 課 — effectiveness evidence</a> · <a href="../lessons/004-0001-contract-review-loop.html">第 41 課 — review loop</a><br>
   主要來源：<a href="https://code.claude.com/docs/en/agent-sdk/observability">Observability with OpenTelemetry</a> · <a href="https://code.claude.com/docs/en/agent-sdk/cost-tracking">Track cost and usage</a>
 </footer>
 </body>
