@@ -17,6 +17,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
   th { background: #eef4f2; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #f8fbfa; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .tip { background: #eef4f2; border-left: 4px solid #1a6b5a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -34,9 +35,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 2 · Lesson 0021 · 約 45 分鐘 · 實作課（架構線）</div>
+<div class="kicker">Phase 2 · 第 08 課 · 約 45 分鐘 · 實作課（架構線）</div>
 <h1>找出值得整理的架構問題（/improve-codebase-architecture）</h1>
 <p class="mission">目標：學會「深模組」的語言，在真實 repo 跑一次架構健檢，得到一份視覺化報告，並對其中一個候選跑 grilling loop。這是四大失敗模式的最後一塊：architectural decay。</p>
+<div class="scope"><strong>本課只做：</strong>找出一個值得整理的架構摩擦。<br><strong>先不要做：</strong>把架構健檢變成大型重構清單。</div>
+
 
 <h2>核心概念：深模組（deep modules）</h2>
 <p>這個 skill 找的是「<strong>深化機會</strong>」— 把淺模組變深的重構。詞彙表（skill 規定每個建議都用這套語言，出自 LANGUAGE.md）：</p>
@@ -45,16 +48,16 @@
 <tr><td><strong>Module</strong></td><td>任何有介面＋實作的東西（函式、類別、套件）</td></tr>
 <tr><td><strong>Interface</strong></td><td>呼叫者必須知道的<strong>一切</strong>：型別、不變量、錯誤模式、順序、設定 — 不只是型別簽名</td></tr>
 <tr><td><strong>Depth 深度</strong></td><td>介面的槓桿：小介面後面藏大量行為 = 深；介面跟實作一樣複雜 = 淺</td></tr>
-<tr><td><strong>Seam 接縫</strong></td><td>介面所在之處；不改內部就能換行為的地方（第 18 課 to-prd 問你的就是這個）</td></tr>
+<tr><td><strong>Seam 接縫</strong></td><td>介面所在之處；不改內部就能換行為的地方（Phase 2 第 05 課 to-prd 問你的就是這個）</td></tr>
 <tr><td><strong>Leverage / Locality</strong></td><td>深度給呼叫者的好處 / 給維護者的好處（改動、bug、知識集中一處）</td></tr>
 </table>
-<div class="tip"><strong>三句口訣：</strong>(1) <strong>刪除測試</strong> — 想像刪掉這個模組：複雜度消失 = 它是過水層；複雜度散落到 N 個呼叫端重新出現 = 它有在賺自己的飯。(2) <strong>介面就是測試面</strong>（接第 19 課：測行為不測實作）。(3) <strong>一個 adapter = 假想接縫，兩個 adapter = 真接縫</strong>。</div>
+<div class="tip"><strong>三句口訣：</strong>(1) <strong>刪除測試</strong> — 想像刪掉這個模組：複雜度消失 = 它是過水層；複雜度散落到 N 個呼叫端重新出現 = 它有在賺自己的飯。(2) <strong>介面就是測試面</strong>（接 Phase 2 第 06 課：測行為不測實作）。(3) <strong>一個 adapter = 假想接縫，兩個 adapter = 真接縫</strong>。</div>
 
 <h2>三段流程</h2>
 <ol>
-  <li><strong>Explore</strong> — 先讀 CONTEXT.md 與 ADR，再派 Explore subagent（001-17 的 context 隔離）有機地走 codebase 找摩擦：理解一個概念要在很多小模組間跳？淺模組？為了好測而抽出純函式但 bug 都藏在呼叫端？</li>
+  <li><strong>Explore</strong> — 先讀 CONTEXT.md 與 ADR，再派 Explore subagent（Phase 1 第 17 課的 context 隔離）有機地走 codebase 找摩擦：理解一個概念要在很多小模組間跳？淺模組？為了好測而抽出純函式但 bug 都藏在呼叫端？</li>
   <li><strong>HTML 報告</strong> — 寫到 temp 目錄（不污染 repo）自動打開：每個候選一張卡（檔案、問題、解法、locality/leverage 效益、before/after 圖、建議強度 Strong / Worth exploring / Speculative），結尾給首選建議。<strong>此階段不提介面設計</strong> — 報告完它會問你想深入哪個。</li>
-  <li><strong>Grilling loop</strong> — 你挑一個候選，進入追問對話（第 16 課的肌肉直接重用）。過程中：新概念進 CONTEXT.md；<strong>你以站得住腳的理由拒絕某候選 → 它會提議寫成 ADR</strong>，讓未來的架構健檢不再重複建議同一件事。</li>
+  <li><strong>Grilling loop</strong> — 你挑一個候選，進入追問對話（Phase 2 第 03 課的肌肉直接重用）。過程中：新概念進 CONTEXT.md；<strong>你以站得住腳的理由拒絕某候選 → 它會提議寫成 ADR</strong>，讓未來的架構健檢不再重複建議同一件事。</li>
 </ol>
 <p>兩個對高風險 repo 重要的設計：建議若與既有 ADR 衝突，只在摩擦真的大到值得重開決策時才提出（不重新爭論已決定的事）；領域講 CONTEXT.md 的語言、架構講 LANGUAGE.md 的語言。</p>
 
@@ -109,7 +112,7 @@
 </div>
 
 <div class="quiz" data-answer="1">
-  <p>3.（複習第 19 課）「介面就是測試面」和 TDD 哲學的關係是？</p>
+  <p>3.（複習 Phase 2 第 06 課）「介面就是測試面」和 TDD 哲學的關係是？</p>
   <button>兩者矛盾：TDD 要求測試深入實作細節</button>
   <button>同一件事：測公開介面的行為，重構不死</button>
   <button>無關：一個講架構設計一個講測試流程</button>
@@ -117,12 +120,12 @@
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課（缺陷線）：<a href="002-0009-diagnose.html">第 22 課 — /diagnose：除錯的紀律迴圈</a>。</p>
+<p>完成後回對話視窗回報。下一課（缺陷線）：<a href="002-0009-diagnose.html">Phase 2 第 09 課 — /diagnose：除錯的紀律迴圈</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — improve-codebase-architecture 的 LANGUAGE.md 是深模組語言的完整定義，值得精讀。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="002-0007-review.html">第 20 課 — /review</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+  上一課：<a href="002-0007-review.html">Phase 2 第 07 課 — /review</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 
 <script>

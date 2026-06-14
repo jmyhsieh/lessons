@@ -17,6 +17,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
   th { background: #eef4f2; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #f8fbfa; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .tip { background: #eef4f2; border-left: 4px solid #1a6b5a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -34,20 +35,22 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 2 · Lesson 0018 · 約 40 分鐘 · 實作課</div>
+<div class="kicker">Phase 2 · 第 05 課 · 約 40 分鐘 · 實作課</div>
 <h1>把計畫整理成 PRD 與 issues（/to-prd、/to-issues）</h1>
-<p class="mission">目標：把第 16 課 grill 出來的對齊計劃，先凝結成 PRD、再切成<strong>垂直切片（tracer bullet）</strong>的本地 issues。完成後，Phase 2 的 pipeline 只剩最後一步（/tdd 實作）。</p>
+<p class="mission">目標：把 Phase 2 第 03 課 grill 出來的對齊計劃，先凝結成 PRD、再切成<strong>垂直切片（tracer bullet）</strong>的本地 issues。完成後，Phase 2 的 pipeline 只剩最後一步（/tdd 實作）。</p>
+<div class="scope"><strong>本課只做：</strong>把已對齊的計畫轉成 PRD 與可認領 issues。<br><strong>先不要做：</strong>需求還沒問清楚就切 ticket。</div>
+
 
 <h2>Pipeline 全景：你在這裡</h2>
 <pre>grill（對齊）→ <strong>/to-prd（凝結）→ /to-issues（切片）</strong> → /tdd（實作）
-   第15課            本課                          下一課</pre>
+   Phase 2 第 03 課            本課                          下一課</pre>
 
 <h2>/to-prd：凝結，不是再訪談</h2>
 <p>關鍵設計（skill 原文）：「<strong>不要再訪談使用者 — 直接綜合你已經知道的</strong>」。grill 已經把該問的問完了，to-prd 是收割。它會：</p>
 <ul>
   <li>用 CONTEXT.md 的詞彙寫整份 PRD、尊重相關 ADR</li>
   <li>產出：問題陳述、解法、<strong>大量編號的 user stories</strong>、實作決策</li>
-  <li>發佈到第 14 課選定的 issue tracker（GitHub / Linear / local files）並標 <code>ready-for-agent</code></li>
+  <li>發佈到 Phase 2 第 01 課選定的 issue tracker（GitHub / Linear / local files）並標 <code>ready-for-agent</code></li>
 </ul>
 <div class="tip"><strong>它唯一會停下來問你的：測試的「接縫」（seams）</strong> — 要在哪些介面層驗證這個功能。原則：優先用既有接縫、用越高層的越好。高風險或 legacy repo 特別需要這一步，因為高層接縫（API 邊界、模組介面）通常比深挖內部更安全。看不懂它提的接縫就追問，別放行。</div>
 
@@ -64,12 +67,12 @@
 
 <div class="step">
   <label><input type="checkbox"> 1. 接回 grill 的脈絡</label>
-  <p>最理想：在第 16 課那個 session 繼續（context 都在）。若已關閉，開新 session 請它先讀 grill 產出的計劃與 CONTEXT.md。</p>
+  <p>最理想：在 Phase 2 第 03 課那個 session 繼續（context 都在）。若已關閉，開新 session 請它先讀 grill 產出的計劃與 CONTEXT.md。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 2. 跑 /to-prd</label>
-  <p>重點審兩處：(a) 它提的測試接縫合理嗎？(b) user stories 有沒有漏掉你在 grill 中講過的場景？確認 PRD 寫進第 14 課選定的 tracker。</p>
+  <p>重點審兩處：(a) 它提的測試接縫合理嗎？(b) user stories 有沒有漏掉你在 grill 中講過的場景？確認 PRD 寫進 Phase 2 第 01 課選定的 tracker。</p>
 </div>
 
 <div class="step">
@@ -110,7 +113,7 @@
 </div>
 
 <div class="quiz" data-answer="2">
-  <p>3.（複習第 16 課）PRD 全文該使用什麼語言？</p>
+  <p>3.（複習 Phase 2 第 03 課）PRD 全文該使用什麼語言？</p>
   <button>標準的技術術語，方便外部廠商也能讀懂</button>
   <button>盡量白話，避免任何專案內部的行話術語</button>
   <button>CONTEXT.md 的詞彙，並尊重相關的 ADR</button>
@@ -118,12 +121,12 @@
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課：<a href="002-0006-tdd.html">第 19 課 — /tdd：紅綠燈實作，跑完整條 pipeline</a>。</p>
+<p>完成後回對話視窗回報。下一課：<a href="002-0006-tdd.html">Phase 2 第 06 課 — /tdd：紅綠燈實作，跑完整條 pipeline</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — to-prd 與 to-issues 的 SKILL.md 原文（含 PRD 與 issue 模板）。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="002-0004-prototype.html">第 17 課 — /prototype</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+  上一課：<a href="002-0004-prototype.html">Phase 2 第 04 課 — /prototype</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 
 <script>

@@ -16,6 +16,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
   th { background: #faf3ee; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
@@ -30,9 +31,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Lesson 001-13 · 約 15 分鐘 · Hooks 與 exit code</div>
+<div class="kicker">Phase 1 · 第 13 課 · 約 15 分鐘 · Hooks 與 exit code</div>
 <h1>控制 Claude Code 工具行為（hooks）</h1>
 <p class="mission">任務目標：理解 hooks 在 Claude Code 生命週期中何時執行，以及 <code>exit 0</code>/<code>exit 2</code> 的差異。這一課先做最小的格式化 hook。</p>
+<div class="scope"><strong>本課只做：</strong>理解 hook 何時會執行，以及 exit code 代表什麼。<br><strong>先不要做：</strong>一開始就寫複雜 hook 取代人工 review。</div>
+
 
 <h2>三層模型</h2>
 <table>
@@ -86,9 +89,9 @@ Explain every line before changing .claude/settings.json.</pre>
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0014-guardrail-hooks.html">001-14 — 擋下危險操作（guardrail hook）</a>。</p>
+<p>下一課：<a href="001-0014-guardrail-hooks.html">Phase 1 第 14 課 — 擋下危險操作（guardrail hook）</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/hooks-guide">Automate actions with hooks（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0012-verification-context.html">001-12 — 驗證與 context 收尾</a></footer>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0012-verification-context.html">Phase 1 第 12 課 — 驗證與 context 收尾</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

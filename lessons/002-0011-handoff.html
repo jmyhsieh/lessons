@@ -17,6 +17,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
   th { background: #eef4f2; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #f8fbfa; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .safety { background: #fbeaea; border-left: 4px solid #c62828; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -35,12 +36,14 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 2 · Lesson 0024 · 約 20 分鐘 · 輕量實作</div>
+<div class="kicker">Phase 2 · 第 11 課 · 約 20 分鐘 · 輕量實作</div>
 <h1>把交接脈絡打包給下一個 agent（/handoff）</h1>
-<p class="mission">目標：學會在 session 收工或 context 變髒時，用 <code>/handoff</code> 產出一份「冷啟動接力文件」，讓明天的你（或同事、或全新 session）不用重講一遍脈絡。這是 001-12 context 收尾的延伸。</p>
+<p class="mission">目標：學會在 session 收工或 context 變髒時，用 <code>/handoff</code> 產出一份「冷啟動接力文件」，讓明天的你（或同事、或全新 session）不用重講一遍脈絡。這是 Phase 1 第 12 課 context 收尾的延伸。</p>
+<div class="scope"><strong>本課只做：</strong>把下一個人或 session 需要的脈絡打包。<br><strong>先不要做：</strong>把 handoff 當成完整 report 或長期文件庫。</div>
+
 
 <h2>它解決的問題</h2>
-<p>001-12 教過：context 塞滿就砍掉重練、乾淨 session 贏過污染的長對話。但「重練」有個成本 — <strong>脈絡跟著消失</strong>。handoff 就是在按下重練之前，先把值錢的脈絡壓縮成文件帶走：</p>
+<p>Phase 1 第 12 課 教過：context 塞滿就砍掉重練、乾淨 session 贏過污染的長對話。但「重練」有個成本 — <strong>脈絡跟著消失</strong>。handoff 就是在按下重練之前，先把值錢的脈絡壓縮成文件帶走：</p>
 <pre>長對話（context 漸髒）→ /handoff 今天到此，明天繼續做 X
                               ↓
                   交接文件（存到 OS temp 目錄）
@@ -50,7 +53,7 @@
 <h2>四個設計細節（SKILL.md 原文）</h2>
 <table>
 <tr><th>設計</th><th>為什麼</th></tr>
-<tr><td>存到 <strong>OS temp 目錄</strong>，不放 workspace</td><td>交接文件是消耗品，不該污染 repo（同第 21 課報告的做法）</td></tr>
+<tr><td>存到 <strong>OS temp 目錄</strong>，不放 workspace</td><td>交接文件是消耗品，不該污染 repo（同 Phase 2 第 08 課報告的做法）</td></tr>
 <tr><td><strong>不重複既有 artifacts</strong> — PRD、ADR、issues、commits 用路徑引用</td><td>單一事實來源：脈絡的正本在文件制度裡，handoff 只記「正本沒有的東西」（當下的決策過程、卡住的點、下一步）</td></tr>
 <tr><td>內建 <strong>suggested skills</strong> 區塊</td><td>告訴下一個 agent 該用哪些 skill 繼續（例：「接下來跑 /tdd 實作 issue #3」）</td></tr>
 <tr><td><strong>自動遮蔽敏感資訊</strong>（API key、密碼、個資）</td><td>temp 目錄的檔案可能被其他工具讀到 — 但別全信自動遮蔽，交接前自己掃一眼</td></tr>
@@ -60,10 +63,10 @@
 <h2>什麼時候用（三個真實 repo 場景）</h2>
 <ul>
   <li><strong>收工交接</strong>：下班前 <code>/handoff 明天繼續實作 issue #5</code>，明早新 session 直接接力。</li>
-  <li><strong>糾正兩次還不對</strong>（001-12 的砍掉重練訊號）：先 handoff 再重開 — 把「學到的教訓」帶進新 session 的第一句 prompt。</li>
+  <li><strong>糾正兩次還不對</strong>（Phase 1 第 12 課的砍掉重練訊號）：先 handoff 再重開 — 把「學到的教訓」帶進新 session 的第一句 prompt。</li>
   <li><strong>跨人交接</strong>：你 grill 到一半要請假，同事接手 — 交接文件＋CONTEXT.md 讓他的 agent 冷啟動。</li>
 </ul>
-<p>與相鄰機制的分工：<code>/compact</code> 是<strong>同一個 session 內</strong>壓縮歷史；<code>claude -c</code> 是接續<strong>同一個對話</strong>；handoff 是做一份<strong>可攜帶的文件</strong>，跨 session、跨機器、跨人都能用 — 也是第 23 課 agent brief 的近親（都是「讓陌生 agent 冷啟動」的文體）。</p>
+<p>與相鄰機制的分工：<code>/compact</code> 是<strong>同一個 session 內</strong>壓縮歷史；<code>claude -c</code> 是接續<strong>同一個對話</strong>；handoff 是做一份<strong>可攜帶的文件</strong>，跨 session、跨機器、跨人都能用 — 也是 Phase 2 第 10 課 agent brief 的近親（都是「讓陌生 agent 冷啟動」的文體）。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 
@@ -115,20 +118,20 @@
 </div>
 
 <div class="quiz" data-answer="1">
-  <p>3.（複習 001-12）糾正它兩次同一問題仍失敗，加上本課工具後的最佳流程是？</p>
+  <p>3.（複習 Phase 1 第 12 課）糾正它兩次同一問題仍失敗，加上本課工具後的最佳流程是？</p>
   <button>繼續糾正第三次，但這次給更詳細的範例</button>
   <button>先 handoff 萃取教訓，再開乾淨 session 重來</button>
   <button>直接 /compact 壓縮歷史後在原對話繼續修</button>
-  <div class="why">（間隔複習）001-12 說砍掉重練；本課補上「怎麼帶走學到的東西」— handoff 把失敗嘗試中值錢的部分（什麼不行、為什麼）變成新 session 的起點。compact 留在原對話，污染還在。</div>
+  <div class="why">（間隔複習）Phase 1 第 12 課 說砍掉重練；本課補上「怎麼帶走學到的東西」— handoff 把失敗嘗試中值錢的部分（什麼不行、為什麼）變成新 session 的起點。compact 留在原對話，污染還在。</div>
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗交<strong>階段回報</strong>：Claude Code 實戰、mattpocock/skills 四條線在真實 repo 各自落地得如何？CONTEXT.md/ADR 累積了多少？接著進入 <a href="003-0001-from-agent-session-to-harness.html">第 25 課</a>：判斷哪些重複任務值得變成可重跑 harness。</p>
+<p>完成後回對話視窗交<strong>階段回報</strong>：Claude Code 實戰、mattpocock/skills 四條線在真實 repo 各自落地得如何？CONTEXT.md/ADR 累積了多少？接著進入 <a href="003-0001-from-agent-session-to-harness.html">Phase 3 第 01 課</a>：判斷哪些重複任務值得變成可重跑 harness。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — handoff 的 SKILL.md。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  相關課程：<a href="003-0001-from-agent-session-to-harness.html">第 25 課 — harness mindset</a> · <a href="001-0012-verification-context.html">001-12 — context 收尾</a> · 上一課：<a href="002-0010-qa-triage.html">第 23 課 — /qa 與 /triage</a> · <a href="../toc.html">課目表</a>
+  相關課程：<a href="003-0001-from-agent-session-to-harness.html">Phase 3 第 01 課 — harness mindset</a> · <a href="001-0012-verification-context.html">Phase 1 第 12 課 — context 收尾</a> · 上一課：<a href="002-0010-qa-triage.html">Phase 2 第 10 課 — /qa 與 /triage</a> · <a href="../toc.html">課目表</a>
 </footer>
 
 <script>

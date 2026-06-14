@@ -16,6 +16,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
   th { background: #faf3ee; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .tip { background: #faf3ee; border-left: 4px solid #c2571a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -31,9 +32,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Lesson 001-19 · 約 15 分鐘 · 平行隔離</div>
+<div class="kicker">Phase 1 · 第 19 課 · 約 15 分鐘 · 平行隔離</div>
 <h1>用 worktree 分開平行工作</h1>
 <p class="mission">任務目標：理解 worktree 如何讓多個 Claude Code session 同時改不同分支而不互踩。</p>
+<div class="scope"><strong>本課只做：</strong>用 worktree 分開平行工作區。<br><strong>先不要做：</strong>在不懂 git 狀態時同時開多條工作線。</div>
+
 
 <h2>worktree 解決什麼</h2>
 <p>git worktree 是同一個 repo 的另一個工作目錄：自己的檔案、自己的分支、共用同一份歷史。</p>
@@ -81,9 +84,9 @@
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0020-writer-reviewer-session.html">001-20 — 用兩個 session 分工寫作與審查</a>。</p>
+<p>下一課：<a href="001-0020-writer-reviewer-session.html">Phase 1 第 20 課 — 用兩個 session 分工寫作與審查</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/worktrees">Run parallel sessions with worktrees（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0018-custom-subagent-review.html">001-18 — Custom subagent review</a></footer>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0018-custom-subagent-review.html">Phase 1 第 18 課 — Custom subagent review</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

@@ -17,6 +17,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
   th { background: #eef4f2; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #f8fbfa; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .tip { background: #eef4f2; border-left: 4px solid #1a6b5a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -34,9 +35,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 2 · Lesson 0020 · 約 30 分鐘 · 實作課（品質關卡）</div>
+<div class="kicker">Phase 2 · 第 07 課 · 約 30 分鐘 · 實作課（品質關卡）</div>
 <h1>用兩個角度檢查成果（/review）</h1>
-<p class="mission">目標：在 tdd 實作完成之後、合併之前，用 <code>/review</code> 對 diff 跑「規範符合度 × 規格符合度」兩軸的平行審查。這是 pipeline 的最後一道品質關卡，也把 001-18 subagent review、001-20 Writer/Reviewer 收進實戰。</p>
+<p class="mission">目標：在 tdd 實作完成之後、合併之前，用 <code>/review</code> 對 diff 跑「規範符合度 × 規格符合度」兩軸的平行審查。這是 pipeline 的最後一道品質關卡，也把 Phase 1 第 18 課 subagent review、Phase 1 第 20 課 Writer/Reviewer 收進實戰。</p>
+<div class="scope"><strong>本課只做：</strong>用 Standards 與 Spec 兩軸檢查 diff。<br><strong>先不要做：</strong>把 lint、測試、spec review 全混成同一個模糊結論。</div>
+
 
 <h2>它解決什麼：兩個不同的「對不對」</h2>
 <p>一份 diff 有兩種獨立的「對」，混在一起審就會互相干擾。review 把它們拆成兩個平行 subagent（<a href="https://github.com/mattpocock/skills">SKILL.md</a>）：</p>
@@ -45,7 +48,7 @@
 <tr><td><strong>Standards</strong><br>規範符合度</td><td>這段 code 有沒有違反本 repo 記載的<strong>寫作規範</strong>？</td><td>CLAUDE.md、CONTEXT.md、ADR、CONTRIBUTING、STYLE.md…</td></tr>
 <tr><td><strong>Spec</strong><br>規格符合度</td><td>這段 code 有沒有忠實實作<strong>原始 issue/PRD</strong>？</td><td>commit 裡的 issue 引用、PRD、spec 檔</td></tr>
 </table>
-<div class="tip"><strong>為什麼要平行、不合併？</strong>兩軸跑在各自的 subagent（fresh context，001-18），彼此不污染；最後並列呈現、<strong>不重排也不合併</strong>。「這段不符規範」和「這段沒做到需求」是兩種問題，混在一起你會分不清該怎麼修。</div>
+<div class="tip"><strong>為什麼要平行、不合併？</strong>兩軸跑在各自的 subagent（fresh context，Phase 1 第 18 課），彼此不污染；最後並列呈現、<strong>不重排也不合併</strong>。「這段不符規範」和「這段沒做到需求」是兩種問題，混在一起你會分不清該怎麼修。</div>
 
 <h2>它怎麼運作（五步，skill 原文）</h2>
 <ol>
@@ -55,13 +58,13 @@
   <li><strong>平行派兩個 subagent</strong> — 一則訊息兩個 Agent 呼叫。各自讀文件＋讀 diff，回報違規/缺口，引用依據，各 400 字內。</li>
   <li><strong>彙整</strong> — 並列在 <code>## Standards</code> 與 <code>## Spec</code> 兩標題下，末尾一行總結：每軸幾個發現、最嚴重的一個。</li>
 </ol>
-<div class="tip"><strong>對任何有 repo 規範的專案都適用：</strong>standards 來源正好就是你前面課程建立的制度 — CONTEXT.md（第 14 課）、ADR、CLAUDE.md。review 等於讓那些文件「活過來」自動把關每一次改動。文件不再只是擺著，而是審查的依據。</div>
+<div class="tip"><strong>對任何有 repo 規範的專案都適用：</strong>standards 來源正好就是你前面課程建立的制度 — CONTEXT.md（Phase 2 第 01 課）、ADR、CLAUDE.md。review 等於讓那些文件「活過來」自動把關每一次改動。文件不再只是擺著，而是審查的依據。</div>
 
 <h2>它和你已學的審查工具的關係</h2>
 <table>
 <tr><th>工具</th><th>角色</th></tr>
-<tr><td>001-18 subagent review</td><td>通用的「fresh context 審 diff」— review 是它的<strong>結構化專版</strong>（固定兩軸）</td></tr>
-<tr><td>001-20 Writer/Reviewer 雙 session</td><td>同一個哲學的人工版；review 把它自動化成一個指令</td></tr>
+<tr><td>Phase 1 第 18 課 subagent review</td><td>通用的「fresh context 審 diff」— review 是它的<strong>結構化專版</strong>（固定兩軸）</td></tr>
+<tr><td>Phase 1 第 20 課 Writer/Reviewer 雙 session</td><td>同一個哲學的人工版；review 把它自動化成一個指令</td></tr>
 <tr><td>內建 <code>/code-review</code></td><td>找 correctness bug；<code>/review</code> 找的是<strong>規範與規格的符合度</strong> — 互補不重疊</td></tr>
 </table>
 
@@ -78,7 +81,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 1. 挑一個有 spec 的改動</label>
-  <p>最理想：第 19 課 tdd 做完的那條分支（它有對應的 issue＝spec）。沒有的話挑任何一條近期分支。</p>
+  <p>最理想：Phase 2 第 06 課 tdd 做完的那條分支（它有對應的 issue＝spec）。沒有的話挑任何一條近期分支。</p>
 </div>
 
 <div class="step">
@@ -113,7 +116,7 @@
   <button>因為平行執行的速度比循序執行快上許多</button>
   <button>因為兩個 agent 可以互相檢查對方的發現</button>
   <button>fresh context 互不污染，兩種問題分開看才清楚</button>
-  <div class="why">（接 001-18）各自 fresh context 不互相干擾；「不符規範」與「沒做到需求」是兩種問題，刻意分開呈現、不合併不重排。</div>
+  <div class="why">（接 Phase 1 第 18 課）各自 fresh context 不互相干擾；「不符規範」與「沒做到需求」是兩種問題，刻意分開呈現、不合併不重排。</div>
 </div>
 
 <div class="quiz" data-answer="0">
@@ -125,7 +128,7 @@
 </div>
 
 <div class="quiz" data-answer="1">
-  <p>3.（複習第 14 課）你的 CONTEXT.md 與 ADR 在 review 裡扮演什麼？</p>
+  <p>3.（複習 Phase 2 第 01 課）你的 CONTEXT.md 與 ADR 在 review 裡扮演什麼？</p>
   <button>Spec 軸的依據，用來檢查需求有沒有做到</button>
   <button>Standards 軸的依據，架構決策也算規範</button>
   <button>兩軸都不用，它們只是給人看的參考文件</button>
@@ -133,12 +136,12 @@
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。開發線（grill→prototype→PRD→issues→tdd→review）到此完整。下一課：<a href="002-0008-architecture.html">第 21 課 — /improve-codebase-architecture：對抗架構腐化</a>，進入架構線。</p>
+<p>完成後回對話視窗回報。開發線（grill→prototype→PRD→issues→tdd→review）到此完整。下一課：<a href="002-0008-architecture.html">Phase 2 第 08 課 — /improve-codebase-architecture：對抗架構腐化</a>，進入架構線。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — review 的 SKILL.md（兩軸 subagent prompt 全文）。補充：<a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="002-0006-tdd.html">第 19 課 — /tdd</a> · 相關：<a href="001-0018-custom-subagent-review.html">001-18 — subagent review</a> · <a href="001-0020-writer-reviewer-session.html">001-20 — Writer/Reviewer</a> · <a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>
+  上一課：<a href="002-0006-tdd.html">Phase 2 第 06 課 — /tdd</a> · 相關：<a href="001-0018-custom-subagent-review.html">Phase 1 第 18 課 — subagent review</a> · <a href="001-0020-writer-reviewer-session.html">Phase 1 第 20 課 — Writer/Reviewer</a> · <a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>
 </footer>
 
 <script>

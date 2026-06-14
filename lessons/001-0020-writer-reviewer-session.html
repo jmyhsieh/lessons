@@ -16,6 +16,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
   th { background: #faf3ee; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
@@ -30,9 +31,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Lesson 001-20 · 約 20 分鐘 · 品質工作流</div>
+<div class="kicker">Phase 1 · 第 20 課 · 約 20 分鐘 · 品質工作流</div>
 <h1>用兩個 session 分工寫作與審查</h1>
 <p class="mission">任務目標：用兩個乾淨 session 分工：一個寫，一個審。你要練的是把 review 意見帶回 writer，而不是讓同一個對話自我確認。</p>
+<div class="scope"><strong>本課只做：</strong>用兩個 session 分開寫作與審查。<br><strong>先不要做：</strong>讓同一個 session 自寫自審後直接合併。</div>
+
 
 <h2>雙 session 流程</h2>
 <table>
@@ -45,7 +48,7 @@
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
   <label><input type="checkbox"> 1. Writer 完成一個小任務</label>
-  <p>照 001-11/001-12：四階段、驗證、看 diff。</p>
+  <p>照 Phase 1 第 11 課/Phase 1 第 12 課：四階段、驗證、看 diff。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 2. Reviewer 只審查</label>
@@ -80,9 +83,9 @@ Only report correctness gaps, missing tests, or scope creep.</pre>
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0021-headless-one-shot.html">001-21 — 用指令列跑一次性任務（claude -p）</a>。</p>
+<p>下一課：<a href="001-0021-headless-one-shot.html">Phase 1 第 21 課 — 用指令列跑一次性任務（claude -p）</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/worktrees">Run parallel sessions with worktrees（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0019-worktrees.html">001-19 — Worktrees</a></footer>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0019-worktrees.html">Phase 1 第 19 課 — Worktrees</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

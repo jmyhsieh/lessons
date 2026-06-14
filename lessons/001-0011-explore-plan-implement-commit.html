@@ -16,6 +16,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
   th { background: #faf3ee; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .tip { background: #faf3ee; border-left: 4px solid #c2571a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -31,9 +32,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Lesson 001-11 · 約 20 分鐘 · 完整流程</div>
+<div class="kicker">Phase 1 · 第 11 課 · 約 20 分鐘 · 完整流程</div>
 <h1>從探索到 commit 的安全四步驟</h1>
 <p class="mission">任務目標：用 Claude Code 跑完一次官方建議的四階段開發流程。這一課只練流程節奏，確認結果並整理 context放到下一課。</p>
+<div class="scope"><strong>本課只做：</strong>練一次探索、規劃、實作、commit 的安全節奏。<br><strong>先不要做：</strong>跳過 plan 或 review 直接要求它大量修改。</div>
+
 
 <h2>四階段流程</h2>
 <table>
@@ -79,13 +82,13 @@ List files you expect to modify. Do not edit yet.</pre>
   <button>一定比較省 token</button>
   <button>可以自動 commit</button>
   <button>系統層保證只讀不改</button>
-  <div class="why">這是 001-06 的同一條原則：模式限制比口頭提醒可靠。</div>
+  <div class="why">這是 Phase 1 第 06 課的同一條原則：模式限制比口頭提醒可靠。</div>
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0012-verification-context.html">001-12 — 確認結果並整理 context</a>。你會替剛剛的流程補上可驗證完成條件。</p>
+<p>下一課：<a href="001-0012-verification-context.html">Phase 1 第 12 課 — 確認結果並整理 context</a>。你會替剛剛的流程補上可驗證完成條件。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0010-cowork-hands-on.html">001-10 — Cowork hands-on</a></footer>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0010-cowork-hands-on.html">Phase 1 第 10 課 — Cowork hands-on</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

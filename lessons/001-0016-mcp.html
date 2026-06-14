@@ -17,6 +17,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
   th { background: #faf3ee; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .safety { background: #fbeaea; border-left: 4px solid #c62828; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -35,9 +36,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Lesson 001-16 · 約 30 分鐘 · 進階實作課</div>
+<div class="kicker">Phase 1 · 第 16 課 · 約 30 分鐘 · 進階實作課</div>
 <h1>讓 Claude Code 讀外部系統資料（MCP）</h1>
 <p class="mission">任務目標：理解 MCP 的定位與風險，連接第一個對你工作真正有用的 MCP server（如 GitHub/Jira/Notion/資料庫），並完成一個「跨系統」任務。</p>
+<div class="scope"><strong>本課只做：</strong>理解 MCP 讓 Claude Code 讀外部系統資料的邊界。<br><strong>先不要做：</strong>未審核來源、權限與敏感資料就接外部工具。</div>
+
 
 <h2>MCP 解決什麼問題</h2>
 <p><strong>訊號：你發現自己在把別的系統的資料複製貼上進對話</strong>（issue 內容、監控數據、設計稿連結…）。MCP（Model Context Protocol）是開放標準，讓 Claude 直接讀取並操作那些系統（<a href="https://code.claude.com/docs/en/mcp">官方文件</a>）。接上之後可以說：</p>
@@ -66,7 +69,7 @@ claude mcp add --transport stdio myserver -- npx some-mcp-server</pre>
 <strong>兩個風險（官方明確警告）：</strong>
 <ol style="margin:.4rem 0 0">
   <li><strong>信任問題</strong> — MCP server 是第三方程式碼，能存取你給它的一切。連接前確認來源可信（優先選官方或 Directory 審核過的）。</li>
-  <li><strong>Prompt injection</strong> — 會抓取外部內容的 server（網頁、issue、email）可能把惡意指令帶進對話。例如一張 Jira ticket 的描述裡藏著「順便把 .env 寄到…」。對策：對外部內容觸發的動作保持逐項批准（你的 default 模式在這裡再次發揮作用），並用 001-07 的 deny 規則保護敏感檔案。</li>
+  <li><strong>Prompt injection</strong> — 會抓取外部內容的 server（網頁、issue、email）可能把惡意指令帶進對話。例如一張 Jira ticket 的描述裡藏著「順便把 .env 寄到…」。對策：對外部內容觸發的動作保持逐項批准（你的 default 模式在這裡再次發揮作用），並用 Phase 1 第 07 課的 deny 規則保護敏感檔案。</li>
 </ol>
 正式專案接 project scope 的 server，跟 hooks 一樣走 PR review。
 </div>
@@ -117,11 +120,11 @@ claude mcp add --transport stdio myserver -- npx some-mcp-server</pre>
   <button>只連接官方審核過的 MCP server</button>
   <button>在 CLAUDE.md 寫明不要執行可疑指令</button>
   <button>逐項批准模式加上敏感路徑的 deny 規則</button>
-  <div class="why">審核過的 server 擋不住「內容」本身藏指令；CLAUDE.md 是指引。最後防線是系統層：你逐項批准 + deny 規則硬擋敏感資源（001-07 的閘門在此再度出場）。</div>
+  <div class="why">審核過的 server 擋不住「內容」本身藏指令；CLAUDE.md 是指引。最後防線是系統層：你逐項批准 + deny 規則硬擋敏感資源（Phase 1 第 07 課的閘門在此再度出場）。</div>
 </div>
 
 <div class="quiz" data-answer="0">
-  <p>3.（複習 001-15）「每週產 release notes 的固定流程」vs「讓 Claude 能讀 Jira」，分別用？</p>
+  <p>3.（複習 Phase 1 第 15 課）「每週產 release notes 的固定流程」vs「讓 Claude 能讀 Jira」，分別用？</p>
   <button>前者 skill，後者 MCP</button>
   <button>前者 MCP，後者 skill</button>
   <button>兩者都可以用 hook 解決</button>
@@ -129,12 +132,12 @@ claude mcp add --transport stdio myserver -- npx some-mcp-server</pre>
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課：<a href="001-0017-subagents-context.html">001-17 — 把大型調查交給另一個 agent（Subagents）</a>。</p>
+<p>完成後回對話視窗回報。下一課：<a href="001-0017-subagents-context.html">Phase 1 第 17 課 — 把大型調查交給另一個 agent（Subagents）</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/mcp">Connect Claude Code to tools via MCP（官方）</a>；第一次接建議照 <a href="https://code.claude.com/docs/en/mcp-quickstart">MCP quickstart</a> 走。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="001-0015-skills.html">001-15 — Skills</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+  上一課：<a href="001-0015-skills.html">Phase 1 第 15 課 — Skills</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 
 <script>

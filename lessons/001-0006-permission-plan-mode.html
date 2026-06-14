@@ -16,6 +16,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
   th { background: #faf3ee; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .tip { background: #faf3ee; border-left: 4px solid #c2571a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -31,9 +32,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Lesson 001-06 · 約 15 分鐘 · 安全工作流</div>
+<div class="kicker">Phase 1 · 第 06 課 · 約 15 分鐘 · 安全工作流</div>
 <h1>先用 plan mode 讓它只規劃不修改</h1>
 <p class="mission">任務目標：能判斷什麼時候用預設模式、什麼時候先切 plan mode。這一課只學「模式選擇」，不處理 allow/deny 規則。</p>
+<div class="scope"><strong>本課只做：</strong>用 plan mode 讓它先規劃、不修改。<br><strong>先不要做：</strong>在還沒看 plan 前就切到自動批准。</div>
+
 
 <h2>六種模式先分成三類</h2>
 <table>
@@ -44,7 +47,7 @@
 </table>
 
 <h2>核心節奏：plan → review → 放行</h2>
-<p>001-04 用自然語言請它先給計劃；plan mode 是同一件事的系統強制版。模式本身限制它只能探索、不能動手。</p>
+<p>Phase 1 第 04 課 用自然語言請它先給計劃；plan mode 是同一件事的系統強制版。模式本身限制它只能探索、不能動手。</p>
 <ol>
   <li>切到 <strong>plan mode</strong>，描述任務。</li>
   <li>它讀 codebase、產出計劃。</li>
@@ -91,10 +94,10 @@ Do not modify files yet.</pre>
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0007-permission-rules.html">001-07 — 控制 Claude Code 能做什麼（permission rules）</a>。你會把口頭禁止改成硬規則。</p>
+<p>下一課：<a href="001-0007-permission-rules.html">Phase 1 第 07 課 — 控制 Claude Code 能做什麼（permission rules）</a>。你會把口頭禁止改成硬規則。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/permissions">Configure permissions（官方）</a>。</p>
 
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0005-claude-md.html">001-05 — CLAUDE.md</a></footer>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0005-claude-md.html">Phase 1 第 05 課 — CLAUDE.md</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

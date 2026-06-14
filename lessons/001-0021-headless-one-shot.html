@@ -16,6 +16,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
   th { background: #faf3ee; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
@@ -30,9 +31,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Lesson 001-21 · 約 15 分鐘 · CLI one-shot</div>
+<div class="kicker">Phase 1 · 第 21 課 · 約 15 分鐘 · CLI one-shot</div>
 <h1>用指令列跑一次性任務（claude -p）</h1>
 <p class="mission">任務目標：把 Claude Code 當成命令列工具跑一次性唯讀任務，理解 stdin/stdout 與 JSON output。</p>
+<div class="scope"><strong>本課只做：</strong>用 claude -p 跑低風險、一次性的指令列任務。<br><strong>先不要做：</strong>把互動式探索或高風險修改放進 one-shot。</div>
+
 
 <h2>從對話到指令</h2>
 <pre># 直接問
@@ -85,9 +88,9 @@ claude -p "Summarize this project" --output-format json</pre>
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0022-ci-automation-boundary.html">001-22 — 在 CI 中安全使用 Claude Code</a>。</p>
+<p>下一課：<a href="001-0022-ci-automation-boundary.html">Phase 1 第 22 課 — 在 CI 中安全使用 Claude Code</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/headless">Run Claude Code programmatically（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0020-writer-reviewer-session.html">001-20 — Writer / Reviewer</a></footer>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0020-writer-reviewer-session.html">Phase 1 第 20 課 — Writer / Reviewer</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

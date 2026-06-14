@@ -13,6 +13,7 @@
   code { padding: .12rem .35rem; }
   pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
   a { color: #b04a12; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .safety { background: #fbeaea; border-left: 4px solid #c62828; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -28,9 +29,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Lesson 001-22 · 約 20 分鐘 · CI 邊界</div>
+<div class="kicker">Phase 1 · 第 22 課 · 約 20 分鐘 · CI 邊界</div>
 <h1>在 CI 中安全使用 Claude Code</h1>
 <p class="mission">任務目標：評估什麼 headless 任務可以放進 CI，並用最小權限、穩定輸出與成本紀錄包住它。</p>
+<div class="scope"><strong>本課只做：</strong>界定 CI 中能安全交給 Claude Code 的任務。<br><strong>先不要做：</strong>讓 CI 自動產生未經人工 review 的 production 改動。</div>
+
 
 <div class="safety"><strong>沒有人在場 = 權限設計取代你的眼睛。</strong>CI 裡先做唯讀摘要、diff review、文件檢查；會寫檔、會 push、會修改環境的任務不要直接無人值守。</div>
 
@@ -84,9 +87,9 @@ Return only filename:line and reason. Return empty output if none."</pre>
 </div>
 
 <h2>下一步</h2>
-<p>完成後進入 Phase 2：<a href="002-0001-matt-pocock-skills-foundation.html">002-01 — mattpocock/skills 入門</a>。</p>
+<p>完成後進入 Phase 2：<a href="002-0001-matt-pocock-skills-foundation.html">Phase 2 第 01 課 — mattpocock/skills 入門</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/github-actions">Claude Code GitHub Actions（官方）</a>、<a href="https://code.claude.com/docs/en/headless">Run Claude Code programmatically（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0021-headless-one-shot.html">001-21 — Headless one-shot</a></footer>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0021-headless-one-shot.html">Phase 1 第 21 課 — Headless one-shot</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

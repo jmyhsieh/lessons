@@ -14,19 +14,30 @@
   code { padding: .12rem .35rem; }
   pre { padding: .8rem 1rem; overflow-x: auto; }
   a { color: #b04a12; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
   .step h3 { margin: 0 0 .4rem; font-size: 1rem; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .safety { background: #fbeaea; border-left: 4px solid #c62828; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #c2571a; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #f4f0ec; padding: .6rem .9rem; border-radius: 6px; }
   .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
   footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
 </style>
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Lesson 001-02 · 約 15 分鐘 · 實作課</div>
+<div class="kicker">Phase 1 · 第 02 課 · 約 15 分鐘 · 實作課</div>
 <h1>安裝 Claude Code，開第一個 session</h1>
 <p class="mission">任務目標：把 Claude Code 裝好、登入，並開出第一個 session。這一課只確認工具與權限介面，不進行 repo 導覽或改檔。</p>
+<div class="scope"><strong>本課只做：</strong>安裝、登入，並確認第一個 session 與權限介面。<br><strong>先不要做：</strong>打開正式 repo 後直接批准修改檔案。</div>
+
 
 <div class="safety">
 <strong>正式專案安全規則（本課唯一要背的東西）：</strong><br>
@@ -92,8 +103,35 @@ Claude Code 預設在<strong>修改檔案或執行指令前都會逐項徵求你
 </ul>
 <p>（已併入<a href="../reference/claude-product-picker.html">產品選用速查表</a>與<a href="../reference/claude-code-command-surface.html">操作 command 速查表</a>；上一課：<a href="001-0001-three-claudes.html">三個 Claude，三種工作流</a>）</p>
 
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="0">
+  <p>1. 正式 repo 第一堂課應停在哪種權限習慣？</p>
+  <button>逐項詢問</button>
+  <button>全部放行</button>
+  <button>跳過確認</button>
+  <div class="why">正式 repo 先維持逐項詢問，讓你看懂每一次修改或指令執行前的風險。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>2. 這一課開 session 後先做什麼？</p>
+  <button>查看指令</button>
+  <button>讀取專案</button>
+  <button>直接改檔</button>
+  <div class="why">本課只用 <code>/help</code> 或低風險問題確認 session 可用，不進 repo 導覽或修改。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>3. 不應在本課完成的事情？</p>
+  <button>修改檔案</button>
+  <button>確認登入</button>
+  <button>找到權限</button>
+  <div class="why">安裝與第一個 session 只確認工具、登入與權限介面；修改檔案留到後續安全流程。</div>
+</div>
+
 <h2>下一步</h2>
-<p>下一課：<a href="001-0003-read-only-repo-tour.html">001-03 — 先讓 Claude Code 讀 repo，不改檔案</a>。接著才讓它讀真實工作 repo，但仍不修改任何檔案。</p>
+<p>下一課：<a href="001-0003-read-only-repo-tour.html">Phase 1 第 03 課 — 先讓 Claude Code 讀 repo，不改檔案</a>。接著才讓它讀真實工作 repo，但仍不修改任何檔案。</p>
 
 <h2>主要閱讀資源</h2>
 <p><a href="https://code.claude.com/docs/en/quickstart">Claude Code Quickstart（官方）</a> — 本課即以此為底。下一課前可加讀 <a href="https://code.claude.com/docs/en/how-claude-code-works">How Claude Code works</a>。</p>
@@ -109,6 +147,17 @@ boxes.forEach(b => b.addEventListener('change', () => {
   document.getElementById('done').style.display =
     [...boxes].every(x => x.checked) ? 'block' : 'none';
 }));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
 </script>
 </body>
 </html>

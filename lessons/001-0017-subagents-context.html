@@ -13,6 +13,7 @@
   code { padding: .12rem .35rem; }
   pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
   a { color: #b04a12; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .tip { background: #faf3ee; border-left: 4px solid #c2571a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -28,9 +29,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Lesson 001-17 · 約 15 分鐘 · Context 隔離</div>
+<div class="kicker">Phase 1 · 第 17 課 · 約 15 分鐘 · Context 隔離</div>
 <h1>把大型調查交給另一個 agent（Subagents）</h1>
 <p class="mission">任務目標：知道什麼時候把調查交給 subagent，避免主對話被大量檔案與探索過程塞滿。</p>
+<div class="scope"><strong>本課只做：</strong>把大型調查交給隔離 context 的 subagent。<br><strong>先不要做：</strong>把需要即時決策的主線工作丟給 subagent 後放著不管。</div>
+
 
 <h2>為什麼需要 subagent</h2>
 <p>調查一個子系統常會讀很多檔案；如果全部塞進主對話，後續實作就容易變慢、變亂。subagent 在自己的 context 裡探索，主對話只收摘要。</p>
@@ -73,9 +76,9 @@ Return only: summary, key files, risks, open questions.</pre>
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0018-custom-subagent-review.html">001-18 — 建立專門負責 review 的 agent（custom subagent）</a>。</p>
+<p>下一課：<a href="001-0018-custom-subagent-review.html">Phase 1 第 18 課 — 建立專門負責 review 的 agent（custom subagent）</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/sub-agents">Create custom subagents（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0016-mcp.html">001-16 — MCP</a></footer>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0016-mcp.html">Phase 1 第 16 課 — MCP</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

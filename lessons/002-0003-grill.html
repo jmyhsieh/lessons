@@ -17,6 +17,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
   th { background: #eef4f2; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #f8fbfa; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .tip { background: #eef4f2; border-left: 4px solid #1a6b5a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -34,9 +35,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 2 · Lesson 0016 · 約 40 分鐘 · 實作課</div>
+<div class="kicker">Phase 2 · 第 03 課 · 約 40 分鐘 · 實作課</div>
 <h1>把模糊需求問清楚（Grill）</h1>
 <p class="mission">目標：用 <code>/grill-with-docs</code> 把真實 repo 的一個<strong>模糊需求</strong>追問成對齊的計劃，過程中讓 CONTEXT.md 與 ADR 自然長大。這直攻 misalignment — AI 開發最常見、也最昂貴的失敗模式。</p>
+<div class="scope"><strong>本課只做：</strong>把模糊需求問到可以行動。<br><strong>先不要做：</strong>用 grill 取代產品決策，或把訪談拖成無限討論。</div>
+
 
 <h2>兩支 grill，怎麼選</h2>
 <table>
@@ -121,7 +124,7 @@
 </div>
 
 <div class="quiz" data-answer="1">
-  <p>3.（複習第 14 課）grill 中敲定了「『結算日』指每月 25 日鎖帳那天」。這寫進哪？</p>
+  <p>3.（複習 Phase 2 第 01 課）grill 中敲定了「『結算日』指每月 25 日鎖帳那天」。這寫進哪？</p>
   <button>ADR，因為這是一個重要的業務決策</button>
   <button>CONTEXT.md，這是術語的精確定義</button>
   <button>CLAUDE.md，讓每個 session 都看得到</button>
@@ -129,12 +132,12 @@
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課：<a href="002-0004-prototype.html">第 17 課 — /prototype：用拋棄式原型敲定設計</a>。</p>
+<p>完成後回對話視窗回報。下一課：<a href="002-0004-prototype.html">Phase 2 第 04 課 — /prototype：用拋棄式原型敲定設計</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — 看 grill-with-docs 的 SKILL.md 原文與 CONTEXT-FORMAT.md。補充：<a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="002-0002-zoom-out.html">第 15 課 — /zoom-out</a> · <a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>
+  上一課：<a href="002-0002-zoom-out.html">Phase 2 第 02 課 — /zoom-out</a> · <a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>
 </footer>
 
 <script>

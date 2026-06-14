@@ -17,6 +17,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; }
   th { background: #eef1f6; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #d7dde8; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fbfcfe; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .rule { background: #eef1f6; border-left: 4px solid #4f5d75; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -34,9 +35,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 3 · Lesson 0026 · 約 25 分鐘 · Issue / brief</div>
+<div class="kicker">Phase 3 · 第 02 課 · 約 25 分鐘 · Issue / brief</div>
 <h1>把任務寫到 agent 可以直接接手</h1>
-<p class="mission">目標：把第 25 課判定「值得 harness 化」的任務，先寫成 agent 可接手的 issue 或 brief。核心產物是一份穩定 input contract：任務來源、範圍、驗收與停止條件都講清楚。</p>
+<p class="mission">目標：把 Phase 3 第 01 課判定「值得 harness 化」的任務，先寫成 agent 可接手的 issue 或 brief。核心產物是一份穩定 input contract：任務來源、範圍、驗收與停止條件都講清楚。</p>
+<div class="scope"><strong>本課只做：</strong>產出一份 agent 可接手的 issue / brief。<br><strong>先不要做：</strong>在 input 不穩時先做 gates 或 runner。</div>
+
 
 <h2>為什麼 issue / brief 要先 harness-ready</h2>
 <p><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a> 強調兩件事：給 Claude 可執行的驗證方式，並在 prompt 裡提供具體脈絡。這正是 harness-ready issue / brief 的用途：讓每次啟動都拿到同樣清楚的任務，而不是靠你在對話裡臨場補洞。</p>
@@ -59,7 +62,7 @@
 <h2>實作步驟（做完打勾）</h2>
 
 <div class="step">
-  <label><input type="checkbox"> 1. 從第 25 課挑一個候選任務</label>
+  <label><input type="checkbox"> 1. 從 Phase 3 第 01 課挑一個候選任務</label>
   <p>只挑一個。最好是重複、可驗收、常讓你重講背景的任務，例如「每週整理 bug issue」或「修登入回歸」。</p>
 </div>
 
@@ -97,7 +100,7 @@
   <button>需求口號</button>
   <button>輸入契約</button>
   <button>測試報告</button>
-  <div class="why">第 26 課只把 issue / brief 的任務來源、範圍、驗收與停止條件寫穩，還不是 runner 或測試報告。</div>
+  <div class="why">Phase 3 第 02 課只把 issue / brief 的任務來源、範圍、驗收與停止條件寫穩，還不是 runner 或測試報告。</div>
 </div>
 
 <div class="quiz" data-answer="1">
@@ -117,12 +120,12 @@
 </div>
 
 <h2>下一步</h2>
-<p>先把一個真實任務寫成 harness-ready issue / brief。若六格都穩，接著進入 <a href="003-0003-gates-evidence.html">第 27 課</a>：把驗收條件轉成 gates，並定義每個 gate 要留下哪些 evidence。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a>。延伸對照：<a href="003-0001-from-agent-session-to-harness.html">第 25 課 — 判斷任務是否值得變成 harness</a>、<a href="../reference/harness-input-contract.html">Harness-ready issue / brief 速查表</a>。</p>
+<p>先把一個真實任務寫成 harness-ready issue / brief。若六格都穩，接著進入 <a href="003-0003-gates-evidence.html">Phase 3 第 03 課</a>：把驗收條件轉成 gates，並定義每個 gate 要留下哪些 evidence。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a>。延伸對照：<a href="003-0001-from-agent-session-to-harness.html">Phase 3 第 01 課 — 判斷任務是否值得變成 harness</a>、<a href="../reference/harness-input-contract.html">Harness-ready issue / brief 速查表</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  相關課程：<a href="003-0003-gates-evidence.html">第 27 課 — gates 與 evidence</a> · <a href="003-0001-from-agent-session-to-harness.html">第 25 課 — harness mindset</a> · <a href="002-0011-handoff.html">第 24 課 — /handoff</a> · <a href="../toc.html">課目表</a>
+  相關課程：<a href="003-0003-gates-evidence.html">Phase 3 第 03 課 — gates 與 evidence</a> · <a href="003-0001-from-agent-session-to-harness.html">Phase 3 第 01 課 — harness mindset</a> · <a href="002-0011-handoff.html">Phase 2 第 11 課 — /handoff</a> · <a href="../toc.html">課目表</a>
 </footer>
 
 <script>

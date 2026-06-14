@@ -13,6 +13,7 @@
   code { padding: .12rem .35rem; }
   pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
   a { color: #b04a12; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .safety { background: #fbeaea; border-left: 4px solid #c62828; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -28,9 +29,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Lesson 001-14 · 約 15 分鐘 · Guardrail</div>
+<div class="kicker">Phase 1 · 第 14 課 · 約 15 分鐘 · Guardrail</div>
 <h1>擋下危險操作（guardrail hook）</h1>
 <p class="mission">任務目標：建立一個 PreToolUse hook，擋下你們 repo 中不該被 Claude 自動觸碰的危險操作。</p>
+<div class="scope"><strong>本課只做：</strong>用最小 guardrail 擋下明確危險操作。<br><strong>先不要做：</strong>把模糊偏好做成會誤擋正常工作的 hook。</div>
+
 
 <div class="safety"><strong>選低誤判規則：</strong>先擋明確危險動作，例如 production 設定、migration、或禁止 push。不要把需要人類判斷的風格偏好做成硬擋。</div>
 
@@ -78,9 +81,9 @@ It must exit 2 and explain the reason on stderr.</pre>
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0015-skills.html">001-15 — Skills</a>。</p>
+<p>下一課：<a href="001-0015-skills.html">Phase 1 第 15 課 — Skills</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/hooks">Hooks reference（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0013-hooks-basics.html">001-13 — 控制 Claude Code 工具行為（hooks）</a></footer>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0013-hooks-basics.html">Phase 1 第 13 課 — 控制 Claude Code 工具行為（hooks）</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

@@ -17,6 +17,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
   th { background: #eef4f2; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #f8fbfa; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .tip { background: #eef4f2; border-left: 4px solid #1a6b5a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -35,13 +36,15 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 2 · Lesson 0017 · 約 30 分鐘 · 實作課（開發線）</div>
+<div class="kicker">Phase 2 · 第 04 課 · 約 30 分鐘 · 實作課（開發線）</div>
 <h1>用可丟棄原型驗證想法（/prototype）</h1>
 <p class="mission">目標：在 grill 對齊之後、寫 PRD 之前，用 <code>/prototype</code> 做一個<strong>回答單一問題的拋棄式原型</strong>，把設計風險排掉再往下走。pipeline 多了一道「先玩過再承諾」的保險。</p>
+<div class="scope"><strong>本課只做：</strong>用可丟棄原型驗證一個設計問題。<br><strong>先不要做：</strong>把 prototype 當 production foundation。</div>
+
 
 <h2>它在 pipeline 的位置</h2>
 <pre>grill（對齊需求）→ <strong>prototype（玩過設計）</strong> → /to-prd → /to-issues → /tdd
-   第 16 課              本課                第 18 課</pre>
+   Phase 2 第 03 課              本課                Phase 2 第 05 課</pre>
 <p>不是每個需求都需要 prototype — 但當「這個 state machine 對不對」「這頁該長怎樣」用想的講不清時，原型用<strong>能跑的東西</strong>取代爭論。to-issues 甚至會把原型敲定的關鍵片段（state machine、schema）收進 issue。</p>
 
 <h2>核心定義（SKILL.md 原文）</h2>
@@ -62,7 +65,7 @@
   <li><strong>把狀態攤開</strong> — 每個動作後（logic）或每次切換變體後（UI），印出/渲染完整相關狀態，讓你看見變化。</li>
   <li><strong>用完刪掉或吸收</strong> — 原型回答完問題，要嘛刪掉、要嘛把驗證過的決策折進正式碼，別讓它爛在 repo 裡。</li>
 </ol>
-<div class="tip"><strong>唯一值得留下的是「答案」</strong>（skill 原文）：把問題與結論記到耐久的地方 — commit message、ADR、issue 或原型旁的 NOTES.md。原型本身是消耗品，答案才進你的文件制度（接第 14 課地基）。</div>
+<div class="tip"><strong>唯一值得留下的是「答案」</strong>（skill 原文）：把問題與結論記到耐久的地方 — commit message、ADR、issue 或原型旁的 NOTES.md。原型本身是消耗品，答案才進你的文件制度（接 Phase 2 第 01 課地基）。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 
@@ -115,20 +118,20 @@
 </div>
 
 <div class="quiz" data-answer="0">
-  <p>3.（複習第 16 課）「這個取消流程的狀態機對不對」該選哪個分支？</p>
+  <p>3.（複習 Phase 2 第 03 課）「這個取消流程的狀態機對不對」該選哪個分支？</p>
   <button>LOGIC — 用終端機 app 把狀態機推過難想的案例</button>
   <button>UI — 用數種畫面變體比較哪個比較好看</button>
   <button>兩個都要做，才能完整覆蓋整個流程</button>
-  <div class="why">狀態/邏輯問題 → LOGIC 分支。grill 銳化了「取消」的定義（第 16 課），prototype 用可跑的狀態機驗證它在邊界案例下行不行得通。</div>
+  <div class="why">狀態/邏輯問題 → LOGIC 分支。grill 銳化了「取消」的定義（Phase 2 第 03 課），prototype 用可跑的狀態機驗證它在邊界案例下行不行得通。</div>
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課：<a href="002-0005-prd-issues.html">第 18 課 — /to-prd 與 /to-issues：計劃變成可認領的工作</a>，把對齊＋驗證過的設計凝結成 PRD 與切片。</p>
+<p>完成後回對話視窗回報。下一課：<a href="002-0005-prd-issues.html">Phase 2 第 05 課 — /to-prd 與 /to-issues：計劃變成可認領的工作</a>，把對齊＋驗證過的設計凝結成 PRD 與切片。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — prototype 的 SKILL.md 與 LOGIC.md / UI.md 兩個分支說明。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="002-0003-grill.html">第 16 課 — Grill 系列</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+  上一課：<a href="002-0003-grill.html">Phase 2 第 03 課 — Grill 系列</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 
 <script>

@@ -17,6 +17,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
   th { background: #eef4f2; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #f8fbfa; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .tip { background: #eef4f2; border-left: 4px solid #1a6b5a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -34,12 +35,14 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 2 · Lesson 0022 · 約 45 分鐘 · 實作課（缺陷線）</div>
+<div class="kicker">Phase 2 · 第 09 課 · 約 45 分鐘 · 實作課（缺陷線）</div>
 <h1>用紀律流程除錯（/diagnose）</h1>
 <p class="mission">目標：學會六階段診斷紀律，下次真實 repo 出 bug 時用 <code>/diagnose</code> 跑完整迴圈。這支 skill 的核心價值是把模糊症狀變成可重現、可驗證、可回歸的修復流程。</p>
+<div class="scope"><strong>本課只做：</strong>用可重現訊號推進除錯。<br><strong>先不要做：</strong>在沒有 failing case 時只靠猜測改 code。</div>
+
 
 <h2>整個 skill 就一句話</h2>
-<p>Phase 1 的原文：「<strong>This is the skill. Everything else is mechanical.</strong>」— 有了快速、確定性、agent 能自己跑的 pass/fail 訊號，bug 就等於修好了 90%；沒有它，盯 code 盯再久都沒用。這是 001-12「給它能自己跑的驗證」的除錯版，也是整套課程的母題。</p>
+<p>Phase 1 的原文：「<strong>This is the skill. Everything else is mechanical.</strong>」— 有了快速、確定性、agent 能自己跑的 pass/fail 訊號，bug 就等於修好了 90%；沒有它，盯 code 盯再久都沒用。這是 Phase 1 第 12 課「給它能自己跑的驗證」的除錯版，也是整套課程的母題。</p>
 
 <h2>六階段地圖</h2>
 <table>
@@ -82,7 +85,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 4. 盯 Phase 5 的接縫判斷</label>
-  <p>確認：回歸測試先紅後綠了嗎？它寫測試的接縫真的能重現 bug 的觸發模式嗎？若它回報「沒有正確接縫」— 把這個發現餵給第 21 課的架構健檢。</p>
+  <p>確認：回歸測試先紅後綠了嗎？它寫測試的接縫真的能重現 bug 的觸發模式嗎？若它回報「沒有正確接縫」— 把這個發現餵給 Phase 2 第 08 課的架構健檢。</p>
 </div>
 
 <div class="step">
@@ -113,7 +116,7 @@
 </div>
 
 <div class="quiz" data-answer="2">
-  <p>3.（複習第 19 課）Phase 5 「先寫回歸測試、看它失敗、再修」對應 TDD 的什麼？</p>
+  <p>3.（複習 Phase 2 第 06 課）Phase 5 「先寫回歸測試、看它失敗、再修」對應 TDD 的什麼？</p>
   <button>Refactor 階段：全綠之後才開始動結構</button>
   <button>Planning 階段：先和使用者確認要測什麼</button>
   <button>RED→GREEN：沒看過失敗的測試不可信</button>
@@ -121,12 +124,12 @@
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課（缺陷線收官）：<a href="002-0010-qa-triage.html">第 23 課 — /qa 與 /triage：把缺陷變成一條流水線</a>。</p>
+<p>完成後回對話視窗回報。下一課（缺陷線收官）：<a href="002-0010-qa-triage.html">Phase 2 第 10 課 — /qa 與 /triage：把缺陷變成一條流水線</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — diagnose 的 SKILL.md 全文（含十種迴圈武器的完整清單）。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="002-0008-architecture.html">第 21 課 — /improve-codebase-architecture</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+  上一課：<a href="002-0008-architecture.html">Phase 2 第 08 課 — /improve-codebase-architecture</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 
 <script>

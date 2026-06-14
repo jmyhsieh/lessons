@@ -17,6 +17,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
   th { background: #faf3ee; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .tip { background: #faf3ee; border-left: 4px solid #c2571a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -34,9 +35,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Lesson 001-15 · 約 30 分鐘 · 進階實作課</div>
+<div class="kicker">Phase 1 · 第 15 課 · 約 30 分鐘 · 進階實作課</div>
 <h1>把重複流程打包成指令（Skills）</h1>
 <p class="mission">任務目標：把你工作中一個<strong>重複出現的多步驟流程</strong>做成 skill，之後一句 <code>/指令</code> 就能執行，並透過 git 分享給全隊。</p>
+<div class="scope"><strong>本課只做：</strong>判斷重複工作流是否值得打包成 skill。<br><strong>先不要做：</strong>把一次性任務或尚未穩定的流程做成 skill。</div>
+
 
 <h2>什麼時候該做成 skill（<a href="https://code.claude.com/docs/en/skills">官方文件</a>）</h2>
 <p>訊號跟 CLAUDE.md 類似但對象不同：</p>
@@ -123,16 +126,16 @@ description: 摘要未 commit 的變更並標記風險。當使用者問
   <button>skill，把測試流程打包成可重用指令</button>
   <button>CLAUDE.md，寫明 commit 前必須跑測試</button>
   <button>hook，在固定時點強制執行不靠自覺</button>
-  <div class="why">（間隔複習 001-13）關鍵字是「必」= 保證 = hooks。skill 和 CLAUDE.md 都靠模型配合，只有 hook 是系統強制。</div>
+  <div class="why">（間隔複習 Phase 1 第 13 課）關鍵字是「必」= 保證 = hooks。skill 和 CLAUDE.md 都靠模型配合，只有 hook 是系統強制。</div>
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課：<a href="001-0016-mcp.html">001-16 — MCP：把外部工具接進 Claude Code</a>。</p>
+<p>完成後回對話視窗回報。下一課：<a href="001-0016-mcp.html">Phase 1 第 16 課 — MCP：把外部工具接進 Claude Code</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/skills">Extend Claude with skills（官方）</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="001-0014-guardrail-hooks.html">001-14 — guardrail hook</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+  上一課：<a href="001-0014-guardrail-hooks.html">Phase 1 第 14 課 — guardrail hook</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 
 <script>

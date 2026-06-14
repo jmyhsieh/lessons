@@ -14,6 +14,7 @@
   code { padding: .12rem .35rem; }
   pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
   a { color: #b04a12; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .safety { background: #fbeaea; border-left: 4px solid #c62828; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
@@ -31,9 +32,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Lesson 001-04 · 約 25 分鐘 · 實作課（桌面 App 優先）</div>
+<div class="kicker">Phase 1 · 第 04 課 · 約 25 分鐘 · 實作課（桌面 App 優先）</div>
 <h1>第一次讓它改程式碼 — 分支、小改動、review</h1>
 <p class="mission">任務目標：在工作 repo 裡，讓 Claude Code 完成一個<strong>低風險的真實修改</strong>，全程走「先開分支 → 逐項批准 → 親自 review diff → commit」的安全流程。做完這課，你就具備在正式專案日常使用的基本功。</p>
+<div class="scope"><strong>本課只做：</strong>在分支上做一個小改動，並看懂 diff。<br><strong>先不要做：</strong>把第一個任務選成跨模組重構或高風險修復。</div>
+
 
 <div class="safety">
 <strong>正式專案三道護欄（這課的核心）：</strong>
@@ -112,12 +115,12 @@
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0005-claude-md.html">001-05 — CLAUDE.md：讓它記住你們團隊的規範</a>。把專案規範寫成它每次 session 自動讀取的指示檔。</p>
+<p>下一課：<a href="001-0005-claude-md.html">Phase 1 第 05 課 — CLAUDE.md：讓它記住你們團隊的規範</a>。把專案規範寫成它每次 session 自動讀取的指示檔。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code Best Practices（官方）</a> — 本課流程的進階版。</p>
 
 <footer>
   任何一步卡住或對 diff 有疑慮，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="001-0003-read-only-repo-tour.html">001-03 — 唯讀 repo 導覽</a> · <a href="../reference/claude-code-command-surface.html">操作 command 速查表</a>
+  上一課：<a href="001-0003-read-only-repo-tour.html">Phase 1 第 03 課 — 唯讀 repo 導覽</a> · <a href="../reference/claude-code-command-surface.html">操作 command 速查表</a>
 </footer>
 
 <script>

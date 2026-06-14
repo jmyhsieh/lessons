@@ -16,6 +16,7 @@
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
   th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
   th { background: #faf3ee; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
   .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
   .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
@@ -30,9 +31,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Lesson 001-08 · 約 15 分鐘 · 操作控制台</div>
+<div class="kicker">Phase 1 · 第 08 課 · 約 15 分鐘 · 操作控制台</div>
 <h1>整理與切換對話狀態（session commands）</h1>
 <p class="mission">任務目標：把 slash commands 當成 Claude Code session 的控制台。這一課只練常用 command，不處理模型選擇。</p>
+<div class="scope"><strong>本課只做：</strong>學會幾個管理 session 狀態的基本 command。<br><strong>先不要做：</strong>把 session command 當成會自動修好脈絡污染的萬用鍵。</div>
+
 
 <h2>先記四組就好</h2>
 <table>
@@ -81,9 +84,9 @@
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0009-model-effort.html">001-09 — 選模型與推理強度，避免浪費 token（/model、/effort）</a>。</p>
+<p>下一課：<a href="001-0009-model-effort.html">Phase 1 第 09 課 — 選模型與推理強度，避免浪費 token（/model、/effort）</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/commands">Claude Code Commands（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0007-permission-rules.html">001-07 — permission rules</a> · <a href="../reference/claude-code-command-surface.html">操作 command 速查表</a></footer>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0007-permission-rules.html">Phase 1 第 07 課 — permission rules</a> · <a href="../reference/claude-code-command-surface.html">操作 command 速查表</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {
