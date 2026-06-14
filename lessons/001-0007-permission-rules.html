@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>001-07：permission rules：allow / ask / deny</title>
+<title>07：控制 Claude Code 能做什麼（permission rules）</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
   .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
@@ -29,7 +29,7 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Lesson 001-07 · 約 15 分鐘 · 權限規則</div>
-<h1>permission rules：allow / ask / deny</h1>
+<h1>控制 Claude Code 能做什麼（permission rules）</h1>
 <p class="mission">任務目標：把「不要 push main」「不要讀 .env」這類口頭提醒，改成 Claude Code 會強制執行的 permission rules。</p>
 
 <h2>規則比提醒可靠</h2>
@@ -79,9 +79,9 @@
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0008-session-commands.html">001-08 — session commands</a>。你會把常用 slash command 當成工作中的控制台。</p>
+<p>下一課：<a href="001-0008-session-commands.html">001-08 — 整理與切換對話狀態（session commands）</a>。你會把常用 slash command 當成工作中的控制台。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/permissions">Configure permissions（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0006-permission-plan-mode.html">001-06 — 權限模式與 plan mode</a></footer>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0006-permission-plan-mode.html">001-06 — 先用 plan mode 讓它只規劃不修改</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

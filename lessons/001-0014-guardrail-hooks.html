@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>001-14：危險操作 guardrail hook</title>
+<title>14：擋下危險操作（guardrail hook）</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
   .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
@@ -29,7 +29,7 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Lesson 001-14 · 約 15 分鐘 · Guardrail</div>
-<h1>危險操作 guardrail hook</h1>
+<h1>擋下危險操作（guardrail hook）</h1>
 <p class="mission">任務目標：建立一個 PreToolUse hook，擋下你們 repo 中不該被 Claude 自動觸碰的危險操作。</p>
 
 <div class="safety"><strong>選低誤判規則：</strong>先擋明確危險動作，例如 production 設定、migration、或禁止 push。不要把需要人類判斷的風格偏好做成硬擋。</div>
@@ -80,7 +80,7 @@ It must exit 2 and explain the reason on stderr.</pre>
 <h2>下一步</h2>
 <p>下一課：<a href="001-0015-skills.html">001-15 — Skills</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/hooks">Hooks reference（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0013-hooks-basics.html">001-13 — Hooks 基礎</a></footer>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0013-hooks-basics.html">001-13 — 控制 Claude Code 工具行為（hooks）</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

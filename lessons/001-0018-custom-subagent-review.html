@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>001-18：Custom subagent 與獨立 review</title>
+<title>18：建立專門負責 review 的 agent（custom subagent）</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
   .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
@@ -29,7 +29,7 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Lesson 001-18 · 約 20 分鐘 · Review agent</div>
-<h1>Custom subagent 與獨立 review</h1>
+<h1>建立專門負責 review 的 agent（custom subagent）</h1>
 <p class="mission">任務目標：建立一個唯讀 reviewer subagent，讓它用乾淨 context 審查 diff，而不是讓剛寫 code 的同一個對話自我審查。</p>
 
 <h2>獨立 review 的價值</h2>
@@ -81,9 +81,9 @@ Report only actionable issues with file references.</pre>
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0019-worktrees.html">001-19 — Worktrees：平行 session 隔離</a>。</p>
+<p>下一課：<a href="001-0019-worktrees.html">001-19 — 用 worktree 分開平行工作</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/sub-agents">Create custom subagents（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0017-subagents-context.html">001-17 — Subagents context 隔離</a></footer>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0017-subagents-context.html">001-17 — 把大型調查交給另一個 agent（Subagents）</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {
