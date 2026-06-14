@@ -2,20 +2,28 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>與 Claude 一起工作 — 學習手冊</title>
+<title>Claude Code 交付工作流 — 學習手冊</title>
 <style>
   * { box-sizing: border-box; }
   body { margin: 0; font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          min-height: 100vh; display: flex; align-items: center; justify-content: center;
          background: linear-gradient(160deg, #faf6f1 0%, #f3ece4 55%, #e9f0ed 100%); color: #1a1a1a; }
-  .cover { max-width: 880px; padding: 4rem 2.5rem; text-align: center; }
-  .mark { font-size: .8rem; letter-spacing: .45em; text-transform: uppercase; color: #b04a12; margin-bottom: 2.2rem; }
-  h1 { font-size: 2.6rem; line-height: 1.3; margin: 0 0 1rem; font-weight: 700; }
+  .cover { max-width: 980px; padding: 4rem 2.5rem; text-align: center; }
+  .mark { font-size: .8rem; letter-spacing: .32em; text-transform: uppercase; color: #b04a12; margin-bottom: 2rem; }
+  h1 { font-size: 2.65rem; line-height: 1.3; margin: 0 0 1rem; font-weight: 700; }
   h1 .accent { color: #c2571a; }
-  .subtitle { font-size: 1.05rem; color: #555; line-height: 1.9; margin: 0 auto 2.6rem; max-width: 480px; }
-  .phases { display: flex; gap: 1rem; justify-content: center; margin-bottom: 3rem; flex-wrap: wrap; }
-  .phase { flex: 1; min-width: 220px; max-width: 280px; text-align: left;
-           border-radius: 10px; padding: 1.1rem 1.3rem; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,.06); }
+  .subtitle { font-size: 1.08rem; color: #555; line-height: 1.85; margin: 0 auto 2rem; max-width: 620px; }
+  .start-hint { display: inline-flex; align-items: center; gap: .6rem; margin-bottom: 2.2rem;
+                border: 1px solid #eaded3; border-radius: 999px; background: rgba(255,255,255,.72);
+                padding: .45rem 1rem; color: #5b514b; font-size: .92rem; }
+  .start-hint strong { color: #b04a12; }
+  .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; margin: 0 auto 2rem; max-width: 820px; }
+  .outcome { text-align: left; border-left: 3px solid #c2571a; background: rgba(255,255,255,.72);
+             padding: .8rem 1rem; border-radius: 8px; }
+  .outcome b { display: block; margin-bottom: .25rem; font-size: .94rem; }
+  .outcome span { display: block; color: #666; font-size: .84rem; line-height: 1.6; }
+  .phases { display: grid; grid-template-columns: repeat(4, 1fr); gap: .85rem; justify-content: center; margin-bottom: 2.4rem; }
+  .phase { text-align: left; border-radius: 8px; padding: 1rem 1.1rem; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,.06); }
   .phase h2 { font-size: .95rem; margin: 0 0 .4rem; }
   .phase.p1 h2 { color: #c2571a; }
   .phase.p2 h2 { color: #1a6b5a; }
@@ -29,44 +37,65 @@
   a.start:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(194,87,26,.35); }
   .meta { margin-top: 2.8rem; font-size: .8rem; color: #999; line-height: 1.8; }
   .meta a { color: #b04a12; }
+  @media (max-width: 860px) {
+    .outcomes, .phases { grid-template-columns: 1fr; }
+    .cover { padding: 3rem 1.25rem; }
+    h1 { font-size: 2.15rem; }
+    .start-hint { border-radius: 8px; align-items: flex-start; }
+  }
   @media print { a.start { display: none; } body { background: #fff; } }
 </style>
 </head>
 <body>
 <div class="cover">
-  <div class="mark">Learning Workspace · 2026</div>
-  <h1>與 <span class="accent">Claude</span> 一起工作</h1>
-  <p class="subtitle">從分辨 Claude、Cowork、Claude Code 三種工作流開始，<br>
-  到在正式專案安全地開發，<br>
-  再到把重複任務收斂成可驗證、可回看、可重跑、可維護的 harness 化工作流。</p>
+  <div class="mark">Beginner Friendly Course · 2026</div>
+  <h1>從 0 開始，用 <span class="accent">Claude Code</span> 做出可交付成果</h1>
+  <p class="subtitle">這套課不是介紹 AI 名詞，而是帶你一步步練習：選對 Claude 工具、在 repo 裡安全開始、把結果驗證清楚，最後把重複任務整理成團隊能重跑的工作流。</p>
+
+  <div class="start-hint"><strong>不知道從哪開始？</strong><span>先點「進入課目表」，從第 1 課照順序走；已經會 Claude Code 的人，可以直接跳到 Phase 2 或 Phase 3。</span></div>
+
+  <div class="outcomes">
+    <div class="outcome">
+      <b>會選工具</b>
+      <span>知道什麼任務該用 Claude Chat、Cowork、Claude Code 或 skill。</span>
+    </div>
+    <div class="outcome">
+      <b>會安全開始</b>
+      <span>先讀 repo、先規劃、再小步修改，避免一開始就改壞專案。</span>
+    </div>
+    <div class="outcome">
+      <b>會交付結果</b>
+      <span>用測試、review、evidence 與 handoff 說清楚做了什麼。</span>
+    </div>
+  </div>
 
   <div class="phases">
     <div class="phase p1">
-      <h2>Phase 1 — Claude Code 實戰</h2>
-      <p>產品判斷 · 安全工作流 · CLAUDE.md 與權限 · command 控制台 · model/effort · hooks/skills/MCP/subagents · worktrees/headless</p>
-      <span class="count">001-01–001-22</span>
+      <h2>Phase 1 — 先會用</h2>
+      <p>從安裝、唯讀探索、權限、model/effort 到第一次安全改程式碼。</p>
+      <span class="count">01–22</span>
     </div>
     <div class="phase p2">
-      <h2>Phase 2 — 真實 repo 工作流</h2>
-      <p>CONTEXT.md 與 ADR · grill 對齊 · PRD→issues→TDD · 架構健檢 · 除錯與分流</p>
-      <span class="count">002-01–002-11</span>
+      <h2>Phase 2 — 做真任務</h2>
+      <p>把模糊需求問清楚，寫成 PRD/issues，用 TDD、review、diagnose 推進。</p>
+      <span class="count">01–11</span>
     </div>
     <div class="phase p3">
-      <h2>Phase 3 — Harness 化工作流</h2>
-      <p>一次性 agent · issue/brief · gates · evidence · report · minimal runner · agent call · gate execution · run history · rerun policy · final handoff · closeout · repo rehearsal · workflow patch · patch verification · repo contract</p>
-      <span class="count">003-01–003-16</span>
+      <h2>Phase 3 — 變成可重跑</h2>
+      <p>把重複任務寫清楚，加入驗收關卡、證據、報告與執行紀錄。</p>
+      <span class="count">01–16</span>
     </div>
     <div class="phase p4">
-      <h2>Phase 4 — Harness Operations</h2>
-      <p>review loop · effectiveness evidence · template promotion · hook/gate promotion · contract cleanup</p>
-      <span class="count">004-01–004-05</span>
+      <h2>Phase 4 — 放進團隊規範</h2>
+      <p>把穩定做法放回 review、模板、hook/gate，並定期整理。</p>
+      <span class="count">01–05</span>
     </div>
   </div>
 
   <a class="start" href="toc.html">進入課目表 →</a>
 
   <div class="meta">
-    教材依據官方文件與 SKILL.md 原文 · 每課含實作清單與觀念檢查<br>
+    建議先照課目表順序學，再依任務需要回查參考文件<br>
     參考：<a href="reference/claude-product-picker.html">產品選用速查表</a> · <a href="reference/harness-workflow-index.html">Harness 工作流速查索引</a>
   </div>
 </div>
