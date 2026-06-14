@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Template promotion 速查表</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #4f5d75; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #4f5d75; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #eef1f6; }
+  pre, code { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .1rem .35rem; }
+  pre { padding: .9rem 1rem; white-space: pre-wrap; overflow-x: auto; }
+  a { color: #36506f; }
+  .rule { border-left: 4px solid #4f5d75; background: #f8fafc; padding: .8rem 1rem; margin: 1rem 0; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print { body { margin: 1rem auto; } .rule, tr { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Template promotion 速查表</h1>
+<p class="sub">把多次有效的 input 或 review contract 升級成 template 欄位。</p>
+
+<div class="rule">
+  <strong>驗收句：</strong>下次任務一開始就帶著必要欄位，reviewer 不必反覆追同一份 evidence。
+</div>
+
+<h2>Target selector</h2>
+<table>
+<tr><th>Template</th><th>放什麼</th><th>升級條件</th></tr>
+<tr><td>Issue template</td><td>outcome、scope、gates、stop condition。</td><td>任務啟動時重複缺同一欄。</td></tr>
+<tr><td>PR template</td><td>evidence path、risk、manual check。</td><td>review 時重複追同一證據。</td></tr>
+<tr><td>Handoff template</td><td>current state、artifacts、next decision。</td><td>接手時重複缺上下文。</td></tr>
+<tr><td>Reference template</td><td>低頻但格式要一致的 note。</td><td>還不適合每次必填。</td></tr>
+</table>
+
+<h2>Promotion template</h2>
+<pre>templatePromotion:
+  sourceContract:
+  evidenceWindow:
+  repeatedNeed:
+  targetTemplate:
+  newFields:
+    - 
+  notPromoted:
+    - 
+  nextReview:</pre>
+
+<h2>欄位設計原則</h2>
+<table>
+<tr><th>原則</th><th>做法</th></tr>
+<tr><td>少</td><td>一次只加一到三欄。</td></tr>
+<tr><td>具體</td><td>用 <code>evidencePath</code>，不要用「補充說明」。</td></tr>
+<tr><td>可刪</td><td>設定 review 條件，常空白就移除或改寫。</td></tr>
+<tr><td>不強制化</td><td>需要人類判斷時，不升級成 gate。</td></tr>
+</table>
+
+<footer>
+  索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
+  對應課程：<a href="../lessons/0043-template-promotion.html">第 43 課 — template promotion</a> · <a href="../lessons/0042-contract-effectiveness-evidence.html">第 42 課 — effectiveness evidence</a>
+</footer>
+</body>
+</html>

@@ -12,6 +12,7 @@
   h2.p1 { color: #c2571a; border-bottom: 2px solid #c2571a; }
   h2.p2 { color: #1a6b5a; border-bottom: 2px solid #1a6b5a; }
   h2.p3 { color: #6f4dbf; border-bottom: 2px solid #6f4dbf; }
+  h2.p4 { color: #36506f; border-bottom: 2px solid #36506f; }
   table { border-collapse: collapse; width: 100%; font-size: .92rem; }
   td { border-bottom: 1px solid #eee; padding: .5rem .6rem; vertical-align: top; }
   td.no { width: 2.5rem; color: #999; font-variant-numeric: tabular-nums; }
@@ -19,6 +20,7 @@
   a { color: #b04a12; text-decoration: none; }
   .p2sec a { color: #15564a; }
   .p3sec a { color: #5a3ba8; }
+  .p4sec a { color: #36506f; }
   a:hover { text-decoration: underline; }
   .ref { background: #faf7f4; border: 1px solid #e8e0d8; border-radius: 8px; padding: .8rem 1.2rem; margin-top: 2rem; }
   .done { color: #2e7d32; }
@@ -28,7 +30,7 @@
 <body>
 <p style="margin:0"><a href="index.html" style="font-size:.85rem">← 封面</a></p>
 <h1>課目表</h1>
-<p class="sub">Claude 三產品 → Claude Code 實戰 → 真實 repo 工作流 → harness 化工作流 · 共 40 課</p>
+<p class="sub">Claude 三產品 → Claude Code 實戰 → 真實 repo 工作流 → harness 化工作流 → harness 營運迴圈 · 共 45 課</p>
 
 <h2 class="p1">Phase 1 — Claude 三產品與 Claude Code（第 1–13 課）</h2>
 <table>
@@ -88,10 +90,22 @@
 <p style="font-size:.85rem;color:#777;margin-top:.5rem">實戰使用順序：先從單次 agent session 與 handoff 開始；只有任務重複、輸入穩定、gate 可檢查、evidence 有價值時，才升級成 harness。第 26 課穩住 issue / brief，第 27 課定義 gates/evidence，第 28 課產出 report/handoff，第 29 課設計 runner，第 30 課只實作 list/show/dry-run，第 31 課接真 agent call，第 32 課執行 gates，第 33 課建立 run history，第 34 課定義 rerun policy，第 35 課整理 final handoff package，第 36 課設計 closeout decision，第 37 課跑一次 repo rehearsal，第 38 課把 finding 變成 workflow patch，第 39 課驗證 patch 是否有效，第 40 課把 verified workflow 固化成 repo contract。</p>
 </div>
 
+<div class="p4sec">
+<h2 class="p4">Phase 4 — Harness Operations：把規範放進持續營運（第 41–45 課）</h2>
+<table>
+<tr><td class="no">41</td><td><a href="lessons/0041-contract-review-loop.html">把 repo contract 放進 review loop</a></td><td class="track">Operations</td></tr>
+<tr><td class="no">42</td><td><a href="lessons/0042-contract-effectiveness-evidence.html">追蹤 contract effectiveness evidence</a></td><td class="track">Operations</td></tr>
+<tr><td class="no">43</td><td><a href="lessons/0043-template-promotion.html">把穩定 contract 升級成 template</a></td><td class="track">Operations</td></tr>
+<tr><td class="no">44</td><td><a href="lessons/0044-hook-gate-promotion.html">判斷何時升級成 hook / gate</a></td><td class="track">Operations</td></tr>
+<tr><td class="no">45</td><td><a href="lessons/0045-contract-retirement.html">整理、合併與退役 contract</a></td><td class="track">Operations</td></tr>
+</table>
+<p style="font-size:.85rem;color:#777;margin-top:.5rem">實戰使用順序：第 41 課把 repo contract 放回 review，第 42 課用少量 evidence 判斷是否有效，第 43 課把穩定 input 或 review 規則放進 template，第 44 課只把低誤判、可判定、必須強制的規則升級成 hook/gate，第 45 課清理重複、過時或增加負擔的 contract。</p>
+</div>
+
 <div class="ref">
 <strong>參考文件</strong>：<a href="reference/claude-product-picker.html">產品選用速查表</a>、<a href="reference/harness-workflow-index.html">Harness 工作流速查索引</a>
 </div>
 
-<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-06-13</footer>
+<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-06-14</footer>
 </body>
 </html>

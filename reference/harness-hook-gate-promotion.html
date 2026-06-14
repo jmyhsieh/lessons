@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Hook / gate promotion 速查表</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #4f5d75; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #4f5d75; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #eef1f6; }
+  pre, code { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .1rem .35rem; }
+  pre { padding: .9rem 1rem; white-space: pre-wrap; overflow-x: auto; }
+  a { color: #36506f; }
+  .rule { border-left: 4px solid #4f5d75; background: #f8fafc; padding: .8rem 1rem; margin: 1rem 0; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print { body { margin: 1rem auto; } .rule, tr { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Hook / gate promotion 速查表</h1>
+<p class="sub">判斷一條 contract 是否能從提醒、template 或 checklist 升級成強制檢查。</p>
+
+<div class="rule">
+  <strong>驗收句：</strong>升級前，必須說清楚 deterministic signal、false-positive risk、failure message、rollout mode 與 rollback。
+</div>
+
+<h2>Promotion checklist</h2>
+<table>
+<tr><th>檢查項</th><th>合格條件</th></tr>
+<tr><td>低誤判</td><td>例外少，且合理例外能被清楚處理。</td></tr>
+<tr><td>可判定</td><td>command、schema、檔案或 policy 能明確 pass/fail。</td></tr>
+<tr><td>可修正</td><td>failure message 能告訴使用者下一步。</td></tr>
+<tr><td>有風險</td><td>不檢查會造成安全、品質、交付或成本風險。</td></tr>
+<tr><td>可回退</td><td>有 rollback 條件與 owner。</td></tr>
+</table>
+
+<h2>Hook or gate?</h2>
+<table>
+<tr><th>機制</th><th>適合時點</th><th>例子</th></tr>
+<tr><td>Hook</td><td>工具使用前後要攔截或記錄。</td><td>阻擋危險 command、保護敏感檔案。</td></tr>
+<tr><td>Runner gate</td><td>收工前要判定交付是否合格。</td><td>測試、lint、link check、schema validation。</td></tr>
+<tr><td>Checklist</td><td>仍需要 reviewer 判斷。</td><td>風險說明是否足夠、handoff 是否清楚。</td></tr>
+</table>
+
+<h2>Spec template</h2>
+<pre>hookGatePromotion:
+  sourceContract:
+  candidateType:
+  deterministicSignal:
+  falsePositiveRisk:
+  failureMessage:
+  rolloutMode:
+  rollback:</pre>
+
+<footer>
+  索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
+  對應課程：<a href="../lessons/0044-hook-gate-promotion.html">第 44 課 — hook / gate promotion</a> · <a href="../lessons/0043-template-promotion.html">第 43 課 — template promotion</a><br>
+  主要來源：<a href="https://code.claude.com/docs/en/hooks">Hooks reference</a> · <a href="https://code.claude.com/docs/en/settings">Claude Code settings</a>
+</footer>
+</body>
+</html>

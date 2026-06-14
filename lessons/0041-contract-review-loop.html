@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>第 41 課：把 repo contract 放進 review loop</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #4f5d75; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #4f5d75; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #4f5d75; }
+  code, pre { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #36506f; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef1f6; }
+  .step { border: 1px solid #d7dde8; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fbfcfe; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .rule { background: #eef1f6; border-left: 4px solid #4f5d75; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d7dde8; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #4f5d75; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef1f6; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d7dde8; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 4 · Lesson 0041 · 約 25 分鐘 · Review loop</div>
+<h1>把 repo contract 放進 review loop</h1>
+<p class="mission">目標：讓第 40 課產出的 repo contract 成為下一輪 review 的檢查依據，而不是寫完就放著。這一課只設計 review loop，不新增自動化。</p>
+
+<h2>Contract 要被使用，才算被固化</h2>
+<p>第 40 課把 verified workflow 放到合適位置；第 41 課要確認 reviewer、下一個 agent 或任務 owner 真的會讀到它。Review loop 的重點不是多一份文件，而是讓每次同類任務都回答四個問題：哪條 contract 適用？它有沒有被遵守？它抓到什麼？它造成什麼負擔？</p>
+<p><a href="https://code.claude.com/docs/en/memory">Claude Code memory</a> 適合保存 repo 規範，但 memory 不是證據。Review loop 需要在 PR、handoff 或 run report 裡留下 contract usage note，讓後續可以判斷 contract 是否仍有價值。</p>
+
+<h2>Review loop 四格</h2>
+<table>
+<tr><th>欄位</th><th>要回答</th><th>例子</th></tr>
+<tr><td>Applicable contract</td><td>這輪任務套用哪一條規範？</td><td><code>reference/harness-input-contract.html</code></td></tr>
+<tr><td>Observed compliance</td><td>有沒有照做？缺哪一塊？</td><td>brief 已列出 scope-out 與 gate evidence。</td></tr>
+<tr><td>Review signal</td><td>它讓 review 更容易，還是只是增加欄位？</td><td>reviewer 不需再追問驗收範圍。</td></tr>
+<tr><td>Next action</td><td>keep、revise、promote 或 retire？</td><td>keep，累積到第 42 課 effectiveness log。</td></tr>
+</table>
+
+<div class="rule"><strong>判斷規則：</strong>一條 contract 如果不會在 review 中被點名，就還不是營運中的 contract，只是參考文件。</div>
+
+<h2>Contract usage note 範例</h2>
+<pre>contractUsage:
+  contract: reference/harness-input-contract.html
+  appliedTo: DOC-142
+  observedCompliance: pass
+  reviewSignal: scope-out was explicit; no clarification needed
+  nextAction: keep
+  evidence: reports/DOC-142-review.md</pre>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 選一條已固化的 repo contract</label>
+  <p>從第 40 課的 contract note 開始。先選一條最近會再次用到的規範，不要一次檢查整個 repo。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 找到 review 入口</label>
+  <p>入口可以是 PR checklist、handoff report、run report 或 reviewer note。選下一個人自然會看的地方。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 加上 contract usage note</label>
+  <p>只加四欄：contract、observed compliance、review signal、next action。欄位越少，越容易持續使用。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 用同類任務跑一次</label>
+  <p>請 agent 或 reviewer 在交付時填 usage note。不要先把它做成 hook；先確認人類 review 真的需要這條規範。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5. 把結果送進 effectiveness log</label>
+  <p>如果 note 提供了有效 signal，下一課再開始追蹤趨勢。單次結果只代表一次使用，不代表規範一定穩定。</p>
+</div>
+
+<div class="done-banner" id="done">
+  <strong>你已完成 review loop 設計。</strong>回對話視窗貼上 usage note，請 AI 老師檢查欄位是否足夠少、位置是否自然。
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="1">
+  <p>1. Review loop 最先要確認的是？</p>
+  <button>文件排版</button>
+  <button>規範有被使用</button>
+  <button>自動化平台</button>
+  <div class="why">Phase 4 的第一步是讓 contract 進入實際 review。沒有被使用，就無法判斷有效性。</div>
+</div>
+
+<div class="quiz" data-answer="2">
+  <p>2. Contract usage note 應該放在哪裡？</p>
+  <button>個人備忘錄</button>
+  <button>未分享的聊天紀錄</button>
+  <button>reviewer 會看的交付物</button>
+  <div class="why">usage note 要讓下一個人可以檢查，因此應放在 PR、handoff 或 run report 等 review 入口。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>3. 一次 review loop 最好檢查？</p>
+  <button>少量 contract</button>
+  <button>所有規範</button>
+  <button>不需紀錄</button>
+  <div class="why">先檢查一條最相關的 contract，才能看出它是否真的改善同類任務。</div>
+</div>
+
+<h2>下一步</h2>
+<p>完成 usage note 後，進入 <a href="0042-contract-effectiveness-evidence.html">第 42 課</a>：用少量 evidence 判斷 contract 是否降低返工、減少追問，或讓 review 更快收斂。</p>
+<p><strong>主要閱讀資源：</strong><a href="../reference/harness-contract-review-loop.html">Contract review loop 速查表</a>。延伸對照：<a href="../reference/harness-repo-contract.html">Repo contract 速查表</a>、<a href="https://code.claude.com/docs/en/memory">How Claude remembers your project</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  相關課程：<a href="0040-repo-contract.html">第 40 課 — repo contract</a> · <a href="0042-contract-effectiveness-evidence.html">第 42 課 — effectiveness evidence</a> · <a href="../reference/harness-contract-review-loop.html">Contract review loop 速查表</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>
