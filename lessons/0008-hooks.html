@@ -50,7 +50,7 @@
 <ul>
   <li><code>PreToolUse</code> — 工具執行<strong>前</strong>：可以擋下它（驗證、阻擋危險指令）</li>
   <li><code>PostToolUse</code> — 工具執行<strong>後</strong>：格式化、lint 剛改過的檔案</li>
-  <li><code>Stop</code> — 它回完話時：跑最終檢查，不過就不准結束</li>
+  <li><code>Stop</code> — 它回完話時：跑最終檢查；可阻擋結束，但不是無限阻擋</li>
   <li><code>Notification</code> — 等你輸入時：桌面通知</li>
 </ul>
 
@@ -58,7 +58,7 @@
 <pre>exit 0  → 放行（照常走權限流程）
 exit 2  → 擋下！stderr 的訊息會回饋給 Claude 讓它調整
 其他    → 視為 hook 自身錯誤，動作照常進行</pre>
-<div class="tip">記這一行就夠：<strong>exit 2 = 擋下並告訴它為什麼</strong>。更細的控制（allow/deny/ask）可用 JSON 輸出，見官方參考。</div>
+<div class="tip">記這一行就夠：<strong>exit 2 = 擋下並告訴它為什麼</strong>。Stop hook 連續阻擋太多次時，Claude Code 會結束回合；更細的控制（allow/deny/ask）可用 JSON 輸出，見官方參考。</div>
 
 <h2>設定長相</h2>
 <p>hooks 寫在 <code>.claude/settings.json</code>（專案共享）。官方範例 — 每次編輯後自動跑 Prettier：</p>

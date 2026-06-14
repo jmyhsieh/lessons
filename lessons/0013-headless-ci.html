@@ -51,7 +51,7 @@ cat build-error.txt | claude -p "concisely explain the root cause" > output.txt
 claude -p "Summarize this project" --output-format json | jq -r '.result'</pre>
 <table>
 <tr><th>旗標</th><th>作用</th></tr>
-<tr><td><code>--bare</code></td><td>跳過 hooks/skills/MCP/CLAUDE.md 的自動載入 — <strong>CI 必加</strong>，保證每台機器結果一致</td></tr>
+<tr><td><code>--bare</code></td><td>跳過 hooks/skills/MCP/CLAUDE.md 的自動載入 — <strong>CI / script 建議使用</strong>，降低本機設定差異</td></tr>
 <tr><td><code>--output-format json</code></td><td>結構化輸出（含 session ID、成本 <code>total_cost_usd</code>）</td></tr>
 <tr><td><code>--allowedTools</code></td><td>預先核准工具（沒人在場按同意，沒核准就中止）</td></tr>
 <tr><td><code>--permission-mode dontAsk</code></td><td>未預先允許的一律自動拒絕 — 鎖死的 CI 基準</td></tr>
@@ -111,11 +111,11 @@ claude -p "Summarize this project" --output-format json | jq -r '.result'</pre>
 <h2>觀念檢查（憑記憶作答）</h2>
 
 <div class="quiz" data-answer="1">
-  <p>1. CI script 裡為什麼要加 <code>--bare</code>？</p>
+  <p>1. CI script 裡為什麼建議加 <code>--bare</code>？</p>
   <button>跳過權限檢查讓 script 不會中途卡住</button>
-  <button>不載入本機 hooks/MCP 等設定，保證結果一致</button>
+  <button>不載入本機 hooks/MCP 等設定，降低環境差異</button>
   <button>減少輸出的內容讓 log 更乾淨好讀</button>
-  <div class="why">--bare 跳過的是「環境自動載入」：某個同事 ~/.claude 裡的 hook 不會悄悄影響 CI 結果。權限該怎麼給還是怎麼給。</div>
+  <div class="why">--bare 跳過的是「環境自動載入」：某個同事 ~/.claude 裡的 hook 不會悄悄影響 CI 結果。它降低環境差異，但權限、repo 狀態與模型輸出仍要另外控制。</div>
 </div>
 
 <div class="quiz" data-answer="0">

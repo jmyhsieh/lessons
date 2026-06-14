@@ -47,7 +47,7 @@
 <tr><td><strong>Broken code</strong><br>回饋迴圈不足</td><td>看似完成、實則會壞</td><td><code>/tdd</code>、<code>/diagnose</code> — 紅綠燈與系統化除錯</td></tr>
 <tr><td><strong>Architectural decay</strong><br>架構腐化</td><td>越改越難改</td><td><code>/improve-codebase-architecture</code>、<code>/to-prd</code>、<code>/to-issues</code></td></tr>
 </table>
-<div class="tip"><strong>為什麼這套對你的封閉系統特別有價值：</strong>遺產系統的最大風險正是 misalignment（沒人記得為什麼這樣寫）與文件缺乏（沒有共享語言）。這套 skills 的 CONTEXT.md + ADR 制度，等於一邊開發一邊把部落知識變成文件。</div>
+<div class="tip"><strong>為什麼這套對封閉系統特別有價值：</strong>遺產系統的最大風險正是 misalignment（沒人記得為什麼這樣寫）與文件缺乏（沒有共享語言）。這套 skills 的 CONTEXT.md + ADR 制度，等於一邊開發一邊把部落知識變成文件。</div>
 
 <h2>兩個地基概念</h2>
 <p><strong>CONTEXT.md</strong> — 放在 repo 的領域語言文件：你們系統的術語、模組名、業務概念的精確定義。人和 AI 共用同一份。它和第 4 課的 CLAUDE.md 分工：CLAUDE.md 講「怎麼工作」（規範、指令），CONTEXT.md 講「這個領域是什麼」（語言、概念）。</p>
@@ -98,7 +98,7 @@
 </div>
 
 <div class="quiz" data-answer="2">
-  <p>2. 你的封閉系統「沒人記得為什麼計費要繞過快取」，最該用哪個機制止血？</p>
+  <p>2. 某個封閉系統「沒人記得為什麼計費要繞過快取」，最該用哪個機制止血？</p>
   <button>CONTEXT.md，把繞過快取一詞定義清楚</button>
   <button>/tdd，先補測試保護這段繞過的邏輯</button>
   <button>ADR，趁還有人記得時把決策記下來</button>
