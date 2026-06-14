@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>第 23 課：/qa 與 /triage — 維運線收官</title>
+<title>第 23 課：/qa 與 /triage — 缺陷線收官</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -34,14 +34,14 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 2 · Lesson 0023 · 約 40 分鐘 · 實作課（維運線收官）</div>
-<h1>/qa 與 /triage — 把維運變成一條流水線</h1>
-<p class="mission">目標：學會「進貨」（/qa 對話式報 bug）與「分流」（/triage 狀態機），讓內部系統的 bug 從發現到 ready-for-agent 有一條完整的維運流水線。本課收官後，Phase 2 全版圖完成。</p>
+<div class="kicker">Phase 2 · Lesson 0023 · 約 40 分鐘 · 實作課（缺陷線收官）</div>
+<h1>/qa 與 /triage — 把缺陷變成一條流水線</h1>
+<p class="mission">目標：學會「進貨」（/qa 對話式報 bug）與「分流」（/triage 狀態機），讓 bug、產品摩擦或改進請求從發現到 ready-for-agent 有一條完整流水線。本課收官後，Phase 2 全版圖完成。</p>
 
-<h2>維運流水線全景</h2>
+<h2>缺陷流水線全景</h2>
 <pre>/qa（報 bug，建 issue）→ /triage（分流到狀態）→ ready-for-agent
                                                   ↓
-                            /diagnose ＋ /tdd（第 19、17 課）修掉它</pre>
+                            /diagnose ＋ /tdd（第 22、19 課）修掉它</pre>
 
 <h2>/qa：對話式報 bug</h2>
 <p>你像跟同事抱怨一樣描述問題，它負責建檔。三個設計重點（skill 原文）：</p>
@@ -50,7 +50,7 @@
   <li><strong>背景探索</strong> — 邊聊邊派 Explore 分身查 codebase，但目的<strong>不是找修法</strong>，是學該區域的領域語言、搞懂功能本該做什麼。</li>
   <li><strong>Issue 必須耐久（durable）</strong> — 用使用者視角與領域術語寫，<strong>不寫檔名、行號、內部實作</strong> — 大重構之後它仍然成立。一次抱怨若含多個獨立問題，它會拆成多張。</li>
 </ul>
-<div class="tip">注意：qa 的 SKILL.md 原文寫的是 <code>gh issue create</code>（GitHub）。本課程設定是 local files — 第 14 課 setup 時已設定，若它仍嘗試用 gh，提醒它「issue tracker 是本地檔案」即可。</div>
+<div class="tip">注意：qa 的 SKILL.md 原文寫的是 <code>gh issue create</code>（GitHub）。若第 14 課選的是 Linear 或 local files，而它仍嘗試用 gh，提醒它改用你選定的 issue tracker。</div>
 
 <h2>/triage：七個角色的狀態機</h2>
 <p>每張 issue 帶<strong>一個類別＋一個狀態</strong>：</p>
@@ -69,7 +69,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 1. 跑一場 /qa</label>
-  <p>把你腦中積壓的 2–3 個內部系統問題（bug 或不順手的地方）用 <code>/qa</code> 一次倒出來，像抱怨給同事聽那樣講。觀察：它怎麼拆分？issue 寫得夠耐久嗎（有沒有偷寫檔名）？</p>
+  <p>把你腦中積壓的 2–3 個真實問題（bug、產品摩擦或不順手的地方）用 <code>/qa</code> 一次倒出來，像抱怨給同事聽那樣講。觀察：它怎麼拆分？issue 寫得夠耐久嗎（有沒有偷寫檔名）？</p>
 </div>
 
 <div class="step">
@@ -94,14 +94,14 @@
 </div>
 
 <div class="done-banner" id="done">
-  🎉 <strong>Phase 2 全版圖完成：對齊、開發、架構、維運四條線都通了！</strong>回對話視窗交總回報，我們來驗收 Phase 2 並規劃下一步。
+  🎉 <strong>Phase 2 全版圖完成：對齊、開發、架構、缺陷四條線都通了！</strong>回對話視窗交總回報，我們來驗收 Phase 2 並規劃下一步。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
 
 <div class="quiz" data-answer="1">
   <p>1. /qa 建的 issue 為什麼禁止寫檔名與行號？</p>
-  <button>避免洩漏內部系統的程式碼結構資訊</button>
+  <button>避免 issue 被程式碼結構綁死</button>
   <button>重構後仍要成立 — issue 必須耐久</button>
   <button>因為報 bug 的使用者根本看不懂程式碼</button>
   <div class="why">durable 是核心設計：行為描述（用領域語言）在大重構後依然正確，檔名行號則很快過期。背景探索學的是語言，不是定位。</div>

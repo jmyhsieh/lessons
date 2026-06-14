@@ -55,7 +55,7 @@
   <li><strong>平行派兩個 subagent</strong> — 一則訊息兩個 Agent 呼叫。各自讀文件＋讀 diff，回報違規/缺口，引用依據，各 400 字內。</li>
   <li><strong>彙整</strong> — 並列在 <code>## Standards</code> 與 <code>## Spec</code> 兩標題下，末尾一行總結：每軸幾個發現、最嚴重的一個。</li>
 </ol>
-<div class="tip"><strong>對封閉系統特別有用：</strong>standards 來源正好就是你前面課程建立的制度 — CONTEXT.md（第 14 課）、ADR、CLAUDE.md。review 等於讓那些文件「活過來」自動把關每一次改動。文件不再只是擺著，而是審查的依據。</div>
+<div class="tip"><strong>對任何有 repo 規範的專案都適用：</strong>standards 來源正好就是你前面課程建立的制度 — CONTEXT.md（第 14 課）、ADR、CLAUDE.md。review 等於讓那些文件「活過來」自動把關每一次改動。文件不再只是擺著，而是審查的依據。</div>
 
 <h2>它和你已學的審查工具的關係</h2>
 <table>
@@ -85,7 +85,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 4. 驗證 spec 軸的「scope creep」</label>
-  <p>特別看 Spec 軸有沒有抓到「做了沒被要求的東西」— 這在 AI 寫的 code 很常見，遺產系統尤其危險（多動一行都是風險）。</p>
+  <p>特別看 Spec 軸有沒有抓到「做了沒被要求的東西」— 這在 AI 寫的 code 很常見，高風險 repo 尤其需要管住 scope creep。</p>
 </div>
 
 <div class="step">

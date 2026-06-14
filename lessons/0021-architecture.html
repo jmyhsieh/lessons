@@ -36,7 +36,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 2 · Lesson 0021 · 約 45 分鐘 · 實作課（架構線）</div>
 <h1>/improve-codebase-architecture — 對抗架構腐化</h1>
-<p class="mission">目標：學會「深模組」的語言，在內部系統跑一次架構健檢，得到一份視覺化報告，並對其中一個候選跑 grilling loop。這是四大失敗模式的最後一塊：architectural decay。</p>
+<p class="mission">目標：學會「深模組」的語言，在真實 repo 跑一次架構健檢，得到一份視覺化報告，並對其中一個候選跑 grilling loop。這是四大失敗模式的最後一塊：architectural decay。</p>
 
 <h2>核心概念：深模組（deep modules）</h2>
 <p>這個 skill 找的是「<strong>深化機會</strong>」— 把淺模組變深的重構。詞彙表（skill 規定每個建議都用這套語言，出自 LANGUAGE.md）：</p>
@@ -56,7 +56,7 @@
   <li><strong>HTML 報告</strong> — 寫到 temp 目錄（不污染 repo）自動打開：每個候選一張卡（檔案、問題、解法、locality/leverage 效益、before/after 圖、建議強度 Strong / Worth exploring / Speculative），結尾給首選建議。<strong>此階段不提介面設計</strong> — 報告完它會問你想深入哪個。</li>
   <li><strong>Grilling loop</strong> — 你挑一個候選，進入拷問對話（第 16 課的肌肉直接重用）。過程中：新概念進 CONTEXT.md；<strong>你以站得住腳的理由拒絕某候選 → 它會提議寫成 ADR</strong>，讓未來的架構健檢不再重複建議同一件事。</li>
 </ol>
-<p>兩個對遺產系統的重要設計：建議若與既有 ADR 衝突，只在摩擦真的大到值得重開決策時才提出（不重新爭論已決定的事）；領域講 CONTEXT.md 的語言、架構講 LANGUAGE.md 的語言。</p>
+<p>兩個對高風險 repo 重要的設計：建議若與既有 ADR 衝突，只在摩擦真的大到值得重開決策時才提出（不重新爭論已決定的事）；領域講 CONTEXT.md 的語言、架構講 LANGUAGE.md 的語言。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 
@@ -117,7 +117,7 @@
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課（維運線）：<a href="0022-diagnose.html">第 22 課 — /diagnose：維運除錯的紀律迴圈</a>。</p>
+<p>完成後回對話視窗回報。下一課（缺陷線）：<a href="0022-diagnose.html">第 22 課 — /diagnose：除錯的紀律迴圈</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — improve-codebase-architecture 的 LANGUAGE.md 是深模組語言的完整定義，值得精讀。</p>
 
 <footer>

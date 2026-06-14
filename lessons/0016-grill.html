@@ -36,7 +36,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 2 · Lesson 0016 · 約 40 分鐘 · 實作課</div>
 <h1>Grill 系列 — 把模糊需求磨成對齊的計劃</h1>
-<p class="mission">目標：用 <code>/grill-with-docs</code> 把內部系統的一個<strong>真實模糊需求</strong>拷問成對齊的計劃，過程中讓 CONTEXT.md 與 ADR 自然長大。這直攻 misalignment — 遺產系統最貴的失敗模式。</p>
+<p class="mission">目標：用 <code>/grill-with-docs</code> 把真實 repo 的一個<strong>模糊需求</strong>拷問成對齊的計劃，過程中讓 CONTEXT.md 與 ADR 自然長大。這直攻 misalignment — AI 開發最常見、也最昂貴的失敗模式。</p>
 
 <h2>兩支 grill，怎麼選</h2>
 <table>
@@ -52,7 +52,7 @@
   <li><strong>對照詞彙表</strong> —「你的 CONTEXT.md 定義『取消』是 X，但你現在的意思是 Y — 哪個對？」</li>
   <li><strong>銳化模糊語言</strong> —「你說『帳號』— 是 Customer 還是 User？這是兩個東西。」</li>
   <li><strong>具體情境壓測</strong> — 發明邊界案例情境，逼你把概念之間的界線講清楚。</li>
-  <li><strong>與程式碼交叉比對</strong> —「程式碼是整單取消，但你剛說可以部分取消 — 哪個才對？」遺產系統的殺手鐧：<em>你以為的</em>和<em>程式碼實際做的</em>常常不一樣。</li>
+  <li><strong>與程式碼交叉比對</strong> —「程式碼是整單取消，但你剛說可以部分取消 — 哪個才對？」高風險 repo 的殺手鐧：<em>你以為的</em>和<em>程式碼實際做的</em>常常不一樣。</li>
   <li><strong>文件即時更新</strong> — 術語一敲定就寫進 CONTEXT.md（純詞彙表，不放實作細節）；ADR 則<strong>節制地</strong>提議。</li>
 </ol>
 <div class="tip"><strong>ADR 三條件（全滿足才寫）：</strong>難以回頭（hard to reverse）＋ 沒脈絡會看不懂為什麼（surprising without context）＋ 真實取捨的結果（real trade-off）。缺一就跳過 — ADR 多了就沒人讀。</div>
@@ -69,12 +69,12 @@
 
 <div class="step">
   <label><input type="checkbox"> 1. 挑一個真實的模糊需求</label>
-  <p>從你的維運/開發待辦裡挑一個「知道要做但說不清楚怎麼做」的需求 — 越模糊越好，那正是 grill 的用武之地。</p>
+  <p>從產品、維運或開發待辦裡挑一個「知道要做但說不清楚怎麼做」的需求 — 越模糊越好，那正是 grill 的用武之地。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 2. 開始拷問</label>
-  <p>在內部系統 repo 的 session 裡：</p>
+  <p>在目標 repo 的 session 裡：</p>
   <pre>/grill-with-docs 我想做：[一兩句描述你的需求]</pre>
   <p>一次一題，認真答。預期 10–30 分鐘的來回。</p>
 </div>

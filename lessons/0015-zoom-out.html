@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>第 15 課：/zoom-out — 迷路時先拿地圖</title>
+<title>第 15 課：/zoom-out — 不熟悉時先取得地圖</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -35,8 +35,8 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 2 · Lesson 0015 · 約 15 分鐘 · 輕量實作</div>
-<h1>/zoom-out — 迷路時先拿地圖</h1>
-<p class="mission">目標：學會在進入內部系統的陌生區域時，先用 <code>/zoom-out</code> 拿一張「模組與呼叫者的地圖」再動工。最小的 skill，卻是遺產系統日常出場率最高的動作之一。</p>
+<h1>/zoom-out — 不熟悉時先取得地圖</h1>
+<p class="mission">目標：學會在進入陌生 repo 或陌生模組時，先用 <code>/zoom-out</code> 拿一張「模組與呼叫者的地圖」再動工。這是避免 agent 和人直接進入細節的最小前置動作。</p>
 
 <h2>整支 skill 的全文（真的就這麼短）</h2>
 <pre>---
@@ -55,7 +55,7 @@ using the project's domain glossary vocabulary.</pre>
 <tr><td>「上升一個抽象層」</td><td>對抗 AI 的預設行為：直接鑽進檔案細節。你要的是俯瞰不是放大鏡</td></tr>
 <tr><td>「模組與呼叫者的地圖，<strong>用領域詞彙</strong>」</td><td>輸出錨定在 CONTEXT.md 的語言（第 14 課的地基在此回收）— 地圖才讀得懂、才耐久</td></tr>
 </table>
-<div class="tip"><strong>注意 frontmatter：<code>disable-model-invocation: true</code></strong> — 第 9 課考過你的欄位。這支只能手動觸發，因為「我迷路了」只有你自己知道；Claude 不會替你承認迷路。</div>
+<div class="tip"><strong>注意 frontmatter：<code>disable-model-invocation: true</code></strong> — 第 9 課考過你的欄位。這支只能手動觸發，因為「我不熟悉這個區域」只有你自己知道；Claude 無法替你判斷熟悉程度。</div>
 
 <h2>它在你工具鏈裡的位置</h2>
 <p>zoom-out 是其他 skill 的<strong>前置動作</strong> — 在你要進入陌生區域之前先跑：</p>
@@ -72,7 +72,7 @@ using the project's domain glossary vocabulary.</pre>
 
 <div class="step">
   <label><input type="checkbox"> 1. 挑一個你最不熟的區域</label>
-  <p>內部系統裡那個「一直繞著走」的子系統 — 越心虛的越好。</p>
+  <p>真實 repo 裡那個你最不熟悉的模組或子系統 — 越不熟悉的越適合。</p>
 </div>
 
 <div class="step">
@@ -97,7 +97,7 @@ using the project's domain glossary vocabulary.</pre>
 </div>
 
 <div class="done-banner" id="done">
-  🎉 <strong>你最心虛的那塊地，現在有地圖了。</strong>回對話視窗回報：地圖第一版合格嗎？你追問了幾次「再上升一層」？
+  🎉 <strong>你最不熟悉的區域，現在有地圖了。</strong>回對話視窗回報：地圖第一版合格嗎？你追問了幾次「再上升一層」？
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
@@ -114,8 +114,8 @@ using the project's domain glossary vocabulary.</pre>
   <p>2. zoom-out 為什麼設 disable-model-invocation: true？</p>
   <button>因為它的輸出很長，自動觸發會浪費 context</button>
   <button>因為它需要讀大量檔案，必須先取得授權</button>
-  <button>因為「我迷路了」這個觸發條件只有你知道</button>
-  <div class="why">（複習第 9 課）這個欄位讓 skill 只能手動觸發。zoom-out 的觸發條件是你的主觀狀態 — Claude 無從判斷你熟不熟這區。</div>
+  <button>因為熟悉程度這個觸發條件只有你知道</button>
+  <div class="why">（複習第 9 課）這個欄位讓 skill 只能手動觸發。zoom-out 的觸發條件是你的主觀狀態 — Claude 無從判斷你對這個區域的熟悉程度。</div>
 </div>
 
 <div class="quiz" data-answer="0">

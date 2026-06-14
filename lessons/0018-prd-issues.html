@@ -47,9 +47,9 @@
 <ul>
   <li>用 CONTEXT.md 的詞彙寫整份 PRD、尊重相關 ADR</li>
   <li>產出：問題陳述、解法、<strong>大量編號的 user stories</strong>、實作決策</li>
-  <li>發佈到 issue tracker（第 14 課設定 = 本地檔案）並標 <code>ready-for-agent</code></li>
+  <li>發佈到第 14 課選定的 issue tracker（GitHub / Linear / local files）並標 <code>ready-for-agent</code></li>
 </ul>
-<div class="tip"><strong>它唯一會停下來問你的：測試的「接縫」（seams）</strong> — 要在哪些介面層驗證這個功能。原則：優先用既有接縫、用越高層的越好。對遺產系統這特別重要：高層接縫（API 邊界、模組介面）通常比深挖內部更安全。看不懂它提的接縫就追問，別放行。</div>
+<div class="tip"><strong>它唯一會停下來問你的：測試的「接縫」（seams）</strong> — 要在哪些介面層驗證這個功能。原則：優先用既有接縫、用越高層的越好。高風險或 legacy repo 特別需要這一步，因為高層接縫（API 邊界、模組介面）通常比深挖內部更安全。看不懂它提的接縫就追問，別放行。</div>
 
 <h2>/to-issues：垂直切片，不是水平分層</h2>
 <p>核心觀念 — <strong>tracer bullet（曳光彈）</strong>：每張 issue 是一條「窄但完整」的端到端路徑，貫穿所有層（schema、API、UI、測試），<strong>不是</strong>「先做完整個資料層」這種水平切法。規則（skill 原文）：</p>
@@ -69,7 +69,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 2. 跑 /to-prd</label>
-  <p>重點審兩處：(a) 它提的測試接縫合理嗎？(b) user stories 有沒有漏掉你在 grill 中講過的場景？確認 PRD 寫進了本地 issue tracker 檔案。</p>
+  <p>重點審兩處：(a) 它提的測試接縫合理嗎？(b) user stories 有沒有漏掉你在 grill 中講過的場景？確認 PRD 寫進第 14 課選定的 tracker。</p>
 </div>
 
 <div class="step">
@@ -79,12 +79,12 @@
 
 <div class="step">
   <label><input type="checkbox"> 4. 驗收本地 issues</label>
-  <p>打開 issue 檔案逐張讀：標題用了 CONTEXT.md 的詞彙嗎？驗收條件具體可驗嗎？blocked-by 鏈正確嗎？挑出最該先做的一張 — 下一課就實作它。</p>
+  <p>打開 issues 逐張讀：標題用了 CONTEXT.md 的詞彙嗎？驗收條件具體可驗嗎？blocked-by 鏈正確嗎？挑出最該先做的一張 — 下一課就實作它。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 5. 全部 commit</label>
-  <p>PRD、issues、CONTEXT.md/ADR 的更新一起進版控 — 這些文件就是你們封閉系統的新制度。</p>
+  <p>PRD、issues、CONTEXT.md/ADR 的更新一起進版控或對應 tracker — 這些文件就是 repo 的交付制度。</p>
 </div>
 
 <div class="done-banner" id="done">
