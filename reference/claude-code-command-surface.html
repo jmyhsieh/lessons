@@ -22,16 +22,17 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <h1>Claude Code 操作速查表：Desktop UI 與 CLI commands</h1>
-<p class="sub">先分清楚你在哪個介面：桌面 App 先用可視化操作；slash commands 是可用時的快捷。</p>
+<p class="sub">先分清楚你在哪個介面：Desktop App 用畫面入口；CLI 才以 slash commands 為主。</p>
 
 <div class="rule">
-  <strong>使用原則：</strong>桌面 App 先找畫面上的 model、permission、diff、preview、session sidebar。需要 slash command 時，在 prompt box 輸入 <code>/</code> 看目前可用清單；不要假設每個 CLI command 都能在 Desktop Code tab 使用。
+  <strong>使用原則：</strong>Desktop App 不等於 CLI。App 先找畫面上的 model、permission、diff、preview、session sidebar。需要 slash command 時，只用 prompt box 的 <code>/</code> 或 <code>+</code> → Slash commands 看目前可用項目；不要把 CLI 指令表直接套到 App。
 </div>
 
-<h2>桌面 App UI 優先</h2>
+<h2>Desktop App</h2>
 <table>
 <tr><th>目的</th><th>桌面 App 操作</th><th>備註</th></tr>
 <tr><td>看鍵盤快捷鍵</td><td>App 快捷鍵清單。</td><td>這是快捷鍵清單，不是 slash command 清單。</td></tr>
+<tr><td>看可用 slash commands</td><td>在 prompt box 輸入 <code>/</code>，或按 <code>+</code> → Slash commands。</td><td>清單裡出現的才代表目前 App 可用。</td></tr>
 <tr><td>開新 session</td><td>sidebar 的 New session。</td><td>每個 session 有自己的 project folder、history、changes。</td></tr>
 <tr><td>權限模式</td><td>mode selector。</td><td>新手正式 repo 先用 Ask permissions。</td></tr>
 <tr><td>選模型</td><td>model dropdown。</td><td>任務變難時再調。</td></tr>
@@ -43,23 +44,22 @@
 <tr><td>切換 view mode</td><td>view mode 選單。</td><td>Normal / Verbose / Summary。</td></tr>
 </table>
 
-<h2>App 可用 slash commands</h2>
+<p><strong>App 特別注意：</strong><code>/help</code> 不作為 App 的查詢入口；App 用 <code>/</code> 或 <code>+</code> → Slash commands。<code>/diff</code>、<code>/model</code>、<code>/effort</code>、<code>/compact</code> 只有出現在 App 清單時才當快捷，否則用上表的 UI。</p>
+
+<h2>CLI</h2>
 <table>
-<tr><th>Command</th><th>用途</th><th>使用方式</th></tr>
-<tr><td><code>/</code></td><td>瀏覽目前可用 slash commands、skills、plugins。</td><td>在 prompt box 輸入。</td></tr>
-<tr><td><code>/help</code></td><td>查看目前環境支援的 commands。</td><td>若清單有就可用。</td></tr>
-<tr><td><code>/init</code></td><td>產生 starter <code>CLAUDE.md</code>。</td><td>若清單有就用；否則用自然語言請 Claude 建立。</td></tr>
-<tr><td><code>/model</code>、<code>/effort</code></td><td>切換模型與推理程度。</td><td>桌面 App 新手先用 UI；command 可作快捷。</td></tr>
-<tr><td><code>/compact</code></td><td>提早壓縮對話、釋放 context。</td><td>也可等系統自動 summarization。</td></tr>
-<tr><td><code>/btw</code></td><td>開 side chat。</td><td>App 若有 side chat UI，也可直接使用。</td></tr>
+<tr><th>時機</th><th>CLI 指令</th><th>用途</th></tr>
+<tr><td>查詢</td><td><code>/help</code></td><td>顯示 CLI help 與可用 commands。App 不用這個。</td></tr>
+<tr><td>第一次進 repo</td><td><code>/init</code>、<code>/memory</code></td><td>建立或調整 <code>CLAUDE.md</code> 與 memory。</td></tr>
+<tr><td>權限與設定</td><td><code>/permissions</code>、<code>/config</code>、<code>/agents</code></td><td>管理權限規則、設定與 subagents。這些常是 terminal-dialog 類型，App 改走 UI 或 settings files。</td></tr>
+<tr><td>任務中控制</td><td><code>/plan</code>、<code>/model</code>、<code>/effort</code></td><td>進入規劃模式，或調整模型與推理程度。</td></tr>
+<tr><td>上下文管理</td><td><code>/context</code>、<code>/compact</code>、<code>/btw</code></td><td>查看 context、提早壓縮、或開旁支問題。</td></tr>
+<tr><td>交付前檢查</td><td><code>/diff</code>、<code>/code-review</code>、<code>/review</code>、<code>/security-review</code></td><td>查看變更、檢查 correctness、做 PR 或安全審查。</td></tr>
+<tr><td>換任務或復原</td><td><code>/clear</code>、<code>/resume</code>、<code>/rewind</code></td><td>清空目前對話、接續舊 session、或回到 checkpoint。</td></tr>
+<tr><td>診斷</td><td><code>/doctor</code></td><td>診斷 Claude Code 安裝與設定問題。</td></tr>
 </table>
 
-<h2>Desktop 不適用</h2>
-<table>
-<tr><th>Command 類型</th><th>代表例子</th><th>桌面 App 路徑</th></tr>
-<tr><td>Terminal-dialog commands</td><td><code>/permissions</code>、<code>/config</code>、<code>/agents</code>、<code>/doctor</code></td><td>改用 UI、settings files，或到 CLI 執行。</td></tr>
-<tr><td>CLI session control</td><td><code>/clear</code>、<code>/resume</code>、<code>/rewind</code></td><td>App 先用 sidebar、session history、diff 與 git。</td></tr>
-</table>
+<p><strong>CLI 特別注意：</strong>官方文件明確說 command availability 會依 platform、plan、environment 改變；實際仍以你在 CLI 輸入 <code>/</code> 或 <code>/help</code> 看到的清單為準。</p>
 
 <footer>
   對應課程：<a href="../lessons/001-0008-session-commands.html">001-08 — 整理與切換對話狀態</a><br>
