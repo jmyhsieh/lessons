@@ -48,8 +48,8 @@ Claude Code 預設在<strong>修改檔案或執行指令前都會逐項徵求你
 <h2>實作步驟（做完打勾）</h2>
 
 <div class="step">
-  <label><input type="checkbox"> 1. 安裝（你的路徑：Windows + 桌面 App）</label>
-  <p><strong>建議路徑：</strong>從 <a href="https://claude.com/download">claude.com/download</a> 下載 <strong>Claude 桌面 App（Windows）</strong>，安裝後登入，點上方的 <strong>Code</strong> 分頁 — 這就是 Claude Code 的圖形介面，有視覺化 diff 檢視，權限同樣逐項詢問。裝好就可跳到步驟 2。</p>
+  <label><input type="checkbox"> 1. 安裝（建議路徑：桌面 App）</label>
+  <p><strong>建議路徑：</strong>從 <a href="https://claude.com/download">claude.com/download</a> 下載 <strong>Claude 桌面 App</strong>，安裝後登入，點上方的 <strong>Code</strong> 分頁 — 這就是 Claude Code 的圖形介面，有視覺化 diff 檢視，權限同樣逐項詢問。裝好就可跳到步驟 2。</p>
   <details><summary>替代路徑：CLI 安裝（之後想在終端機用再回來看）</summary>
   <p><strong>Windows PowerShell</strong>（提示字元開頭是 <code>PS C:\</code>）：</p>
   <pre>irm https://claude.ai/install.ps1 | iex</pre>
@@ -57,7 +57,7 @@ Claude Code 預設在<strong>修改檔案或執行指令前都會逐項徵求你
   <pre>curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd</pre>
   <p><strong>macOS / Linux / WSL</strong>：</p>
   <pre>curl -fsSL https://claude.ai/install.sh | bash</pre>
-  <p>Windows 原生環境建議另裝 <a href="https://git-scm.com/downloads/win">Git for Windows</a>，Claude Code 才能使用 Bash 工具（WSL 不需要）。也可用 <code>winget install Anthropic.ClaudeCode</code> 或 macOS 的 <code>brew install --cask claude-code</code>，但這兩種不會自動更新；原生安裝會自動更新，<a href="https://code.claude.com/docs/en/quickstart">官方建議</a>優先使用。</p>
+  <p>也可用 <code>winget install Anthropic.ClaudeCode</code> 或 macOS 的 <code>brew install --cask claude-code</code>，但這兩種不會自動更新；原生安裝會自動更新，<a href="https://code.claude.com/docs/en/quickstart">官方建議</a>優先使用。</p>
   </details>
 </div>
 
@@ -76,7 +76,7 @@ Claude Code 預設在<strong>修改檔案或執行指令前都會逐項徵求你
   <label><input type="checkbox"> 4. 開一個空白 session</label>
   <p><strong>桌面 App：</strong>選一個低風險資料夾或測試 repo，直接送出一句不會改檔的確認：</p>
   <pre>Before reading many files, tell me what you can do in this session without changing files.</pre>
-  <p><strong>CLI：</strong>若你是在終端機使用，可以輸入 <code>/help</code> 看可用 commands。桌面 App 不以 <code>/help</code> 作為第一個檢查動作，先用畫面上的 session、權限與模型選單。</p>
+  <p><strong>桌面 App：</strong>也可以在 prompt box 輸入 <code>/</code> 查看目前可用的 slash commands；本課先以 UI 與低風險提問確認 session。<strong>CLI：</strong>可用 <code>/help</code> 看 command 清單。</p>
 </div>
 
 <div class="step">
@@ -98,6 +98,7 @@ Claude Code 預設在<strong>修改檔案或執行指令前都會逐項徵求你
 <h2>本課速記</h2>
 <ul>
   <li>桌面 App：Code 分頁開 session、用權限選單保持逐項詢問、用 session sidebar 續聊</li>
+  <li>桌面 App：prompt box 輸入 <code>/</code> 看可用 slash commands；快捷鍵清單則看 App 顯示</li>
   <li>CLI：<code>claude</code> 啟動 / <code>claude -c</code> 續聊 / <code>/help</code> 看 commands / <code>/exit</code> 離開</li>
   <li><code>Shift+Tab</code> 是 CLI 互動模式快捷鍵；桌面 App 用畫面上的權限模式選單</li>
   <li>先確認 session 可用，再進正式 repo 做任務</li>
@@ -120,7 +121,7 @@ Claude Code 預設在<strong>修改檔案或執行指令前都會逐項徵求你
   <button>低風險確認</button>
   <button>讀取專案</button>
   <button>直接改檔</button>
-  <div class="why">本課只用低風險問題確認 session 可用；若使用 CLI 才用 <code>/help</code> 看 commands，不進 repo 導覽或修改。</div>
+  <div class="why">本課只用低風險問題確認 session 可用；桌面 App 可輸入 <code>/</code> 看 slash commands，但不進 repo 導覽或修改。</div>
 </div>
 
 <div class="quiz" data-answer="0">

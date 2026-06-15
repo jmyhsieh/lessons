@@ -33,39 +33,42 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 1 · 第 08 課 · 約 15 分鐘 · 操作控制台</div>
 <h1>整理與切換對話狀態（App 與 CLI）</h1>
-<p class="mission">任務目標：知道 Claude Code 的 session 控制在桌面 App 與 CLI 位置不同。Phase 1 先用 App 的選單、側欄、diff 與 usage 指標；CLI 使用者再對照 slash commands。</p>
-<div class="scope"><strong>本課只做：</strong>學會幾個管理 session 狀態的基本操作。<br><strong>先不要做：</strong>把 CLI slash command 當成桌面 App 唯一操作方式。</div>
+<p class="mission">任務目標：用桌面 App 的面板與可用 slash command 管理 session，並知道哪些 commands 不適用 Desktop。</p>
+<div class="scope"><strong>本課只做：</strong>學會桌面 App 操作入口、可用 slash commands、以及 Desktop 不適用的 commands。<br><strong>先不要做：</strong>把所有 <code>/</code> command 都當成 Desktop 一定支援。</div>
 
 
 <h2>先記四組就好</h2>
 <table>
-<tr><th>目的</th><th>桌面 App</th><th>CLI</th></tr>
-<tr><td>看可用操作</td><td><code>Cmd+/</code>（Windows 用 <code>Ctrl+/</code>）看快捷鍵；用畫面上的選單找功能。</td><td>輸入 <code>/</code> 或 <code>/help</code> 看可用 commands。</td></tr>
-<tr><td>控制上下文</td><td>看 model picker 旁的 usage ring；必要時開新 session 或調整 view mode。</td><td><code>/context</code> 看狀態，<code>/compact</code> 壓縮目前對話。</td></tr>
-<tr><td>交付前檢查</td><td>點 diff stats / diff pane 看變更；需要時用 Preview 或 Review code。</td><td><code>/diff</code> 看變更，<code>/run</code>、<code>/code-review</code> 做驗證與審查。</td></tr>
-<tr><td>換任務</td><td>用 sidebar 開新 session、切回舊 session，或開 side chat 問旁支問題。</td><td><code>/clear</code> 開新對話，<code>/resume</code> 接續舊對話，<code>/rewind</code> 回到 checkpoint。</td></tr>
+<tr><th>目的</th><th>桌面 App 主路徑</th><th>slash command 補充</th></tr>
+<tr><td>看快捷鍵</td><td>打開 App 的快捷鍵清單。</td><td>這不是 command 清單；它只列鍵盤快捷鍵。</td></tr>
+<tr><td>看可用 commands</td><td>在 prompt box 輸入 <code>/</code>。</td><td>清單裡出現的才代表目前可用。</td></tr>
+<tr><td>控制上下文</td><td>點 usage ring；需要時開新 session 或切換 view mode。</td><td><code>/compact</code> 若可用，可提早壓縮對話。</td></tr>
+<tr><td>看變更</td><td>點 diff stats / diff pane。</td><td><code>/diff</code> 若可用，可作為快捷。</td></tr>
+<tr><td>旁支問題</td><td>開 side chat。</td><td><code>/btw</code> 若可用，也會開 side chat。</td></tr>
+<tr><td>Terminal</td><td>開內建 terminal。</td><td>只在 local session 可用。</td></tr>
 </table>
+<p><strong>Desktop 不適用：</strong><code>/permissions</code>、<code>/config</code>、<code>/agents</code>、<code>/doctor</code> 這類會開 terminal-dialog 的 commands。遇到這些需求，桌面 App 先用 UI 或 settings files；必要時再到 CLI。</p>
 <p><code>/goal</code> 先知道就好。它屬於較進階的持續工作控制，需要明確完成條件、gate 與 evidence，Phase 4 才正式接上。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
   <label><input type="checkbox"> 1. 找到你目前介面的操作入口</label>
-  <p><strong>桌面 App：</strong>按 <code>Cmd+/</code>（Windows 用 <code>Ctrl+/</code>）看快捷鍵，並觀察 session toolbar。<strong>CLI：</strong>輸入 <code>/</code> 看完整 command 清單。</p>
+  <p>打開 App 的快捷鍵清單，再在 prompt box 輸入 <code>/</code> 看目前可用的 slash commands。兩個清單用途不同。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 2. 看 context 狀態</label>
-  <p><strong>桌面 App：</strong>點 model picker 旁的 usage ring。<strong>CLI：</strong>執行 <code>/context</code>，觀察目前 session 裡有多少資訊。</p>
+  <p>點 model picker 旁的 usage ring。若對話已長但方向正確，先整理需求；若 <code>/compact</code> 可用，再考慮提早壓縮。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 看 diff</label>
-  <p><strong>桌面 App：</strong>點 diff stats 或打開 diff pane。<strong>CLI：</strong>在有變更的分支執行 <code>/diff</code>。把看 diff 當成交付前固定動作。</p>
+  <p>點 diff stats 或打開 diff pane。若 <code>/diff</code> 在 <code>/</code> 清單裡，也可當快捷。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 4. 練習換任務</label>
-  <p><strong>桌面 App：</strong>用 sidebar 開新 session 並切回舊 session。<strong>CLI：</strong>比較 <code>/clear</code> 和 <code>/resume</code>：一個是清乾淨，一個是接續舊對話。</p>
+  <p>用 sidebar 開新 session 並切回舊 session。不要把 <code>/clear</code>、<code>/resume</code>、<code>/rewind</code> 當成桌面 App 主路徑；先用 sidebar、session history、diff 與 git。</p>
 </div>
 
-<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經知道 App 與 CLI 各自怎麼管理 session，而不是只靠自然語言硬聊。</div>
+<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經知道桌面 App UI 與 slash commands 的分工。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1">
@@ -73,14 +76,14 @@
   <button>繼續在同一對話補更多說明</button>
   <button>先整理 session 狀態</button>
   <button>立刻改成最高 effort</button>
-  <div class="why">上下文髒掉不是推理程度問題；桌面 App 用新 session、usage ring、view mode，CLI 才用 <code>/compact</code> 或 <code>/clear</code>。</div>
+  <div class="why">上下文髒掉不是推理程度問題；桌面 App 先看 usage ring、開新 session 或切 view mode。<code>/compact</code> 可用時才當快捷。</div>
 </div>
 <div class="quiz" data-answer="0">
   <p>2. 交付前想快速看所有變更，該用？</p>
   <button>diff 檢視</button>
   <button>接續舊對話</button>
   <button>查看記憶</button>
-  <div class="why">桌面 App 用 diff stats / diff pane；CLI 用 <code>/diff</code>。兩者目的相同：交付前檢查變更。</div>
+  <div class="why">桌面 App 用 diff stats / diff pane。<code>/diff</code> 若可用只是快捷。</div>
 </div>
 
 <h2>下一步</h2>

@@ -34,7 +34,7 @@
 <div class="kicker">Phase 1 · 第 09 課 · 約 15 分鐘 · 模型取捨</div>
 <h1>選模型與推理強度，避免浪費 token</h1>
 <p class="mission">任務目標：能用任務風險選模型，用不確定性選 effort。這一課的重點是取捨，不是把所有任務都升到最高。</p>
-<div class="scope"><strong>本課只做：</strong>判斷何時調整模型與 effort，並知道 App 與 CLI 的操作位置。<br><strong>先不要做：</strong>把 max 當預設，或在需求不清時用高 effort 硬跑。</div>
+<div class="scope"><strong>本課只做：</strong>判斷何時調整模型與 effort，並知道桌面 App 的操作位置。<br><strong>先不要做：</strong>把 max 當預設，或在需求不清時用高 effort 硬跑。</div>
 
 
 <h2>不是越高越好</h2>
@@ -49,11 +49,11 @@
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
   <label><input type="checkbox"> 1. 打開模型選單</label>
-  <p><strong>桌面 App：</strong>點送出按鈕旁的 model dropdown。<strong>CLI：</strong>用 <code>/model</code>。看目前模型與可選項，不要急著改，先記錄預設值。</p>
+  <p><strong>桌面 App：</strong>點送出按鈕旁的 model dropdown。若 <code>/</code> 清單有 <code>/model</code>，也可當快捷。看目前模型與可選項，不要急著改，先記錄預設值。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 2. 打開 effort 選單</label>
-  <p><strong>桌面 App：</strong>用 effort menu 或快捷鍵 <code>Cmd+Shift+E</code>（Windows 用 <code>Ctrl+Shift+E</code>）。<strong>CLI：</strong>用 <code>/effort</code>。不同模型支援範圍可能不同。</p>
+  <p><strong>桌面 App：</strong>用 effort menu。若 <code>/</code> 清單有 <code>/effort</code>，也可當快捷。不同模型支援範圍可能不同。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 替一個任務寫 effort policy</label>
@@ -87,7 +87,7 @@ or review finds architecture tradeoffs.</pre>
 <h2>下一步</h2>
 <p>下一課：<a href="001-0010-cowork-hands-on.html">Phase 1 第 10 課 — 判斷 Cowork 適合的交付物</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/model-config">Model configuration（官方）</a>，桌面 App 操作對照見 <a href="https://code.claude.com/docs/en/desktop">Desktop application</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0008-session-commands.html">Phase 1 第 08 課 — 整理與切換對話狀態</a> · <a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a></footer>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0008-session-commands.html">Phase 1 第 08 課 — 整理與切換對話狀態（App 與 CLI）</a> · <a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

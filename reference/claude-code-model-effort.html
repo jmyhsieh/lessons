@@ -53,11 +53,11 @@
 <table>
 <tr><th>介面</th><th>方式</th><th>用途</th></tr>
 <tr><td>桌面 App</td><td>model dropdown</td><td>選模型；位置在送出按鈕旁。</td></tr>
-<tr><td>桌面 App</td><td>effort menu</td><td>調推理程度；可用 <code>Cmd+Shift+E</code>，Windows 用 <code>Ctrl+Shift+E</code>。</td></tr>
-<tr><td>CLI</td><td><code>/model</code></td><td>開 picker；可選模型，部分模型可用左右鍵調 effort。</td></tr>
-<tr><td>CLI</td><td><code>/model sonnet</code></td><td>切到指定 alias，並依目前版本行為保存預設。</td></tr>
-<tr><td>CLI</td><td><code>/effort</code></td><td>開 effort slider。</td></tr>
-<tr><td>CLI</td><td><code>/effort auto</code></td><td>回到模型預設 effort。</td></tr>
+<tr><td>桌面 App</td><td>effort menu</td><td>調推理程度。</td></tr>
+<tr><td>Slash command</td><td><code>/model</code></td><td>若 <code>/</code> 清單有，可當作模型選單快捷。</td></tr>
+<tr><td>Slash command</td><td><code>/model sonnet</code></td><td>若目前環境支援，可切到指定 alias。</td></tr>
+<tr><td>Slash command</td><td><code>/effort</code></td><td>若 <code>/</code> 清單有，可當作 effort 選單快捷。</td></tr>
+<tr><td>Slash command</td><td><code>/effort auto</code></td><td>若目前環境支援，可回到模型預設 effort。</td></tr>
 <tr><td>任一介面</td><td><code>ultrathink</code></td><td>單回合要求更深思考，不改 session effort 設定。</td></tr>
 </table>
 
@@ -74,7 +74,7 @@
 <h2>課程路線中的使用位置</h2>
 <table>
 <tr><th>Phase</th><th>重點</th><th>規則</th></tr>
-<tr><td>Phase 1</td><td>模型選擇、effort、<code>opusplan</code> 基本取捨。</td><td>桌面 App 用選單，CLI 才用 <code>/model</code>、<code>/effort</code>。</td></tr>
+<tr><td>Phase 1</td><td>模型選擇、effort、<code>opusplan</code> 基本取捨。</td><td>桌面 App 先用選單；slash command 可用時作快捷。</td></tr>
 <tr><td>Phase 2</td><td>hooks、Skills、MCP、Subagents、worktrees、headless、CI 的成本與權限邊界。</td><td>進階能力先明確 scope，再升高 effort。</td></tr>
 <tr><td>Phase 3</td><td>在 <code>/zoom-out</code>、<code>/grill</code>、<code>/review</code> 判斷何時升高 effort。</td><td>不確定性高才升級。</td></tr>
 <tr><td>Phase 4</td><td><code>/goal</code> 必須接 gate、evidence、stop condition。</td><td>沒有 gate 不設 goal。</td></tr>

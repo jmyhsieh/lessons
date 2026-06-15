@@ -44,6 +44,7 @@
   }
 }</pre>
 <div class="safety"><strong>注意：</strong>這不是作業系統 sandbox。它能擋 Claude Code 內建工具與常見指令，但不要把它當成保護祕密的唯一防線。</div>
+<div class="safety"><strong>桌面 App 路徑：</strong>權限模式用畫面上的 mode selector；allow / ask / deny 規則則直接寫進 <code>.claude/settings.json</code>。Desktop Code tab 不支援會開 terminal-dialog 的 <code>/permissions</code>。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
@@ -82,7 +83,7 @@
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0008-session-commands.html">Phase 1 第 08 課 — 整理與切換對話狀態</a>。你會分清楚桌面 App 的可視化控制與 CLI slash commands。</p>
+<p>下一課：<a href="001-0008-session-commands.html">Phase 1 第 08 課 — 整理與切換對話狀態（App 與 CLI）</a>。你會分清楚桌面 App 的可視化控制、可用 slash commands，以及 Desktop 不適用的 commands。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/permissions">Configure permissions（官方）</a>。</p>
 <footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0006-permission-plan-mode.html">Phase 1 第 06 課 — 先用 plan mode 讓它只規劃不修改</a></footer>
 <script>

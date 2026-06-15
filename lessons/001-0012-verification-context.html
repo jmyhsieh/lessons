@@ -46,11 +46,11 @@ user@.com → false
 
 <h2>context 收尾三原則</h2>
 <ul>
-  <li>不相關的新任務 → 桌面 App 開新 session；CLI 用 <code>/clear</code>。</li>
-  <li>長對話但方向正確 → 桌面 App 先看 usage ring 並整理需求；CLI 可用 <code>/compact</code>。</li>
+  <li>不相關的新任務 → 桌面 App 用 sidebar 開新 session。</li>
+  <li>長對話但方向正確 → 先看 usage ring，必要時切 Summary view 或整理需求；<code>/compact</code> 若可用才當快捷。</li>
   <li>糾正兩次同一問題仍失敗 → 停止，整理教訓後重開。</li>
 </ul>
-<div class="tip">需要回到前面狀態時，桌面 App 先用 session 歷史與 diff 檢查；CLI 可用 <code>/rewind</code> 回到 checkpoint。但這些都不取代 git，重要節點仍要 commit。</div>
+<div class="tip">需要回到前面狀態時，桌面 App 先用 session history、diff pane 與 git 檢查。<code>/rewind</code> 若目前可用，也只當快捷；它不取代 git，重要節點仍要 commit。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
@@ -64,7 +64,7 @@ and output. If it fails, fix and rerun.</pre>
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 做 session 收尾</label>
-  <p>桌面 App 確認是否要開新 session 或整理目前脈絡；CLI 才考慮 <code>/compact</code>、<code>/clear</code>。若是可重複的教訓，補回 CLAUDE.md。</p>
+  <p>桌面 App 確認是否要開新 session、切 Summary view、或整理目前脈絡。若 <code>/compact</code> 在 <code>/</code> 清單中，可用它提早壓縮；若是可重複的教訓，補回 CLAUDE.md。</p>
 </div>
 
 <div class="done-banner" id="done">🎉 <strong>完成！</strong>你的任務現在有驗證條件與乾淨收尾。</div>

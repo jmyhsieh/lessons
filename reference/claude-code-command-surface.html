@@ -22,59 +22,43 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <h1>Claude Code 操作速查表：Desktop UI 與 CLI commands</h1>
-<p class="sub">先分清楚你在哪個介面：桌面 App 多數操作在選單與面板；CLI 才以 slash commands 為主。</p>
+<p class="sub">先分清楚你在哪個介面：桌面 App 先用可視化操作；slash commands 是可用時的快捷。</p>
 
 <div class="rule">
-  <strong>使用原則：</strong>桌面 App 先找畫面上的 model、permission、diff、preview、session sidebar；CLI 才優先輸入 <code>/...</code>。官方也提醒，不是每個 command 都會在每個平台或環境出現。
+  <strong>使用原則：</strong>桌面 App 先找畫面上的 model、permission、diff、preview、session sidebar。需要 slash command 時，在 prompt box 輸入 <code>/</code> 看目前可用清單；不要假設每個 CLI command 都能在 Desktop Code tab 使用。
 </div>
 
-<h2>桌面 App 常用入口</h2>
+<h2>桌面 App UI 優先</h2>
 <table>
-<tr><th>目的</th><th>入口</th><th>CLI 對照</th></tr>
-<tr><td>看快捷鍵</td><td><code>Cmd+/</code>；Windows 用 <code>Ctrl+/</code>。</td><td><code>/</code> 或 <code>/help</code></td></tr>
-<tr><td>選模型</td><td>送出按鈕旁的 model dropdown。</td><td><code>/model</code></td></tr>
-<tr><td>調 effort</td><td>effort menu；快捷鍵 <code>Cmd+Shift+E</code> / <code>Ctrl+Shift+E</code>。</td><td><code>/effort</code></td></tr>
-<tr><td>權限模式</td><td>prompt area 的 mode selector。</td><td><code>/permissions</code> 或 CLI 啟動參數</td></tr>
-<tr><td>看變更</td><td>diff stats / diff pane。</td><td><code>/diff</code></td></tr>
-<tr><td>換 session</td><td>session sidebar 開新 session 或回到舊 session。</td><td><code>/clear</code>、<code>/resume</code></td></tr>
+<tr><th>目的</th><th>桌面 App 操作</th><th>備註</th></tr>
+<tr><td>看鍵盤快捷鍵</td><td>App 快捷鍵清單。</td><td>這是快捷鍵清單，不是 slash command 清單。</td></tr>
+<tr><td>開新 session</td><td>sidebar 的 New session。</td><td>每個 session 有自己的 project folder、history、changes。</td></tr>
+<tr><td>權限模式</td><td>mode selector。</td><td>新手正式 repo 先用 Ask permissions。</td></tr>
+<tr><td>選模型</td><td>model dropdown。</td><td>任務變難時再調。</td></tr>
+<tr><td>調 effort</td><td>effort menu。</td><td>高 effort 是例外，不是預設。</td></tr>
+<tr><td>看變更</td><td>diff stats / diff pane。</td><td>交付前一定看。</td></tr>
+<tr><td>Preview</td><td>Preview pane。</td><td>前端、HTML、PDF、圖片都可用。</td></tr>
+<tr><td>Terminal</td><td>內建 terminal。</td><td>只在 local session 可用。</td></tr>
+<tr><td>Side chat</td><td>side chat。</td><td>旁支問題不要污染主對話。</td></tr>
+<tr><td>切換 view mode</td><td>view mode 選單。</td><td>Normal / Verbose / Summary。</td></tr>
 </table>
 
-<h2>CLI 起手式</h2>
+<h2>App 可用 slash commands</h2>
 <table>
-<tr><th>Command</th><th>用途</th><th>何時使用</th></tr>
-<tr><td><code>/help</code></td><td>列出可用 command。</td><td>不確定環境支援哪些指令時。</td></tr>
-<tr><td><code>/init</code></td><td>產生 starter <code>CLAUDE.md</code>。</td><td>第一次進 repo。</td></tr>
-<tr><td><code>/memory</code></td><td>編輯或查看 memory。</td><td>團隊規範需要被每次 session 記住。</td></tr>
-<tr><td><code>/permissions</code></td><td>管理 allow、ask、deny 規則。</td><td>正式 repo 設定安全邊界。</td></tr>
+<tr><th>Command</th><th>用途</th><th>使用方式</th></tr>
+<tr><td><code>/</code></td><td>瀏覽目前可用 slash commands、skills、plugins。</td><td>在 prompt box 輸入。</td></tr>
+<tr><td><code>/help</code></td><td>查看目前環境支援的 commands。</td><td>若清單有就可用。</td></tr>
+<tr><td><code>/init</code></td><td>產生 starter <code>CLAUDE.md</code>。</td><td>若清單有就用；否則用自然語言請 Claude 建立。</td></tr>
+<tr><td><code>/model</code>、<code>/effort</code></td><td>切換模型與推理程度。</td><td>桌面 App 新手先用 UI；command 可作快捷。</td></tr>
+<tr><td><code>/compact</code></td><td>提早壓縮對話、釋放 context。</td><td>也可等系統自動 summarization。</td></tr>
+<tr><td><code>/btw</code></td><td>開 side chat。</td><td>App 若有 side chat UI，也可直接使用。</td></tr>
 </table>
 
-<h2>CLI 任務中控制</h2>
+<h2>Desktop 不適用</h2>
 <table>
-<tr><th>Command</th><th>用途</th><th>何時使用</th></tr>
-<tr><td><code>/plan</code></td><td>進入 plan mode。</td><td>跨檔案、大改動、需求不清楚。</td></tr>
-<tr><td><code>/model</code></td><td>切換模型，也可在 picker 調 effort。</td><td>任務風險或複雜度改變。</td></tr>
-<tr><td><code>/effort</code></td><td>調整推理程度。</td><td>需要在速度、成本、深度之間取捨。</td></tr>
-<tr><td><code>/context</code></td><td>查看 context 使用狀態。</td><td>長 session 開始變慢或變散。</td></tr>
-<tr><td><code>/compact</code></td><td>壓縮目前對話。</td><td>要保留任務脈絡，但釋放 context。</td></tr>
-</table>
-
-<h2>CLI 交付前</h2>
-<table>
-<tr><th>Command</th><th>用途</th><th>何時使用</th></tr>
-<tr><td><code>/diff</code></td><td>看目前變更與每回合 diff。</td><td>準備 review 或 commit 前。</td></tr>
-<tr><td><code>/run</code></td><td>啟動並檢查 app 行為。</td><td>需要看真實 UI 或互動結果。</td></tr>
-<tr><td><code>/code-review</code></td><td>檢查目前 diff 的 bug 與清理點。</td><td>交付前做一輪本地審查。</td></tr>
-<tr><td><code>/review</code></td><td>對 PR 做較深的 read-only review。</td><td>需要審 PR，而不是只看本機 diff。</td></tr>
-<tr><td><code>/security-review</code></td><td>檢查安全風險。</td><td>變更碰 auth、資料、權限、輸入處理。</td></tr>
-</table>
-
-<h2>CLI 換任務或復原</h2>
-<table>
-<tr><th>Command</th><th>用途</th><th>何時使用</th></tr>
-<tr><td><code>/clear</code></td><td>開始新對話，保留 project memory。</td><td>換成不相關任務。</td></tr>
-<tr><td><code>/resume</code></td><td>回到之前 session。</td><td>接續舊任務。</td></tr>
-<tr><td><code>/rewind</code></td><td>回到 checkpoint 或摘要部分對話。</td><td>方向錯了，需要退回。</td></tr>
-<tr><td><code>/goal</code></td><td>設定完成條件，讓 Claude 跨回合持續工作。</td><td>已有清楚 stop condition、gate 與 evidence。</td></tr>
+<tr><th>Command 類型</th><th>代表例子</th><th>桌面 App 路徑</th></tr>
+<tr><td>Terminal-dialog commands</td><td><code>/permissions</code>、<code>/config</code>、<code>/agents</code>、<code>/doctor</code></td><td>改用 UI、settings files，或到 CLI 執行。</td></tr>
+<tr><td>CLI session control</td><td><code>/clear</code>、<code>/resume</code>、<code>/rewind</code></td><td>App 先用 sidebar、session history、diff 與 git。</td></tr>
 </table>
 
 <footer>
