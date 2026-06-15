@@ -15,20 +15,20 @@
   code { background: #f4f0ec; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; }
   a { color: #b04a12; }
   .rule { border-left: 4px solid #c2571a; background: #fdfbf9; padding: .8rem 1rem; margin: 1rem 0; }
-  .cli-list { display: grid; gap: .75rem; margin: 1rem 0; }
-  .cli-item { border: 1px solid #ddd; border-radius: 8px; padding: .75rem .9rem; display: grid; grid-template-columns: 7.5rem 1fr; gap: .75rem; background: #fff; }
-  .cli-when { font-weight: 700; color: #7a3b12; }
-  .cli-body { min-width: 0; }
+  .guide-list { display: grid; gap: .75rem; margin: 1rem 0; }
+  .guide-item { border: 1px solid #ddd; border-radius: 8px; padding: .75rem .9rem; display: grid; grid-template-columns: 7.5rem 1fr; gap: .75rem; background: #fff; }
+  .guide-label { font-weight: 700; color: #7a3b12; }
+  .guide-body { min-width: 0; }
   .cmds { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .25rem; }
   .cmds code { display: inline-block; white-space: nowrap; }
-  .cli-body p { margin: .15rem 0 0; }
+  .guide-body p { margin: .15rem 0 0; }
   footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
   @media (max-width: 640px) {
     body { margin: 1.5rem auto; padding: 0 1.1rem; }
     table { font-size: .82rem; }
     th, td { padding: .45rem .5rem; }
-    .cli-item { grid-template-columns: 1fr; gap: .35rem; padding: .75rem; }
-    .cli-when { font-size: .92rem; }
+    .guide-item { grid-template-columns: 1fr; gap: .35rem; padding: .75rem; }
+    .guide-label { font-size: .92rem; }
   }
   @media print { body { margin: 1rem auto; } .rule, tr { break-inside: avoid; } }
 </style>
@@ -43,56 +43,84 @@
 </div>
 
 <h2>Desktop App</h2>
-<table>
-<tr><th>目的</th><th>桌面 App 操作</th><th>備註</th></tr>
-<tr><td>看鍵盤快捷鍵</td><td>App 快捷鍵清單。</td><td>這是快捷鍵清單，不是 slash command 清單。</td></tr>
-<tr><td>看可用 slash commands</td><td>在 prompt box 輸入 <code>/</code>，或按 <code>+</code> → Slash commands。</td><td>清單裡出現的才代表目前 App 可用。</td></tr>
-<tr><td>開新 session</td><td>sidebar 的 New session。</td><td>每個 session 有自己的 project folder、history、changes。</td></tr>
-<tr><td>權限模式</td><td>mode selector。</td><td>新手正式 repo 先用 Ask permissions。</td></tr>
-<tr><td>選模型</td><td>model dropdown。</td><td>任務變難時再調。</td></tr>
-<tr><td>調 effort</td><td>effort menu。</td><td>高 effort 是例外，不是預設。</td></tr>
-<tr><td>看變更</td><td>diff stats / diff pane。</td><td>交付前一定看。</td></tr>
-<tr><td>Preview</td><td>Preview pane。</td><td>前端、HTML、PDF、圖片都可用。</td></tr>
-<tr><td>Terminal</td><td>內建 terminal。</td><td>只在 local session 可用。</td></tr>
-<tr><td>Side chat</td><td>side chat。</td><td>旁支問題不要污染主對話。</td></tr>
-<tr><td>切換 view mode</td><td>view mode 選單。</td><td>Normal / Verbose / Summary。</td></tr>
-</table>
+<div class="guide-list">
+  <section class="guide-item">
+    <div class="guide-label">看快捷鍵</div>
+    <div class="guide-body"><p>打開 App 快捷鍵清單。這是快捷鍵清單，不是 slash command 清單。</p></div>
+  </section>
+  <section class="guide-item">
+    <div class="guide-label">看可用 commands</div>
+    <div class="guide-body"><div class="cmds"><code>/</code><code>+</code> → Slash commands</div><p>清單裡出現的才代表目前 App 可用。</p></div>
+  </section>
+  <section class="guide-item">
+    <div class="guide-label">開新 session</div>
+    <div class="guide-body"><p>用 sidebar 的 New session。每個 session 有自己的 project folder、history、changes。</p></div>
+  </section>
+  <section class="guide-item">
+    <div class="guide-label">權限模式</div>
+    <div class="guide-body"><p>用 mode selector。新手正式 repo 先用 Ask permissions。</p></div>
+  </section>
+  <section class="guide-item">
+    <div class="guide-label">模型 / effort</div>
+    <div class="guide-body"><p>用 model dropdown 與 effort menu。高 effort 是例外，不是預設。</p></div>
+  </section>
+  <section class="guide-item">
+    <div class="guide-label">看變更</div>
+    <div class="guide-body"><p>用 diff stats / diff pane。交付前一定看。</p></div>
+  </section>
+  <section class="guide-item">
+    <div class="guide-label">Preview</div>
+    <div class="guide-body"><p>用 Preview pane。前端、HTML、PDF、圖片都可用。</p></div>
+  </section>
+  <section class="guide-item">
+    <div class="guide-label">Terminal</div>
+    <div class="guide-body"><p>用內建 terminal。只在 local session 可用。</p></div>
+  </section>
+  <section class="guide-item">
+    <div class="guide-label">Side chat</div>
+    <div class="guide-body"><p>用 side chat。旁支問題不要污染主對話。</p></div>
+  </section>
+  <section class="guide-item">
+    <div class="guide-label">View mode</div>
+    <div class="guide-body"><p>用 view mode 選單切換 Normal / Verbose / Summary。</p></div>
+  </section>
+</div>
 
 <p><strong>App 特別注意：</strong><code>/help</code> 不作為 App 的查詢入口；App 用 <code>/</code> 或 <code>+</code> → Slash commands。<code>/diff</code>、<code>/model</code>、<code>/effort</code>、<code>/compact</code> 只有出現在 App 清單時才當快捷，否則用上表的 UI。</p>
 
 <h2>CLI</h2>
-<div class="cli-list">
-  <section class="cli-item">
-    <div class="cli-when">查詢</div>
-    <div class="cli-body"><div class="cmds"><code>/help</code></div><p>顯示 CLI help 與可用 commands。App 不用這個。</p></div>
+<div class="guide-list">
+  <section class="guide-item">
+    <div class="guide-label">查詢</div>
+    <div class="guide-body"><div class="cmds"><code>/help</code></div><p>顯示 CLI help 與可用 commands。App 不用這個。</p></div>
   </section>
-  <section class="cli-item">
-    <div class="cli-when">第一次進 repo</div>
-    <div class="cli-body"><div class="cmds"><code>/init</code><code>/memory</code></div><p>建立或調整 <code>CLAUDE.md</code> 與 memory。</p></div>
+  <section class="guide-item">
+    <div class="guide-label">第一次進 repo</div>
+    <div class="guide-body"><div class="cmds"><code>/init</code><code>/memory</code></div><p>建立或調整 <code>CLAUDE.md</code> 與 memory。</p></div>
   </section>
-  <section class="cli-item">
-    <div class="cli-when">權限與設定</div>
-    <div class="cli-body"><div class="cmds"><code>/permissions</code><code>/config</code><code>/agents</code></div><p>管理權限規則、設定與 subagents。這些常是 terminal-dialog 類型，App 改走 UI 或 settings files。</p></div>
+  <section class="guide-item">
+    <div class="guide-label">權限與設定</div>
+    <div class="guide-body"><div class="cmds"><code>/permissions</code><code>/config</code><code>/agents</code></div><p>管理權限規則、設定與 subagents。這些常是 terminal-dialog 類型，App 改走 UI 或 settings files。</p></div>
   </section>
-  <section class="cli-item">
-    <div class="cli-when">任務中控制</div>
-    <div class="cli-body"><div class="cmds"><code>/plan</code><code>/model</code><code>/effort</code></div><p>進入規劃模式，或調整模型與推理程度。</p></div>
+  <section class="guide-item">
+    <div class="guide-label">任務中控制</div>
+    <div class="guide-body"><div class="cmds"><code>/plan</code><code>/model</code><code>/effort</code></div><p>進入規劃模式，或調整模型與推理程度。</p></div>
   </section>
-  <section class="cli-item">
-    <div class="cli-when">上下文管理</div>
-    <div class="cli-body"><div class="cmds"><code>/context</code><code>/compact</code><code>/btw</code></div><p>查看 context、提早壓縮、或開旁支問題。</p></div>
+  <section class="guide-item">
+    <div class="guide-label">上下文管理</div>
+    <div class="guide-body"><div class="cmds"><code>/context</code><code>/compact</code><code>/btw</code></div><p>查看 context、提早壓縮、或開旁支問題。</p></div>
   </section>
-  <section class="cli-item">
-    <div class="cli-when">交付前檢查</div>
-    <div class="cli-body"><div class="cmds"><code>/diff</code><code>/code-review</code><code>/review</code><code>/security-review</code></div><p>查看變更、檢查 correctness、做 PR 或安全審查。</p></div>
+  <section class="guide-item">
+    <div class="guide-label">交付前檢查</div>
+    <div class="guide-body"><div class="cmds"><code>/diff</code><code>/code-review</code><code>/review</code><code>/security-review</code></div><p>查看變更、檢查 correctness、做 PR 或安全審查。</p></div>
   </section>
-  <section class="cli-item">
-    <div class="cli-when">換任務或復原</div>
-    <div class="cli-body"><div class="cmds"><code>/clear</code><code>/resume</code><code>/rewind</code></div><p>清空目前對話、接續舊 session、或回到 checkpoint。</p></div>
+  <section class="guide-item">
+    <div class="guide-label">換任務或復原</div>
+    <div class="guide-body"><div class="cmds"><code>/clear</code><code>/resume</code><code>/rewind</code></div><p>清空目前對話、接續舊 session、或回到 checkpoint。</p></div>
   </section>
-  <section class="cli-item">
-    <div class="cli-when">診斷</div>
-    <div class="cli-body"><div class="cmds"><code>/doctor</code></div><p>診斷 Claude Code 安裝與設定問題。</p></div>
+  <section class="guide-item">
+    <div class="guide-label">診斷</div>
+    <div class="guide-body"><div class="cmds"><code>/doctor</code></div><p>診斷 Claude Code 安裝與設定問題。</p></div>
   </section>
 </div>
 
