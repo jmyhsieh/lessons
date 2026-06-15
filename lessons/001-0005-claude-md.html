@@ -69,8 +69,12 @@
 <h2>實作步驟（做完打勾）</h2>
 
 <div class="step">
-  <label><input type="checkbox"> 1. 在工作 repo 的 session 裡執行 <code>/init</code></label>
-  <p>它會分析 codebase，自動產生含建置指令、測試方式、專案慣例的初稿（已有 CLAUDE.md 則建議改進而非覆蓋）。</p>
+  <label><input type="checkbox"> 1. 建立 <code>CLAUDE.md</code> 初稿</label>
+  <p><strong>桌面 App：</strong>在工作 repo 的 session 裡，用自然語言請它先讀高層檔案，再產生或更新 <code>CLAUDE.md</code>。例如：</p>
+  <pre>Read the repo at a high level and draft a concise CLAUDE.md.
+Include build/test commands, code style, and project conventions.
+Ask before editing the file.</pre>
+  <p><strong>CLI：</strong>也可以用 <code>/init</code> 產生 starter <code>CLAUDE.md</code>。這是 CLI 快速起手式；桌面 App 教學以可看見的檔案修改與 diff review 為主。</p>
 </div>
 
 <div class="step">
@@ -80,7 +84,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 3. 驗證它真的讀到了</label>
-  <p>開新 session，輸入 <code>/memory</code> — 確認你的 CLAUDE.md 出現在已載入清單。再問一個答案寫在 CLAUDE.md 裡的問題，看它答得對不對。</p>
+  <p><strong>桌面 App：</strong>開新 session，問一個答案寫在 <code>CLAUDE.md</code> 裡的問題，看它答得對不對。<strong>CLI：</strong>可用 <code>/memory</code> 查看或編輯已載入的 memory。</p>
 </div>
 
 <div class="step">
@@ -119,7 +123,7 @@
 </div>
 
 <h2>下一步</h2>
-<p>完成後回到對話視窗回報 <code>/init</code> 產出的品質。下一課：<a href="001-0006-permission-plan-mode.html">Phase 1 第 06 課 — 先用 plan mode 讓它只規劃不修改</a>。</p>
+<p>完成後回到對話視窗回報 <code>CLAUDE.md</code> 初稿的品質。下一課：<a href="001-0006-permission-plan-mode.html">Phase 1 第 06 課 — 先用 plan mode 讓它只規劃不修改</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/memory">How Claude remembers your project（官方）</a> — 含 <code>.claude/rules/</code> 進階組織方式與 auto memory。</p>
 
 <footer>

@@ -69,14 +69,14 @@ Claude Code 預設在<strong>修改檔案或執行指令前都會逐項徵求你
 
 <div class="step">
   <label><input type="checkbox"> 3. 確認權限模式</label>
-  <p><strong>桌面 App：</strong>在輸入框附近找到權限模式選單（如 Ask before edits）。<strong>CLI：</strong>按 <code>Shift+Tab</code> 循環切換。現在只要認得位置，<strong>最後停在預設（逐項詢問）模式</strong>。</p>
+  <p><strong>桌面 App：</strong>在輸入框附近找到權限模式選單（如 Ask permissions / 逐項詢問）。<strong>CLI：</strong>按 <code>Shift+Tab</code> 循環切換。現在只要認得位置，<strong>最後停在預設（逐項詢問）模式</strong>。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 4. 開一個空白 session</label>
-  <p>選一個低風險資料夾或測試 repo 開 session，輸入：</p>
-  <pre>/help</pre>
-  <p>確認它能回應 command 清單。這一步只檢查 session 可用，不要求它讀大量檔案。</p>
+  <p><strong>桌面 App：</strong>選一個低風險資料夾或測試 repo，直接送出一句不會改檔的確認：</p>
+  <pre>Before reading many files, tell me what you can do in this session without changing files.</pre>
+  <p><strong>CLI：</strong>若你是在終端機使用，可以輸入 <code>/help</code> 看可用 commands。桌面 App 不以 <code>/help</code> 作為第一個檢查動作，先用畫面上的 session、權限與模型選單。</p>
 </div>
 
 <div class="step">
@@ -97,11 +97,12 @@ Claude Code 預設在<strong>修改檔案或執行指令前都會逐項徵求你
 
 <h2>本課速記</h2>
 <ul>
-  <li><code>claude</code> 啟動 / <code>claude -c</code> 續聊 / <code>/help</code> 看指令 / <code>/exit</code> 離開</li>
-  <li><code>Shift+Tab</code> 切換權限模式；正式 repo 用預設逐項詢問</li>
+  <li>桌面 App：Code 分頁開 session、用權限選單保持逐項詢問、用 session sidebar 續聊</li>
+  <li>CLI：<code>claude</code> 啟動 / <code>claude -c</code> 續聊 / <code>/help</code> 看 commands / <code>/exit</code> 離開</li>
+  <li><code>Shift+Tab</code> 是 CLI 互動模式快捷鍵；桌面 App 用畫面上的權限模式選單</li>
   <li>先確認 session 可用，再進正式 repo 做任務</li>
 </ul>
-<p>（已併入<a href="../reference/claude-product-picker.html">產品選用速查表</a>與<a href="../reference/claude-code-command-surface.html">操作 command 速查表</a>；上一課：<a href="001-0001-three-claudes.html">三個 Claude，三種工作流</a>）</p>
+<p>（已併入<a href="../reference/claude-product-picker.html">產品選用速查表</a>與<a href="../reference/claude-code-command-surface.html">Claude Code 操作速查表</a>；上一課：<a href="001-0001-three-claudes.html">三個 Claude，三種工作流</a>）</p>
 
 
 <h2>觀念檢查（憑記憶作答）</h2>
@@ -116,10 +117,10 @@ Claude Code 預設在<strong>修改檔案或執行指令前都會逐項徵求你
 
 <div class="quiz" data-answer="0">
   <p>2. 這一課開 session 後先做什麼？</p>
-  <button>查看指令</button>
+  <button>低風險確認</button>
   <button>讀取專案</button>
   <button>直接改檔</button>
-  <div class="why">本課只用 <code>/help</code> 或低風險問題確認 session 可用，不進 repo 導覽或修改。</div>
+  <div class="why">本課只用低風險問題確認 session 可用；若使用 CLI 才用 <code>/help</code> 看 commands，不進 repo 導覽或修改。</div>
 </div>
 
 <div class="quiz" data-answer="0">

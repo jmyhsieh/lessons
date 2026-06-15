@@ -40,18 +40,18 @@
   <li><code>CLAUDE.md</code> 放在 repo 根目錄，記錄專案規範，每次 session 自動讀取。</li>
 </ul>
 
-<h2>常用指令</h2>
+<h2>常用操作</h2>
 <table>
-<tr><td><code>claude</code></td><td>在專案目錄啟動互動 session</td></tr>
-<tr><td><code>claude "任務描述"</code></td><td>啟動並直接下任務</td></tr>
-<tr><td><code>/init</code></td><td>產生 CLAUDE.md</td></tr>
-<tr><td><code>/help</code></td><td>列出可用指令</td></tr>
-<tr><td><code>/plan</code></td><td>大改動前先進入 plan mode</td></tr>
-<tr><td><code>/model</code> / <code>/effort</code></td><td>調整模型與推理程度</td></tr>
-<tr><td><code>/diff</code></td><td>交付前查看目前變更</td></tr>
+<tr><th>需求</th><th>桌面 App</th><th>CLI</th></tr>
+<tr><td>開 session</td><td>Code 分頁選 project folder，按 Enter 送出任務。</td><td><code>claude</code> 或 <code>claude "任務描述"</code></td></tr>
+<tr><td>建立 CLAUDE.md</td><td>請它讀 repo 高層檔案並建立/更新 <code>CLAUDE.md</code>，再用 diff review。</td><td><code>/init</code></td></tr>
+<tr><td>先規劃</td><td>用 permission mode 選單切到 Plan mode。</td><td><code>/plan</code></td></tr>
+<tr><td>調模型/effort</td><td>用送出按鈕旁的 model dropdown 與 effort menu。</td><td><code>/model</code> / <code>/effort</code></td></tr>
+<tr><td>看變更</td><td>點 diff stats / diff pane。</td><td><code>/diff</code></td></tr>
+<tr><td>看可用 commands</td><td>先用畫面選單與 <code>Cmd+/</code>（Windows <code>Ctrl+/</code>）看快捷鍵。</td><td><code>/</code> 或 <code>/help</code></td></tr>
 </table>
-<p>完整操作控制見：<a href="claude-code-command-surface.html">Claude Code 操作必備 command 速查表</a>、<a href="claude-code-model-effort.html">Claude Code 模型與推理程度速查表</a>。</p>
+<p>完整操作控制見：<a href="claude-code-command-surface.html">Claude Code 操作速查表</a>、<a href="claude-code-model-effort.html">Claude Code 模型與推理程度速查表</a>。</p>
 
-<p style="margin-top:2rem;font-size:.85rem;color:#777">來源：<a href="https://code.claude.com/docs/en/overview">Claude Code Docs</a>、<a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a>、<a href="https://code.claude.com/docs/en/model-config">Model configuration</a>、<a href="https://claude.com/product/cowork">Cowork 產品頁</a>。更新：2026-06-14</p>
+<p style="margin-top:2rem;font-size:.85rem;color:#777">來源：<a href="https://code.claude.com/docs/en/overview">Claude Code Docs</a>、<a href="https://code.claude.com/docs/en/desktop">Desktop application</a>、<a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a>、<a href="https://code.claude.com/docs/en/model-config">Model configuration</a>、<a href="https://claude.com/product/cowork">Cowork 產品頁</a>。更新：2026-06-14</p>
 </body>
 </html>

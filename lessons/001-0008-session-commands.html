@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>08：整理與切換對話狀態（session commands）</title>
+<title>08：整理與切換對話狀態（App 與 CLI）</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
   .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
@@ -32,61 +32,61 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 1 · 第 08 課 · 約 15 分鐘 · 操作控制台</div>
-<h1>整理與切換對話狀態（session commands）</h1>
-<p class="mission">任務目標：把 slash commands 當成 Claude Code session 的控制台。這一課只練常用 command，不處理模型選擇。</p>
-<div class="scope"><strong>本課只做：</strong>學會幾個管理 session 狀態的基本 command。<br><strong>先不要做：</strong>把 session command 當成會自動修好脈絡污染的萬用鍵。</div>
+<h1>整理與切換對話狀態（App 與 CLI）</h1>
+<p class="mission">任務目標：知道 Claude Code 的 session 控制在桌面 App 與 CLI 位置不同。Phase 1 先用 App 的選單、側欄、diff 與 usage 指標；CLI 使用者再對照 slash commands。</p>
+<div class="scope"><strong>本課只做：</strong>學會幾個管理 session 狀態的基本操作。<br><strong>先不要做：</strong>把 CLI slash command 當成桌面 App 唯一操作方式。</div>
 
 
 <h2>先記四組就好</h2>
 <table>
-<tr><th>時點</th><th>commands</th><th>用途</th></tr>
-<tr><td>第一次進 repo</td><td><code>/init</code>、<code>/memory</code></td><td>建立或檢查 repo 記憶。</td></tr>
-<tr><td>任務中</td><td><code>/plan</code>、<code>/context</code>、<code>/compact</code></td><td>控制計劃與上下文。</td></tr>
-<tr><td>交付前</td><td><code>/diff</code>、<code>/run</code>、<code>/review</code></td><td>看變更、執行、審查。</td></tr>
-<tr><td>換任務</td><td><code>/clear</code>、<code>/resume</code>、<code>/rewind</code></td><td>清空、接續或回到 checkpoint。</td></tr>
+<tr><th>目的</th><th>桌面 App</th><th>CLI</th></tr>
+<tr><td>看可用操作</td><td><code>Cmd+/</code>（Windows 用 <code>Ctrl+/</code>）看快捷鍵；用畫面上的選單找功能。</td><td>輸入 <code>/</code> 或 <code>/help</code> 看可用 commands。</td></tr>
+<tr><td>控制上下文</td><td>看 model picker 旁的 usage ring；必要時開新 session 或調整 view mode。</td><td><code>/context</code> 看狀態，<code>/compact</code> 壓縮目前對話。</td></tr>
+<tr><td>交付前檢查</td><td>點 diff stats / diff pane 看變更；需要時用 Preview 或 Review code。</td><td><code>/diff</code> 看變更，<code>/run</code>、<code>/code-review</code> 做驗證與審查。</td></tr>
+<tr><td>換任務</td><td>用 sidebar 開新 session、切回舊 session，或開 side chat 問旁支問題。</td><td><code>/clear</code> 開新對話，<code>/resume</code> 接續舊對話，<code>/rewind</code> 回到 checkpoint。</td></tr>
 </table>
-<p><code>/goal</code> 先知道就好。它需要明確完成條件、gate 與 evidence，Phase 4 才正式接上。</p>
+<p><code>/goal</code> 先知道就好。它屬於較進階的持續工作控制，需要明確完成條件、gate 與 evidence，Phase 4 才正式接上。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
-  <label><input type="checkbox"> 1. 輸入 <code>/</code> 看完整清單</label>
-  <p>不要背文件；先確認你目前版本實際支援哪些 command。</p>
+  <label><input type="checkbox"> 1. 找到你目前介面的操作入口</label>
+  <p><strong>桌面 App：</strong>按 <code>Cmd+/</code>（Windows 用 <code>Ctrl+/</code>）看快捷鍵，並觀察 session toolbar。<strong>CLI：</strong>輸入 <code>/</code> 看完整 command 清單。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 2. 看 context 狀態</label>
-  <p>執行 <code>/context</code>，觀察目前 session 裡有多少資訊。</p>
+  <p><strong>桌面 App：</strong>點 model picker 旁的 usage ring。<strong>CLI：</strong>執行 <code>/context</code>，觀察目前 session 裡有多少資訊。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 看 diff</label>
-  <p>在有變更的分支執行 <code>/diff</code>，把它當成交付前的固定動作。</p>
+  <p><strong>桌面 App：</strong>點 diff stats 或打開 diff pane。<strong>CLI：</strong>在有變更的分支執行 <code>/diff</code>。把看 diff 當成交付前固定動作。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 4. 練習換任務</label>
-  <p>比較 <code>/clear</code> 和 <code>/resume</code> 的用途：一個是清乾淨，一個是接續舊對話。</p>
+  <p><strong>桌面 App：</strong>用 sidebar 開新 session 並切回舊 session。<strong>CLI：</strong>比較 <code>/clear</code> 和 <code>/resume</code>：一個是清乾淨，一個是接續舊對話。</p>
 </div>
 
-<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經會用 command 管 session，而不是只靠自然語言硬聊。</div>
+<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經知道 App 與 CLI 各自怎麼管理 session，而不是只靠自然語言硬聊。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1">
   <p>1. 任務做太久、context 開始混亂，第一個該想的是？</p>
   <button>繼續在同一對話補更多說明</button>
-  <button>用 /compact 或 /clear 控制上下文</button>
+  <button>先整理 session 狀態</button>
   <button>立刻改成最高 effort</button>
-  <div class="why">上下文髒掉不是推理程度問題；先處理 session 狀態。</div>
+  <div class="why">上下文髒掉不是推理程度問題；桌面 App 用新 session、usage ring、view mode，CLI 才用 <code>/compact</code> 或 <code>/clear</code>。</div>
 </div>
 <div class="quiz" data-answer="0">
   <p>2. 交付前想快速看所有變更，該用？</p>
-  <button>/diff</button>
-  <button>/resume</button>
-  <button>/memory</button>
-  <div class="why">/diff 是交付前檢查變更的入口。</div>
+  <button>diff 檢視</button>
+  <button>接續舊對話</button>
+  <button>查看記憶</button>
+  <div class="why">桌面 App 用 diff stats / diff pane；CLI 用 <code>/diff</code>。兩者目的相同：交付前檢查變更。</div>
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0009-model-effort.html">Phase 1 第 09 課 — 選模型與推理強度，避免浪費 token（/model、/effort）</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/commands">Claude Code Commands（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0007-permission-rules.html">Phase 1 第 07 課 — permission rules</a> · <a href="../reference/claude-code-command-surface.html">操作 command 速查表</a></footer>
+<p>下一課：<a href="001-0009-model-effort.html">Phase 1 第 09 課 — 選模型與推理強度，避免浪費 token</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/desktop">Claude Code Desktop application（官方）</a>，CLI 對照見 <a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a>。</p>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0007-permission-rules.html">Phase 1 第 07 課 — permission rules</a> · <a href="../reference/claude-code-command-surface.html">Claude Code 操作速查表</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

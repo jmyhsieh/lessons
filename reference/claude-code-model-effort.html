@@ -51,12 +51,14 @@
 
 <h2>操作方式</h2>
 <table>
-<tr><th>方式</th><th>用途</th></tr>
-<tr><td><code>/model</code></td><td>開 picker；可選模型，部分模型可用左右鍵調 effort。</td></tr>
-<tr><td><code>/model sonnet</code></td><td>切到指定 alias，並依目前版本行為保存預設。</td></tr>
-<tr><td><code>/effort</code></td><td>開 effort slider。</td></tr>
-<tr><td><code>/effort auto</code></td><td>回到模型預設 effort。</td></tr>
-<tr><td><code>ultrathink</code></td><td>單回合要求更深思考，不改 session effort 設定。</td></tr>
+<tr><th>介面</th><th>方式</th><th>用途</th></tr>
+<tr><td>桌面 App</td><td>model dropdown</td><td>選模型；位置在送出按鈕旁。</td></tr>
+<tr><td>桌面 App</td><td>effort menu</td><td>調推理程度；可用 <code>Cmd+Shift+E</code>，Windows 用 <code>Ctrl+Shift+E</code>。</td></tr>
+<tr><td>CLI</td><td><code>/model</code></td><td>開 picker；可選模型，部分模型可用左右鍵調 effort。</td></tr>
+<tr><td>CLI</td><td><code>/model sonnet</code></td><td>切到指定 alias，並依目前版本行為保存預設。</td></tr>
+<tr><td>CLI</td><td><code>/effort</code></td><td>開 effort slider。</td></tr>
+<tr><td>CLI</td><td><code>/effort auto</code></td><td>回到模型預設 effort。</td></tr>
+<tr><td>任一介面</td><td><code>ultrathink</code></td><td>單回合要求更深思考，不改 session effort 設定。</td></tr>
 </table>
 
 <h2>決策句</h2>
@@ -72,7 +74,7 @@
 <h2>課程路線中的使用位置</h2>
 <table>
 <tr><th>Phase</th><th>重點</th><th>規則</th></tr>
-<tr><td>Phase 1</td><td><code>/model</code>、<code>/effort</code>、<code>opusplan</code> 基本取捨。</td><td>不是越高越好。</td></tr>
+<tr><td>Phase 1</td><td>模型選擇、effort、<code>opusplan</code> 基本取捨。</td><td>桌面 App 用選單，CLI 才用 <code>/model</code>、<code>/effort</code>。</td></tr>
 <tr><td>Phase 2</td><td>hooks、Skills、MCP、Subagents、worktrees、headless、CI 的成本與權限邊界。</td><td>進階能力先明確 scope，再升高 effort。</td></tr>
 <tr><td>Phase 3</td><td>在 <code>/zoom-out</code>、<code>/grill</code>、<code>/review</code> 判斷何時升高 effort。</td><td>不確定性高才升級。</td></tr>
 <tr><td>Phase 4</td><td><code>/goal</code> 必須接 gate、evidence、stop condition。</td><td>沒有 gate 不設 goal。</td></tr>
@@ -88,8 +90,8 @@
 </table>
 
 <footer>
-  對應課程：<a href="../lessons/001-0009-model-effort.html">001-09 — /model、/effort、opusplan</a><br>
-  主要來源：<a href="https://code.claude.com/docs/en/model-config">Claude Code Model configuration</a> · <a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a>
+  對應課程：<a href="../lessons/001-0009-model-effort.html">001-09 — 模型與推理程度</a><br>
+  主要來源：<a href="https://code.claude.com/docs/en/model-config">Claude Code Model configuration</a> · <a href="https://code.claude.com/docs/en/desktop">Claude Code Desktop application</a> · <a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a>
 </footer>
 </body>
 </html>

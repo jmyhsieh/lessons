@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>Claude Code 操作必備 command 速查表</title>
+<title>Claude Code 操作速查表：Desktop UI 與 CLI commands</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
@@ -21,14 +21,25 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<h1>Claude Code 操作必備 command 速查表</h1>
-<p class="sub">先記住工作流控制用 command，不需要背完整清單。</p>
+<h1>Claude Code 操作速查表：Desktop UI 與 CLI commands</h1>
+<p class="sub">先分清楚你在哪個介面：桌面 App 多數操作在選單與面板；CLI 才以 slash commands 為主。</p>
 
 <div class="rule">
-  <strong>使用原則：</strong>commands 是 session 控制台。先用它控制風險、上下文、驗證與交付，再考慮大型自動化。
+  <strong>使用原則：</strong>桌面 App 先找畫面上的 model、permission、diff、preview、session sidebar；CLI 才優先輸入 <code>/...</code>。官方也提醒，不是每個 command 都會在每個平台或環境出現。
 </div>
 
-<h2>起手式</h2>
+<h2>桌面 App 常用入口</h2>
+<table>
+<tr><th>目的</th><th>入口</th><th>CLI 對照</th></tr>
+<tr><td>看快捷鍵</td><td><code>Cmd+/</code>；Windows 用 <code>Ctrl+/</code>。</td><td><code>/</code> 或 <code>/help</code></td></tr>
+<tr><td>選模型</td><td>送出按鈕旁的 model dropdown。</td><td><code>/model</code></td></tr>
+<tr><td>調 effort</td><td>effort menu；快捷鍵 <code>Cmd+Shift+E</code> / <code>Ctrl+Shift+E</code>。</td><td><code>/effort</code></td></tr>
+<tr><td>權限模式</td><td>prompt area 的 mode selector。</td><td><code>/permissions</code> 或 CLI 啟動參數</td></tr>
+<tr><td>看變更</td><td>diff stats / diff pane。</td><td><code>/diff</code></td></tr>
+<tr><td>換 session</td><td>session sidebar 開新 session 或回到舊 session。</td><td><code>/clear</code>、<code>/resume</code></td></tr>
+</table>
+
+<h2>CLI 起手式</h2>
 <table>
 <tr><th>Command</th><th>用途</th><th>何時使用</th></tr>
 <tr><td><code>/help</code></td><td>列出可用 command。</td><td>不確定環境支援哪些指令時。</td></tr>
@@ -37,7 +48,7 @@
 <tr><td><code>/permissions</code></td><td>管理 allow、ask、deny 規則。</td><td>正式 repo 設定安全邊界。</td></tr>
 </table>
 
-<h2>任務中控制</h2>
+<h2>CLI 任務中控制</h2>
 <table>
 <tr><th>Command</th><th>用途</th><th>何時使用</th></tr>
 <tr><td><code>/plan</code></td><td>進入 plan mode。</td><td>跨檔案、大改動、需求不清楚。</td></tr>
@@ -47,7 +58,7 @@
 <tr><td><code>/compact</code></td><td>壓縮目前對話。</td><td>要保留任務脈絡，但釋放 context。</td></tr>
 </table>
 
-<h2>交付前</h2>
+<h2>CLI 交付前</h2>
 <table>
 <tr><th>Command</th><th>用途</th><th>何時使用</th></tr>
 <tr><td><code>/diff</code></td><td>看目前變更與每回合 diff。</td><td>準備 review 或 commit 前。</td></tr>
@@ -57,7 +68,7 @@
 <tr><td><code>/security-review</code></td><td>檢查安全風險。</td><td>變更碰 auth、資料、權限、輸入處理。</td></tr>
 </table>
 
-<h2>換任務或復原</h2>
+<h2>CLI 換任務或復原</h2>
 <table>
 <tr><th>Command</th><th>用途</th><th>何時使用</th></tr>
 <tr><td><code>/clear</code></td><td>開始新對話，保留 project memory。</td><td>換成不相關任務。</td></tr>
@@ -67,8 +78,8 @@
 </table>
 
 <footer>
-  對應課程：<a href="../lessons/001-0008-session-commands.html">001-08 — session commands</a><br>
-  主要來源：<a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a>
+  對應課程：<a href="../lessons/001-0008-session-commands.html">001-08 — 整理與切換對話狀態</a><br>
+  主要來源：<a href="https://code.claude.com/docs/en/desktop">Claude Code Desktop application</a> · <a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a>
 </footer>
 </body>
 </html>
