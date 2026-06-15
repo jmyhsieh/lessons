@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>01：先認識 AI 開發常見失敗模式（mattpocock/skills）</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #1a6b5a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #1a6b5a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #1a6b5a; }
+  code, pre { background: #eef4f2; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #15564a; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef4f2; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #f8fbfa; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .tip { background: #eef4f2; border-left: 4px solid #1a6b5a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #1a6b5a; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef4f2; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d3e2dd; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 3 · 第 01 課 · 約 30 分鐘 · 實作課</div>
+<h1>先認識 AI 開發常見失敗模式（mattpocock/skills）</h1>
+<p class="mission">Phase 3 任務：用 mattpocock/skills 在<strong>真實 repo</strong> 中處理需求對齊、文件化、開發品質與缺陷分流。本課目標：安裝設定、依環境選擇 issue tracker（GitHub / Linear / local files），理解四大失敗模式的地圖，並在 repo 種下第一份 <strong>CONTEXT.md</strong>。</p>
+<div class="scope"><strong>本課只做：</strong>認識 skills 在避免哪些 AI 開發失敗。<br><strong>先不要做：</strong>還沒建立 repo 脈絡就急著套完整流程。</div>
+
+
+<h2>這套 skills 在解什麼問題</h2>
+<p>Matt Pocock 把 AI 輔助開發的翻車原因歸納成<strong>四大失敗模式</strong>（<a href="https://github.com/mattpocock/skills">GitHub README</a>），每種配對應的 skill：</p>
+<table>
+<tr><th>失敗模式</th><th>症狀</th><th>對策 skill</th></tr>
+<tr><td><strong>Misalignment</strong><br>沒對齊需求</td><td>做出來的不是你要的</td><td><code>/grill-me</code>、<code>/grill-with-docs</code> — 動工前被追問到對齊</td></tr>
+<tr><td><strong>Verbosity</strong><br>缺共享語言</td><td>詞彙不一致、溝通成本高</td><td><strong>CONTEXT.md</strong> — 定義專案的領域語言</td></tr>
+<tr><td><strong>Broken code</strong><br>回饋迴圈不足</td><td>看似完成、實則會壞</td><td><code>/tdd</code>、<code>/diagnose</code> — 紅綠燈與系統化除錯</td></tr>
+<tr><td><strong>Architectural decay</strong><br>架構腐化</td><td>越改越難改</td><td><code>/improve-codebase-architecture</code>、<code>/to-prd</code>、<code>/to-issues</code></td></tr>
+</table>
+<div class="tip"><strong>為什麼這套對真實 repo 有價值：</strong>AI 最容易翻車的地方不是少打一行 code，而是需求沒對齊、詞彙不一致、驗證不足與架構慢慢腐化。CONTEXT.md + ADR 讓 agent、工程師與 reviewer 共用同一套語言與決策脈絡。封閉或遺產系統只是風險最高的範例，不是唯一場景。</div>
+
+<h2>兩個地基概念</h2>
+<p><strong>CONTEXT.md</strong> — 放在 repo 的領域語言文件：你們系統的術語、模組名、業務概念的精確定義。人和 AI 共用同一份。它和 Phase 1 第 05 課的 CLAUDE.md 分工：CLAUDE.md 講「怎麼工作」（規範、指令），CONTEXT.md 講「這個領域是什麼」（語言、概念）。</p>
+<p><strong>ADR（Architecture Decision Record）</strong> — 一份決策一個檔案，記「為什麼這樣設計」。當設計選擇不直覺、難以回頭或牽涉 tradeoff 時，ADR 讓半年後的人與 AI 不必重新猜原因。<code>/grill-with-docs</code> 會在規劃過程中順手幫你產出與更新這兩種文件。</p>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 安裝</label>
+  <p>在目標 repo 目錄執行：</p>
+  <pre>npx skills@latest add mattpocock/skills</pre>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 設定 issue tracker</label>
+  <p>在 Claude Code session 裡執行：</p>
+  <pre>/setup-matt-pocock-skills</pre>
+  <p>它會問 issue tracker、triage 標籤、文件位置。可用 GitHub / Linear 就接正式 tracker；沒有 tracker、受限環境或練習 repo 再選 <strong>local files</strong>。設定完確認 repo 裡多了哪些檔案。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 建立 CONTEXT.md</label>
+  <p>請 Claude 探索目標 codebase，草擬 CONTEXT.md 初稿：列出它找到的模組、術語、它<strong>猜不懂的概念</strong>。然後由你補上機器推不出來的產品、業務或歷史脈絡。先求有，10–20 條就夠 — 它會在後續的 grill 過程中長大。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 驗證共享語言生效</label>
+  <p>開新對話，用 CONTEXT.md 裡的術語問一個問題（不解釋術語），看它是否正確理解。這就是「Verbosity 失敗模式」被修復的樣子。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5. 建 ADR 資料夾並寫第一篇</label>
+  <p>挑 repo 裡一個「新人一定會問為什麼」的設計決策，請 Claude 訪談你之後寫成第一篇 ADR（通常放 <code>docs/adr/</code>，setup 時若指定過位置就用那個）。</p>
+</div>
+
+<div class="done-banner" id="done">
+  🎉 <strong>地基完成：工具裝好了、共享語言開始累積、決策已有記錄位置。</strong>回對話視窗回報：CONTEXT.md 初稿幾條？Claude 探索時哪些概念它猜錯了？
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="1">
+  <p>1. 「系統裡有個內部術語叫『計費規則』，新功能會用到它」— 這個知識該放哪？</p>
+  <button>CLAUDE.md，因為它是專案的工作規範</button>
+  <button>CONTEXT.md，它是這個領域的共享語言</button>
+  <button>ADR，因為它解釋了模組的設計原因</button>
+  <div class="why">術語與概念 = CONTEXT.md。CLAUDE.md 管「怎麼工作」；ADR 記「為什麼這樣設計」— 三份文件三種職責。</div>
+</div>
+
+<div class="quiz" data-answer="2">
+  <p>2. 某個產品模組「沒人記得為什麼計費要繞過快取」，最該用哪個機制止血？</p>
+  <button>CONTEXT.md，把繞過快取一詞定義清楚</button>
+  <button>/tdd，先補測試保護這段繞過的邏輯</button>
+  <button>ADR，趁還有人記得時把決策記下來</button>
+  <div class="why">「為什麼」的知識 = ADR 的職責。TDD 保護的是行為不是原因；CONTEXT.md 定義語言不記決策。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>3.（複習 Phase 2 第 03 課）這套 skills 安裝後是「用到才載入」還是「每個 session 全文載入」？</p>
+  <button>用到才載入，這正是 skill 機制的設計</button>
+  <button>每個 session 全文載入，像 CLAUDE.md</button>
+  <button>第一次使用後就會永久的留在記憶中</button>
+  <div class="why">（間隔複習）skill 的本質沒變：description 進列表、本文用到才載入。mattpocock/skills 就是一批做好的 skill。</div>
+</div>
+
+<h2>下一步</h2>
+<p>完成後回對話視窗回報。下一課：<a href="003-0002-zoom-out.html">Phase 3 第 02 課 — /zoom-out：不熟悉時先取得地圖</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills README（GitHub）</a> — 四大失敗模式的原文論述值得通讀。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  前一階段收尾：<a href="002-0010-ci-automation-boundary.html">Phase 2 第 10 課 — CI 自動化邊界</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

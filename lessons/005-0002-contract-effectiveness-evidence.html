@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>02：確認 repo 規範真的有幫助</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #4f5d75; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #4f5d75; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #4f5d75; }
+  code, pre { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #36506f; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef1f6; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #d7dde8; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fbfcfe; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .rule { background: #eef1f6; border-left: 4px solid #4f5d75; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d7dde8; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #4f5d75; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef1f6; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d7dde8; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 5 · 第 02 課 · 約 25 分鐘 · Effectiveness evidence</div>
+<h1>確認 repo 規範真的有幫助</h1>
+<p class="mission">目標：用少量可回看的 evidence 判斷 repo contract 是否真的減少返工。這一課不做 dashboard，也不把單次成功解讀成長期有效。</p>
+<div class="scope"><strong>本課只做：</strong>產出 effectiveness log，判斷規範是否有幫助。<br><strong>先不要做：</strong>只靠一次感覺決定保留或升級。</div>
+
+
+<h2>有效性要看趨勢，不看自述</h2>
+<p>Contract effectiveness 不是「大家覺得有幫助」，而是同類任務裡是否出現可觀察的改善：少問一次關鍵問題、reviewer 更快找到 evidence、handoff 較少需要補上下文、gate 結果更容易判斷。</p>
+<p><a href="https://code.claude.com/docs/en/agent-sdk/observability">Observability</a> 可以提供工具呼叫、延遲、錯誤等訊號；<a href="https://code.claude.com/docs/en/agent-sdk/cost-tracking">Cost tracking</a> 可以輔助觀察成本。但 Phase 5 先從 review evidence 開始，避免為了量測而建立過重的系統。</p>
+
+<h2>四類足夠的 evidence</h2>
+<table>
+<tr><th>Signal</th><th>觀察方式</th><th>何時有用</th></tr>
+<tr><td>Clarification reduced</td><td>同類任務不再重問 scope、gate 或 artifact。</td><td>contract 是 input 或 issue template 類。</td></tr>
+<tr><td>Review faster</td><td>review note 能直接指到 evidence，不必回聊天紀錄找。</td><td>contract 是 report/handoff 類。</td></tr>
+<tr><td>Noise exposed</td><td>reviewer 每次都跳過、抱怨或改寫同一欄。</td><td>contract 可能太重或位置錯。</td></tr>
+<tr><td>Effort cost</td><td>同類任務是否常升到 <code>xhigh</code>/<code>max</code>，是否仍需多輪 rerun。</td><td>判斷 contract 是否降低推理成本。</td></tr>
+</table>
+
+<div class="rule"><strong>判斷規則：</strong>effectiveness log 只追蹤一到三個 signal。若需要大型 dashboard 才能解釋，代表 contract 還沒有被切小。</div>
+
+<h2>Effectiveness log 範例</h2>
+<pre>contractEffectiveness:
+  contract: reference/harness-input-contract.html
+  window: last-3-doc-tasks
+  signal:
+    - clarificationReduced: 2 of 3 tasks did not ask for validation scope
+    - reviewFaster: evidence path present in all 3 handoffs
+    - effortCost: all 3 tasks completed at high; no max sessions needed
+    - noise: none
+  decision: keep
+  nextReview: after 3 more same-class tasks</pre>
+
+<h2>把 max 當例外，不當常態</h2>
+<p><code>max</code> 可以用於困難且已縮小 scope 的任務，但如果同一類任務每次都需要 <code>max</code> 才能完成，這通常不是「模型要更強」，而是 input、gate 或 contract 還不夠清楚。Effectiveness log 要記錄高 effort 的原因與結果。</p>
+<table>
+<tr><th>觀察</th><th>營運判斷</th></tr>
+<tr><td>一次性高風險 review 使用 <code>max</code>。</td><td>可以接受，但要留下 reason 與 evidence。</td></tr>
+<tr><td>同類任務連續需要 <code>max</code>。</td><td>回頭修 brief、template、gate 或 contract。</td></tr>
+<tr><td>升到 <code>xhigh</code>/<code>max</code> 後沒有更好 evidence。</td><td>下次降回 <code>high</code>。</td></tr>
+</table>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 選一條 contract 與一個觀察期間</label>
+  <p>用最近三次同類任務即可。不要跨不同任務類型比較，否則 signal 會失真。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 選最多三個 signal</label>
+  <p>優先選 clarification、review speed、handoff quality、noise。若這條 contract 牽涉模型選擇，再加 effort cost；不要同時追蹤所有可能指標。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 找 evidence path</label>
+  <p>每個 signal 都要能指到 PR note、handoff、run report 或 reviewer comment。只在腦中記得不算。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 做 keep / revise / promote / retire 判斷</label>
+  <p>有效且仍需要人類判斷就 keep；重複穩定可考慮 promote；造成負擔就 revise 或 retire。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5. 設下一次 review 時點</label>
+  <p>例如「再三次同類任務後檢查」。沒有 review 時點，contract 很容易變成不再維護的規範。</p>
+</div>
+
+<div class="done-banner" id="done">
+  <strong>你已完成 effectiveness log。</strong>回對話視窗貼上 log，請 AI 老師檢查 signal 是否真的能支撐決策。
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="2">
+  <p>1. Effectiveness evidence 最好來自？</p>
+  <button>主觀印象</button>
+  <button>單句承諾</button>
+  <button>可回看的交付物</button>
+  <div class="why">有效性要能回看，例如 PR note、handoff、run report 或 reviewer comment。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>2. 一次 effectiveness log 應追蹤？</p>
+  <button>少量 signal</button>
+  <button>全部指標</button>
+  <button>只看 token</button>
+  <div class="why">少量與 contract 直接相關的 signal 才能支撐清楚判斷。成本可以輔助，但不是唯一指標。</div>
+</div>
+
+<div class="quiz" data-answer="1">
+  <p>3. 同一條 contract 每次都被跳過，代表？</p>
+  <button>一定要升級</button>
+  <button>可能有負擔</button>
+  <button>已經完成</button>
+  <div class="why">重複跳過或改寫是 noise signal，通常表示規範太重、位置錯，或已不再適用。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>4. 同類任務每次都需要 max，較可能代表？</p>
+  <button>contract 不清</button>
+  <button>已經成熟</button>
+  <button>可以忽略</button>
+  <div class="why">如果同類任務反覆需要 max，通常代表 input、gate 或 contract 還沒讓任務變穩定。</div>
+</div>
+
+<h2>下一步</h2>
+<p>如果同一個 input 或 review 規則多次證明有效，進入 <a href="005-0003-template-promotion.html">Phase 5 第 03 課</a>：把它升級成 template，讓下次任務一開始就帶著正確欄位。</p>
+<p><strong>主要閱讀資源：</strong><a href="../reference/harness-contract-effectiveness.html">Contract effectiveness 速查表</a>。延伸對照：<a href="https://code.claude.com/docs/en/agent-sdk/observability">Observability with OpenTelemetry</a>、<a href="https://code.claude.com/docs/en/agent-sdk/cost-tracking">Track cost and usage</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  相關課程：<a href="005-0001-contract-review-loop.html">Phase 5 第 01 課 — review loop</a> · <a href="005-0003-template-promotion.html">Phase 5 第 03 課 — template promotion</a> · <a href="../reference/harness-contract-effectiveness.html">Contract effectiveness 速查表</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

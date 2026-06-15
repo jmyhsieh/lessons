@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>05：把計畫整理成 PRD 與 issues（/to-prd、/to-issues）</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #1a6b5a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #1a6b5a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #1a6b5a; }
+  code, pre { background: #eef4f2; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #15564a; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef4f2; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #f8fbfa; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .tip { background: #eef4f2; border-left: 4px solid #1a6b5a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #1a6b5a; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef4f2; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d3e2dd; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 3 · 第 05 課 · 約 40 分鐘 · 實作課</div>
+<h1>把計畫整理成 PRD 與 issues（/to-prd、/to-issues）</h1>
+<p class="mission">目標：把 Phase 3 第 03 課 grill 出來的對齊計劃，先凝結成 PRD、再切成<strong>垂直切片（tracer bullet）</strong>的本地 issues。完成後，Phase 3 的 pipeline 只剩最後一步（/tdd 實作）。</p>
+<div class="scope"><strong>本課只做：</strong>把已對齊的計畫轉成 PRD 與可認領 issues。<br><strong>先不要做：</strong>需求還沒問清楚就切 ticket。</div>
+
+
+<h2>Pipeline 全景：你在這裡</h2>
+<pre>grill（對齊）→ <strong>/to-prd（凝結）→ /to-issues（切片）</strong> → /tdd（實作）
+   Phase 3 第 03 課            本課                          下一課</pre>
+
+<h2>/to-prd：凝結，不是再訪談</h2>
+<p>關鍵設計（skill 原文）：「<strong>不要再訪談使用者 — 直接綜合你已經知道的</strong>」。grill 已經把該問的問完了，to-prd 是收割。它會：</p>
+<ul>
+  <li>用 CONTEXT.md 的詞彙寫整份 PRD、尊重相關 ADR</li>
+  <li>產出：問題陳述、解法、<strong>大量編號的 user stories</strong>、實作決策</li>
+  <li>發佈到 Phase 3 第 01 課選定的 issue tracker（GitHub / Linear / local files）並標 <code>ready-for-agent</code></li>
+</ul>
+<div class="tip"><strong>它唯一會停下來問你的：測試的「接縫」（seams）</strong> — 要在哪些介面層驗證這個功能。原則：優先用既有接縫、用越高層的越好。高風險或 legacy repo 特別需要這一步，因為高層接縫（API 邊界、模組介面）通常比深挖內部更安全。看不懂它提的接縫就追問，別放行。</div>
+
+<h2>/to-issues：垂直切片，不是水平分層</h2>
+<p>核心觀念 — <strong>tracer bullet（曳光彈）</strong>：每張 issue 是一條「窄但完整」的端到端路徑，貫穿所有層（schema、API、UI、測試），<strong>不是</strong>「先做完整個資料層」這種水平切法。規則（skill 原文）：</p>
+<ul>
+  <li>每片自己就能 demo 或驗證</li>
+  <li>寧可多片薄的，不要少片厚的</li>
+  <li>每片標 <strong>AFK</strong>（agent 可獨立完成）或 <strong>HITL</strong>（需要人參與決策/審查），能 AFK 就 AFK</li>
+</ul>
+<p>它切完會<strong>先列清單問你</strong>：粒度對嗎？依賴關係對嗎？該合併或再切嗎？AFK/HITL 標對了嗎？— 你核准後才發佈 issues（含驗收條件與 blocked-by 鏈）。</p>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 接回 grill 的脈絡</label>
+  <p>最理想：在 Phase 3 第 03 課那個 session 繼續（context 都在）。若已關閉，開新 session 請它先讀 grill 產出的計劃與 CONTEXT.md。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 跑 /to-prd</label>
+  <p>重點審兩處：(a) 它提的測試接縫合理嗎？(b) user stories 有沒有漏掉你在 grill 中講過的場景？確認 PRD 寫進 Phase 3 第 01 課選定的 tracker。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 跑 /to-issues</label>
+  <p>對著剛產出的 PRD 執行。在它的「quiz」階段認真把關：用垂直切片的標準逐片檢查 — 「這片自己能驗證嗎？」不能就要求重切。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 驗收本地 issues</label>
+  <p>打開 issues 逐張讀：標題用了 CONTEXT.md 的詞彙嗎？驗收條件具體可驗嗎？blocked-by 鏈正確嗎？挑出最該先做的一張 — 下一課就實作它。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5. 全部 commit</label>
+  <p>PRD、issues、CONTEXT.md/ADR 的更新一起進版控或對應 tracker — 這些文件就是 repo 的交付制度。</p>
+</div>
+
+<div class="done-banner" id="done">
+  🎉 <strong>pipeline 三分之二完成：對齊 → PRD → issues。</strong>回對話視窗回報：切了幾片？AFK 佔比多少？哪片你要求重切了？
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="1">
+  <p>1. 哪個是正確的「垂直切片」？</p>
+  <button>第一片：建好所有資料表；第二片：寫完全部 API</button>
+  <button>第一片：單一查詢功能從 schema 到畫面到測試全通</button>
+  <button>第一片：完成所有功能；第二片：補上整套測試</button>
+  <div class="why">tracer bullet = 窄但貫穿所有層、自己能 demo。「先做完一層」是水平切片 — 每片都無法獨立驗證，正是 to-issues 要避免的。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>2. /to-prd 開始重新問你一堆需求問題，這代表？</p>
+  <button>上游出了問題，grill 階段的對齊還不夠完整</button>
+  <button>正常流程，PRD 本來就需要訪談來收集需求</button>
+  <button>應該直接跳過提問，叫它馬上去產出文件</button>
+  <div class="why">to-prd 的設計是「不訪談、只綜合」。若它沒料可綜合而開始發問，訊號是 grill 沒做透 — 回去補 grill，而不是在 to-prd 裡將就。</div>
+</div>
+
+<div class="quiz" data-answer="2">
+  <p>3.（複習 Phase 3 第 03 課）PRD 全文該使用什麼語言？</p>
+  <button>標準的技術術語，方便外部廠商也能讀懂</button>
+  <button>盡量白話，避免任何專案內部的行話術語</button>
+  <button>CONTEXT.md 的詞彙，並尊重相關的 ADR</button>
+  <div class="why">（間隔複習）共享語言是整套制度的地基：grill 銳化術語 → CONTEXT.md 收錄 → PRD/issues 沿用 → 人和 AI 讀到的是同一個意思。</div>
+</div>
+
+<h2>下一步</h2>
+<p>完成後回對話視窗回報。下一課：<a href="003-0006-tdd.html">Phase 3 第 06 課 — /tdd：紅綠燈實作，跑完整條 pipeline</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — to-prd 與 to-issues 的 SKILL.md 原文（含 PRD 與 issue 模板）。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  上一課：<a href="003-0004-prototype.html">Phase 3 第 04 課 — /prototype</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

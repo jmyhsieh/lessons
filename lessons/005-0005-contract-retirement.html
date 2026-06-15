@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>05：整理、合併與停用 repo 規範</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #4f5d75; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #4f5d75; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #4f5d75; }
+  code, pre { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #36506f; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef1f6; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #d7dde8; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fbfcfe; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .rule { background: #eef1f6; border-left: 4px solid #4f5d75; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d7dde8; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #4f5d75; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef1f6; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d7dde8; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 5 · 第 05 課 · 約 25 分鐘 · Contract cleanup</div>
+<h1>整理、合併與停用 repo 規範</h1>
+<p class="mission">目標：定期清理 repo contract，保留仍有效的規範，合併重複內容，退役過時或造成負擔的規則。這是 Phase 5 的收尾課。</p>
+<div class="scope"><strong>本課只做：</strong>產出 contract cleanup note。<br><strong>先不要做：</strong>沒有 evidence 就直接刪掉或保留規範。</div>
+
+
+<h2>規範也有維護成本</h2>
+<p>Repo contract 的價值在於讓下一個任務更容易交付；如果它不再被使用、已被 template 或 gate 取代、或每次都造成例外，它就會變成維護成本。Contract cleanup 的目的不是刪文件，而是讓規範集合保持可讀、可信、可執行。</p>
+<p>清理時要保留 evidence：為什麼 keep、merge、retire，放在哪裡，下一次何時再檢查。這讓後續 agent 不必重新推測歷史決策。</p>
+
+<h2>Effort policy 也要清理</h2>
+<p>如果某條 contract 曾允許 <code>max</code> 或要求 <code>xhigh</code>，cleanup 時要確認它是否仍必要。任務已穩定、template/gate 已補齊、或同類任務在 <code>high</code> 就能完成時，應把例外降回 <code>high</code>，避免高成本設定變成預設習慣。</p>
+<table>
+<tr><th>觀察</th><th>處理方式</th></tr>
+<tr><td>最近三次同類任務都在 <code>high</code> 通過。</td><td>移除 <code>xhigh</code>/<code>max</code> 例外。</td></tr>
+<tr><td><code>max</code> 沒有產生更好 evidence。</td><td>降回 <code>high</code>，保留 reason。</td></tr>
+<tr><td><code>xhigh</code> 仍常 blocked。</td><td>修 input/gate，而不是升到 <code>max</code>。</td></tr>
+</table>
+
+<h2>Cleanup decisions</h2>
+<table>
+<tr><th>Decision</th><th>何時使用</th><th>處理方式</th></tr>
+<tr><td>Keep</td><td>近期仍被使用，且 evidence 支持有效。</td><td>保留原位，設定下一次 review 時點。</td></tr>
+<tr><td>Merge</td><td>兩條 contract 重複或互相依賴。</td><td>合成一條更短規則，移除重複段落。</td></tr>
+<tr><td>Move</td><td>位置錯，導致正確的人看不到。</td><td>搬到 issue template、PR template、CLAUDE.md、reference 或 gate。</td></tr>
+<tr><td>Retire</td><td>過時、無 evidence、常被跳過，或已被自動化取代。</td><td>刪除或標註 deprecated，留下 retirement note。</td></tr>
+</table>
+
+<div class="rule"><strong>判斷規則：</strong>如果一條 contract 不能說明最近一次有效 evidence，也沒有下一次 review 時點，就應該檢查是否合併、移動或退役。</div>
+
+<h2>Retirement note 範例</h2>
+<pre>contractCleanup:
+  contract: reference/old-handoff-checklist.html
+  decision: retire
+  reason: replaced by PR template evidence fields and runner gate
+  evidence: last 5 handoffs did not reference this checklist
+  replacement: .github/PULL_REQUEST_TEMPLATE.md
+  rollback: restore if reviewers ask for manual handoff checklist twice in 30 days</pre>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 列出目前的 contract inventory</label>
+  <p>包含 CLAUDE.md、AGENTS.md、reference checklist、issue/PR template、hooks、runner gates。先列，不先改。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 對每條 contract 找最近 evidence</label>
+  <p>找 usage note、effectiveness log、template 使用紀錄或 gate result。若有 effort 例外，也找最近一次使用 <code>xhigh</code>/<code>max</code> 的 reason 與 outcome。找不到 evidence 就標記為 review needed。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 做 keep / merge / move / retire 決策</label>
+  <p>一次清理少量 contract。避免把清理任務變成大型重構。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 寫 cleanup note</label>
+  <p>每個決策都要有 reason、evidence、replacement 或 rollback。刪除規範也要能解釋。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5. 更新索引或目錄</label>
+  <p>如果 contract 被移動或退役，要同步更新 reference index、toc 或 repo guide，避免留下失效連結。</p>
+</div>
+
+<div class="done-banner" id="done">
+  <strong>你已完成 contract cleanup note。</strong>回對話視窗貼上 inventory 與決策，請 AI 老師檢查是否有誤刪或漏掉替代位置。
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="2">
+  <p>1. Contract cleanup 的主要目的？</p>
+  <button>刪掉所有舊文件</button>
+  <button>增加更多規則</button>
+  <button>維持規範可信與可用</button>
+  <div class="why">清理不是為了刪文件，而是讓 repo contract 保持可讀、可信、可執行。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>2. 一條 contract 已被 gate 完全取代，通常應該？</p>
+  <button>退役或改成說明</button>
+  <button>複製到更多地方</button>
+  <button>保留兩套互相衝突規則</button>
+  <div class="why">被自動化取代後，舊 checklist 可能只需保留說明或退役，避免多套規則互相衝突。</div>
+</div>
+
+<div class="quiz" data-answer="1">
+  <p>3. 清理 contract 前，應先？</p>
+  <button>直接刪除</button>
+  <button>找最近 evidence</button>
+  <button>改成大型平台</button>
+  <div class="why">先找 usage note、effectiveness log 或 gate result，才能知道該 keep、merge、move 還是 retire。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>4. 同類任務已能用 high 通過時，應該？</p>
+  <button>移除例外</button>
+  <button>升到 max</button>
+  <button>保留不查</button>
+  <div class="why">任務穩定後，高 effort 例外應退場，否則成本規則會慢慢變成不必要的預設。</div>
+</div>
+
+<h2>Phase 5 收束</h2>
+<p>完成 Phase 5 第 05 課後，你有一個完整的 harness operations loop：repo contract → review loop → effectiveness evidence → template promotion → hook/gate promotion → cleanup。下一次遇到新工作流，不必直接平台化；先用這條迴圈逐步證明它值得維護。</p>
+<p><strong>主要閱讀資源：</strong><a href="../reference/harness-contract-retirement.html">Contract cleanup 速查表</a>。延伸對照：<a href="../reference/harness-workflow-index.html">Harness 工作流速查索引</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  相關課程：<a href="005-0004-hook-gate-promotion.html">Phase 5 第 04 課 — hook / gate promotion</a> · <a href="005-0001-contract-review-loop.html">Phase 5 第 01 課 — review loop</a> · <a href="../reference/harness-contract-retirement.html">Contract cleanup 速查表</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

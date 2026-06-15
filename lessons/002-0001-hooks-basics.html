@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>01：控制 Claude Code 工具行為（hooks）</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #c2571a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #c2571a; }
+  code, pre { background: #f4f0ec; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #b04a12; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #faf3ee; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #faf3ee; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 2 · 第 01 課 · 約 15 分鐘 · Hooks 與 exit code</div>
+<h1>控制 Claude Code 工具行為（hooks）</h1>
+<p class="mission">任務目標：理解 hooks 在 Claude Code 生命週期中何時執行，以及 <code>exit 0</code>/<code>exit 2</code> 的差異。這一課先做最小的格式化 hook。</p>
+<div class="scope"><strong>本課只做：</strong>理解 hook 何時會執行，以及 exit code 代表什麼。<br><strong>先不要做：</strong>一開始就寫複雜 hook 取代人工 review。</div>
+
+
+<h2>三層模型</h2>
+<table>
+<tr><th>層</th><th>機制</th><th>性質</th></tr>
+<tr><td>指引</td><td>CLAUDE.md</td><td>模型會參考，但不保證。</td></tr>
+<tr><td>閘門</td><td>permission rules</td><td>決定工具能不能做。</td></tr>
+<tr><td>自動化</td><td>hooks</td><td>固定時點必定執行 shell 指令。</td></tr>
+</table>
+
+<h2>最重要的 exit code</h2>
+<pre>exit 0  → 放行
+exit 2  → 擋下，stderr 內容會回饋給 Claude
+其他    → 視為 hook 自身錯誤，動作通常照常進行</pre>
+<p>常用事件：<code>PreToolUse</code> 在工具前、<code>PostToolUse</code> 在工具後、<code>Stop</code> 在回合結束時。</p>
+
+<h2>實作步驟（做完打勾）</h2>
+<div class="step">
+  <label><input type="checkbox"> 1. 選一個安全的 PostToolUse hook</label>
+  <p>例如每次 Edit/Write 後跑格式化。先挑可重跑、低風險的動作。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 2. 請 Claude 寫設定草稿</label>
+  <pre>Write a PostToolUse hook that runs our formatter after file edits.
+Explain every line before changing .claude/settings.json.</pre>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 3. 讀懂再接受</label>
+  <p>hooks 以你的權限執行 shell 指令，不能不看就合併。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 4. 驗證 hook 觸發</label>
+  <p>做一個小改動，看格式化是否真的跑起來。</p>
+</div>
+
+<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經知道 hooks 的基本語意。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="1">
+  <p>1. 想在工具執行後自動格式化，適合哪個事件？</p>
+  <button>PreToolUse</button>
+  <button>PostToolUse</button>
+  <button>Notification</button>
+  <div class="why">格式化要等檔案被 Edit/Write 後才有東西可處理。</div>
+</div>
+<div class="quiz" data-answer="2">
+  <p>2. hook 想擋下動作並讓 Claude 知道原因，該？</p>
+  <button>exit 0 到 stdout</button>
+  <button>exit 1 到 stdout</button>
+  <button>exit 2 到 stderr</button>
+  <div class="why">exit 2 = 擋下，stderr = 回饋給 Claude。</div>
+</div>
+
+<h2>下一步</h2>
+<p>下一課：<a href="002-0002-guardrail-hooks.html">Phase 2 第 02 課 — 擋下危險操作（guardrail hook）</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/hooks-guide">Automate actions with hooks（官方）</a>。</p>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0012-verification-context.html">Phase 1 第 12 課 — 驗證與 context 收尾</a></footer>
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display = [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

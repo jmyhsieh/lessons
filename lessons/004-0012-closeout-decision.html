@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>12：判斷任務何時可以收尾（closeout）</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #4f5d75; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #4f5d75; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #4f5d75; }
+  code, pre { background: #eef1f6; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #36506f; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef1f6; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #d7dde8; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fbfcfe; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .rule { background: #eef1f6; border-left: 4px solid #4f5d75; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d7dde8; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #4f5d75; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef1f6; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d7dde8; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 4 · 第 12 課 · 約 25 分鐘 · Closeout decision</div>
+<h1>判斷任務何時可以收尾（closeout）</h1>
+<p class="mission">目標：替整條 harness 工作流加上收工判斷。這一課只決定何時停止、何時人工 review、何時 rerun、何時降級回單次 agent；不新增 scheduler、不做 dashboard。</p>
+<div class="scope"><strong>本課只做：</strong>產出 ship、review、rerun、blocked 或 downgrade 的決策。<br><strong>先不要做：</strong>把 closeout 當成最後一個 command。</div>
+
+
+<h2>Closeout 是決策，不是最後一個 command</h2>
+<p><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a> 把工作流收束到 tests、commit、PR 等可驗證成果；<a href="https://code.claude.com/docs/en/hooks">Hooks reference</a> 也把 <code>Stop</code> 定義成 Claude 完成回應時的生命週期事件，甚至可用 Stop hook 要求 Claude 繼續補驗證。但 harness closeout 不能只靠模型說「完成」。</p>
+<p><a href="https://code.claude.com/docs/en/agent-sdk/cost-tracking">Cost tracking</a> 提醒失敗 conversation 仍會消耗 token 與成本，所以 closeout 要有明確停止條件：證據夠了就收工，缺人類判斷就轉 review，缺環境就 blocked，重跑超過預算就停。</p>
+
+<h2>五種收工決策</h2>
+<table>
+<tr><th>Decision</th><th>何時使用</th><th>下一步</th></tr>
+<tr><td><code>ship</code></td><td>Gates 通過、evidence 存在、handoff 可接手。</td><td>交 reviewer 或開 PR。</td></tr>
+<tr><td><code>review</code></td><td>技術證據足夠，但產品、安全、風險需要人判斷。</td><td>指定 owner。</td></tr>
+<tr><td><code>rerun</code></td><td>失敗原因明確、已修正、retry budget 還有額度。</td><td>建立新 run。</td></tr>
+<tr><td><code>blocked</code></td><td>缺 credential、資料、環境或權限。</td><td>記錄 unblock 條件。</td></tr>
+<tr><td><code>downgrade</code></td><td>任務不再重複、input 不穩、gate 沒價值。</td><td>回到單次 agent。</td></tr>
+</table>
+
+<div class="rule"><strong>判斷規則：</strong>closeout 必須讓下一個人知道「現在可以停止嗎？」以及「如果不能，誰要做什麼」。沒有 owner 的 open item 不算 closeout。</div>
+
+<h2>Closeout record 範例</h2>
+<pre>{
+  "runId": "run-0043",
+  "decision": "review",
+  "reason": "all gates passed but auth fixture still depends on staging token",
+  "evidenceVerified": true,
+  "handoffPath": ".harness/reports/run-0043-handoff.md",
+  "retryBudgetRemaining": 0,
+  "owner": "backend lead",
+  "nextAction": "approve fixture strategy or provide stable test credential"
+}</pre>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 先選 decision</label>
+  <p>只允許 <code>ship</code>、<code>review</code>、<code>rerun</code>、<code>blocked</code>、<code>downgrade</code>。不要留下「差不多好了」。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 對照 evidence</label>
+  <p>確認 final handoff 的 report、gate results、evidence directory 都存在。若 artifact 缺失，不能 ship。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 檢查 retry budget</label>
+  <p>若已經重跑過或沒有新修正，停止自動 rerun，改成 <code>review</code> 或 <code>blocked</code>。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 補 owner 與 next action</label>
+  <p>所有非 <code>ship</code> 決策都要有 owner。下一步要可執行，不能只寫「再看看」。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5. 寫進 handoff</label>
+  <p>把 closeout record 放進 final handoff。下一個 agent 或 reviewer 應該不用問你就知道狀態。</p>
+</div>
+
+<div class="done-banner" id="done">
+  <strong>你已完成 closeout decision。</strong>回對話視窗貼上 closeout record，請 AI 老師檢查決策是否能防止無限重跑。
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="0">
+  <p>1. Gates 都過但仍需產品判斷，該選？</p>
+  <button>人工審查</button>
+  <button>直接交付</button>
+  <button>繼續重跑</button>
+  <div class="why">技術證據足夠但仍需要人類判斷時，應該轉 review，而不是假裝模型能替人決策。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>2. 缺 credential 時，最適合的決策？</p>
+  <button>阻塞等待</button>
+  <button>直接交付</button>
+  <button>繼續重跑</button>
+  <div class="why">缺 credential、資料、環境或權限時，重跑通常只會重複失敗，應改成 blocked 並寫清 unblock 條件。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>3. 任務不再重複時，harness 應該？</p>
+  <button>降級處理</button>
+  <button>擴大平台</button>
+  <button>繼續自動</button>
+  <div class="why">Harness 是為重複、穩定、可驗證的工作流服務；任務不再重複時，回到單次 agent 比維護 runner 更划算。</div>
+</div>
+
+<h2>下一步</h2>
+<p>把 closeout decision 當作 harness 路線的收尾：能 ship 就交付，不能 ship 就明確轉 review、rerun、blocked 或 downgrade。接著進入 <a href="004-0013-repo-rehearsal.html">Phase 4 第 13 課</a>：把 Phase 4 第 01–12 課串成一次真實 repo 的端到端演練。</p>
+<p><strong>主要閱讀資源：</strong><a href="../reference/harness-closeout-decision.html">Closeout decision 速查表</a>。延伸對照：<a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>、<a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>、<a href="https://code.claude.com/docs/en/agent-sdk/cost-tracking">Track cost and usage</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  相關課程：<a href="004-0013-repo-rehearsal.html">Phase 4 第 13 課 — repo rehearsal</a> · <a href="004-0011-final-handoff-package.html">Phase 4 第 11 課 — final handoff package</a> · <a href="004-0010-rerun-policy.html">Phase 4 第 10 課 — rerun policy</a> · <a href="../reference/harness-closeout-decision.html">Closeout decision 速查表</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

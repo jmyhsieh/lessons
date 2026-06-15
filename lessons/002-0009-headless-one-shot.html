@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>09：用指令列跑一次性任務（claude -p）</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #c2571a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #c2571a; }
+  code, pre { background: #f4f0ec; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #b04a12; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #faf3ee; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #faf3ee; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 2 · 第 09 課 · 約 15 分鐘 · CLI one-shot</div>
+<h1>用指令列跑一次性任務（claude -p）</h1>
+<p class="mission">任務目標：把 Claude Code 當成命令列工具跑一次性唯讀任務，理解 stdin/stdout 與 JSON output。</p>
+<div class="scope"><strong>本課只做：</strong>用 claude -p 跑低風險、一次性的指令列任務。<br><strong>先不要做：</strong>把互動式探索或高風險修改放進 one-shot。</div>
+
+
+<h2>從對話到指令</h2>
+<pre># 直接問
+claude -p "What does the auth module do?"
+
+# 像 Unix 工具一樣用管線
+cat build-error.txt | claude -p "concisely explain the root cause"
+
+# 結構化輸出
+claude -p "Summarize this project" --output-format json</pre>
+
+<h2>先記三個旗標</h2>
+<table>
+<tr><th>旗標</th><th>用途</th></tr>
+<tr><td><code>-p</code></td><td>非互動模式，跑完輸出後結束。</td></tr>
+<tr><td><code>--bare</code></td><td>降低本機 hooks/skills/MCP 等設定差異。</td></tr>
+<tr><td><code>--output-format json</code></td><td>讓 script 能解析結果與成本欄位。</td></tr>
+</table>
+
+<h2>實作步驟（做完打勾）</h2>
+<div class="step">
+  <label><input type="checkbox"> 1. 跑第一個 one-shot</label>
+  <pre>claude --bare -p "Summarize README.md in five bullets" --allowedTools "Read"</pre>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 2. 用管線餵資料</label>
+  <pre>git diff --stat | claude --bare -p "Summarize this diff stat"</pre>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 3. 試 JSON output</label>
+  <pre>claude --bare -p "Summarize this project" --output-format json</pre>
+</div>
+
+<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經能把 Claude Code 當成 one-shot CLI 使用。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="0">
+  <p>1. <code>-p</code> 的核心用途是？</p>
+  <button>非互動執行一次任務</button>
+  <button>開啟 plan mode</button>
+  <button>自動建立 PR</button>
+  <div class="why">-p 讓 Claude Code 像一般 CLI：輸入、輸出、結束。</div>
+</div>
+<div class="quiz" data-answer="1">
+  <p>2. script 想穩定解析結果，該加？</p>
+  <button>/diff</button>
+  <button>--output-format json</button>
+  <button>--resume</button>
+  <div class="why">JSON output 比自然語言 stdout 更適合程式解析。</div>
+</div>
+
+<h2>下一步</h2>
+<p>下一課：<a href="002-0010-ci-automation-boundary.html">Phase 2 第 10 課 — 在 CI 中安全使用 Claude Code</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/headless">Run Claude Code programmatically（官方）</a>。</p>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="002-0008-writer-reviewer-session.html">Phase 2 第 08 課 — Writer / Reviewer</a></footer>
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display = [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

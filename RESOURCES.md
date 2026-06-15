@@ -72,7 +72,7 @@
 - [Guide: "Best practices for Claude Code" — Anthropic](https://code.claude.com/docs/en/best-practices)
   Developer workflow guidance: verification-first, explore-plan-code, commit/PR, subagents, hooks, and parallel sessions. Use for: turning engineering tasks into agent-ready workflows.
 - [Reference: "Commands" — Anthropic](https://code.claude.com/docs/en/commands)
-  Official Claude Code command reference for slash commands such as /plan, /model, /effort, /diff, /compact, /goal, /run, /review, and /permissions. Use for: Phase 1 session-control teaching.
+  Official Claude Code command reference for slash commands such as /plan, /model, /effort, /diff, /compact, /goal, /run, /review, and /permissions. Use for: Phase 1/2 session-control teaching.
 - [Guide: "Model configuration" — Anthropic](https://code.claude.com/docs/en/model-config)
   Official Claude Code model and effort configuration guide covering model aliases, /model, /effort, opusplan, effort levels, extended thinking, and extended context. Use for: teaching model/effort decisions.
 - [Guide: "How Claude remembers your project" — Anthropic](https://code.claude.com/docs/en/memory)
