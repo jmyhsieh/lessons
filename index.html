@@ -13,10 +13,7 @@
   h1 { font-size: 2.65rem; line-height: 1.3; margin: 0 0 1rem; font-weight: 700; }
   h1 .accent { color: #c2571a; }
   .subtitle { font-size: 1.08rem; color: #555; line-height: 1.85; margin: 0 auto 1.6rem; max-width: 620px; }
-  .start-hint { display: inline-flex; align-items: center; gap: .6rem; margin: 1.25rem 0 2rem;
-                border: 1px solid #eaded3; border-radius: 999px; background: rgba(255,255,255,.72);
-                padding: .45rem 1rem; color: #5b514b; font-size: .92rem; }
-  .start-hint strong { color: #b04a12; }
+  .path-note { margin: 1rem 0 2rem; color: #777; font-size: .9rem; }
   .phases { display: grid; gap: .7rem; max-width: 860px; margin: 0 auto 2.4rem; text-align: left; }
   .phase { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; align-items: center;
            border-radius: 8px; padding: .9rem 1.1rem; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,.06); }
@@ -38,7 +35,6 @@
   @media (max-width: 860px) {
     .cover { padding: 3rem 1.25rem; }
     h1 { font-size: 2.15rem; }
-    .start-hint { border-radius: 8px; align-items: flex-start; }
     .phase { grid-template-columns: 1fr; gap: .55rem; }
     .phase-index { border-right: 0; border-bottom: 1px solid #eee; padding-right: 0; padding-bottom: .5rem; }
   }
@@ -53,7 +49,7 @@
 
   <a class="start" href="toc.html">進入課目表 →</a>
 
-  <div class="start-hint"><strong>不知道從哪開始？</strong><span>先點「進入課目表」，從 Phase 1「安全開始」出發；已經會 Claude Code 的人，可以直接跳到 Phase 3 或 Phase 4。</span></div>
+  <p class="path-note">新手從 Phase 1；熟悉 Claude Code 可跳 Phase 3 或 4。</p>
 
   <div class="phases">
     <div class="phase p1">
@@ -92,8 +88,6 @@
       </div>
     </div>
   </div>
-
-  <a class="start" href="toc.html">查看完整課目表 →</a>
 
   <div class="meta">
     常用速查：<a href="reference/claude-product-picker.html">產品選用</a> · <a href="reference/claude-code-command-surface.html">Claude Code 操作</a> · <a href="reference/claude-code-model-effort.html">模型與推理程度</a> · <a href="reference/harness-workflow-index.html">Harness 工作流</a><br>
