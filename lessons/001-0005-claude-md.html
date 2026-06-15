@@ -66,6 +66,15 @@
 </ul>
 <p>注意：CLAUDE.md 是<strong>指引不是強制</strong> — 它是 context，不是程式閘門。必須百分之百擋下的事（例如禁推 main）要用 hooks 或 permission 設定，之後的課會教。</p>
 
+<h2>什麼時候用 <code>/init</code></h2>
+<p><code>/init</code> 適合第一次進 repo 時產生 starter <code>CLAUDE.md</code>：它會分析 codebase，整理能推斷出的建置指令、測試方式與專案慣例。如果已經有 <code>CLAUDE.md</code>，它會提出改進建議，而不是直接覆蓋。把它當成「可審稿初稿」，不要當成團隊規範的最終版（<a href="https://code.claude.com/docs/en/memory">官方文件</a>）。</p>
+<table>
+<tr><th>情境</th><th>建議做法</th></tr>
+<tr><td>第一次進 repo，還沒有 <code>CLAUDE.md</code></td><td>先用 <code>/init</code> 產生初稿，再人工審稿。</td></tr>
+<tr><td>桌面 App 的 slash menu 沒有 <code>/init</code></td><td>用自然語言請它讀 repo 高層檔案並草擬。</td></tr>
+<tr><td>要補團隊才知道的流程或禁忌</td><td>手動補上，因為模型通常無法從 codebase 推斷。</td></tr>
+</table>
+
 <h2>實作步驟（做完打勾）</h2>
 
 <div class="step">
@@ -74,7 +83,7 @@
   <pre>Read the repo at a high level and draft a concise CLAUDE.md.
 Include build/test commands, code style, and project conventions.
 Ask before editing the file.</pre>
-  <p><strong>slash command：</strong>在桌面 App 的 prompt box 輸入 <code>/</code>，如果清單有 <code>/init</code> 也可以用它產生 starter <code>CLAUDE.md</code>。沒有看到就用上面的自然語言做法。</p>
+  <p><strong>slash command：</strong>在 prompt box 輸入 <code>/</code>，如果清單有 <code>/init</code>，可先用它產生 starter <code>CLAUDE.md</code>。沒有看到就用上面的自然語言做法。</p>
 </div>
 
 <div class="step">
