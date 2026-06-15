@@ -42,7 +42,7 @@
 
 
 <h2>整個 skill 就一句話</h2>
-<p>Phase 1 的原文：「<strong>This is the skill. Everything else is mechanical.</strong>」— 有了快速、確定性、agent 能自己跑的 pass/fail 訊號，bug 就等於修好了 90%；沒有它，盯 code 盯再久都沒用。這是 Phase 1 第 12 課「給它能自己跑的驗證」的除錯版，也是整套課程的母題。</p>
+<p>diagnose skill 原文：「<strong>This is the skill. Everything else is mechanical.</strong>」— 有了快速、確定性、agent 能自己跑的 pass/fail 訊號，bug 就等於修好了 90%；沒有它，盯 code 盯再久都沒用。這是 Phase 1 第 12 課「給它能自己跑的驗證」的除錯版，也是整套課程的母題。</p>
 
 <h2>六階段地圖</h2>
 <table>
@@ -55,14 +55,14 @@
 <tr><td>6. Cleanup + 復盤</td><td>grep 前綴清光 debug log、記錄學到的</td><td>沒清乾淨不算完成</td></tr>
 </table>
 
-<h2>Phase 1 的武器庫（節選）</h2>
+<h2>diagnose 內部第 1 階段的武器庫（節選）</h2>
 <p>十種造迴圈的方法，大致依序嘗試：失敗測試 → curl/HTTP script → CLI＋fixture 比對快照 → headless browser → <strong>重放捕獲的 trace</strong>（存下真實 payload 重放）→ 拋棄式 harness（mock 依賴只跑出 bug 的路徑）→ fuzz 迴圈 → <strong>bisection harness</strong>（自動化「回到狀態 X 檢查」讓 git bisect 跑）→ 差分迴圈（新舊版同輸入比輸出）→ 最後手段 HITL script。</p>
 <div class="tip"><strong>三個對高風險 bug 特別重要的細則：</strong>
 (1) <strong>迴圈本身要迭代</strong> — 「30 秒且會閃爍的迴圈只比沒有好一點；2 秒且確定性的迴圈是除錯超能力」。
 (2) <strong>非確定性 bug</strong>：目標不是乾淨重現而是「拉高重現率」— 觸發 100 次、平行化、加壓、注入 sleep，50% 重現率就能除錯。
 (3) <strong>真的造不出迴圈時它會停下來明說</strong>，向你要環境存取、捕獲物（HAR/log dump/錄影）或臨時埋點的許可 — 它被禁止在沒有迴圈時瞎猜假說。</div>
 
-<h2>你的角色：Phase 4 的關鍵一秒</h2>
+<h2>你的角色：diagnose 內部第 3 階段的關鍵一秒</h2>
 <p>它列出排序假說後會先給你看 — 這是人類脈絡的關鍵介入點：「#3 那個模組我們上週才改過」一句話就能瞬間重排序。skill 也明定你不在場時它會照自己的排序繼續，不會卡住。</p>
 
 <h2>實作步驟（做完打勾）</h2>
@@ -73,28 +73,28 @@
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 2. 啟動 /diagnose，緊盯 Phase 1</label>
+  <label><input type="checkbox"> 2. 啟動 /diagnose，緊盯第 1 階段</label>
   <pre>/diagnose [描述症狀：錯誤訊息、何時發生、影響誰]</pre>
   <p>觀察它選哪種武器造迴圈。迴圈造出來後問自己：夠快嗎？訊號夠尖嗎（assert 的是具體症狀還是「沒 crash」）？</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 3. 在 Phase 4 注入人類脈絡</label>
+  <label><input type="checkbox"> 3. 在第 3 階段注入人類脈絡</label>
   <p>看到假說清單時認真讀，用你對系統、產品或近期變更的了解重排序或排除（「這個我們查過了」）。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 4. 盯 Phase 5 的接縫判斷</label>
+  <label><input type="checkbox"> 4. 盯第 5 階段的接縫判斷</label>
   <p>確認：回歸測試先紅後綠了嗎？它寫測試的接縫真的能重現 bug 的觸發模式嗎？若它回報「沒有正確接縫」— 把這個發現餵給 Phase 3 第 08 課的架構健檢。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 5. 驗收 Phase 6</label>
+  <label><input type="checkbox"> 5. 驗收第 6 階段</label>
   <p>grep debug 前綴確認清光、原始（未最小化）情境重跑通過、修 bug 過程的學習若值得就進 CONTEXT.md/ADR。</p>
 </div>
 
 <div class="done-banner" id="done">
-  🎉 <strong>缺陷線開張：你有了系統化除錯的紀律。</strong>回對話視窗回報：它用哪種武器造迴圈？你的人類脈絡在 Phase 4 重排了什麼？
+  🎉 <strong>缺陷線開張：你有了系統化除錯的紀律。</strong>回對話視窗回報：它用哪種武器造迴圈？你的人類脈絡在假說階段重排了什麼？
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
@@ -116,11 +116,19 @@
 </div>
 
 <div class="quiz" data-answer="2">
-  <p>3.（複習 Phase 3 第 06 課）Phase 5 「先寫回歸測試、看它失敗、再修」對應 TDD 的什麼？</p>
+  <p>3.（複習 Phase 3 第 06 課）第 5 階段「先寫回歸測試、看它失敗、再修」對應 TDD 的什麼？</p>
   <button>Refactor 階段：全綠之後才開始動結構</button>
   <button>Planning 階段：先和使用者確認要測什麼</button>
   <button>RED→GREEN：沒看過失敗的測試不可信</button>
   <div class="why">（間隔複習）同一條鐵律：測試必須先紅 — 證明它真的在測這個 bug — 修完轉綠才有意義。診斷迴圈就是 TDD 哲學的除錯變體。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>4.（複習 Phase 3 第 02 課）陌生子系統出 bug，zoom-out 放在 /diagnose 的哪裡最有價值？</p>
+  <button>之前 — 先懂地形再列假說</button>
+  <button>之後 — bug 修完再補地圖</button>
+  <button>之間 — 每階段都重跑一次</button>
+  <div class="why">先 zoom-out 再 diagnose，能讓第 3 階段的假說建立在結構理解上，而不是靠檔名亂猜。</div>
 </div>
 
 <h2>下一步</h2>
