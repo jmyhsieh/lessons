@@ -12,22 +12,11 @@
   .mark { font-size: .8rem; letter-spacing: .32em; text-transform: uppercase; color: #b04a12; margin-bottom: 2rem; }
   h1 { font-size: 2.65rem; line-height: 1.3; margin: 0 0 1rem; font-weight: 700; }
   h1 .accent { color: #c2571a; }
-  .subtitle { font-size: 1.08rem; color: #555; line-height: 1.85; margin: 0 auto 2rem; max-width: 620px; }
-  .start-hint { display: inline-flex; align-items: center; gap: .6rem; margin-bottom: 2.2rem;
+  .subtitle { font-size: 1.08rem; color: #555; line-height: 1.85; margin: 0 auto 1.6rem; max-width: 620px; }
+  .start-hint { display: inline-flex; align-items: center; gap: .6rem; margin: 1.25rem 0 2rem;
                 border: 1px solid #eaded3; border-radius: 999px; background: rgba(255,255,255,.72);
                 padding: .45rem 1rem; color: #5b514b; font-size: .92rem; }
   .start-hint strong { color: #b04a12; }
-  .quick-refs { max-width: 780px; margin: 0 auto 2rem; border: 1px solid #eaded3; border-radius: 8px;
-                background: rgba(255,255,255,.72); padding: .8rem 1rem; text-align: left;
-                font-size: .9rem; line-height: 1.7; }
-  .quick-refs strong { color: #5b514b; margin-right: .4rem; }
-  .quick-refs a { color: #b04a12; text-decoration: none; font-weight: 600; margin-right: .7rem; }
-  .quick-refs a:hover { text-decoration: underline; }
-  .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; margin: 0 auto 2rem; max-width: 820px; }
-  .outcome { text-align: left; border-left: 3px solid #c2571a; background: rgba(255,255,255,.72);
-             padding: .8rem 1rem; border-radius: 8px; }
-  .outcome b { display: block; margin-bottom: .25rem; font-size: .94rem; }
-  .outcome span { display: block; color: #666; font-size: .84rem; line-height: 1.6; }
   .phases { display: grid; gap: .7rem; max-width: 860px; margin: 0 auto 2.4rem; text-align: left; }
   .phase { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; align-items: center;
            border-radius: 8px; padding: .9rem 1.1rem; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,.06); }
@@ -44,10 +33,9 @@
             padding: .85rem 2.6rem; border-radius: 999px; font-size: 1.05rem; font-weight: 600;
             box-shadow: 0 3px 10px rgba(194,87,26,.3); transition: transform .15s, box-shadow .15s; }
   a.start:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(194,87,26,.35); }
-  .meta { margin-top: 2.8rem; font-size: .8rem; color: #999; line-height: 1.8; }
+  .meta { margin-top: 2rem; font-size: .82rem; color: #999; line-height: 1.9; }
   .meta a { color: #b04a12; }
   @media (max-width: 860px) {
-    .outcomes { grid-template-columns: 1fr; }
     .cover { padding: 3rem 1.25rem; }
     h1 { font-size: 2.15rem; }
     .start-hint { border-radius: 8px; align-items: flex-start; }
@@ -61,32 +49,11 @@
 <div class="cover">
   <div class="mark">Beginner Friendly Course · 2026</div>
   <h1>從 0 開始，用 <span class="accent">Claude Code</span> 做出可交付成果</h1>
-  <p class="subtitle">這套課不是介紹 AI 名詞，而是帶你一步步練習：選對 Claude 工具、在 repo 裡安全開始、把結果驗證清楚，最後把重複任務整理成團隊能重跑的工作流。</p>
+  <p class="subtitle">選對 Claude 工具，在 repo 裡安全完成可驗證交付，最後把重複任務整理成團隊能重跑的工作流。</p>
+
+  <a class="start" href="toc.html">進入課目表 →</a>
 
   <div class="start-hint"><strong>不知道從哪開始？</strong><span>先點「進入課目表」，從 Phase 1「安全開始」出發；已經會 Claude Code 的人，可以直接跳到 Phase 3 或 Phase 4。</span></div>
-
-  <div class="quick-refs">
-    <strong>常用速查</strong>
-    <a href="reference/claude-product-picker.html">產品選用</a>
-    <a href="reference/claude-code-command-surface.html">Claude Code 操作</a>
-    <a href="reference/claude-code-model-effort.html">模型與推理程度</a>
-    <a href="reference/harness-workflow-index.html">Harness 工作流</a>
-  </div>
-
-  <div class="outcomes">
-    <div class="outcome">
-      <b>會選工具</b>
-      <span>知道什麼任務該用 Claude Chat、Cowork、Claude Code 或 skill。</span>
-    </div>
-    <div class="outcome">
-      <b>會安全開始</b>
-      <span>先讀 repo、先規劃、再小步修改，避免一開始就改壞專案。</span>
-    </div>
-    <div class="outcome">
-      <b>會交付結果</b>
-      <span>用測試、review、evidence 與 handoff 說清楚做了什麼。</span>
-    </div>
-  </div>
 
   <div class="phases">
     <div class="phase p1">
@@ -126,10 +93,10 @@
     </div>
   </div>
 
-  <a class="start" href="toc.html">進入課目表 →</a>
+  <a class="start" href="toc.html">查看完整課目表 →</a>
 
   <div class="meta">
-    建議先從課目表選路徑，再依任務需要回查上方常用速查<br>
+    常用速查：<a href="reference/claude-product-picker.html">產品選用</a> · <a href="reference/claude-code-command-surface.html">Claude Code 操作</a> · <a href="reference/claude-code-model-effort.html">模型與推理程度</a> · <a href="reference/harness-workflow-index.html">Harness 工作流</a><br>
     每課皆含實作清單與觀念檢查
   </div>
 </div>
