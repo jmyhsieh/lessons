@@ -17,6 +17,12 @@
                 border: 1px solid #eaded3; border-radius: 999px; background: rgba(255,255,255,.72);
                 padding: .45rem 1rem; color: #5b514b; font-size: .92rem; }
   .start-hint strong { color: #b04a12; }
+  .quick-refs { max-width: 780px; margin: 0 auto 2rem; border: 1px solid #eaded3; border-radius: 8px;
+                background: rgba(255,255,255,.72); padding: .8rem 1rem; text-align: left;
+                font-size: .9rem; line-height: 1.7; }
+  .quick-refs strong { color: #5b514b; margin-right: .4rem; }
+  .quick-refs a { color: #b04a12; text-decoration: none; font-weight: 600; margin-right: .7rem; }
+  .quick-refs a:hover { text-decoration: underline; }
   .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; margin: 0 auto 2rem; max-width: 820px; }
   .outcome { text-align: left; border-left: 3px solid #c2571a; background: rgba(255,255,255,.72);
              padding: .8rem 1rem; border-radius: 8px; }
@@ -53,6 +59,14 @@
   <p class="subtitle">這套課不是介紹 AI 名詞，而是帶你一步步練習：選對 Claude 工具、在 repo 裡安全開始、把結果驗證清楚，最後把重複任務整理成團隊能重跑的工作流。</p>
 
   <div class="start-hint"><strong>不知道從哪開始？</strong><span>先點「進入課目表」，從第 1 課照順序走；已經會 Claude Code 的人，可以直接跳到 Phase 2 或 Phase 3。</span></div>
+
+  <div class="quick-refs">
+    <strong>常用速查</strong>
+    <a href="reference/claude-product-picker.html">產品選用</a>
+    <a href="reference/claude-code-command-surface.html">Claude Code 操作</a>
+    <a href="reference/claude-code-model-effort.html">模型與推理程度</a>
+    <a href="reference/harness-workflow-index.html">Harness 工作流</a>
+  </div>
 
   <div class="outcomes">
     <div class="outcome">
@@ -95,8 +109,8 @@
   <a class="start" href="toc.html">進入課目表 →</a>
 
   <div class="meta">
-    建議先照課目表順序學，再依任務需要回查參考文件<br>
-    參考：<a href="reference/claude-product-picker.html">產品選用速查表</a> · <a href="reference/harness-workflow-index.html">Harness 工作流速查索引</a>
+    建議先從課目表選路徑，再依任務需要回查上方常用速查<br>
+    每課皆含實作清單與觀念檢查
   </div>
 </div>
 </body>
