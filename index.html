@@ -28,16 +28,18 @@
              padding: .8rem 1rem; border-radius: 8px; }
   .outcome b { display: block; margin-bottom: .25rem; font-size: .94rem; }
   .outcome span { display: block; color: #666; font-size: .84rem; line-height: 1.6; }
-  .phases { display: grid; grid-template-columns: repeat(5, 1fr); gap: .85rem; justify-content: center; margin-bottom: 2.4rem; }
-  .phase { text-align: left; border-radius: 8px; padding: 1rem 1.1rem; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,.06); }
-  .phase h2 { font-size: .95rem; margin: 0 0 .4rem; }
-  .phase.p1 h2 { color: #c2571a; }
-  .phase.p2 h2 { color: #9a5a00; }
-  .phase.p3 h2 { color: #1a6b5a; }
-  .phase.p4 h2 { color: #6f4dbf; }
-  .phase.p5 h2 { color: #36506f; }
-  .phase p { font-size: .85rem; color: #666; margin: 0; line-height: 1.7; }
-  .phase .count { display: inline-block; font-size: .75rem; color: #999; margin-top: .5rem; }
+  .phases { display: grid; gap: .7rem; max-width: 860px; margin: 0 auto 2.4rem; text-align: left; }
+  .phase { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; align-items: center;
+           border-radius: 8px; padding: .9rem 1.1rem; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,.06); }
+  .phase-index { border-right: 1px solid #eee; padding-right: .9rem; font-weight: 700; line-height: 1.25; }
+  .phase-index span { display: block; margin-top: .35rem; color: #999; font-size: .78rem; font-weight: 500; }
+  .phase h2 { font-size: 1rem; margin: 0 0 .25rem; }
+  .phase.p1 .phase-index, .phase.p1 h2 { color: #c2571a; }
+  .phase.p2 .phase-index, .phase.p2 h2 { color: #9a5a00; }
+  .phase.p3 .phase-index, .phase.p3 h2 { color: #1a6b5a; }
+  .phase.p4 .phase-index, .phase.p4 h2 { color: #6f4dbf; }
+  .phase.p5 .phase-index, .phase.p5 h2 { color: #36506f; }
+  .phase p { font-size: .9rem; color: #666; margin: 0; line-height: 1.65; }
   a.start { display: inline-block; background: #c2571a; color: #fff; text-decoration: none;
             padding: .85rem 2.6rem; border-radius: 999px; font-size: 1.05rem; font-weight: 600;
             box-shadow: 0 3px 10px rgba(194,87,26,.3); transition: transform .15s, box-shadow .15s; }
@@ -45,10 +47,12 @@
   .meta { margin-top: 2.8rem; font-size: .8rem; color: #999; line-height: 1.8; }
   .meta a { color: #b04a12; }
   @media (max-width: 860px) {
-    .outcomes, .phases { grid-template-columns: 1fr; }
+    .outcomes { grid-template-columns: 1fr; }
     .cover { padding: 3rem 1.25rem; }
     h1 { font-size: 2.15rem; }
     .start-hint { border-radius: 8px; align-items: flex-start; }
+    .phase { grid-template-columns: 1fr; gap: .55rem; }
+    .phase-index { border-right: 0; border-bottom: 1px solid #eee; padding-right: 0; padding-bottom: .5rem; }
   }
   @media print { a.start { display: none; } body { background: #fff; } }
 </style>
@@ -59,7 +63,7 @@
   <h1>從 0 開始，用 <span class="accent">Claude Code</span> 做出可交付成果</h1>
   <p class="subtitle">這套課不是介紹 AI 名詞，而是帶你一步步練習：選對 Claude 工具、在 repo 裡安全開始、把結果驗證清楚，最後把重複任務整理成團隊能重跑的工作流。</p>
 
-  <div class="start-hint"><strong>不知道從哪開始？</strong><span>先點「進入課目表」，從 Phase 1 的安全起步開始；已經會 Claude Code 的人，可以直接跳到 Phase 3 或 Phase 4。</span></div>
+  <div class="start-hint"><strong>不知道從哪開始？</strong><span>先點「進入課目表」，從 Phase 1「安全開始」出發；已經會 Claude Code 的人，可以直接跳到 Phase 3 或 Phase 4。</span></div>
 
   <div class="quick-refs">
     <strong>常用速查</strong>
@@ -86,29 +90,39 @@
 
   <div class="phases">
     <div class="phase p1">
-      <h2>Phase 1 — 安全起步</h2>
-      <p>選工具、開 session、唯讀探索、權限、model/effort，到第一次安全改程式碼。</p>
-      <span class="count">01–12</span>
+      <div class="phase-index">Phase 1<span>01–12</span></div>
+      <div>
+        <h2>安全開始</h2>
+        <p>選工具、開 session、唯讀探索、權限、model/effort，到第一次安全改程式碼。</p>
+      </div>
     </div>
     <div class="phase p2">
-      <h2>Phase 2 — 操作擴展</h2>
-      <p>把 hooks、Skills、MCP、Subagents、worktrees、headless 與 CI 放到正確邊界內使用。</p>
-      <span class="count">01–10</span>
+      <div class="phase-index">Phase 2<span>01–10</span></div>
+      <div>
+        <h2>控制進階能力</h2>
+        <p>把 hooks、Skills、MCP、Subagents、worktrees、headless 與 CI 的使用邊界控制好。</p>
+      </div>
     </div>
     <div class="phase p3">
-      <h2>Phase 3 — 做真任務</h2>
-      <p>把模糊需求問清楚，寫成 PRD/issues，用 TDD、review、diagnose 推進。</p>
-      <span class="count">01–11</span>
+      <div class="phase-index">Phase 3<span>01–11</span></div>
+      <div>
+        <h2>完成一次交付</h2>
+        <p>把模糊需求問清楚，完成 PRD/issues、TDD、review、diagnose 與 handoff。</p>
+      </div>
     </div>
     <div class="phase p4">
-      <h2>Phase 4 — 變成可重跑</h2>
-      <p>把重複任務寫清楚，加入驗收關卡、證據、報告與執行紀錄。</p>
-      <span class="count">01–16</span>
+      <div class="phase-index">Phase 4<span>01–16</span></div>
+      <div>
+        <h2>做成可重跑流程</h2>
+        <p>把重複任務寫清楚，做成有驗收關卡、證據、報告與執行紀錄的流程。</p>
+      </div>
     </div>
     <div class="phase p5">
-      <h2>Phase 5 — 放進團隊規範</h2>
-      <p>把穩定做法放回 review、模板、hook/gate，並定期整理。</p>
-      <span class="count">01–05</span>
+      <div class="phase-index">Phase 5<span>01–05</span></div>
+      <div>
+        <h2>放進團隊流程</h2>
+        <p>把穩定做法放回 review、模板、hook/gate 與定期整理。</p>
+      </div>
     </div>
   </div>
 
