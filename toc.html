@@ -44,7 +44,7 @@
 <body>
 <p style="margin:0"><a href="index.html" style="font-size:.85rem">← 封面</a></p>
 <h1>課目表</h1>
-<p class="sub">Claude 三產品 → 安全開始 → 控制進階能力 → 完成一次交付 → 做成可重跑流程 → 放進團隊流程 · 共 54 課</p>
+<p class="sub">Claude 三產品 → 安全開始 → 控制進階能力 → 從需求到交付 → 做成可重跑流程 → 放進團隊流程 · 共 55 課</p>
 
 <div class="ref">
 <strong>常用速查</strong>：<a href="reference/claude-product-picker.html">產品選用</a>、<a href="reference/claude-code-command-surface.html">Claude Code 操作</a>、<a href="reference/claude-code-model-effort.html">模型與推理程度</a>、<a href="reference/harness-workflow-index.html">Harness 工作流</a>
@@ -143,38 +143,49 @@
 </div>
 
 <div class="p3sec">
-<h2 class="p3">Phase 3 — 完成一次交付：需求對齊、實作、review 與 handoff（01–11）</h2>
+<h2 class="p3">Phase 3 — 把模糊需求變成可交付成果（mattpocock/skills）（01–12）</h2>
 <table>
-<tr><td class="no">01</td><td><a href="lessons/003-0001-matt-pocock-skills-foundation.html">先認識 AI 開發常見失敗模式（mattpocock/skills）</a></td><td class="track">地基</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/003-0002-zoom-out.html">不熟 repo 時，先建立地圖</a></td><td class="track">工具・前置</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/003-0003-grill.html">把模糊需求問清楚（Grill）</a></td><td class="track">對齊線</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/003-0004-prototype.html">用可丟棄原型驗證想法（/prototype）</a></td><td class="track">開發線</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/003-0005-prd-issues.html">把計畫整理成 PRD 與 issues（/to-prd、/to-issues）</a></td><td class="track">開發線</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/003-0006-tdd.html">用測試帶著實作前進（/tdd）</a></td><td class="track">開發線</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/003-0007-review.html">用兩個角度檢查成果（/review）</a></td><td class="track">品質關卡</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/003-0008-architecture.html">找出值得整理的架構問題（/improve-codebase-architecture）</a></td><td class="track">架構線</td></tr>
-<tr><td class="no">09</td><td><a href="lessons/003-0009-diagnose.html">用紀律流程除錯（/diagnosing-bugs）</a></td><td class="track">缺陷線</td></tr>
-<tr><td class="no">10</td><td><a href="lessons/003-0010-qa-triage.html">把缺陷回報變成可處理工作（/triage）</a></td><td class="track">缺陷線</td></tr>
-<tr><td class="no">11</td><td><a href="lessons/003-0011-handoff.html">把交接脈絡打包給下一個 agent（/handoff）</a></td><td class="track">工具・收尾</td></tr>
+<tr><td class="no">01</td><td><a href="lessons/003-0001-matt-pocock-skills-foundation.html">先完成 mattpocock/skills 設定</a></td><td class="track">地基</td></tr>
+<tr><td class="no">02</td><td><a href="lessons/003-0002-ask-matt.html">用 /ask-matt 判斷該走哪條路</a></td><td class="track">路線選擇</td></tr>
+<tr><td class="no">03</td><td><a href="lessons/003-0003-repo-map.html">不熟 repo 時，先建立地圖</a></td><td class="track">前置</td></tr>
+<tr><td class="no">04</td><td><a href="lessons/003-0004-grill-with-docs.html">用 /grill-with-docs 把需求問清楚</a></td><td class="track">打磨</td></tr>
+<tr><td class="no">05</td><td><a href="lessons/003-0005-prototype.html">用 /prototype 驗證講不清的問題</a></td><td class="track">分支</td></tr>
+<tr><td class="no">06</td><td><a href="lessons/003-0006-to-prd.html">用 /to-prd 把對話凝結成 PRD</a></td><td class="track">固化</td></tr>
+<tr><td class="no">07</td><td><a href="lessons/003-0007-to-issues.html">用 /to-issues 切成可認領工作</a></td><td class="track">切片</td></tr>
+<tr><td class="no">08</td><td><a href="lessons/003-0008-implement.html">用 /implement 完成一張 issue</a></td><td class="track">實作</td></tr>
+<tr><td class="no">09</td><td><a href="lessons/003-0009-triage.html">用 /triage 處理外部回報</a></td><td class="track">入口</td></tr>
+<tr><td class="no">10</td><td><a href="lessons/003-0010-diagnosing-bugs.html">用 /diagnosing-bugs 做紀律除錯</a></td><td class="track">缺陷</td></tr>
+<tr><td class="no">11</td><td><a href="lessons/003-0011-architecture.html">用 /improve-codebase-architecture 找維護切入點</a></td><td class="track">維護</td></tr>
+<tr><td class="no">12</td><td><a href="lessons/003-0012-handoff.html">用 /handoff 做跨 session 交接</a></td><td class="track">收尾</td></tr>
 </table>
 <div class="flow">
   <div class="flow-title">建議走法</div>
   <div class="flow-row">
-    <div class="flow-label">需求模糊</div>
+    <div class="flow-label">新需求</div>
     <div class="flow-steps">
-      <a href="lessons/003-0002-zoom-out.html">02 先看地圖</a>
-      <a href="lessons/003-0003-grill.html">03 問清楚</a>
-      <a href="lessons/003-0004-prototype.html">04 做原型</a>
-      <a href="lessons/003-0005-prd-issues.html">05 轉成工作</a>
-      <a href="lessons/003-0006-tdd.html">06 寫測試</a>
-      <a href="lessons/003-0007-review.html">07 做 review</a>
+      <a href="lessons/003-0002-ask-matt.html">02 選路線</a>
+      <a href="lessons/003-0003-repo-map.html">03 看地圖</a>
+      <a href="lessons/003-0004-grill-with-docs.html">04 問清楚</a>
+      <a href="lessons/003-0005-prototype.html">05 可選原型</a>
+      <a href="lessons/003-0006-to-prd.html">06 PRD</a>
+      <a href="lessons/003-0007-to-issues.html">07 issues</a>
+      <a href="lessons/003-0008-implement.html">08 implement</a>
     </div>
   </div>
   <div class="flow-row">
-    <div class="flow-label">出現 bug</div>
+    <div class="flow-label">外部回報</div>
     <div class="flow-steps">
-      <a href="lessons/003-0010-qa-triage.html">10 建檔分類</a>
-      <a href="lessons/003-0009-diagnose.html">09 紀律除錯</a>
+      <a href="lessons/003-0009-triage.html">09 triage</a>
+      <a href="lessons/003-0010-diagnosing-bugs.html">10 除錯</a>
+      <a href="lessons/003-0008-implement.html">08 implement</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">維護改善</div>
+    <div class="flow-steps">
+      <a href="lessons/003-0011-architecture.html">11 找切入點</a>
+      <a href="lessons/003-0004-grill-with-docs.html">04 回到打磨</a>
+      <a href="lessons/003-0012-handoff.html">12 交接</a>
     </div>
   </div>
 </div>

@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>09：用紀律流程除錯（/diagnosing-bugs）</title>
+<title>10：用 /diagnosing-bugs 做紀律除錯</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -35,8 +35,8 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 3 · 第 09 課 · 約 45 分鐘 · 實作課（缺陷線）</div>
-<h1>用紀律流程除錯（/diagnosing-bugs）</h1>
+<div class="kicker">Phase 3 · 第 10 課 · 約 45 分鐘 · 缺陷修復</div>
+<h1>用 /diagnosing-bugs 做紀律除錯</h1>
 <p class="mission">目標：學會六階段診斷紀律，下次真實 repo 出 bug 時用 <code>/diagnosing-bugs</code> 跑完整迴圈。這支 skill 的核心價值是把模糊症狀變成可重現、可驗證、可回歸的修復流程。</p>
 <div class="scope"><strong>本課只做：</strong>用可重現訊號推進除錯。<br><strong>先不要做：</strong>在沒有 failing case 時只靠猜測改 code。</div>
 
@@ -85,7 +85,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 4. 盯第 5 階段的接縫判斷</label>
-  <p>確認：回歸測試先紅後綠了嗎？它寫測試的接縫真的能重現 bug 的觸發模式嗎？若它回報「沒有正確接縫」— 把這個發現餵給 Phase 3 第 08 課的架構健檢。</p>
+  <p>確認：回歸測試先紅後綠了嗎？它寫測試的接縫真的能重現 bug 的觸發模式嗎？若它回報「沒有正確接縫」— 把這個發現餵給 Phase 3 第 11 課的架構健檢。</p>
 </div>
 
 <div class="step">
@@ -116,7 +116,7 @@
 </div>
 
 <div class="quiz" data-answer="2">
-  <p>3.（複習 Phase 3 第 06 課）第 5 階段「先寫回歸測試、看它失敗、再修」對應 TDD 的什麼？</p>
+  <p>3.（複習 Phase 3 第 08 課）第 5 階段「先寫回歸測試、看它失敗、再修」對應 TDD 的什麼？</p>
   <button>Refactor 階段：全綠之後才開始動結構</button>
   <button>Planning 階段：先和使用者確認要測什麼</button>
   <button>RED→GREEN：沒看過失敗的測試不可信</button>
@@ -124,7 +124,7 @@
 </div>
 
 <div class="quiz" data-answer="0">
-  <p>4.（複習 Phase 3 第 02 課）陌生子系統出 bug，repo 地圖放在 /diagnosing-bugs 的哪裡最有價值？</p>
+  <p>4.（複習 Phase 3 第 03 課）陌生子系統出 bug，repo 地圖放在 /diagnosing-bugs 的哪裡最有價值？</p>
   <button>之前 — 先懂地形再列假說</button>
   <button>之後 — bug 修完再補地圖</button>
   <button>之間 — 每階段都重跑一次</button>
@@ -132,12 +132,12 @@
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課（缺陷線收官）：<a href="003-0010-qa-triage.html">Phase 3 第 10 課 — /triage：把缺陷變成一條流水線</a>。</p>
+<p>完成後回對話視窗回報。下一課：<a href="003-0011-architecture.html">Phase 3 第 11 課 — 用 /improve-codebase-architecture 找維護切入點</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — diagnosing-bugs 的 SKILL.md 全文（含十種迴圈武器的完整清單）。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="003-0008-architecture.html">Phase 3 第 08 課 — /improve-codebase-architecture</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+  上一課：<a href="003-0009-triage.html">Phase 3 第 09 課 — /triage</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 
 <script>

@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>11：把交接脈絡打包給下一個 agent（/handoff）</title>
+<title>12：用 /handoff 做跨 session 交接</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -36,8 +36,8 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 3 · 第 11 課 · 約 20 分鐘 · 輕量實作</div>
-<h1>把交接脈絡打包給下一個 agent（/handoff）</h1>
+<div class="kicker">Phase 3 · 第 12 課 · 約 20 分鐘 · 收尾交接</div>
+<h1>用 /handoff 做跨 session 交接</h1>
 <p class="mission">目標：學會在 session 收工或 context 變髒時，用 <code>/handoff</code> 產出一份「冷啟動接力文件」，讓明天的你（或同事、或全新 session）不用重講一遍脈絡。這是 Phase 1 第 12 課 context 收尾的延伸。</p>
 <div class="scope"><strong>本課只做：</strong>把下一個人或 session 需要的脈絡打包。<br><strong>先不要做：</strong>把 handoff 當成完整 report 或長期文件庫。</div>
 
@@ -53,9 +53,9 @@
 <h2>四個設計細節（SKILL.md 原文）</h2>
 <table>
 <tr><th>設計</th><th>為什麼</th></tr>
-<tr><td>存到 <strong>OS temp 目錄</strong>，不放 workspace</td><td>交接文件是消耗品，不該污染 repo（同 Phase 3 第 08 課報告的做法）</td></tr>
+<tr><td>存到 <strong>OS temp 目錄</strong>，不放 workspace</td><td>交接文件是消耗品，不該污染 repo（同 Phase 3 第 11 課報告的做法）</td></tr>
 <tr><td><strong>不重複既有 artifacts</strong> — PRD、ADR、issues、commits 用路徑引用</td><td>單一事實來源：脈絡的正本在文件制度裡，handoff 只記「正本沒有的東西」（當下的決策過程、卡住的點、下一步）</td></tr>
-<tr><td>內建 <strong>suggested skills</strong> 區塊</td><td>告訴下一個 agent 該用哪些 skill 繼續（例：「接下來跑 /tdd 實作 issue #3」）</td></tr>
+<tr><td>內建 <strong>suggested skills</strong> 區塊</td><td>告訴下一個 agent 該用哪些 skill 繼續（例：「接下來跑 /implement 實作 issue #3」）</td></tr>
 <tr><td><strong>自動遮蔽敏感資訊</strong>（API key、密碼、個資）</td><td>temp 目錄的檔案可能被其他工具讀到 — 但別全信自動遮蔽，交接前自己掃一眼</td></tr>
 </table>
 <div class="tip"><strong>參數很重要：</strong><code>/handoff 下一個 session 要做 X</code> — 它會針對 X 裁剪內容。「為了繼續 debug」和「為了寫文件」需要的脈絡完全不同，有參數的交接文件精準得多。</div>
@@ -66,7 +66,7 @@
   <li><strong>糾正兩次還不對</strong>（Phase 1 第 12 課的砍掉重練訊號）：先 handoff 再重開 — 把「學到的教訓」帶進新 session 的第一句 prompt。</li>
   <li><strong>跨人交接</strong>：你 grill 到一半要請假，同事接手 — 交接文件＋CONTEXT.md 讓他的 agent 冷啟動。</li>
 </ul>
-<p>與相鄰機制的分工：<code>/compact</code> 是<strong>同一個 session 內</strong>壓縮歷史；<code>claude -c</code> 是接續<strong>同一個對話</strong>；handoff 是做一份<strong>可攜帶的文件</strong>，跨 session、跨機器、跨人都能用 — 也是 Phase 3 第 10 課 agent brief 的近親（都是「讓陌生 agent 冷啟動」的文體）。</p>
+<p>與相鄰機制的分工：<code>/compact</code> 是<strong>同一個 session 內</strong>壓縮歷史；<code>claude -c</code> 是接續<strong>同一個對話</strong>；handoff 是做一份<strong>可攜帶的文件</strong>，跨 session、跨機器、跨人都能用 — 也是 Phase 3 第 09 課 agent brief 的近親（都是「讓陌生 agent 冷啟動」的文體）。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 
@@ -131,7 +131,7 @@
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  相關課程：<a href="004-0001-from-agent-session-to-harness.html">Phase 4 第 01 課 — harness mindset</a> · <a href="001-0012-verification-context.html">Phase 1 第 12 課 — context 收尾</a> · 上一課：<a href="003-0010-qa-triage.html">Phase 3 第 10 課 — /triage</a> · <a href="../toc.html">課目表</a>
+  相關課程：<a href="004-0001-from-agent-session-to-harness.html">Phase 4 第 01 課 — harness mindset</a> · <a href="001-0012-verification-context.html">Phase 1 第 12 課 — context 收尾</a> · 上一課：<a href="003-0011-architecture.html">Phase 3 第 11 課 — /improve-codebase-architecture</a> · <a href="../toc.html">課目表</a>
 </footer>
 
 <script>

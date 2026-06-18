@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>04：用可丟棄原型驗證想法（/prototype）</title>
+<title>05：用 /prototype 驗證講不清的問題</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -36,15 +36,15 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 3 · 第 04 課 · 約 30 分鐘 · 實作課（開發線）</div>
-<h1>用可丟棄原型驗證想法（/prototype）</h1>
+<div class="kicker">Phase 3 · 第 05 課 · 約 30 分鐘 · 實作課（分支）</div>
+<h1>用 /prototype 驗證講不清的問題</h1>
 <p class="mission">目標：在 grill 對齊之後、寫 PRD 之前，用 <code>/prototype</code> 做一個<strong>回答單一問題的拋棄式原型</strong>，把設計風險排掉再往下走。pipeline 多了一道「先玩過再承諾」的保險。</p>
 <div class="scope"><strong>本課只做：</strong>用可丟棄原型驗證一個設計問題。<br><strong>先不要做：</strong>把 prototype 當 production foundation。</div>
 
 
 <h2>它在 pipeline 的位置</h2>
-<pre>grill（對齊需求）→ <strong>prototype（玩過設計）</strong> → /to-prd → /to-issues → /tdd
-   Phase 3 第 03 課              本課                Phase 3 第 05 課</pre>
+<pre>/grill-with-docs → <strong>/prototype</strong> → /to-prd → /to-issues → /implement
+   Phase 3 第 04 課     本課       Phase 3 第 06–08 課</pre>
 <p>不是每個需求都需要 prototype — 但當「這個 state machine 對不對」「這頁該長怎樣」用想的講不清時，原型用<strong>能跑的東西</strong>取代爭論。to-issues 甚至會把原型敲定的關鍵片段（state machine、schema）收進 issue。</p>
 
 <h2>核心定義（SKILL.md 原文）</h2>
@@ -118,20 +118,20 @@
 </div>
 
 <div class="quiz" data-answer="0">
-  <p>3.（複習 Phase 3 第 03 課）「這個取消流程的狀態機對不對」該選哪個分支？</p>
+  <p>3.（複習 Phase 3 第 04 課）「這個取消流程的狀態機對不對」該選哪個分支？</p>
   <button>LOGIC：驗證狀態轉換</button>
   <button>UI：比較畫面呈現</button>
   <button>兩者：同時做兩種</button>
-  <div class="why">狀態/邏輯問題 → LOGIC 分支。grill 銳化了「取消」的定義（Phase 3 第 03 課），prototype 用可跑的狀態機驗證它在邊界案例下行不行得通。</div>
+  <div class="why">狀態/邏輯問題 → LOGIC 分支。grill 銳化了「取消」的定義（Phase 3 第 04 課），prototype 用可跑的狀態機驗證它在邊界案例下行不行得通。</div>
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課：<a href="003-0005-prd-issues.html">Phase 3 第 05 課 — /to-prd 與 /to-issues：計劃變成可認領的工作</a>，把對齊＋驗證過的設計凝結成 PRD 與切片。</p>
+<p>完成後回對話視窗回報。下一課：<a href="003-0006-to-prd.html">Phase 3 第 06 課 — 用 /to-prd 把對話凝結成 PRD</a>，把對齊＋驗證過的設計固定下來。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — prototype 的 SKILL.md 與 LOGIC.md / UI.md 兩個分支說明。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="003-0003-grill.html">Phase 3 第 03 課 — Grill 系列</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+  上一課：<a href="003-0004-grill-with-docs.html">Phase 3 第 04 課 — /grill-with-docs</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 
 <script>
