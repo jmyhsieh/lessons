@@ -44,6 +44,7 @@
 
 <h2>核心哲學（skill 原文）</h2>
 <p>「<strong>測試應該透過公開介面驗證行為，不是實作細節。程式碼可以整個換掉；測試不應該動。</strong>」</p>
+<div class="tip"><strong>現行對應：</strong>測試邊界與公開介面設計現在會回到 shared <code>codebase-design</code> 語言；本課仍教 <code>/tdd</code>，但介面判斷不要再依賴舊附件名稱。</div>
 <table>
 <tr><th>好測試</th><th>壞測試</th></tr>
 <tr><td>走真實路徑、讀起來像規格（「使用者能用有效購物車結帳」）</td><td>mock 內部協作者、測私有方法、繞過介面直接查 DB</td></tr>
@@ -125,7 +126,7 @@
 
 <h2>下一步</h2>
 <p>完成後回對話視窗交報告 — Phase 3 兩大成功條件就達成了。下一課：<a href="003-0007-review.html">Phase 3 第 07 課 — /review：Standards × Spec 兩軸審查</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — tdd 的 SKILL.md 與附帶的 tests.md/mocking.md/deep-modules.md。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — tdd 的 SKILL.md；介面與深模組語言對照 shared <code>codebase-design</code>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

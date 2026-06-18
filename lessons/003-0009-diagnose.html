@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>09：用紀律流程除錯（/diagnose）</title>
+<title>09：用紀律流程除錯（/diagnosing-bugs）</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -36,13 +36,13 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 3 · 第 09 課 · 約 45 分鐘 · 實作課（缺陷線）</div>
-<h1>用紀律流程除錯（/diagnose）</h1>
-<p class="mission">目標：學會六階段診斷紀律，下次真實 repo 出 bug 時用 <code>/diagnose</code> 跑完整迴圈。這支 skill 的核心價值是把模糊症狀變成可重現、可驗證、可回歸的修復流程。</p>
+<h1>用紀律流程除錯（/diagnosing-bugs）</h1>
+<p class="mission">目標：學會六階段診斷紀律，下次真實 repo 出 bug 時用 <code>/diagnosing-bugs</code> 跑完整迴圈。這支 skill 的核心價值是把模糊症狀變成可重現、可驗證、可回歸的修復流程。</p>
 <div class="scope"><strong>本課只做：</strong>用可重現訊號推進除錯。<br><strong>先不要做：</strong>在沒有 failing case 時只靠猜測改 code。</div>
 
 
 <h2>整個 skill 就一句話</h2>
-<p>diagnose skill 原文：「<strong>This is the skill. Everything else is mechanical.</strong>」— 有了快速、確定性、agent 能自己跑的 pass/fail 訊號，bug 就等於修好了 90%；沒有它，盯 code 盯再久都沒用。這是 Phase 1 第 12 課「給它能自己跑的驗證」的除錯版，也是整套課程的母題。</p>
+<p><code>/diagnosing-bugs</code> skill 原文：「<strong>This is the skill. Everything else is mechanical.</strong>」— 有了快速、確定性、agent 能自己跑的 pass/fail 訊號，bug 就等於修好了 90%；沒有它，盯 code 盯再久都沒用。這是 Phase 1 第 12 課「給它能自己跑的驗證」的除錯版，也是整套課程的母題。</p>
 
 <h2>六階段地圖</h2>
 <table>
@@ -55,14 +55,14 @@
 <tr><td>6. Cleanup + 復盤</td><td>grep 前綴清光 debug log、記錄學到的</td><td>沒清乾淨不算完成</td></tr>
 </table>
 
-<h2>diagnose 內部第 1 階段的武器庫（節選）</h2>
+<h2>diagnosing-bugs 內部第 1 階段的武器庫（節選）</h2>
 <p>十種造迴圈的方法，大致依序嘗試：失敗測試 → curl/HTTP script → CLI＋fixture 比對快照 → headless browser → <strong>重放捕獲的 trace</strong>（存下真實 payload 重放）→ 拋棄式 harness（mock 依賴只跑出 bug 的路徑）→ fuzz 迴圈 → <strong>bisection harness</strong>（自動化「回到狀態 X 檢查」讓 git bisect 跑）→ 差分迴圈（新舊版同輸入比輸出）→ 最後手段 HITL script。</p>
 <div class="tip"><strong>三個對高風險 bug 特別重要的細則：</strong>
 (1) <strong>迴圈本身要迭代</strong> — 「30 秒且會閃爍的迴圈只比沒有好一點；2 秒且確定性的迴圈是除錯超能力」。
 (2) <strong>非確定性 bug</strong>：目標不是乾淨重現而是「拉高重現率」— 觸發 100 次、平行化、加壓、注入 sleep，50% 重現率就能除錯。
 (3) <strong>真的造不出迴圈時它會停下來明說</strong>，向你要環境存取、捕獲物（HAR/log dump/錄影）或臨時埋點的許可 — 它被禁止在沒有迴圈時瞎猜假說。</div>
 
-<h2>你的角色：diagnose 內部第 3 階段的關鍵一秒</h2>
+<h2>你的角色：diagnosing-bugs 內部第 3 階段的關鍵一秒</h2>
 <p>它列出排序假說後會先給你看 — 這是人類脈絡的關鍵介入點：「#3 那個模組我們上週才改過」一句話就能瞬間重排序。skill 也明定你不在場時它會照自己的排序繼續，不會卡住。</p>
 
 <h2>實作步驟（做完打勾）</h2>
@@ -73,8 +73,8 @@
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 2. 啟動 /diagnose，緊盯第 1 階段</label>
-  <pre>/diagnose [描述症狀：錯誤訊息、何時發生、影響誰]</pre>
+  <label><input type="checkbox"> 2. 啟動 /diagnosing-bugs，緊盯第 1 階段</label>
+  <pre>/diagnosing-bugs [描述症狀：錯誤訊息、何時發生、影響誰]</pre>
   <p>觀察它選哪種武器造迴圈。迴圈造出來後問自己：夠快嗎？訊號夠尖嗎（assert 的是具體症狀還是「沒 crash」）？</p>
 </div>
 
@@ -100,7 +100,7 @@
 <h2>觀念檢查（憑記憶作答）</h2>
 
 <div class="quiz" data-answer="1">
-  <p>1. bug 很難重現（約 1% 機率），/diagnose 的正確策略是？</p>
+  <p>1. bug 很難重現（約 1% 機率），/diagnosing-bugs 的正確策略是？</p>
   <button>接受現實，直接改用閱讀程式碼推理出原因</button>
   <button>拉高重現率：觸發百次、平行化、加壓、注入延遲</button>
   <button>先修最可疑的地方，部署後觀察是否再次發生</button>
@@ -124,16 +124,16 @@
 </div>
 
 <div class="quiz" data-answer="0">
-  <p>4.（複習 Phase 3 第 02 課）陌生子系統出 bug，zoom-out 放在 /diagnose 的哪裡最有價值？</p>
+  <p>4.（複習 Phase 3 第 02 課）陌生子系統出 bug，repo 地圖放在 /diagnosing-bugs 的哪裡最有價值？</p>
   <button>之前 — 先懂地形再列假說</button>
   <button>之後 — bug 修完再補地圖</button>
   <button>之間 — 每階段都重跑一次</button>
-  <div class="why">先 zoom-out 再 diagnose，能讓第 3 階段的假說建立在結構理解上，而不是靠檔名亂猜。</div>
+  <div class="why">先建立 repo 地圖再跑 diagnosing-bugs，能讓第 3 階段的假說建立在結構理解上，而不是靠檔名亂猜。</div>
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課（缺陷線收官）：<a href="003-0010-qa-triage.html">Phase 3 第 10 課 — /qa 與 /triage：把缺陷變成一條流水線</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — diagnose 的 SKILL.md 全文（含十種迴圈武器的完整清單）。</p>
+<p>完成後回對話視窗回報。下一課（缺陷線收官）：<a href="003-0010-qa-triage.html">Phase 3 第 10 課 — /triage：把缺陷變成一條流水線</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — diagnosing-bugs 的 SKILL.md 全文（含十種迴圈武器的完整清單）。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>10：把缺陷回報變成可處理工作（/qa、/triage）</title>
+<title>10：把缺陷回報變成可處理工作（/triage）</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -36,24 +36,24 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 3 · 第 10 課 · 約 40 分鐘 · 實作課（缺陷線收官）</div>
-<h1>把缺陷回報變成可處理工作（/qa、/triage）</h1>
-<p class="mission">目標：學會「進貨」（/qa 對話式報 bug）與「分流」（/triage 狀態機），讓 bug、產品摩擦或改進請求從發現到 ready-for-agent 有一條完整流水線。本課收官後，Phase 3 全版圖完成。</p>
+<h1>把缺陷回報變成可處理工作（/triage）</h1>
+<p class="mission">目標：學會用 <code>/triage</code> 狀態機把 bug、產品摩擦或改進請求從回報分流到 ready-for-agent。若你的本機 skills 還有 <code>/qa</code>，可以把它當作建 issue 的可選入口；本課主線以現行 <code>/triage</code> 為準。</p>
 <div class="scope"><strong>本課只做：</strong>把缺陷回報整理成可處理工作。<br><strong>先不要做：</strong>把每個回報都直接交給 agent 實作。</div>
 
 
 <h2>缺陷流水線全景</h2>
-<pre>/qa（報 bug，建 issue）→ /triage（分流到狀態）→ ready-for-agent
+<pre>issue 回報 → /triage（分流到狀態）→ ready-for-agent
                                                   ↓
-                            /diagnose ＋ /tdd（第 22、19 課）修掉它</pre>
+                            /diagnosing-bugs ＋ /tdd 修掉它</pre>
 
-<h2>/qa：對話式報 bug</h2>
-<p>你像跟同事抱怨一樣描述問題，它負責建檔。三個設計重點（skill 原文）：</p>
+<h2>先有耐久 issue</h2>
+<p>你可以從 GitHub / Linear / local files 手動建立 issue；若你的本機 skills 清單還有 <code>/qa</code>，也可以用它做對話式建檔。重點不是入口，而是 issue 要耐久：</p>
 <ul>
   <li><strong>輕度澄清</strong> — 最多問 2–3 個短問題（預期 vs 實際、重現步驟、穩定或間歇），「不要過度訪談」。</li>
   <li><strong>背景探索</strong> — 邊聊邊派 Explore 分身查 codebase，但目的<strong>不是找修法</strong>，是學該區域的領域語言、搞懂功能本該做什麼。</li>
   <li><strong>Issue 必須耐久（durable）</strong> — 用使用者視角與領域術語寫，<strong>不寫檔名、行號、內部實作</strong> — 大重構之後它仍然成立。一次抱怨若含多個獨立問題，它會拆成多張。</li>
 </ul>
-<div class="tip">注意：qa 的 SKILL.md 原文寫的是 <code>gh issue create</code>（GitHub）。若 Phase 3 第 01 課選的是 Linear 或 local files，而它仍嘗試用 gh，提醒它改用你選定的 issue tracker。</div>
+<div class="tip"><strong>現行狀態：</strong><code>/qa</code> 已不是 upstream 主線 skill。本課保留它作為本機舊版可選入口；穩定主線是把任何來源的回報整理成 issue，再交給 <code>/triage</code> 分流。</div>
 
 <h2>/triage：七個角色的狀態機</h2>
 <p>每張 issue 帶<strong>一個類別＋一個狀態</strong>：</p>
@@ -71,8 +71,8 @@
 <h2>實作步驟（做完打勾）</h2>
 
 <div class="step">
-  <label><input type="checkbox"> 1. 跑一場 /qa</label>
-  <p>把你腦中積壓的 2–3 個真實問題（bug、產品摩擦或不順手的地方）用 <code>/qa</code> 一次倒出來，像抱怨給同事聽那樣講。觀察：它怎麼拆分？issue 寫得夠耐久嗎（有沒有偷寫檔名）？</p>
+  <label><input type="checkbox"> 1. 準備 2–3 張耐久 issue</label>
+  <p>把你腦中積壓的 2–3 個真實問題寫成 issue：使用者視角、預期 vs 實際、重現線索、影響範圍。若用 <code>/qa</code> 輔助建檔，也要檢查它是否偷寫檔名或行號。</p>
 </div>
 
 <div class="step">
@@ -93,7 +93,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 5. 接通全線</label>
-  <p>把那張 ready-for-agent 的 issue 用熟悉的方式收掉（bug → /diagnose；功能 → /tdd）。從抱怨到修復，全程都在制度裡。</p>
+  <p>把那張 ready-for-agent 的 issue 用熟悉的方式收掉（bug → /diagnosing-bugs；功能 → /tdd）。從抱怨到修復，全程都在制度裡。</p>
 </div>
 
 <div class="done-banner" id="done">
@@ -103,7 +103,7 @@
 <h2>觀念檢查（憑記憶作答）</h2>
 
 <div class="quiz" data-answer="1">
-  <p>1. /qa 建的 issue 為什麼禁止寫檔名與行號？</p>
+  <p>1. 缺陷 issue 為什麼不該綁死檔名與行號？</p>
   <button>避免 issue 被程式碼結構綁死</button>
   <button>重構後仍要成立 — issue 必須耐久</button>
   <button>因為報 bug 的使用者根本看不懂程式碼</button>
@@ -132,7 +132,7 @@
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="003-0009-diagnose.html">Phase 3 第 09 課 — /diagnose</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+  上一課：<a href="003-0009-diagnose.html">Phase 3 第 09 課 — /diagnosing-bugs</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 
 <script>

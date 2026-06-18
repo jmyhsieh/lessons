@@ -46,15 +46,16 @@
 <table>
 <tr><th>失敗模式</th><th>症狀</th><th>對策 skill</th></tr>
 <tr><td><strong>Misalignment</strong><br>沒對齊需求</td><td>做出來的不是你要的</td><td><code>/grill-me</code>、<code>/grill-with-docs</code> — 動工前被追問到對齊</td></tr>
-<tr><td><strong>Verbosity</strong><br>缺共享語言</td><td>詞彙不一致、溝通成本高</td><td><strong>CONTEXT.md</strong> — 定義專案的領域語言</td></tr>
-<tr><td><strong>Broken code</strong><br>回饋迴圈不足</td><td>看似完成、實則會壞</td><td><code>/tdd</code>、<code>/diagnose</code> — 紅綠燈與系統化除錯</td></tr>
-<tr><td><strong>Architectural decay</strong><br>架構腐化</td><td>越改越難改</td><td><code>/improve-codebase-architecture</code>、<code>/to-prd</code>、<code>/to-issues</code></td></tr>
+<tr><td><strong>Verbosity</strong><br>缺共享語言</td><td>詞彙不一致、溝通成本高</td><td><code>domain-modeling</code>、<strong>CONTEXT.md</strong> — 定義專案的領域語言</td></tr>
+<tr><td><strong>Broken code</strong><br>回饋迴圈不足</td><td>看似完成、實則會壞</td><td><code>/tdd</code>、<code>/diagnosing-bugs</code> — 紅綠燈與系統化除錯</td></tr>
+<tr><td><strong>Architectural decay</strong><br>架構腐化</td><td>越改越難改</td><td><code>/improve-codebase-architecture</code>、<code>codebase-design</code>、<code>/to-prd</code>、<code>/to-issues</code></td></tr>
 </table>
 <div class="tip"><strong>為什麼這套對真實 repo 有價值：</strong>AI 最容易翻車的地方不是少打一行 code，而是需求沒對齊、詞彙不一致、驗證不足與架構慢慢腐化。CONTEXT.md + ADR 讓 agent、工程師與 reviewer 共用同一套語言與決策脈絡。封閉或遺產系統只是風險最高的範例，不是唯一場景。</div>
 
 <h2>兩個地基概念</h2>
 <p><strong>CONTEXT.md</strong> — 放在 repo 的領域語言文件：你們系統的術語、模組名、業務概念的精確定義。人和 AI 共用同一份。它和 Phase 1 第 05 課的 CLAUDE.md 分工：CLAUDE.md 講「怎麼工作」（規範、指令），CONTEXT.md 講「這個領域是什麼」（語言、概念）。</p>
 <p><strong>ADR（Architecture Decision Record）</strong> — 一份決策一個檔案，記「為什麼這樣設計」。當設計選擇不直覺、難以回頭或牽涉 tradeoff 時，ADR 讓半年後的人與 AI 不必重新猜原因。<code>/grill-with-docs</code> 會在規劃過程中順手幫你產出與更新這兩種文件。</p>
+<p><strong>現行 shared skills</strong> — <code>domain-modeling</code> 管共享語言與決策脈絡，<code>codebase-design</code> 管深模組與介面設計語言；它們通常是其他 skill 背後共用的 vocabulary，不需要每次獨立成任務。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 
@@ -72,17 +73,22 @@
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 3. 建立 CONTEXT.md</label>
+  <label><input type="checkbox"> 3. 不確定時先問 /ask-matt</label>
+  <p>如果不知道該用哪個 skill，先用 <code>/ask-matt</code> 描述情境，請它建議下一步。它是 router，不取代後面每一課的實作。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 建立 CONTEXT.md</label>
   <p>請 Claude 探索目標 codebase，草擬 CONTEXT.md 初稿：列出它找到的模組、術語、它<strong>猜不懂的概念</strong>。然後由你補上機器推不出來的產品、業務或歷史脈絡。先求有，10–20 條就夠 — 它會在後續的 grill 過程中長大。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 4. 驗證共享語言生效</label>
+  <label><input type="checkbox"> 5. 驗證共享語言生效</label>
   <p>開新對話，用 CONTEXT.md 裡的術語問一個問題（不解釋術語），看它是否正確理解。這就是「Verbosity 失敗模式」被修復的樣子。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 5. 建 ADR 資料夾並寫第一篇</label>
+  <label><input type="checkbox"> 6. 建 ADR 資料夾並寫第一篇</label>
   <p>挑 repo 裡一個「新人一定會問為什麼」的設計決策，請 Claude 訪談你之後寫成第一篇 ADR（通常放 <code>docs/adr/</code>，setup 時若指定過位置就用那個）。</p>
 </div>
 
@@ -117,7 +123,7 @@
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課：<a href="003-0002-zoom-out.html">Phase 3 第 02 課 — /zoom-out：不熟悉時先取得地圖</a>。</p>
+<p>完成後回對話視窗回報。下一課：<a href="003-0002-zoom-out.html">Phase 3 第 02 課 — 不熟 repo 時先建立地圖</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills README（GitHub）</a> — 四大失敗模式的原文論述值得通讀。</p>
 
 <footer>

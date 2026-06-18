@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>02：不熟 repo 時，先請 agent 畫地圖（/zoom-out）</title>
+<title>02：不熟 repo 時，先建立地圖</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -36,21 +36,16 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 3 · 第 02 課 · 約 15 分鐘 · 輕量實作</div>
-<h1>不熟 repo 時，先請 agent 畫地圖（/zoom-out）</h1>
-<p class="mission">目標：學會在進入陌生 repo 或陌生模組時，先用 <code>/zoom-out</code> 拿一張「模組與呼叫者的地圖」再動工。這是避免 agent 和人直接進入細節的最小前置動作。</p>
-<div class="scope"><strong>本課只做：</strong>在不熟 repo 時先取得人能讀懂的地圖。<br><strong>先不要做：</strong>用 /zoom-out 代替真正的 diagnose 或 implementation。</div>
+<h1>不熟 repo 時，先建立地圖</h1>
+<p class="mission">目標：學會在進入陌生 repo 或陌生模組時，先用自然語言 prompt 請 agent 產出模組、入口點、呼叫關係與風險區域的高層地圖，再決定要不要進 <code>/grill-with-docs</code>、<code>/diagnosing-bugs</code> 或 <code>/review</code>。</p>
+<div class="scope"><strong>本課只做：</strong>在不熟 repo 時先取得人能讀懂的地圖。<br><strong>先不要做：</strong>用地圖整理代替真正的 debugging 或 implementation。</div>
 
 
-<h2>整支 skill 的全文（真的就這麼短）</h2>
-<pre>---
-name: zoom-out
-description: Tell the agent to zoom out and give broader context...
-disable-model-invocation: true
----
-
-I don't know this area of code well. Go up a layer of abstraction.
+<h2>核心 prompt</h2>
+<pre>I don't know this area of code well. Go up a layer of abstraction.
 Give me a map of all the relevant modules and callers,
 using the project's domain glossary vocabulary.</pre>
+<div class="tip"><strong>現行狀態：</strong><code>/zoom-out</code> 曾是本機 skill 捷徑；若你的 skills 清單還有它，可以直接用。若沒有，就用上面的自然語言 prompt 達成同一件事。本課教的是穩定工作法，不是要求背一個 upstream 已移除的指令。</div>
 <p>拆解這三句話，每一句都有設計：</p>
 <table>
 <tr><th>原文</th><th>為什麼這樣寫</th></tr>
@@ -58,21 +53,21 @@ using the project's domain glossary vocabulary.</pre>
 <tr><td>「上升一個抽象層」</td><td>對抗 AI 的預設行為：直接鑽進檔案細節。你要的是俯瞰不是放大鏡</td></tr>
 <tr><td>「模組與呼叫者的地圖，<strong>用領域詞彙</strong>」</td><td>輸出錨定在 CONTEXT.md 的語言（Phase 3 第 01 課的地基在此回收）— 地圖才讀得懂、才耐久</td></tr>
 </table>
-<div class="tip"><strong>注意 frontmatter：<code>disable-model-invocation: true</code></strong> — Phase 2 第 03 課 考過你的欄位。這支只能手動觸發，因為「我不熟悉這個區域」只有你自己知道；Claude 無法替你判斷熟悉程度。</div>
+<div class="tip"><strong>為什麼要手動觸發：</strong>「我不熟悉這個區域」只有你自己知道；Claude 無法替你判斷熟悉程度。這也是為什麼本課把重點放在你何時要求地圖。</div>
 
 <h2>它在你工具鏈裡的位置</h2>
-<p>zoom-out 是其他 skill 的<strong>前置動作</strong> — 在你要進入陌生區域之前先跑：</p>
+<p>repo 地圖是其他 skill 的<strong>前置動作</strong> — 在你要進入陌生區域之前先做：</p>
 <table>
 <tr><th>情境</th><th>組合</th></tr>
-<tr><td>要 grill 一個碰到陌生模組的需求</td><td><code>/zoom-out</code> → 看懂地形 → <code>/grill-with-docs</code></td></tr>
-<tr><td>bug 在你沒碰過的子系統</td><td><code>/zoom-out</code> → <code>/diagnose</code>（假說品質會差很多）</td></tr>
-<tr><td>review AI 寫的陌生區域改動</td><td><code>/zoom-out</code> → 再讀 diff（你才有判斷基準）</td></tr>
+<tr><td>要 grill 一個碰到陌生模組的需求</td><td>先建立地圖 → 看懂地形 → <code>/grill-with-docs</code></td></tr>
+<tr><td>bug 在你沒碰過的子系統</td><td>先建立地圖 → <code>/diagnosing-bugs</code>（假說品質會差很多）</td></tr>
+<tr><td>review AI 寫的陌生區域改動</td><td>先建立地圖 → 再讀 diff（你才有判斷基準）</td></tr>
 <tr><td>新人 onboarding（包括未來的你）</td><td>對每個主要模組各跑一次，產出可以存檔的地圖</td></tr>
 </table>
-<p>和 Phase 2 第 05 課的 Explore subagent 分工：Explore 是 Claude 自己派 subagent 去查細節（結果給它用）；zoom-out 是<strong>你</strong>要一張給<strong>人</strong>看的高層地圖。</p>
+<p>和 Phase 2 第 05 課的 Explore subagent 分工：Explore 是 Claude 自己派 subagent 去查細節（結果給它用）；repo 地圖是<strong>你</strong>要一張給<strong>人</strong>看的高層地圖。</p>
 
 <h2>何時升高 effort</h2>
-<p>多數 zoom-out 用 <code>sonnet</code> + <code>high</code> 就足夠。只有地圖本身會影響架構決策、跨多個 bounded context、或你準備用它審高風險 diff 時，才把 effort 升到 <code>xhigh</code>，或在 plan mode 使用 <code>opusplan</code>。</p>
+<p>多數地圖整理用 <code>sonnet</code> + <code>high</code> 就足夠。只有地圖本身會影響架構決策、跨多個 bounded context、或你準備用它審高風險 diff 時，才把 effort 升到 <code>xhigh</code>，或在 plan mode 使用 <code>opusplan</code>。</p>
 <table>
 <tr><th>情境</th><th>建議</th><th>理由</th></tr>
 <tr><td>只想知道某資料夾在做什麼。</td><td><code>high</code></td><td>地圖是前置理解，不需要過度推理。</td></tr>
@@ -89,9 +84,12 @@ using the project's domain glossary vocabulary.</pre>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 2. 跑 /zoom-out</label>
+  <label><input type="checkbox"> 2. 請 agent 建立地圖</label>
   <p>在該區域的脈絡下執行（先 cd 到相關目錄或在對話中指明區域）：</p>
-  <pre>/zoom-out [可補充：特別想懂它和 X 模組的關係]</pre>
+  <pre>I don't know this area of code well. Go up a layer of abstraction.
+Give me a map of all the relevant modules, entry points, callers, data flow,
+tests, and risky areas. Use the project's domain vocabulary.</pre>
+  <p>如果你的本機 skills 清單還有 <code>/zoom-out</code>，可以把它當快捷；沒有也不影響本課。</p>
 </div>
 
 <div class="step">
@@ -116,7 +114,7 @@ using the project's domain glossary vocabulary.</pre>
 <h2>觀念檢查（憑記憶作答）</h2>
 
 <div class="quiz" data-answer="1">
-  <p>1. 為什麼 zoom-out 要求「用領域詞彙」輸出地圖？</p>
+  <p>1. 為什麼 repo 地圖要用領域詞彙輸出？</p>
   <button>因為檔名與類別名可能涉及機密不宜輸出</button>
   <button>錨定共享語言，地圖才讀得懂且重構後仍耐久</button>
   <button>因為領域詞彙比技術詞彙消耗更少的 token</button>
@@ -124,20 +122,20 @@ using the project's domain glossary vocabulary.</pre>
 </div>
 
 <div class="quiz" data-answer="2">
-  <p>2. zoom-out 為什麼設 disable-model-invocation: true？</p>
+  <p>2. 這種地圖工作為什麼應由你手動要求？</p>
   <button>因為它的輸出很長，自動觸發會浪費 context</button>
   <button>因為它需要讀大量檔案，必須先取得授權</button>
   <button>因為熟悉程度這個觸發條件只有你知道</button>
-  <div class="why">（複習 Phase 2 第 03 課）這個欄位讓 skill 只能手動觸發。zoom-out 的觸發條件是你的主觀狀態 — Claude 無從判斷你對這個區域的熟悉程度。</div>
+  <div class="why">這個觸發條件是你的主觀狀態 — Claude 無從判斷你對這個區域的熟悉程度。你知道自己不熟時，就先要求地圖。</div>
 </div>
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。下一課：<a href="003-0003-grill.html">Phase 3 第 03 課 — Grill 系列：把模糊需求磨成對齊的計劃</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — zoom-out 的 SKILL.md（全文已在上方）。補充：<a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — 看現行 skill 分類，再對照本課的 repo 地圖工作法。補充：<a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="003-0001-matt-pocock-skills-foundation.html">Phase 3 第 01 課 — mattpocock/skills 入門</a> · 相關：<a href="003-0009-diagnose.html">Phase 3 第 09 課 — /diagnose</a> · <a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a> · <a href="../toc.html">課目表</a>
+  上一課：<a href="003-0001-matt-pocock-skills-foundation.html">Phase 3 第 01 課 — mattpocock/skills 入門</a> · 相關：<a href="003-0009-diagnose.html">Phase 3 第 09 課 — /diagnosing-bugs</a> · <a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a> · <a href="../toc.html">課目表</a>
 </footer>
 
 <script>
