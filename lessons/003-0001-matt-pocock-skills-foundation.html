@@ -37,7 +37,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 3 · 第 01 課 · 約 30 分鐘 · 實作課</div>
 <h1>先認識 AI 開發常見失敗模式（mattpocock/skills）</h1>
-<p class="mission">Phase 3 任務：用 mattpocock/skills 在<strong>真實 repo</strong> 中處理需求對齊、文件化、開發品質與缺陷分流。本課目標：安裝設定、依環境選擇 issue tracker（GitHub / Linear / local files），理解四大失敗模式的地圖，並在 repo 種下第一份 <strong>CONTEXT.md</strong>。</p>
+<p class="mission">Phase 3 任務：用 mattpocock/skills 在<strong>真實 repo</strong> 中處理需求對齊、文件化、開發品質與缺陷分流。本課目標：安裝設定、依環境選擇 issue tracker（GitHub / GitLab / local markdown / Other），理解四大失敗模式的地圖，並在 repo 種下第一份 <strong>CONTEXT.md</strong>。</p>
 <div class="scope"><strong>本課只做：</strong>認識 skills 在避免哪些 AI 開發失敗。<br><strong>先不要做：</strong>還沒建立 repo 脈絡就急著套完整流程。</div>
 
 
@@ -48,7 +48,7 @@
 <tr><td><strong>Misalignment</strong><br>沒對齊需求</td><td>做出來的不是你要的</td><td><code>/grill-me</code>、<code>/grill-with-docs</code> — 動工前被追問到對齊</td></tr>
 <tr><td><strong>Verbosity</strong><br>缺共享語言</td><td>詞彙不一致、溝通成本高</td><td><code>domain-modeling</code>、<strong>CONTEXT.md</strong> — 定義專案的領域語言</td></tr>
 <tr><td><strong>Broken code</strong><br>回饋迴圈不足</td><td>看似完成、實則會壞</td><td><code>/tdd</code>、<code>/diagnosing-bugs</code> — 紅綠燈與系統化除錯</td></tr>
-<tr><td><strong>Architectural decay</strong><br>架構腐化</td><td>越改越難改</td><td><code>/improve-codebase-architecture</code>、<code>codebase-design</code>、<code>/to-prd</code>、<code>/to-issues</code></td></tr>
+<tr><td><strong>Architectural decay</strong><br>架構腐化</td><td>越改越難改</td><td><code>/improve-codebase-architecture</code>、<code>codebase-design</code>、<code>/to-spec</code>、<code>/to-tickets</code></td></tr>
 </table>
 <div class="tip"><strong>為什麼這套對真實 repo 有價值：</strong>AI 最容易翻車的地方不是少打一行 code，而是需求沒對齊、詞彙不一致、驗證不足與架構慢慢腐化。CONTEXT.md + ADR 讓 agent、工程師與 reviewer 共用同一套語言與決策脈絡。封閉或遺產系統只是風險最高的範例，不是唯一場景。</div>
 
@@ -69,7 +69,7 @@
   <label><input type="checkbox"> 2. 設定 issue tracker</label>
   <p>在 Claude Code session 裡執行：</p>
   <pre>/setup-matt-pocock-skills</pre>
-  <p>它會問 issue tracker、triage 標籤、文件位置。可用 GitHub / Linear 就接正式 tracker；沒有 tracker、受限環境或練習 repo 再選 <strong>local files</strong>。設定完確認 repo 裡多了哪些檔案。</p>
+  <p>它會先探索 repo，再依現況提出設定草案：issue tracker 一定會確認；只有安裝了 <code>triage</code> 才會問標籤；一般 repo 直接採 single-context，只有偵測到 monorepo 訊號才會問是否使用 multi-context。可用 GitHub 或 GitLab 就接正式 tracker；沒有 tracker、受限環境或練習 repo 再選 <strong>local markdown</strong>；Linear、Jira 或其他工具走 Other，把實際流程寫進 <code>docs/agents/issue-tracker.md</code>。GitHub／GitLab 的 external PR request surface 預設關閉，setup 不會追問；需要時再直接改 tracker 文件。寫入前先審完整草案，確認後才讓它修改檔案。</p>
 </div>
 
 <div class="step">

@@ -47,7 +47,7 @@
 <tr><td>做什麼</td><td>對你的計劃做結構化追問，一次一題，每題附建議答案</td><td>同樣追問，<strong>外加</strong>對照 CONTEXT.md/ADR/程式碼，邊問邊更新文件</td></tr>
 <tr><td>適合</td><td>快速壓力測試一個想法</td><td>正式開發前的對齊（本課程建議的預設選擇）</td></tr>
 </table>
-<p>共同的底層機制（skill 原文）：「沿著設計樹的每一條分支走，逐一解決決策之間的依賴」「能從 codebase 找到答案的問題，直接去探索 codebase 而不是問你」。</p>
+<p>共同的底層機制：沿著設計樹逐一解決依賴；能從 codebase 找到的<strong>事實</strong>由 agent 自己查，真正的<strong>決策</strong>則必須逐題交給你回答。你沒有確認「已達成 shared understanding」之前，它不得開始執行計畫。</p>
 
 <h2>/grill-with-docs 的五個追問手法</h2>
 <p>知道它會怎麼問，你才接得住（出自 skill 定義）：</p>
@@ -66,6 +66,7 @@
   <li><strong>別敷衍</strong> — 「都可以」是 misalignment 的溫床。不確定就說不確定，讓它幫你列選項。</li>
   <li><strong>善用它的建議答案</strong> — 每題附的建議是好的起點，但它不懂你的業務脈絡，該推翻就推翻。</li>
   <li><strong>讓它去查 code</strong> — 它問「現在系統怎麼處理 X」時，正確回應常是「你去看 code 確認」。</li>
+  <li><strong>決策由你確認</strong> — codebase 能回答現況，不能替你決定未來要怎麼做；agent 不得替你回答自己的訪談題。</li>
 </ul>
 
 <h2>何時升高 effort</h2>
@@ -98,7 +99,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 4. 驗收產出</label>
-  <p>結束時你手上應該有：一份對齊的計劃、更新過的 CONTEXT.md、可能 0–2 篇新 ADR（用三條件檢查它提議的 ADR 該不該存在）。<strong>先不要實作</strong> — 計劃留著，接著視需要做 prototype，再進 /to-prd。</p>
+  <p>結束時你手上應該有：一份對齊的計劃、更新過的 CONTEXT.md、可能 0–2 篇新 ADR（用三條件檢查它提議的 ADR 該不該存在）。明確確認你們已達成 shared understanding；在你確認前，<strong>先不要實作</strong>。計劃接著依規模直接進 /implement，或視需要做 prototype、/to-spec。</p>
 </div>
 
 <div class="done-banner" id="done">

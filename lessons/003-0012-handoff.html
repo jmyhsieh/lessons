@@ -54,15 +54,15 @@
 <table>
 <tr><th>設計</th><th>為什麼</th></tr>
 <tr><td>存到 <strong>OS temp 目錄</strong>，不放 workspace</td><td>交接文件是消耗品，不該污染 repo（同 Phase 3 第 11 課報告的做法）</td></tr>
-<tr><td><strong>不重複既有 artifacts</strong> — PRD、ADR、issues、commits 用路徑引用</td><td>單一事實來源：脈絡的正本在文件制度裡，handoff 只記「正本沒有的東西」（當下的決策過程、卡住的點、下一步）</td></tr>
-<tr><td>內建 <strong>suggested skills</strong> 區塊</td><td>告訴下一個 agent 該用哪些 skill 繼續（例：「接下來跑 /implement 實作 issue #3」）</td></tr>
+<tr><td><strong>不重複既有 artifacts</strong> — spec、ADR、tickets、commits 用路徑引用</td><td>單一事實來源：脈絡的正本在文件制度裡，handoff 只記「正本沒有的東西」（當下的決策過程、卡住的點、下一步）</td></tr>
+<tr><td>內建 <strong>suggested skills</strong> 區塊</td><td>告訴下一個 agent 該用哪些 skill 繼續（例：「接下來跑 /implement 實作 ticket 3」）</td></tr>
 <tr><td><strong>自動遮蔽敏感資訊</strong>（API key、密碼、個資）</td><td>temp 目錄的檔案可能被其他工具讀到 — 但別全信自動遮蔽，交接前自己掃一眼</td></tr>
 </table>
 <div class="tip"><strong>參數很重要：</strong><code>/handoff 下一個 session 要做 X</code> — 它會針對 X 裁剪內容。「為了繼續 debug」和「為了寫文件」需要的脈絡完全不同，有參數的交接文件精準得多。</div>
 
 <h2>什麼時候用（三個真實 repo 場景）</h2>
 <ul>
-  <li><strong>收工交接</strong>：下班前 <code>/handoff 明天繼續實作 issue #5</code>，明早新 session 直接接力。</li>
+  <li><strong>收工交接</strong>：下班前 <code>/handoff 明天繼續實作 ticket 5</code>，明早新 session 直接接力。</li>
   <li><strong>糾正兩次還不對</strong>（Phase 1 第 12 課的砍掉重練訊號）：先 handoff 再重開 — 把「學到的教訓」帶進新 session 的第一句 prompt。</li>
   <li><strong>跨人交接</strong>：你 grill 到一半要請假，同事接手 — 交接文件＋CONTEXT.md 讓他的 agent 冷啟動。</li>
 </ul>
@@ -82,7 +82,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 3. 用三個標準驗收文件</label>
-  <p>打開 temp 目錄的文件檢查：(a) 有沒有重複貼 PRD/issue 的內容（應該是引用路徑）？(b) suggested skills 給對了嗎？(c) <strong>自己掃一遍有沒有漏網的敏感資訊</strong>。</p>
+  <p>打開 temp 目錄的文件檢查：(a) 有沒有重複貼 spec/ticket 的內容（應該是引用路徑）？(b) suggested skills 給對了嗎？(c) <strong>自己掃一遍有沒有漏網的敏感資訊</strong>。</p>
 </div>
 
 <div class="step">
@@ -102,7 +102,7 @@
 <h2>觀念檢查（憑記憶作答）</h2>
 
 <div class="quiz" data-answer="2">
-  <p>1. handoff 文件裡發現它把整份 PRD 內容貼了進來，該怎麼處理？</p>
+  <p>1. handoff 文件裡發現它把整份 spec 內容貼了進來，該怎麼處理？</p>
   <button>很好，文件越完整下一個 agent 越省事</button>
   <button>沒差，反正 temp 目錄的檔案遲早會清掉</button>
   <button>要求改成引用路徑，交接只記正本沒有的</button>

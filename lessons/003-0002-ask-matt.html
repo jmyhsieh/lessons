@@ -37,19 +37,31 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 3 · 第 02 課 · 約 20 分鐘 · 路線判斷</div>
 <h1>用 /ask-matt 判斷該走哪條路</h1>
-<p class="mission">目標：在開始動手前，先用 <code>/ask-matt</code> 判斷現在是新需求、外部回報、架構維護，還是需要跨 session 交接。這一課讓 Phase 3 從「背 skill 名稱」改成「選對流程」。</p>
+<p class="mission">目標：在開始動手前，先用 <code>/ask-matt</code> 判斷現在是單一 session 的小需求、多 session build、外部回報、架構維護，還是需要跨 session 交接。這一課讓 Phase 3 從「背 skill 名稱」改成「選對流程」。</p>
 <div class="scope"><strong>本課只做：</strong>判斷下一步該用哪條路。<br><strong>先不要做：</strong>把 <code>/ask-matt</code> 當成會替你完成工作的萬用指令。</div>
 
 <h2>它是 router，不是施工隊</h2>
-<p><code>/ask-matt</code> 的職責是把情境分到正確流程。它會告訴你該先用哪個 skill、何時切 session、何時改走 triage 或維護線。真正產出 PRD、issues、程式碼或 handoff 的，是後面的專門 skill。</p>
+<p><code>/ask-matt</code> 的職責是把情境分到正確流程。它會告訴你該先用哪個 skill、何時切 session、何時改走 triage、wayfinder 或維護線。真正產出 spec、tickets、程式碼或 handoff 的，是後面的專門 skill。</p>
 <table>
 <tr><th>情境</th><th>建議路線</th></tr>
-<tr><td>新需求或新想法</td><td><code>/grill-with-docs</code> → 可選 <code>/prototype</code> → <code>/to-prd</code> → <code>/to-issues</code> → <code>/implement</code></td></tr>
+<tr><td>單一 session 能完成的新需求</td><td><code>/grill-with-docs</code> → 同一個 context 直接 <code>/implement</code></td></tr>
+<tr><td>需要多個 session 的 build</td><td><code>/grill-with-docs</code> → <code>/to-spec</code> → <code>/to-tickets</code> → 每張 ticket 開新 context 跑 <code>/implement</code></td></tr>
+<tr><td>必須用可跑成果回答的設計問題</td><td><code>/handoff</code> 出主線 → <code>/prototype</code> → <code>/handoff</code> 把答案帶回</td></tr>
 <tr><td>外部 bug 或需求回報</td><td><code>/triage</code> → <code>/diagnosing-bugs</code> 或 <code>/implement</code></td></tr>
+<tr><td>巨大、模糊、超過一個 session 的 effort</td><td><code>/wayfinder</code> 先建立共享 map，逐張調查 ticket 推進到路徑清楚，再回到 <code>/to-spec</code> 或 <code>/implement</code></td></tr>
 <tr><td>架構維護</td><td><code>/improve-codebase-architecture</code> → 選一個改善點 → 回到 <code>/grill-with-docs</code></td></tr>
 <tr><td>context 太滿或要分支</td><td><code>/handoff</code> 開新 session；<code>/compact</code> 留在同一個 session。</td></tr>
 </table>
-<div class="tip"><strong>記住主線：</strong><code>/implement</code> 是實作 orchestrator；它內部會用 <code>/tdd</code>，做完再用 <code>/review</code>。不要把 <code>/tdd</code> 和 <code>/review</code> 畫成與 <code>/implement</code> 平行的主流程。</div>
+<div class="tip"><strong>記住主線：</strong><code>/implement</code> 是實作 orchestrator；它內部會用 <code>/tdd</code>，做完再用 <code>/code-review</code>。不要把 <code>/tdd</code> 和 <code>/code-review</code> 畫成與 <code>/implement</code> 平行的主流程。</div>
+<div class="tip"><strong>Context hygiene：</strong>從 grill 到 <code>/to-tickets</code> 盡量維持同一個未中斷 context，不要在中途 clear 或 compact；切完 tickets 後，每張 <code>/implement</code> 才各自用乾淨 context。若主線接近 smart zone 上限，先 <code>/handoff</code>，不要硬撐。</div>
+
+<h2>先分清楚：入口與流程內能力</h2>
+<p>不是每個 skill 名稱都代表同一種入口。初學時先把它們分成兩層，會比較不亂：</p>
+<table>
+<tr><th>類型</th><th>例子</th><th>你怎麼用</th></tr>
+<tr><td>主要手動入口</td><td><code>/ask-matt</code>、<code>/grill-with-docs</code>、<code>/to-spec</code>、<code>/to-tickets</code>、<code>/implement</code>、<code>/triage</code>、<code>/wayfinder</code>、<code>/improve-codebase-architecture</code>、<code>/handoff</code></td><td>你通常會主動選它們開始一段工作。</td></tr>
+<tr><td>流程內能力</td><td><code>/tdd</code>、<code>/code-review</code>、<code>diagnosing-bugs</code>、<code>domain-modeling</code>、<code>codebase-design</code></td><td>常由主流程帶出來，或在特定情境下才單獨使用。</td></tr>
+</table>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
@@ -63,7 +75,7 @@
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 判斷它有沒有走錯層級</label>
-  <p>如果它把 <code>/tdd</code> 或 <code>/review</code> 當成主流程起點，請它重新對照 <code>/implement</code> 的職責。</p>
+  <p>如果它把 <code>/tdd</code> 或 <code>/code-review</code> 當成主流程起點，請它重新對照 <code>/implement</code> 的職責。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 4. 選一條真的要做的路</label>
@@ -87,7 +99,14 @@
   <button>/implement 會在實作中使用 /tdd</button>
   <button>/tdd 完全取代 /implement 的功能</button>
   <button>兩者是互不相干的平行流程項目</button>
-  <div class="why"><code>/implement</code> 負責依 PRD/issue 施工；<code>/tdd</code> 是它內部用來保護實作品質的紀律。</div>
+  <div class="why"><code>/implement</code> 負責依 spec/ticket 施工；<code>/tdd</code> 是它內部用來保護實作品質的紀律。</div>
+</div>
+<div class="quiz" data-answer="1">
+  <p>3. Grill 後確認需求能在單一 session 完成，也不需要 prototype，下一步是？</p>
+  <button>先 /to-spec 再 /to-tickets</button>
+  <button>同一個 context 直接 /implement</button>
+  <button>先 /handoff 到新的 session</button>
+  <div class="why">只有 multi-session build 才需要先固化成 spec 與 tickets。小而已對齊的需求可以留在同一個 context，直接交給 <code>/implement</code>。</div>
 </div>
 
 <h2>下一步</h2>

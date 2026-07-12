@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>06：用 /to-prd 把對話凝結成 PRD</title>
+<title>06：用 /to-spec 把對話凝結成 spec</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -36,33 +36,34 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 3 · 第 06 課 · 約 30 分鐘 · 固化任務</div>
-<h1>用 /to-prd 把對話凝結成 PRD</h1>
-<p class="mission">目標：把前面 grill 與 prototype 已經釐清的內容，整理成一份可引用、可審查、可切 issue 的 PRD。這一課只做「凝結」，不重新訪談，也不開始實作。</p>
-<div class="scope"><strong>本課只做：</strong>把已對齊的內容整理成 PRD。<br><strong>先不要做：</strong>需求還沒問清楚就硬產 PRD。</div>
+<h1>用 /to-spec 把對話凝結成 spec</h1>
+<p class="mission">目標：把前面 grill 與 prototype 已經釐清的內容，整理成一份可引用、可審查、可切 ticket 的 spec。你也可以把它理解成 PRD；upstream 現在用 <code>/to-spec</code> 作為 canonical 名稱。這一課只做「凝結」，不重新訪談，也不開始實作。</p>
+<div class="scope"><strong>本課只做：</strong>把已對齊的內容整理成 spec。<br><strong>先不要做：</strong>需求還沒問清楚就硬產 spec。</div>
 
 <h2>Pipeline 全景：你在這裡</h2>
-<pre>/grill-with-docs → 可選 /prototype → <strong>/to-prd</strong> → /to-issues → /implement</pre>
+<pre>/grill-with-docs → 可選（/handoff → /prototype → /handoff）→ <strong>/to-spec</strong> → /to-tickets → /implement</pre>
 
 <h2>凝結，不是再訪談</h2>
-<p><code>/to-prd</code> 的關鍵設計是：不要再訪談使用者，直接綜合這個 session 已經知道的內容。若它開始問大量新問題，通常代表前面的 grill 沒做透，應該回去補對齊，而不是把 PRD 當補救訪談。</p>
+<p><code>/to-spec</code> 的關鍵設計是：不要再訪談使用者，直接綜合這個 session 已經知道的內容。若它開始問大量新問題，通常代表前面的 grill 沒做透，應該回去補對齊，而不是把 spec 當補救訪談。</p>
+<div class="tip"><strong>Context hygiene：</strong>從 grill 到本課，再到下一課 <code>/to-tickets</code>，盡量維持同一個未中斷 context；不要中途 clear 或 compact，讓 spec 與 tickets 共用完整的決策脈絡。只有接近 smart zone 上限時才用 <code>/handoff</code> 換 session。</div>
 <table>
-<tr><th>PRD 應該包含</th><th>你要檢查什麼</th></tr>
+<tr><th>Spec 應該包含</th><th>你要檢查什麼</th></tr>
 <tr><td>問題陳述與範圍邊界</td><td>是否清楚說明要解的問題，以及哪些事不做。</td></tr>
 <tr><td>大量編號 user stories</td><td>是否覆蓋 grill 中談過的場景與邊界案例。</td></tr>
-<tr><td>實作決策與測試接縫</td><td>是否尊重 CONTEXT.md、ADR 與既有 repo 介面。</td></tr>
-<tr><td>發佈位置</td><td>是否寫到第 01 課設定的 GitHub / Linear / local files。</td></tr>
+<tr><td>實作決策與測試接縫</td><td>是否尊重 CONTEXT.md、ADR 與既有 repo 介面；測試 seam 是否在夠高、夠穩的位置。</td></tr>
+<tr><td>發佈位置</td><td>是否寫到第 01 課設定的 GitHub / GitLab / local markdown / Other issue tracker。</td></tr>
 </table>
-<div class="tip"><strong>你的主要工作：</strong>審 PRD 的「漏」與「多」。漏掉 user story 會讓後續 issue 不完整；多寫未同意 scope 會讓 agent 做出不該做的功能。</div>
+<div class="tip"><strong>你的主要工作：</strong>審 spec 的「漏」與「多」。漏掉 user story 會讓後續 ticket 不完整；多寫未同意 scope 會讓 agent 做出不該做的功能。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
   <label><input type="checkbox"> 1. 接回對齊脈絡</label>
-  <p>最好在第 04 課 grill 的同一個 session 繼續。若已換 session，先提供 grill 結論、prototype 結論、CONTEXT.md 與相關 ADR。</p>
+  <p>在第 04 課 grill 的同一個 session 繼續；若 prototype 曾分支出去，先讀它帶回來的 handoff。只有原 context 已接近上限時，才用 handoff 開新 session，並引用 grill 結論、prototype 結論、CONTEXT.md 與相關 ADR。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 2. 執行 /to-prd</label>
-  <pre>/to-prd</pre>
-  <p>若它說資訊不足，先回到 <code>/grill-with-docs</code>；不要在 PRD 階段臨時補一堆沒有驗證的假設。</p>
+  <label><input type="checkbox"> 2. 執行 /to-spec</label>
+  <pre>/to-spec</pre>
+  <p>若它說資訊不足，先回到 <code>/grill-with-docs</code>；不要在 spec 階段臨時補一堆沒有驗證的假設。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 審 user stories</label>
@@ -73,33 +74,33 @@
   <p>確認它提的 seams 是 repo 裡真實可測的位置。看不懂就追問：為什麼在這個介面驗證？有沒有更高層的接縫？</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 5. 固定 PRD 位置</label>
-  <p>確認 PRD 被發佈到 issue tracker 或 local files，下一課才能用它切成 issues。</p>
+  <label><input type="checkbox"> 5. 固定 spec 位置</label>
+  <p>確認 spec 被發佈到 issue tracker；local markdown 的 canonical 位置是 <code>.scratch/&lt;feature&gt;/spec.md</code>。下一課會從這份 spec 切成 tickets。</p>
 </div>
 
 <div class="done-banner" id="done">
-  🎉 <strong>你已把對話凝結成 PRD。</strong>回對話視窗回報：PRD 裡最重要的 user story 是哪一條？
+  🎉 <strong>你已把對話凝結成 spec。</strong>回對話視窗回報：spec 裡最重要的 user story 是哪一條？
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
 <div class="quiz" data-answer="0">
-  <p>1. /to-prd 開始大量追問新需求，這代表？</p>
+  <p>1. /to-spec 開始大量追問新需求，這代表？</p>
   <button>前面對齊不足，應回去補 grill</button>
-  <button>正常流程，PRD 本來要訪談</button>
-  <button>應跳過提問，直接產 PRD</button>
-  <div class="why"><code>/to-prd</code> 是綜合已知內容，不是重新訪談。大量追問代表上游沒有足夠材料。</div>
+  <button>正常流程，spec 本來要訪談</button>
+  <button>應跳過提問，直接產 spec</button>
+  <div class="why"><code>/to-spec</code> 是綜合已知內容，不是重新訪談。大量追問代表上游沒有足夠材料。</div>
 </div>
 <div class="quiz" data-answer="2">
-  <p>2. PRD 裡的 user stories 最重要的作用是？</p>
-  <button>讓 PRD 看起來完整專業</button>
+  <p>2. spec 裡的 user stories 最重要的作用是？</p>
+  <button>讓 spec 看起來完整專業</button>
   <button>替代後續所有測試設計</button>
   <button>提供後續切片的依據</button>
-  <div class="why">下一課 <code>/to-issues</code> 會依 PRD 切成可認領的工作；user stories 是切片的主要材料。</div>
+  <div class="why">下一課 <code>/to-tickets</code> 會依 spec 切成可認領的工作；user stories 是切片的主要材料。</div>
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課：<a href="003-0007-to-issues.html">Phase 3 第 07 課 — 用 /to-issues 切成可認領工作</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — to-prd 的 SKILL.md 原文。</p>
+<p>完成後回對話視窗回報。下一課：<a href="003-0007-to-tickets.html">Phase 3 第 07 課 — 用 /to-tickets 切成可認領工作</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — to-spec 的 SKILL.md 原文。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

@@ -42,14 +42,14 @@
 
 
 <h2>核心概念：深模組（deep modules）</h2>
-<p>這個 skill 找的是「<strong>深化機會</strong>」— 把淺模組變深的重構。詞彙表（skill 規定每個建議都用這套語言，出自 LANGUAGE.md）：</p>
+<p>這個 skill 找的是「<strong>深化機會</strong>」— 把淺模組變深的重構。詞彙表現在集中在 shared <code>codebase-design</code>，每個建議都應使用同一套語言：</p>
 <div class="tip"><strong>現行對應：</strong>深模組與介面設計 vocabulary 現在集中在 shared <code>codebase-design</code>；<code>/improve-codebase-architecture</code> 仍是用這套語言掃描架構深化機會的主力。</div>
 <table>
 <tr><th>術語</th><th>意思</th></tr>
 <tr><td><strong>Module</strong></td><td>任何有介面＋實作的東西（函式、類別、套件）</td></tr>
 <tr><td><strong>Interface</strong></td><td>呼叫者必須知道的<strong>一切</strong>：型別、不變量、錯誤模式、順序、設定 — 不只是型別簽名</td></tr>
 <tr><td><strong>Depth 深度</strong></td><td>介面的槓桿：小介面後面藏大量行為 = 深；介面跟實作一樣複雜 = 淺</td></tr>
-<tr><td><strong>Seam 接縫</strong></td><td>介面所在之處；不改內部就能換行為的地方（Phase 3 第 06 課 to-prd 問你的就是這個）</td></tr>
+<tr><td><strong>Seam 接縫</strong></td><td>介面所在之處；不改內部就能換行為的地方（Phase 3 第 06 課 to-spec 問你的就是這個）</td></tr>
 <tr><td><strong>Leverage / Locality</strong></td><td>深度給呼叫者的好處 / 給維護者的好處（改動、bug、知識集中一處）</td></tr>
 </table>
 <div class="tip"><strong>三句口訣：</strong>(1) <strong>刪除測試</strong> — 想像刪掉這個模組：複雜度消失 = 它是過水層；複雜度散落到 N 個呼叫端重新出現 = 它有在賺自己的飯。(2) <strong>介面就是測試面</strong>（接 Phase 3 第 08 課：測行為不測實作）。(3) <strong>一個 adapter = 假想接縫，兩個 adapter = 真接縫</strong>。</div>
@@ -60,7 +60,7 @@
   <li><strong>HTML 報告</strong> — 寫到 temp 目錄（不污染 repo）自動打開：每個候選一張卡（檔案、問題、解法、locality/leverage 效益、before/after 圖、建議強度 Strong / Worth exploring / Speculative），結尾給首選建議。<strong>此階段不提介面設計</strong> — 報告完它會問你想深入哪個。</li>
   <li><strong>Grilling loop</strong> — 你挑一個候選，進入追問對話（Phase 3 第 04 課的肌肉直接重用）。過程中：新概念進 CONTEXT.md；<strong>你以站得住腳的理由拒絕某候選 → 它會提議寫成 ADR</strong>，讓未來的架構健檢不再重複建議同一件事。</li>
 </ol>
-<p>兩個對高風險 repo 重要的設計：建議若與既有 ADR 衝突，只在摩擦真的大到值得重開決策時才提出（不重新爭論已決定的事）；領域講 CONTEXT.md 的語言、架構講 LANGUAGE.md 的語言。</p>
+<p>兩個對高風險 repo 重要的設計：建議若與既有 ADR 衝突，只在摩擦真的大到值得重開決策時才提出（不重新爭論已決定的事）；領域講 CONTEXT.md 的語言、架構講 <code>codebase-design</code> 的語言。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 
@@ -87,7 +87,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 5. 收割</label>
-  <p>grill 出來的深化計劃接你熟的 pipeline：/to-prd → /to-issues → /implement。CONTEXT.md/ADR 的更新 commit 進版控。</p>
+  <p>grill 出來的深化計劃接你熟的 pipeline：/to-spec → /to-tickets → /implement。CONTEXT.md/ADR 的更新 commit 進版控。</p>
 </div>
 
 <div class="done-banner" id="done">
@@ -122,7 +122,7 @@
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。下一課：<a href="003-0012-handoff.html">Phase 3 第 12 課 — 用 /handoff 做跨 session 交接</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — improve-codebase-architecture 的 LANGUAGE.md 是深模組語言的完整定義，值得精讀。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — <code>codebase-design</code> 的 SKILL.md 與 DEEPENING.md 是深模組語言的完整定義，值得精讀。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

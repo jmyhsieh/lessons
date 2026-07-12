@@ -48,12 +48,16 @@
 <table>
 <tr><th>階段</th><th>做什麼</th><th>鐵律</th></tr>
 <tr><td>1. <strong>建回饋迴圈</strong></td><td>用十種武器之一造出 pass/fail 訊號</td><td>沒有迴圈不准進下一階段</td></tr>
-<tr><td>2. Reproduce</td><td>親眼看 bug 出現</td><td>必須是<strong>使用者描述的那個</strong> bug，不是隔壁的</td></tr>
+<tr><td>2. Reproduce + minimise</td><td>親眼看 bug 出現，再逐項刪除非必要輸入、caller、設定、資料與步驟</td><td>必須是<strong>使用者描述的那個</strong> bug；最後每個剩餘元素都不可再刪</td></tr>
 <tr><td>3. Hypothesise</td><td><strong>先列 3–5 個排序假說</strong>再測任何一個</td><td>每個假說要可否證（能說出預測）</td></tr>
 <tr><td>4. Instrument</td><td>每個探針對應一個預測，一次改一個變數</td><td>debug log 全部加唯一前綴（如 <code>[DEBUG-a4f2]</code>）</td></tr>
 <tr><td>5. Fix + 回歸測試</td><td><strong>先寫回歸測試（看它失敗）再修</strong></td><td>只在「正確的接縫」寫；沒有正確接縫＝那本身就是發現</td></tr>
 <tr><td>6. Cleanup + 復盤</td><td>grep 前綴清光 debug log、記錄學到的</td><td>沒清乾淨不算完成</td></tr>
 </table>
+
+<h2>重現後一定要最小化</h2>
+<p>看見紅燈只是 Phase 2 的前半。接著一次只移除一個輸入、caller、設定、資料或操作步驟，每移除一次就重跑回饋迴圈；能維持紅燈就繼續刪，變綠則把該元素放回。完成條件是：剩下的每個元素都對 bug 成立不可或缺。這份 minimal repro 會縮小假說空間，也會成為第 5 階段最乾淨的 regression test。</p>
+<div class="tip"><strong>Repo 地圖的邊界：</strong>陌生子系統可以在第 1 階段用窄地圖協助找到真實 call path 與測試 seam，但地圖必須服務於建立 red-capable command。迴圈存在前，不要先靠讀 code 建立原因假說。</div>
 
 <h2>diagnosing-bugs 內部第 1 階段的武器庫（節選）</h2>
 <p>十種造迴圈的方法，大致依序嘗試：失敗測試 → curl/HTTP script → CLI＋fixture 比對快照 → headless browser → <strong>重放捕獲的 trace</strong>（存下真實 payload 重放）→ 拋棄式 harness（mock 依賴只跑出 bug 的路徑）→ fuzz 迴圈 → <strong>bisection harness</strong>（自動化「回到狀態 X 檢查」讓 git bisect 跑）→ 差分迴圈（新舊版同輸入比輸出）→ 最後手段 HITL script。</p>
@@ -79,17 +83,22 @@
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 3. 在第 3 階段注入人類脈絡</label>
+  <label><input type="checkbox"> 3. 最小化重現</label>
+  <p>逐一刪除輸入、caller、設定、資料與步驟，每次都重跑同一個 command。直到任何一項再刪都會讓訊號轉綠。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 在第 3 階段注入人類脈絡</label>
   <p>看到假說清單時認真讀，用你對系統、產品或近期變更的了解重排序或排除（「這個我們查過了」）。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 4. 盯第 5 階段的接縫判斷</label>
+  <label><input type="checkbox"> 5. 盯第 5 階段的接縫判斷</label>
   <p>確認：回歸測試先紅後綠了嗎？它寫測試的接縫真的能重現 bug 的觸發模式嗎？若它回報「沒有正確接縫」— 把這個發現餵給 Phase 3 第 11 課的架構健檢。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 5. 驗收第 6 階段</label>
+  <label><input type="checkbox"> 6. 驗收第 6 階段</label>
   <p>grep debug 前綴確認清光、原始（未最小化）情境重跑通過、修 bug 過程的學習若值得就進 CONTEXT.md/ADR。</p>
 </div>
 
@@ -125,10 +134,10 @@
 
 <div class="quiz" data-answer="0">
   <p>4.（複習 Phase 3 第 03 課）陌生子系統出 bug，repo 地圖放在 /diagnosing-bugs 的哪裡最有價值？</p>
-  <button>之前 — 先懂地形再列假說</button>
-  <button>之後 — bug 修完再補地圖</button>
-  <button>之間 — 每階段都重跑一次</button>
-  <div class="why">先建立 repo 地圖再跑 diagnosing-bugs，能讓第 3 階段的假說建立在結構理解上，而不是靠檔名亂猜。</div>
+  <button>第 1 階段 — 協助找到回饋迴圈的真實路徑</button>
+  <button>第 3 階段 — 取代回饋迴圈直接猜原因</button>
+  <button>第 6 階段 — 修完後才第一次讀結構</button>
+  <div class="why">地圖可以協助找到 call path 與測試 seam，但它服務的是 red-capable command；迴圈存在前，不能先靠 code reading 建立原因假說。</div>
 </div>
 
 <h2>下一步</h2>

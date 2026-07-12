@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Phase 3 mattpocock/skills 參考索引</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #1a6b5a; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #1a6b5a; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .92rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .6rem .7rem; vertical-align: top; text-align: left; }
+  th { background: #eef4f2; }
+  a { color: #15564a; }
+  code { background: #eef4f2; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; }
+  .rule { border-left: 4px solid #1a6b5a; background: #f8fbfa; padding: .8rem 1rem; margin: 1rem 0; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print { body { margin: 1rem auto; } .rule, tr { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Phase 3 mattpocock/skills 參考索引</h1>
+<p class="sub">同一組來源的 skills 放在這裡查；主線課程只保留從需求到交付最常用的路徑。</p>
+
+<div class="rule">
+  <strong>使用原則：</strong>先用主線入口推進工作；只有遇到特定情境，才拉出流程內能力或補充 skill。
+</div>
+
+<h2>主要入口與 on-ramps</h2>
+<table>
+<tr><th>Skill</th><th>用途</th><th>課程</th></tr>
+<tr><td><code>/ask-matt</code></td><td>不知道該走哪條路時，先請它選入口。</td><td><a href="../lessons/003-0002-ask-matt.html">03-02</a></td></tr>
+<tr><td><code>/grill-with-docs</code></td><td>把模糊需求問清楚，並同步更新 CONTEXT.md / ADR。</td><td><a href="../lessons/003-0004-grill-with-docs.html">03-04</a></td></tr>
+<tr><td><code>/prototype</code></td><td>用拋棄式原型回答單一設計或邏輯問題；主線用 <code>/handoff</code> 進出。答案寫進 issue／commit／ADR，完整原型留在不 merge 的 throwaway branch 作為 primary source。</td><td><a href="../lessons/003-0005-prototype.html">03-05</a></td></tr>
+<tr><td><code>/to-spec</code></td><td>把已對齊的對話凝結成 spec；你可以把它理解成 PRD 的現行 canonical 名稱。</td><td><a href="../lessons/003-0006-to-spec.html">03-06</a></td></tr>
+<tr><td><code>/to-tickets</code></td><td>把 spec 切成帶 blocking edges、可獨立認領與驗收的 tickets；local tracker 使用 <code>.scratch/&lt;feature&gt;/issues/NN-slug.md</code>，一張一檔。</td><td><a href="../lessons/003-0007-to-tickets.html">03-07</a></td></tr>
+<tr><td><code>/implement</code></td><td>依 spec 與單張 ticket 完成交付，內含 TDD、檢查與 <code>/code-review</code> 紀律。</td><td><a href="../lessons/003-0008-implement.html">03-08</a></td></tr>
+<tr><td><code>/triage</code></td><td>把外部回報分流成 needs-info、ready-for-agent、ready-for-human 或 wontfix。</td><td><a href="../lessons/003-0009-triage.html">03-09</a></td></tr>
+<tr><td><code>/wayfinder</code></td><td>巨大、模糊、超過一個 session 的 effort 先建立共享 map；它是 situational on-ramp，不是一般需求的主線。</td><td><a href="../lessons/003-0002-ask-matt.html">03-02</a></td></tr>
+<tr><td><code>/improve-codebase-architecture</code></td><td>掃描架構深化機會，挑一個候選進入後續打磨。</td><td><a href="../lessons/003-0011-architecture.html">03-11</a></td></tr>
+<tr><td><code>/handoff</code></td><td>把目前脈絡打包給下一個 session、同事或 agent。</td><td><a href="../lessons/003-0012-handoff.html">03-12</a></td></tr>
+</table>
+
+<h2>流程內能力</h2>
+<table>
+<tr><th>Skill / 能力</th><th>定位</th><th>何時出現</th></tr>
+<tr><td><code>/tdd</code></td><td>用 RED → GREEN 保護行為；refactoring 歸 review 階段。</td><td>主要在 <code>/implement</code> 與除錯修復中出現。</td></tr>
+<tr><td><code>/code-review</code></td><td>用 Standards 與 Spec 檢查完成度。</td><td>主要作為 <code>/implement</code> 的收尾品質關卡。</td></tr>
+<tr><td><code>diagnosing-bugs</code></td><td>先建立 red-capable feedback loop，再重現、最小化、列假說、埋點、修復與回歸。</td><td>難解、間歇或回歸 bug；repo 地圖只能服務回饋迴圈，不先代替它猜原因。</td></tr>
+<tr><td><code>domain-modeling</code></td><td>穩定專案詞彙與領域語言。</td><td><code>/grill-with-docs</code>、CONTEXT.md 與 ADR 會反覆用到。</td></tr>
+<tr><td><code>codebase-design</code></td><td>提供深模組、接縫與介面設計 vocabulary。</td><td><code>/improve-codebase-architecture</code> 與設計 review 時使用。</td></tr>
+</table>
+
+<h2>主線外補充</h2>
+<table>
+<tr><th>Skill</th><th>使用時機</th><th>為什麼不獨立成課</th></tr>
+<tr><td><code>/research</code></td><td>需要外部 primary sources、官方文件或 API 事實時，讓背景 agent 留一份 cited Markdown。</td><td>它餵資料進 <code>/grill-with-docs</code> 或 spec，不直接替代需求對齊與交付主線。</td></tr>
+<tr><td><code>resolving-merge-conflicts</code></td><td>merge 或 rebase 已經進入 conflict，需要理解雙方意圖、解每個 hunk、重跑檢查並完成 merge/rebase。</td><td>它很重要，但只在衝突發生時使用；不屬於每個需求都會經過的主線。</td></tr>
+</table>
+
+<footer>
+  對應課程：<a href="../lessons/003-0001-matt-pocock-skills-foundation.html">Phase 3 第 01 課</a> · <a href="../lessons/003-0002-ask-matt.html">Phase 3 第 02 課</a><br>
+  主要來源：<a href="https://github.com/mattpocock/skills">mattpocock/skills</a> · <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/resolving-merge-conflicts/SKILL.md">resolving-merge-conflicts/SKILL.md</a>
+</footer>
+</body>
+</html>

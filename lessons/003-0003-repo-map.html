@@ -37,7 +37,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 3 · 第 03 課 · 約 15 分鐘 · 輕量實作</div>
 <h1>不熟 repo 時，先建立地圖</h1>
-<p class="mission">目標：學會在進入陌生 repo 或陌生模組時，先用自然語言 prompt 請 agent 產出模組、入口點、呼叫關係與風險區域的高層地圖，再決定要不要進 <code>/grill-with-docs</code>、<code>/diagnosing-bugs</code> 或 <code>/implement</code>。</p>
+<p class="mission">目標：學會在陌生 repo 的需求、實作或 review 前，用自然語言 prompt 取得模組、入口點、呼叫關係與風險區域的高層地圖。Bug 是例外：先進 <code>/diagnosing-bugs</code>，只在第 1 階段用窄地圖協助建立回饋迴圈，不先猜原因。</p>
 <div class="scope"><strong>本課只做：</strong>在不熟 repo 時先取得人能讀懂的地圖。<br><strong>先不要做：</strong>用地圖整理代替真正的 debugging 或 implementation。</div>
 
 
@@ -60,7 +60,7 @@ using the project's domain glossary vocabulary.</pre>
 <table>
 <tr><th>情境</th><th>組合</th></tr>
 <tr><td>要 grill 一個碰到陌生模組的需求</td><td>先建立地圖 → 看懂地形 → <code>/grill-with-docs</code></td></tr>
-<tr><td>bug 在你沒碰過的子系統</td><td>先建立地圖 → <code>/diagnosing-bugs</code>（假說品質會差很多）</td></tr>
+<tr><td>bug 在你沒碰過的子系統</td><td>進 <code>/diagnosing-bugs</code> 建回饋迴圈；需要時用窄地圖找 call path／測試 seam，但不先猜原因</td></tr>
 <tr><td>review AI 寫的陌生區域改動</td><td>先建立地圖 → 再讀 diff（你才有判斷基準）</td></tr>
 <tr><td>新人 onboarding（包括未來的你）</td><td>對每個主要模組各跑一次，產出可以存檔的地圖</td></tr>
 </table>
@@ -104,7 +104,7 @@ tests, and risky areas. Use the project's domain vocabulary.</pre>
 
 <div class="step">
   <label><input type="checkbox"> 5. 接一個真實動作</label>
-  <p>拿著地圖立刻做一件原本不敢做的事：grill 一個碰這區的需求、或診斷一個這區的 bug — 體會「先拿地圖」前後的差異。</p>
+  <p>拿著地圖立刻做一件原本不敢做的事：grill 一個碰這區的需求；若用在 bug，讓地圖協助 <code>/diagnosing-bugs</code> 找到 red-capable command 的 call path 或測試 seam，不要在回饋迴圈建立前先形成原因假說。</p>
 </div>
 
 <div class="done-banner" id="done">
