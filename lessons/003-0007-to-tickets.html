@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>07：用 /to-tickets 切成可認領工作</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
@@ -108,29 +109,29 @@
 </div>
 <div class="quiz" data-answer="0">
   <p>2. 一張 ticket 的 Blocked by 是 None，代表什麼？</p>
-  <button>它在 frontier 上，可以先做</button>
-  <button>它不需要驗收條件</button>
-  <button>它一定是最重要的工作</button>
+  <button>位於 frontier，可以先做</button>
+  <button>完全不需要任何驗收條件</button>
+  <button>一定是全專案唯一最高優先工作項目</button>
   <div class="why">沒有 blocker 代表它可開始，不代表重要性最高，也不代表可以跳過驗收。</div>
 </div>
 <div class="quiz" data-answer="2">
   <p>3. 遇到 blast radius 很大的欄位改名，正確切法是？</p>
-  <button>照普通垂直切片硬切</button>
-  <button>先一次改完整個 repo</button>
-  <button>用 expand-contract 分批搬移</button>
+  <button>照普通垂直切片處理</button>
+  <button>一次修改完整個 repo 並立刻全部部署到 production</button>
+  <button>用 expand-contract 分批處理</button>
   <div class="why">wide refactor 是垂直切片的例外：先 expand 新形式，再分批 migrate，最後 contract 舊形式。</div>
 </div>
 <div class="quiz" data-answer="1">
   <p>4. Local markdown tracker 的 tickets 應該怎麼存？</p>
   <button>全部合併在一份 tickets.md</button>
-  <button>每張 ticket 各自一個檔案</button>
+  <button>每張 ticket 各自一個獨立檔案</button>
   <button>直接追加在原本的 spec.md</button>
   <div class="why">一張一檔才能讓每張 ticket 有自己的狀態、依賴與驗收條件，也能用路徑交給乾淨 context 的 <code>/implement</code>。</div>
 </div>
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。下一課：<a href="003-0008-implement.html">Phase 3 第 08 課 — 用 /implement 完成一張 ticket</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — to-tickets 的 SKILL.md 原文。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/to-tickets/SKILL.md">to-tickets／SKILL.md</a> 原文。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

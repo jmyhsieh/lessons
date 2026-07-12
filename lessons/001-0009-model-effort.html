@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>09：選模型與推理強度，避免浪費 token</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -35,6 +36,7 @@
 <h1>選模型與推理強度，避免浪費 token</h1>
 <p class="mission">任務目標：能用任務風險選模型，用不確定性選 effort。這一課的重點是取捨，不是把所有任務都升到最高。</p>
 <div class="scope"><strong>本課只做：</strong>判斷何時調整模型與 effort，並知道桌面 App 的操作位置。<br><strong>先不要做：</strong>把 max 當預設，或在需求不清時用高 effort 硬跑。</div>
+<div class="tip"><strong>先看模型支援：</strong><code>xhigh</code> 目前是 Opus 4.7 的 level；Opus 4.6 與 Sonnet 4.6 不支援時會向下 fallback。介面實際顯示的 levels 才是這個 session 的準則。</div>
 
 
 <h2>不是越高越好</h2>
@@ -58,7 +60,7 @@
 <div class="step">
   <label><input type="checkbox"> 3. 替一個任務寫 effort policy</label>
   <pre>Default: sonnet + high.
-Escalate to xhigh only if the plan crosses three modules
+Switch to opus + xhigh only if the plan crosses three modules
 or review finds architecture tradeoffs.</pre>
 </div>
 <div class="step">

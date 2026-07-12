@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>02：擋下危險操作（guardrail hook）</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -67,9 +68,9 @@ It must exit 2 and explain the reason on stderr.</pre>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="0">
   <p>1. 哪種規則最適合做成 guardrail hook？</p>
-  <button>production 設定不能自動改</button>
-  <button>命名要盡量優雅</button>
-  <button>PR 描述要寫得好看</button>
+  <button>禁止自動改 production 設定</button>
+  <button>要求所有程式碼命名始終保持清楚且優雅</button>
+  <button>要求 PR 描述保持美觀</button>
   <div class="why">guardrail 適合低誤判、可判定、風險高的規則。</div>
 </div>
 <div class="quiz" data-answer="2">

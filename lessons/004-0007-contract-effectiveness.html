@@ -2,7 +2,8 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>16：把驗證過的做法寫成 repo 規範</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07：讓 repo contract 進入 review 與 evidence loop</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -35,10 +36,10 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 4 · 第 16 課 · 約 25 分鐘 · Repo contract</div>
-<h1>把驗證過的做法寫成 repo 規範</h1>
-<p class="mission">目標：把 Phase 4 第 15 課驗證為 <code>keep</code> 的 workflow patch，放到最小、最合適的 repo contract 裡。這一課不把一次成功直接升級成平台、hook 或 runner。</p>
-<div class="scope"><strong>本課只做：</strong>產出一條最小 repo contract。<br><strong>先不要做：</strong>把所有經驗全部放進 CLAUDE.md。</div>
+<div class="kicker">Phase 4 Lab · 第 07 課 · 約 40 分鐘 · Contract effectiveness</div>
+<h1>讓 repo contract 進入 review 與 evidence loop</h1>
+<p class="mission">目標：把 Phase 4 第 06 課驗證為 <code>keep</code> 的 workflow patch 放到最小 repo contract，並用 review usage 與 effectiveness evidence 判斷它是否真的減少返工。</p>
+<div class="scope"><strong>本課只做：</strong>一條 contract、一個 review checkpoint、一到三個 effectiveness signals。<br><strong>先不要做：</strong>把所有經驗塞進 CLAUDE.md 或建立 dashboard。</div>
 
 
 <h2>Contract 不是全部放進 CLAUDE.md</h2>
@@ -56,7 +57,7 @@
 <tr><td>Hook / runner gate</td><td>已重複驗證、低誤判、必須強制的檢查。</td><td>仍需要大量人類判斷的提醒。</td></tr>
 </table>
 
-<div class="rule"><strong>判斷規則：</strong>只有 Phase 4 第 15 課結果是 <code>keep</code>，才進 repo contract。<code>revise</code> 回 Phase 4 第 14 課；<code>revert</code> 記錄原因即可。</div>
+<div class="rule"><strong>判斷規則：</strong>只有 Phase 4 第 06 課結果是 <code>keep</code>，才進 repo contract。<code>revise</code> 回到 workflow patch；<code>revert</code> 記錄原因即可。</div>
 
 <h2>Repo contract note 範例</h2>
 <pre># Repo workflow contract
@@ -67,6 +68,25 @@ rule: Scope-out must name which validation classes are intentionally skipped.
 enforcement: reviewer checklist only
 verification: next same-class doc task includes scope-out without clarification
 rollback: remove the checklist row if it adds questions without reducing rework</pre>
+
+<h2>Contract 要在 review 中被使用</h2>
+<p>替 contract 指定 reviewer、review 時點、檢查問題與 evidence path。若下一輪 review 沒有人點名它，它仍只是參考文件，不是營運中的 contract。</p>
+<pre>contractUsage:
+  contract: scope-out must name skipped validation classes
+  reviewPoint: before closeout
+  reviewerQuestion: are skipped checks explicit and justified?
+  evidencePath: .harness/reports/&lt;run-id&gt;.md
+  result: followed | missed | exception</pre>
+
+<h2>用少量 evidence 看有效性</h2>
+<table>
+<tr><th>Signal</th><th>可觀察問題</th></tr>
+<tr><td>Clarification</td><td>是否減少重複追問？</td></tr>
+<tr><td>Gate</td><td>是否減少同類 gate failure？</td></tr>
+<tr><td>Review</td><td>是否降低返工或漏項？</td></tr>
+<tr><td>Effort</td><td>是否減少不必要的升級與重跑？</td></tr>
+</table>
+<div class="rule"><strong>Effectiveness 規則：</strong>只追蹤一到三個 signal，至少觀察數次同類任務。自述「有幫助」不是 evidence；若 contract 增加負擔卻沒減少返工，就要 revise 或 retire。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 
@@ -86,17 +106,17 @@ rollback: remove the checklist row if it adds questions without reducing rework<
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 4. 補一個 evidence rule</label>
-  <p>說明下一次怎麼知道 contract 有效：少問問題、gate 更清楚、handoff 可接手，或 reviewer 能直接找到 artifact。</p>
+  <label><input type="checkbox"> 4. 把 contract 放進 review loop</label>
+  <p>指定 reviewer、review 時點、判斷問題與 evidence path；每次結果記為 <code>followed</code>、<code>missed</code> 或 <code>exception</code>。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 5. 留 rollback 條件</label>
-  <p>如果 contract 讓流程更重、造成誤判、或沒減少返工，就撤回。Repo contract 也要可修正。</p>
+  <label><input type="checkbox"> 5. 記錄 effectiveness 與 rollback</label>
+  <p>選一到三個 signal，觀察數次同類任務。若 contract 讓流程更重、造成誤判或沒減少返工，就 revise 或撤回。</p>
 </div>
 
 <div class="done-banner" id="done">
-  <strong>你已完成 repo contract note。</strong>回對話視窗貼上 contract note，請 AI 老師檢查 target 是否選得太重。
+  <strong>你已完成 contract evidence loop。</strong>回對話視窗貼上 contract、usage note 與 signals，請 AI 老師檢查它是否真的在 review 中發揮作用。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
@@ -125,13 +145,21 @@ rollback: remove the checklist row if it adds questions without reducing rework<
   <div class="why">先放到最小且可 review 的文件或 checklist。連續驗證後，才考慮技術化或平台化。</div>
 </div>
 
+<div class="quiz" data-answer="1">
+  <p>4. 哪一項最能證明 contract 正在運作？</p>
+  <button>文件已經存在並完成正式審查</button>
+  <button>Review 紀錄有引用</button>
+  <button>文件內容很長</button>
+  <div class="why">Contract 必須在明確 review checkpoint 被使用，並能留下 usage 與 outcome evidence。</div>
+</div>
+
 <h2>下一步</h2>
-<p>把 repo contract note 當成下一輪 review 的依據。接著進入 <a href="005-0001-contract-review-loop.html">Phase 5 第 01 課</a>：把 contract 放進 review loop，確認它真的會被使用，而不是只留在文件裡。</p>
-<p><strong>主要閱讀資源：</strong><a href="../reference/harness-repo-contract.html">Repo contract 速查表</a>。延伸對照：<a href="https://code.claude.com/docs/en/memory">How Claude remembers your project</a>、<a href="https://code.claude.com/docs/en/settings">Claude Code settings</a>、<a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>。</p>
+<p>當 contract 已被多次使用且 evidence 顯示有效，才決定要維持文件、升級成 template/hook/gate，或因成本過高而退役。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/memory">Claude Code project memory</a> 與 <a href="https://code.claude.com/docs/en/settings">settings scopes</a>；實作模板用 <a href="../reference/harness-repo-contract.html">Repo contract</a>、<a href="../reference/harness-contract-review-loop.html">Contract review loop</a>、<a href="../reference/harness-contract-effectiveness.html">Contract effectiveness</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  相關課程：<a href="004-0015-patch-verification.html">Phase 4 第 15 課 — patch verification</a> · <a href="005-0001-contract-review-loop.html">Phase 5 第 01 課 — review loop</a> · <a href="../reference/harness-repo-contract.html">Repo contract 速查表</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+  相關課程：<a href="004-0006-rehearse-verify.html">Phase 4 第 06 課 — rehearsal 與 verification</a> · <a href="004-0008-promote-retire.html">Phase 4 第 08 課 — promote 或 retire</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
 </footer>
 
 <script>

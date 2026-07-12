@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>03：不熟 repo 時，先建立地圖</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
@@ -123,15 +124,15 @@ tests, and risky areas. Use the project's domain vocabulary.</pre>
 
 <div class="quiz" data-answer="2">
   <p>2. 這種地圖工作為什麼應由你手動要求？</p>
-  <button>因為它的輸出很長，自動觸發會浪費 context</button>
-  <button>因為它需要讀大量檔案，必須先取得授權</button>
-  <button>因為熟悉程度這個觸發條件只有你知道</button>
+  <button>避免長輸出浪費 context</button>
+  <button>讀大量檔案需要額外授權</button>
+  <button>只有你知道目前熟悉程度</button>
   <div class="why">這個觸發條件是你的主觀狀態 — Claude 無從判斷你對這個區域的熟悉程度。你知道自己不熟時，就先要求地圖。</div>
 </div>
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。下一課：<a href="003-0004-grill-with-docs.html">Phase 3 第 04 課 — 用 /grill-with-docs 把需求問清楚</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — 看現行 skill 分類，再對照本課的 repo 地圖工作法。補充：<a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a> 的 explore-first 工作法。本課是自然語言 repo 導覽，不假裝成 upstream skill；選路線仍以 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/ask-matt/SKILL.md">ask-matt／SKILL.md</a> 為準。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

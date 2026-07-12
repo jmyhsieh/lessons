@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>01：控制 Claude Code 工具行為（hooks）</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -33,7 +34,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 2 · 第 01 課 · 約 15 分鐘 · Hooks 與 exit code</div>
 <h1>控制 Claude Code 工具行為（hooks）</h1>
-<p class="mission">任務目標：理解 hooks 在 Claude Code 生命週期中何時執行，以及 <code>exit 0</code>/<code>exit 2</code> 的差異。這一課先做最小的格式化 hook。</p>
+<p class="mission">任務目標：理解 hooks 在 Claude Code 生命週期中何時執行，以及為什麼 <code>exit 2</code> 的效果必須依事件判斷。這一課先做最小的格式化 hook。</p>
 <div class="scope"><strong>本課只做：</strong>理解 hook 何時會執行，以及 exit code 代表什麼。<br><strong>先不要做：</strong>一開始就寫複雜 hook 取代人工 review。</div>
 
 
@@ -42,14 +43,17 @@
 <tr><th>層</th><th>機制</th><th>性質</th></tr>
 <tr><td>指引</td><td>CLAUDE.md</td><td>模型會參考，但不保證。</td></tr>
 <tr><td>閘門</td><td>permission rules</td><td>決定工具能不能做。</td></tr>
-<tr><td>自動化</td><td>hooks</td><td>固定時點必定執行 shell 指令。</td></tr>
+<tr><td>自動化</td><td>hooks</td><td>固定時點執行 command、HTTP、prompt、agent 或 MCP tool。</td></tr>
 </table>
 
-<h2>最重要的 exit code</h2>
-<pre>exit 0  → 放行
-exit 2  → 擋下，stderr 內容會回饋給 Claude
-其他    → 視為 hook 自身錯誤，動作通常照常進行</pre>
-<p>常用事件：<code>PreToolUse</code> 在工具前、<code>PostToolUse</code> 在工具後、<code>Stop</code> 在回合結束時。</p>
+<h2>Exit code 必須連同事件一起看</h2>
+<table>
+<tr><th>事件</th><th><code>exit 2</code> 的效果</th></tr>
+<tr><td><code>PreToolUse</code></td><td>工具尚未執行，可以阻擋並把 stderr 回饋給 Claude。</td></tr>
+<tr><td><code>PostToolUse</code></td><td>工具已經執行，不能回復動作；stderr 只作為回饋。</td></tr>
+<tr><td><code>Stop</code></td><td>阻止 Claude 結束，讓它依理由繼續處理。</td></tr>
+</table>
+<div class="tip"><code>exit 0</code> 表示 hook 成功；其他非零通常是 hook error。需要 structured control 時，改用 <code>exit 0</code> 搭配 JSON，不要和 <code>exit 2</code> 混用。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
@@ -81,11 +85,11 @@ Explain every line before changing .claude/settings.json.</pre>
   <div class="why">格式化要等檔案被 Edit/Write 後才有東西可處理。</div>
 </div>
 <div class="quiz" data-answer="2">
-  <p>2. hook 想擋下動作並讓 Claude 知道原因，該？</p>
+  <p>2. PreToolUse hook 想擋下動作並說明原因，該？</p>
   <button>exit 0 到 stdout</button>
   <button>exit 1 到 stdout</button>
   <button>exit 2 到 stderr</button>
-  <div class="why">exit 2 = 擋下，stderr = 回饋給 Claude。</div>
+  <div class="why">在可阻擋的 PreToolUse 事件，exit 2 會取消工具呼叫，stderr 會回饋給 Claude；同一 exit code 在其他事件可能有不同效果。</div>
 </div>
 
 <h2>下一步</h2>

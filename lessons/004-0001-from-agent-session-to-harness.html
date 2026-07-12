@@ -2,7 +2,8 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>01：判斷任務是否值得變成 harness</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01：判斷工作流是否值得升級成 harness</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -35,10 +36,12 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 4 · 第 01 課 · 約 25 分鐘 · Harness mindset</div>
-<h1>判斷任務是否值得變成 harness</h1>
+<div class="kicker">Phase 4 Lab · 第 01 課 · 約 25 分鐘 · Harness mindset</div>
+<h1>判斷工作流是否值得升級成 harness</h1>
 <p class="mission">目標：判斷一個 Claude Code / skill 工作流，什麼時候值得從「單次對話」升級成可重跑、可驗證、可回報的 harness。這一課先學 mindset，不做 CLI runner 實作。</p>
 <div class="scope"><strong>本課只做：</strong>產出一個是否值得 harness 化的判斷。<br><strong>先不要做：</strong>還沒證明任務會重複就開始寫 runner。</div>
+<div class="rule"><strong>選修邊界：</strong>Phase 3 已足以完成一般 repo 工作。只有你確實想把一條成熟、重複的工作流交給程式化 runner，才需要繼續這個 Phase 4；否則可以在 Phase 3 畢業。</div>
+<div class="rule"><strong>Lab 先備：</strong>開始第 03 課前，你要能在慣用語言寫簡單 CLI、解析 JSON、執行 subprocess，並用 fixtures 驗證成功與失敗路徑。若這些仍陌生，先停在 checklist／skill，不必硬做 runner。</div>
 
 
 <h2>為什麼 Phase 4 第 01 課從 harness 開始</h2>
@@ -51,8 +54,8 @@
 <tr><th>槽位</th><th>要回答的問題</th><th>例子</th></tr>
 <tr>
   <td>Input</td>
-  <td>這次任務的來源是 issue、brief、PRD、PR diff，還是手動指令？</td>
-  <td><code>issues/0017-fix-login-copy.md</code></td>
+  <td>這次任務的來源是 ticket、spec、PR diff，還是手動指令？</td>
+  <td><code>.scratch/login/issues/01-fix-copy.md</code></td>
 </tr>
 <tr>
   <td>Runner</td>
@@ -77,7 +80,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 1. 選一個前面學過的 workflow</label>
-  <p>從 Phase 3 第 06–12 課挑一條：PRD→issues、implement、triage、diagnose、architecture 或 handoff。先不要選太大的系統導入。</p>
+  <p>從 Phase 3 挑一條：spec→tickets、implement、triage、diagnosing-bugs、architecture 或 handoff。先不要選大型系統導入。</p>
 </div>
 
 <div class="step">
@@ -109,7 +112,7 @@
 <div class="quiz" data-answer="1">
   <p>1. 這一課的 harness 首先是什麼？</p>
   <button>大型任務平台</button>
-  <button>工作流契約</button>
+  <button>工作流程契約</button>
   <button>自動寫碼工具</button>
   <div class="why">這一課先學 harness mindset。重點是 Input、Runner、Gate、Evidence 四個槽位，不是馬上做 CLI 或 task runner。</div>
 </div>
@@ -118,25 +121,25 @@
   <p>2. 哪種任務最適合 harness 化？</p>
   <button>一次模糊探索</button>
   <button>純粹人類決策</button>
-  <button>重複可驗收任務</button>
+  <button>重複驗收任務</button>
   <div class="why">重複、可描述、可驗收、需要留下證據的任務最適合。模糊探索和高取捨決策先留在人類主導流程。</div>
 </div>
 
 <div class="quiz" data-answer="0">
   <p>3. Evidence 槽位最主要留下什麼？</p>
-  <button>可追溯證據</button>
-  <button>漂亮口號</button>
+  <button>證據追溯路徑</button>
+  <button>漂亮宣傳口號</button>
   <button>工具清單</button>
   <div class="why">Evidence 要讓下一個人能重看結果、理解限制、接手判斷；不是留下宣傳語或工具名。</div>
 </div>
 
 <h2>下一步</h2>
-<p>把你最常重複的 Claude Code 任務，用 <a href="../reference/harness-readiness-checklist.html">Harness readiness 速查表</a> 填一次。如果四格填不出來，先不要實作 harness；回到前面的 brief、驗收或 handoff 課程，把 brief、驗收或 handoff 補清楚。若四格都穩，接著進入 <a href="004-0002-harness-input-contract.html">Phase 4 第 02 課</a>：把任務寫到 agent 可以直接接手。</p>
-<p><strong>主要閱讀資源：</strong><a href="../reference/harness-readiness-checklist.html">Harness readiness 速查表</a>。延伸對照：<a href="003-0008-implement.html">Phase 3 第 08 課 — /implement</a>、<a href="003-0009-triage.html">Phase 3 第 09 課 — /triage</a>、<a href="003-0012-handoff.html">Phase 3 第 12 課 — /handoff</a>。</p>
+<p>把你最常重複的 Claude Code 任務，用 <a href="../reference/harness-readiness-checklist.html">Harness readiness 速查表</a> 填一次。如果四格填不出來，停在 Phase 3；若四格都穩，接著進入 <a href="004-0002-harness-contract.html">Phase 4 第 02 課</a>：定義完整 harness contract。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK overview</a> 的「何時需要程式化 agent」邊界，再用 <a href="../reference/harness-readiness-checklist.html">Harness readiness 速查表</a> 判斷你的任務。延伸對照：<a href="003-0008-implement.html">/implement</a>、<a href="003-0009-triage.html">/triage</a>、<a href="003-0012-handoff.html">/handoff</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  相關課程：<a href="004-0002-harness-input-contract.html">Phase 4 第 02 課 — harness-ready issue / brief</a> · <a href="003-0008-implement.html">Phase 3 第 08 課 — /implement</a> · <a href="003-0012-handoff.html">Phase 3 第 12 課 — /handoff</a> · <a href="../toc.html">課目表</a>
+  相關課程：<a href="004-0002-harness-contract.html">Phase 4 第 02 課 — harness contract</a> · <a href="003-0008-implement.html">Phase 3 第 08 課 — /implement</a> · <a href="003-0012-handoff.html">Phase 3 第 12 課 — /handoff</a> · <a href="../toc.html">課目表</a>
 </footer>
 
 <script>

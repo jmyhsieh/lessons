@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>03：把重複流程打包成指令（Skills）</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
@@ -107,9 +108,9 @@ description: 摘要未 commit 的變更並標記風險。當使用者問
 
 <div class="quiz" data-answer="1">
   <p>1. 「我們的 API 命名慣例」（兩行規則，每次寫 code 都要遵守）該放？</p>
-  <button>skill，因為它屬於 API 領域的專業知識</button>
-  <button>CLAUDE.md，短規則且每個 session 都需要</button>
-  <button>hook，因為命名規則必須被強制執行</button>
+  <button>skill，包裝可重用的 API 領域知識與流程</button>
+  <button>CLAUDE.md，每個 session 都需要</button>
+  <button>hook，固定時點強制檢查命名</button>
   <div class="why">每次都要、又短 → CLAUDE.md。skill 的優勢在「用到才載入」，對每次都需要的兩行規則沒有意義；hook 是 shell 指令，沒辦法「強制命名風格」這種需要判斷的事。</div>
 </div>
 
@@ -123,9 +124,9 @@ description: 摘要未 commit 的變更並標記風險。當使用者問
 
 <div class="quiz" data-answer="2">
   <p>3.（複習三層模型）「commit 前必跑測試，不過就不准結束」這種<strong>保證</strong>，用什麼實現？</p>
-  <button>skill，把測試流程打包成可重用指令</button>
-  <button>CLAUDE.md，寫明 commit 前必須跑測試</button>
-  <button>hook，在固定時點強制執行不靠自覺</button>
+  <button>skill，包裝測試流程</button>
+  <button>CLAUDE.md，提醒 commit 前跑測試</button>
+  <button>hook，在固定時點強制執行</button>
   <div class="why">（間隔複習 Phase 2 第 01 課）關鍵字是「必」= 保證 = hooks。skill 和 CLAUDE.md 都靠模型配合，只有 hook 是系統強制。</div>
 </div>
 

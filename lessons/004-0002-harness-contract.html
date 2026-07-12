@@ -2,7 +2,8 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>02：把任務寫到 agent 可以直接接手</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02：定義 input、gate、evidence 與交付契約</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -35,10 +36,10 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 4 · 第 02 課 · 約 25 分鐘 · Issue / brief</div>
-<h1>把任務寫到 agent 可以直接接手</h1>
-<p class="mission">目標：把 Phase 4 第 01 課判定「值得 harness 化」的任務，先寫成 agent 可接手的 issue 或 brief。核心產物是一份穩定 input contract：任務來源、範圍、驗收與停止條件都講清楚。</p>
-<div class="scope"><strong>本課只做：</strong>產出一份 agent 可接手的 issue / brief。<br><strong>先不要做：</strong>在 input 不穩時先做 gates 或 runner。</div>
+<div class="kicker">Phase 4 Lab · 第 02 課 · 約 40 分鐘 · Harness contract</div>
+<h1>定義 input、gate、evidence 與交付契約</h1>
+<p class="mission">目標：把值得 harness 化的任務寫成完整 contract：穩定 input、可執行 gates、可回看的 evidence，以及分工清楚的 report／handoff。這一課先固定契約，不寫 runner。</p>
+<div class="scope"><strong>本課只做：</strong>產出一份 runner 可以忠實執行的 harness contract。<br><strong>先不要做：</strong>在 input、gate 或 evidence 還模糊時先自動化。</div>
 
 
 <h2>為什麼 issue / brief 要先 harness-ready</h2>
@@ -59,6 +60,18 @@
 
 <div class="rule"><strong>判斷規則：</strong>一個陌生 agent 只看這份 issue / brief，就應該能開始探索、知道不能碰哪裡、知道怎麼驗收、知道何時必須停下來問你。</div>
 
+<h2>Gate、evidence 與交付物</h2>
+<table>
+<tr><th>項目</th><th>回答什麼</th><th>最低要求</th></tr>
+<tr><td>Scope gate</td><td>有沒有碰到契約以外的路徑或系統？</td><td>可判定的 allowed paths／protected files。</td></tr>
+<tr><td>Verification gate</td><td>需求是否真的成立？</td><td>可重跑 command 與 pass/fail。</td></tr>
+<tr><td>Review gate</td><td>哪些部分仍需人類判斷？</td><td>明確 reviewer 與 artifact。</td></tr>
+<tr><td>Evidence</td><td>為什麼可以相信 gate 結果？</td><td>command、result、artifact path、decision。</td></tr>
+<tr><td>Report</td><td>這一輪發生了什麼？</td><td>status、changes、gates、exceptions、next。</td></tr>
+<tr><td>Handoff</td><td>下一個 agent 如何接手？</td><td>current state、canonical links、decisions、next action。</td></tr>
+</table>
+<div class="rule"><strong>單一事實來源：</strong>report 與 handoff 只引用 spec、ticket、diff、evidence 的正本，不複製全文。沒有 pass/fail 或明確 reviewer 的項目只是提醒，不是 gate。</div>
+
 <h2>實作步驟（做完打勾）</h2>
 
 <div class="step">
@@ -67,7 +80,7 @@
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 2. 用六格模板重寫成 issue / brief</label>
+  <label><input type="checkbox"> 2. 用六格模板固定 input</label>
   <p>打開 <a href="../reference/harness-input-contract.html">Harness-ready issue / brief 速查表</a>，把 ID、Source、Outcome、Scope、Gates、Stop 填完。</p>
 </div>
 
@@ -77,20 +90,17 @@
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 4. 決定目前能不能 script 化</label>
-  <p>如果 Source 與 Gates 都穩，可以進下一課設計 runner。若 Scope 或 Stop 還很模糊，先維持半手動 checklist。</p>
+  <label><input type="checkbox"> 4. 替每個 gate 指定 evidence</label>
+  <p>使用 <a href="../reference/harness-gates-evidence.html">Gates／evidence 速查表</a>，確認每個 gate 都有 command、result、artifact 或 reviewer decision。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 5. 產出一段 runner-ready prompt</label>
-  <pre>請讀取 [Source]，只在 [Scope] 內工作。
-目標是 [Outcome]。
-完成前必須通過 [Gates]。
-若遇到 [Stop]，停止並回報問題，不要自行假設。</pre>
+  <label><input type="checkbox"> 5. 定義 report 與 handoff</label>
+  <p>用 <a href="../reference/harness-report-handoff.html">Report／handoff 速查表</a> 分開兩種讀者：reviewer 看結果，下一個 agent 看接手方式。最後確認 Source、Scope、Gates、Evidence、Report、Handoff 都有固定位置。</p>
 </div>
 
 <div class="done-banner" id="done">
-  <strong>你已完成第一份 harness-ready brief。</strong>回對話視窗貼上六格內容，請 AI 老師檢查哪一格還不夠穩。
+  <strong>你已完成第一份 harness contract。</strong>回對話視窗貼上 input、gates、evidence、report 與 handoff 定義，請 AI 老師找出仍靠口頭保證的地方。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
@@ -98,7 +108,7 @@
 <div class="quiz" data-answer="1">
   <p>1. 這一課的主要產物是什麼？</p>
   <button>需求口號</button>
-  <button>輸入契約</button>
+  <button>完整契約</button>
   <button>測試報告</button>
   <div class="why">Phase 4 第 02 課只把 issue / brief 的任務來源、範圍、驗收與停止條件寫穩，還不是 runner 或測試報告。</div>
 </div>
@@ -119,13 +129,21 @@
   <div class="why">如果 issue / brief 的 input contract 不穩，自動化只會放大模糊需求；先穩住 Source、Scope、Gates、Stop。</div>
 </div>
 
+<div class="quiz" data-answer="2">
+  <p>4. 哪一項才是可重跑的 evidence？</p>
+  <button>模型口頭宣告已完成</button>
+  <button>聊天內容看來正常</button>
+  <button>命令結果與產物路徑</button>
+  <div class="why">Evidence 必須讓 reviewer 能回看 gate 為何通過；口頭保證與聊天印象不能重跑，也不能追查。</div>
+</div>
+
 <h2>下一步</h2>
-<p>先把一個真實任務寫成 harness-ready issue / brief。若六格都穩，接著進入 <a href="004-0003-gates-evidence.html">Phase 4 第 03 課</a>：把驗收條件轉成 gates，並定義每個 gate 要留下哪些 evidence。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a>。延伸對照：<a href="004-0001-from-agent-session-to-harness.html">Phase 4 第 01 課 — 判斷任務是否值得變成 harness</a>、<a href="../reference/harness-input-contract.html">Harness-ready issue / brief 速查表</a>。</p>
+<p>若 contract 每個欄位都有正本與驗收方式，下一課進入 <a href="004-0003-minimal-runner-dry-run.html">Phase 4 第 03 課</a>：把契約做成最小 runner 與 dry-run。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a>。延伸：<a href="../reference/harness-input-contract.html">Input contract</a>、<a href="../reference/harness-gates-evidence.html">Gates／evidence</a>、<a href="../reference/harness-report-handoff.html">Report／handoff</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  相關課程：<a href="004-0003-gates-evidence.html">Phase 4 第 03 課 — gates 與 evidence</a> · <a href="004-0001-from-agent-session-to-harness.html">Phase 4 第 01 課 — harness mindset</a> · <a href="003-0012-handoff.html">Phase 3 第 12 課 — /handoff</a> · <a href="../toc.html">課目表</a>
+  相關課程：<a href="004-0003-minimal-runner-dry-run.html">Phase 4 第 03 課 — minimal runner／dry-run</a> · <a href="004-0001-from-agent-session-to-harness.html">Phase 4 第 01 課 — readiness</a> · <a href="003-0012-handoff.html">Phase 3 第 12 課 — /handoff</a> · <a href="../toc.html">課目表</a>
 </footer>
 
 <script>

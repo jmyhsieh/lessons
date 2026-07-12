@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>04：用 /grill-with-docs 把需求問清楚</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
@@ -110,17 +111,17 @@
 
 <div class="quiz" data-answer="2">
   <p>1. grill 過程中它問「現在系統的逾時是怎麼算的？」你不太確定，最好的回應是？</p>
-  <button>憑印象回答，錯了之後再修正就好</button>
-  <button>先跳過這題，繼續回答下一個問題</button>
-  <button>請它直接去探索程式碼確認後再繼續</button>
+  <button>依印象直接回答再回頭修正</button>
+  <button>暫時跳過問題繼續下一題</button>
+  <button>探索程式碼確認後再回答</button>
   <div class="why">skill 設計原文：能從 codebase 回答的問題就去探索 codebase。憑印象答是在把 misalignment 重新引進來；跳過則留下未解決的決策依賴。</div>
 </div>
 
 <div class="quiz" data-answer="0">
   <p>2. 它提議為「選用輪詢而非 webhook」寫 ADR。判斷該不該寫的標準是？</p>
-  <button>難回頭＋沒脈絡看不懂＋真實取捨，三者全滿足</button>
-  <button>只要是架構相關的決定就應該記錄成 ADR</button>
-  <button>由團隊投票決定這個決策值不值得記錄</button>
+  <button>三項判斷條件全部滿足</button>
+  <button>架構相關決定一律記成 ADR</button>
+  <button>團隊投票後才記錄決策</button>
   <div class="why">三條件缺一不可（skill 原文「offer ADRs sparingly」）。什麼都記 = 什麼都沒人讀。</div>
 </div>
 
@@ -134,7 +135,7 @@
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。下一課：<a href="003-0005-prototype.html">Phase 3 第 05 課 — 用 /prototype 驗證講不清的問題</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — 看 grill-with-docs 的 SKILL.md 原文與 CONTEXT-FORMAT.md。補充：<a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/SKILL.md">grill-with-docs／SKILL.md</a> 與同資料夾的格式文件。補充：<a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

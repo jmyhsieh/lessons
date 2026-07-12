@@ -6,13 +6,15 @@
 ## Success looks like
 - 能依任務性質選擇 Claude Chat、Cowork、Claude Code 或本地 skill。
 - 能在陌生 repo 中用唯讀探索、plan mode、測試與 review 控制風險。
-- 能把常見工作流整理成 brief、gate、evidence、report、handoff，並用最小 runner、agent-call evidence、gate execution、run history、rerun policy、final handoff package、closeout decision、repo rehearsal、workflow patch、patch verification 與 repo contract 驗證可重跑性並固化可傳承規範。
-- 能把 repo contract 放回 review loop，追蹤 effectiveness evidence，判斷何時升級成 template、hook 或 gate，並清理不再有效的 contract。
+- 完成 Phase 3 後，能用 skills 把需求、bug 與維護工作變成有 spec、驗證證據與 handoff 的可交付成果。
+- 選修 Phase 4 後，能判斷成熟工作流是否值得升級為 harness，並用最小 runner、deterministic gates、evidence 與 run lifecycle 讓它可重跑。
+- 能用 rehearsal 與 review evidence 決定 workflow contract 應保留、升級成 template/hook/gate，或退役。
 
 ## Constraints
 - 課程使用繁體中文與台灣用語；命令、檔名、API 名稱保留英文。
 - 每課要短、可實作、可回到真實 repo 使用。
 - 先建立穩定工作流，再討論更大的平台或自動化。
+- Phase 4 是選修進階路線；一般 repo 工作不需要為了結業而建立 harness。
 - 封閉系統與遺產系統只作為高風險範例，不是課程唯一場景。
 
 ## Out of scope

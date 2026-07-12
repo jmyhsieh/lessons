@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>10：用 /diagnosing-bugs 做紀律除錯</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
@@ -110,9 +111,9 @@
 
 <div class="quiz" data-answer="1">
   <p>1. bug 很難重現（約 1% 機率），/diagnosing-bugs 的正確策略是？</p>
-  <button>接受現實，直接改用閱讀程式碼推理出原因</button>
-  <button>拉高重現率：觸發百次、平行化、加壓、注入延遲</button>
-  <button>先修最可疑的地方，部署後觀察是否再次發生</button>
+  <button>直接閱讀程式碼並推理原因</button>
+  <button>拉高重現率並建立回饋迴圈</button>
+  <button>先修改最可疑的位置再觀察</button>
   <div class="why">skill 原文：目標不是乾淨重現而是「更高的重現率」— 50% 就能除錯，1% 不行。沒有迴圈就猜著修，正是這套紀律要根除的行為。</div>
 </div>
 
@@ -134,15 +135,15 @@
 
 <div class="quiz" data-answer="0">
   <p>4.（複習 Phase 3 第 03 課）陌生子系統出 bug，repo 地圖放在 /diagnosing-bugs 的哪裡最有價值？</p>
-  <button>第 1 階段 — 協助找到回饋迴圈的真實路徑</button>
-  <button>第 3 階段 — 取代回饋迴圈直接猜原因</button>
-  <button>第 6 階段 — 修完後才第一次讀結構</button>
+  <button>第 1 階段 — 找到回饋迴圈的路徑</button>
+  <button>第 3 階段 — 跳過證據直接猜原因</button>
+  <button>第 6 階段 — 修完才第一次讀結構</button>
   <div class="why">地圖可以協助找到 call path 與測試 seam，但它服務的是 red-capable command；迴圈存在前，不能先靠 code reading 建立原因假說。</div>
 </div>
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。下一課：<a href="003-0011-architecture.html">Phase 3 第 11 課 — 用 /improve-codebase-architecture 找維護切入點</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — diagnosing-bugs 的 SKILL.md 全文（含十種迴圈武器的完整清單）。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnosing-bugs/SKILL.md">diagnosing-bugs／SKILL.md</a> 全文。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

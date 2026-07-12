@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>10：判斷 Cowork 適合的交付物</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
@@ -49,7 +50,7 @@
 <tr><td>入口</td><td>桌面 App 的 <strong>Cowork</strong> 分頁</td><td>桌面 App 的 <strong>Code</strong> 分頁（或 CLI/IDE）</td></tr>
 <tr><td>工作範圍</td><td>你授權的資料夾</td><td>git repo</td></tr>
 <tr><td>擅長</td><td>檔案整理、研究彙整、產 Excel/簡報/報告</td><td>讀寫程式碼、跑測試、git/PR</td></tr>
-<tr><td>權限模式</td><td>Ask before acting / Act without asking</td><td>Phase 1 第 06 課的權限模式</td></tr>
+<tr><td>權限模式</td><td>Ask before acting / Act without asking</td><td>Phase 1 第 04 課的權限模式</td></tr>
 </table>
 <div class="safety"><strong>安全注意（官方原文）：</strong>程式碼在隔離環境中執行，但「Claude 能對你的檔案做出真實變更」。永久刪除檔案一定會先徵求你的同意。第一次使用請選 <strong>Ask before acting</strong> — 跟 Claude Code 的逐項詢問是同一個習慣。</div>
 
@@ -99,14 +100,14 @@
 
 <div class="quiz" data-answer="2">
   <p>2. Cowork 的「Act without asking」相當於 Claude Code 的哪種情境？</p>
-  <button>plan mode，因為兩者都讓它自主探索檔案</button>
-  <button>default 模式，因為兩者都是預設的選項</button>
-  <button>自動接受類模式，方便但風險由你承擔</button>
-  <div class="why">（串連 Phase 1 第 06 課）Act without asking ≈ acceptEdits/auto 一類的自動批准：更快，但少了逐項把關。重要資料夾一律 Ask before acting。</div>
+  <button>plan mode，因為兩者都可自主探索檔案</button>
+  <button>default 模式，因為兩者都是預設選項</button>
+  <button>自動接受類模式，自行承擔檔案與指令操作風險</button>
+  <div class="why">（串連 Phase 1 第 04 課）Act without asking ≈ acceptEdits/auto 一類的自動批准：更快，但少了逐項把關。重要資料夾一律 Ask before acting。</div>
 </div>
 
 <div class="quiz" data-answer="0">
-  <p>3.（複習 Phase 1 第 04 課）不論 Cowork 還是 Claude Code，「批准它執行動作」之後你還欠一步？</p>
+  <p>3.（複習 Phase 1 第 05 課）不論 Cowork 還是 Claude Code，「批准它執行動作」之後你還欠一步？</p>
   <button>親自驗收成果，批准執行不等於審核內容</button>
   <button>把這次的批准記錄寫進專案的設定檔裡</button>
   <button>切換回唯讀模式以防它繼續修改其他檔案</button>

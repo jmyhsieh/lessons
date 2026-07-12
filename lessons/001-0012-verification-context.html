@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>12：確認結果並整理 context</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -69,6 +70,16 @@ and output. If it fails, fix and rerun.</pre>
 
 <div class="done-banner" id="done">🎉 <strong>完成！</strong>你的任務現在有驗證條件與乾淨收尾。</div>
 
+<h2>Phase 1 驗收 rubric</h2>
+<p>勾完 checkbox 只是提醒，不代表通過。把一個真實小任務交給 AI 老師，只有以下五項都能從 artifact 找到，才算完成 Phase 1：</p>
+<ul>
+  <li>任務 scope 與刻意不做的項目。</li>
+  <li>獨立分支上的完整 diff。</li>
+  <li>實際 verification command、exit status 與 output。</li>
+  <li>你親自 review 後的 commit 或明確不 commit 理由。</li>
+  <li>下一個 session 需要知道的風險或 context。</li>
+</ul>
+
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1">
   <p>1. Claude 說「測試都過了」，你下一步該？</p>
@@ -79,9 +90,9 @@ and output. If it fails, fix and rerun.</pre>
 </div>
 <div class="quiz" data-answer="2">
   <p>2. 同一問題糾正兩次仍不對，較好的做法是？</p>
-  <button>在同一對話補更多背景</button>
-  <button>立刻讓它自動 commit</button>
-  <button>整理教訓後重開 session</button>
+  <button>繼續在同一對話補背景</button>
+  <button>立刻自動建立 git commit</button>
+  <button>整理教訓再開新 session</button>
   <div class="why">長對話已被失敗嘗試污染，乾淨 session 通常更有效。</div>
 </div>
 

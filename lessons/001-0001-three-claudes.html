@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>01：三個 Claude，三種工作流</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
@@ -34,24 +35,24 @@
 <header>
   <div class="kicker">Phase 1 · 第 01 課 · 約 10 分鐘</div>
   <h1>三個 Claude，三種工作流</h1>
-  <p class="mission">任務：能對任何一項工作，正確判斷該交給 Claude、Cowork 還是 Claude Code — 這是你在正式專案上使用 Claude Code 之前的第一步。</p>
+  <p class="mission">任務：能依工作環境、持續權限與成果類型，判斷一項工作該留在一般 Claude 對話、交給 Cowork，還是開 Claude Code session。</p>
 <div class="scope"><strong>本課只做：</strong>判斷同一件事該交給哪個 Claude 產品。<br><strong>先不要做：</strong>用「哪個模型最強」當唯一判斷標準。</div>
 
 </header>
 
-<h2>核心觀念：差別不在「聰明程度」，在「能碰到什麼」</h2>
-<p>三個產品底層是同一系列模型。真正的差異是<strong>權限與工作環境</strong>：它能讀取什麼、能改動什麼、在哪裡執行。</p>
+<h2>核心觀念：差別不在「聰明程度」，在工作環境</h2>
+<p>這三種入口會重疊：一般 Claude 可以讀你附上的檔案或 connector 資料，Cowork 的 Dispatch 也可能把開發任務送進 Code session。真正的判斷軸是<strong>工作環境、持續權限與成果類型</strong>：內容是你主動提供，還是 agent 要在授權資料夾或 git repo 中持續操作？</p>
 
 <div class="card">
   <h3>Claude（claude.ai 網頁 / App）</h3>
   <p class="tagline">對話助理 — 你貼內容進去，它回答出來。</p>
-  碰不到你的檔案。適合：問問題、寫草稿、分析你貼上的程式碼片段、腦力激盪。一問一答的回合制。
+  適合：問問題、寫草稿、分析你附上的檔案或程式碼片段、使用 connectors 查資料。重點是由你提供 context，不是把一個本機工作區交給它持續操作。
 </div>
 
 <div class="card">
   <h3>Claude Cowork</h3>
   <p class="tagline">知識工作代理 — 在你授權的資料夾裡完成多步驟任務。</p>
-  桌面 App 上執行，能讀、編輯、建立你指定資料夾中的檔案。適合：整理文件、研究彙整、產出報告與簡報。你描述<em>成果</em>，離開，回來收成品。對象是「文件與檔案」，不是程式碼 repo。
+  桌面 App 上執行，能讀、編輯、建立你指定資料夾中的檔案。適合：整理文件、研究彙整、產出報告與簡報。Dispatch 若判斷任務屬於軟體開發，也可能建立 Code session；不要把分頁名稱當成硬邊界。
   （<a href="https://claude.com/product/cowork">官方產品頁</a>）
 </div>
 
@@ -70,33 +71,33 @@
 
 <div class="quiz" data-answer="2">
   <p>1. 「把專案裡所有過時的 API 呼叫改成新版，並跑測試確認沒壞。」</p>
-  <button>Claude（claude.ai）</button>
+  <button>Claude Chat 對話</button>
   <button>Claude Cowork</button>
-  <button>Claude Code</button>
+  <button>Claude Code 工具</button>
   <div class="why">需要跨檔案修改 repo 程式碼並執行測試 → Claude Code。</div>
 </div>
 
 <div class="quiz" data-answer="1">
   <p>2. 「把這個資料夾裡 30 份會議記錄整理成一份季度總結文件。」</p>
-  <button>Claude（claude.ai）</button>
+  <button>Claude Chat 對話</button>
   <button>Claude Cowork</button>
-  <button>Claude Code</button>
+  <button>Claude Code 工具</button>
   <div class="why">多步驟檔案處理、產出文件、非程式碼 → Cowork。</div>
 </div>
 
 <div class="quiz" data-answer="0">
   <p>3. 「這段 error message 是什麼意思？大概該往哪個方向查？」</p>
-  <button>Claude（claude.ai）</button>
+  <button>Claude Chat 對話</button>
   <button>Claude Cowork</button>
-  <button>Claude Code</button>
+  <button>Claude Code 工具</button>
   <div class="why">貼上內容、得到解釋即可，不需動到檔案 → Claude 就夠了。若要它直接在 repo 裡追出根因並修掉，才升級到 Claude Code。</div>
 </div>
 
 <div class="quiz" data-answer="2">
   <p>4. 「找出這個 bug 在 codebase 裡的根本原因並修好它。」</p>
-  <button>Claude（claude.ai）</button>
+  <button>Claude Chat 對話</button>
   <button>Claude Cowork</button>
-  <button>Claude Code</button>
+  <button>Claude Code 工具</button>
   <div class="why">要在 repo 內追蹤、修改、驗證 → Claude Code。</div>
 </div>
 

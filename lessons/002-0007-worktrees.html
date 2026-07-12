@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>07：用 worktree 分開平行工作</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -46,11 +47,12 @@
 <tr><td>worktree session</td><td>檔案修改</td><td>同時做多個獨立任務。</td></tr>
 </table>
 <div class="tip">桌面 App 的新 session 會自動使用隔離工作區；CLI 可用 <code>claude --worktree feature-auth</code>。</div>
+<div class="tip">Worktree 是 fresh checkout。若每個 session 都需要 gitignored 的 <code>.env</code> 或本機設定，可在 repo root 建立 <code>.worktreeinclude</code>；它使用 <code>.gitignore</code> syntax，而且只會複製本來就被忽略的檔案。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
   <label><input type="checkbox"> 1. 確認忽略目錄</label>
-  <p>把 <code>.claude/worktrees/</code> 加到 <code>.gitignore</code>。</p>
+  <p>把 <code>.claude/worktrees/</code> 加到 <code>.gitignore</code>。若需要複製本機設定，再審慎建立 <code>.worktreeinclude</code>，不要把 secrets 改成 tracked files。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 2. 開兩個 session</label>
@@ -70,16 +72,16 @@
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="2">
   <p>1. 同時做 feature A 與 bugfix B，適合？</p>
-  <button>同一 session 交錯做</button>
-  <button>同一 subagent 改兩邊</button>
-  <button>兩個 worktree session</button>
+  <button>同一 session 交錯處理</button>
+  <button>同一 subagent 同時處理兩個工作分支</button>
+  <button>兩個 worktree 各開 session</button>
   <div class="why">獨立任務需要檔案隔離，不只是 context 隔離。</div>
 </div>
 <div class="quiz" data-answer="0">
   <p>2. 新 worktree 跑不起來，常見原因是？</p>
-  <button>缺少本機設定或依賴</button>
-  <button>不允許兩個資料夾</button>
-  <button>不支援任何 git</button>
+  <button>缺少本機設定或必要依賴</button>
+  <button>完全不允許開兩個資料夾</button>
+  <button>完全不支援 git 操作</button>
   <div class="why">worktree 是新 checkout，.env、node_modules 這類通常要另處理。</div>
 </div>
 

@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>04：讓 Claude Code 讀外部系統資料（MCP）</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
@@ -109,9 +110,9 @@ claude mcp add --transport stdio myserver -- npx some-mcp-server</pre>
 
 <div class="quiz" data-answer="1">
   <p>1. 想讓 Claude 操作 GitHub（開 PR、讀 issue），官方建議優先？</p>
-  <button>接 GitHub 的 MCP server 取得完整功能</button>
-  <button>用 gh CLI，更省 context 且 Claude 本來就會用</button>
-  <button>請 Claude 直接呼叫 GitHub 的 REST API</button>
+  <button>接 GitHub MCP server</button>
+  <button>直接使用 gh CLI</button>
+  <button>呼叫 REST API</button>
   <div class="why">有好用 CLI 的服務優先用 CLI（best practices 原文）。MCP 留給沒有好 CLI 的系統。未認證的 REST API 容易撞 rate limit。</div>
 </div>
 

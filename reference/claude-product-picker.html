@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>速查表：Claude / Cowork / Claude Code 選用指南</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
@@ -22,14 +23,14 @@
 <table>
 <tr><th></th><th>Claude（claude.ai）</th><th>Claude Cowork</th><th>Claude Code</th></tr>
 <tr><th>本質</th><td>對話助理</td><td>知識工作代理（agent）</td><td>軟體工程代理（agent）</td></tr>
-<tr><th>工作對象</th><td>你貼上的內容</td><td>你授權的資料夾與檔案</td><td>整個程式碼 repo</td></tr>
+<tr><th>工作對象</th><td>你提供的文字、附件與 connector context</td><td>你授權的資料夾與檔案</td><td>整個程式碼 repo</td></tr>
 <tr><th>產出</th><td>回答、草稿</td><td>完成的文件、整理好的檔案</td><td>程式碼變更、commit、PR</td></tr>
 <tr><th>執行方式</th><td>一問一答</td><td>描述目標，離開，回來收成果</td><td>讀 code、改檔、跑指令、跑測試</td></tr>
 <tr><th>使用場所</th><td>網頁 / App</td><td>桌面 App（付費方案）</td><td>終端機 / IDE / 桌面 App / 網頁</td></tr>
 </table>
 
 <h2>一句話判斷規則</h2>
-<div class="rule">需要<strong>思考、回答、草稿</strong>，內容自己貼得進去 → <strong>Claude</strong></div>
+<div class="rule">需要<strong>思考、回答、草稿</strong>，context 由你用文字、附件或 connector 提供 → <strong>Claude</strong></div>
 <div class="rule">需要 AI <strong>動手處理電腦裡的檔案與文件</strong>（非程式碼）→ <strong>Cowork</strong></div>
 <div class="rule">需要 AI <strong>在 git repo 裡讀、寫、執行程式碼</strong> → <strong>Claude Code</strong></div>
 
@@ -52,6 +53,6 @@
 </table>
 <p>完整操作控制見：<a href="claude-code-command-surface.html">Claude Code 操作速查表</a>、<a href="claude-code-model-effort.html">Claude Code 模型與推理程度速查表</a>。</p>
 
-<p style="margin-top:2rem;font-size:.85rem;color:#777">來源：<a href="https://code.claude.com/docs/en/overview">Claude Code Docs</a>、<a href="https://code.claude.com/docs/en/desktop">Desktop application</a>、<a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a>、<a href="https://code.claude.com/docs/en/model-config">Model configuration</a>、<a href="https://claude.com/product/cowork">Cowork 產品頁</a>。更新：2026-06-14</p>
+<p style="margin-top:2rem;font-size:.85rem;color:#777">來源：<a href="https://code.claude.com/docs/en/overview">Claude Code Docs</a>、<a href="https://code.claude.com/docs/en/desktop">Desktop application</a>、<a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a>、<a href="https://code.claude.com/docs/en/model-config">Model configuration</a>、<a href="https://claude.com/product/cowork">Cowork 產品頁</a>。更新：2026-07-12</p>
 </body>
 </html>

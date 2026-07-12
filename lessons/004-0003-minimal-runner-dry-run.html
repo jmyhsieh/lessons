@@ -2,7 +2,8 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>05：把重複任務串成最小可跑流程</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03：建立 minimal runner 與 dry-run</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -35,10 +36,10 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 4 · 第 05 課 · 約 25 分鐘 · Minimal runner</div>
-<h1>把重複任務串成最小可跑流程</h1>
-<p class="mission">目標：把 Phase 4 第 02–04 課的 input、gates、evidence、report/handoff 串成一個最小 runner。這一課不做平台、不做排程、不做多 agent；只固定一條可重跑的單任務路徑。</p>
-<div class="scope"><strong>本課只做：</strong>產出一份最小 runner contract。<br><strong>先不要做：</strong>一開始就做平台、排程、多任務或佇列。</div>
+<div class="kicker">Phase 4 Lab · 第 03 課 · 約 40 分鐘 · Minimal runner</div>
+<h1>建立 minimal runner 與 dry-run</h1>
+<p class="mission">目標：把 Phase 4 第 02 課的 harness contract 變成第一個可執行切片：能列出任務、顯示解析結果、產生 dry-run plan。這一課不呼叫模型、不改工作區。</p>
+<div class="scope"><strong>本課只做：</strong><code>list</code>、<code>show</code>、<code>run --dry</code> 三個命令。<br><strong>先不要做：</strong>真 agent call、排程、多任務或佇列。</div>
 
 
 <h2>Runner 不是平台</h2>
@@ -54,8 +55,26 @@
 <tr><td>Gate</td><td>用 script 跑 test、lint、scope check。</td><td>不要讓模型自稱通過。</td></tr>
 <tr><td>Report</td><td>把 evidence 寫進 report / handoff。</td><td>不要只留在聊天紀錄。</td></tr>
 </table>
+<pre>list(): discover inputs → return stable JSON summary
+show(id): load → validate → normalize contract
+runDry(id): call show → render prompt/tools/gates/paths
+            → return willCallAgent:false
+
+fixtures/
+  valid-contract.json
+  missing-required-field.json
+  unknown-id.txt</pre>
+<p>這是 language-neutral starter：先讓三個純路徑可測，再決定用 Node、Python 或 repo 現有 CLI framework。若你還不能把這段轉成三個可測 handler，先不要進第 04 課。</p>
 
 <div class="rule"><strong>判斷規則：</strong>一開始 runner 只接受一份 input、跑一個任務、產出一份 report。等單一路徑能穩定重跑，再談多任務、資料庫、佇列或平台。</div>
+
+<h2>第一個可執行切片</h2>
+<table>
+<tr><th>命令</th><th>輸出</th><th>副作用</th></tr>
+<tr><td><code>runner list</code></td><td>可執行 input 的 id、標題與狀態。</td><td>無。</td></tr>
+<tr><td><code>runner show &lt;id&gt;</code></td><td>解析後的 contract，包含 scope、gates 與 stop conditions。</td><td>無。</td></tr>
+<tr><td><code>runner run --dry &lt;id&gt;</code></td><td>即將使用的 prompt、tools、commands 與 artifact paths。</td><td>不呼叫模型、不改檔。</td></tr>
+</table>
 
 <h2>Runner contract</h2>
 <pre>Runner:
@@ -76,7 +95,7 @@ Dry-run behavior:</pre>
 <table>
 <tr><th>欄位</th><th>例子</th></tr>
 <tr><td><code>Goal condition</code></td><td>All declared gates pass, report includes evidence paths, and unverified items are empty or explicitly reviewed.</td></tr>
-<tr><td><code>Effort policy</code></td><td>Default <code>high</code>; use <code>xhigh</code> only when gate failures require cross-module reasoning; never use <code>max</code> in unattended runner.</td></tr>
+<tr><td><code>Effort policy</code></td><td>Default <code>high</code>; switch to a model that supports <code>xhigh</code> only when gate failures require cross-module reasoning; never use <code>max</code> in unattended runner.</td></tr>
 <tr><td><code>Stop conditions</code></td><td>Out-of-scope files, missing credentials, repeated gate failure, or budget limit reached.</td></tr>
 </table>
 
@@ -84,7 +103,7 @@ Dry-run behavior:</pre>
 
 <div class="step">
   <label><input type="checkbox"> 1. 選一個成熟任務</label>
-  <p>只選已通過 Phase 4 第 02–04 課的任務：input 穩、gates 清楚、evidence 位置明確、report/handoff 模板已定。</p>
+  <p>只選已完成 Phase 4 第 02 課 contract 的任務：input 穩、gates 清楚、evidence 位置明確、report/handoff 模板已定。</p>
 </div>
 
 <div class="step">
@@ -93,22 +112,22 @@ Dry-run behavior:</pre>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 3. 先設計 dry run</label>
-  <p>Dry run 應只印出 input、prompt、allowed tools、gates、output paths，不呼叫模型、不改檔。這是你驗證 runner 會不會跑錯任務的第一道 gate。</p>
+  <label><input type="checkbox"> 3. 實作 <code>list</code> 與 <code>show</code></label>
+  <p>先確認 runner 能穩定找到 input、解析欄位並用 JSON 回傳結果。找不到 id 或 contract 不合法時要明確失敗。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 4. 寫兩個 fixture</label>
-  <p>一個應該通過，一個應該被 Stop conditions 擋下。若只有 happy path，runner 很容易把錯誤任務也送進 agent。</p>
+  <label><input type="checkbox"> 4. 實作 <code>run --dry</code></label>
+  <p>Dry run 只印出 input、prompt、allowed tools、gates、output paths，不呼叫模型、不改檔。執行前後用 <code>git diff --exit-code</code> 或等價檢查證明工作區未變。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 5. 決定 CLI 還是 SDK</label>
-  <p>只有需要程式化 session、工具、權限、telemetry 或多步事件處理時，才升級 SDK；否則先用 <code>claude -p</code> 與 shell script。</p>
+  <label><input type="checkbox"> 5. 寫成功與失敗 fixtures</label>
+  <p>至少包含一個合法 contract、一個缺欄位 contract 與一個不存在的 id。只有 happy path，runner 很容易把錯誤任務送進 agent。</p>
 </div>
 
 <div class="done-banner" id="done">
-  <strong>你已完成第一份 runner contract。</strong>回對話視窗貼上 contract，請 AI 老師檢查哪裡還太像平台設計。
+  <strong>你已完成第一個 runner 切片。</strong>回對話視窗貼上三個命令的 JSON 輸出與無檔案變更證據，請 AI 老師檢查 dry-run 是否真的安全。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
@@ -142,16 +161,16 @@ Dry-run behavior:</pre>
   <button>固定 max</button>
   <button>升降條件</button>
   <button>完全省略</button>
-  <div class="why">Runner 要能重跑，就要知道何時維持 high、何時升到 xhigh、何時停止，而不是每次靠當下感覺。</div>
+  <div class="why">Runner 要能重跑，就要知道何時維持 high、何時連同模型升級、何時停止，而不是每次靠當下感覺。</div>
 </div>
 
 <h2>下一步</h2>
-<p>先把 runner contract 寫出來，並用 dry run 檢查它不會跑錯 input。若 contract、fixtures、dry run 都穩，下一課可以進入 runner 的第一個實作切片：只做 <code>list/show/dry-run</code>，不先呼叫真 agent。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a>。延伸對照：<a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a>、<a href="https://code.claude.com/docs/en/cli-reference">Claude Code CLI reference</a>、<a href="https://code.claude.com/docs/en/agent-sdk/overview">Agent SDK overview</a>。</p>
+<p>確認 <code>list/show/dry-run</code> 對成功與失敗案例都有穩定輸出。下一課才把同一份 dry-run plan 接上真 agent call 與 deterministic gates。</p>
+<p><strong>主要閱讀資源：</strong><a href="../reference/harness-minimal-runner.html">Minimal runner 速查表</a>、<a href="../reference/harness-runner-first-slice.html">Runner first slice 速查表</a>。延伸對照：<a href="https://code.claude.com/docs/en/cli-reference">Claude Code CLI reference</a>、<a href="https://code.claude.com/docs/en/agent-sdk/overview">Agent SDK overview</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  相關課程：<a href="004-0006-runner-list-show-dry-run.html">Phase 4 第 06 課 — runner 第一片</a> · <a href="004-0004-report-handoff.html">Phase 4 第 04 課 — report / handoff</a> · <a href="004-0003-gates-evidence.html">Phase 4 第 03 課 — gates 與 evidence</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+  相關課程：<a href="004-0002-harness-contract.html">Phase 4 第 02 課 — harness contract</a> · <a href="004-0004-agent-call-gates.html">Phase 4 第 04 課 — agent call 與 gates</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
 </footer>
 
 <script>

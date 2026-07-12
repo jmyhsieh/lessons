@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>05：把大型調查交給另一個 agent（Subagents）</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -62,9 +63,9 @@ Return only: summary, key files, risks, open questions.</pre>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="2">
   <p>1. 調查會讀大量檔案時，不用 subagent 的主要代價是？</p>
-  <button>權限請求比較多</button>
-  <button>模型一定變便宜</button>
-  <button>主對話 context 被塞滿</button>
+  <button>增加不必要的權限請求次數</button>
+  <button>降低主要模型成本</button>
+  <button>汙染主對話 context</button>
   <div class="why">subagent 的核心價值是 context 隔離。</div>
 </div>
 <div class="quiz" data-answer="0">

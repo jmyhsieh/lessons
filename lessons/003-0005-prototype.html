@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>05：用 /prototype 驗證講不清的問題</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
@@ -112,23 +113,23 @@
 
 <div class="quiz" data-answer="2">
   <p>2. 原型回答完問題後，正確的保存方式是？</p>
-  <button>只保留答案，原型完全刪除</button>
-  <button>把完整原型直接合併進 main</button>
-  <button>保留答案與 throwaway branch 原型</button>
+  <button>只保留原型回答的決策</button>
+  <button>把完整原型合併進 main 並部署到 production</button>
+  <button>保留決策與 throwaway branch</button>
   <div class="why">答案是耐久結論；原型是產生答案的 primary source。正式決策進 main，完整原型留在不會 merge 的 throwaway branch，issue 再指向它。</div>
 </div>
 
 <div class="quiz" data-answer="0">
   <p>3.（複習 Phase 3 第 04 課）「這個取消流程的狀態機對不對」該選哪個分支？</p>
-  <button>LOGIC：驗證狀態轉換</button>
-  <button>UI：比較畫面呈現</button>
-  <button>兩者：同時做兩種</button>
+  <button>LOGIC：驗證狀態與轉換</button>
+  <button>UI：比較互動畫面呈現細節</button>
+  <button>兩者：同時實作兩種類型</button>
   <div class="why">狀態/邏輯問題 → LOGIC 分支。grill 銳化了「取消」的定義（Phase 3 第 04 課），prototype 用可跑的狀態機驗證它在邊界案例下行不行得通。</div>
 </div>
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。若是 multi-session build，下一課進入 <a href="003-0006-to-spec.html">Phase 3 第 06 課 — 用 /to-spec 把對話凝結成 spec</a>；若單一 session 足以完成，帶著答案直接回 <code>/implement</code>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — prototype 的 SKILL.md 與 LOGIC.md / UI.md 兩個分支說明。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/prototype/SKILL.md">prototype／SKILL.md</a> 與同資料夾的 LOGIC.md／UI.md 分支說明。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

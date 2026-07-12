@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>11：用 /improve-codebase-architecture 找維護切入點</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
@@ -98,9 +99,9 @@
 
 <div class="quiz" data-answer="0">
   <p>1. 刪掉某個 wrapper 模組後，它做的事在六個呼叫端各自重新出現。結論是？</p>
-  <button>它是深模組，有賺自己的飯，留著</button>
-  <button>它是過水層，刪掉可以簡化整體架構</button>
-  <button>無法判斷，需要看它的測試覆蓋率高低</button>
+  <button>它是深模組，應該保留</button>
+  <button>它是過水層，應該刪除</button>
+  <button>先看測試覆蓋率再判斷</button>
   <div class="why">刪除測試的判讀：複雜度「重新散落到 N 個呼叫端」= 它本來把複雜度集中在一處（locality）— 這正是深模組的價值。消失才代表過水層。</div>
 </div>
 
@@ -122,7 +123,7 @@
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。下一課：<a href="003-0012-handoff.html">Phase 3 第 12 課 — 用 /handoff 做跨 session 交接</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — <code>codebase-design</code> 的 SKILL.md 與 DEEPENING.md 是深模組語言的完整定義，值得精讀。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/improve-codebase-architecture/SKILL.md">improve-codebase-architecture／SKILL.md</a>；深模組語言對照 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/codebase-design/SKILL.md">codebase-design／SKILL.md</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

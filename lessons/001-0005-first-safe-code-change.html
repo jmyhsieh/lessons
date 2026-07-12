@@ -2,7 +2,8 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>04：第一次讓它改程式碼 — 分支、小改動、review</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05：第一次讓它改程式碼 — 分支、小改動、review</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -32,7 +33,7 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 1 · 第 04 課 · 約 25 分鐘 · 實作課（桌面 App 優先）</div>
+<div class="kicker">Phase 1 · 第 05 課 · 約 25 分鐘 · 實作課（桌面 App 優先）</div>
 <h1>第一次讓它改程式碼 — 分支、小改動、review</h1>
 <p class="mission">任務目標：在工作 repo 裡，讓 Claude Code 完成一個<strong>低風險的真實修改</strong>，全程走「先開分支 → 逐項批准 → 親自 review diff → commit」的安全流程。做完這課，你就具備在正式專案日常使用的基本功。</p>
 <div class="scope"><strong>本課只做：</strong>在分支上做一個小改動，並看懂 diff。<br><strong>先不要做：</strong>把第一個任務選成跨模組重構或高風險修復。</div>
@@ -80,9 +81,10 @@
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 4. 要求驗證</label>
-  <pre>run the relevant tests and show me the results</pre>
-  <p>沒有測試的話，請它說明如何手動驗證，你親自驗一次。</p>
+  <label><input type="checkbox"> 4. 要求驗證證據</label>
+  <pre>Run the relevant verification. Show me the exact command,
+exit status, and output. If it fails, fix it and rerun.</pre>
+  <p>沒有測試的話，先寫清楚手動驗收步驟並親自驗一次。只說「完成了」或「測試通過」不算 evidence。</p>
 </div>
 
 <div class="step">
@@ -116,12 +118,12 @@
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0005-claude-md.html">Phase 1 第 05 課 — CLAUDE.md：讓它記住你們團隊的規範</a>。把專案規範寫成它每次 session 自動讀取的指示檔。</p>
+<p>下一課：<a href="001-0006-claude-md.html">Phase 1 第 06 課 — CLAUDE.md：讓它記住你們團隊的規範</a>。把專案規範寫成它每次 session 自動讀取的指示檔。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code Best Practices（官方）</a> — 本課流程的進階版。</p>
 
 <footer>
   任何一步卡住或對 diff 有疑慮，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="001-0003-read-only-repo-tour.html">Phase 1 第 03 課 — 唯讀 repo 導覽</a> · <a href="../reference/claude-code-command-surface.html">Claude Code 操作速查表</a>
+  上一課：<a href="001-0004-permission-plan-mode.html">Phase 1 第 04 課 — plan mode</a> · <a href="../reference/claude-code-command-surface.html">Claude Code 操作速查表</a>
 </footer>
 
 <script>

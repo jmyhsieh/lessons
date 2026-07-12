@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>課目表 — Claude / Claude Code / AI workflow skills</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
@@ -13,7 +14,6 @@
   h2.p2 { color: #9a5a00; border-bottom: 2px solid #9a5a00; }
   h2.p3 { color: #1a6b5a; border-bottom: 2px solid #1a6b5a; }
   h2.p4 { color: #6f4dbf; border-bottom: 2px solid #6f4dbf; }
-  h2.p5 { color: #36506f; border-bottom: 2px solid #36506f; }
   table { border-collapse: collapse; width: 100%; font-size: .92rem; }
   td { border-bottom: 1px solid #eee; padding: .5rem .6rem; vertical-align: top; }
   td.no { width: 2.8rem; color: #999; font-variant-numeric: tabular-nums; }
@@ -22,13 +22,11 @@
   .p2sec a { color: #8a5a00; }
   .p3sec a { color: #15564a; }
   .p4sec a { color: #5a3ba8; }
-  .p5sec a { color: #36506f; }
   a:hover { text-decoration: underline; }
   .flow { border: 1px solid #e8e0d8; border-left-width: 4px; border-radius: 8px; padding: .75rem .9rem; margin: .8rem 0 1.4rem; background: #fffdfa; font-size: .86rem; line-height: 1.65; }
   .p2sec .flow { border-left-color: #9a5a00; background: #fffaf1; }
   .p3sec .flow { border-left-color: #1a6b5a; background: #f8fcfa; }
   .p4sec .flow { border-left-color: #6f4dbf; background: #faf8ff; }
-  .p5sec .flow { border-left-color: #36506f; background: #f8fafc; }
   .flow-title { font-weight: 700; margin-bottom: .35rem; color: #333; }
   .flow-note { margin: 0 0 .45rem; color: #666; }
   .flow-row { display: grid; grid-template-columns: 4.8rem 1fr; gap: .35rem .65rem; align-items: start; margin-top: .35rem; }
@@ -44,10 +42,10 @@
 <body>
 <p style="margin:0"><a href="index.html" style="font-size:.85rem">← 封面</a></p>
 <h1>課目表</h1>
-<p class="sub">Claude 三產品 → 安全開始 → 控制進階能力 → 從需求到交付 → 做成可重跑流程 → 放進團隊流程 · 共 55 課</p>
+<p class="sub">Claude 工作表面 → 安全開始 → 進階工具箱 → 從需求到交付 → 選修 Harness Labs · 共 42 課</p>
 
 <div class="ref">
-<strong>常用速查</strong>：<a href="reference/claude-product-picker.html">產品選用</a>、<a href="reference/claude-code-command-surface.html">Claude Code 操作</a>、<a href="reference/claude-code-model-effort.html">模型與推理程度</a>、<a href="reference/harness-workflow-index.html">Harness 工作流</a>
+<strong>常用速查</strong>：<a href="reference/claude-product-picker.html">產品選用</a>、<a href="reference/claude-code-command-surface.html">Claude Code 操作</a>、<a href="reference/claude-code-model-effort.html">模型與推理程度</a>、<a href="reference/harness-workflow-index.html">Harness 工作流</a>、<a href="reference/ai-functional-workflow-case-library.html">職能案例庫</a>
 </div>
 
 <h2 class="p1">Phase 1 — 安全開始：Claude 三產品與 Claude Code 入門（01–12）</h2>
@@ -55,9 +53,9 @@
 <tr><td class="no">01</td><td><a href="lessons/001-0001-three-claudes.html">三個 Claude，三種工作流</a></td><td class="track">產品判斷</td></tr>
 <tr><td class="no">02</td><td><a href="lessons/001-0002-first-session-read-only.html">安裝 Claude Code，開第一個 session</a></td><td class="track">入門</td></tr>
 <tr><td class="no">03</td><td><a href="lessons/001-0003-read-only-repo-tour.html">先讓 Claude Code 讀 repo，不改檔案</a></td><td class="track">入門</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/001-0004-first-safe-code-change.html">第一次讓它改程式碼 — 分支、小改動、review</a></td><td class="track">安全工作流</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/001-0005-claude-md.html">讓 Claude Code 讀懂團隊規範（CLAUDE.md）</a></td><td class="track">設定</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/001-0006-permission-plan-mode.html">先用 plan mode 讓它只規劃不修改</a></td><td class="track">安全工作流</td></tr>
+<tr><td class="no">04</td><td><a href="lessons/001-0004-permission-plan-mode.html">先用 plan mode 讓它只規劃不修改</a></td><td class="track">安全工作流</td></tr>
+<tr><td class="no">05</td><td><a href="lessons/001-0005-first-safe-code-change.html">第一次讓它改程式碼 — 分支、小改動、review</a></td><td class="track">安全工作流</td></tr>
+<tr><td class="no">06</td><td><a href="lessons/001-0006-claude-md.html">讓 Claude Code 讀懂團隊規範（CLAUDE.md）</a></td><td class="track">設定</td></tr>
 <tr><td class="no">07</td><td><a href="lessons/001-0007-permission-rules.html">控制 Claude Code 能做什麼（permission rules）</a></td><td class="track">安全工作流</td></tr>
 <tr><td class="no">08</td><td><a href="lessons/001-0008-session-commands.html">整理與切換對話狀態（App 與 CLI）</a></td><td class="track">操作控制</td></tr>
 <tr><td class="no">09</td><td><a href="lessons/001-0009-model-effort.html">選模型與推理強度，避免浪費 token</a></td><td class="track">操作控制</td></tr>
@@ -74,8 +72,8 @@
       <a href="lessons/001-0001-three-claudes.html">01 選工具</a>
       <a href="lessons/001-0002-first-session-read-only.html">02 開 session</a>
       <a href="lessons/001-0003-read-only-repo-tour.html">03 讀 repo</a>
-      <a href="lessons/001-0004-first-safe-code-change.html">04 小改動</a>
-      <a href="lessons/001-0006-permission-plan-mode.html">06 先規劃</a>
+      <a href="lessons/001-0004-permission-plan-mode.html">04 先規劃</a>
+      <a href="lessons/001-0005-first-safe-code-change.html">05 小改動</a>
       <a href="lessons/001-0011-explore-plan-implement-commit.html">11 安全四步驟</a>
       <a href="lessons/001-0012-verification-context.html">12 驗證收尾</a>
     </div>
@@ -84,9 +82,9 @@
     <div class="flow-label">進正式 repo</div>
     <div class="flow-steps">
       <a href="lessons/001-0003-read-only-repo-tour.html">03 先讀懂</a>
-      <a href="lessons/001-0004-first-safe-code-change.html">04 小範圍改</a>
-      <a href="lessons/001-0005-claude-md.html">05 團隊規範</a>
-      <a href="lessons/001-0006-permission-plan-mode.html">06 plan mode</a>
+      <a href="lessons/001-0004-permission-plan-mode.html">04 plan mode</a>
+      <a href="lessons/001-0005-first-safe-code-change.html">05 小範圍改</a>
+      <a href="lessons/001-0006-claude-md.html">06 團隊規範</a>
       <a href="lessons/001-0007-permission-rules.html">07 權限規則</a>
       <a href="lessons/001-0011-explore-plan-implement-commit.html">11 到 commit</a>
       <a href="lessons/001-0012-verification-context.html">12 留證據</a>
@@ -103,7 +101,7 @@
 </div>
 
 <div class="p2sec">
-<h2 class="p2">Phase 2 — 控制進階能力：hooks、Skills、MCP、Subagents 與 CI 邊界（01–10）</h2>
+<h2 class="p2">Phase 2 工具箱 — 依任務選用 Skills、Subagents、MCP、hooks 與自動化（01–10）</h2>
 <table>
 <tr><td class="no">01</td><td><a href="lessons/002-0001-hooks-basics.html">控制 Claude Code 工具行為（hooks）</a></td><td class="track">操作控制</td></tr>
 <tr><td class="no">02</td><td><a href="lessons/002-0002-guardrail-hooks.html">擋下危險操作（guardrail hook）</a></td><td class="track">操作控制</td></tr>
@@ -118,16 +116,21 @@
 </table>
 <div class="flow">
   <div class="flow-title">建議走法</div>
-  <p class="flow-note">這一階段不用全讀。先完成 Phase 1，再依任務需要挑進階工具。</p>
+  <p class="flow-note">這一階段不用全讀。先問下一個目標是重用流程、隔離 context、連外部系統、固定時點執行，還是無人值守，再選工具。完整分類可對照 <a href="https://code.claude.com/docs/en/features-overview">官方 Extend Claude Code</a>。</p>
   <div class="flow-row">
-    <div class="flow-label">進階能力</div>
+    <div class="flow-label">重用與連接</div>
+    <div class="flow-steps">
+      <a href="lessons/002-0003-skills.html">03 Skills</a>
+      <a href="lessons/002-0005-subagents-context.html">05 Subagents</a>
+      <a href="lessons/002-0006-custom-subagent-review.html">06 review agent</a>
+      <a href="lessons/002-0004-mcp.html">04 MCP</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">規則與自動化</div>
     <div class="flow-steps">
       <a href="lessons/002-0001-hooks-basics.html">01 hooks</a>
       <a href="lessons/002-0002-guardrail-hooks.html">02 guardrail</a>
-      <a href="lessons/002-0003-skills.html">03 Skills</a>
-      <a href="lessons/002-0004-mcp.html">04 MCP</a>
-      <a href="lessons/002-0005-subagents-context.html">05 Subagents</a>
-      <a href="lessons/002-0006-custom-subagent-review.html">06 review agent</a>
     </div>
   </div>
   <div class="flow-row">
@@ -160,7 +163,7 @@
 </table>
 <div class="flow">
   <div class="flow-title">建議走法</div>
-  <p class="flow-note">補充參考：<a href="reference/mattpocock-skills-phase3-reference.html">Phase 3 skill 參考索引</a>，包含 <code>/wayfinder</code> 與主線外的 <code>resolving-merge-conflicts</code>。</p>
+  <p class="flow-note">這不是 12 課線性流程：先依工作類型選路線。補充參考：<a href="reference/mattpocock-skills-phase3-reference.html">Phase 3 skill 參考索引</a>，包含 <code>/wayfinder</code> 與主線外的 <code>resolving-merge-conflicts</code>。</p>
   <div class="flow-row">
     <div class="flow-label">新需求（單 session）</div>
     <div class="flow-steps">
@@ -198,105 +201,62 @@
       <a href="lessons/003-0012-handoff.html">12 交接</a>
     </div>
   </div>
+  <div class="flow-row">
+    <div class="flow-label">任何路線換 session</div>
+    <div class="flow-steps">
+      <a href="lessons/003-0012-handoff.html">12 先 handoff</a>
+      <span>→ 新 session 只讀 durable artifacts 冷啟動</span>
+    </div>
+  </div>
 </div>
 </div>
 
 <div class="p4sec">
-<h2 class="p4">Phase 4 — 做成可重跑流程：brief、gate、evidence、report 與 runner（01–16）</h2>
+<h2 class="p4">Phase 4（選修 Labs）— 把成熟工作流做成可重跑 harness（01–08）</h2>
 <table>
-<tr><td class="no">01</td><td><a href="lessons/004-0001-from-agent-session-to-harness.html">判斷任務是否值得變成 harness</a></td><td class="track">Harness</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/004-0002-harness-input-contract.html">把任務寫到 agent 可以直接接手</a></td><td class="track">Harness</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/004-0003-gates-evidence.html">定義怎樣算完成、要留下什麼證據</a></td><td class="track">Harness</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/004-0004-report-handoff.html">把結果整理成 report 與 handoff</a></td><td class="track">Harness</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/004-0005-minimal-runner.html">把重複任務串成最小可跑流程</a></td><td class="track">Harness</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/004-0006-runner-list-show-dry-run.html">先做可預覽的 runner 第一片</a></td><td class="track">Harness</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/004-0007-agent-call-evidence.html">加入真 agent call 與證據紀錄</a></td><td class="track">Harness</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/004-0008-gate-execution-report.html">執行驗收關卡並產出最小報告</a></td><td class="track">Harness</td></tr>
-<tr><td class="no">09</td><td><a href="lessons/004-0009-run-history-index.html">記錄每次執行結果，方便追查</a></td><td class="track">Harness</td></tr>
-<tr><td class="no">10</td><td><a href="lessons/004-0010-rerun-policy.html">決定何時重跑與如何重跑</a></td><td class="track">Harness</td></tr>
-<tr><td class="no">11</td><td><a href="lessons/004-0011-final-handoff-package.html">整理最後交付包（final handoff）</a></td><td class="track">Harness</td></tr>
-<tr><td class="no">12</td><td><a href="lessons/004-0012-closeout-decision.html">判斷任務何時可以收尾（closeout）</a></td><td class="track">Harness</td></tr>
-<tr><td class="no">13</td><td><a href="lessons/004-0013-repo-rehearsal.html">用真實 repo 任務演練一次</a></td><td class="track">Harness</td></tr>
-<tr><td class="no">14</td><td><a href="lessons/004-0014-rehearsal-finding.html">把演練發現變成流程修正</a></td><td class="track">Harness</td></tr>
-<tr><td class="no">15</td><td><a href="lessons/004-0015-patch-verification.html">確認流程修正真的有效</a></td><td class="track">Harness</td></tr>
-<tr><td class="no">16</td><td><a href="lessons/004-0016-repo-contract.html">把驗證過的做法寫成 repo 規範</a></td><td class="track">Harness</td></tr>
+<tr><td class="no">01</td><td><a href="lessons/004-0001-from-agent-session-to-harness.html">判斷工作流是否值得升級成 harness</a></td><td class="track">Harness</td></tr>
+<tr><td class="no">02</td><td><a href="lessons/004-0002-harness-contract.html">定義 input、gate、evidence 與交付契約</a></td><td class="track">Harness</td></tr>
+<tr><td class="no">03</td><td><a href="lessons/004-0003-minimal-runner-dry-run.html">建立 minimal runner 與 dry-run</a></td><td class="track">Harness</td></tr>
+<tr><td class="no">04</td><td><a href="lessons/004-0004-agent-call-gates.html">呼叫 agent 並執行 deterministic gates</a></td><td class="track">Harness</td></tr>
+<tr><td class="no">05</td><td><a href="lessons/004-0005-run-lifecycle.html">管理 run history、rerun 與 closeout</a></td><td class="track">Harness</td></tr>
+<tr><td class="no">06</td><td><a href="lessons/004-0006-rehearse-verify.html">演練、修正並驗證 harness</a></td><td class="track">Harness</td></tr>
+<tr><td class="no">07</td><td><a href="lessons/004-0007-contract-effectiveness.html">讓 repo contract 進入 review 與 evidence loop</a></td><td class="track">Governance</td></tr>
+<tr><td class="no">08</td><td><a href="lessons/004-0008-promote-retire.html">升級或退役 workflow contract</a></td><td class="track">Governance</td></tr>
 </table>
 <div class="flow">
-  <div class="flow-title">建議走法</div>
-  <p class="flow-note">只有任務會重複、input 穩定、gate 可檢查、evidence 有價值時，才升級成 harness。</p>
+  <div class="flow-title">選修走法</div>
+  <p class="flow-note">Phase 3 已足以完成一般 repo 工作。只有任務會重複、input 穩定、gate 可檢查、evidence 有價值，而且你能實作簡單 CLI、JSON validation 與 fixtures 時，才進入這組 labs。</p>
   <div class="flow-row">
-    <div class="flow-label">先定義</div>
+    <div class="flow-label">升級判斷</div>
     <div class="flow-steps">
       <a href="lessons/004-0001-from-agent-session-to-harness.html">01 是否值得</a>
-      <a href="lessons/004-0002-harness-input-contract.html">02 寫清任務</a>
-      <a href="lessons/004-0003-gates-evidence.html">03 完成條件</a>
-      <a href="lessons/004-0004-report-handoff.html">04 交付結果</a>
+      <a href="lessons/004-0002-harness-contract.html">02 定義契約</a>
     </div>
   </div>
   <div class="flow-row">
-    <div class="flow-label">先可跑</div>
+    <div class="flow-label">建立 runner</div>
     <div class="flow-steps">
-      <a href="lessons/004-0005-minimal-runner.html">05 最小流程</a>
-      <a href="lessons/004-0006-runner-list-show-dry-run.html">06 先預覽</a>
-      <a href="lessons/004-0007-agent-call-evidence.html">07 呼叫 agent</a>
-      <a href="lessons/004-0008-gate-execution-report.html">08 跑驗收</a>
+      <a href="lessons/004-0003-minimal-runner-dry-run.html">03 先 dry-run</a>
+      <a href="lessons/004-0004-agent-call-gates.html">04 呼叫與驗收</a>
     </div>
   </div>
   <div class="flow-row">
-    <div class="flow-label">可重跑</div>
+    <div class="flow-label">運作驗證</div>
     <div class="flow-steps">
-      <a href="lessons/004-0009-run-history-index.html">09 留紀錄</a>
-      <a href="lessons/004-0010-rerun-policy.html">10 決定重跑</a>
-      <a href="lessons/004-0011-final-handoff-package.html">11 交付包</a>
-      <a href="lessons/004-0012-closeout-decision.html">12 判斷收尾</a>
+      <a href="lessons/004-0005-run-lifecycle.html">05 管理 lifecycle</a>
+      <a href="lessons/004-0006-rehearse-verify.html">06 演練與修正</a>
     </div>
   </div>
   <div class="flow-row">
-    <div class="flow-label">固化</div>
+    <div class="flow-label">治理</div>
     <div class="flow-steps">
-      <a href="lessons/004-0013-repo-rehearsal.html">13 真實演練</a>
-      <a href="lessons/004-0014-rehearsal-finding.html">14 修流程</a>
-      <a href="lessons/004-0015-patch-verification.html">15 驗證改善</a>
-      <a href="lessons/004-0016-repo-contract.html">16 寫成規範</a>
+      <a href="lessons/004-0007-contract-effectiveness.html">07 看 evidence</a>
+      <a href="lessons/004-0008-promote-retire.html">08 升級或退役</a>
     </div>
   </div>
 </div>
 </div>
 
-<div class="p5sec">
-<h2 class="p5">Phase 5 — 放進團隊流程：review loop、template、hook/gate 與 cleanup（01–05）</h2>
-<table>
-<tr><td class="no">01</td><td><a href="lessons/005-0001-contract-review-loop.html">把 repo 規範放回 review 流程</a></td><td class="track">Operations</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/005-0002-contract-effectiveness-evidence.html">確認 repo 規範真的有幫助</a></td><td class="track">Operations</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/005-0003-template-promotion.html">把穩定規則變成任務模板</a></td><td class="track">Operations</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/005-0004-hook-gate-promotion.html">判斷規則何時要變成 hook 或 gate</a></td><td class="track">Operations</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/005-0005-contract-retirement.html">整理、合併與停用 repo 規範</a></td><td class="track">Operations</td></tr>
-</table>
-<div class="flow">
-  <div class="flow-title">建議走法</div>
-  <div class="flow-row">
-    <div class="flow-label">先回收</div>
-    <div class="flow-steps">
-      <a href="lessons/005-0001-contract-review-loop.html">01 放回 review</a>
-      <a href="lessons/005-0002-contract-effectiveness-evidence.html">02 看效果</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">再升級</div>
-    <div class="flow-steps">
-      <a href="lessons/005-0003-template-promotion.html">03 變模板</a>
-      <a href="lessons/005-0004-hook-gate-promotion.html">04 變閘門</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">定期整理</div>
-    <div class="flow-steps">
-      <a href="lessons/005-0005-contract-retirement.html">05 清理規範</a>
-    </div>
-  </div>
-</div>
-</div>
-
-<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-06-14</footer>
+<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-07-12</footer>
 </body>
 </html>

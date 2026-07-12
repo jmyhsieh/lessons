@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>10：在 CI 中安全使用 Claude Code</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -73,9 +74,9 @@ Return only filename:line and reason. Return empty output if none."</pre>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="0">
   <p>1. CI 裡要讀 diff，較安全的做法是？</p>
-  <button>用管線餵 diff，不授予 git 權限</button>
-  <button>給完整 Bash 權限讓它自己處理</button>
-  <button>讓它直接 push 修正</button>
+  <button>管線傳入 diff，不授予 git 權限</button>
+  <button>開放完整 Bash 權限自行處理所有任務</button>
+  <button>允許直接 push 修正結果</button>
   <div class="why">能用資料輸入解決，就不要給工具權限。</div>
 </div>
 <div class="quiz" data-answer="2">

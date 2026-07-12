@@ -2,7 +2,8 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>07：加入真 agent call 與證據紀錄</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04：呼叫 agent 並執行 deterministic gates</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -35,10 +36,10 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 4 · 第 07 課 · 約 25 分鐘 · Agent call evidence</div>
-<h1>加入真 agent call 與證據紀錄</h1>
-<p class="mission">目標：把 Phase 4 第 06 課的 dry-run plan 變成第一個真實 agent call。這一課只負責呼叫、限制、捕捉與分類；不做 scheduler、不跑 batch、不把 report 變漂亮。</p>
-<div class="scope"><strong>本課只做：</strong>產出真 agent call 的 evidence packet。<br><strong>先不要做：</strong>在這一片自動修復、跑 batch 或開放全部工具。</div>
+<div class="kicker">Phase 4 Lab · 第 04 課 · 約 45 分鐘 · Agent call + gates</div>
+<h1>呼叫 agent 並執行 deterministic gates</h1>
+<p class="mission">目標：把 Phase 4 第 03 課的 dry-run plan 接上單一 agent call，再由 deterministic code 執行 gates、保存 evidence 並產生 report。</p>
+<div class="scope"><strong>本課只做：</strong>單次 agent call、gate execution 與可審查 report。<br><strong>先不要做：</strong>自動修復、batch、scheduler 或開放全部工具。</div>
 
 
 <h2>這一片為什麼要小</h2>
@@ -57,7 +58,7 @@
 <div class="rule"><strong>判斷規則：</strong>agent call 一旦接上，wrapper 的第一責任不是成功完成任務，而是讓 reviewer 能重建「它被要求做什麼、實際回了什麼、為什麼停下」。</div>
 
 <h2>把 effort 當成 evidence</h2>
-<p>真 agent call 必須記錄 model、effort、budget 與 goal condition，否則之後無法判斷結果是因為任務困難、推理不足、還是限制太鬆。第一版預設 <code>high</code>；只有 gate failure 需要跨模組推理時才升到 <code>xhigh</code>。不要在 unattended runner 預設使用 <code>max</code>。</p>
+<p>真 agent call 必須記錄 model、effort、budget 與 goal condition，否則之後無法判斷結果是因為任務困難、推理不足、還是限制太鬆。第一版預設 <code>high</code>；只有 gate failure 需要跨模組推理時，才切到支援 <code>xhigh</code> 的模型並記錄原因。不要在 unattended runner 預設使用 <code>max</code>。</p>
 <table>
 <tr><th>欄位</th><th>要記錄</th></tr>
 <tr><td><code>model</code></td><td>alias 或完整 model id。</td></tr>
@@ -87,11 +88,22 @@
   "status": "needs-review"
 }</pre>
 
+<h2>Gate 與 report 由 deterministic code 負責</h2>
+<p>模型可以修改內容、摘要結果，但不能自己宣告 tests 或 checks 通過。Wrapper 必須執行 contract 裡的命令，保存 command、exit code、stdout/stderr 與 artifact path，再依固定 precedence 決定狀態。</p>
+<table>
+<tr><th>狀態</th><th>何時使用</th></tr>
+<tr><td><code>blocked</code></td><td>缺權限、憑證或必要環境，無法完成驗證。</td></tr>
+<tr><td><code>failed</code></td><td>至少一個必要 gate 明確失敗。</td></tr>
+<tr><td><code>needs-review</code></td><td>命令通過，但仍有人工判斷或未驗證項目。</td></tr>
+<tr><td><code>passed</code></td><td>所有必要 gates 通過，且沒有未處理風險。</td></tr>
+</table>
+<div class="rule"><strong>狀態 precedence：</strong><code>blocked &gt; failed &gt; needs-review &gt; passed</code>。Report 至少列出 status、scope、gate table、evidence paths、unverified items 與 next action。</div>
+
 <h2>實作步驟（做完打勾）</h2>
 
 <div class="step">
   <label><input type="checkbox"> 1. 從 dry-run plan 讀 prompt 與限制</label>
-  <p>不要重新組一套規則。Phase 4 第 06 課已經列出的 prompt、tools、gates、paths，應該是這一片唯一的 input。</p>
+  <p>不要重新組一套規則。Phase 4 第 03 課列出的 prompt、tools、gates、paths，應該是這一片唯一的 input。</p>
 </div>
 
 <div class="step">
@@ -105,8 +117,8 @@
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 4. 把結果分類，而不是宣告完成</label>
-  <p>第一版只分類為 <code>passed</code>、<code>failed</code>、<code>blocked</code>、<code>needs-review</code>。多數真 agent call 應先落在 <code>needs-review</code>。</p>
+  <label><input type="checkbox"> 4. 執行 gates 並產生 report</label>
+  <p>用 deterministic code 執行每個 gate，保存結果並依 precedence 分類。Report 引用 evidence paths，不複製完整 logs。</p>
 </div>
 
 <div class="step">
@@ -115,7 +127,7 @@
 </div>
 
 <div class="done-banner" id="done">
-  <strong>你已完成第一個真 agent call 切片。</strong>回對話視窗貼上 evidence 目錄結構與 <code>exit.json</code> 摘要，請 AI 老師檢查是否已經能進入 gate execution。
+  <strong>你已完成 agent call 與 gate execution。</strong>回對話視窗貼上 evidence 目錄與 report，請 AI 老師檢查 status 是否可由證據重建。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
@@ -147,18 +159,26 @@
 <div class="quiz" data-answer="2">
   <p>4. Unattended runner 預設使用哪個 effort 較合理？</p>
   <button>max</button>
-  <button>ultracode</button>
+  <button>medium</button>
   <button>high</button>
-  <div class="why">第一版 runner 要可控且可重跑，預設 high；只有明確升級條件才用 xhigh，max 不應作為 unattended 預設。</div>
+  <div class="why">第一版 runner 要可控且可重跑，預設 high；只有明確升級條件且模型支援時才用 xhigh，max 不應作為 unattended 預設。</div>
+</div>
+
+<div class="quiz" data-answer="1">
+  <p>5. 誰應該判定 test gate 是否通過？</p>
+  <button>模型摘要</button>
+  <button>驗證程式</button>
+  <button>聊天紀錄</button>
+  <div class="why">可機械判定的 gate 應由 deterministic code 執行並記錄 exit code；模型不能用自述取代證據。</div>
 </div>
 
 <h2>下一步</h2>
-<p>先讓單一 agent call 能留下完整 evidence packet。接著進入 <a href="004-0008-gate-execution-report.html">Phase 4 第 08 課</a>：把 Phase 4 第 03 課的 gates 接回 runner，先判斷 agent output，再跑驗證命令，最後把結果寫進 report。</p>
+<p>先確認單一 run 能留下 agent evidence、gate results 與 report。下一課會替每次執行建立 run history、rerun lineage 與 closeout decision。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/cli-reference">Claude Code CLI reference</a>。延伸對照：<a href="https://code.claude.com/docs/en/model-config">Model configuration</a>、<a href="https://code.claude.com/docs/en/agent-sdk/overview">Agent SDK overview</a>、<a href="https://code.claude.com/docs/en/agent-sdk/observability">Agent SDK observability</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  相關課程：<a href="004-0008-gate-execution-report.html">Phase 4 第 08 課 — gate execution report</a> · <a href="004-0006-runner-list-show-dry-run.html">Phase 4 第 06 課 — runner 第一片</a> · <a href="../reference/harness-agent-call-evidence.html">Agent call evidence 速查表</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+  相關課程：<a href="004-0003-minimal-runner-dry-run.html">Phase 4 第 03 課 — runner 與 dry-run</a> · <a href="004-0005-run-lifecycle.html">Phase 4 第 05 課 — run lifecycle</a> · <a href="../reference/harness-agent-call-evidence.html">Agent call evidence 速查表</a> · <a href="../reference/harness-gate-execution-report.html">Gate execution report 速查表</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
 </footer>
 
 <script>

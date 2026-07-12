@@ -2,7 +2,8 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>05：讓 Claude Code 讀懂團隊規範（CLAUDE.md）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06：讓 Claude Code 讀懂團隊規範（CLAUDE.md）</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -35,7 +36,7 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 1 · 第 05 課 · 約 20 分鐘 · 實作課（桌面 App 優先）</div>
+<div class="kicker">Phase 1 · 第 06 課 · 約 20 分鐘 · 實作課（桌面 App 優先）</div>
 <h1>讓 Claude Code 讀懂團隊規範（CLAUDE.md）</h1>
 <p class="mission">任務目標：在工作 repo 建立一份 <code>CLAUDE.md</code>，讓 Claude Code 每次 session 自動遵守你們的建置指令、程式風格與專案慣例 — 不用每次重講一遍。</p>
 <div class="scope"><strong>本課只做：</strong>把團隊工作規範整理進 CLAUDE.md。<br><strong>先不要做：</strong>把領域知識、issue 細節、一次性任務全塞進 CLAUDE.md。</div>
@@ -98,7 +99,7 @@ Ask before editing the file.</pre>
 
 <div class="step">
   <label><input type="checkbox"> 4. 走正常流程提交</label>
-  <p>開分支、commit、開 PR 讓同事 review（複習 Phase 1 第 04 課的三道護欄）。</p>
+  <p>開分支、commit、開 PR 讓同事 review（複習 Phase 1 第 05 課的三道護欄）。</p>
 </div>
 
 <div class="done-banner" id="done">
@@ -109,17 +110,17 @@ Ask before editing the file.</pre>
 
 <div class="quiz" data-answer="0">
   <p>1. 「禁止直接推送 main」這條規定，最可靠的實作方式是？</p>
-  <button>用 hooks 或 permission 設定強制阻擋</button>
-  <button>寫進 CLAUDE.md 讓它每次自動讀到</button>
-  <button>每次開新 session 時口頭提醒它一次</button>
+  <button>用 hooks 或 permission 強制阻擋</button>
+  <button>寫進 CLAUDE.md 作為文字規範並自動讀取</button>
+  <button>每次新 session 再口頭提醒</button>
   <div class="why">CLAUDE.md 是指引（context），不保證百分之百遵守；必須強制的規則要用技術閘門（hooks / permissions）。這是官方文件明確的分工。</div>
 </div>
 
 <div class="quiz" data-answer="2">
   <p>2. 哪一條最適合寫進團隊共享的 CLAUDE.md？</p>
-  <button>我自己本機沙箱環境的網址與帳號</button>
-  <button>這次任務要修的那個表單驗證 bug</button>
-  <button>commit 前必須先跑 npm run lint</button>
+  <button>個人沙箱環境的網址、帳號與 secret</button>
+  <button>單次表單驗證 bug 的需求</button>
+  <button>commit 前執行 npm run lint</button>
   <div class="why">共享 CLAUDE.md 放全隊通用、每個 session 都需要的事實。個人環境放 CLAUDE.local.md；單次任務內容直接在對話講即可。</div>
 </div>
 
@@ -132,12 +133,12 @@ Ask before editing the file.</pre>
 </div>
 
 <h2>下一步</h2>
-<p>完成後回到對話視窗回報 <code>CLAUDE.md</code> 初稿的品質。下一課：<a href="001-0006-permission-plan-mode.html">Phase 1 第 06 課 — 先用 plan mode 讓它只規劃不修改</a>。</p>
+<p>完成後回到對話視窗回報 <code>CLAUDE.md</code> 初稿的品質。下一課：<a href="001-0007-permission-rules.html">Phase 1 第 07 課 — 控制 Claude Code 能做什麼</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/memory">How Claude remembers your project（官方）</a> — 含 <code>.claude/rules/</code> 進階組織方式與 auto memory。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="001-0004-first-safe-code-change.html">Phase 1 第 04 課 — 第一次讓它改程式碼</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+  上一課：<a href="001-0005-first-safe-code-change.html">Phase 1 第 05 課 — 第一次讓它改程式碼</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 
 <script>

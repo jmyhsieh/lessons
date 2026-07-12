@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>08：用 /implement 完成一張 ticket</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
@@ -85,9 +86,9 @@
 <h2>觀念檢查（憑記憶作答）</h2>
 <div class="quiz" data-answer="2">
   <p>1. /implement 最適合吃什麼輸入？</p>
-  <button>一整份還沒切片的 spec</button>
-  <button>一段模糊的新需求描述</button>
-  <button>spec 加單張清楚 ticket</button>
+  <button>整份還沒切片的 spec 和所有附件</button>
+  <button>一段模糊不清的新需求</button>
+  <button>spec 加一張明確 ticket</button>
   <div class="why"><code>/implement</code> 適合依 spec 與單張 ticket 施工。整份 spec 太大，模糊需求太早。</div>
 </div>
 <div class="quiz" data-answer="0">
@@ -99,15 +100,15 @@
 </div>
 <div class="quiz" data-answer="1">
   <p>3. 沒看過測試先失敗就綠了，該怎麼辦？</p>
-  <button>接受結果，測試綠燈即可</button>
-  <button>要求補出 RED 的證據</button>
-  <button>改用手動 review 取代</button>
+  <button>接受結果，只要測試綠燈</button>
+  <button>要求補齊 RED 階段證據</button>
+  <button>改用手動 review 取代測試</button>
   <div class="why">TDD 的信任來自 RED → GREEN。沒看過 RED，就不知道測試是否真的抓得到問題。</div>
 </div>
 
 <h2>下一步</h2>
 <p>完成後回對話視窗交報告。下一課：<a href="003-0009-triage.html">Phase 3 第 09 課 — 用 /triage 處理外部回報</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — implement 的 SKILL.md，以及其中提到的 <code>/tdd</code> 與 <code>/code-review</code> 流程。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/implement/SKILL.md">implement／SKILL.md</a>，以及它明確串入的 <code>/tdd</code> 與 <code>/code-review</code> 流程。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

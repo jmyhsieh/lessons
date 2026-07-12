@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>09：用指令列跑一次性任務（claude -p）</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -81,9 +82,9 @@ claude -p "Summarize this project" --output-format json</pre>
 </div>
 <div class="quiz" data-answer="1">
   <p>2. script 想穩定解析結果，該加？</p>
-  <button>--allowedTools Read</button>
-  <button>--output-format json</button>
-  <button>--max-turns 1</button>
+  <button>使用 --allowedTools=Read</button>
+  <button>--output-format=json</button>
+  <button>--max-turns=1</button>
   <div class="why">JSON output 比自然語言 stdout 更適合程式解析。</div>
 </div>
 

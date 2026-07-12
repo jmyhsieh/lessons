@@ -2,7 +2,8 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>13：用真實 repo 任務演練一次</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06：演練、修正並驗證 harness</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -35,10 +36,10 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 4 · 第 13 課 · 約 30 分鐘 · Repo rehearsal</div>
-<h1>用真實 repo 任務演練一次</h1>
-<p class="mission">目標：選一個低風險真實 repo 任務，把 Phase 4 第 01–12 課的 harness 工作流從 brief 跑到 closeout。這一課只做一次演練，不把流程推成團隊平台。</p>
-<div class="scope"><strong>本課只做：</strong>產出一次真實 repo 演練紀錄。<br><strong>先不要做：</strong>第一次演練就擴成自動化平台。</div>
+<div class="kicker">Phase 4 Lab · 第 06 課 · 約 40 分鐘 · Rehearse + verify</div>
+<h1>演練、修正並驗證 harness</h1>
+<p class="mission">目標：選一個低風險真實 repo 任務跑完整 lifecycle，找出一個 workflow finding，做最小 patch，再用同類型任務驗證是否有效。</p>
+<div class="scope"><strong>本課只做：</strong>一次基準演練、一個 workflow patch、一次對照驗證。<br><strong>先不要做：</strong>因為一次成功就平台化或強制化。</div>
 
 
 <h2>先練一輪，不先自動化</h2>
@@ -69,6 +70,20 @@
   "rehearsalFinding": "gate command was useful; input template needs clearer scope-out field"
 }</pre>
 
+<h2>一次只修一個 finding</h2>
+<p>把 finding 分成 input、gate、evidence、handoff、closeout 或流程過重。只選下一輪最可能再次造成返工的一項，寫成可回復的 workflow patch；不要同時改三個欄位、兩個 gate 和 runner 架構。</p>
+<pre>{
+  "finding": "scope-out field is too vague",
+  "category": "input",
+  "patch": "require skipped validation classes",
+  "expectedSignal": "fewer clarification turns",
+  "rollback": "remove field if it adds questions without reducing rework"
+}</pre>
+
+<h2>用第二輪同類任務驗證</h2>
+<p>Patch 前後必須比較同類型、小範圍、相近 gates 的任務。觀察 clarification turns、gate failures、review rework 或 handoff gaps；結果只分 <code>keep</code>、<code>revise</code>、<code>revert</code>。</p>
+<div class="rule"><strong>驗證規則：</strong>一次 rehearsal 只修一點，第二輪只驗證那一點。不同風險、不同 repo、不同 gates 的任務不能證明 patch 有效。</div>
+
 <h2>實作步驟（做完打勾）</h2>
 
 <div class="step">
@@ -92,12 +107,12 @@
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 5. 記錄一個流程發現</label>
-  <p>只寫一個：哪張表有用、哪個 gate 太弱、哪個欄位多餘。下一輪只修最痛的一點。</p>
+  <label><input type="checkbox"> 5. 修一點並跑第二輪驗證</label>
+  <p>把 finding 寫成有 expected signal 與 rollback 的 patch，再選同類任務比較 patch 前後，最後決定 <code>keep</code>、<code>revise</code> 或 <code>revert</code>。</p>
 </div>
 
 <div class="done-banner" id="done">
-  <strong>你已完成 repo rehearsal。</strong>回對話視窗貼上 rehearsal record，請 AI 老師檢查這輪是否真的值得升級成可重跑工作流。
+  <strong>你已完成 rehearsal 與 patch verification。</strong>回對話視窗貼上前後兩輪紀錄與決策，請 AI 老師檢查 evidence 是否真的支持 patch。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
@@ -110,16 +125,24 @@
   <div class="why">第一輪是驗證流程，不是挑戰組織邊界。低風險、可本機驗證、範圍小的任務最適合。</div>
 </div>
 
+<div class="quiz" data-answer="2">
+  <p>2. 驗證 workflow patch 時應比較什麼？</p>
+  <button>不同風險任務</button>
+  <button>不同 repo 大改版</button>
+  <button>同類型小任務</button>
+  <div class="why">只有條件相近的同類型任務，才能把差異合理歸因於 workflow patch。</div>
+</div>
+
 <div class="quiz" data-answer="0">
-  <p>2. Rehearsal 第一輪最不該先做？</p>
-  <button>平台化</button>
-  <button>寫 brief</button>
-  <button>跑 gates</button>
+  <p>3. Rehearsal 第一輪最不該先做？</p>
+  <button>直接進行流程平台化</button>
+  <button>先寫清楚 brief</button>
+  <button>執行必要 gates</button>
   <div class="why">第一輪要驗證流程本身，先平台化會把尚未證明有價值的流程固定下來。</div>
 </div>
 
 <div class="quiz" data-answer="0">
-  <p>3. 演練後最有價值的產物？</p>
+  <p>4. 演練後最有價值的產物？</p>
   <button>流程發現</button>
   <button>更多功能</button>
   <button>大量案例</button>
@@ -127,12 +150,12 @@
 </div>
 
 <h2>下一步</h2>
-<p>先在一個低風險 repo 任務上跑完整輪。如果 rehearsal 顯示流程過重，降級；如果三次任務都穩定重複，再考慮把 runner、gates 或 report template 固化。接著進入 <a href="004-0014-rehearsal-finding.html">Phase 4 第 14 課</a>：把 finding 變成一個最小 workflow patch。</p>
-<p><strong>主要閱讀資源：</strong><a href="../reference/harness-repo-rehearsal.html">Repo rehearsal 速查表</a>。延伸對照：<a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>、<a href="https://code.claude.com/docs/en/cli-reference">CLI reference</a>、<a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>。</p>
+<p>只有第二輪 evidence 支持的 patch 才能進 repo contract。下一課會把它放到最小 contract target，並建立 review 與 effectiveness loop。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a> 的小範圍實驗與 verification-first 原則；實作模板用 <a href="../reference/harness-repo-rehearsal.html">Repo rehearsal</a>、<a href="../reference/harness-workflow-patch.html">Workflow patch</a>、<a href="../reference/harness-patch-verification.html">Patch verification</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  相關課程：<a href="004-0014-rehearsal-finding.html">Phase 4 第 14 課 — workflow patch</a> · <a href="004-0012-closeout-decision.html">Phase 4 第 12 課 — closeout decision</a> · <a href="004-0011-final-handoff-package.html">Phase 4 第 11 課 — final handoff package</a> · <a href="../reference/harness-repo-rehearsal.html">Repo rehearsal 速查表</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+  相關課程：<a href="004-0005-run-lifecycle.html">Phase 4 第 05 課 — run lifecycle</a> · <a href="004-0007-contract-effectiveness.html">Phase 4 第 07 課 — contract effectiveness</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
 </footer>
 
 <script>

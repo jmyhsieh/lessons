@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>06：建立專門負責 review 的 agent（custom subagent）</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -70,9 +71,9 @@ Report only actionable issues with file references.</pre>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1">
   <p>1. reviewer subagent 為什麼不給 Edit？</p>
-  <button>因為它看不懂 code</button>
-  <button>因為 review 與修復要分工</button>
-  <button>因為 Edit 工具不存在</button>
+  <button>避免 reviewer 讀懂 code</button>
+  <button>維持 review 與修復的角色分工</button>
+  <button>因為 reviewer 沒有 Edit</button>
   <div class="why">審查者不該同時有筆，否則角色混在一起。</div>
 </div>
 <div class="quiz" data-answer="2">

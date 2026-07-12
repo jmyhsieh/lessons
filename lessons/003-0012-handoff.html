@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>12：用 /handoff 做跨 session 交接</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
@@ -99,21 +100,30 @@
   🎉 <strong>你的工作脈絡現在可以跨 session、跨日、跨人存活了。</strong>回對話視窗回報：冷啟動實測有沒有露餡？
 </div>
 
+<h2>Phase 3 驗收 rubric</h2>
+<p>不要用「12 課都看過」當結業證據。選一條真實路線，交出可冷啟動的 artifact chain：</p>
+<ul>
+  <li>新需求：對齊結論 → spec／ticket（若需要）→ implementation evidence → code review → handoff。</li>
+  <li>外部回報：durable issue → triage state → diagnosis evidence → regression verification → handoff。</li>
+  <li>維護改善：architecture finding → 被選定的 seam → spec／implementation evidence → handoff。</li>
+</ul>
+<p>AI 老師能只靠這些 artifacts 說出「做了什麼、怎麼驗證、還剩什麼」，才建立 learning record。</p>
+
 <h2>觀念檢查（憑記憶作答）</h2>
 
 <div class="quiz" data-answer="2">
   <p>1. handoff 文件裡發現它把整份 spec 內容貼了進來，該怎麼處理？</p>
-  <button>很好，文件越完整下一個 agent 越省事</button>
-  <button>沒差，反正 temp 目錄的檔案遲早會清掉</button>
-  <button>要求改成引用路徑，交接只記正本沒有的</button>
+  <button>保留完整 spec 內容最省事</button>
+  <button>temp 目錄之後清掉沒關係</button>
+  <button>改成引用正本文件的穩定路徑</button>
   <div class="why">skill 原文：不重複既有 artifacts，用路徑引用。複製會製造兩份會分岔的事實；交接文件的價值在「正本沒有的脈絡」（決策過程、卡點、下一步）。</div>
 </div>
 
 <div class="quiz" data-answer="0">
   <p>2. /compact 和 /handoff 的本質差異是？</p>
-  <button>前者壓縮當前 session，後者產出可攜文件</button>
-  <button>前者是免費的功能，後者要消耗額外額度</button>
-  <button>前者由系統自動觸發，後者必須手動執行</button>
+  <button>compact 壓縮當前 session</button>
+  <button>兩者消耗的額度與實際價格計算模式不同</button>
+  <button>兩者觸發與執行方式不同</button>
   <div class="why">compact 救的是「這個對話還要繼續」；handoff 服務的是「下一個對話（或下一個人）」— 跨 session、跨機器、跨人。</div>
 </div>
 
@@ -127,7 +137,7 @@
 
 <h2>下一步</h2>
 <p>完成後回對話視窗交<strong>階段回報</strong>：Claude Code 實戰、mattpocock/skills 四條線在真實 repo 各自落地得如何？CONTEXT.md/ADR 累積了多少？接著進入 <a href="004-0001-from-agent-session-to-harness.html">Phase 4 第 01 課</a>：判斷哪些重複任務值得變成可重跑 harness。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills">mattpocock/skills（GitHub）</a> — handoff 的 SKILL.md。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/productivity/handoff/SKILL.md">handoff／SKILL.md</a> 原文。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
