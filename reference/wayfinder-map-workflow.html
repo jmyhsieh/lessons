@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wayfinder shared map 速查表</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #1a6b5a; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #1a6b5a; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .7rem; vertical-align: top; text-align: left; }
+  th { background: #eef4f2; }
+  a { color: #15564a; }
+  code, pre { background: #eef4f2; border-radius: 4px; font-size: .9em; }
+  code { padding: .1rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  .rule { border-left: 4px solid #1a6b5a; background: #f8fbfa; padding: .8rem 1rem; margin: 1rem 0; }
+  .stop { border-left: 4px solid #d08800; background: #fff8e8; padding: .8rem 1rem; margin: 1rem 0; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print { body { margin: 1rem auto; } .rule, .stop, tr { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Wayfinder shared map 速查表</h1>
+<p class="sub">巨大模糊 effort 的選路、map schema、ticket types、frontier 與 session stop rules。</p>
+
+<div class="rule"><strong>一句話：</strong>Wayfinder 不是把巨大工作切成施工票，而是把看不清的路整理成 decision tickets；路清楚後，再交給 <code>/to-spec → /to-tickets → /implement</code>。</div>
+
+<h2>Selector</h2>
+<table>
+<tr><th>訊號</th><th>判斷</th></tr>
+<tr><td>已能寫完整 spec 與 blocking tickets</td><td>不要用 wayfinder；直接進主線。</td></tr>
+<tr><td>一個 session 能把所有未知問清楚</td><td>用 <code>/grill-with-docs</code>。</td></tr>
+<tr><td>巨大、跨 session，連問題順序都仍在 fog 裡</td><td>使用 wayfinder。</td></tr>
+</table>
+
+<h2>Canonical map schema</h2>
+<pre>## Destination
+一兩句：這張 map 要找出哪份 spec、哪個決策或哪條改變路徑。
+
+## Notes
+領域、固定偏好、每個 session 要查的 skills。
+
+## Decisions so far
+- [Ticket title](link) — 一句答案 gist
+
+## Not yet specified
+在 scope 內，但目前還無法精確問成 ticket 的 fog。
+
+## Out of scope
+超出 destination、永遠不會從 fog 升級的工作。</pre>
+
+<h2>Ticket types</h2>
+<table>
+<tr><th>Label</th><th>模式</th><th>完成訊號</th></tr>
+<tr><td><code>wayfinder:research</code></td><td>AFK</td><td>Cited summary 作為 linked asset。</td></tr>
+<tr><td><code>wayfinder:prototype</code></td><td>HITL</td><td>人類對 artifact 作反應，留下可引用答案。</td></tr>
+<tr><td><code>wayfinder:grilling</code></td><td>HITL</td><td>真正的決策者逐題回答，agent 不代答。</td></tr>
+<tr><td><code>wayfinder:task</code></td><td>AFK / HITL</td><td>阻擋決策的操作完成並留下 facts。</td></tr>
+</table>
+
+<h2>Ticket、fog、out of scope</h2>
+<table>
+<tr><th>分類</th><th>判斷題</th><th>存放位置</th></tr>
+<tr><td>Ticket</td><td>現在已能精確說出要回答的問題。</td><td>Map 的 child issue。</td></tr>
+<tr><td>Fog</td><td>知道這塊在 scope 內，但還無法精確問問題。</td><td><em>Not yet specified</em>。</td></tr>
+<tr><td>Out of scope</td><td>即使變清楚，也超出 destination。</td><td><em>Out of scope</em>；不會升級。</td></tr>
+</table>
+
+<h2>Chart the map</h2>
+<ol>
+  <li>用 grilling 與 domain-modeling 固定 destination。</li>
+  <li>Breadth-first 掃描整片未知區，不急著深挖一題。</li>
+  <li>建立標記 <code>wayfinder:map</code> 的 canonical map。</li>
+  <li>只建立現在能精確問出的 tickets。</li>
+  <li>Tickets 取得 ids 後，再第二輪 wire blocking edges。</li>
+  <li>看得到 frontier 後停止；同 session 不解票。</li>
+</ol>
+
+<h2>Work through the map</h2>
+<ol>
+  <li>載入 map 低解析全貌。</li>
+  <li>選第一張 open、unblocked、unclaimed frontier ticket。</li>
+  <li>先 assign 給自己，再依 ticket type 解題。</li>
+  <li>把完整答案留在 resolution comment，close ticket。</li>
+  <li>Map 只新增 ticket 名稱、連結與一句 gist。</li>
+  <li>建立新 tickets、wire edges、升級 fog 或移出 scope。</li>
+  <li>停止；下一張 ticket 留給下一個 session。</li>
+</ol>
+
+<h2>不變量</h2>
+<ul>
+  <li><strong>Map 是 index，不是答案倉庫。</strong></li>
+  <li><strong>人類文字用 ticket title，不用裸 issue id。</strong></li>
+  <li><strong>Assignee 是 claim；先 claim 才開始。</strong></li>
+  <li><strong>一個 session 最多解一張 ticket。</strong></li>
+  <li><strong>預設產出 decisions，不產出 destination deliverables。</strong></li>
+</ul>
+
+<div class="stop"><strong>Exit：</strong>沒有 open tickets、沒有可升級 fog、路徑已清楚 → <code>/to-spec</code> 收斂 linked decisions。只有 effort 最後縮成單一小任務，才例外直接 <code>/implement</code>。</div>
+
+<footer>
+  對應課程：<a href="../lessons/003-0013-wayfinder-chart-map.html">Phase 3 第 13 課 — chart map</a> · <a href="../lessons/003-0014-wayfinder-frontier.html">Phase 3 第 14 課 — work the frontier</a><br>
+  主要來源：<a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">wayfinder／SKILL.md</a>
+</footer>
+</body>
+</html>

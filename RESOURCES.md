@@ -42,6 +42,8 @@
   Phase 3 使用的 upstream skills 與四大失敗模式。Use for: skill inventory；具體行為以各 SKILL.md 為準。
 - [Skill: setup-matt-pocock-skills](https://github.com/mattpocock/skills/blob/main/skills/engineering/setup-matt-pocock-skills/SKILL.md)
   Issue tracker、triage labels 與 domain docs 的實際設定流程。Use for: Phase 3 地基；README 摘要漂移時以本檔為準。
+- [Skill: wayfinder](https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md)
+  巨大模糊 effort 的 shared map、decision tickets、fog、frontier 與單 ticket session 流程。Use for: Phase 3 選修 wayfinder 分支。
 - [Paper: Physics Is All You Need?](https://arxiv.org/abs/2605.30353)
   Domain expert supervision 與 oracle tests 的案例。Use for: 說明 deterministic feedback 有效處與人類知識邊界。
 - [Paper: AI Coding Agents Can Reproduce Social Science Findings](https://arxiv.org/abs/2606.11447)

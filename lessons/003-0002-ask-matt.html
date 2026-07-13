@@ -49,12 +49,13 @@
 <tr><td>需要多個 session 的 build</td><td><code>/grill-with-docs</code> → <code>/to-spec</code> → <code>/to-tickets</code> → 每張 ticket 開新 context 跑 <code>/implement</code></td></tr>
 <tr><td>必須用可跑成果回答的設計問題</td><td><code>/handoff</code> 出主線 → <code>/prototype</code> → <code>/handoff</code> 把答案帶回</td></tr>
 <tr><td>外部 bug 或需求回報</td><td><code>/triage</code> → <code>/diagnosing-bugs</code> 或 <code>/implement</code></td></tr>
-<tr><td>巨大、模糊、超過一個 session 的 effort</td><td><code>/wayfinder</code> 先建立共享 map，逐張調查 ticket 推進到路徑清楚，再回到 <code>/to-spec</code> 或 <code>/implement</code></td></tr>
+<tr><td>巨大、模糊、超過一個 session 的 effort</td><td><code>/wayfinder</code> 先建立共享 map，逐張 decision ticket 推進到路徑清楚，再回到 <code>/to-spec</code>；只有 effort 最後縮成單一小任務才直接 <code>/implement</code></td></tr>
 <tr><td>架構維護</td><td><code>/improve-codebase-architecture</code> → 選一個改善點 → 回到 <code>/grill-with-docs</code></td></tr>
 <tr><td>context 太滿或要分支</td><td><code>/handoff</code> 開新 session；<code>/compact</code> 留在同一個 session。</td></tr>
 </table>
 <div class="tip"><strong>記住主線：</strong><code>/implement</code> 是實作 orchestrator；它內部會用 <code>/tdd</code>，做完再用 <code>/code-review</code>。不要把 <code>/tdd</code> 和 <code>/code-review</code> 畫成與 <code>/implement</code> 平行的主流程。</div>
 <div class="tip"><strong>Context hygiene：</strong>從 grill 到 <code>/to-tickets</code> 盡量維持同一個未中斷 context，不要在中途 clear 或 compact；切完 tickets 後，每張 <code>/implement</code> 才各自用乾淨 context。若主線接近 smart zone 上限，先 <code>/handoff</code>，不要硬撐。</div>
+<div class="tip"><strong>Wayfinder 是選修分支：</strong>只有當「通往 destination 的路仍看不清楚」，而且一個 session 放不下時才使用。若你已能列出完整 spec 與 tickets，就不需要先畫 map。選到這條路時，前往 <a href="003-0013-wayfinder-chart-map.html">第 13 課</a>。</div>
 
 <h2>先分清楚：入口與流程內能力</h2>
 <p>不是每個 skill 名稱都代表同一種入口。初學時先把它們分成兩層，會比較不亂：</p>
@@ -111,12 +112,12 @@
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課：<a href="003-0003-repo-map.html">Phase 3 第 03 課 — 不熟 repo 時，先建立地圖</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/ask-matt/SKILL.md">ask-matt／SKILL.md</a>；主線實作邊界對照 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/implement/SKILL.md">implement／SKILL.md</a>。</p>
+<p>完成後回對話視窗回報。一般路線下一課是 <a href="003-0003-repo-map.html">Phase 3 第 03 課 — 不熟 repo 時，先建立地圖</a>；若選到巨大模糊 effort，改走 <a href="003-0013-wayfinder-chart-map.html">Phase 3 選修第 13 課 — 畫出 shared map</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/ask-matt/SKILL.md">ask-matt／SKILL.md</a>；主線實作邊界對照 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/implement/SKILL.md">implement／SKILL.md</a>；巨大 effort 對照 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">wayfinder／SKILL.md</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="003-0001-matt-pocock-skills-foundation.html">Phase 3 第 01 課 — mattpocock/skills 設定</a> · <a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>
+  上一課：<a href="003-0001-matt-pocock-skills-foundation.html">Phase 3 第 01 課 — mattpocock/skills 設定</a> · 選修：<a href="003-0013-wayfinder-chart-map.html">Phase 3 第 13 課 — wayfinder map</a> · <a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>
 </footer>
 
 <script>
