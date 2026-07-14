@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>08：在 repo 實作並對照 intent 驗證</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 740px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #635b9a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #635b9a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #635b9a; }
+  code, pre { background: #f3f1fa; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #4c467b; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #f3f1fa; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .rule { background: #f3f1fa; border-left: 4px solid #635b9a; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #ddd8ee; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fcfbff; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .quiz { border: 1px solid #ddd8ee; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #635b9a; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #f3f1fa; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #ddd8ee; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 4 · 第 08 課 · 約 35 分鐘 · Repo 實作課</div>
+<h1>在 repo 實作並對照 intent 驗證</h1>
+<p class="mission">目標：讓 Claude Code 在既有 repo 完成一個最小垂直切片，跑過 repo checks，再用真實 browser 對照 design intent 驗證 responsive、interaction 與 accessibility，最後留下可接手的 closeout。</p>
+<div class="scope"><strong>本課只做：</strong>實作 handoff 已同意的一條端到端路徑，驗證後收尾。<br><strong>先不要做：</strong>順手重構相鄰模組、重建 design system，或以「測試有過」取代 browser 與 intent review。</div>
+
+<h2>知識：最小切片要可用，不只是可看</h2>
+<p>切片不是一個孤立元件，而是一條能完成的最短路徑：</p>
+<pre>進入點 → 看見必要資訊 → 執行主要動作 → 收到成功或失敗回饋</pre>
+<p>例如先做「搜尋一筆訂單並開啟詳情」，不要一次完成整個後台。切片仍要包含對應的 loading、empty 或 error 狀態；若本次不做，必須在 handoff 明列而不是悄悄消失。</p>
+
+<h2>知識：程式檢查與 browser evidence 缺一不可</h2>
+<table>
+<tr><th>Gate</th><th>檢查內容</th><th>Evidence</th></tr>
+<tr><td><strong>Repo checks</strong></td><td>專案既有 tests、lint、typecheck、build</td><td>實際命令、結果、未執行項目</td></tr>
+<tr><td><strong>Intent review</strong></td><td>層級、內容、元件／token、狀態是否符合 bundle</td><td>逐條 pass／deviation 與理由</td></tr>
+<tr><td><strong>Responsive</strong></td><td>窄、中、寬尺寸的重排、溢位與觸控目標</td><td>viewport、截圖、觀察紀錄</td></tr>
+<tr><td><strong>Interaction</strong></td><td>滑鼠、鍵盤、成功、失敗與狀態轉移</td><td>操作步驟、預期、實際</td></tr>
+<tr><td><strong>Accessibility</strong></td><td>語意、名稱、焦點、鍵盤操作、對比與訊息</td><td>人工結果與自動工具輸出</td></tr>
+</table>
+<div class="rule"><strong>不要只問「像不像設計稿」。</strong>要問：最重要的 intent 是否保留？差異是 repo 約束下的合理調整，還是漏實作？每個 deviation 都要有理由與決定。</div>
+
+<h2>實作 checklist（做完打勾）</h2>
+<div class="step">
+  <label><input type="checkbox"> 1. 重述切片與預計 diff</label>
+  <p>在乾淨分支確認目標、non-goals、預計修改檔案與成功條件。先看 <code>git status --short</code>，不要覆蓋既有變更。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 2. 讓 Claude Code 做最小實作</label>
+  <p>要求沿用既有元件、token、錯誤處理與測試慣例。完成後逐檔 review diff；若範圍長大，先縮回本切片。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 3. 跑 repo 的確定性 checks</label>
+  <p>執行專案既有 test、lint、typecheck 或 build。記錄確切命令與完整結果；不能跑的項目要寫原因，不能宣稱通過。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 4. 在真實 browser 對照 intent</label>
+  <p>啟動本機專案，以窄／中／寬尺寸走主路徑；再用鍵盤、錯誤狀態與 accessibility checks 驗證。將每條 intent 標成 pass、deviation 或 blocker。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 5. 修 blocker 並做 focused rerun</label>
+  <p>只修本次驗證找到、且屬於切片範圍的問題。重跑受影響 checks 與完整主路徑，避免修一處破壞另一個狀態。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 6. Diff review、handoff 與 closeout</label>
+  <p>再次確認 diff 只含必要變更。Handoff 寫清楚：改了什麼、驗證命令、browser evidence、已知 deviation、未做事項與下一步；再依 repo 規則 commit／PR。</p>
+</div>
+<div class="done-banner" id="done"><strong>你已完成從 design intent 到可驗證 repo 變更的閉環。</strong>把 closeout 貼回對話視窗，請 AI 老師檢查是否有未被證據支持的完成宣稱。</div>
+
+<h2>Closeout 最小格式</h2>
+<pre>Changed: [切片與必要檔案]
+Repo checks: [命令與結果]
+Browser checks: [尺寸、互動、a11y 與結果]
+Intent deviations: [差異、原因、決定]
+Not verified: [未驗證項目與原因]
+Next: [下一個最小步驟或 none]</pre>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+<div class="quiz" data-answer="0">
+  <p>1. 哪一個最符合「最小垂直切片」？</p>
+  <button>完成一條使用路徑</button>
+  <button>建立全部基礎元件</button>
+  <button>重寫整套頁面樣式</button>
+  <div class="why">垂直切片從進入點走到結果，能被使用與驗證；它不是一次鋪完整平台或 design system。</div>
+</div>
+<div class="quiz" data-answer="2">
+  <p>2. 自動 tests 全過後，還缺哪一類關鍵證據？</p>
+  <button>更多提示詞版本</button>
+  <button>更多模型回覆</button>
+  <button>實際瀏覽器操作</button>
+  <div class="why">Repo checks 不會自動證明 responsive、真實互動、焦點流程或 design intent。仍需 browser verification。</div>
+</div>
+<div class="quiz" data-answer="1">
+  <p>3. Closeout 遇到未跑的檢查時應怎麼寫？</p>
+  <button>略過但標成通過</button>
+  <button>列出項目與原因</button>
+  <button>刪除所有驗證紀錄</button>
+  <div class="why">Fail loudly：清楚列出未驗證項目與原因，讓下一位接手者知道證據邊界。</div>
+</div>
+
+<h2>下一步與相關內容</h2>
+<p>回到 <a href="../reference/claude-design-to-code-workflow.html">Claude Design → Claude Code 速查表</a>，確認每個 artifact 與 evidence 都有落點。若你只需要完成產品切片，可以在此結束 Phase 4。</p>
+<p>如果這條流程已成熟、會重複，而且值得程式化重跑，可選修 <a href="../lessons/005-0001-from-agent-session-to-harness.html">Phase 5 第 01 課 — 從 agent session 到 harness</a>。</p>
+<p><strong>主要官方閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Get started with Claude Design</a> 的 handoff 說明，以及 <a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  上一課：<a href="004-0007-handoff-to-claude-code.html">Phase 4 第 07 課 — Handoff</a> · 進階選修：<a href="../lessons/005-0001-from-agent-session-to-harness.html">Phase 5 — Harness Labs</a> · <a href="../toc.html">課目表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

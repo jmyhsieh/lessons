@@ -37,6 +37,7 @@
 <h2>Record schema</h2>
 <pre>{
   "runId": "",
+  "parentRunId": null,
   "inputId": "",
   "status": "passed | failed | blocked | needs-review",
   "agentStatus": "",
@@ -46,17 +47,20 @@
   "evidenceDir": "",
   "gateResultsPath": "",
   "reportPath": "",
-  "costUSD": null
+  "evidenceClassification": "internal",
+  "evidenceExpiresAt": "",
+  "evidenceDeletionStatus": "scheduled"
 }</pre>
 
 <h2>資料邊界</h2>
 <table>
 <tr><th>層級</th><th>保存內容</th><th>不要保存</th></tr>
 <tr><td>Run history</td><td>狀態、時間、ID、artifact path。</td><td>完整 stdout/stderr、完整 transcript。</td></tr>
-<tr><td>Evidence</td><td>stdout、stderr、gate output、截圖。</td><td>二次摘要當成唯一證據。</td></tr>
+<tr><td>Evidence</td><td>Redacted output、gate output、截圖、retention metadata。</td><td>Raw secrets、未受控 transcript。</td></tr>
 <tr><td>Session Store</td><td>可 resume 的 transcript entries。</td><td>自訂 report 判斷。</td></tr>
 <tr><td>Telemetry</td><td>tool、latency、token、cost、failure location。</td><td>未核准的敏感內容。</td></tr>
 </table>
+<div class="rule"><strong>Artifact lifecycle：</strong>history 保留 path、classification、expiresAt 與 deletion status；evidence 目錄本身要 gitignored、owner-only，並在到期後依 policy 刪除。Artifact 已刪除就標成 <code>expired</code>，不要把內容複製進 history。</div>
 
 <h2>最小命令</h2>
 <table>
@@ -72,11 +76,12 @@
 - history list shows status, inputId, startedAt, and reportPath.
 - history show returns the full record.
 - history verify detects missing artifact paths.
-- Cost is stored as an estimate, not authoritative billing.</pre>
+- expired evidence is distinguished from unexpectedly missing evidence.
+- retention deletion updates status without copying artifact contents.</pre>
 
 <footer>
   索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
-  對應課程：<a href="../lessons/004-0005-run-lifecycle.html">Phase 4 第 05 課 — final handoff package</a> · <a href="../lessons/004-0005-run-lifecycle.html">Phase 4 第 05 課 — rerun policy</a> · <a href="../lessons/004-0005-run-lifecycle.html">Phase 4 第 05 課 — run history</a> · <a href="../lessons/004-0004-agent-call-gates.html">Phase 4 第 04 課 — gate execution report</a><br>
+  對應課程：<a href="../lessons/005-0005-run-lifecycle.html">Phase 5 第 05 課 — final handoff package</a> · <a href="../lessons/005-0005-run-lifecycle.html">Phase 5 第 05 課 — rerun policy</a> · <a href="../lessons/005-0005-run-lifecycle.html">Phase 5 第 05 課 — run history</a> · <a href="../lessons/005-0004-agent-call-gates.html">Phase 5 第 04 課 — gate execution report</a><br>
   主要來源：<a href="https://code.claude.com/docs/en/agent-sdk/session-storage">Persist sessions to external storage</a> · <a href="https://code.claude.com/docs/en/agent-sdk/observability">Observability with OpenTelemetry</a> · <a href="https://code.claude.com/docs/en/agent-sdk/cost-tracking">Track cost and usage</a>
 </footer>
 </body>

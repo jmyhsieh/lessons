@@ -39,8 +39,8 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 3 選修 · 第 13 課 · 約 45 分鐘 · Wayfinder</div>
 <h1>用 /wayfinder 畫出 shared map</h1>
-<p class="mission">目標：面對巨大、模糊、超過一個 session 的 effort，建立一張以 destination 為邊界、能顯示 frontier 與 fog 的 shared map。本課只 chart map，不開始解 ticket。</p>
-<div class="scope"><strong>本課只做：</strong>建立 map、能說清的 decision tickets 與 blocking edges。<br><strong>先不要做：</strong>一邊畫 map，一邊順手完成 destination。</div>
+<p class="mission">目標：面對巨大、模糊、超過一個 session 的 effort，建立一張以 destination 為邊界、能顯示 frontier 與 fog 的 shared map。本課 chart map 並啟動平行 research；charting agent 不手動解 ticket。</p>
+<div class="scope"><strong>本課只做：</strong>建立 map、能說清的 decision tickets 與 blocking edges，並啟動 research subagents。<br><strong>先不要做：</strong>由 charting agent 順手解票或完成 destination。</div>
 
 <h2>先確認你真的需要 wayfinder</h2>
 <table>
@@ -64,14 +64,15 @@
 
 <h2>Ticket 還是 fog？只問一題</h2>
 <div class="rule"><strong>你現在能不能精確說出「要回答的問題」？</strong><br>能：建立 ticket，即使它目前被 blocker 擋住。<br>不能：先放在 <em>Not yet specified</em>，不要硬切成假精確 tickets。</div>
-<p>每張 ticket 是一個 session 能解完的 decision 或 investigation，並標記一種 type：</p>
+<p>每張 ticket 都要回答一個能說清楚的 decision problem，並依需要的 feedback loop 標記一種 type：</p>
 <table>
 <tr><th>Type</th><th>模式</th><th>用途</th></tr>
-<tr><td><code>research</code></td><td>AFK</td><td>查外部 primary sources，留下可連結的 cited summary。</td></tr>
+<tr><td><code>research</code></td><td>AFK</td><td>查外部 primary sources；建票與 wiring 後交給 <code>/research</code> subagent。</td></tr>
 <tr><td><code>prototype</code></td><td>HITL</td><td>用粗糙可反應的 artifact 回答 UI 或 logic 問題。</td></tr>
 <tr><td><code>grilling</code></td><td>HITL</td><td>與真正能代表需求的人逐題釐清；agent 不能代替人回答。</td></tr>
 <tr><td><code>task</code></td><td>AFK / HITL</td><td>完成阻擋決策的必要手動工作，不是提前交付 destination。</td></tr>
 </table>
+<div class="rule"><strong>Research 是平行例外：</strong>所有 tickets 與 blocking edges 建好後，立即為每張 research ticket 平行啟動一個 <code>/research</code> subagent。研究輸出放在 throwaway <code>research/&lt;name&gt;</code> branch，ticket 留下能恢復研究脈絡的 context pointer；charting agent 本身不逐張解票。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
@@ -91,12 +92,12 @@
   <p>先讓 grilling 與 domain-modeling 把 destination 邊界釘住，再 breadth-first 掃描整片未知區。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 4. 建立 map 與現在能問清楚的 tickets</label>
-  <p>先 create tickets，取得 ids 後再第二輪 wire blocking edges。Fog 留在 <em>Not yet specified</em>，不要預先切碎。</p>
+  <label><input type="checkbox"> 4. 建立 decision tickets，wire edges，啟動 research</label>
+  <p>先 create tickets，取得 ids 後再第二輪 wire blocking edges。接著為每張 research ticket 平行啟動 <code>/research</code> subagent，讓結果留在各自的 <code>research/&lt;name&gt;</code> branch，並把 context pointer 留回 ticket。Fog 留在 <em>Not yet specified</em>，不要預先切碎。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 5. 驗收 frontier 後停止</label>
-  <p>確認 map 有 destination、至少一張可認領 frontier ticket、必要的 blocked tickets，以及仍看不清的 fog。<strong>不要在這個 session 解第一票。</strong></p>
+  <p>確認 map 有 destination、至少一張可認領 frontier ticket、必要的 blocked tickets，以及仍看不清的 fog。Research subagents 可以在背景繼續；<strong>charting agent 不要在這個 session 手動解第一票。</strong></p>
 </div>
 
 <div class="done-banner" id="done">
@@ -127,15 +128,15 @@
 </div>
 <div class="quiz" data-answer="2">
   <p>4. Chart map 的 session 最後應該做什麼？</p>
-  <button>立刻開始完成最終交付</button>
-  <button>立刻開始處理第一張票</button>
-  <button>檢查目前邊界然後停止</button>
-  <div class="why">Upstream 明確要求 charting 本身是一個 session；建立 map 與 frontier 後停止，不在同一 session 開始解票。</div>
+  <button>完成 map 後直接開始最終交付</button>
+  <button>驗收 frontier 後手動解第一票</button>
+  <button>啟動 research，驗收邊界後停止</button>
+  <div class="why">Tickets 與 edges 建好後，research tickets 交給平行 <code>/research</code> subagents；charting agent 驗收 map 與 frontier 後停止，不手動開始解第一票。</div>
 </div>
 
 <h2>下一步</h2>
 <p>開一個乾淨 session，進入 <a href="003-0014-wayfinder-frontier.html">Phase 3 選修第 14 課</a>：只認領並解完一張 frontier ticket。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">wayfinder／SKILL.md</a> 的 The Map、Ticket Types、Fog of war 與 Chart the map；操作時搭配 <a href="../reference/wayfinder-map-workflow.html">Wayfinder map 速查表</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md">reviewed wayfinder snapshot（66898f6）</a> 的 The Map、Ticket Types、Fog of war 與 Chart the map；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">current wayfinder</a>，操作時搭配 <a href="../reference/wayfinder-map-workflow.html">Wayfinder map 速查表</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

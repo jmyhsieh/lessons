@@ -41,7 +41,7 @@
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
   <label><input type="checkbox"> 1. 在工作 repo 開 session</label>
-  <p>桌面 App 選工作 repo；CLI 則 <code>cd</code> 到 repo 後執行 <code>claude</code>。確認仍在預設逐項詢問模式。</p>
+  <p>桌面 App 選工作 repo 並確認是 <strong>Manual</strong>；CLI 則 <code>cd</code> 到 repo 後執行 <code>claude</code>，確認是 <strong>default</strong>。工作目錄內讀檔與內建唯讀指令通常不會詢問；本課若出現任何寫入或非唯讀動作，一律拒絕。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 2. 請它做架構導覽</label>
@@ -72,9 +72,9 @@ cite the files you used.</pre>
 </div>
 <div class="quiz" data-answer="2">
   <p>2. 要降低它亂猜 repo 架構，最有效的是？</p>
-  <button>要求它用更高 effort 回答</button>
-  <button>只問非常短的一句問題</button>
-  <button>要求它列出使用的檔案依據</button>
+  <button>改用更高 effort 回答</button>
+  <button>縮短成一句問題再問</button>
+  <button>列出回答用的檔案依據</button>
   <div class="why">讓它附檔案依據，回答就能被你驗證。可驗證比聽起來完整更重要。</div>
 </div>
 

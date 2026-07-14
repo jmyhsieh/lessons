@@ -11,6 +11,7 @@
   .sub { color: #666; margin-top: 0; }
   h2 { font-size: 1.08rem; color: #7a2d52; margin-top: 2rem; }
   table { width: 100%; border-collapse: collapse; font-size: .88rem; margin: 1rem 0; }
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
   th { background: #f5eaf0; }
   a { color: #7a2d52; }
@@ -23,6 +24,7 @@
   footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
   @media print {
     body { margin: 1rem auto; }
+    .table-scroll { overflow: visible; }
     .card, .pattern, tr { break-inside: avoid; }
   }
 </style>
@@ -37,6 +39,7 @@
 </div>
 
 <h2>案例對照表</h2>
+<div class="table-scroll" role="region" aria-label="案例對照表，可左右捲動" tabindex="0">
 <table>
 <tr><th>日期</th><th>案例</th><th>流程片段</th><th>對應槽位</th><th>可學走的模式</th></tr>
 <tr>
@@ -68,6 +71,7 @@
   <td>當實作成本下降，Founder 的稀缺能力變成 user understanding、spec quality、review 與取捨。</td>
 </tr>
 </table>
+</div>
 
 <h2>重複出現的模式</h2>
 <div class="grid">
@@ -77,7 +81,7 @@
   <div class="card"><strong>Review 不能省</strong><br>Claude Code 寫得越多，founder 越要安排安全、支付、資料與維護檢查。</div>
 </div>
 
-<h2>套回 Phase 4 第 01 課</h2>
+<h2>套回 Phase 5 第 01 課</h2>
 <pre>使用者洞察 → 一頁 spec → Claude Code 做產品切片 → founder review → 真實使用者回饋 → 下一輪假設</pre>
 <p>下一個可驗收 artifact 是 demo、使用者回饋、review checklist 或下一輪假設，而不是「產生了多少 code」。</p>
 

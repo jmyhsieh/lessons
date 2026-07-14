@@ -45,14 +45,16 @@
 <h2>核心 prompt</h2>
 <pre>I don't know this area of code well. Go up a layer of abstraction.
 Give me a map of all the relevant modules and callers,
-using the project's domain glossary vocabulary.</pre>
+using the project's existing domain vocabulary.
+If CONTEXT.md does not exist, reuse terms from product docs and code;
+do not invent new domain terms.</pre>
 <div class="tip"><strong>現行狀態：</strong><code>/zoom-out</code> 曾是本機 skill 捷徑；若你的 skills 清單還有它，可以直接用。若沒有，就用上面的自然語言 prompt 達成同一件事。本課教的是穩定工作法，不是要求背一個 upstream 已移除的指令。</div>
 <p>拆解這三句話，每一句都有設計：</p>
 <table>
 <tr><th>原文</th><th>為什麼這樣寫</th></tr>
 <tr><td>「我不熟這區的 code」</td><td>誠實宣告狀態 — 讓它別假設你懂，回答從基礎講起</td></tr>
 <tr><td>「上升一個抽象層」</td><td>對抗 AI 的預設行為：直接鑽進檔案細節。你要的是俯瞰不是放大鏡</td></tr>
-<tr><td>「模組與呼叫者的地圖，<strong>用領域詞彙</strong>」</td><td>輸出錨定在 CONTEXT.md 的語言（Phase 3 第 01 課的地基在此回收）— 地圖才讀得懂、才耐久</td></tr>
+<tr><td>「模組與呼叫者的地圖，<strong>用領域詞彙</strong>」</td><td>已有 CONTEXT.md 就錨定其中的語言；尚未建立時沿用產品文件與 code 的既有詞彙，不自行發明。地圖才讀得懂、才耐久</td></tr>
 </table>
 <div class="tip"><strong>為什麼要手動觸發：</strong>「我不熟悉這個區域」只有你自己知道；Claude 無法替你判斷熟悉程度。這也是為什麼本課把重點放在你何時要求地圖。</div>
 
@@ -89,18 +91,20 @@ using the project's domain glossary vocabulary.</pre>
   <p>在該區域的脈絡下執行（先 cd 到相關目錄或在對話中指明區域）：</p>
   <pre>I don't know this area of code well. Go up a layer of abstraction.
 Give me a map of all the relevant modules, entry points, callers, data flow,
-tests, and risky areas. Use the project's domain vocabulary.</pre>
+tests, and risky areas. Use the project's existing domain vocabulary.
+If CONTEXT.md does not exist, reuse terms from product docs and code;
+do not invent new domain terms.</pre>
   <p>如果你的本機 skills 清單還有 <code>/zoom-out</code>，可以把它當快捷；沒有也不影響本課。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 3. 驗收地圖品質</label>
-  <p>三個檢查：(a) 它講的是模組與呼叫關係，還是鑽進了檔案細節？(b) 用的是 CONTEXT.md 的詞彙還是檔名？(c) 看完你能向同事複述這區的結構嗎？不合格就追問「再上升一層」。</p>
+  <p>三個檢查：(a) 它講的是模組與呼叫關係，還是鑽進了檔案細節？(b) 有 CONTEXT.md 時是否遵守其中詞彙；沒有時是否沿用 repo 既有產品語言而未自行發明？(c) 看完你能向同事複述這區的結構嗎？不合格就追問「再上升一層」。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 4. 地圖落地</label>
-  <p>發現 CONTEXT.md 缺的術語 → 補進去。地圖本身若值得保存，存成 docs 下的一頁（標注日期 — 地圖會過期）。</p>
+  <p>發現 CONTEXT.md 尚未建立或可能缺術語 → 先和能代表 domain 的人確認定義；確認後才按需建立或補進 CONTEXT.md。地圖本身若值得保存，存成 docs 下的一頁（標注日期 — 地圖會過期）。</p>
 </div>
 
 <div class="step">
@@ -119,7 +123,7 @@ tests, and risky areas. Use the project's domain vocabulary.</pre>
   <button>因為檔名與類別名可能涉及機密不宜輸出</button>
   <button>錨定共享語言，地圖才讀得懂且重構後仍耐久</button>
   <button>因為領域詞彙比技術詞彙消耗更少的 token</button>
-  <div class="why">同一條主線：CONTEXT.md 的語言是人和 AI 的共同地圖座標（Phase 3 第 01 課）；用檔名描述的地圖在重構後就作廢（Phase 3 第 09 課 durable issue 的同一個道理）。</div>
+  <div class="why">共享的領域語言是人和 AI 的共同地圖座標；已有 CONTEXT.md 就遵守它，沒有時先沿用 repo 既有產品語言。只用檔名描述的地圖會在重構後作廢。</div>
 </div>
 
 <div class="quiz" data-answer="2">
@@ -132,7 +136,7 @@ tests, and risky areas. Use the project's domain vocabulary.</pre>
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。下一課：<a href="003-0004-grill-with-docs.html">Phase 3 第 04 課 — 用 /grill-with-docs 把需求問清楚</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a> 的 explore-first 工作法。本課是自然語言 repo 導覽，不假裝成 upstream skill；選路線仍以 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/ask-matt/SKILL.md">ask-matt／SKILL.md</a> 為準。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a> 的 explore-first 工作法。本課是自然語言 repo 導覽，不假裝成 upstream skill；選路線以 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/ask-matt/SKILL.md">reviewed ask-matt snapshot（66898f6）</a> 為校準基準，操作前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/ask-matt/SKILL.md">current ask-matt</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

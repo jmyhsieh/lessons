@@ -39,7 +39,7 @@
 <tr><th>命令</th><th>成功輸出</th><th>失敗條件</th></tr>
 <tr><td><code>runner list --json</code></td><td>input id、source、status。</td><td>input 目錄不存在。</td></tr>
 <tr><td><code>runner show &lt;id&gt; --json</code></td><td>正規化後的 input contract。</td><td>找不到 id、必填欄位缺漏。</td></tr>
-<tr><td><code>runner run --dry &lt;id&gt; --json</code></td><td>prompt preview、allowed tools、gates、paths、<code>willCallAgent:false</code>。</td><td>stop condition 已觸發、gate 設定不完整。</td></tr>
+<tr><td><code>runner run --dry &lt;id&gt; --json</code></td><td>prompt、tool surface、permission/settings/MCP policy、gates、paths、<code>willCallAgent:false</code>。</td><td>stop condition 已觸發、gate 設定不完整。</td></tr>
 </table>
 
 <h2>正規化格式</h2>
@@ -48,10 +48,14 @@
   "source": "",
   "outcome": "",
   "scope": [],
+  "permissionMode": "dontAsk",
+  "settingSources": ["project"],
+  "mcpPolicy": "none",
   "gates": [],
   "stop": [],
   "evidenceDir": "",
-  "reportPath": ""
+  "reportPath": "",
+  "baselinePolicy": "tracked-and-untracked-content"
 }</pre>
 
 <h2>Fixture 組合</h2>
@@ -69,11 +73,12 @@
 - show can normalize one input and reject malformed input.
 - dry-run prints prompt/tools/gates/paths.
 - dry-run always reports willCallAgent:false and willModifyFiles:false.
+- before/after manifests include tracked and untracked file content.
 - fixtures cover pass and fail cases.</pre>
 
 <footer>
   索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
-  對應課程：<a href="../lessons/004-0004-agent-call-gates.html">Phase 4 第 04 課 — agent call evidence</a> · <a href="../lessons/004-0003-minimal-runner-dry-run.html">Phase 4 第 03 課 — runner 第一片</a> · <a href="../lessons/004-0003-minimal-runner-dry-run.html">Phase 4 第 03 課 — minimal runner</a><br>
+  對應課程：<a href="../lessons/005-0004-agent-call-gates.html">Phase 5 第 04 課 — agent call evidence</a> · <a href="../lessons/005-0003-minimal-runner-dry-run.html">Phase 5 第 03 課 — runner 第一片</a> · <a href="../lessons/005-0003-minimal-runner-dry-run.html">Phase 5 第 03 課 — minimal runner</a><br>
   主要來源：<a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a> · <a href="https://code.claude.com/docs/en/cli-reference">Claude Code CLI reference</a>
 </footer>
 </body>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06：用原型驗證設計假設</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 740px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #635b9a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #635b9a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #635b9a; }
+  code, pre { background: #f3f1fa; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #4c467b; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #f3f1fa; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .safety { background: #fbeaea; border-left: 4px solid #c62828; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #ddd8ee; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fcfbff; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .quiz { border: 1px solid #ddd8ee; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #635b9a; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #f3f1fa; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #ddd8ee; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 4 · 第 06 課 · 約 30 分鐘 · 驗證練習</div>
+<h1>用原型驗證設計假設</h1>
+<p class="mission">目標：把一個好看的 Claude Design prototype 當成待驗證假設，留下 responsive、interaction、accessibility 與真實使用者回饋四類證據。</p>
+<div class="scope"><strong>本課只做：</strong>對一條核心任務跑小型驗證，記錄問題與決策。<br><strong>先不要做：</strong>因為 Claude 說「看起來可用」就宣布通過，或把 prototype 當 production 完成品。</div>
+
+<div class="safety"><strong>Claude review 不是驗證本身。</strong>請 Claude 檢查 accessibility、對比或資訊層級，可以產生待查清單；只有你實際操作不同尺寸、輸入方式與任務，或觀察真實使用者完成任務，才形成驗證證據。</div>
+
+<h2>知識：四種證據回答四個問題</h2>
+<table>
+<tr><th>面向</th><th>要實際做什麼</th><th>留下的 evidence</th></tr>
+<tr><td><strong>Responsive</strong></td><td>在手機、平板、桌面代表尺寸走同一條任務</td><td>尺寸、截圖、溢位或折行紀錄</td></tr>
+<tr><td><strong>Interaction</strong></td><td>點擊、鍵盤操作，走正常與失敗路徑</td><td>步驟、預期、實際、阻塞點</td></tr>
+<tr><td><strong>Accessibility</strong></td><td>檢查鍵盤可達、焦點順序、名稱、對比與狀態訊息</td><td>人工檢查結果與工具輸出</td></tr>
+<tr><td><strong>User feedback</strong></td><td>給真實使用者目標，不教操作；觀察他怎麼完成</td><td>行為、原話、完成與否、嚴重度</td></tr>
+</table>
+<p>測試句要描述任務，不是操作腳本。例如給使用者：「找出本月異常支出並分享給主管。」不要先告訴他按哪顆按鈕。</p>
+
+<h2>知識：把意見寫成可處理的紀錄</h2>
+<pre>假設：新使用者能找到主要動作
+情境：手機寬度、只用鍵盤、首次使用
+觀察：3 人中有 2 人先點次要連結
+影響：無法在 1 分鐘內完成任務
+決定：提高主要動作層級，下一版重測</pre>
+<p>「我不喜歡藍色」是偏好；「三位使用者都把灰色按鈕當 disabled」是可追溯證據。不要用單一人的喜好冒充普遍規則，也不要忽略會阻塞核心任務的少數發現。</p>
+
+<h2>實作 checklist（做完打勾）</h2>
+<div class="step">
+  <label><input type="checkbox"> 1. 寫一條任務與一個成功條件</label>
+  <p>例：使用者能在 60 秒內完成送出，且不需提示。只驗證一條主路徑，避免測試範圍失控。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 2. 跑 responsive 與 interaction 檢查</label>
+  <p>選至少一個窄尺寸與一個寬尺寸；用滑鼠和鍵盤走過主路徑，也觸發一個錯誤或空狀態。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 3. 跑 accessibility 檢查</label>
+  <p>確認焦點看得見、順序合理、互動控制有可理解名稱、狀態不只靠顏色表達。把 Claude 的 review 當線索，再親自驗證。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 4. 觀察一位真實使用者</label>
+  <p>只給任務目標，不提示解法。記下他做了什麼、說了什麼、是否完成；最後再問「哪裡讓你猶豫？」</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 5. 分類並做決定</label>
+  <p>將發現分成 blocker、重要、可延後；每筆標示修正、重測或接受限制。沒有 owner 與決定的 observation 還不算 closeout。</p>
+</div>
+<div class="done-banner" id="done"><strong>你已把設計偏好轉成驗證證據。</strong>把最嚴重的一筆發現貼回對話視窗，請 AI 老師挑戰你的結論是否超出證據。</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+<div class="quiz" data-answer="2">
+  <p>1. 請 Claude review accessibility 後，下一個正確動作是？</p>
+  <button>直接標記驗證完成</button>
+  <button>直接交給工程實作</button>
+  <button>實際操作並留證據</button>
+  <div class="why">Claude review 可以找出候選問題，但不是驗證本身。要用實際操作、工具檢查或使用者觀察確認。</div>
+</div>
+<div class="quiz" data-answer="0">
+  <p>2. 哪一種提問最適合真實使用者測試？</p>
+  <button>給任務但不教操作</button>
+  <button>逐步指示每次點擊</button>
+  <button>展示答案再請重做</button>
+  <div class="why">只給任務目標，才能觀察介面是否自然支持使用者完成工作。先教操作會掩蓋可用性問題。</div>
+</div>
+<div class="quiz" data-answer="1">
+  <p>3. 哪一筆紀錄最能支持下一輪修改？</p>
+  <button>新版感覺比較漂亮</button>
+  <button>三人誤認主要按鈕</button>
+  <button>團隊偏愛紫色背景</button>
+  <div class="why">具體行為、出現人數與任務影響，比抽象偏好更能支持優先級與重測決定。</div>
+</div>
+
+<h2>下一步與相關內容</h2>
+<p>當 blocker 已修正並重測，進入 <a href="004-0007-handoff-to-claude-code.html">Phase 4 第 07 課 — Handoff 給 Claude Code</a>，把 design intent 與驗證證據一起交接。</p>
+<p><strong>主要官方閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Get started with Claude Design</a> 的「Tips for best results」與「Known limitations」。流程對照：<a href="../reference/claude-design-to-code-workflow.html">Claude Design → Claude Code 速查表</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  上一課：<a href="004-0005-refine-and-version.html">Phase 4 第 05 課 — 精修與版本</a> · 下一課：<a href="004-0007-handoff-to-claude-code.html">Phase 4 第 07 課 — Handoff</a> · <a href="../toc.html">課目表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

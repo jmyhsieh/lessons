@@ -110,17 +110,17 @@ Ask before editing the file.</pre>
 
 <div class="quiz" data-answer="0">
   <p>1. 「禁止直接推送 main」這條規定，最可靠的實作方式是？</p>
-  <button>用 hooks 或 permission 強制阻擋</button>
-  <button>寫進 CLAUDE.md 作為文字規範並自動讀取</button>
-  <button>每次新 session 再口頭提醒</button>
+  <button>用 hook 或 permission 強制</button>
+  <button>寫進 CLAUDE.md 提供指引</button>
+  <button>每個 session 口頭提醒</button>
   <div class="why">CLAUDE.md 是指引（context），不保證百分之百遵守；必須強制的規則要用技術閘門（hooks / permissions）。這是官方文件明確的分工。</div>
 </div>
 
 <div class="quiz" data-answer="2">
   <p>2. 哪一條最適合寫進團隊共享的 CLAUDE.md？</p>
-  <button>個人沙箱環境的網址、帳號與 secret</button>
-  <button>單次表單驗證 bug 的需求</button>
-  <button>commit 前執行 npm run lint</button>
+  <button>個人環境的登入資訊</button>
+  <button>單次 bug 的任務需求</button>
+  <button>團隊固定的 lint 指令</button>
   <div class="why">共享 CLAUDE.md 放全隊通用、每個 session 都需要的事實。個人環境放 CLAUDE.local.md；單次任務內容直接在對話講即可。</div>
 </div>
 

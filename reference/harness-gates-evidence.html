@@ -37,10 +37,11 @@
 <h2>Gate 類型</h2>
 <table>
 <tr><th>類型</th><th>問題</th><th>常見 evidence</th></tr>
-<tr><td>Scope gate</td><td>Agent 是否只碰允許範圍？</td><td><code>git diff --name-only</code>、保護路徑檢查、blocked path 清單。</td></tr>
+<tr><td>Scope gate</td><td>Agent 是否只碰允許範圍？</td><td>Before/after manifest、tracked／untracked changed paths、保護路徑結果。</td></tr>
 <tr><td>Verification gate</td><td>需求是否真的被滿足？</td><td>test/build/lint exit code、fixture diff、截圖比對。</td></tr>
 <tr><td>Review gate</td><td>機器無法完全判斷的品質是否可接受？</td><td>reviewer、review checklist、decision、例外說明。</td></tr>
 </table>
+<div class="rule"><strong>Scope evidence 要從 baseline 算出：</strong>先保存 porcelain status、staged／unstaged diff，以及 tracked 與 untracked 檔案的 path、mode、content hash；run 後重建 manifest，差集才是本輪 changed files。只跑 <code>git diff --name-only</code> 會漏掉 untracked files，也會混淆 agent 前就存在的 dirty state。</div>
 
 <h2>Evidence packet 模板</h2>
 <pre>Evidence packet:
@@ -67,12 +68,13 @@
 <tr><td>Prompt gate</td><td>一次性任務或新流程。</td><td>在 prompt 要求 agent 跑檢查並貼 evidence。</td></tr>
 <tr><td>Checklist gate</td><td>半重複任務。</td><td>把 gate/evidence 固定到 issue template 或 handoff。</td></tr>
 <tr><td>Hook gate</td><td>高頻、低容忍錯誤。</td><td>用 Claude Code hooks 阻擋收工或危險操作。</td></tr>
-<tr><td>Telemetry gate</td><td>長期 runner 或平台。</td><td>收集 tool calls、token、failure、artifact path 等可觀測資料。</td></tr>
+<tr><td>Telemetry observation</td><td>長期 runner 或平台需要趨勢資料。</td><td>收集 tool calls、token、failure、artifact path；本身不判 pass/fail。</td></tr>
 </table>
+<div class="rule"><strong>Telemetry 不是 gate。</strong>只有先定義 signal、時間窗、資料完整性、threshold、pass/fail 與 owner／action，才能建立「由 telemetry 驅動的 gate」。單純送出 traces、metrics 或 events 只能算 observation。</div>
 
 <footer>
   索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
-  對應課程：<a href="../lessons/004-0004-agent-call-gates.html">Phase 4 第 04 課 — gate execution report</a> · <a href="../lessons/004-0002-harness-contract.html">Phase 4 第 02 課 — 設計 gates 與 evidence</a> · <a href="../lessons/004-0002-harness-contract.html">Phase 4 第 02 課 — harness-ready issue / brief</a><br>
+  對應課程：<a href="../lessons/005-0004-agent-call-gates.html">Phase 5 第 04 課 — gate execution report</a> · <a href="../lessons/005-0002-harness-contract.html">Phase 5 第 02 課 — 設計 gates 與 evidence</a> · <a href="../lessons/005-0002-harness-contract.html">Phase 5 第 02 課 — harness-ready issue / brief</a><br>
   主要來源：<a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a> · <a href="https://code.claude.com/docs/en/hooks">Claude Code hooks</a> · <a href="https://code.claude.com/docs/en/agent-sdk/observability">Agent SDK observability</a>
 </footer>
 </body>

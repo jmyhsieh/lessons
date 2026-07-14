@@ -36,9 +36,9 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 4 Lab · 第 03 課 · 約 40 分鐘 · Minimal runner</div>
+<div class="kicker">Phase 5 Lab · 第 03 課 · 約 40 分鐘 · Minimal runner</div>
 <h1>建立 minimal runner 與 dry-run</h1>
-<p class="mission">目標：把 Phase 4 第 02 課的 harness contract 變成第一個可執行切片：能列出任務、顯示解析結果、產生 dry-run plan。這一課不呼叫模型、不改工作區。</p>
+<p class="mission">目標：把 Phase 5 第 02 課的 harness contract 變成第一個可執行切片：能列出任務、顯示解析結果、產生 dry-run plan。這一課不呼叫模型、不改工作區。</p>
 <div class="scope"><strong>本課只做：</strong><code>list</code>、<code>show</code>、<code>run --dry</code> 三個命令。<br><strong>先不要做：</strong>真 agent call、排程、多任務或佇列。</div>
 
 
@@ -83,7 +83,11 @@ Prompt template:
 Goal condition:
 Effort policy:
 Allowed tools:
+Permission mode:
+Setting sources:
+MCP policy:
 Workspace:
+Workspace baseline:
 Gates:
 Evidence dir:
 Report path:
@@ -103,7 +107,7 @@ Dry-run behavior:</pre>
 
 <div class="step">
   <label><input type="checkbox"> 1. 選一個成熟任務</label>
-  <p>只選已完成 Phase 4 第 02 課 contract 的任務：input 穩、gates 清楚、evidence 位置明確、report/handoff 模板已定。</p>
+  <p>只選已完成 Phase 5 第 02 課 contract 的任務：input 穩、gates 清楚、evidence 位置明確、report/handoff 模板已定。</p>
 </div>
 
 <div class="step">
@@ -118,7 +122,7 @@ Dry-run behavior:</pre>
 
 <div class="step">
   <label><input type="checkbox"> 4. 實作 <code>run --dry</code></label>
-  <p>Dry run 只印出 input、prompt、allowed tools、gates、output paths，不呼叫模型、不改檔。執行前後用 <code>git diff --exit-code</code> 或等價檢查證明工作區未變。</p>
+  <p>Dry run 只印出 input、prompt、tool surface、permission mode、setting sources、MCP policy、gates 與 output paths，不呼叫模型、不改檔。執行前先在記憶體或 worktree 外建立 baseline：保存 porcelain status、staged／unstaged diff，以及 tracked 與 untracked 檔案的 path、mode、content hash；執行後重建並逐位元比較。單用 <code>git diff --exit-code</code> 會漏掉 untracked files，也無法證明原本已 dirty 的檔案沒有再變。</p>
 </div>
 
 <div class="step">
@@ -150,17 +154,17 @@ Dry-run behavior:</pre>
 
 <div class="quiz" data-answer="2">
   <p>3. 哪種情況比較適合先用 SDK？</p>
-  <button>只跑一次</button>
-  <button>只有 prompt</button>
-  <button>要管事件</button>
+  <button>只組單次提示</button>
+  <button>只讀單份輸入</button>
+  <button>需控權限事件</button>
   <div class="why">需要程式化控制工具、權限、session、telemetry 或多步事件處理時，SDK 才比單純 <code>claude -p</code> 更合適。</div>
 </div>
 
 <div class="quiz" data-answer="1">
   <p>4. Runner 裡的 effort policy 應該寫什麼？</p>
-  <button>固定 max</button>
-  <button>升降條件</button>
-  <button>完全省略</button>
+  <button>只寫最高等級</button>
+  <button>寫明升降條件</button>
+  <button>交給每輪猜測</button>
   <div class="why">Runner 要能重跑，就要知道何時維持 high、何時連同模型升級、何時停止，而不是每次靠當下感覺。</div>
 </div>
 
@@ -170,7 +174,7 @@ Dry-run behavior:</pre>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  相關課程：<a href="004-0002-harness-contract.html">Phase 4 第 02 課 — harness contract</a> · <a href="004-0004-agent-call-gates.html">Phase 4 第 04 課 — agent call 與 gates</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+  相關課程：<a href="005-0002-harness-contract.html">Phase 5 第 02 課 — harness contract</a> · <a href="005-0004-agent-call-gates.html">Phase 5 第 04 課 — agent call 與 gates</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
 </footer>
 
 <script>

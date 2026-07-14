@@ -48,7 +48,7 @@
   <li>你發現自己<strong>重複貼同一段指示、檢查清單或多步驟流程</strong>到對話裡</li>
   <li>CLAUDE.md 裡某一段已經長成「流程」而不是「事實」</li>
 </ul>
-<p>關鍵差異：<strong>CLAUDE.md 每個 session 都全文載入（吃 context）；skill 只在用到時才載入</strong>。所以長的參考資料、偶爾才用的流程 → skill；每次都要遵守的短規則 → CLAUDE.md。</p>
+<p>關鍵差異：<strong>CLAUDE.md 的指示會載入 session；skill 的完整內容只在使用時載入</strong>。但 skill 不是零成本：Claude Code 會把所有 skill 的名稱與 description 清單放進 context，預算約為模型 context window 的 1%；太多或太長時，較少使用的 description 會被縮短。可用 <code>/context</code> 看實際 Skills 成本、用 <code>/doctor</code> 找主要貢獻者。所以長參考資料、偶爾才用的流程 → skill；每次都要遵守的短規則 → CLAUDE.md。</p>
 
 <h2>結構：一個資料夾 + SKILL.md</h2>
 <pre>.claude/skills/summarize-changes/SKILL.md   ← 專案（隨 git 共享）
@@ -108,9 +108,9 @@ description: 摘要未 commit 的變更並標記風險。當使用者問
 
 <div class="quiz" data-answer="1">
   <p>1. 「我們的 API 命名慣例」（兩行規則，每次寫 code 都要遵守）該放？</p>
-  <button>skill，包裝可重用的 API 領域知識與流程</button>
-  <button>CLAUDE.md，每個 session 都需要</button>
-  <button>hook，固定時點強制檢查命名</button>
+  <button>依需求載入指定流程</button>
+  <button>每個 session 載入規則</button>
+  <button>依事件執行指定程式</button>
   <div class="why">每次都要、又短 → CLAUDE.md。skill 的優勢在「用到才載入」，對每次都需要的兩行規則沒有意義；hook 是 shell 指令，沒辦法「強制命名風格」這種需要判斷的事。</div>
 </div>
 
@@ -124,9 +124,9 @@ description: 摘要未 commit 的變更並標記風險。當使用者問
 
 <div class="quiz" data-answer="2">
   <p>3.（複習三層模型）「commit 前必跑測試，不過就不准結束」這種<strong>保證</strong>，用什麼實現？</p>
-  <button>skill，包裝測試流程</button>
-  <button>CLAUDE.md，提醒 commit 前跑測試</button>
-  <button>hook，在固定時點強制執行</button>
+  <button>按需載入流程</button>
+  <button>持續載入規則</button>
+  <button>事件觸發檢查</button>
   <div class="why">（間隔複習 Phase 2 第 01 課）關鍵字是「必」= 保證 = hooks。skill 和 CLAUDE.md 都靠模型配合，只有 hook 是系統強制。</div>
 </div>
 

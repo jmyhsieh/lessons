@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Claude Code 操作速查表：Desktop UI 與 CLI commands</title>
 <style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { max-width: 100%; }
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
   h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #c2571a; }
@@ -16,11 +18,11 @@
   code { background: #f4f0ec; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; }
   a { color: #b04a12; }
   .rule { border-left: 4px solid #c2571a; background: #fdfbf9; padding: .8rem 1rem; margin: 1rem 0; }
-  .guide-list { display: grid; gap: .75rem; margin: 1rem 0; }
-  .guide-item { border: 1px solid #ddd; border-radius: 8px; padding: .75rem .9rem; display: grid; grid-template-columns: 7.5rem 1fr; gap: .75rem; background: #fff; }
+  .guide-list { display: grid; gap: .75rem; margin: 1rem 0; min-width: 0; }
+  .guide-item { border: 1px solid #ddd; border-radius: 8px; padding: .75rem .9rem; display: grid; grid-template-columns: 7.5rem 1fr; gap: .75rem; background: #fff; min-width: 0; max-width: 100%; }
   .guide-label { font-weight: 700; color: #7a3b12; }
   .guide-body { min-width: 0; }
-  .cmds { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .25rem; }
+  .cmds { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .25rem; min-width: 0; }
   .cmds code { display: inline-block; white-space: nowrap; }
   .guide-body p { margin: .15rem 0 0; }
   footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
@@ -30,6 +32,8 @@
     th, td { padding: .45rem .5rem; }
     .guide-item { grid-template-columns: 1fr; gap: .35rem; padding: .75rem; }
     .guide-label { font-size: .92rem; }
+    h1, p, footer, .rule { overflow-wrap: anywhere; }
+    .cmds code { white-space: normal; overflow-wrap: anywhere; }
   }
   @media print { body { margin: 1rem auto; } .rule, tr { break-inside: avoid; } }
 </style>
@@ -59,7 +63,7 @@
   </section>
   <section class="guide-item">
     <div class="guide-label">權限模式</div>
-    <div class="guide-body"><p>用 mode selector。新手正式 repo 先用 Ask permissions。</p></div>
+    <div class="guide-body"><p>用 mode selector。新手正式 repo 先用 Manual；工作目錄內讀檔與內建唯讀指令通常直接執行，編輯與其他指令會詢問。</p></div>
   </section>
   <section class="guide-item">
     <div class="guide-label">模型 / effort</div>

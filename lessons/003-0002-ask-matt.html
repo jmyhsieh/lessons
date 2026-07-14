@@ -12,11 +12,11 @@
   .mission { font-style: italic; color: #555; border-left: 3px solid #1a6b5a; padding-left: 1rem; }
   h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #1a6b5a; }
   code, pre { background: #eef4f2; border-radius: 4px; font-size: .9em; }
-  code { padding: .12rem .35rem; }
+  code { padding: .12rem .35rem; overflow-wrap: anywhere; }
   pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
   a { color: #15564a; }
   table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
-  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
   th { background: #eef4f2; }
   .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #f8fbfa; }
@@ -40,6 +40,7 @@
 <h1>用 /ask-matt 判斷該走哪條路</h1>
 <p class="mission">目標：在開始動手前，先用 <code>/ask-matt</code> 判斷現在是單一 session 的小需求、多 session build、外部回報、架構維護，還是需要跨 session 交接。這一課讓 Phase 3 從「背 skill 名稱」改成「選對流程」。</p>
 <div class="scope"><strong>本課只做：</strong>判斷下一步該用哪條路。<br><strong>先不要做：</strong>把 <code>/ask-matt</code> 當成會替你完成工作的萬用指令。</div>
+<div class="tip"><strong>必要前置：</strong>若目標 repo 尚未完成 <a href="003-0001-matt-pocock-skills-foundation.html">第 01 課</a>的 <code>/setup-matt-pocock-skills</code>，先停在這裡完成 setup；tracker 與 domain docs 未設定前，不要啟動工程流程。</div>
 
 <h2>它是 router，不是施工隊</h2>
 <p><code>/ask-matt</code> 的職責是把情境分到正確流程。它會告訴你該先用哪個 skill、何時切 session、何時改走 triage、wayfinder 或維護線。真正產出 spec、tickets、程式碼或 handoff 的，是後面的專門 skill。</p>
@@ -48,7 +49,7 @@
 <tr><td>單一 session 能完成的新需求</td><td><code>/grill-with-docs</code> → 同一個 context 直接 <code>/implement</code></td></tr>
 <tr><td>需要多個 session 的 build</td><td><code>/grill-with-docs</code> → <code>/to-spec</code> → <code>/to-tickets</code> → 每張 ticket 開新 context 跑 <code>/implement</code></td></tr>
 <tr><td>必須用可跑成果回答的設計問題</td><td><code>/handoff</code> 出主線 → <code>/prototype</code> → <code>/handoff</code> 把答案帶回</td></tr>
-<tr><td>外部 bug 或需求回報</td><td><code>/triage</code> → <code>/diagnosing-bugs</code> 或 <code>/implement</code></td></tr>
+<tr><td>外部 bug 或需求回報</td><td><code>/triage</code> 先產生 agent-ready issue → 通常交 <code>/implement</code>；若是難解、間歇或回歸 bug，再改走 <code>/diagnosing-bugs</code></td></tr>
 <tr><td>巨大、模糊、超過一個 session 的 effort</td><td><code>/wayfinder</code> 先建立共享 map，逐張 decision ticket 推進到路徑清楚，再回到 <code>/to-spec</code>；只有 effort 最後縮成單一小任務才直接 <code>/implement</code></td></tr>
 <tr><td>架構維護</td><td><code>/improve-codebase-architecture</code> → 選一個改善點 → 回到 <code>/grill-with-docs</code></td></tr>
 <tr><td>context 太滿或要分支</td><td><code>/handoff</code> 開新 session；<code>/compact</code> 留在同一個 session。</td></tr>
@@ -91,29 +92,29 @@
 <h2>觀念檢查（憑記憶作答）</h2>
 <div class="quiz" data-answer="1">
   <p>1. 一個新功能還不清楚，最合理的主線入口是？</p>
-  <button>直接 /implement，先讓它做出第一版</button>
-  <button>先 /grill-with-docs，把需求問清楚</button>
-  <button>先 /triage，把它分類成 ready-for-agent</button>
+  <button>直接 /implement，先做第一版功能</button>
+  <button>先 /grill-with-docs，問清需求</button>
+  <button>先 /triage，分流這張內部需求</button>
   <div class="why">新需求先對齊，不是先做。<code>/grill-with-docs</code> 會把想法、詞彙、程式碼現況與 ADR 放在同一個脈絡裡問清楚。</div>
 </div>
 <div class="quiz" data-answer="0">
   <p>2. /implement 和 /tdd 的關係比較接近哪一種？</p>
   <button>/implement 會在實作中使用 /tdd</button>
-  <button>/tdd 完全取代 /implement 的功能</button>
-  <button>兩者是互不相干的平行流程項目</button>
+  <button>/tdd 會完整取代 /implement 的功能</button>
+  <button>兩者屬於互不相干的平行工作流程</button>
   <div class="why"><code>/implement</code> 負責依 spec/ticket 施工；<code>/tdd</code> 是它內部用來保護實作品質的紀律。</div>
 </div>
 <div class="quiz" data-answer="1">
   <p>3. Grill 後確認需求能在單一 session 完成，也不需要 prototype，下一步是？</p>
-  <button>先寫 spec 再拆 tickets</button>
-  <button>同一 context 直接 implement</button>
-  <button>先 handoff 到新 session 並重新開始</button>
+  <button>先做 spec，再切成多張 tickets</button>
+  <button>同一個 context 直接 /implement</button>
+  <button>先 /handoff，換到新的 session</button>
   <div class="why">只有 multi-session build 才需要先固化成 spec 與 tickets。小而已對齊的需求可以留在同一個 context，直接交給 <code>/implement</code>。</div>
 </div>
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。一般路線下一課是 <a href="003-0003-repo-map.html">Phase 3 第 03 課 — 不熟 repo 時，先建立地圖</a>；若選到巨大模糊 effort，改走 <a href="003-0013-wayfinder-chart-map.html">Phase 3 選修第 13 課 — 畫出 shared map</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/ask-matt/SKILL.md">ask-matt／SKILL.md</a>；主線實作邊界對照 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/implement/SKILL.md">implement／SKILL.md</a>；巨大 effort 對照 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">wayfinder／SKILL.md</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/ask-matt/SKILL.md">reviewed ask-matt snapshot（66898f6）</a>；選路前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/ask-matt/SKILL.md">current ask-matt</a>。主線實作與巨大 effort 的 reviewed 邊界另見 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/implement/SKILL.md">implement</a> 與 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md">wayfinder</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

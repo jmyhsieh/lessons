@@ -11,6 +11,7 @@
   .sub { color: #666; margin-top: 0; }
   h2 { font-size: 1.08rem; color: #4c5f1f; margin-top: 2rem; }
   table { width: 100%; border-collapse: collapse; font-size: .88rem; margin: 1rem 0; }
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
   th { background: #f1f4e8; }
   a { color: #4c5f1f; }
@@ -23,6 +24,7 @@
   footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
   @media print {
     body { margin: 1rem auto; }
+    .table-scroll { overflow: visible; }
     .card, .pattern, tr { break-inside: avoid; }
   }
 </style>
@@ -37,6 +39,7 @@
 </div>
 
 <h2>案例對照表</h2>
+<div class="table-scroll" role="region" aria-label="案例對照表，可左右捲動" tabindex="0">
 <table>
 <tr><th>日期</th><th>案例</th><th>流程片段</th><th>對應槽位</th><th>可學走的模式</th></tr>
 <tr>
@@ -54,6 +57,7 @@
   <td>把 reproduction script、輸出差異、prompt framing 與失敗原因一起留下；不要只交一個成功結果。</td>
 </tr>
 </table>
+</div>
 
 <h2>重複出現的模式</h2>
 <div class="grid">
@@ -63,7 +67,7 @@
   <div class="card"><strong>失敗要可解釋</strong><br>失敗案例要分成資料缺口、環境問題、推論錯誤、理論假設錯誤，而不是只寫「agent failed」。</div>
 </div>
 
-<h2>套回 Phase 4 第 01 課</h2>
+<h2>套回 Phase 5 第 01 課</h2>
 <pre>研究問題 → paper / data inventory → Claude Code 重現 → oracle tests → domain review → limitation note</pre>
 <p>下一個可驗收 artifact 不是漂亮圖表，而是一組能重跑、能被 domain reviewer 質疑、且能說明限制的研究交付包。</p>
 

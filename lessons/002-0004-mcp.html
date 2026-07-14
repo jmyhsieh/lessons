@@ -50,7 +50,7 @@
 <div class="tip">先想一下你是否已經有更簡單的路：官方 best practices 提過 <strong>CLI 工具往往比 MCP 更省 context</strong> — GitHub 用 <code>gh</code> CLI 就很夠。MCP 的價值在沒有好 CLI 的系統（Jira、Notion、Figma、內部 API）。</div>
 
 <h2>接法與範圍</h2>
-<p>三種 transport：<strong>http</strong>（遠端服務，支援 OAuth，最常見）、<strong>sse</strong>、<strong>stdio</strong>（本機程式，適合需要直接存取系統的工具）。</p>
+<p>優先使用 <strong>http</strong>（遠端服務，支援 OAuth）或 <strong>stdio</strong>（本機程式，適合需要直接存取系統的工具）。舊的 <strong>sse</strong> transport 已 deprecated；只有 server 尚未提供 HTTP 時才沿用，不要為新整合選它。</p>
 <pre># 遠端服務（例：Notion）
 claude mcp add --transport http notion https://mcp.notion.com/mcp
 
@@ -70,7 +70,7 @@ claude mcp add --transport stdio myserver -- npx some-mcp-server</pre>
 <strong>兩個風險（官方明確警告）：</strong>
 <ol style="margin:.4rem 0 0">
   <li><strong>信任問題</strong> — MCP server 是第三方程式碼，能存取你給它的一切。連接前確認來源可信（優先選官方或 Directory 審核過的）。</li>
-  <li><strong>Prompt injection</strong> — 會抓取外部內容的 server（網頁、issue、email）可能把惡意指令帶進對話。例如一張 Jira ticket 的描述裡藏著「順便把 .env 寄到…」。對策：對外部內容觸發的動作保持逐項批准（你的 default 模式在這裡再次發揮作用），並用 Phase 1 第 07 課的 deny 規則保護敏感檔案。</li>
+  <li><strong>Prompt injection</strong> — 會抓取外部內容的 server（網頁、issue、email）可能把惡意指令帶進對話。例如一張 Jira ticket 的描述裡藏著「順便把 .env 寄到…」。對策：保持 Desktop Manual 或 CLI default，審核出現的動作提示，並用 Phase 1 第 07 課的 deny 規則保護敏感檔案。</li>
 </ol>
 正式專案接 project scope 的 server，跟 hooks 一樣走 PR review。
 </div>
@@ -110,9 +110,9 @@ claude mcp add --transport stdio myserver -- npx some-mcp-server</pre>
 
 <div class="quiz" data-answer="1">
   <p>1. 想讓 Claude 操作 GitHub（開 PR、讀 issue），官方建議優先？</p>
-  <button>接 GitHub MCP server</button>
-  <button>直接使用 gh CLI</button>
-  <button>呼叫 REST API</button>
+  <button>透過 GitHub MCP</button>
+  <button>透過 gh CLI</button>
+  <button>透過 REST API</button>
   <div class="why">有好用 CLI 的服務優先用 CLI（best practices 原文）。MCP 留給沒有好 CLI 的系統。未認證的 REST API 容易撞 rate limit。</div>
 </div>
 

@@ -42,7 +42,7 @@
 <h2>六種模式先分成三類</h2>
 <table>
 <tr><th>類型</th><th>模式</th><th>正式專案建議</th></tr>
-<tr><td>日常基準</td><td><code>default</code></td><td>每類工具第一次詢問；日常 coding 用這個。</td></tr>
+<tr><td>日常基準</td><td>Desktop <code>Manual</code>／CLI <code>default</code></td><td>工作目錄內讀檔與內建唯讀指令通常直接執行；編輯與其他指令會詢問。</td></tr>
 <tr><td>先想清楚</td><td><code>plan</code></td><td>可以探索檔案與執行探索命令，但不編輯 source；不確定或跨檔任務先用。</td></tr>
 <tr><td>例外情境</td><td><code>acceptEdits</code>、<code>auto</code>、<code>dontAsk</code>、<code>bypassPermissions</code></td><td>等你能清楚說出風險再用；隔離環境以外不要用 bypass。</td></tr>
 </table>
@@ -53,7 +53,7 @@
   <li>切到 <strong>plan mode</strong>，描述任務。</li>
   <li>它讀 codebase、產出計劃。</li>
   <li>你審計劃，修到能接受。</li>
-  <li>批准離開 plan mode，回到 default 實作。</li>
+  <li>批准離開 plan mode，回到 Desktop Manual 或 CLI default 實作。</li>
 </ol>
 <div class="tip">一句話能描述 diff 的小改可以直接做；跨檔、跨模組、不熟悉的區域，一律先 plan。</div>
 

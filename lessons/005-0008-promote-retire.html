@@ -36,9 +36,9 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 4 Lab · 第 08 課 · 約 40 分鐘 · Promote or retire</div>
+<div class="kicker">Phase 5 Lab · 第 08 課 · 約 40 分鐘 · Promote or retire</div>
 <h1>升級或退役 workflow contract</h1>
-<p class="mission">目標：根據 Phase 4 第 07 課的 effectiveness evidence，決定 contract 應留在文件、升級成 template/hook/gate，或合併與退役。</p>
+<p class="mission">目標：根據 Phase 5 第 07 課的 effectiveness evidence，決定 contract 應留在文件、升級成 template/hook/gate，或合併與退役。</p>
 <div class="scope"><strong>本課只做：</strong>一份 promotion 或 retirement decision。<br><strong>先不要做：</strong>把容易誤判、缺 evidence 或仍需討論的規則強制化。</div>
 
 
@@ -135,9 +135,9 @@
 
 <div class="quiz" data-answer="0">
   <p>2. Hook/gate 初次推出時，建議先？</p>
-  <button>先採 warn-only</button>
-  <button>立即阻擋全部現有工作流程</button>
-  <button>完全不留下紀錄</button>
+  <button>先採 warn-only 並記錄誤判</button>
+  <button>先採 blocking 並記錄例外</button>
+  <button>先寫 guideline 並記錄意見</button>
   <div class="why">warn-only 或 report-only 能先觀察誤判與例外，再決定是否強制。</div>
 </div>
 
@@ -149,25 +149,25 @@
   <div class="why">hook 的價值是在工具使用前後執行檢查或攔截。收工驗收則偏向 runner gate。</div>
 </div>
 
-<div class="quiz" data-answer="1">
+<div class="quiz" data-answer="0">
   <p>4. 哪個 effort 規則適合 unattended runner？</p>
-  <button>預設 max</button>
-  <button>禁止 max</button>
-  <button>不留紀錄</button>
+  <button>預設 high，明確條件才升級</button>
+  <button>預設 max，失敗後降低等級</button>
+  <button>使用 auto，不保存實際設定</button>
   <div class="why">Unattended runner 應保持成本與行為可控；max 只能作為人工審查下的例外，不宜作為預設。</div>
 </div>
 
 <div class="quiz" data-answer="2">
   <p>5. 哪種 contract 最應該檢查是否退役？</p>
-  <button>近期有 usage evidence</button>
-  <button>低誤判且降低返工</button>
-  <button>長期未使用又重複</button>
+  <button>近期有引用且 outcome 持續改善</button>
+  <button>近期低誤判且 review 成本下降</button>
+  <button>長期未引用且已有 rule 重複</button>
   <div class="why">長期未使用、與其他規則重複或已被技術機制取代的 contract 只會增加 context 與維護成本。</div>
 </div>
 
-<h2>Phase 4 收束</h2>
+<h2>Phase 5 收束</h2>
 <p>到這裡，你已能判斷是否需要 harness、建立可重跑 runner、保存證據與 run lineage、用演練修正流程，並治理 contract 的升級與退役。若沒有重複性、可機械 gates 或營運 evidence，停在 Phase 3 仍是正確答案。</p>
-<h2>Phase 4 Lab 驗收 rubric</h2>
+<h2>Phase 5 Lab 驗收 rubric</h2>
 <ul>
   <li>同一 input 可以穩定 <code>show</code> 與 <code>run --dry</code>，且 dry run 不改檔。</li>
   <li>至少一筆真 run 能追到 agent evidence、gate results、report 與 closeout。</li>
@@ -179,7 +179,7 @@
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  相關課程：<a href="004-0007-contract-effectiveness.html">Phase 4 第 07 課 — contract effectiveness</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+  相關課程：<a href="005-0007-contract-effectiveness.html">Phase 5 第 07 課 — contract effectiveness</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
 </footer>
 
 <script>

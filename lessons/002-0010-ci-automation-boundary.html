@@ -38,18 +38,19 @@
 
 <div class="safety"><strong>沒有人在場 = 權限設計取代你的眼睛。</strong>CI 裡先做唯讀摘要、diff review、文件檢查；會寫檔、會 push、會修改環境的任務不要直接無人值守。</div>
 
-<h2>CI 任務的三個條件</h2>
+<h2>CI 任務的四個條件</h2>
 <ul>
-  <li><strong>最小權限：</strong><code>--allowedTools</code> 只給需要的工具；能從 stdin 餵資料就不給工具。</li>
-  <li><strong>穩定輸出：</strong>要求固定格式，必要時用 <code>--output-format json</code>。</li>
+  <li><strong>明確認證：</strong><code>--bare</code> 不讀 OAuth/keychain；使用 <code>ANTHROPIC_API_KEY</code>、傳入的 <code>apiKeyHelper</code> 或 provider credentials，不依賴開發者電腦的登入狀態。</li>
+  <li><strong>最小工具面：</strong><code>--allowedTools</code> 只會預先批准工具，不是 allowlist；用 <code>--tools</code> 限制 built-in tools。能從 stdin 餵資料就用 <code>--tools ""</code>。</li>
+  <li><strong>穩定輸出：</strong><code>--output-format json</code> 固定 result envelope；回答內容需要固定欄位時用 <code>--json-schema</code>。</li>
   <li><strong>可營運：</strong>記錄成本、時間、失敗率與誤報率。</li>
 </ul>
 
 <h2>安全 diff review 範例</h2>
 <pre>git diff main |
 claude --bare -p "Review this diff for risky production config changes.
-Return only filename:line and reason. Return empty output if none."</pre>
-<p>這個設計沒有給 Claude git 權限；diff 已經從管線餵進去。</p>
+Return only filename:line and reason. Return empty output if none." --tools ""</pre>
+<p>這個設計沒有給 Claude built-in tools；diff 已經從管線餵進去。CI 還必須依上面的規則提供 bare mode 可用的明確認證。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
@@ -57,8 +58,8 @@ Return only filename:line and reason. Return empty output if none."</pre>
   <p>例如 typo linter、dangerous config review、release note 摘要。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 2. 寫明 allowedTools</label>
-  <p>能不用工具就不用；真的需要也只列最小集合。</p>
+  <label><input type="checkbox"> 2. 寫明 tool surface</label>
+  <p>能不用工具就用 <code>--tools ""</code>；真的需要才列最小 built-in tool 集合。不要把 <code>--allowedTools</code> 誤當成限制工具可見性的 allowlist。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 測三種輸入</label>
@@ -74,9 +75,9 @@ Return only filename:line and reason. Return empty output if none."</pre>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="0">
   <p>1. CI 裡要讀 diff，較安全的做法是？</p>
-  <button>管線傳入 diff，不授予 git 權限</button>
-  <button>開放完整 Bash 權限自行處理所有任務</button>
-  <button>允許直接 push 修正結果</button>
+  <button>從管線傳入 diff 資料</button>
+  <button>開放完整 Bash 權限</button>
+  <button>允許直接 push 修正</button>
   <div class="why">能用資料輸入解決，就不要給工具權限。</div>
 </div>
 <div class="quiz" data-answer="2">

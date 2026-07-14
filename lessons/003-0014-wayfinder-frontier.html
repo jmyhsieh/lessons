@@ -39,8 +39,8 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 3 選修 · 第 14 課 · 約 45 分鐘 · Wayfinder</div>
 <h1>沿 frontier 解一張 decision ticket</h1>
-<p class="mission">目標：從 shared map 找到一張未被阻擋、未被認領的 frontier ticket，在一個乾淨 session 內解完、留下答案、更新 map，然後停止。</p>
-<div class="scope"><strong>本課只做：</strong>認領並解完一張 decision ticket。<br><strong>先不要做：</strong>一次載入全部 tickets，或把 ticket session 變成 destination 的施工 session。</div>
+<p class="mission">目標：從 shared map 找到一張未被阻擋、未被認領的普通 frontier ticket，在一個乾淨 session 內解完、留下答案、更新 map，然後停止。</p>
+<div class="scope"><strong>本課的一般 loop：</strong>認領並解完一張 decision ticket；已啟動的 research subagents 是平行例外。<br><strong>先不要做：</strong>一次載入全部 tickets，或把 ticket session 變成 destination 的施工 session。</div>
 
 <h2>Frontier 是現在可前進的邊緣</h2>
 <p>一張 ticket 同時滿足三個條件，才在 frontier：</p>
@@ -50,6 +50,7 @@
   <li>尚未被另一個 session 認領。</li>
 </ul>
 <div class="rule"><strong>認領就是並行鎖：</strong>開始工作前，先把 ticket assign 給自己。其他 session 查 frontier 時就會跳過它；不要只在聊天裡說「我來做」。</div>
+<div class="rule"><strong>Research 是明確例外：</strong>普通 frontier ticket 仍是一個乾淨 session 只解一張；charting 時建立並 wire 好的 research tickets，則已平行交給各自的 <code>/research</code> subagent。每個研究結果留在 throwaway <code>research/&lt;name&gt;</code> branch，ticket 保留 context pointer，不必排隊等前一個一般 ticket session 結束。</div>
 
 <h2>只載入需要的解析度</h2>
 <p>新 session 先讀 map 的低解析全貌，再打開選中的 ticket。不要一次展開所有 child tickets；需要某個舊決策時，才按連結 zoom in。</p>
@@ -65,7 +66,7 @@ resolve → comment → close → 更新 map</pre>
 <h2>不同 ticket type 有不同 feedback loop</h2>
 <table>
 <tr><th>Type</th><th>怎麼解</th><th>完成證據</th></tr>
-<tr><td><code>research</code></td><td>查 primary sources，必要時用 <code>/research</code>。</td><td>有引用的 Markdown summary，從 ticket 連出去。</td></tr>
+<tr><td><code>research</code></td><td>由 charting 啟動的 <code>/research</code> subagent 查 primary sources。</td><td><code>research/&lt;name&gt;</code> branch 上有 cited summary；ticket 留 context pointer。</td></tr>
 <tr><td><code>prototype</code></td><td>讓人對粗糙 artifact 作反應；不能只讓 agent 自評。</td><td>被驗證的答案與 prototype asset 連結。</td></tr>
 <tr><td><code>grilling</code></td><td>逐題與真正的人類決策者對話。</td><td>明確 decision；agent 沒有替人回答。</td></tr>
 <tr><td><code>task</code></td><td>完成阻擋決策的必要操作。</td><td>做了什麼與產生的 facts；不是 destination deliverable。</td></tr>
@@ -91,7 +92,7 @@ resolve → comment → close → 更新 map</pre>
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 依 ticket type 建立 feedback loop</label>
-  <p>Research 要有 citations；prototype 要有人類反應；grilling 要真人回答；task 要留下可驗證 facts。</p>
+  <p>普通 frontier ticket 在本 session 內完成；research 則由平行 subagent 在 <code>research/&lt;name&gt;</code> branch 留下 citations，並把 context pointer 留回 ticket。Prototype 要有人類反應；grilling 要真人回答；task 要留下可驗證 facts。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 4. 留完整 resolution 並關票</label>
@@ -99,7 +100,7 @@ resolve → comment → close → 更新 map</pre>
 </div>
 <div class="step">
   <label><input type="checkbox"> 5. 推進 fog，然後停止</label>
-  <p>建立現在才看得清楚的新 tickets、wire edges、移除已升級的 fog。即使下一張 frontier 已出現，也留給下一個 session。</p>
+  <p>建立現在才看得清楚的新 tickets、wire edges、移除已升級的 fog。即使下一張普通 frontier ticket 已出現，也留給下一個 session；已啟動的 research subagents 可以平行繼續。</p>
 </div>
 
 <div class="done-banner" id="done">
@@ -119,10 +120,10 @@ resolve → comment → close → 更新 map</pre>
   <button>任意一張 claimed ticket</button>
   <div class="why">Frontier ticket 已解除 blockers 且尚未被認領；blocked 或 claimed ticket 都不該搶做。</div>
 </div>
-<div class="quiz" data-answer="0">
+<div class="quiz" data-answer="1">
   <p>2. 開始解 ticket 前，第一個寫入動作是？</p>
-  <button>先把這張票指派給自己</button>
   <button>先把整張地圖複製下來</button>
+  <button>先把這張票指派給自己</button>
   <button>先把阻擋關係全部刪除</button>
   <div class="why">Assignee 是多 session 的 claim mechanism。先 claim，其他 session 才知道要跳過這張票。</div>
 </div>
@@ -133,17 +134,24 @@ resolve → comment → close → 更新 map</pre>
   <button>保留票持續開啟避免遺失</button>
   <div class="why">完整答案屬於 ticket resolution；map 只加 linked gist。Ticket 要關閉，frontier 才會正確前進。</div>
 </div>
-<div class="quiz" data-answer="0">
+<div class="quiz" data-answer="2">
   <p>4. Map 已經清楚完整，預設接到哪裡？</p>
-  <button>交給規格流程完整收斂</button>
   <button>直接交給實作流程開工</button>
   <button>回頭加入更多未知問題</button>
+  <button>交給規格流程完整收斂</button>
   <div class="why">Wayfinder 的 linked decisions 要先由 <code>/to-spec</code> 收斂成 buildable plan；直接 implement 容易丟掉分散在 tickets 裡的細節。</div>
+</div>
+<div class="quiz" data-answer="1">
+  <p>5. 哪種情況是「一個 session 只解一張 ticket」的例外？</p>
+  <button>同時認領多張普通 frontier tickets</button>
+  <button>Charting 平行啟動 research subagents</button>
+  <button>把所有 blocked tickets 一起關閉</button>
+  <div class="why">普通 frontier ticket 仍一次只解一張；research tickets 在建立並 wire 後，就由各自的 <code>/research</code> subagent 平行處理，結果留在 throwaway branch，ticket 留 context pointer。</div>
 </div>
 
 <h2>下一步</h2>
 <p>Map 尚未完成：下一個乾淨 session 再跑一次本課。Map 已完成：前往 <a href="003-0006-to-spec.html">Phase 3 第 06 課 — /to-spec</a>，把 linked decisions 收斂成 spec。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">wayfinder／SKILL.md</a> 的 Work through the map 與 Invocation；操作時搭配 <a href="../reference/wayfinder-map-workflow.html">Wayfinder map 速查表</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md">reviewed wayfinder snapshot（66898f6）</a> 的 Work through the map 與 Invocation；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">current wayfinder</a>，操作時搭配 <a href="../reference/wayfinder-map-workflow.html">Wayfinder map 速查表</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

@@ -47,7 +47,7 @@
 <pre>/grill-with-docs → /handoff → <strong>/prototype</strong> → /handoff → 回到主線
    Phase 3 第 04 課              本課                    Phase 3 第 06–08 課</pre>
 <p>不是每個需求都需要 prototype — 但當「這個 state machine 對不對」「這頁該長怎樣」用想的講不清時，原型用<strong>能跑的東西</strong>取代爭論。to-spec / to-tickets 可以把原型敲定的關鍵片段（state machine、schema）收進後續 spec 或 ticket。</p>
-<div class="tip"><strong>跨 session 規則：</strong>主線裡需要 prototype 時，用 <code>/handoff</code> 把「要回答的問題」交給新 session；新 session 跑完 <code>/prototype</code> 後，再用 <code>/handoff</code> 把答案帶回原 thread。這能保留 grill → spec → tickets 的完整思路，也避免拋棄式探索污染主線 context。</div>
+<div class="tip"><strong>先補一個即時前置：</strong>第 12 課不是只能最後收尾；它也是 pipeline 中途換 session 的橋。若你還不熟 <code>/handoff</code>，先讀 <a href="003-0012-handoff.html">Phase 3 第 12 課</a>，再做本課：用第一次 handoff 把「要回答的問題」交給新 session，跑完 <code>/prototype</code> 後，再用第二次 handoff 把答案帶回原 thread。這能保留 grill → spec → tickets 的完整思路，也避免拋棄式探索污染主線 context。</div>
 
 <h2>核心定義（SKILL.md 原文）</h2>
 <p>「<strong>A prototype is throwaway code that answers a question. The question decides the shape.</strong>」— 問題決定形狀，所以第一步是<strong>選分支</strong>：</p>
@@ -89,7 +89,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 4. 記下答案</label>
-  <p>玩出結論後，把「問題＋結論」寫進耐久處（若這決策難回頭→ADR；否則 implementation issue 或 commit）。</p>
+  <p>玩出結論後，把「問題＋結論」寫進耐久處。只有決策同時難以回頭、缺少背景會令人意外，而且是實際取捨的結果時才寫 ADR；缺一就寫進 implementation issue 或 commit。</p>
 </div>
 
 <div class="step">
@@ -113,23 +113,23 @@
 
 <div class="quiz" data-answer="2">
   <p>2. 原型回答完問題後，正確的保存方式是？</p>
-  <button>只保留原型回答的決策</button>
-  <button>把完整原型合併進 main 並部署到 production</button>
-  <button>保留決策與 throwaway branch</button>
+  <button>只保留結論並刪除全部原型證據</button>
+  <button>把完整原型直接合併到 main branch</button>
+  <button>保存結論以及 throwaway branch</button>
   <div class="why">答案是耐久結論；原型是產生答案的 primary source。正式決策進 main，完整原型留在不會 merge 的 throwaway branch，issue 再指向它。</div>
 </div>
 
 <div class="quiz" data-answer="0">
-  <p>3.（複習 Phase 3 第 04 課）「這個取消流程的狀態機對不對」該選哪個分支？</p>
+  <p>3.「這個取消流程的狀態機對不對」該選哪個原型分支？</p>
   <button>LOGIC：驗證狀態與轉換</button>
   <button>UI：比較互動畫面呈現細節</button>
   <button>兩者：同時實作兩種類型</button>
-  <div class="why">狀態/邏輯問題 → LOGIC 分支。grill 銳化了「取消」的定義（Phase 3 第 04 課），prototype 用可跑的狀態機驗證它在邊界案例下行不行得通。</div>
+  <div class="why">狀態／邏輯問題 → LOGIC 分支。prototype 用可跑的狀態機驗證它在邊界案例下行不行得通；這是本課剛建立的分支判斷，不是假裝成前課的 retrieval。</div>
 </div>
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。若是 multi-session build，下一課進入 <a href="003-0006-to-spec.html">Phase 3 第 06 課 — 用 /to-spec 把對話凝結成 spec</a>；若單一 session 足以完成，帶著答案直接回 <code>/implement</code>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/prototype/SKILL.md">prototype／SKILL.md</a> 與同資料夾的 LOGIC.md／UI.md 分支說明。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/prototype/SKILL.md">reviewed prototype snapshot（66898f6）</a> 與同 snapshot 的 LOGIC.md／UI.md；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/prototype/SKILL.md">current prototype</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

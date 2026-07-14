@@ -51,24 +51,28 @@
 <tr><td><strong>Interface</strong></td><td>呼叫者必須知道的<strong>一切</strong>：型別、不變量、錯誤模式、順序、設定 — 不只是型別簽名</td></tr>
 <tr><td><strong>Depth 深度</strong></td><td>介面的槓桿：小介面後面藏大量行為 = 深；介面跟實作一樣複雜 = 淺</td></tr>
 <tr><td><strong>Seam 接縫</strong></td><td>介面所在之處；不改內部就能換行為的地方（Phase 3 第 06 課 to-spec 問你的就是這個）</td></tr>
+<tr><td><strong>Adapter</strong></td><td>在 seam 上滿足 interface 的具體角色；名稱描述它填入哪個位置，不描述內部材料或實作大小</td></tr>
 <tr><td><strong>Leverage / Locality</strong></td><td>深度給呼叫者的好處 / 給維護者的好處（改動、bug、知識集中一處）</td></tr>
 </table>
 <div class="tip"><strong>三句口訣：</strong>(1) <strong>刪除測試</strong> — 想像刪掉這個模組：複雜度消失 = 它是過水層；複雜度散落到 N 個呼叫端重新出現 = 它有在賺自己的飯。(2) <strong>介面就是測試面</strong>（接 Phase 3 第 08 課：測行為不測實作）。(3) <strong>一個 adapter = 假想接縫，兩個 adapter = 真接縫</strong>。</div>
 
+<h2>先圈範圍：YAGNI 也是架構原則</h2>
+<p>先用使用者已點名的 module、subsystem 或痛點作為 scope，不自行擴張。若使用者沒有指定，才讀 <code>git log --oneline</code>，從近期反覆被修改的 hot spot 選一個窄範圍；只有摩擦明顯散落在多處時才擴大。目標是找一個值得深化的 seam，不是替整個 repo 建重構 backlog。</p>
+
 <h2>三段流程</h2>
 <ol>
-  <li><strong>Explore</strong> — 先讀 CONTEXT.md 與 ADR，再派 Explore subagent（Phase 2 第 05 課的 context 隔離）有機地走 codebase 找摩擦：理解一個概念要在很多小模組間跳？淺模組？為了好測而抽出純函式但 bug 都藏在呼叫端？</li>
+  <li><strong>Explore</strong> — 先套用上面的 scope gate，再讀 CONTEXT.md 與 ADR，派 Explore subagent（Phase 2 第 05 課的 context 隔離）在範圍內有機地走 codebase 找摩擦：理解一個概念要在很多小模組間跳？淺模組？為了好測而抽出純函式但 bug 都藏在呼叫端？</li>
   <li><strong>HTML 報告</strong> — 寫到 temp 目錄（不污染 repo）自動打開：每個候選一張卡（檔案、問題、解法、locality/leverage 效益、before/after 圖、建議強度 Strong / Worth exploring / Speculative），結尾給首選建議。<strong>此階段不提介面設計</strong> — 報告完它會問你想深入哪個。</li>
-  <li><strong>Grilling loop</strong> — 你挑一個候選，進入追問對話（Phase 3 第 04 課的肌肉直接重用）。過程中：新概念進 CONTEXT.md；<strong>你以站得住腳的理由拒絕某候選 → 它會提議寫成 ADR</strong>，讓未來的架構健檢不再重複建議同一件事。</li>
+  <li><strong>Grilling loop</strong> — 你挑一個候選，進入追問對話（Phase 3 第 04 課的肌肉直接重用）。過程中：已釐清的新領域概念進 CONTEXT.md；拒絕候選的 load-bearing reason 只是 ADR 候選，還要同時通過「難以回頭＋缺少背景會令人意外＋真實 tradeoff」三項 gate 才寫。</li>
 </ol>
 <p>兩個對高風險 repo 重要的設計：建議若與既有 ADR 衝突，只在摩擦真的大到值得重開決策時才提出（不重新爭論已決定的事）；領域講 CONTEXT.md 的語言、架構講 <code>codebase-design</code> 的語言。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 
 <div class="step">
-  <label><input type="checkbox"> 1. 跑健檢</label>
-  <pre>/improve-codebase-architecture</pre>
-  <p>建議圈定範圍（例如你最近 TDD 動過的模組周邊），第一次別掃全 repo。等它產出並打開 HTML 報告。</p>
+  <label><input type="checkbox"> 1. 圈定範圍再跑健檢</label>
+  <pre>/improve-codebase-architecture [module、subsystem 或具體痛點]</pre>
+  <p>有明確目標就直接用；沒有才先讀 <code>git log --oneline</code>，選近期反覆變動的一個 hot spot。第一次別掃全 repo，等它產出並打開 HTML 報告。</p>
 </div>
 
 <div class="step">
@@ -83,12 +87,12 @@
 
 <div class="step">
   <label><input type="checkbox"> 4. 至少拒絕一個候選（刻意練習）</label>
-  <p>挑一個你認為不值得做的，給出站得住腳的理由，觀察它是否提議寫 ADR — 體驗「拒絕也是知識」的制度。</p>
+  <p>挑一個你認為不值得做的，給出理由，再跑 ADR gate：是否難以回頭、缺少背景會令人意外，而且存在真實 tradeoff？三項全中才寫 ADR；「現在沒時間」等暫時理由直接跳過。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 5. 收割</label>
-  <p>grill 出來的深化計劃接你熟的 pipeline：/to-spec → /to-tickets → /implement。CONTEXT.md/ADR 的更新 commit 進版控。</p>
+  <p>grill 出來的深化計劃依規模分流：同一 context 內已對齊、能一次完成的小改，直接用 <code>/implement</code> 做 bounded slice；需要跨 session 的工作才走 <code>/to-spec → /to-tickets → fresh /implement</code>。CONTEXT.md/ADR 的更新 commit 進版控。</p>
 </div>
 
 <div class="done-banner" id="done">
@@ -105,12 +109,12 @@
   <div class="why">刪除測試的判讀：複雜度「重新散落到 N 個呼叫端」= 它本來把複雜度集中在一處（locality）— 這正是深模組的價值。消失才代表過水層。</div>
 </div>
 
-<div class="quiz" data-answer="2">
-  <p>2. 你拒絕了「合併兩個計費模組」的候選，因為監管要求它們分離。最該發生什麼？</p>
-  <button>把這個理由記錄在這次對話裡就可以了</button>
-  <button>把這兩個模組從 CONTEXT.md 裡移除掉</button>
-  <button>寫成 ADR，讓未來健檢不再重複建議</button>
-  <div class="why">站得住腳的拒絕理由 = 未來探索者需要的知識 → ADR（skill 原文的設計）。下次架構健檢讀到它，就不會再提同一個建議。</div>
+<div class="quiz" data-answer="0">
+  <p>2. 你因為「這季沒有時間」拒絕一個候選，該怎麼記錄？</p>
+  <button>不寫 ADR，這只是暫時原因</button>
+  <button>寫成 ADR，所有拒絕都要保存</button>
+  <button>寫進 CONTEXT，當成領域術語</button>
+  <div class="why">暫時排程不符合 ADR gate，也不能幫未來探索者理解 load-bearing decision。只有三項條件全中才寫 ADR；CONTEXT.md 則只放領域詞彙。</div>
 </div>
 
 <div class="quiz" data-answer="1">
@@ -123,7 +127,7 @@
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。下一課：<a href="003-0012-handoff.html">Phase 3 第 12 課 — 用 /handoff 做跨 session 交接</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/improve-codebase-architecture/SKILL.md">improve-codebase-architecture／SKILL.md</a>；深模組語言對照 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/codebase-design/SKILL.md">codebase-design／SKILL.md</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/improve-codebase-architecture/SKILL.md">reviewed architecture snapshot（66898f6）</a>；深模組與 Adapter 定義對照同 snapshot 的 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/codebase-design/SKILL.md">codebase-design</a>，使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/improve-codebase-architecture/SKILL.md">current architecture skill</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

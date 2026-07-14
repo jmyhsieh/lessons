@@ -35,7 +35,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 1 · 第 11 課 · 約 20 分鐘 · 完整流程</div>
 <h1>從探索到 commit 的安全四步驟</h1>
-<p class="mission">任務目標：用 Claude Code 跑完一次官方建議的四階段開發流程。這一課只練流程節奏，確認結果並整理 context放到下一課。</p>
+<p class="mission">任務目標：用 Claude Code 跑完一次官方建議的四階段開發流程。這一課只練流程節奏，並確保驗證通過後才 commit；下一課再深入 evidence 與 context 收尾。</p>
 <div class="scope"><strong>本課只做：</strong>練一次探索、規劃、實作、commit 的安全節奏。<br><strong>先不要做：</strong>跳過 plan 或 review 直接要求它大量修改。</div>
 
 
@@ -44,8 +44,8 @@
 <tr><th>階段</th><th>模式</th><th>你要把關的事</th></tr>
 <tr><td>Explore</td><td>plan mode</td><td>它讀哪些檔？有沒有問清楚需求？</td></tr>
 <tr><td>Plan</td><td>plan mode</td><td>計劃是否列出檔案、步驟、風險？</td></tr>
-<tr><td>Implement</td><td>default</td><td>逐項批准，讀 diff，不接受看不懂的改動。</td></tr>
-<tr><td>Commit</td><td>default</td><td>看完整 diff，寫清楚 commit message。</td></tr>
+<tr><td>Implement</td><td>Manual/default</td><td>審核權限提示與 diff；完成後跑 success criteria。</td></tr>
+<tr><td>Commit</td><td>Manual/default</td><td>先確認驗證通過與完整 diff，再寫清楚 commit message。</td></tr>
 </table>
 <div class="tip">一句話能描述 diff 的小改可以省略 plan；跨檔、不熟、方向不確定，就完整跑四階段。</div>
 
@@ -64,18 +64,18 @@ List files you expect to modify. Do not edit yet.</pre>
   <p>計劃過關後離開 plan mode。每次修改都看過再同意；看到偏離範圍就拒絕。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 4. Commit</label>
-  <p><strong>桌面 App：</strong>先點 diff stats 或打開 diff pane 看完整變更。若 <code>/</code> 清單有 <code>/diff</code>，也可當快捷。確認後再請它產 commit message 草稿，你審過才 commit。</p>
+  <label><input type="checkbox"> 4. Verify、review，再 commit</label>
+  <p>先執行任務的 success criteria，保留 exact command、exit status 與關鍵 output；失敗就修正並重跑。驗證通過後，<strong>桌面 App：</strong>點 diff stats 或打開 diff pane 看完整變更。若 <code>/</code> 清單有 <code>/diff</code>，也可當快捷。最後才請它產 commit message 草稿，你審過才 commit。</p>
 </div>
 
-<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經跑完一次四階段流程。</div>
+<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經跑完一次先驗證、後 commit 的四階段流程。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="0">
   <p>1. 「修 README 一個錯字」該完整跑四階段嗎？</p>
-  <button>不用，可以直接改</button>
-  <button>要，流程不能省略</button>
-  <button>要先開三個 subagent</button>
+  <button>直接修改即可</button>
+  <button>完整流程不可省</button>
+  <button>先開 agent</button>
   <div class="why">流程是為了降低不確定性，不是儀式。</div>
 </div>
 <div class="quiz" data-answer="2">

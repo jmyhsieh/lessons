@@ -44,7 +44,7 @@
 <strong>正式專案三道護欄（這課的核心）：</strong>
 <ol style="margin:.4rem 0 0">
   <li><strong>分支隔離</strong> — 永遠先開分支，main 不直接動。</li>
-  <li><strong>逐項批准</strong> — 保持預設權限模式，每個修改與指令都看過再同意。</li>
+  <li><strong>審核有風險的動作</strong> — 保持 Desktop Manual 或 CLI default；讀檔與內建唯讀指令通常直接執行，編輯與其他指令出現提示時逐項看懂再同意。</li>
   <li><strong>人工 review</strong> — AI 寫的 code 和同事寫的一樣：必看 diff 才合併。你批准它「執行」，不代表你已經「審核」過內容。</li>
 </ol>
 </div>
@@ -111,10 +111,10 @@ exit status, and output. If it fails, fix it and rerun.</pre>
 
 <div class="quiz" data-answer="2">
   <p>2. 正式 repo 的基準：該停在哪個權限模式？</p>
-  <button>自動接受全部修改，加快開發速度</button>
-  <button>唯讀模式，任何時候都不允許修改</button>
-  <button>預設模式，修改與指令都逐項詢問</button>
-  <div class="why">（間隔複習）預設逐項詢問是正式專案的基準。自動接受適合可丟棄的實驗環境；唯讀則做不了事。</div>
+  <button>Auto，直接批准所有修改</button>
+  <button>Plan，完全禁止所有修改</button>
+  <button>Manual，風險動作先詢問</button>
+  <div class="why">（間隔複習）Manual/default 是正式專案的基準。工作目錄內讀檔與內建唯讀指令通常不詢問；編輯與其他 shell 指令會停下確認。</div>
 </div>
 
 <h2>下一步</h2>

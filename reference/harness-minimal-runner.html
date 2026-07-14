@@ -38,13 +38,21 @@
 <pre>Runner:
 Input:
 Prompt template:
+Goal condition:
+Effort policy:
 Allowed tools:
+Permission mode:
+Setting sources:
+MCP policy:
 Workspace:
+Workspace baseline:
 Gates:
 Evidence dir:
 Report path:
 Stop conditions:
 Dry-run behavior:</pre>
+
+<div class="rule"><strong>Baseline 不能只看 <code>git diff</code>：</strong>dry-run 前後要比較同一份 worktree manifest，至少包含 staged／unstaged diff，以及 tracked 與 untracked paths 的 mode 與 content hash。Baseline 存在記憶體或 worktree 外，否則「證據檔」本身就會改變工作區。</div>
 
 <h2>五段式</h2>
 <table>
@@ -75,7 +83,7 @@ Dry-run behavior:</pre>
 
 <footer>
   索引：<a href="harness-workflow-index.html">Harness 工作流速查索引</a><br>
-  對應課程：<a href="../lessons/004-0004-agent-call-gates.html">Phase 4 第 04 課 — agent call evidence</a> · <a href="../lessons/004-0003-minimal-runner-dry-run.html">Phase 4 第 03 課 — runner 第一片</a> · <a href="../lessons/004-0003-minimal-runner-dry-run.html">Phase 4 第 03 課 — 串成最小 runner</a> · <a href="../lessons/004-0002-harness-contract.html">Phase 4 第 02 課 — report / handoff</a><br>
+  對應課程：<a href="../lessons/005-0004-agent-call-gates.html">Phase 5 第 04 課 — agent call evidence</a> · <a href="../lessons/005-0003-minimal-runner-dry-run.html">Phase 5 第 03 課 — runner 第一片</a> · <a href="../lessons/005-0003-minimal-runner-dry-run.html">Phase 5 第 03 課 — 串成最小 runner</a> · <a href="../lessons/005-0002-harness-contract.html">Phase 5 第 02 課 — report / handoff</a><br>
   主要來源：<a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a> · <a href="https://code.claude.com/docs/en/cli-reference">Claude Code CLI reference</a> · <a href="https://code.claude.com/docs/en/agent-sdk/overview">Agent SDK overview</a>
 </footer>
 </body>

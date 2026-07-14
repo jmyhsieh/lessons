@@ -15,8 +15,8 @@
   code { padding: .12rem .35rem; }
   pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
   a { color: #36506f; }
-  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
-  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; }
+  table { border-collapse: collapse; width: 100%; table-layout: fixed; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
   th { background: #eef1f6; }
   .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #d7dde8; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fbfcfe; }
@@ -36,38 +36,37 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 4 Lab · 第 05 課 · 約 45 分鐘 · Run lifecycle</div>
+<div class="kicker">Phase 5 Lab · 第 05 課 · 約 30 分鐘 · One run lineage</div>
 <h1>管理 run history、rerun 與 closeout</h1>
-<p class="mission">目標：把 Phase 4 第 04 課的 evidence、gate results 與 report 串成可追查的 run lifecycle，並定義 rerun、final handoff 與 closeout。</p>
-<div class="scope"><strong>本課只做：</strong>append-only history、rerun lineage、handoff 與收工決策。<br><strong>先不要做：</strong>dashboard、自動 repair loop、多租戶資料庫或完整 transcript 備份。</div>
+<p class="mission">目標：把 Phase 5 第 04 課的一筆 run 接成一組 parent/child records，讓 reviewer 能沿 canonical paths 找到 evidence，並做出一次明確 closeout。</p>
+<div class="scope"><strong>本課只做：</strong>一組 parent/child lineage、一份 link-based handoff、一個 closeout decision。<br><strong>先不要做：</strong>完整 run-history service、dashboard、自動 repair loop、多租戶資料庫或 transcript 備份。</div>
 
 
 <h2>Run history 不是 evidence 本身</h2>
-<p><a href="https://code.claude.com/docs/en/agent-sdk/session-storage">Claude Code Session Store</a> 用來 mirror session transcripts，讓不同 host 可以 resume；<a href="https://code.claude.com/docs/en/agent-sdk/observability">Observability</a> 用 traces、metrics、events 看工具、token、成本與失敗位置。Harness 的 run history 比它們更小：只是一個本地索引，讓 reviewer 找得到 input、evidence、gates、report 與 status。</p>
+<p>Harness 的 run history 只是一個 append-only 索引，讓 reviewer 找得到 input、evidence、gates、report 與 status；它不是 transcript store，也不複製 telemetry。需要更完整的儲存邊界時再查 <a href="../reference/harness-run-history.html">Run history 速查表</a>。</p>
 
 <table>
 <tr><th>資料</th><th>放哪裡</th><th>用途</th></tr>
 <tr><td>Run history</td><td><code>.harness/runs.jsonl</code> 或 SQLite。</td><td>查詢每次 run 的狀態與 artifact 路徑。</td></tr>
 <tr><td>Evidence</td><td><code>.harness/evidence/&lt;run-id&gt;/</code></td><td>保存 stdout、stderr、gate output。</td></tr>
 <tr><td>Report</td><td><code>.harness/reports/&lt;run-id&gt;.md</code></td><td>給 reviewer 判斷結果。</td></tr>
-<tr><td>Telemetry</td><td>OTel backend。</td><td>看成本、延遲、工具呼叫、失敗位置。</td></tr>
 </table>
 
 <div class="rule"><strong>判斷規則：</strong>run history 只索引 canonical paths 與狀態，不複製大型 logs、不複製完整 prompt、不取代正式 telemetry。</div>
 
 <h2>Run record 範例</h2>
 <pre>{
-  "runId": "run-0042",
+  "runId": "run-0043",
+  "parentRunId": "run-0042",
   "inputId": "issue-0042-login-timeout",
   "startedAt": "2026-06-13T09:30:00Z",
   "endedAt": "2026-06-13T09:38:10Z",
   "status": "needs-review",
   "agentStatus": "needs-review",
   "gateStatus": "pass",
-  "evidenceDir": ".harness/evidence/run-0042",
-  "gateResultsPath": ".harness/evidence/run-0042/gate-results.json",
-  "reportPath": ".harness/reports/run-0042.md",
-  "costUSD": 0.42
+  "evidenceDir": ".harness/evidence/run-0043",
+  "gateResultsPath": ".harness/evidence/run-0043/gate-results.json",
+  "reportPath": ".harness/reports/run-0043.md"
 }</pre>
 
 <h2>Rerun 不覆蓋舊結果</h2>
@@ -75,7 +74,7 @@
 <div class="rule"><strong>Rerun 規則：</strong>舊 evidence 永遠保留；rerun note 必須寫 trigger、變更內容與新的 stop condition。不要把重跑當成無限自動重試。</div>
 
 <h2>Final handoff 與 closeout</h2>
-<p>Final handoff 不是聊天摘要。它要索引 latest run、parent chain、scope、changed files、gate results、evidence、未解風險與建議決策，讓下一個 reviewer 不必追問就能接手。</p>
+<p>本課的 final handoff 只索引 latest run、parent chain、scope、changed files、gate results、evidence、未解風險與建議決策；不複製 logs。詳細模板留給 <a href="../reference/harness-final-handoff.html">Final handoff 速查表</a>。</p>
 <table>
 <tr><th>Closeout</th><th>意義</th></tr>
 <tr><td><code>ship</code></td><td>必要 gates 通過，可交付。</td></tr>
@@ -85,32 +84,28 @@
 <tr><td><code>downgrade</code></td><td>harness 不適合，退回單次 agent session。</td></tr>
 </table>
 <div class="rule"><strong>Closeout 規則：</strong>必須回答「現在可以停止嗎？」若不能，必須指定 owner 與 next action；沒有 owner 的 open item 不算 closeout。</div>
+<div class="rule"><strong>Evidence 到期不代表 lineage 消失：</strong>run record 保留 artifact path、classification、expiresAt 與 deletion status；敏感 evidence 依第 04 課 retention policy 刪除後，不得把內容複製回 history 續命。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 
 <div class="step">
-  <label><input type="checkbox"> 1. 選一個最小儲存格式</label>
-  <p>先用 <code>runs.jsonl</code>：append-only、容易 diff、容易 fixture 測試。等查詢需求變多再換 SQLite。</p>
+  <label><input type="checkbox"> 1. Append parent 與 child records</label>
+  <p>先用 <code>runs.jsonl</code>，把第 04 課的 run 當 parent，再加一筆具有新 runId 與 parentRunId 的 child；不要覆蓋原紀錄。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 2. 寫入一筆 run record</label>
-  <p>來源必須是實際 run 產物：input contract、agent evidence、gate results、report path。不要從聊天摘要重建。</p>
+  <label><input type="checkbox"> 2. 用 <code>history show</code> 驗證 lineage</label>
+  <p>Child record 必須沿 parentRunId 找回 parent，並能打開實際 input、redacted evidence、gate results 與 report；artifact 已依 retention 刪除時標示 expired，不得假裝仍存在。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 3. 支援 <code>history list/show</code></label>
-  <p><code>list</code> 列出 runId、inputId、status、startedAt 與 reportPath；<code>show</code> 回傳完整 record，artifact 不存在時標示 stale。</p>
+  <label><input type="checkbox"> 3. 寫一份 rerun note</label>
+  <p>記 trigger、parentRunId、input/config change、stop condition 與 owner。缺 credential、scope 不清或重複同因失敗時選 blocked，不要再產生 child。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 4. 定義 rerun policy</label>
-  <p>列出哪些狀態可重跑，並要求每個 rerun 都產生新 runId、parentRunId 與 rerun note。</p>
-</div>
-
-<div class="step">
-  <label><input type="checkbox"> 5. 產生 handoff 與 closeout record</label>
-  <p>Handoff 只索引 canonical artifacts；closeout 只能選五種決策之一。非 <code>ship</code> 必須有 owner 與 next action。成本可以記錄供開發觀察，但不能直接作正式財務決策。</p>
+  <label><input type="checkbox"> 4. 產生 handoff 與 closeout</label>
+  <p>Handoff 只索引 canonical artifacts；closeout 只能選五種決策之一。非 <code>ship</code> 必須有 owner 與 next action。</p>
 </div>
 
 <div class="done-banner" id="done">
@@ -121,34 +116,26 @@
 
 <div class="quiz" data-answer="0">
   <p>1. Run history 最應該保存什麼？</p>
-  <button>索引路徑</button>
-  <button>完整日誌</button>
-  <button>所有對話</button>
+  <button>狀態與 artifact paths</button>
+  <button>完整 stdout 與 stderr</button>
+  <button>完整 session transcript</button>
   <div class="why">Run history 是索引層：保存狀態與 canonical paths。完整 stdout/stderr 留在 evidence。</div>
 </div>
 
 <div class="quiz" data-answer="1">
   <p>2. Rerun 應如何保存結果？</p>
-  <button>覆蓋舊 run</button>
-  <button>建立新 run</button>
-  <button>只改 report</button>
+  <button>覆蓋 parent 原有 artifacts</button>
+  <button>新增 child 並連回 parent</button>
+  <button>改寫 parent 最終 status</button>
   <div class="why">每次 rerun 都建立新 runId 並指回 parentRunId，舊 evidence 才能保留供比較與追查。</div>
 </div>
 
 <div class="quiz" data-answer="0">
-  <p>3. 第一版最適合用什麼格式？</p>
-  <button>JSONL</button>
-  <button>Dashboard</button>
-  <button>資料湖</button>
+  <p>3. 小型 append-only history 第一版最適合哪個格式？</p>
+  <button>JSONL 文字檔</button>
+  <button>SQLite 資料庫</button>
+  <button>OTel 事件串流</button>
   <div class="why">JSONL 最小、append-only、容易測試。查詢需求真的變多後，再升級 SQLite 或資料庫。</div>
-</div>
-
-<div class="quiz" data-answer="0">
-  <p>4. Cost 欄位可以直接用來做什麼？</p>
-  <button>開發觀察</button>
-  <button>正式收費</button>
-  <button>自動採購</button>
-  <div class="why">官方文件提醒 cost 是 client-side estimate。適合開發觀察與粗略預算，不適合正式財務決策。</div>
 </div>
 
 <h2>下一步</h2>
@@ -157,7 +144,7 @@
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  相關課程：<a href="004-0004-agent-call-gates.html">Phase 4 第 04 課 — agent call 與 gates</a> · <a href="004-0006-rehearse-verify.html">Phase 4 第 06 課 — rehearsal 與 verification</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
+  相關課程：<a href="005-0004-agent-call-gates.html">Phase 5 第 04 課 — agent call 與 gates</a> · <a href="005-0006-rehearse-verify.html">Phase 5 第 06 課 — rehearsal 與 verification</a> · <a href="../reference/harness-workflow-index.html">Harness 速查索引</a> · <a href="../toc.html">課目表</a>
 </footer>
 
 <script>

@@ -42,8 +42,8 @@
 
 <div class="safety">
 <strong>正式專案安全規則（本課唯一要背的東西）：</strong><br>
-Claude Code 預設在<strong>修改檔案或執行指令前都會逐項徵求你的同意</strong>。在正式 repo，保持這個預設模式。這一課先認得權限介面，下一課才讓它讀你的 repo。
-（出處：<a href="https://code.claude.com/docs/en/quickstart">官方 Quickstart</a>：「Claude Code always asks for permission before modifying files.」）
+Claude Code 在工作目錄內讀檔、Grep，以及執行內建認得的唯讀指令時，通常<strong>不會</strong>跳出詢問；預設模式會在<strong>修改檔案或執行其他 shell 指令前</strong>徵求同意。既有 allow / ask / deny 規則與你曾批准的選項也會改變結果，所以正式 repo 先用 Desktop 的 <strong>Manual</strong>（舊版稱 Ask permissions）或 CLI 的 <strong>default</strong>，並逐項看懂有出現的提示。
+（出處：<a href="https://code.claude.com/docs/en/permissions">官方 Permissions</a>）
 </div>
 
 <h2>先備檢查：Git 可用嗎？</h2>
@@ -55,7 +55,7 @@ Claude Code 預設在<strong>修改檔案或執行指令前都會逐項徵求你
 
 <div class="step">
   <label><input type="checkbox"> 1. 安裝（建議路徑：桌面 App）</label>
-  <p><strong>建議路徑：</strong>從 <a href="https://claude.com/download">claude.com/download</a> 下載 <strong>Claude 桌面 App</strong>，安裝後登入，點上方的 <strong>Code</strong> 分頁 — 這就是 Claude Code 的圖形介面，有視覺化 diff 檢視，權限同樣逐項詢問。裝好就可跳到步驟 2。</p>
+  <p><strong>建議路徑：</strong>從 <a href="https://claude.com/download">claude.com/download</a> 下載 <strong>Claude 桌面 App</strong>，安裝後登入，點上方的 <strong>Code</strong> 分頁 — 這就是 Claude Code 的圖形介面，有視覺化 diff 與權限模式選單。裝好就可跳到步驟 2。</p>
   <details><summary>替代路徑：CLI 安裝（之後想在終端機用再回來看）</summary>
   <p><strong>Windows PowerShell</strong>（提示字元開頭是 <code>PS C:\</code>）：</p>
   <pre>irm https://claude.ai/install.ps1 | iex</pre>
@@ -69,13 +69,13 @@ Claude Code 預設在<strong>修改檔案或執行指令前都會逐項徵求你
 
 <div class="step">
   <label><input type="checkbox"> 2. 登入並進入 Code 分頁</label>
-  <p><strong>桌面 App：</strong>啟動 Claude，登入你的帳號（需 Pro/Max/Team 訂閱或 Console 帳號），點 <strong>Code</strong> 分頁。先停在新增 session 的畫面，不急著選 repo。</p>
-  <p><strong>CLI：</strong><code>cd</code> 到 repo 目錄後執行 <code>claude</code>，第一次會引導你到瀏覽器登入。登入一次後憑證會保存，之後不用重登。</p>
+  <p><strong>桌面 App：</strong>啟動 Claude，以有 Code 使用權的 Claude.ai Pro、Max、Team 或 Enterprise 帳號登入，再點 <strong>Code</strong> 分頁。Desktop 與 cloud session 使用 OAuth，不會讀取你 shell 裡的 <code>ANTHROPIC_API_KEY</code> 或 <code>apiKeyHelper</code>；組織部署的第三方推理設定是例外。</p>
+  <p><strong>CLI：</strong><code>cd</code> 到 repo 目錄後執行 <code>claude</code>。Claude.ai 訂閱帳號與受邀的 Console 帳號可依瀏覽器提示登入；使用 Bedrock、Google Cloud Agent Platform 或 Microsoft Foundry 時，則先依組織文件設定 provider credentials。登入後憑證會保存，失效或換帳號時再用 <code>/login</code>。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 3. 確認權限模式</label>
-  <p><strong>桌面 App：</strong>在輸入框附近找到權限模式選單（如 Ask permissions / 逐項詢問）。<strong>CLI：</strong>按 <code>Shift+Tab</code> 循環切換。現在只要認得位置，<strong>最後停在預設（逐項詢問）模式</strong>。</p>
+  <p><strong>桌面 App：</strong>在輸入框附近找到權限模式選單，最後停在 <strong>Manual</strong>（舊版稱 Ask permissions）。<strong>CLI：</strong>按 <code>Shift+Tab</code> 循環切換，最後停在 <strong>default</strong>。這兩種基準模式都允許工作目錄內讀檔與內建唯讀指令直接執行，但會在編輯與其他指令前詢問。</p>
 </div>
 
 <div class="step">
@@ -103,29 +103,29 @@ Claude Code 預設在<strong>修改檔案或執行指令前都會逐項徵求你
 
 <h2>本課速記</h2>
 <ul>
-  <li>桌面 App：Code 分頁開 session、用權限選單保持逐項詢問、用 session sidebar 續聊</li>
+  <li>桌面 App：Code 分頁開 session、正式 repo 先用 Manual、用 session sidebar 續聊</li>
   <li>桌面 App：prompt box 輸入 <code>/</code> 看可用 slash commands；快捷鍵清單則看 App 顯示</li>
   <li>CLI：<code>claude</code> 啟動 / <code>claude -c</code> 續聊 / <code>/help</code> 看 commands / <code>/exit</code> 離開</li>
   <li><code>Shift+Tab</code> 是 CLI 互動模式快捷鍵；桌面 App 用畫面上的權限模式選單</li>
   <li>先確認 session 可用，再進正式 repo 做任務</li>
 </ul>
-<p>（已併入<a href="../reference/claude-product-picker.html">產品選用速查表</a>與<a href="../reference/claude-code-command-surface.html">Claude Code 操作速查表</a>；上一課：<a href="001-0001-three-claudes.html">三個 Claude，三種工作流</a>）</p>
+<p>（已併入<a href="../reference/claude-product-picker.html">產品選用速查表</a>與<a href="../reference/claude-code-command-surface.html">Claude Code 操作速查表</a>；上一課：<a href="001-0001-four-claude-surfaces.html">四個 Claude 工作表面，四種交付路線</a>）</p>
 
 
 <h2>觀念檢查（憑記憶作答）</h2>
 
-<div class="quiz" data-answer="0">
+<div class="quiz" data-answer="2">
   <p>1. 正式 repo 第一堂課應停在哪種權限習慣？</p>
-  <button>逐項詢問</button>
-  <button>全部放行</button>
-  <button>跳過確認</button>
-  <div class="why">正式 repo 先維持逐項詢問，讓你看懂每一次修改或指令執行前的風險。</div>
+  <button>使用自動批准模式</button>
+  <button>使用跳過權限模式</button>
+  <button>使用基準詢問模式</button>
+  <div class="why">正式 repo 先用 Manual/default：讀檔與內建唯讀指令通常直接執行，編輯與其他指令則停下詢問。</div>
 </div>
 
-<div class="quiz" data-answer="0">
+<div class="quiz" data-answer="1">
   <p>2. 這一課開 session 後先做什麼？</p>
-  <button>確認目前環境</button>
   <button>讀取現有專案</button>
+  <button>確認目前環境</button>
   <button>直接修改檔案</button>
   <div class="why">本課只用低風險問題確認 session 可用；桌面 App 可輸入 <code>/</code> 看 slash commands，但不進 repo 導覽或修改。</div>
 </div>

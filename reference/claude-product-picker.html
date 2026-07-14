@@ -3,46 +3,67 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>速查表：Claude / Cowork / Claude Code 選用指南</title>
+<title>速查表：Claude / Cowork / Claude Design / Claude Code 選用指南</title>
 <style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { max-width: 100%; }
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
-         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #222; line-height: 1.7; }
+         max-width: 920px; margin: 3rem auto; padding: 0 1.5rem; color: #222; line-height: 1.7; }
   h1 { font-size: 1.5rem; border-bottom: 2px solid #c2571a; padding-bottom: .4rem; }
   h2 { font-size: 1.1rem; margin-top: 2rem; color: #c2571a; }
   table { border-collapse: collapse; width: 100%; font-size: .92rem; }
   th, td { border: 1px solid #ddd; padding: .5rem .7rem; text-align: left; vertical-align: top; }
   th { background: #faf3ee; }
+  .table-wrap { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .surface-table { min-width: 760px; font-size: .86rem; }
+  .operation-table { min-width: 620px; }
   code { background: #f4f4f4; padding: .1rem .3rem; border-radius: 3px; font-size: .88em; }
   .rule { background: #faf3ee; border-left: 4px solid #c2571a; padding: .7rem 1rem; margin: .6rem 0; }
+  @media (max-width: 640px) {
+    body { margin: 1.5rem auto; padding: 0 1.1rem; }
+    h1, p, li, .rule { overflow-wrap: anywhere; }
+  }
   @media print { body { margin: 1rem auto; } }
 </style>
 </head>
 <body>
 <h1>速查表：該用哪一個？</h1>
 
-<table>
-<tr><th></th><th>Claude（claude.ai）</th><th>Claude Cowork</th><th>Claude Code</th></tr>
-<tr><th>本質</th><td>對話助理</td><td>知識工作代理（agent）</td><td>軟體工程代理（agent）</td></tr>
-<tr><th>工作對象</th><td>你提供的文字、附件與 connector context</td><td>你授權的資料夾與檔案</td><td>整個程式碼 repo</td></tr>
-<tr><th>產出</th><td>回答、草稿</td><td>完成的文件、整理好的檔案</td><td>程式碼變更、commit、PR</td></tr>
-<tr><th>執行方式</th><td>一問一答</td><td>描述目標，離開，回來收成果</td><td>讀 code、改檔、跑指令、跑測試</td></tr>
-<tr><th>使用場所</th><td>網頁 / App</td><td>桌面 App（付費方案）</td><td>終端機 / IDE / 桌面 App / 網頁</td></tr>
+<div class="table-wrap">
+<table class="surface-table">
+<tr><th></th><th>Claude</th><th>Cowork</th><th>Claude Design</th><th>Claude Code</th></tr>
+<tr><th>本質</th><td>對話助理</td><td>知識工作代理</td><td>視覺協作畫布</td><td>軟體工程代理</td></tr>
+<tr><th>工作對象</th><td>文字、附件、connector context</td><td>遠端 task files；Desktop 可接本機資料夾</td><td>brief、design system、視覺 reference、prototype</td><td>整個程式碼 repo</td></tr>
+<tr><th>產出</th><td>回答、草稿</td><td>文件、整理後的檔案</td><td>設計方向、互動原型、簡報、design intent</td><td>程式碼變更、測試、commit、PR</td></tr>
+<tr><th>主要迴圈</th><td>提問與回覆</td><td>委派與收件</td><td>生成、評論、精修、handoff</td><td>探索、實作、驗證、review</td></tr>
+<tr><th>使用場所</th><td>網頁 / App</td><td>Web / Desktop / Mobile；本機檔案需 Desktop</td><td>Web / Desktop（beta）</td><td>終端機 / IDE / Desktop / Web</td></tr>
 </table>
+</div>
 
 <h2>一句話判斷規則</h2>
 <div class="rule">需要<strong>思考、回答、草稿</strong>，context 由你用文字、附件或 connector 提供 → <strong>Claude</strong></div>
-<div class="rule">需要 AI <strong>動手處理電腦裡的檔案與文件</strong>（非程式碼）→ <strong>Cowork</strong></div>
+<div class="rule">需要 AI <strong>完成多步驟知識工作</strong>，或透過 Desktop 處理本機文件（非程式碼）→ <strong>Cowork</strong></div>
+<div class="rule">需要先<strong>探索視覺方向、做互動原型、反覆評論</strong>，再交接實作 → <strong>Claude Design</strong></div>
 <div class="rule">需要 AI <strong>在 git repo 裡讀、寫、執行程式碼</strong> → <strong>Claude Code</strong></div>
+
+<h2>Claude Design 的停止線</h2>
+<ul>
+  <li>Design system 抽取結果要由品牌或產品負責人檢查，不能自動視為正確。</li>
+  <li>Claude 的 accessibility review 是待驗證建議，不是 audit 結果。</li>
+  <li>Prototype 用來取得回饋；production readiness 仍看 repo diff、browser evidence、tests 與 human review。</li>
+</ul>
+<p>完整交接流程見：<a href="claude-design-to-code-workflow.html">Claude Design × Claude Code 速查表</a>。</p>
 
 <h2>正式專案安全要點（Claude Code）</h2>
 <ul>
-  <li>預設權限模式會在改檔、跑指令前<strong>逐項詢問</strong> — 正式 repo 請保持此模式。</li>
+  <li>正式 repo 先用 Desktop <strong>Manual</strong> 或 CLI <strong>default</strong>：工作目錄內讀檔與內建唯讀指令通常直接執行，編輯與其他指令會詢問。</li>
   <li>先開分支再讓它動手；用 PR review 把關，不直接推 main。</li>
   <li><code>CLAUDE.md</code> 放在 repo 根目錄，記錄專案規範，每次 session 自動讀取。</li>
 </ul>
 
 <h2>常用操作</h2>
-<table>
+<div class="table-wrap">
+<table class="operation-table">
 <tr><th>需求</th><th>桌面 App 主路徑</th><th>slash / CLI 補充</th></tr>
 <tr><td>開 session</td><td>Code 分頁選 project folder，按 Enter 送出任務。</td><td>CLI 可用 <code>claude</code>。</td></tr>
 <tr><td>建立 CLAUDE.md</td><td>請它讀 repo 高層檔案並建立/更新 <code>CLAUDE.md</code>，再用 diff review。</td><td><code>/init</code> 若清單有就可用。</td></tr>
@@ -51,8 +72,9 @@
 <tr><td>看變更</td><td>點 diff stats / diff pane。</td><td><code>/diff</code> 若清單有可作快捷。</td></tr>
 <tr><td>看可用 commands</td><td>在 prompt box 輸入 <code>/</code>。</td><td>鍵盤快捷鍵清單看 App 顯示。</td></tr>
 </table>
+</div>
 <p>完整操作控制見：<a href="claude-code-command-surface.html">Claude Code 操作速查表</a>、<a href="claude-code-model-effort.html">Claude Code 模型與推理程度速查表</a>。</p>
 
-<p style="margin-top:2rem;font-size:.85rem;color:#777">來源：<a href="https://code.claude.com/docs/en/overview">Claude Code Docs</a>、<a href="https://code.claude.com/docs/en/desktop">Desktop application</a>、<a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a>、<a href="https://code.claude.com/docs/en/model-config">Model configuration</a>、<a href="https://claude.com/product/cowork">Cowork 產品頁</a>。更新：2026-07-12</p>
+<p style="margin-top:2rem;font-size:.85rem;color:#777">來源：<a href="https://code.claude.com/docs/en/overview">Claude Code Docs</a>、<a href="https://code.claude.com/docs/en/desktop">Desktop application</a>、<a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Claude Design 入門指南</a>、<a href="https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork">Cowork 上手指南</a>。更新：2026-07-14</p>
 </body>
 </html>

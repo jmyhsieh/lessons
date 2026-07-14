@@ -15,8 +15,8 @@
   code { padding: .12rem .35rem; }
   pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
   a { color: #36506f; }
-  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
-  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; }
+  table { border-collapse: collapse; width: 100%; table-layout: fixed; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
   th { background: #eef1f6; }
   .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
   .step { border: 1px solid #d7dde8; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fbfcfe; }
@@ -36,15 +36,15 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 4 Lab · 第 01 課 · 約 25 分鐘 · Harness mindset</div>
+<div class="kicker">Phase 5 Lab · 第 01 課 · 約 25 分鐘 · Harness mindset</div>
 <h1>判斷工作流是否值得升級成 harness</h1>
 <p class="mission">目標：判斷一個 Claude Code / skill 工作流，什麼時候值得從「單次對話」升級成可重跑、可驗證、可回報的 harness。這一課先學 mindset，不做 CLI runner 實作。</p>
 <div class="scope"><strong>本課只做：</strong>產出一個是否值得 harness 化的判斷。<br><strong>先不要做：</strong>還沒證明任務會重複就開始寫 runner。</div>
-<div class="rule"><strong>選修邊界：</strong>Phase 3 已足以完成一般 repo 工作。只有你確實想把一條成熟、重複的工作流交給程式化 runner，才需要繼續這個 Phase 4；否則可以在 Phase 3 畢業。</div>
+<div class="rule"><strong>選修邊界：</strong>Phase 3 已足以完成一般 repo 工作。只有你確實想把一條成熟、重複的工作流交給程式化 runner，才需要繼續這個 Phase 5；否則可以在 Phase 3 畢業。</div>
 <div class="rule"><strong>Lab 先備：</strong>開始第 03 課前，你要能在慣用語言寫簡單 CLI、解析 JSON、執行 subprocess，並用 fixtures 驗證成功與失敗路徑。若這些仍陌生，先停在 checklist／skill，不必硬做 runner。</div>
 
 
-<h2>為什麼 Phase 4 第 01 課從 harness 開始</h2>
+<h2>為什麼 Phase 5 第 01 課從 harness 開始</h2>
 <p>Phase 3 第 12 課教的是 <a href="003-0012-handoff.html">/handoff</a>：把一次對話打包給下一個人或 agent。下一個問題是：如果同類任務會一直出現，是否還要每次靠人工重講？</p>
 <pre>單次 agent session → handoff → 可重跑流程 → harness</pre>
 <p><strong>Harness</strong> 在這門課不是大型平台，也不是一開始就寫 task runner。它先是一張工作流契約：輸入從哪裡來、agent 怎麼跑、哪些 gate 必須過、證據要留在哪裡。</p>
@@ -127,19 +127,19 @@
 
 <div class="quiz" data-answer="0">
   <p>3. Evidence 槽位最主要留下什麼？</p>
-  <button>證據追溯路徑</button>
-  <button>漂亮宣傳口號</button>
-  <button>工具清單</button>
-  <div class="why">Evidence 要讓下一個人能重看結果、理解限制、接手判斷；不是留下宣傳語或工具名。</div>
+  <button>可重查的產物路徑</button>
+  <button>執行過的工具清單</button>
+  <button>給主管的結果摘要</button>
+  <div class="why">Evidence 要讓下一個人能重開 artifact、理解限制、接手判斷；工具清單或結果摘要可以進 report，但不能取代可追溯路徑。</div>
 </div>
 
 <h2>下一步</h2>
-<p>把你最常重複的 Claude Code 任務，用 <a href="../reference/harness-readiness-checklist.html">Harness readiness 速查表</a> 填一次。如果四格填不出來，停在 Phase 3；若四格都穩，接著進入 <a href="004-0002-harness-contract.html">Phase 4 第 02 課</a>：定義完整 harness contract。</p>
+<p>把你最常重複的 Claude Code 任務，用 <a href="../reference/harness-readiness-checklist.html">Harness readiness 速查表</a> 填一次。如果四格填不出來，停在 Phase 3；若四格都穩，接著進入 <a href="005-0002-harness-contract.html">Phase 5 第 02 課</a>：定義完整 harness contract。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK overview</a> 的「何時需要程式化 agent」邊界，再用 <a href="../reference/harness-readiness-checklist.html">Harness readiness 速查表</a> 判斷你的任務。延伸對照：<a href="003-0008-implement.html">/implement</a>、<a href="003-0009-triage.html">/triage</a>、<a href="003-0012-handoff.html">/handoff</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>
-  相關課程：<a href="004-0002-harness-contract.html">Phase 4 第 02 課 — harness contract</a> · <a href="003-0008-implement.html">Phase 3 第 08 課 — /implement</a> · <a href="003-0012-handoff.html">Phase 3 第 12 課 — /handoff</a> · <a href="../toc.html">課目表</a>
+  相關課程：<a href="005-0002-harness-contract.html">Phase 5 第 02 課 — harness contract</a> · <a href="003-0008-implement.html">Phase 3 第 08 課 — /implement</a> · <a href="003-0012-handoff.html">Phase 3 第 12 課 — /handoff</a> · <a href="../toc.html">課目表</a>
 </footer>
 
 <script>

@@ -64,7 +64,7 @@
 </div>
 <div class="step">
   <label><input type="checkbox"> 4. 清理</label>
-  <p>用 <code>git worktree list</code> 確認沒有不需要的 worktree。</p>
+  <p>先結束對應 session，再用 <code>git worktree list</code> 找出路徑；確認 worktree 沒有未提交變更、untracked files 或未保留的 commits 後，執行 <code>git worktree remove &lt;path&gt;</code>，最後再跑一次 <code>git worktree list</code> 驗證已移除。Claude 建立的互動 worktree 在退出時可能自動清理或詢問是否保留；<code>-p --worktree</code> 不會自動清理。不要用 <code>--force</code> 掩蓋不清楚的狀態。</p>
 </div>
 
 <div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經能安全平行開多個 session。</div>
@@ -72,9 +72,9 @@
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="2">
   <p>1. 同時做 feature A 與 bugfix B，適合？</p>
-  <button>同一 session 交錯處理</button>
-  <button>同一 subagent 同時處理兩個工作分支</button>
-  <button>兩個 worktree 各開 session</button>
+  <button>同一 session 交錯兩項</button>
+  <button>同一 subagent 並行兩項</button>
+  <button>兩個 worktree 分別開啟</button>
   <div class="why">獨立任務需要檔案隔離，不只是 context 隔離。</div>
 </div>
 <div class="quiz" data-answer="0">

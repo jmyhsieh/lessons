@@ -96,7 +96,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 5. 接通全線</label>
-  <p>把那張 ready-for-agent 的 issue 接到後續流程（bug → /diagnosing-bugs；功能 → /implement）。從抱怨到修復，全程都在制度裡。</p>
+  <p>把那張 ready-for-agent issue 交給 <code>/implement</code>。只有難解、間歇或回歸 bug 才改走 <code>/diagnosing-bugs</code> 建立緊密 feedback loop；不要把每張外部 bug 都強制繞進診斷流程。</p>
 </div>
 
 <div class="done-banner" id="done">
@@ -107,9 +107,9 @@
 
 <div class="quiz" data-answer="1">
   <p>1. 缺陷 issue 為什麼不該綁死檔名與行號？</p>
-  <button>避免 issue 被程式碼結構綁死</button>
-  <button>重構後仍要成立 — issue 必須耐久</button>
-  <button>因為報 bug 的使用者根本看不懂程式碼</button>
+  <button>讓 issue 可以省略完整行為描述</button>
+  <button>讓 issue 經過重構後仍然成立</button>
+  <button>讓回報者不必提供任何驗證證據</button>
   <div class="why">durable 是核心設計：行為描述（用領域語言）在大重構後依然正確，檔名行號則很快過期。背景探索學的是語言，不是定位。</div>
 </div>
 
@@ -122,11 +122,11 @@
 </div>
 
 <div class="quiz" data-answer="0">
-  <p>3.（複習 Phase 3 第 11 課）.out-of-scope/ 知識庫與哪個既有制度是同一個哲學？</p>
-  <button>拒絕原因與決策寫進 ADR 文件</button>
-  <button>缺少的術語補進 CONTEXT</button>
-  <button>清除所有 debug log 前綴</button>
-  <div class="why">（間隔複習）兩者都是「拒絕也是知識」：把 No 的理由存檔，未來的 agent（或人）就不會重新提案、重新爭論同一件事。</div>
+  <p>3. 為什麼要把 wontfix enhancement 寫進 <code>.out-of-scope/</code>？</p>
+  <button>保存耐久拒絕理由供後續比對</button>
+  <button>把每項拒絕都提升成架構 ADR</button>
+  <button>讓回報者無法再次看到這張 issue</button>
+  <div class="why"><code>.out-of-scope/</code> 保存耐久的拒絕理由，讓未來 triage 能比對相似提案；它不是 ADR 的替代品，也不會隱藏原 issue。</div>
 </div>
 <div class="quiz" data-answer="2">
   <p>4. /to-tickets 剛產出的 ready-for-agent ticket，下一步應該是？</p>
@@ -138,7 +138,7 @@
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。下一課：<a href="003-0010-diagnosing-bugs.html">Phase 3 第 10 課 — 用 /diagnosing-bugs 做紀律除錯</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/triage/SKILL.md">triage／SKILL.md</a>，以及同資料夾的 AGENT-BRIEF.md／OUT-OF-SCOPE.md。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/triage/SKILL.md">reviewed triage snapshot（66898f6）</a>，以及同 snapshot 的 AGENT-BRIEF.md／OUT-OF-SCOPE.md；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/triage/SKILL.md">current triage</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

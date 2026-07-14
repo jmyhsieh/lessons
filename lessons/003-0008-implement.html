@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>08：用 /implement 完成一張 ticket</title>
+<title>08：用 /implement 完成 bounded slice</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -37,38 +37,54 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 3 · 第 08 課 · 約 60 分鐘 · 實作交付</div>
-<h1>用 /implement 完成一張 ticket</h1>
-<p class="mission">目標：認領第 07 課切出的第一張 ticket，用 <code>/implement</code> 依 spec 與單張 ticket 完成交付。這一課把 <code>/tdd</code>、測試、<code>/code-review</code> 與 commit 收進同一條實作流程。</p>
-<div class="scope"><strong>本課只做：</strong>完成一張小而可驗收的 ticket。<br><strong>先不要做：</strong>一次丟整份 spec、整批 tickets 或未切片的大功能。</div>
+<h1>用 /implement 完成一個 bounded slice</h1>
+<p class="mission">目標：用 <code>/implement</code> 完成一個已對齊、可驗收的 bounded slice。單-session 小需求可沿用目前 context 裡的明確 plan；跨 session 工作則依 spec 與第 07 課切出的單張 ticket 冷啟動。兩條路都把 <code>/tdd</code>、測試、<code>/code-review</code> 與 commit 收進同一條實作流程。</p>
+<div class="scope"><strong>本課只做：</strong>完成一個小而可驗收的 slice。<br><strong>先不要做：</strong>實作尚未對齊的需求、一次丟整批 tickets，或把大功能假裝成單-session 工作。</div>
 
 <h2>Pipeline 全景：你在這裡</h2>
-<pre>/to-tickets → <strong>/implement</strong> → tests → /code-review → commit → /handoff</pre>
+<pre>同一 context 的已對齊 plan ─┐
+spec → 單張 ticket ─────────┴→ <strong>/implement</strong> → tests → /code-review → commit → /handoff</pre>
 
 <h2>/implement 是 orchestrator</h2>
 <p><code>/implement</code> 的原文職責是「依 spec 或 tickets 實作工作」。它不是單純寫 code，而是把施工流程串起來：</p>
 <table>
 <tr><th>階段</th><th>你要看什麼</th></tr>
-<tr><td>讀 spec 與單張 ticket</td><td>只做這張 ticket，不順手擴 scope。</td></tr>
-<tr><td>使用 <code>/tdd</code></td><td>在預先同意的接縫上做紅綠燈循環。</td></tr>
+<tr><td>確認一種 bounded input</td><td>同一 context 的已對齊 plan，或 spec 加單張 ticket；只做這個 slice，不順手擴 scope。</td></tr>
+<tr><td>使用 <code>/tdd</code></td><td>在預先同意的接縫上做 RED → GREEN；先不重構。</td></tr>
 <tr><td>規律跑檢查</td><td>常跑單檔測試與 typecheck，最後跑完整測試。</td></tr>
-<tr><td>使用 <code>/code-review</code></td><td>完成後檢查 Standards 與 Spec，再處理發現。</td></tr>
-<tr><td>commit 當前分支</td><td>commit message 要能指回 ticket 與驗收結果。</td></tr>
+<tr><td>使用 <code>/code-review</code></td><td>以明確 fixed point 檢查 Standards 與 Spec，再處理發現。</td></tr>
+<tr><td>commit 當前分支</td><td>commit message 要能指回 originating plan／ticket 與驗收結果。</td></tr>
 </table>
 <div class="tip"><strong>重點：</strong><code>/tdd</code> 與 <code>/code-review</code> 是 <code>/implement</code> 裡的品質紀律，不是與 <code>/implement</code> 平行的主流程。</div>
+<div class="tip"><strong>Reviewed TDD 邊界：</strong>目前 snapshot 把 TDD 明確定義為 RED → GREEN；refactoring 不在這個 loop 內，而是在 review 階段處理。不要把熟悉的「red-green-refactor」口號誤讀成這份 skill 的實際執行順序。</div>
+
+<h2>/code-review 先釘住 fixed point</h2>
+<p><code>/code-review</code> 不只可放在 <code>/implement</code> 收尾，也能獨立 review 一個 PR、branch 或 WIP。無論哪種用法，都要先由你提供 commit、branch、tag 或 merge-base 當 fixed point，再固定使用 <code>git diff &lt;fixed-point&gt;...HEAD</code> 的 three-dot diff。</p>
+<table>
+<tr><th>準備</th><th>Review 規則</th></tr>
+<tr><td>確認邊界</td><td>先確認 fixed point 可解析，而且 diff 不是空的；錯誤 ref 或空 diff 要在派 reviewer 前就停下來。</td></tr>
+<tr><td>找依據</td><td>先找 originating requirement／plan／spec，以及 AGENTS.md、CONTRIBUTING.md 等 repo standards；不要讓 reviewer 自己猜需求或規範。</td></tr>
+<tr><td>平行雙軸</td><td>Standards reviewer 檢查 repo 規則，並把 Fowler code smell baseline 當 heuristic；repo 明文規則優先。Spec reviewer 則檢查漏做、scope creep 與做錯的需求。</td></tr>
+<tr><td>保留分界</td><td>兩份報告 side by side 呈現，不合併 findings，也不跨軸重排嚴重度。</td></tr>
+</table>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
-  <label><input type="checkbox"> 1. 挑一張小 ticket</label>
-  <p>選第 07 課產出的 frontier ticket。確認它有 spec 連結、驗收條件、測試接縫與 Blocked by。</p>
+  <label><input type="checkbox"> 1. 選定 bounded input 路徑</label>
+  <p><strong>單-session fast path：</strong>需求已在目前 context 對齊，而且有明確驗收條件、測試接縫與窄 scope，就直接使用這份 plan。<strong>跨 session 路徑：</strong>選第 07 課產出的單張 frontier ticket，確認它有 spec 連結、驗收條件、測試接縫與 Blocked by。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 2. 開乾淨 context、開分支並啟動 /implement</label>
-  <pre>/implement 根據這份 spec 與這張 ticket 實作：[spec 路徑] [ticket 路徑]</pre>
-  <p>每張 ticket 都用新的 context，只從 spec、單張 ticket、CONTEXT.md 與 ADR 冷啟動。如果它試圖一次處理多張 ticket，立刻收斂回單張。</p>
+  <label><input type="checkbox"> 2. 開分支並啟動 /implement</label>
+  <pre># 單-session fast path：留在已對齊的目前 context
+/implement 依剛確認的 plan 完成這個 bounded slice
+
+# 跨 session 路徑：用 durable artifacts 冷啟動
+/implement 根據這份 spec 與這張 ticket 實作：[spec 路徑] [ticket 路徑]</pre>
+  <p>fast path 必須留在已有對齊脈絡的同一個 context；若工作需要換 session，就先產生 durable spec／ticket。每張 ticket 使用新的 context，只從 spec、單張 ticket、CONTEXT.md 與 ADR 冷啟動。如果它試圖擴大 slice 或一次處理多張 ticket，立刻收斂。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 盯住 /tdd 的紅綠燈</label>
-  <p>確認每個關鍵行為至少有一次 RED → GREEN。沒看見失敗的測試，不要相信它真的保護了需求。</p>
+  <p>確認每個關鍵行為至少有一次 RED → GREEN。沒看見失敗的測試，不要相信它真的保護了需求；這一步不順手重構，結構調整留到 review 階段。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 4. 跑完整驗證</label>
@@ -76,27 +92,28 @@
 </div>
 <div class="step">
   <label><input type="checkbox"> 5. 做 /code-review 與 commit</label>
-  <p>完成後跑 <code>/code-review</code> 檢查規範與規格。處理完發現，再 commit 到目前分支。</p>
+  <pre>/code-review [fixed point]</pre>
+  <p>fixed point 必填。先確認它可解析、three-dot diff 非空，再找出 originating requirement／plan／spec 與 repo standards，讓 Standards 與 Spec reviewers 平行檢查。讀完 side-by-side findings、處理完發現後，才 commit 到目前分支。</p>
 </div>
 
 <div class="done-banner" id="done">
-  🎉 <strong>你已完成第一張可交付 ticket。</strong>回對話視窗回報：哪個測試先紅後綠？review 抓到什麼？
+  🎉 <strong>你已完成第一個可交付的 bounded slice。</strong>回對話視窗回報：走哪條 input 路徑？哪個測試先紅後綠？review 抓到什麼？
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
-<div class="quiz" data-answer="2">
+<div class="quiz" data-answer="1">
   <p>1. /implement 最適合吃什麼輸入？</p>
-  <button>整份還沒切片的 spec 和所有附件</button>
-  <button>一段模糊不清的新需求</button>
-  <button>spec 加一張明確 ticket</button>
-  <div class="why"><code>/implement</code> 適合依 spec 與單張 ticket 施工。整份 spec 太大，模糊需求太早。</div>
+  <button>尚未對齊、需要邊做邊猜的新需求</button>
+  <button>同 context 的已對齊 plan，或 spec 加單張 ticket</button>
+  <button>未切片 spec、所有 tickets 與相關附件</button>
+  <div class="why"><code>/implement</code> 可承接同一 context 中已對齊的小 plan，也可依 spec 與單張 ticket 冷啟動；關鍵是 input 已對齊而且 scope bounded。</div>
 </div>
-<div class="quiz" data-answer="0">
-  <p>2. /implement 裡的 /code-review 主要檢查什麼？</p>
-  <button>規範與規格是否符合</button>
-  <button>畫面是否足夠漂亮</button>
-  <button>token 是否使用最少</button>
-  <div class="why"><code>/code-review</code> 看 Standards 與 Spec：是否符合 repo 規範，以及是否忠實完成 ticket/spec。</div>
+<div class="quiz" data-answer="1">
+  <p>2. 開始 /code-review 前，哪組準備才完整？</p>
+  <button>確認 HEAD 可讀，讓 reviewer 自行推測起點與需求文件</button>
+  <button>確認 fixed point、非空 diff、spec 與 repo standards</button>
+  <button>先合併雙軸 findings，再讓 reviewer 判定需求依據</button>
+  <div class="why">先釘住 fixed point 與非空 diff，再把 spec 與 standards 分別交給平行雙軸 reviewer。結果要 side by side 保留，不合併或跨軸重排。</div>
 </div>
 <div class="quiz" data-answer="1">
   <p>3. 沒看過測試先失敗就綠了，該怎麼辦？</p>
@@ -108,7 +125,7 @@
 
 <h2>下一步</h2>
 <p>完成後回對話視窗交報告。下一課：<a href="003-0009-triage.html">Phase 3 第 09 課 — 用 /triage 處理外部回報</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/implement/SKILL.md">implement／SKILL.md</a>，以及它明確串入的 <code>/tdd</code> 與 <code>/code-review</code> 流程。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/implement/SKILL.md">reviewed implement snapshot（66898f6）</a>，以及同 snapshot 的 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/tdd/SKILL.md">TDD 邊界</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/implement/SKILL.md">current implement</a>。</p>
 
 <footer>
   有不清楚的，回對話視窗問你的 AI 老師。<br>

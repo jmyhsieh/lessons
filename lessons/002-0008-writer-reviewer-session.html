@@ -41,28 +41,36 @@
 <h2>雙 session 流程</h2>
 <table>
 <tr><th>Writer session</th><th>Reviewer session</th></tr>
-<tr><td>實作任務，留下 diff 與驗證輸出。</td><td></td></tr>
-<tr><td></td><td>只看 diff、brief、測試，找正確性缺口。</td></tr>
+<tr><td>在 writer worktree 實作、驗證，建立 checkpoint commit。</td><td></td></tr>
+<tr><td></td><td>在另一個 worktree 以明確 base ref 與 writer branch 讀取同一份 committed diff。</td></tr>
 <tr><td>逐項處理 reviewer 意見。</td><td></td></tr>
 </table>
+<div class="scope"><strong>為什麼要 checkpoint commit：</strong>不同 worktree 共用 git objects 與 refs，但不共用未提交的工作目錄變更。若 writer 只留下 uncommitted diff，reviewer worktree 看不到那份內容。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
   <label><input type="checkbox"> 1. Writer 完成一個小任務</label>
-  <p>照 Phase 1 第 11 課/Phase 1 第 12 課：四階段、驗證、看 diff。</p>
+  <p>照 Phase 1 第 11 課/Phase 1 第 12 課完成探索、實作、驗證與 diff review，然後在 writer branch 建立 checkpoint commit。先記下 base ref 與 writer branch，例如 <code>main</code> 與 <code>claude/task-name</code>。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 2. Reviewer 只審查</label>
-  <pre>Review this diff against the task brief.
-Only report correctness gaps, missing tests, or scope creep.</pre>
+  <label><input type="checkbox"> 2. Reviewer 先驗證 diff 身分</label>
+  <p>在另一個 worktree 的乾淨 session，不必 checkout writer branch；用明確 refs 取得 committed diff，先確認檔案清單正是要審的範圍：</p>
+  <pre>git diff --stat main...claude/task-name
+git diff main...claude/task-name</pre>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 3. 把有效意見帶回 Writer</label>
+  <label><input type="checkbox"> 3. Reviewer 只審查</label>
+  <pre>Review the committed diff from main...claude/task-name
+against this task brief. Only report correctness gaps,
+missing tests, or scope creep.</pre>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 4. 把有效意見帶回 Writer</label>
   <p>不要全部照單全收。先分類：must fix / optional / not relevant。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 4. 再跑驗證</label>
-  <p>修完 reviewer 意見後，重新跑原本的成功條件。</p>
+  <label><input type="checkbox"> 5. 再跑驗證</label>
+  <p>修完 reviewer 意見後，重新跑原本的成功條件，並用新 commit 或 amend 更新 writer branch。若 diff refs 改變，reviewer 必須重新讀取新的 committed diff。</p>
 </div>
 
 <div class="done-banner" id="done">🎉 <strong>完成！</strong>你完成了一輪雙 session 品質工作流。</div>
@@ -70,16 +78,16 @@ Only report correctness gaps, missing tests, or scope creep.</pre>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1">
   <p>1. 雙 session 比同一對話直接 review 的主要優點是？</p>
-  <button>降低 writer 整體執行成本</button>
+  <button>降低 writer 執行成本</button>
   <button>保持 reviewer 脈絡乾淨</button>
-  <button>可以省略測試流程</button>
+  <button>省略 verification 流程</button>
   <div class="why">乾淨 context 比「自己檢查自己」更接近獨立審查。</div>
 </div>
 <div class="quiz" data-answer="2">
   <p>2. reviewer 回報很多建議時，第一步是？</p>
-  <button>全部交給 writer</button>
-  <button>全部先忽略掉</button>
-  <button>分成必修/可選</button>
+  <button>全部交回 writer</button>
+  <button>全部直接忽略掉</button>
+  <button>分成必修與可選</button>
   <div class="why">review 意見仍要人類判斷，不是新的命令來源。</div>
 </div>
 

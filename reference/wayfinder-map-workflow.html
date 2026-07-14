@@ -15,7 +15,7 @@
   th { background: #eef4f2; }
   a { color: #15564a; }
   code, pre { background: #eef4f2; border-radius: 4px; font-size: .9em; }
-  code { padding: .1rem .35rem; }
+  code { padding: .1rem .35rem; overflow-wrap: anywhere; word-break: break-word; }
   pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
   .rule { border-left: 4px solid #1a6b5a; background: #f8fbfa; padding: .8rem 1rem; margin: 1rem 0; }
   .stop { border-left: 4px solid #d08800; background: #fff8e8; padding: .8rem 1rem; margin: 1rem 0; }
@@ -27,6 +27,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <h1>Wayfinder shared map 速查表</h1>
 <p class="sub">巨大模糊 effort 的選路、map schema、ticket types、frontier 與 session stop rules。</p>
+<p class="sub">內容校準自 reviewed snapshot <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md"><code>66898f6</code></a>；實際操作前再查 current version。</p>
 
 <div class="rule"><strong>一句話：</strong>Wayfinder 不是把巨大工作切成施工票，而是把看不清的路整理成 decision tickets；路清楚後，再交給 <code>/to-spec → /to-tickets → /implement</code>。</div>
 
@@ -57,11 +58,12 @@
 <h2>Ticket types</h2>
 <table>
 <tr><th>Label</th><th>模式</th><th>完成訊號</th></tr>
-<tr><td><code>wayfinder:research</code></td><td>AFK</td><td>Cited summary 作為 linked asset。</td></tr>
+<tr><td><code>wayfinder:research</code></td><td>AFK</td><td><code>research/&lt;name&gt;</code> branch 上有 cited summary；ticket 留 context pointer。</td></tr>
 <tr><td><code>wayfinder:prototype</code></td><td>HITL</td><td>人類對 artifact 作反應，留下可引用答案。</td></tr>
 <tr><td><code>wayfinder:grilling</code></td><td>HITL</td><td>真正的決策者逐題回答，agent 不代答。</td></tr>
 <tr><td><code>wayfinder:task</code></td><td>AFK / HITL</td><td>阻擋決策的操作完成並留下 facts。</td></tr>
 </table>
+<div class="rule"><strong>Research exception：</strong>Decision tickets 建立並 wire blocking edges 後，為每張 research ticket 平行啟動 <code>/research</code> subagent。研究留在 throwaway <code>research/&lt;name&gt;</code> branch，ticket 留 context pointer；charting agent 不手動逐張解票。</div>
 
 <h2>Ticket、fog、out of scope</h2>
 <table>
@@ -76,12 +78,14 @@
   <li>用 grilling 與 domain-modeling 固定 destination。</li>
   <li>Breadth-first 掃描整片未知區，不急著深挖一題。</li>
   <li>建立標記 <code>wayfinder:map</code> 的 canonical map。</li>
-  <li>只建立現在能精確問出的 tickets。</li>
+  <li>只建立現在能精確問出的 decision tickets。</li>
   <li>Tickets 取得 ids 後，再第二輪 wire blocking edges。</li>
-  <li>看得到 frontier 後停止；同 session 不解票。</li>
+  <li>為每張 research ticket 平行啟動 <code>/research</code> subagent。</li>
+  <li>看得到 frontier 後停止；charting agent 不手動解票。</li>
 </ol>
 
 <h2>Work through the map</h2>
+<p>以下是普通 frontier ticket 的 serial loop；charting 時已啟動的 research subagents 是平行例外。</p>
 <ol>
   <li>載入 map 低解析全貌。</li>
   <li>選第一張 open、unblocked、unclaimed frontier ticket。</li>
@@ -89,7 +93,7 @@
   <li>把完整答案留在 resolution comment，close ticket。</li>
   <li>Map 只新增 ticket 名稱、連結與一句 gist。</li>
   <li>建立新 tickets、wire edges、升級 fog 或移出 scope。</li>
-  <li>停止；下一張 ticket 留給下一個 session。</li>
+  <li>停止；下一張普通 ticket 留給下一個 session。</li>
 </ol>
 
 <h2>不變量</h2>
@@ -97,7 +101,7 @@
   <li><strong>Map 是 index，不是答案倉庫。</strong></li>
   <li><strong>人類文字用 ticket title，不用裸 issue id。</strong></li>
   <li><strong>Assignee 是 claim；先 claim 才開始。</strong></li>
-  <li><strong>一個 session 最多解一張 ticket。</strong></li>
+  <li><strong>普通 frontier session 最多解一張 ticket；平行 research subagents 是明確例外。</strong></li>
   <li><strong>預設產出 decisions，不產出 destination deliverables。</strong></li>
 </ul>
 
@@ -105,7 +109,7 @@
 
 <footer>
   對應課程：<a href="../lessons/003-0013-wayfinder-chart-map.html">Phase 3 第 13 課 — chart map</a> · <a href="../lessons/003-0014-wayfinder-frontier.html">Phase 3 第 14 課 — work the frontier</a><br>
-  主要來源：<a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">wayfinder／SKILL.md</a>
+  主要來源：<a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md">reviewed wayfinder snapshot（66898f6）</a> · <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">current wayfinder</a>
 </footer>
 </body>
 </html>

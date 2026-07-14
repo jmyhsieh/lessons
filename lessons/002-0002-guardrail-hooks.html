@@ -55,11 +55,15 @@
 It must exit 2 and explain the reason on stderr.</pre>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 3. 故意觸發一次</label>
-  <p>請它改禁區檔案，確認動作被擋下，而且回饋訊息清楚。</p>
+  <label><input type="checkbox"> 3. 跑正向與反向測試</label>
+  <p><strong>應阻擋：</strong>請它改禁區檔案，確認動作被擋下且 stderr 理由清楚。<strong>應放行：</strong>請它用相同工具改一個相鄰的安全測試檔，確認 hook 不會誤擋正常工作。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 4. 記錄例外流程</label>
+  <label><input type="checkbox"> 4. 測替代路徑</label>
+  <p>用另一個可寫工具或等價路徑表示法再次碰同一禁區；仍應被擋下。若改用另一條路就能繞過，代表 matcher 只保護了語法，沒有保護資源。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 5. 記錄例外流程</label>
   <p>如果真的需要改禁區，應該由誰批准、走哪個 PR 流程？寫在 README 或 CLAUDE.md。</p>
 </div>
 
@@ -69,8 +73,8 @@ It must exit 2 and explain the reason on stderr.</pre>
 <div class="quiz" data-answer="0">
   <p>1. 哪種規則最適合做成 guardrail hook？</p>
   <button>禁止自動改 production 設定</button>
-  <button>要求所有程式碼命名始終保持清楚且優雅</button>
-  <button>要求 PR 描述保持美觀</button>
+  <button>要求 production 程式命名清楚</button>
+  <button>要求 production PR 描述美觀</button>
   <div class="why">guardrail 適合低誤判、可判定、風險高的規則。</div>
 </div>
 <div class="quiz" data-answer="2">

@@ -45,29 +45,41 @@ claude -p "What does the auth module do?"
 # 像 Unix 工具一樣用管線
 cat build-error.txt | claude -p "concisely explain the root cause"
 
-# 結構化輸出
+# JSON result envelope
 claude -p "Summarize this project" --output-format json</pre>
 
 <h2>先記三個旗標</h2>
 <table>
 <tr><th>旗標</th><th>用途</th></tr>
 <tr><td><code>-p</code></td><td>非互動模式，跑完輸出後結束。</td></tr>
-<tr><td><code>--bare</code></td><td>降低本機 hooks/skills/MCP 等設定差異。</td></tr>
-<tr><td><code>--output-format json</code></td><td>讓 script 能解析結果與成本欄位。</td></tr>
+<tr><td><code>--bare</code></td><td>降低本機 hooks/skills/MCP 等設定差異；也跳過 OAuth/keychain，必須明確提供認證。</td></tr>
+<tr><td><code>--tools</code></td><td>限制可用的 built-in tools；<code>--allowedTools</code> 只代表免詢問，不是 allowlist。</td></tr>
+<tr><td><code>--output-format json</code></td><td>讓 script 能解析 Claude Code 的 result envelope 與成本欄位；不保證回答內容的欄位形狀。</td></tr>
+<tr><td><code>--json-schema</code></td><td>搭配 <code>--output-format json</code>，在 print mode 驗證最終回答；資料位於 <code>.structured_output</code>。</td></tr>
 </table>
+<div class="scope"><strong>兩種 JSON 不要混用：</strong><code>--output-format json</code> 固定 CLI 外層 result envelope；要讓回答本身穩定成特定欄位，必須再加 <code>--json-schema</code>，驗證後的資料會放在 <code>.structured_output</code>。schema 無效或最終輸出不合規時應視為錯誤，不要偷偷 fallback 成自然語言。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
   <label><input type="checkbox"> 1. 跑第一個 one-shot</label>
-  <pre>claude --bare -p "Summarize README.md in five bullets" --allowedTools "Read"</pre>
+  <p>先沿用互動 session 的登入，不加 <code>--bare</code>：</p>
+  <pre>claude -p "Summarize README.md in five bullets" --tools "Read"</pre>
+  <p><code>--bare</code> 會跳過 OAuth 與 keychain 讀取；若要使用 bare mode，必須先透過 <code>ANTHROPIC_API_KEY</code>、傳給 <code>--settings</code> 的 <code>apiKeyHelper</code>，或 provider credentials 提供非互動認證。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 2. 用管線餵資料</label>
-  <pre>git diff --stat | claude --bare -p "Summarize this diff stat"</pre>
+  <pre>git diff --stat | claude -p "Summarize this diff stat" --tools ""</pre>
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 試 JSON output</label>
-  <pre>claude --bare -p "Summarize this project" --output-format json</pre>
+  <pre>claude -p "Summarize this project" --tools "Read" --output-format json</pre>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 4.（選做）驗證回答 schema</label>
+  <pre>claude -p "Summarize this project" --tools "Read" \
+  --output-format json \
+  --json-schema '{"type":"object","properties":{"summary":{"type":"string"}},"required":["summary"]}' \
+  | jq '.structured_output'</pre>
 </div>
 
 <div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經能把 Claude Code 當成 one-shot CLI 使用。</div>
@@ -81,11 +93,11 @@ claude -p "Summarize this project" --output-format json</pre>
   <div class="why">-p 讓 Claude Code 像一般 CLI：輸入、輸出、結束。</div>
 </div>
 <div class="quiz" data-answer="1">
-  <p>2. script 想穩定解析結果，該加？</p>
-  <button>使用 --allowedTools=Read</button>
-  <button>--output-format=json</button>
-  <button>--max-turns=1</button>
-  <div class="why">JSON output 比自然語言 stdout 更適合程式解析。</div>
+  <p>2. script 想取得符合指定 schema 的回答欄位，該用哪個組合？</p>
+  <button>--allowedTools Read + --max-turns 1</button>
+  <button>--output-format json + --json-schema</button>
+  <button>--output-format text + --verbose</button>
+  <div class="why"><code>--output-format json</code> 產生 result envelope，<code>--json-schema</code> 驗證回答；程式從 <code>.structured_output</code> 取出結果。</div>
 </div>
 
 <h2>下一步</h2>

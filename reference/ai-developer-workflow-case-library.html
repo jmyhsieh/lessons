@@ -11,9 +11,11 @@
   .sub { color: #666; margin-top: 0; }
   h2 { font-size: 1.08rem; color: #1a6b5a; margin-top: 2rem; }
   table { width: 100%; border-collapse: collapse; font-size: .87rem; margin: 1rem 0; }
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
   th { background: #eef4f2; }
   code { background: #eef4f2; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; }
+  pre { max-width: 100%; overflow-x: auto; }
   a { color: #15564a; }
   .pattern { border-left: 4px solid #1a6b5a; background: #f8fbfa; padding: .75rem 1rem; margin: 1rem 0; }
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: .8rem; }
@@ -22,6 +24,7 @@
   footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
   @media print {
     body { margin: 1rem auto; }
+    .table-scroll { overflow: visible; }
     .card, .pattern, tr { break-inside: avoid; }
   }
 </style>
@@ -36,6 +39,7 @@
 </div>
 
 <h2>案例對照表</h2>
+<div class="table-scroll" role="region" aria-label="案例對照表，可左右捲動" tabindex="0">
 <table>
 <tr><th>日期</th><th>案例</th><th>流程片段</th><th>對應槽位</th><th>可學走的模式</th></tr>
 <tr>
@@ -67,6 +71,7 @@
   <td>當 agent 產 code 變多，工程師工作重心會轉向 spec、review、debug、使用者訪談與系統設計。</td>
 </tr>
 </table>
+</div>
 
 <h2>重複出現的模式</h2>
 <div class="grid">
@@ -76,8 +81,8 @@
   <div class="card"><strong>複雜任務要拆成可 review 的工作</strong><br>startup 案例顯示 Claude Code 能處理多 repo、架構與多步驟任務，但仍要保留 review / refine。</div>
 </div>
 
-<h2>套回 Phase 4 第 01 課</h2>
-<p>若你要把 Phase 4 第 01 課套到工程任務，工作槽位可以改成：</p>
+<h2>套回 Phase 5 第 01 課</h2>
+<p>若你要把 Phase 5 第 01 課套到工程任務，工作槽位可以改成：</p>
 <pre>Issue / 需求 → Codebase 探索 → Plan / Spec → 小 diff → Test / Build / Lint → Review → PR / handoff</pre>
 <p>2026/04 之後的 Claude Code 案例再加三個 gate：agent session 能否重跑？review 是否能抓到產品層與工具層風險？這個 diff 是否小到能被人類理解與接手？</p>
 

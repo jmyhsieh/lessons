@@ -36,15 +36,15 @@
 <h1>選模型與推理強度，避免浪費 token</h1>
 <p class="mission">任務目標：能用任務風險選模型，用不確定性選 effort。這一課的重點是取捨，不是把所有任務都升到最高。</p>
 <div class="scope"><strong>本課只做：</strong>判斷何時調整模型與 effort，並知道桌面 App 的操作位置。<br><strong>先不要做：</strong>把 max 當預設，或在需求不清時用高 effort 硬跑。</div>
-<div class="tip"><strong>先看模型支援：</strong><code>xhigh</code> 目前是 Opus 4.7 的 level；Opus 4.6 與 Sonnet 4.6 不支援時會向下 fallback。介面實際顯示的 levels 才是這個 session 的準則。</div>
+<div class="tip"><strong>先看實際 picker：</strong><code>best</code> 在組織可用時選 Fable 5，否則選最新 Opus；<code>opus</code>、<code>sonnet</code> 解析到哪一版則依 provider 與組織設定而異。Fable 5、Sonnet 5、Opus 4.8/4.7 支援 <code>xhigh</code>，舊模型不一定支援；以目前 session 顯示的模型與 levels 為準。</div>
 
 
 <h2>不是越高越好</h2>
 <table>
 <tr><th>情境</th><th>建議</th><th>理由</th></tr>
 <tr><td>日常 coding、小功能、測試可驗證</td><td><code>sonnet</code> + <code>high</code></td><td>速度與能力的平衡點。</td></tr>
-<tr><td>跨模組設計、需求模糊</td><td><code>opusplan</code> 或 <code>opus</code> + <code>xhigh</code></td><td>先讓規劃更穩，再控制實作成本。</td></tr>
-<tr><td>短小整理、低風險改字</td><td><code>low</code>/<code>medium</code></td><td>不要為簡單任務支付高推理成本。</td></tr>
+<tr><td>跨模組設計、需求模糊</td><td><code>fable</code>、<code>opusplan</code>，或 <code>opus</code> + <code>xhigh</code></td><td>Fable 適合最難、長時間任務；opusplan 先深度規劃再用 Sonnet 執行。</td></tr>
+<tr><td>短小整理、低風險改字</td><td><code>sonnet</code> + <code>low</code>/<code>medium</code>，或 <code>haiku</code></td><td>不要為簡單任務支付高推理成本。</td></tr>
 <tr><td>無人值守 runner</td><td>預設 <code>high</code>，避免 <code>max</code></td><td>沒有明確 gate 時，高 effort 會放大成本與風險。</td></tr>
 </table>
 
@@ -80,9 +80,9 @@ or review finds architecture tradeoffs.</pre>
 </div>
 <div class="quiz" data-answer="1">
   <p>2. 任務完成後還留在最高 effort，主要風險是？</p>
-  <button>會讓 Claude 無法讀檔</button>
-  <button>後續小任務成本與延遲增加</button>
-  <button>會自動跳過 permission rules</button>
+  <button>後續讀檔權限會失效</button>
+  <button>後續成本與延遲會增加</button>
+  <button>後續 deny 規則會失效</button>
   <div class="why">effort 影響推理深度與成本，不會取代權限規則。</div>
 </div>
 
