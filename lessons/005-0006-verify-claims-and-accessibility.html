@@ -10,8 +10,8 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 5 · 第 06 課 · 約 30 分鐘 · Verification</div>
 <h1>查核內容、圖表與可及性</h1>
-<p class="mission">目標：逐頁建立 claim ledger，確認文字、圖表、圖片權利與可及性都有證據，讓「看起來完成」變成「可安全使用」。</p>
-<div class="scope"><strong>本課只做：</strong>驗證 confirmed claims、圖表表達、圖片權利與 presentation accessibility。<br><strong>先不要做：</strong>請同一個模型看過一遍，就把模型回覆當成獨立查核。</div>
+<p class="mission">目標：逐頁建立 claim ledger，查核文字、圖表與圖片權利，並完成 accessibility preflight，讓 deck 能安全進入目標格式驗證。</p>
+<div class="scope"><strong>本課只做：</strong>驗證 confirmed claims、圖表表達、圖片權利與 presentation accessibility preflight。<br><strong>先不要做：</strong>請同一個模型看過一遍，就把模型回覆當成獨立查核。</div>
 
 <h2>四道 gate</h2>
 <table>
@@ -19,9 +19,9 @@
 <tr><td><strong>Claims</strong></td><td>每個數字、引言、日期回到 source ID</td><td>來源不存在、數字抄錯、語氣過度推論</td></tr>
 <tr><td><strong>Charts</strong></td><td>軸、單位、期間、基準、標籤與資料一致</td><td>截斷軸誤導、類別相反、缺少時間範圍</td></tr>
 <tr><td><strong>Rights</strong></td><td>logo、照片、字型與引言有使用權</td><td>網路抓圖、未核准客戶引言</td></tr>
-<tr><td><strong>Accessibility</strong></td><td>閱讀順序、對比、字級、替代文字、非顏色提示</td><td>只靠紅綠區分、圖表沒有文字等價資訊</td></tr>
+<tr><td><strong>Accessibility</strong></td><td>標題、閱讀順序、對比、替代文字、非顏色提示</td><td>只靠紅綠區分，或只看畫面就宣稱輸出檔可及</td></tr>
 </table>
-<div class="rule"><strong>圖表要能被口述。</strong>W3C WAI 建議說出畫面上的文字並描述關鍵圖形；複雜圖表也需要完整的文字等價資訊。把「這張圖要證明什麼」寫入 speaker notes。</div>
+<div class="rule"><strong>圖表要能被口述。</strong>W3C WAI 建議說出畫面上的文字並描述關鍵圖形；複雜圖表也需要完整的文字等價資訊。把「這張圖要證明什麼」寫入 claim ledger 或 sidecar notes；只有在 speaker notes 可用且輸出後確認保留時，才同步一份副本。</div>
 
 <h2>Claim ledger</h2>
 <pre>Slide | Claim | Source ID | Verified by | Status / fix
@@ -32,13 +32,13 @@
 <h2>實作 checklist</h2>
 <div class="step"><label><input type="checkbox"> 1. 把所有可驗證主張列入 ledger</label><p>不要只查大數字；日期、排名、引言與因果語句也要列入。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 由人回到原始來源逐項核對</label><p>將事實、推論與建議分開標記；推論不能偽裝成來源原句。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 用圖表 checklist 檢查每張視覺</label><p>確認單位、範圍、資料點與 headline 一致，並在 notes 留下文字摘要。</p></div>
-<div class="step"><label><input type="checkbox"> 4. 做 rights 與 accessibility pass</label><p>檢查圖片與字型權利；以投影距離閱讀、灰階檢視、閱讀順序與口述圖意測試。</p></div>
-<div class="done-banner" id="done"><strong>Deck 已通過內容與可及性 gate。</strong>若仍有 blocker，不要輸出成品；把 ledger 貼回對話視窗，請 AI 老師協助縮小修正範圍。</div>
+<div class="step"><label><input type="checkbox"> 3. 用圖表 checklist 檢查每張視覺</label><p>確認單位、範圍、資料點與 headline 一致，並在 claim ledger 或 sidecar notes 留下文字摘要。</p></div>
+<div class="step"><label><input type="checkbox"> 4. 做 rights 與 accessibility preflight</label><p>檢查圖片與字型權利；以投影距離閱讀、灰階檢視、唯一 slide title 與口述圖意測試。閱讀順序、alt text 與 tags 要等第 07 課在目標輸出格式實測。</p></div>
+<div class="done-banner" id="done"><strong>Deck 已通過內容查核與可及性 preflight。</strong>這還不是最終 accessibility pass；第 07 課必須在目標格式用對應工具驗證。若仍有 blocker，不要輸出成品。</div>
 
 <h2>觀念檢查</h2>
-<div class="quiz" data-answer="0"><p>1. 數字有疑問時先做什麼？</p><button>回到原始來源</button><button>改成較小字體</button><button>交給模型判斷</button><div class="why">事實查核要回 source of truth；視覺弱化或模型自評都不能證明數字正確。</div></div>
-<div class="quiz" data-answer="0"><p>2. 如何讓關鍵圖表更可及？</p><button>口述關鍵圖意</button><button>只用顏色區分</button><button>縮小補充文字</button><div class="why">口述趨勢與結論，加上文字等價資訊，能讓無法看清圖表的人取得同一核心訊息。</div></div>
+<div class="quiz" data-answer="2"><p>1. 數字有疑問時先做什麼？</p><button>請同一個模型依前文再次確認</button><button>降低該數字在版面上的視覺權重</button><button>回到原始來源並在 ledger 記錄狀態</button><div class="why">事實查核要回 source of truth；模型自評與視覺弱化都不能證明數字正確。</div></div>
+<div class="quiz" data-answer="0"><p>2. 如何讓關鍵圖表更可及？</p><button>提供文字等價資訊並口述關鍵趨勢</button><button>改用色盲友善配色，但不增加文字提示</button><button>只加入「chart」作為替代文字</button><div class="why">口述趨勢與結論，加上有意義的文字等價資訊，能讓無法看清圖表的人取得同一核心訊息；配色或空泛 alt text 都不足。</div></div>
 
 <h2>下一步與主要閱讀</h2>
 <p>所有 blocker 關閉後，進入 <a href="005-0007-export-and-rehearse.html">輸出與真實彩排</a>。</p>

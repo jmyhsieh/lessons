@@ -18,7 +18,7 @@
 <tr><th>Pass</th><th>檢查問題</th><th>典型修正</th></tr>
 <tr><td><strong>Audience</strong></td><td>受眾知道這些詞與背景嗎？</td><td>補上下文、刪除內部術語、調整語氣</td></tr>
 <tr><td><strong>Hierarchy</strong></td><td>三秒內看得出每頁結論嗎？</td><td>強化 headline、降低次要資訊權重</td></tr>
-<tr><td><strong>Density</strong></td><td>現場能讀完嗎？該移到 notes 嗎？</td><td>縮短句子、拆頁、把細節移到附錄</td></tr>
+<tr><td><strong>Density</strong></td><td>現場能讀完嗎？該移到 delivery notes 嗎？</td><td>縮短句子、拆頁、把細節移到附錄或 sidecar notes</td></tr>
 <tr><td><strong>Brand</strong></td><td>字型、色彩、圖片與元件有正式依據嗎？</td><td>套用 approved system，移除臨時風格</td></tr>
 </table>
 <div class="rule"><strong>用局部指令保留已經正確的部分。</strong>Claude Design 支援 chat、inline comments 與直接編輯；只指出「哪一頁、哪個元素、哪個問題、希望保留什麼」。</div>
@@ -34,13 +34,13 @@ Do not change the source IDs or add new claims.</pre>
 <h2>實作 checklist</h2>
 <div class="step"><label><input type="checkbox"> 1. 找一位真實受眾或建立受眾問題清單</label><p>至少列三個可能不懂的詞、三個會追問的問題與一個反對點。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 依序跑 audience 與 hierarchy pass</label><p>先確定訊息能被理解，再處理版面層級；每一輪保存版本。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 跑 density 與 brand pass</label><p>將口頭細節移到 notes，對照 approved design system 或 reference deck 校正。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 跑 density 與 brand pass</label><p>將口頭細節移到 sidecar notes；若使用 speaker notes，輸出後還要驗證是否保留。再對照 approved design system 或 reference deck 校正。</p></div>
 <div class="step"><label><input type="checkbox"> 4. 比較 v0 與 v1</label><p>寫下三項改善與一項退步；若無法指出差異，不要只因版本較新就保留。</p></div>
 <div class="done-banner" id="done"><strong>你已完成可追溯的精修。</strong>把 v0／v1 比較貼回對話視窗，請 AI 老師檢查是否有「只是個人偏好」的修改。</div>
 
 <h2>觀念檢查</h2>
-<div class="quiz" data-answer="0"><p>1. 精修時最先處理什麼？</p><button>先修訊息層級</button><button>先加全部動畫</button><button>先換所有圖片</button><div class="why">受眾理解與訊息層級是交付物的核心；動畫與圖片不能修復不清楚的主張。</div></div>
-<div class="quiz" data-answer="0"><p>2. 哪種 comment 最容易驗收？</p><button>指定單頁問題</button><button>要求整份更美</button><button>刪除來源限制</button><div class="why">指定頁面、問題、保留項與成功條件，才看得出修改是否解決原來的摩擦。</div></div>
+<div class="quiz" data-answer="1"><p>1. 精修時最先處理什麼？</p><button>先統一品牌樣式，避免後面重做</button><button>先修受眾理解與訊息層級</button><button>先測試動畫節奏是否流暢</button><div class="why">受眾理解與訊息層級是交付物的核心；品牌與動畫不能修復不清楚的主張。</div></div>
+<div class="quiz" data-answer="2"><p>2. 哪種 comment 最容易驗收？</p><button>整份簡報要更像高階主管會用的版本</button><button>把第 4 頁文字減少一半</button><button>保留第 4 頁主張，讓受眾能在十秒內比較選項</button><div class="why">指定頁面、問題、保留項與成功條件，才看得出修改是否解決原來的摩擦；只指定字數仍未說明要改善什麼。</div></div>
 
 <h2>下一步與主要閱讀</h2>
 <p>視覺方向穩定後，進入 <a href="005-0006-verify-claims-and-accessibility.html">內容、圖表與可及性查核</a>。</p>
