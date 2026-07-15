@@ -16,6 +16,14 @@
   Project、context、prompt、chat／comment／canvas、版本、export、<code>/design-sync</code> 與 Claude Design MCP；也列出 beta 可用性與限制。Use for: Phase 4 主線與 Phase 5 日常視覺工作流。
 - [Tutorial: Using Claude Design for presentations and slide decks — Anthropic](https://claude.com/resources/tutorials/using-claude-design-for-presentations-and-slide-decks)
   受眾、訊息、deck 產生、單頁修改、圖表、分享與 HTML／PPTX／PDF export。Use for: Phase 5 簡報主線。
+- [Guide: Introduction — open-slide](https://open-slide.dev/docs)
+  React-first agent slide framework、固定 1920×1080 canvas、present mode 與 HTML／PDF export 的正式定位。Use for: Phase 5 第 09 課的 surface 邊界。
+- [Guide: Getting started — open-slide](https://open-slide.dev/docs/getting-started)
+  Workspace scaffold、dev server、agent authoring、inspector comments、static build 與 deploy 流程。Use for: Phase 5 第 09 課實作主線。
+- [Guide: Agent skills overview — open-slide](https://open-slide.dev/docs/skills/overview)
+  Workspace-local <code>AGENTS.md</code>、<code>create-slide</code>、<code>slide-authoring</code>、<code>apply-comments</code> 等 agent contract。Use for: Phase 5 第 09 課的 repo 安全邊界與 feedback loop。
+- [Reference: Export — open-slide](https://open-slide.dev/docs/core-feature/export)
+  <code>dist/</code> static HTML build、browser print PDF 與公開分享時可關閉的 UI surface。Use for: Phase 5 第 09 課 export 選擇與停止線。
 - [Guide: Set up your design system in Claude Design — Anthropic](https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design)
   從 codebase、prototype、deck 與 brand assets 建立並驗證 design system。Use for: Phase 4 第 03 課與 Phase 5 品牌校正。
 - [Announcement: Introducing Claude Design by Anthropic Labs — Anthropic](https://www.anthropic.com/news/claude-design-anthropic-labs)
@@ -89,4 +97,5 @@
 - 仍缺台灣團隊公開、可重現且包含 repo constraints、驗證輸出與最終 PR 的第一手案例。
 - Phase 4 仍缺可公開引用、同時保留 design intent、browser evidence 與 production diff 的完整 design-to-code 案例。
 - Phase 5 仍缺台灣工作情境下、同時保留來源查核與實際簡報回饋的公開案例。
+- open-slide 仍缺可公開引用、同時包含 source traceability、accessibility evidence 與真實彩排紀錄的完整案例。
 - 若使用者不想參與社群，需記錄在 NOTES.md，避免後續重複推薦。

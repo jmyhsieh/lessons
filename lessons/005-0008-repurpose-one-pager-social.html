@@ -48,10 +48,11 @@ Do not copy the slide layout. Propose the information hierarchy first.</pre>
 <div class="quiz" data-answer="1"><p>1. 跨格式改作的核心動作是什麼？</p><button>將 deck 換成目標比例，再依空間刪字</button><button>保留已查核內容，依新使用時刻重做資訊層級</button><button>沿用相同版面，才能維持品牌一致性</button><div class="why">格式改變代表閱讀時刻改變，需要重新安排層級與密度；不是幾何縮放或照搬版面。</div></div>
 <div class="quiz" data-answer="0"><p>2. 哪個內容應跨格式保留？</p><button>核心主張、來源、品牌與權利狀態</button><button>投影片順序與講者揭露節奏</button><button>每張視覺與每一句 delivery note</button><div class="why">核心主張、來源、品牌與權利狀態可以重用；版面、順序與講者節奏必須依新情境重做。</div></div>
 
-<h2>Phase 5 收尾</h2>
+<h2>Phase 5 主線收尾</h2>
 <p>把這次使用過的 <a href="../reference/claude-design-presentation-workflow.html">簡報工作流速查表</a>保存起來。下一次從真實 source pack 開始，而不是從上一份 deck 複製所有頁面。</p>
+<p><strong>Code-first 選修：</strong>若你需要 Git diff、React 客製或可部署 static HTML，進入 <a href="005-0009-build-versioned-deck-with-open-slide.html">第 09 課 open-slide vertical slice</a>；若必須交可編輯 PPTX，到這裡即可完成主線。</p>
 <p><strong>主要官方閱讀：</strong><a href="https://claude.com/product/design">Claude Design product page</a> 的 Pitch decks、Marketing collateral、Documents 與 export options。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="005-0007-export-and-rehearse.html">輸出彩排</a> · <a href="005-0001-choose-daily-visual-output.html">重走 Phase 5</a> · <a href="../toc.html">課目表</a></footer>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="005-0007-export-and-rehearse.html">輸出彩排</a> · 選修：<a href="005-0009-build-versioned-deck-with-open-slide.html">open-slide</a> · <a href="005-0001-choose-daily-visual-output.html">重走 Phase 5</a> · <a href="../toc.html">課目表</a></footer>
 <script>const boxes=[...document.querySelectorAll('input[type=checkbox]')];boxes.forEach(b=>b.addEventListener('change',()=>document.getElementById('done').style.display=boxes.every(x=>x.checked)?'block':'none'));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>
