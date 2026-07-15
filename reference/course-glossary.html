@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>課程詞彙表</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #c2571a; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #c2571a; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #faf3ee; }
+  code { background: #f4f0ec; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; }
+  a { color: #b04a12; }
+  .rule { border-left: 4px solid #c2571a; background: #fdfbf9; padding: .8rem 1rem; margin: 1rem 0; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print { body { margin: 1rem auto; } .rule, tr { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>課程詞彙表</h1>
+<p class="sub">同一個詞在課程中的固定意思；不是完整產品文件。</p>
+
+<div class="rule"><strong>使用方式：</strong>先用這頁確認課程語意；涉及目前產品功能、模型或介面時，再回官方文件與實際介面查核。</div>
+
+<h2>工作表面與執行環境</h2>
+<table>
+<tr><th>詞彙</th><th>本課程中的意思</th></tr>
+<tr><td>surface</td><td>完成任務的產品或介面，例如 Claude、Cowork、Claude Design、Claude Code；先依交付物選 surface。</td></tr>
+<tr><td>session</td><td>一段有自己 context 的工作對話；換 session 前要把重要狀態寫進 durable artifact。</td></tr>
+<tr><td>context</td><td>模型目前能使用的對話、檔案與指令脈絡；長不等於乾淨，也不能取代持久文件。</td></tr>
+<tr><td>plan mode</td><td>先探索、提出計畫與風險，不直接修改檔案的工作模式。</td></tr>
+<tr><td>permission rule</td><td>限制工具或命令可否執行的規則；不等於內容正確性驗證。</td></tr>
+<tr><td>hook</td><td>在特定事件自動執行的 deterministic 檢查或動作。</td></tr>
+<tr><td>Skill</td><td>可重用的代理工作說明與資源；要先讀適用條件與停止線。</td></tr>
+<tr><td>MCP</td><td>讓 agent 透過受控工具連接外部系統或資料的協定與整合方式。</td></tr>
+<tr><td>subagent</td><td>負責邊界清楚子任務的獨立 agent；輸出仍需由主工作流整合與驗證。</td></tr>
+<tr><td>worktree</td><td>同一 Git repository 的另一份工作目錄，用來隔離分支與並行改動。</td></tr>
+</table>
+
+<h2>從需求到可驗證交付</h2>
+<table>
+<tr><th>詞彙</th><th>本課程中的意思</th></tr>
+<tr><td>spec</td><td>把已對齊的問題、範圍、需求、限制與驗收方式寫成可持續使用的文件。</td></tr>
+<tr><td>ticket</td><td>可由單一 owner 認領、具完成條件的工作切片。</td></tr>
+<tr><td>bounded slice</td><td>範圍小到能在目前工作中檢查、驗證與說清楚的一段實作。</td></tr>
+<tr><td>feedback loop</td><td>能穩定重現、觀察改動效果並快速再次執行的診斷迴圈。</td></tr>
+<tr><td>fixed point</td><td>review 或比較的明確起點，例如 commit、tag 或 merge-base。</td></tr>
+<tr><td>handoff</td><td>讓下一個 session 或接手者不用重讀整段對話，也能恢復狀態的持久交接。</td></tr>
+<tr><td>artifact</td><td>可被檢查與使用的產物，例如 spec、程式碼、簡報、ledger 或 handoff。</td></tr>
+<tr><td>exit evidence</td><td>證明學習或工作結果達到完成條件的產物、判斷說明與驗證證據；不是只勾完 checklist。</td></tr>
+</table>
+
+<h2>設計與日常視覺交付</h2>
+<table>
+<tr><th>詞彙</th><th>本課程中的意思</th></tr>
+<tr><td>design intent</td><td>畫面背後要保留的受眾、層級、互動與品牌判斷，不只是像素外觀。</td></tr>
+<tr><td>vertical slice</td><td>用少量頁面或功能走完整條工作流，以驗證方向與交付邊界。</td></tr>
+<tr><td>source pack</td><td>帶來源、狀態與 owner 的真實內容集合，是生成視覺產物前的內容地基。</td></tr>
+<tr><td>source of truth</td><td>主張可回查的權威原始位置；模型重述或多份簡報互相引用不算來源。</td></tr>
+<tr><td>story spine</td><td>從受眾現況、證據到下一個決策的敘事順序。</td></tr>
+<tr><td>deck</td><td>由講者控制節奏、用來建立共同理解並推動決策的投影片組合。</td></tr>
+<tr><td>rehearsal</td><td>在目標環境向代表性聽眾實際講一次，記錄迷失點、問題與決策理解。</td></tr>
+</table>
+
+<footer>相關：<a href="claude-product-picker.html">產品選用</a> · <a href="claude-code-command-surface.html">Claude Code 操作</a> · <a href="claude-design-presentation-workflow.html">簡報工作流</a></footer>
+</body>
+</html>

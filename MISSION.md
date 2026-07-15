@@ -19,6 +19,7 @@
 - Phase 5 使用真實來源與受眾，不以模型生成內容取代事實查核、授權確認或人工彩排。
 - Phase 5 以簡報作為主線，但學到的 source pack、story spine、brand、review 與 export 判斷要能轉用到其他日常視覺交付物。
 - Phase 5 的 Claude Design 01–08 是主線；open-slide 是 code-first 選修，只在可接受 repo／Node 工作流與 HTML／PDF 交付時使用，不把它當成 PPTX 交接工具。
+- 勾完實作清單只代表完成操作，不等於掌握；能交出課堂要求的 artifact、說明判斷並通過回饋，才算具備該課的 exit evidence。
 - 封閉系統與遺產系統只作為高風險範例，不是課程唯一場景。
 
 ## Out of scope

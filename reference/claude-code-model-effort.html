@@ -33,15 +33,14 @@
 <table>
 <tr><th>Alias</th><th>適合任務</th><th>注意事項</th></tr>
 <tr><td><code>default</code></td><td>回到帳號或組織建議的預設模型。</td><td>依 account tier、provider 與 organization default 而變；它不是固定模型。</td></tr>
-<tr><td><code>best</code></td><td>使用目前可用的最強模型。</td><td>組織可用時選 Fable 5，否則選最新 Opus。</td></tr>
-<tr><td><code>fable</code></td><td>最難、最長時間、需要持續調查與驗證的任務。</td><td>Fable 5 不會自動成為預設，要明確選取；可用性依組織而異。</td></tr>
+<tr><td><code>best</code></td><td>使用目前可用的最高能力模型。</td><td>實際模型依帳號、provider 與組織可用性而變。</td></tr>
 <tr><td><code>sonnet</code></td><td>日常 coding、局部修改、測試可驗證的任務。</td><td>多數工作先從這裡開始。</td></tr>
 <tr><td><code>opus</code></td><td>架構判斷、模糊需求、跨模組推理、困難 review。</td><td>成本與延遲通常較高。</td></tr>
 <tr><td><code>opusplan</code></td><td>先深度規劃，再有效率實作。</td><td>plan mode 用 Opus，執行回 Sonnet。</td></tr>
 <tr><td><code>haiku</code></td><td>簡單整理、格式化、低風險小任務。</td><td>不適合複雜推理。</td></tr>
 <tr><td><code>sonnet[1m]</code>／<code>opus[1m]</code></td><td>真的需要超長 context 的 session。</td><td>不要用長 context 取代乾淨 scope 與 handoff。</td></tr>
 </table>
-<p><strong>版本提醒：</strong>在 Anthropic API 上，目前 <code>opus</code> 解析到 Opus 4.8、<code>sonnet</code> 解析到 Sonnet 5；Claude Platform on AWS、Bedrock、Google Cloud Agent Platform、Microsoft Foundry 可能解析到不同版本。alias 會更新，需要固定版本時才使用完整 model ID。</p>
+<p><strong>版本提醒：</strong>alias 會更新，且不同 provider 可能解析到不同版本；先看目前 picker，需要固定版本時才使用完整 model ID。不要把文件未列出的名稱當成可用 alias。</p>
 
 <h2>Effort levels</h2>
 <table>
@@ -49,11 +48,10 @@
 <tr><td><code>low</code></td><td>短、明確、低風險、重視速度。</td><td>架構或疑難除錯。</td></tr>
 <tr><td><code>medium</code></td><td>想省成本，但仍需要一些判斷。</td><td>高風險改動。</td></tr>
 <tr><td><code>high</code></td><td>多數 coding 任務的基準選擇。</td><td>不需要思考的批次小事。</td></tr>
-<tr><td><code>xhigh</code></td><td>跨檔案推理、設計取捨、困難 bug。</td><td>Fable 5、Sonnet 5、Opus 4.8/4.7 支援；舊模型不一定支援。</td></tr>
+<tr><td><code>xhigh</code></td><td>跨檔案推理、設計取捨、困難 bug。</td><td>只有部分模型支援；介面沒有列出時不要自行假設可用。</td></tr>
 <tr><td><code>max</code></td><td>真的困難且有明確 stop condition 的任務。</td><td>長期預設設定。</td></tr>
-<tr><td><code>ultracode</code></td><td>需要動態拆解與協調多段工作流的實質任務。</td><td>它是 session-only 的 Claude Code 設定，不是模型 effort level。</td></tr>
 </table>
-<p><strong>模型差異：</strong>Fable 5、Sonnet 5、Opus 4.8 與 Opus 4.7 支援 <code>low</code>、<code>medium</code>、<code>high</code>、<code>xhigh</code>、<code>max</code>；Opus 4.6 與 Sonnet 4.6 沒有 <code>xhigh</code>。不支援時會降到不高於要求值的最高 level；組織也可能另設上限。先看介面實際提供的選項。</p>
+<p><strong>模型差異：</strong>目前官方文件列出 Opus 4.7 支援 <code>low</code>、<code>medium</code>、<code>high</code>、<code>xhigh</code>、<code>max</code>；Opus 4.6 與 Sonnet 4.6 支援 <code>low</code>、<code>medium</code>、<code>high</code>、<code>max</code>。模型與組織設定會改變可用範圍，最後仍以介面選項為準。</p>
 
 <h2>操作方式</h2>
 <table>
@@ -65,7 +63,6 @@
 <tr><td>Slash command</td><td><code>/effort</code></td><td>若 <code>/</code> 清單有，可當作 effort 選單快捷。</td></tr>
 <tr><td>Slash command</td><td><code>/effort auto</code></td><td>若目前環境支援，可回到模型預設 effort。</td></tr>
 <tr><td>任一介面</td><td><code>ultrathink</code></td><td>單回合要求更深思考，不改 session effort 設定。</td></tr>
-<tr><td>CLI / picker</td><td><code>/effort ultracode</code></td><td>以 <code>xhigh</code> 搭配動態工作流；session-only。</td></tr>
 </table>
 
 <h2>決策句</h2>
@@ -73,9 +70,9 @@
 <tr><th>任務</th><th>建議</th></tr>
 <tr><td>修 README typo。</td><td><code>sonnet</code> + <code>low</code> 或 <code>medium</code>。</td></tr>
 <tr><td>新增小功能，有測試可跑。</td><td><code>sonnet</code> + <code>high</code>。</td></tr>
-<tr><td>跨模組改 API。</td><td><code>opusplan</code>、<code>opus</code> + <code>xhigh</code>，或在可用時選 <code>fable</code>。</td></tr>
-<tr><td>疑難 bug、根因不明。</td><td>先選 <code>opus</code> + <code>xhigh</code>；長時間調查可在可用時選 <code>fable</code>。</td></tr>
-<tr><td>長時間自主任務。</td><td>先確認 goal、gate、evidence，再選適合模型與較高 effort。</td></tr>
+<tr><td>跨模組改 API。</td><td><code>opusplan</code>，或 <code>opus</code> + picker 支援的較高 effort。</td></tr>
+<tr><td>疑難 bug、根因不明。</td><td>先建立 feedback loop，再視不確定性選 <code>opus</code> 與較高 effort。</td></tr>
+<tr><td>長時間自主任務。</td><td>先確認 success criteria、verification 與 stop condition，再選適合模型與 effort。</td></tr>
 </table>
 
 <h2>課程路線中的使用位置</h2>
@@ -84,20 +81,20 @@
 <tr><td>Phase 1</td><td>模型選擇、effort、<code>opusplan</code> 基本取捨。</td><td>桌面 App 先用選單；slash command 可用時作快捷。</td></tr>
 <tr><td>Phase 2</td><td>hooks、Skills、MCP、Subagents、worktrees、headless、CI 的成本與權限邊界。</td><td>進階能力先明確 scope，再升高 effort。</td></tr>
 <tr><td>Phase 3</td><td>在 repo 地圖整理、<code>/grill-with-docs</code>、<code>/implement</code> 內的 review、或 <code>/diagnosing-bugs</code> 判斷何時升高 effort。</td><td>不確定性高才升級。</td></tr>
-<tr><td>Phase 5（選修）</td><td><code>/goal</code> 必須接 gate、evidence、stop condition；同時追蹤成本、限制 <code>max</code>，穩定後降回 <code>high</code>。</td><td>沒有 gate 不設 goal；高 effort 是例外。</td></tr>
+<tr><td>Phase 4–5（選修）</td><td>視覺原型、簡報與日常交付物仍要依內容風險選 effort。</td><td>高 effort 不能取代來源查核、真實回饋或 browser verification。</td></tr>
 </table>
 
 <h2>降級規則</h2>
 <table>
 <tr><th>觀察</th><th>下一次設定</th></tr>
 <tr><td><code>xhigh</code> 沒帶來更清楚的 evidence。</td><td>降回 <code>high</code>。</td></tr>
-<tr><td><code>max</code> 只是在重跑同一個失敗。</td><td>停止，修 goal 或 gate。</td></tr>
+<tr><td><code>max</code> 只是在重跑同一個失敗。</td><td>停止，修 scope、feedback loop 或驗證方式。</td></tr>
 <tr><td>同類任務連續三次在 <code>high</code> 通過。</td><td>移除高 effort 例外。</td></tr>
 </table>
 
 <footer>
   對應課程：<a href="../lessons/001-0009-model-effort.html">001-09 — 模型與推理程度</a><br>
-  主要來源：<a href="https://code.claude.com/docs/en/model-config">Claude Code Model configuration</a> · <a href="https://code.claude.com/docs/en/desktop">Claude Code Desktop application</a> · <a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a> · 更新：2026-07-14
+  主要來源：<a href="https://code.claude.com/docs/en/model-config">Claude Code Model configuration</a> · <a href="https://code.claude.com/docs/en/desktop">Claude Code Desktop application</a> · <a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a> · 更新：2026-07-15
 </footer>
 </body>
 </html>
