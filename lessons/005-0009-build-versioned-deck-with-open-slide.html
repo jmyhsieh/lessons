@@ -8,15 +8,15 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 5 · 第 09 課 · 約 30 分鐘 · Code-first elective</div>
+<div class="kicker">Phase 5 · 第 09 課 · 約 45–60 分鐘 · Code-first elective</div>
 <h1>用 open-slide 建立可版本控制的簡報</h1>
 <p class="mission">目標：重用 Phase 5 已驗證的 source pack 與 storyboard，讓 coding agent 在 open-slide 建立 3 頁 React vertical slice，完成一次 comment → edit → build 的可重現迴圈。</p>
 <div class="scope"><strong>本課只做：</strong>在獨立 workspace 重建 cover、evidence、recommendation 三頁並驗證 static build。<br><strong>先不要做：</strong>重做整份 deck、把 build 成功當成內容正確，或承諾 open-slide 能交付 PPTX。</div>
 
 <h2>先選對產製路線</h2>
 <div class="compare">
-  <div class="route"><h3>Claude Design</h3><p>以對話、canvas 與 comments 精修視覺，可輸出 PPTX、PDF、HTML。</p><p><strong>選它：</strong>需要視覺編輯、PowerPoint 交接，或不想維護 repo。</p></div>
-  <div class="route"><h3>open-slide</h3><p>Coding agent 編寫固定 1920×1080 canvas 的 React pages，workspace 可進 Git，輸出 static HTML 或 PDF。</p><p><strong>選它：</strong>需要版本差異、客製互動、可部署 HTML，而且團隊接受 Node／repo 工作流。</p></div>
+  <div class="route"><h3>Claude Design</h3><p>以對話、canvas 與 comments 精修視覺，可輸出 PPTX、PDF、HTML。</p><p><strong>選它：</strong>需要 canvas-first 協作、PowerPoint 交接，或不想維護 repo。</p></div>
+  <div class="route"><h3>open-slide</h3><p>Coding agent 編寫固定 1920×1080 canvas 的 React pages，workspace 可進 Git，輸出 static HTML 或 PDF；browser inspector 也能直接調整元素並留下 comments。</p><p><strong>選它：</strong>需要版本差異、客製互動、可部署 HTML，而且團隊接受 React／Git 是 source of truth。</p></div>
 </div>
 <div class="rule"><strong>這是 interleaving 練習，不是換工具重做內容。</strong>沿用同一份已查核主張，只比較 authoring、review、版本與 export 的差異。open-slide 的 slides 是任意 React components，不是 PowerPoint replacement。來源：<a href="https://open-slide.dev/docs">open-slide Introduction</a>。</div>
 
@@ -50,11 +50,11 @@ Constraints:
 <div class="step"><label><input type="checkbox"> 1. 確認 open-slide 真的是對的分支</label><p>交付接受 HTML／PDF，而且 Git diff、React 客製或部署能力帶來實際價值；若必須交可編輯 PPTX，留在 Claude Design 主線。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 建立獨立 workspace 並讓 agent 先讀 rules</label><p>啟動 dev server，確認 starter slide 可開啟；不要在目前教材 repo 裡執行 <code>init</code>。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 產生 v0，留下兩個可驗收 comments</label><p>在 browser inspector 指定元素、問題、保留項與成功條件，再請 agent 使用 <code>apply-comments</code>；不要用「更好看」當回饋。</p></div>
-<div class="step"><label><input type="checkbox"> 4. Build、preview，再重跑驗證</label><p>執行 <code>npm run build</code> 與 <code>npm run preview</code>，打開 <code>dist/</code> 版本；依第 06–07 課重查 claims、rights、keyboard navigation、目標螢幕與真實彩排。PDF 要從 Export → PDF 或 <code>?print=1</code> 另行檢查。</p></div>
+<div class="step"><label><input type="checkbox"> 4. Build、preview，再重跑驗證</label><p>執行 <code>npm run build</code> 與 <code>npm run preview</code>，打開 <code>dist/</code> 版本；依<a href="005-0006-verify-claims-and-accessibility.html">第 06 課</a>重查 claims、rights 與 keyboard navigation，再依<a href="005-0007-export-and-rehearse.html">第 07 課</a>檢查目標螢幕與真實彩排。PDF 要從 Export → PDF 或 <code>?print=1</code> 另行檢查。</p></div>
 <div class="done-banner" id="done"><strong>你已完成一個可比較的 code-first vertical slice。</strong>保存 Git diff、build 結果與驗證紀錄；若要擴成完整 deck，先把 Claude Design 與 open-slide 的實際摩擦貼回對話視窗，請 AI 老師協助選路。</div>
 
 <h2>觀念檢查</h2>
-<div class="quiz" data-answer="1"><p>1. 哪種需求最適合 open-slide？</p><button>需要把可編輯 PPTX 檔交給同事接手修改</button><button>需要將 React 簡報納入 Git 版控</button><button>需要讓非工程同事直接在該視覺畫布中修改簡報</button><div class="why">open-slide 的核心優勢是 React、repo 與版本差異；若主要需求是可編輯 PPTX 或非工程畫布，Claude Design 路線較直接。</div></div>
+<div class="quiz" data-answer="1"><p>1. 哪種需求最適合 open-slide？</p><button>需要把可編輯 PPTX 檔交給同事接手修改</button><button>需要將 React 簡報納入 Git 版控</button><button>需要由完全不接觸 repo 的團隊長期維護簡報</button><div class="why">open-slide 的 inspector 也能直接調整元素並留下 comments；真正的分界是 React／Git 是否能作為 source of truth，以及交付是否必須是可編輯 PPTX。</div></div>
 <div class="quiz" data-answer="2"><p>2. open-slide build 成功後，下一步是什麼？</p><button>確認 build 成功之後就直接發布完整成品</button><button>接受 agent review 後就直接發布</button><button>打開 build 結果之後再做完整驗證與彩排</button><div class="why">Build 只證明可產生 static output；內容、權利、可及性、目標環境與聽眾理解仍需要獨立證據。</div></div>
 
 <h2>選修收尾與主要閱讀</h2>
