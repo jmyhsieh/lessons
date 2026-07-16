@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="007-0001">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="browser-evidence:entry,browser-evidence:feedback,browser-evidence:readiness,browser-evidence:tangible-win">
+<meta name="course:source-ids" content="browser-claim-observation-contract">
+<title>007-0001：界定 browser claim</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:820px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#315f86;margin-top:2rem}.mission,.stop,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccd9e3;padding:.55rem;vertical-align:top;text-align:left}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:620px){body{margin-top:1rem}table{font-size:.88rem}}</style>
+</head><body>
+<p><a href="001-0007-prove-code-readiness.html">← Code readiness</a> · <a href="../reference/browser-evidence-selector.html">Browser evidence selector</a> · <a href="../toc.html">回課程 catalog</a></p>
+<header><p>Phase 7 · Verify · 007-0001 · Route entry</p><h1>先界定一個會被反證的 browser claim</h1><p class="mission"><strong>Entry／readiness：</strong>帶入一個可安全開啟的 web app 或 local fixture、一項需要持久證明的使用者行為，以及可識別的 app revision。你必須已能遵守 repo instructions、啟動 declared environment、辨識 browser／session／authentication boundary，並有權執行唯讀或 recoverable interaction。這條 route 的 durable outcome 是之後可重跑的 Playwright Test 與 Browser evidence addendum，不是本課的觀察紀錄。</p></header>
+<h2>把功能描述收窄成可觀察 claim</h2>
+<table><tr><th>Claim 欄位</th><th>要寫到能被反證</th></tr><tr><td>Actor／authority</td><td>誰在什麼權限下操作；不要用「使用者」掩蓋 role 或資料界線。</td></tr><tr><td>Starting state</td><td>頁面、fixture、資料、session 與 authentication state。</td></tr><tr><td>Action</td><td>使用者可執行的一個 bounded task path，而不是內部函式名稱。</td></tr><tr><td>Observable outcome</td><td>畫面、URL、可存取名稱、狀態或訊息如何改變。</td></tr><tr><td>Disconfirming observation</td><td>什麼具體結果會證明 claim 不成立；例如按鈕仍可操作、訊息未出現或錯誤 state 被跳過。</td></tr><tr><td>Scope／exclusions</td><td>本輪包含的 viewport、browser family、role 與狀態，以及明確不主張的範圍。</td></tr></table>
+<div class="card"><pre>Claim ID:
+App / revision identity:
+Actor / allowed authority:
+Given starting state:
+When user action:
+Then observable outcome:
+Claim is disproved when:
+Included viewport / browser / state:
+Explicit exclusions:
+Why this claim must remain rerunnable:
+Originating ticket / Engineering closeout:</pre></div>
+<h2>不要把 observation 寫成 inference</h2>
+<table><tr><th>類型</th><th>可以記什麼</th><th>不可偷渡的結論</th></tr><tr><td>Observation</td><td>「點擊後 URL 成為 <code>/done</code>，頁面出現可存取名稱『訂單完成』。」</td><td>「因此所有 browser、role 與資料都正確。」</td></tr><tr><td>Captured artifact</td><td>Timestamp、snapshot、console excerpt 或 screenshot 的 identity。</td><td>Artifact 本身不等於 assertion，也不證明行為壞掉時會失敗。</td></tr><tr><td>Inference</td><td>「可能由 stale session 導致」並標為待驗證假說。</td><td>不要把 agent explanation 或 DOM 推測改寫成已觀察事實。</td></tr></table>
+<p class="boundary"><strong>Exploration boundary：</strong>本課只核准一個 claim 的 evidence boundary。不要同時測多個 journey、把 screenshot 當 durable proof，或為了「更完整」把 Desktop Browser、Chrome、Playwright CLI、Playwright MCP 全走一次。Surface selection 是下一課的一次選擇。</p>
+<div class="win"><strong>Tangible win：</strong>一張含 app revision、starting state、action、observable outcome、反證條件與 exclusions 的 Browser claim card。<br><strong>Observable feedback：</strong>Reviewer 能只看 card 在不讀實作的情況下重述使用者行為，指出什麼結果會讓 claim 失敗，並圈出 observation、artifact 與 inference 混寫的位置。</div>
+<div class="quiz" data-answer="1"><p>哪一個 claim 已經窄到能成為後續 durable test 的起點？</p><button type="button">結帳功能應該正常，而且各種 browser 都要漂亮</button><button type="button">在 revision abc123 的 guest fixture，375px viewport 從購物車送出有效訂單後，URL 進入 /confirmation 且 heading 顯示「訂單完成」；停留原頁即反證</button><button type="button">Agent 截圖看起來成功，所以 checkout 已通過</button><div class="why">可測 claim 必須固定 identity、starting state、action、observable outcome 與反證條件；截圖與 agent 判斷都不能代替會在行為壞掉時失敗的 assertion。</div></div>
+<p class="stop"><strong>Legal stop／return／continuation：</strong>app revision、safe fixture、authority、starting state、可觀察結果或反證條件任一不明，或 claim 需要未授權的 production mutation／真實交易時，保存 claim draft 並停止；Code readiness 缺口回 001-0007，產品期待不清則回 originating ticket／Engineering closeout。Card 可由 reviewer 重述後，進 <a href="007-0002-choose-browser-surface.html">007-0002</a> 選擇一個 exploration surface。現在合法停止也只代表 claim 已界定，不代表 Browser Evidence route、Phase 7 或 Migration complete。</p>
+<footer>Page kind：canonical lesson · Route roles：entry／feedback／readiness／tangible win · Source IDs：<code>browser-claim-observation-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

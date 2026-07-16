@@ -2632,6 +2632,128 @@
       }
     },
     {
+      "id": "browser-claim-observation-contract",
+      "ownerPath": "lessons/007-0001-scope-browser-claim.html",
+      "claimScope": "Browser evidence begins with one bounded user-observable claim and a reproducible baseline identity; direct observations, captured artifacts, and inferences remain distinguishable, and exploration alone is not durable test evidence.",
+      "profile": "principle-only",
+      "driftClass": "lower",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "course-migration-spec-browser-claim",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-17"
+        }
+      ],
+      "principleStatement": "Name one user-observable claim, its starting state, action, expected result, scope, and disconfirming observation; then record the application revision, URL, fixture or data identity, viewport, browser surface, session and authentication state, timestamp, direct observations, captured artifacts, and separately labeled inferences before promoting the claim to a durable Playwright Test.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The approved Browser Evidence claim, baseline, observation, or durable-test boundary changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-17",
+        "actor": "Codex implementation session for Issue #38",
+        "sourceIds": [
+          "course-migration-spec-browser-claim"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "Issue #13 requires one bounded browser claim, an observable baseline, a later minimal Playwright Test, and a Browser evidence addendum.",
+          "The approved boundary treats exploration as input to a durable test rather than accepting screenshots, traces, or an agent summary as route completion.",
+          "The baseline contract records exact environment and state identities so a later observation can be compared without silently changing the subject."
+        ]
+      }
+    },
+    {
+      "id": "browser-exploration-surface-selector",
+      "ownerPath": "lessons/007-0002-choose-browser-surface.html",
+      "claimScope": "Desktop Browser, Claude in Chrome, Playwright CLI, and Playwright MCP are alternative browser-exploration surfaces selected by claim, evidence, session and authentication needs; using more surfaces does not make the evidence more durable.",
+      "profile": "surface-procedure",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-claude-code-desktop-browser",
+          "url": "https://code.claude.com/docs/en/desktop",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-17"
+        },
+        {
+          "id": "anthropic-claude-code-chrome",
+          "url": "https://code.claude.com/docs/en/chrome",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-17"
+        },
+        {
+          "id": "microsoft-playwright-cli-readme-eee5a185",
+          "url": "https://github.com/microsoft/playwright-cli/blob/eee5a185c98e6b04d88f580d45a854e9692ab50b/README.md",
+          "kind": "first-party-project-doc",
+          "checkedAt": "2026-07-17"
+        },
+        {
+          "id": "microsoft-playwright-mcp-readme-55679f5f",
+          "url": "https://github.com/microsoft/playwright-mcp/blob/55679f5f3d4b4f3e2534ec0ce2fc5683ba2eaf3f/README.md",
+          "kind": "first-party-project-doc",
+          "checkedAt": "2026-07-17"
+        }
+      ],
+      "commandMetadata": "not-applicable",
+      "surfacePath": "Claude Code Desktop > Browser pane; Claude Code CLI or VS Code > Claude in Chrome; Playwright CLI README > CLI with Skills; Playwright MCP README > MCP client integration",
+      "inspectionContext": "First-party public documentation inspected from macOS 26.5.2; no learner account, organization policy, authenticated browser profile, installed Playwright package, or application under test was inspected",
+      "availabilityAssumptions": [
+        "Desktop Browser requires a current Claude Code Desktop surface whose Browser pane and organization browser policy allow the target site.",
+        "Claude in Chrome requires a supported browser, extension, direct Anthropic plan, site permission, and a Claude Code CLI or VS Code connection.",
+        "Playwright CLI requires Node.js 18 or newer, a locally available package or install path, browser prerequisites, and permission to create session artifacts.",
+        "Playwright MCP requires an MCP-capable Claude Code surface, a trusted configured server, browser prerequisites, and explicit tool and site authority."
+      ],
+      "expectedEvidence": [
+        "Desktop Browser is selected for local app preview or a clean-profile exploration that does not require the learner's existing browser identity.",
+        "Claude in Chrome is selected only when the claim requires an existing logged-in browser session and the learner accepts that identity and permission boundary.",
+        "Playwright CLI is selected for concise, inspectable agent commands and session artifacts in a code-oriented workflow.",
+        "Playwright MCP is selected when persistent structured browser context and iterative page introspection justify the larger tool and trust surface.",
+        "The selection record names exactly one primary surface, its current availability evidence, authority, session and authentication state, fallback, and return point."
+      ],
+      "changeTriggers": [
+        "Claude Code Desktop Browser or Claude in Chrome availability, identity, permission, or session behavior changes",
+        "Playwright CLI or Playwright MCP installation, client support, session, security, or exploration guidance changes",
+        "The approved set of Browser Evidence exploration alternatives changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [
+        {
+          "id": "playwright-cli-versus-mcp-default",
+          "summary": "The Playwright projects recommend CLI plus Skills for many coding-agent workflows while retaining MCP for specialized persistent and introspective loops.",
+          "status": "resolved",
+          "scope": "optional-path",
+          "disposition": "Do not declare either surface universally required; choose one from the active claim, context, session and trust needs, and preserve both as alternatives."
+        }
+      ],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-17",
+        "actor": "Codex implementation session for Issue #38",
+        "sourceIds": [
+          "anthropic-claude-code-desktop-browser",
+          "anthropic-claude-code-chrome",
+          "microsoft-playwright-cli-readme-eee5a185",
+          "microsoft-playwright-mcp-readme-55679f5f"
+        ],
+        "verificationMethod": "surface-observation",
+        "surfacePath": "Claude Code Desktop > Browser pane; Claude Code CLI or VS Code > Claude in Chrome; Playwright CLI README > CLI with Skills; Playwright MCP README > MCP client integration",
+        "result": "pass",
+        "observations": [
+          "The Desktop guide distinguishes its clean Browser profile from Claude in Chrome, which shares an existing browser login state.",
+          "The Chrome guide documents browser interaction from Claude Code CLI or VS Code and requires explicit browser, extension, plan and site-permission availability.",
+          "The Playwright CLI snapshot at eee5a185 documents Claude Code as a supported coding-agent context, session-oriented commands, and CLI plus Skills as the code-oriented fit.",
+          "The Playwright MCP snapshot at 55679f5f documents Claude Code MCP setup, structured accessibility snapshots, and persistent introspective loops while warning that MCP is not a security boundary.",
+          "No account-specific access, installed-package, browser-binary, authentication, or target-application result was inferred from the public documentation."
+        ]
+      }
+    },
+    {
       "id": "agent-operations-safety-contract",
       "ownerPath": "reference/agent-operations-safety.html",
       "claimScope": "Shared agent operations require least authority, recoverable scope, explicit external side-effect approval, deterministic validation, visible failure and rollback evidence, and no unattended production mutation in canonical self-study exercises.",
