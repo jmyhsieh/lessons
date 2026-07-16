@@ -52,6 +52,7 @@ class CourseHTMLParser(HTMLParser):
         self.metadata: dict[str, list[str | None]] = {}
         self.route_links: list[dict[str, str | None]] = []
         self.catalog_links: list[dict[str, str | None]] = []
+        self.index_links: list[dict[str, str | None]] = []
         self.quizzes: list[dict[str, Any]] = []
         self._quiz_stack: list[dict[str, Any]] = []
 
@@ -85,6 +86,16 @@ class CourseHTMLParser(HTMLParser):
                 catalog_kind = attributes.get("data-catalog-kind")
                 if catalog_kind is not None:
                     self.catalog_links.append({"href": href, "kind": catalog_kind})
+                index_role = attributes.get("data-index-role")
+                mission_route = attributes.get("data-mission-route")
+                if index_role is not None or mission_route is not None:
+                    self.index_links.append(
+                        {
+                            "href": href,
+                            "role": index_role,
+                            "routeId": mission_route,
+                        }
+                    )
 
         if tag == "div":
             for quiz in self._quiz_stack:
@@ -287,6 +298,125 @@ TOC_SECTION_ANCHORS = {
     "phase-catalog",
     "references",
 }
+
+INDEX_FIXED_LINKS = {
+    "resume": ("toc.html", "task-routes"),
+    "phase-catalog": ("toc.html", "phase-catalog"),
+}
+INDEX_LINEAR_CLAIMS = (
+    "新手從 Phase 1",
+    "從 Phase 1 一路",
+    "完成所有 Phase",
+    "完成 12 個 Phase",
+    "完成全部 Phase",
+)
+
+
+def validate_mission_first_index(
+    manifest: Any, documents: dict[str, CourseHTMLParser]
+) -> list[dict[str, str]]:
+    """Verify that the course entrance selects work, not a Phase sequence."""
+    if not isinstance(manifest, dict) or not isinstance(manifest.get("routes"), list):
+        return [blocker("index-manifest", "manifest routes must be a list", "index.html")]
+    document = documents.get("index.html")
+    if document is None:
+        return [blocker("index-missing", "mission-first index is absent", "index.html")]
+
+    errors: list[dict[str, str]] = []
+    task_routes = {
+        route.get("id"): route.get("entry")
+        for route in manifest["routes"]
+        if isinstance(route, dict)
+        and route.get("kind") == "task"
+        and isinstance(route.get("id"), str)
+        and isinstance(route.get("entry"), str)
+    }
+    foundation_entry = next(
+        (
+            route.get("entry")
+            for route in manifest["routes"]
+            if isinstance(route, dict)
+            and route.get("id") == "common-foundation"
+            and route.get("kind") == "foundation"
+            and isinstance(route.get("entry"), str)
+        ),
+        None,
+    )
+    actual_missions: dict[str | None, list[tuple[str, str | None]]] = {}
+    fixed_links: dict[str | None, list[tuple[str, str | None]]] = {}
+    for link in document.index_links:
+        resolved = resolve_internal_href("index.html", link.get("href") or "")
+        if resolved is None:
+            continue
+        identity = (resolved[0], resolved[1] or None)
+        route_id = link.get("routeId")
+        role = link.get("role")
+        if route_id is not None:
+            actual_missions.setdefault(route_id, []).append(identity)
+        if role is not None:
+            fixed_links.setdefault(role, []).append(identity)
+
+    expected_missions = {
+        route_id: [(entry, None)] for route_id, entry in task_routes.items()
+    }
+    if actual_missions != expected_missions:
+        errors.append(
+            blocker(
+                "index-mission-routes",
+                "mission selector must link each Task route entry exactly once",
+                "index.html",
+            )
+        )
+    expected_fixed_links = dict(INDEX_FIXED_LINKS)
+    if foundation_entry is None:
+        errors.append(
+            blocker(
+                "index-common-foundation",
+                "manifest must declare the Common foundation entry",
+                "index.html",
+            )
+        )
+    else:
+        expected_fixed_links["common-foundation"] = (foundation_entry, None)
+    for role, identity in expected_fixed_links.items():
+        if fixed_links.get(role) != [identity]:
+            errors.append(
+                blocker(
+                    f"index-{role}",
+                    f"{role} must link exactly once to {identity[0]}"
+                    + (f"#{identity[1]}" if identity[1] else ""),
+                    "index.html",
+                )
+            )
+    unexpected_fixed_roles = sorted(set(fixed_links) - set(expected_fixed_links))
+    if unexpected_fixed_roles:
+        errors.append(
+            blocker(
+                "index-fixed-links",
+                "index contains undeclared semantic roles: "
+                + ", ".join(unexpected_fixed_roles),
+                "index.html",
+            )
+        )
+
+    visible_text = " ".join(document.text_parts)
+    if "Return notebook" not in visible_text or "learner-owned" not in visible_text:
+        errors.append(
+            blocker(
+                "index-resume-guidance",
+                "resume entry must identify the learner-owned Return notebook",
+                "index.html",
+            )
+        )
+    if any(claim in visible_text for claim in INDEX_LINEAR_CLAIMS):
+        errors.append(
+            blocker(
+                "index-linear-claim",
+                "index must not present Phase completion as the universal route",
+                "index.html",
+            )
+        )
+    return errors
 
 
 def validate_route_first_toc(
@@ -802,6 +932,14 @@ def validate_site_release(
     )
     link_quiz_errors = validate_links_and_quizzes(repo_root, documents)
     compatibility_errors = validate_compatibility_graph(manifest, documents)
+    index_errors = []
+    if isinstance(manifest, dict) and any(
+        isinstance(page, dict)
+        and page.get("path") == "index.html"
+        and page.get("migrationStatus") == "authored"
+        for page in manifest.get("pages", [])
+    ):
+        index_errors = validate_mission_first_index(manifest, documents)
     toc_errors = validate_route_first_toc(manifest, documents)
     authored_paths: set[str] = set()
     if isinstance(manifest, dict):
@@ -830,6 +968,7 @@ def validate_site_release(
     errors.extend(contract_errors)
     errors.extend(link_quiz_errors)
     errors.extend(compatibility_errors)
+    errors.extend(index_errors)
     errors.extend(toc_errors)
     errors.extend(authored_errors)
     details = {
@@ -844,6 +983,7 @@ def validate_site_release(
         "inventoryContractBlockers": len(contract_errors),
         "linkOrQuizBlockers": len(link_quiz_errors),
         "compatibilityBlockers": len(compatibility_errors),
+        "indexBlockers": len(index_errors),
         "tocBlockers": len(toc_errors),
         "authoredPageBlockers": len(authored_errors),
     }
@@ -950,9 +1090,15 @@ def build_authored_slice_report(
         if "toc.html" in required_paths
         else []
     )
+    index_errors = (
+        validate_mission_first_index(manifest, documents)
+        if "index.html" in required_paths
+        else []
+    )
     errors.extend(metadata_errors)
     errors.extend(link_quiz_errors)
     errors.extend(compatibility_errors)
+    errors.extend(index_errors)
     errors.extend(toc_errors)
 
     source_report = source_module["trace_registry"](
@@ -988,6 +1134,7 @@ def build_authored_slice_report(
         "metadataBlockers": len(metadata_errors),
         "linkOrQuizBlockers": len(link_quiz_errors),
         "compatibilityBlockers": len(compatibility_errors),
+        "indexBlockers": len(index_errors),
         "tocBlockers": len(toc_errors),
         "sourceTrace": source_report.get("summary", {}),
     }
@@ -1230,6 +1377,84 @@ def run_site_self_test() -> None:
             required_paths={"lessons/001-0001-target.html"},
         )
         assert authored_errors == [], authored_errors
+
+        index_manifest = {
+            "routes": [
+                {
+                    "id": "common-foundation",
+                    "kind": "foundation",
+                    "entry": "lessons/001-0001-four-claude-surfaces.html",
+                },
+                {
+                    "id": "knowledge-delivery",
+                    "kind": "task",
+                    "entry": "lessons/003-0001-knowledge.html",
+                },
+                {
+                    "id": "design-delivery",
+                    "kind": "task",
+                    "entry": "lessons/004-0001-design.html",
+                },
+                {
+                    "id": "presentation-delivery",
+                    "kind": "task",
+                    "entry": "lessons/005-0001-presentation.html",
+                },
+                {
+                    "id": "engineering-delivery",
+                    "kind": "task",
+                    "entry": "lessons/006-0001-engineering.html",
+                },
+            ]
+        }
+        valid_index = CourseHTMLParser()
+        valid_index.feed(
+            '<html lang="zh-Hant"><body>'
+            '<a data-index-role="common-foundation" href="lessons/001-0001-four-claude-surfaces.html">Foundation</a>'
+            '<a data-index-role="resume" href="toc.html#task-routes">Return notebook</a>'
+            '<p>以 learner-owned Return notebook 恢復工作。</p>'
+            '<a data-mission-route="knowledge-delivery" href="lessons/003-0001-knowledge.html">Knowledge</a>'
+            '<a data-mission-route="design-delivery" href="lessons/004-0001-design.html">Design</a>'
+            '<a data-mission-route="presentation-delivery" href="lessons/005-0001-presentation.html">Presentation</a>'
+            '<a data-mission-route="engineering-delivery" href="lessons/006-0001-engineering.html">Engineering</a>'
+            '<a data-index-role="phase-catalog" href="toc.html#phase-catalog">Catalog</a>'
+            '</body></html>'
+        )
+        valid_index.close()
+        assert validate_mission_first_index(
+            index_manifest, {"index.html": valid_index}
+        ) == []
+        invalid_index = copy.deepcopy(valid_index)
+        invalid_index.index_links = []
+        invalid_index.text_parts = ["新手從 Phase 1 開始"]
+        assert_codes(
+            validate_mission_first_index(
+                index_manifest, {"index.html": invalid_index}
+            ),
+            "index-mission-routes",
+            "index-common-foundation",
+            "index-resume",
+            "index-phase-catalog",
+            "index-resume-guidance",
+            "index-linear-claim",
+        )
+        assert_codes(
+            validate_mission_first_index(index_manifest, {}), "index-missing"
+        )
+        extra_index_role = copy.deepcopy(valid_index)
+        extra_index_role.index_links.append(
+            {
+                "href": "toc.html#extensions",
+                "role": "undeclared-entry",
+                "routeId": None,
+            }
+        )
+        assert_codes(
+            validate_mission_first_index(
+                index_manifest, {"index.html": extra_index_role}
+            ),
+            "index-fixed-links",
+        )
 
         missing_transition_contract = copy.deepcopy(manifest)
         missing_transition_contract["pages"][3]["compatibility"]["mode"] = "transition"
@@ -1526,7 +1751,9 @@ def print_text_report(report: dict[str, Any]) -> None:
             f"present-paths={checks.get('presentPaths', 0)} "
             f"metadata-blockers={checks.get('metadataBlockers', 0)} "
             f"link-or-quiz-blockers={checks.get('linkOrQuizBlockers', 0)} "
-            f"compatibility-blockers={checks.get('compatibilityBlockers', 0)}"
+            f"compatibility-blockers={checks.get('compatibilityBlockers', 0)} "
+            f"index-blockers={checks.get('indexBlockers', 0)} "
+            f"toc-blockers={checks.get('tocBlockers', 0)}"
         )
     else:
         site = report.get("checks", {}).get("site", {})

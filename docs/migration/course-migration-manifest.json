@@ -1467,10 +1467,12 @@
       "sourceDependencies": {
         "state": "registered",
         "anchorIds": [
-          "course-production-index-surface"
+          "course-orient-readiness-contract",
+          "course-production-index-surface",
+          "course-shared-vocabulary-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0001-four-claude-surfaces.html",
