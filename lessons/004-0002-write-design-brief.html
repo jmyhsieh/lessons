@@ -1,144 +1,37 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>02：寫出可執行的 design brief</title>
-<style>
-  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
-         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
-  .kicker { color: #635b9a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
-  h1 { font-size: 1.7rem; margin: .3rem 0; }
-  .mission { font-style: italic; color: #555; border-left: 3px solid #635b9a; padding-left: 1rem; }
-  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #635b9a; }
-  code, pre { background: #f3f1fa; border-radius: 4px; font-size: .9em; }
-  code { padding: .12rem .35rem; }
-  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
-  a { color: #514985; }
-  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
-  th, td { border: 1px solid #ddd; padding: .55rem .65rem; text-align: left; vertical-align: top; }
-  th { background: #f3f1fa; }
-  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
-  .step { border: 1px solid #dcd8ec; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfcff; }
-  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
-  .rule { background: #f3f1fa; border-left: 4px solid #635b9a; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
-  .quiz { border: 1px solid #dcd8ec; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
-  .quiz p { margin-top: 0; font-weight: 600; }
-  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
-    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
-  .quiz button:hover { border-color: #635b9a; }
-  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
-  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
-  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #f3f1fa; padding: .6rem .9rem; border-radius: 6px; }
-  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
-  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #dcd8ec; padding-top: 1rem; }
-</style>
-</head>
-<body>
-<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 4 · 第 02 課 · 約 20 分鐘 · Design brief</div>
-<h1>寫出可執行的 design brief</h1>
-<p class="mission">目標：把「幫我設計一個好看的頁面」改寫成 Claude Design 能執行、你也能驗收的 brief。</p>
-
-<div class="scope"><strong>本課只做：</strong>完成一份包含 goal、layout、content、audience、context 的一頁 brief。<br><strong>先不要做：</strong>用「現代、漂亮、有質感」取代可檢查的需求。</div>
-
-<h2>核心知識：四個官方欄位，加一個落地欄位</h2>
-<p>Anthropic 的 <a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Claude Design 入門指南</a>建議 prompt 說清楚 <strong>goal</strong>、<strong>layout</strong>、<strong>content</strong> 與 <strong>audience</strong>，也建議附上截圖、既有資產、codebase 或設計檔作為 context。本課把 context 固定成第五欄，避免原型脫離真實產品。</p>
-
-<table>
-<tr><th>欄位</th><th>回答的問題</th><th>可檢查的寫法</th></tr>
-<tr><td><strong>Goal</strong></td><td>使用者要完成什麼？</td><td>在 2 分鐘內比較三個方案並選一個。</td></tr>
-<tr><td><strong>Layout</strong></td><td>資訊如何排列與響應？</td><td>桌面雙欄、手機單欄；決策區固定在內容後。</td></tr>
-<tr><td><strong>Content</strong></td><td>要顯示哪些真實內容與狀態？</td><td>方案名、費用、限制、空狀態、錯誤狀態。</td></tr>
-<tr><td><strong>Audience</strong></td><td>誰在什麼情境使用？</td><td>第一次設定帳號、使用手機的繁中使用者。</td></tr>
-<tr><td><strong>Context</strong></td><td>哪些既有事實不能被發明？</td><td>現有 components、brand tokens、平台與無障礙限制。</td></tr>
-</table>
-
-<div class="rule"><strong>Brief 的功能不是替 Claude 決定每個像素。</strong>它固定問題、必要內容與限制，同時保留足夠空間探索多個視覺方向。</div>
-
-<h2>可直接填寫的 brief</h2>
-<pre>Project: [一句話命名]
-Goal: [使用者完成的動作 + 成功訊號]
-Layout: [主要區塊 + responsive 行為]
-Content: [真實文案、資料、狀態]
-Audience: [角色 + 情境 + 使用裝置]
-Context: [design system、repo、平台、accessibility]
-Out of scope: [這輪明確不處理的事]
-Acceptance: [看到什麼證據才算可進下一步]</pre>
-
-<h2>實作 checklist</h2>
-<div class="step">
-  <label><input type="checkbox"> 1. 先寫 goal 與 audience</label>
-  <p>用「誰要完成什麼」起頭。若只有「做 dashboard」，先補上使用者與決策情境。</p>
-</div>
-<div class="step">
-  <label><input type="checkbox"> 2. 列出 layout 與 content</label>
-  <p>用區塊層級描述排列；直接提供真實標題、標籤、資料欄位與至少一個非 happy path 狀態。</p>
-</div>
-<div class="step">
-  <label><input type="checkbox"> 3. 附上 context，標示權威來源</label>
-  <p>連結既有頁面、component library、repo 或品牌資產，並註明哪一份是目前的 source of truth。</p>
-</div>
-<div class="step">
-  <label><input type="checkbox"> 4. 加上 out of scope 與 acceptance</label>
-  <p>例：本輪不改資訊架構；完成時要有 3 個可點擊方向，且能說明各自如何滿足目標。</p>
-</div>
-<div class="step">
-  <label><input type="checkbox"> 5. 刪掉無法驗收的形容詞</label>
-  <p>每遇到「直覺、現代、簡潔」，補上行為或視覺證據；無法補就刪除。</p>
-</div>
-
-<div class="done-banner" id="done"><strong>你已完成一頁 design brief。</strong>把 brief 貼回對話視窗，請 AI 老師扮演設計師，指出仍需猜測的三件事。</div>
-
-<h2>觀念檢查（憑記憶作答）</h2>
-<div class="quiz" data-answer="2">
-  <p>1. 哪一句是可驗收的 goal？</p>
-  <button>做出更有質感的首頁</button>
-  <button>打造直覺現代的介面</button>
-  <button>讓新手完成首次設定</button>
-  <div class="why">「完成首次設定」描述了使用者行為；「有質感」「直覺現代」仍需要轉成可觀察的證據。</div>
-</div>
-<div class="quiz" data-answer="1">
-  <p>2. Context 欄最重要的作用是什麼？</p>
-  <button>替設計加入更多形容詞</button>
-  <button>固定不能被發明的事實</button>
-  <button>預先決定所有視覺細節</button>
-  <div class="why">Context 把既有元件、資產、平台與限制帶入設計，不是替 Claude 做完全部視覺決策。</div>
-</div>
-<div class="quiz" data-answer="0">
-  <p>3. Brief 應該在哪個時點加入 non-happy path？</p>
-  <button>列 content 時同步加入</button>
-  <button>交付 code 後才補加入</button>
-  <button>收到 feedback 後再加入</button>
-  <div class="why">空狀態、錯誤狀態或長內容會影響版面；在 content 階段寫入，原型才不會只適用理想資料。</div>
-</div>
-
-<h2>下一步與主要閱讀</h2>
-<p>Brief 完成後，進入 <a href="004-0003-sync-design-system.html">第 03 課：同步並校正 design system</a>。若還不確定表面選擇，回到 <a href="004-0001-choose-claude-design-surface.html">第 01 課</a>。</p>
-<p><strong>主要官方閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Get started with Claude Design</a> 的「Add context」與「Write effective prompts」。填寫時可搭配 <a href="../reference/claude-design-to-code-workflow.html">Claude Design → Code workflow 速查表</a>。</p>
-
-<footer>
-  有不清楚的，回對話視窗問你的 AI 老師。<br>
-  相關課程：<a href="004-0001-choose-claude-design-surface.html">Phase 4 第 01 課 — surface choice</a> · <a href="004-0003-sync-design-system.html">Phase 4 第 03 課 — design system</a> · <a href="004-0004-explore-design-directions.html">Phase 4 第 04 課 — design directions</a> · <a href="../toc.html">課目表</a>
-</footer>
-
-<script>
-const boxes = document.querySelectorAll('input[type=checkbox]');
-boxes.forEach(b => b.addEventListener('change', () => {
-  document.getElementById('done').style.display =
-    [...boxes].every(x => x.checked) ? 'block' : 'none';
-}));
-document.querySelectorAll('.quiz').forEach(q => {
-  const ans = +q.dataset.answer;
-  q.querySelectorAll('button').forEach((b, i) => {
-    b.addEventListener('click', () => {
-      q.querySelectorAll('button').forEach(x => x.disabled = true);
-      q.querySelectorAll('button')[ans].classList.add('correct');
-      if (i !== ans) b.classList.add('wrong');
-      q.querySelector('.why').style.display = 'block';
-    });
-  });
-});
-</script>
-</body>
-</html>
+<link rel="icon" href="data:,">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="004-0002">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="design-delivery:feedback,design-delivery:tangible-win">
+<meta name="course:source-ids" content="claude-design-brief-context-contract,course-design-delivery-contract">
+<title>004-0002：寫出可驗收的 Design brief</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:800px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#635b9a;margin-top:2rem}.mission,.stop,.rule{border-left:4px solid #635b9a;background:#f3f1fa;padding:.8rem 1rem}.card,.win,.quiz{border:1px solid #d9d5e8;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#efedf8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #d9d5e8;padding:.6rem;text-align:left;vertical-align:top}code,pre{background:#f3f1fa;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#f3f1fa;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#514985}@media(max-width:620px){body{margin-top:1rem}table{font-size:.88rem}}</style>
+</head><body>
+<p><a href="004-0001-choose-claude-design-surface.html">← surface selection</a> · <a href="../reference/claude-design-to-code-workflow.html">Design workflow reference</a></p>
+<header><p>Phase 4 · Design · 004-0002 · Brief</p><h1>把模糊要求收斂成可驗收的 Design brief</h1><p class="mission"><strong>Entry：</strong>已選定 Design route，並有一個真實 mission。本課先固定問題、內容與 acceptance，不先接受第一個生成結果。</p></header>
+<h2>七欄把「好看」改成可觀察條件</h2>
+<table><tr><th>欄位</th><th>必須回答</th><th>Observable example</th></tr><tr><td>Goal</td><td>誰要完成什麼任務？</td><td>新手能在兩分鐘內比較方案並選一個。</td></tr><tr><td>Audience</td><td>角色、情境、裝置與既有知識？</td><td>第一次設定帳號、以手機操作的繁中使用者。</td></tr><tr><td>Content</td><td>真實文案、資料與 states？</td><td>價格、限制、loading、empty、error、disabled。</td></tr><tr><td>Layout</td><td>區塊、層級與 responsive 行為？</td><td>桌面雙欄；窄螢幕改單欄且 CTA 不溢位。</td></tr><tr><td>Context</td><td>哪些 approved sources 不可被發明？</td><td>design system、brand assets、repo、policy。</td></tr><tr><td>Non-goals</td><td>本輪明確不做什麼？</td><td>不改 pricing policy、不實作 repo。</td></tr><tr><td>Acceptance</td><td>要觀察什麼才進下一步？</td><td>兩個方向都涵蓋 states，reviewer 能完成指定 task。</td></tr></table>
+<h2>建立 brief artifact</h2>
+<div class="card"><pre>Project / revision:
+Goal:
+Audience and use context:
+Real content and required states:
+Layout / responsive expectations:
+Approved context and source of truth:
+Accessibility expectations:
+Non-goals / sensitive-data boundary:
+Acceptance tasks and evidence:
+Feedback giver:
+Open assumptions:</pre></div>
+<ol><li>刪除「現代、直覺、有質感」等無法驗收的形容詞，或替它補上 observable behavior。</li><li>至少加入一個 non-happy-path state 與一個窄 viewport expectation。</li><li>把尚未確認的事實標成 assumption，不要求 Claude 補成看似確定的內容。</li><li>請 feedback giver 只讀 brief，重述 user、task、限制與 success；重述不同就先修 brief。</li></ol>
+<div class="win"><strong>Tangible win：</strong>一份可交給另一人執行與驗收、且有 revision identity 的 Design brief。<br><strong>Observable feedback：</strong>Reviewer 不看作者補充說明，也能指出 user task、真實內容、states、non-goals 與 acceptance evidence；無法重述的欄位回到 brief 修正。</div>
+<h2>只在命中條件時走 design-system branch</h2>
+<p class="rule">若已有 approved design system、brand source 或可安全匯入的 product context，進 <a href="004-0003-sync-design-system.html">004-0003</a> 校正；若沒有，明確記錄「無 approved context／不發明 tokens」，直接進 <a href="004-0004-explore-design-directions.html">004-0004</a>。這是 choose-one branch，不是缺課。</p>
+<div class="quiz" data-answer="2"><p>哪一項最能讓 brief 可驗收？</p><button type="button">要求整體更有質感</button><button type="button">讓 Claude 自己決定所有真實內容</button><button type="button">寫出 user task、required states 與 observable acceptance</button><div class="why">可觀察的 task、states 與 acceptance 能讓生成與 review 共用同一標準；風格形容詞不能獨立驗收。</div></div>
+<p class="stop"><strong>Legal stop／continuation：</strong>Goal、真實 content、資料權限或 feedback giver 未定時，保存 brief draft 並回 readiness 補缺口。Brief 可重述後，依 approved context 選 <a href="004-0003-sync-design-system.html">conditional system branch</a> 或直接到 <a href="004-0004-explore-design-directions.html">direction exploration</a>。</p>
+<footer>Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>claude-design-brief-context-contract</code>、<code>course-design-delivery-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script>
+</body></html>

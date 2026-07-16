@@ -3838,7 +3838,7 @@
           "course-design-delivery-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/004-0002-write-design-brief.html",
@@ -3872,7 +3872,7 @@
           "course-design-delivery-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/004-0003-sync-design-system.html",
@@ -3907,7 +3907,7 @@
           "claude-design-system-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/004-0004-explore-design-directions.html",
@@ -3941,7 +3941,7 @@
           "claude-design-product-prototype-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/004-0005-refine-and-version.html",
@@ -3974,7 +3974,7 @@
           "claude-design-exploration-revision-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/004-0006-check-prototype-assumptions.html",
@@ -4009,7 +4009,7 @@
           "claude-design-responsive-interaction-evidence-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/004-0006-prototype-and-validate.html",
@@ -4084,7 +4084,7 @@
           "course-design-delivery-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/004-0007-handoff-to-claude-code.html",
@@ -6991,7 +6991,7 @@
           "course-design-delivery-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/claude-product-picker.html",
