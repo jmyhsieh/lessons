@@ -9,9 +9,9 @@
   },
   "gateMode": "report-only",
   "coverage": {
-    "mode": "representative-thin-slice",
+    "mode": "pre-authoring-baseline",
     "complete": false,
-    "nextWave": "close-pre-authoring-source-blockers"
+    "nextWave": "author-canonical-pages"
   },
   "driftWindowsDays": {
     "high": 30,
@@ -89,6 +89,7 @@
   "anchors": [
     {
       "id": "course-design-delivery-contract",
+      "ownerPath": "lessons/004-0001-choose-claude-design-surface.html",
       "claimScope": "The Design route produces a reviewable handoff bundle from a bounded brief, selected direction, prototype evidence, and explicit implementation limits; it does not claim production completion.",
       "profile": "principle-only",
       "driftClass": "lower",
@@ -124,6 +125,7 @@
     },
     {
       "id": "claude-design-availability-surface",
+      "ownerPath": "lessons/004-0001-choose-claude-design-surface.html",
       "claimScope": "Claude Design is a beta Anthropic design surface for visual drafts and prototypes whose actual access depends on plan, organization settings, supported client, rollout, and shared usage limits.",
       "profile": "surface-procedure",
       "driftClass": "high",
@@ -195,6 +197,7 @@
     },
     {
       "id": "claude-design-product-prototype-contract",
+      "ownerPath": "lessons/004-0001-choose-claude-design-surface.html",
       "claimScope": "Claude Design creates editable visual drafts and interactive prototypes for exploration, feedback, and user testing, but neither generation nor shareability proves product correctness or production readiness.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -239,6 +242,7 @@
     },
     {
       "id": "claude-design-brief-context-contract",
+      "ownerPath": "lessons/004-0002-write-design-brief.html",
       "claimScope": "A bounded Claude Design brief declares goal, layout, content, audience, and relevant product context so both generation and review have explicit criteria.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -275,6 +279,7 @@
     },
     {
       "id": "claude-design-system-contract",
+      "ownerPath": "lessons/004-0003-sync-design-system.html",
       "claimScope": "Claude Design distinguishes organization design-system setup, review, test, and publication from project-level import or synchronization; output quality remains bounded by source quality and human validation.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -318,6 +323,7 @@
     },
     {
       "id": "claude-design-exploration-revision-contract",
+      "ownerPath": "lessons/004-0004-explore-design-directions.html",
       "claimScope": "Claude Design supports comparing alternative directions and preserving a prior project state before exploring a materially different approach; the learner must record the selection criteria and revision identity.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -354,6 +360,7 @@
     },
     {
       "id": "claude-design-responsive-interaction-evidence-contract",
+      "ownerPath": "lessons/004-0006-check-prototype-assumptions.html",
       "claimScope": "Responsive and interaction claims about a Claude Design prototype require direct observation across declared viewport sizes, states, inputs, and task paths; prompt text or generated interactivity alone is not verification.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -397,6 +404,7 @@
     },
     {
       "id": "claude-design-accessibility-evidence-contract",
+      "ownerPath": "lessons/004-0006-check-prototype-assumptions.html",
       "claimScope": "Claude Design can suggest accessibility, contrast, hierarchy, and usability improvements, but accessibility evidence requires testable criteria and a combination of automated checks and human evaluation.",
       "profile": "principle-only",
       "driftClass": "medium",
@@ -448,6 +456,7 @@
     },
     {
       "id": "claude-design-handoff-contract",
+      "ownerPath": "lessons/004-0007-assemble-design-handoff-bundle.html",
       "claimScope": "Claude Design can hand a selected design to Claude Code or connected tools, but the handoff must preserve design intent and evidence and does not authorize repository writes or prove implementation fidelity.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -491,6 +500,7 @@
     },
     {
       "id": "course-engineering-delivery-contract",
+      "ownerPath": "lessons/006-0001-choose-engineering-route.html",
       "claimScope": "Phase 6 is a repository-delivery route that begins after Code readiness and ends only with an implemented, deterministically checked, reviewed closeout tied to the delivered checkpoint.",
       "profile": "principle-only",
       "driftClass": "lower",
@@ -526,6 +536,7 @@
     },
     {
       "id": "engineering-repository-reconnaissance-contract",
+      "ownerPath": "lessons/006-0002-map-repository.html",
       "claimScope": "Claude Code can map an unfamiliar repository by starting at the project root, requesting a high-level overview, narrowing to relevant files, and tracing execution flow before any implementation edit.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -570,6 +581,7 @@
     },
     {
       "id": "engineering-skill-router-contract",
+      "ownerPath": "lessons/006-0001-choose-engineering-route.html",
       "claimScope": "The current Ask Matt router distinguishes the idea-to-ship flow, triage and diagnosis on-ramps, architecture upkeep, Wayfinder planning, and session handoff without collapsing their evidence boundaries.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -616,6 +628,7 @@
     },
     {
       "id": "engineering-request-shaping-contract",
+      "ownerPath": "lessons/006-0003-align-engineering-request.html",
       "claimScope": "Engineering request shaping uses repository-aware grilling for decisions and a throwaway prototype only when a runnable answer is needed before the delivery spec.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -661,6 +674,7 @@
     },
     {
       "id": "engineering-spec-implementation-contract",
+      "ownerPath": "lessons/006-0005-write-delivery-spec.html",
       "claimScope": "The current delivery flow turns settled decisions into a spec, slices tracer-bullet tickets with blocking edges, implements each ticket test-first, reviews the fixed candidate, and hands context across sessions when needed.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -727,6 +741,7 @@
     },
     {
       "id": "engineering-two-axis-review-contract",
+      "ownerPath": "lessons/006-0008-review-final-candidate.html",
       "claimScope": "Repository review compares an immutable candidate against a fixed point on two independent axes: documented standards and the originating spec.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -772,6 +787,7 @@
     },
     {
       "id": "engineering-triage-contract",
+      "ownerPath": "lessons/006-0010-triage-external-report.html",
       "claimScope": "Triage is reserved for externally arriving issues or pull requests and moves each item through explicit category and state roles before implementation.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -809,6 +825,7 @@
     },
     {
       "id": "engineering-diagnosis-contract",
+      "ownerPath": "lessons/006-0011-diagnose-hard-bug.html",
       "claimScope": "Hard-bug diagnosis must establish a tight deterministic feedback loop before theorizing, then preserve the fix with a regression test and capture architectural follow-through separately.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -846,6 +863,7 @@
     },
     {
       "id": "engineering-architecture-contract",
+      "ownerPath": "lessons/006-0012-find-architecture-seam.html",
       "claimScope": "Architecture work first surveys for a narrow deepening opportunity, then designs a deep module at a clean seam with explicit domain vocabulary and testable interface evidence.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -897,6 +915,7 @@
     },
     {
       "id": "engineering-wayfinder-contract",
+      "ownerPath": "lessons/006-0013-chart-wayfinder-map.html",
       "claimScope": "Wayfinder is a planning flow for efforts larger than one context window: it charts named decision tickets, resolves only the frontier, records decisions on the shared map, and hands the cleared route to specification rather than implementation.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -934,6 +953,7 @@
     },
     {
       "id": "claude-code-cli-session-start",
+      "ownerPath": "lessons/001-0004-prepare-claude-code-session.html",
       "claimScope": "Claude Code exposes version and help commands, and starts an interactive session when invoked without print mode.",
       "profile": "executable-recipe",
       "driftClass": "high",
@@ -1004,6 +1024,7 @@
     },
     {
       "id": "course-production-index-surface",
+      "ownerPath": "index.html",
       "claimScope": "The canonical production host serves the frozen pre-migration index identity and has not partially published the route-based catalog.",
       "profile": "surface-procedure",
       "driftClass": "high",
@@ -1050,6 +1071,7 @@
     },
     {
       "id": "immutable-review-checkpoint-contract",
+      "ownerPath": "reference/repo-review-contract.html",
       "claimScope": "Repository delivery review must target an immutable candidate, and any candidate change requires a new checkpoint and full review contract rerun.",
       "profile": "principle-only",
       "driftClass": "lower",
@@ -1086,6 +1108,7 @@
     },
     {
       "id": "claude-product-surface-selection",
+      "ownerPath": "reference/claude-product-picker.html",
       "claimScope": "Claude, Cowork, Claude Code, and Claude Design are distinct first-party work surfaces whose documented output and interaction boundaries determine the shared product-selection entry point across routes.",
       "profile": "surface-procedure",
       "driftClass": "high",
@@ -1157,6 +1180,7 @@
     },
     {
       "id": "claude-cowork-starter-surface",
+      "ownerPath": "lessons/001-0003-complete-cowork-starter.html",
       "claimScope": "Cowork can carry a bounded knowledge-work task across files and connected tools to a reviewable deliverable, while the learner remains responsible for scope and review.",
       "profile": "surface-procedure",
       "driftClass": "high",
@@ -1212,6 +1236,7 @@
     },
     {
       "id": "course-orient-readiness-contract",
+      "ownerPath": "lessons/001-0002-define-route-readiness.html",
       "claimScope": "Phase 1 produces readiness evidence only: safe scope, route choice, bounded fixture practice, learner judgment, and a clear distinction between practice and repository delivery.",
       "profile": "principle-only",
       "driftClass": "lower",
@@ -1249,6 +1274,7 @@
     },
     {
       "id": "claude-code-cli-execution-controls",
+      "ownerPath": "reference/claude-code-command-surface.html",
       "claimScope": "The installed Claude Code CLI exposes bounded execution controls for permissions, model and effort, agents, MCP configuration, worktree isolation, allowed tools, and non-interactive print mode.",
       "profile": "executable-recipe",
       "driftClass": "high",
@@ -1324,6 +1350,7 @@
     },
     {
       "id": "claude-code-permission-plan-boundary",
+      "ownerPath": "lessons/002-0002-set-permission-boundaries.html",
       "claimScope": "Claude Code permissions are enforced by the application, deny rules take precedence, and plan mode permits exploration while preventing source edits.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -1369,6 +1396,7 @@
     },
     {
       "id": "claude-code-model-effort-selection",
+      "ownerPath": "reference/claude-code-model-effort.html",
       "claimScope": "Claude Code model selection controls capability while effort controls how much work the agent attempts; availability and accepted effort levels remain model, account, provider, and version dependent.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -1430,6 +1458,7 @@
     },
     {
       "id": "claude-code-hook-safety-contract",
+      "ownerPath": "lessons/002-0004-smoke-test-hook.html",
       "claimScope": "Claude Code hooks are deterministic lifecycle callbacks whose event, matcher, command, input, output, and blocking semantics must be smoke-tested before use as guardrails.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -1475,6 +1504,7 @@
     },
     {
       "id": "claude-code-existing-skill-contract",
+      "ownerPath": "lessons/002-0006-use-existing-skill.html",
       "claimScope": "Claude Code skills are directory-scoped instruction packages rooted at SKILL.md that can be discovered automatically or invoked explicitly, so Equip should use an existing skill before authoring a new shared workflow.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -1520,6 +1550,7 @@
     },
     {
       "id": "claude-code-trusted-mcp-contract",
+      "ownerPath": "lessons/002-0007-connect-trusted-mcp.html",
       "claimScope": "Claude Code MCP connections expose external tools and data, require explicit trust and scope choices, and should begin with the minimum read-only capability needed by the active route.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -1565,6 +1596,7 @@
     },
     {
       "id": "claude-code-read-only-isolation-contract",
+      "ownerPath": "lessons/002-0008-delegate-read-only-investigation.html",
       "claimScope": "Claude Code can isolate bounded investigation in read-only subagents and isolate parallel file edits in separate git worktrees; these solve different context and filesystem collision risks.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -1610,6 +1642,7 @@
     },
     {
       "id": "claude-code-headless-ci-boundary",
+      "ownerPath": "lessons/002-0010-run-headless-one-shot.html",
       "claimScope": "Claude Code non-interactive execution uses -p/--print and explicit tool, output, budget, and configuration flags; CI adds repository permissions, secret handling, and untrusted-input boundaries that must remain explicit.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -1655,6 +1688,7 @@
     },
     {
       "id": "course-equip-toolbox-contract",
+      "ownerPath": "lessons/002-0001-choose-toolbox-lesson.html",
       "claimScope": "Phase 2 is a just-in-time toolbox selected by the active route; it has no phase completion state and returns the learner after one bounded capability smoke test.",
       "profile": "principle-only",
       "driftClass": "lower",
@@ -1692,6 +1726,7 @@
     },
     {
       "id": "course-presentation-delivery-contract",
+      "ownerPath": "lessons/005-0001-choose-presentation-route.html",
       "claimScope": "The core Presentation route converts a bounded source pack into a claim-checked, accessible, exported, and rehearsed deck; repurposing, Open-Slide, and Mermaid CLI remain conditional continuations rather than completion requirements.",
       "profile": "principle-only",
       "driftClass": "lower",
@@ -1725,6 +1760,7 @@
     },
     {
       "id": "claude-design-presentation-surface",
+      "ownerPath": "lessons/005-0004-create-deck-in-claude-design.html",
       "claimScope": "Claude Design can create and revise presentation drafts from audience, message, and context inputs, while actual availability and export options remain surface-dependent and generated content still requires review.",
       "profile": "surface-procedure",
       "driftClass": "high",
@@ -1774,6 +1810,7 @@
     },
     {
       "id": "presentation-source-claim-contract",
+      "ownerPath": "lessons/005-0002-build-source-pack.html",
       "claimScope": "Core Presentation work separates source material, supported claims, and unresolved assertions before drafting; model-generated wording is not evidence and every retained factual claim must remain traceable.",
       "profile": "principle-only",
       "driftClass": "lower",
@@ -1805,6 +1842,7 @@
     },
     {
       "id": "presentation-storyboard-audience-contract",
+      "ownerPath": "lessons/005-0003-storyboard-presentation.html",
       "claimScope": "A core presentation storyboard is organized around a named audience, key messages, context, and a reviewable narrative before visual refinement.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -1836,6 +1874,7 @@
     },
     {
       "id": "presentation-accessibility-contract",
+      "ownerPath": "lessons/005-0006-verify-claims-and-accessibility.html",
       "claimScope": "Core presentation accessibility requires readable structure and visuals during authoring plus validation in the actual delivery and exported formats; a draft preview or export alone is insufficient evidence.",
       "profile": "principle-only",
       "driftClass": "medium",
@@ -1877,6 +1916,7 @@
     },
     {
       "id": "presentation-export-rehearsal-contract",
+      "ownerPath": "lessons/005-0007-export-and-rehearse.html",
       "claimScope": "Core Presentation closeout exports to the intended delivery format, validates the converted artifact, and rehearses the real presentation path; conversion success does not prove claims, accessibility, timing, or delivery readiness.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -1914,6 +1954,7 @@
     },
     {
       "id": "presentation-repurpose-contract",
+      "ownerPath": "lessons/005-0008-repurpose-one-pager-social.html",
       "claimScope": "Repurposing a verified deck into a one-pager or social asset is a conditional continuation that preserves claim traceability while recomposing structure for the new audience, channel, and dimensions.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -1951,6 +1992,7 @@
     },
     {
       "id": "open-slide-cli-build-contract",
+      "ownerPath": "lessons/005-0009-build-versioned-deck-with-open-slide.html",
       "claimScope": "Open-Slide is a conditional code-based deck workflow whose pinned CLI can scaffold and production-build a React workspace; a successful build proves tool execution, not slide claims, accessibility, or rehearsal readiness.",
       "profile": "executable-recipe",
       "driftClass": "high",
@@ -2038,6 +2080,7 @@
     },
     {
       "id": "open-slide-agent-deck-contract",
+      "ownerPath": "lessons/005-0009-build-versioned-deck-with-open-slide.html",
       "claimScope": "Open-Slide conditionally keeps a deck as React source that an agent can edit and a browser can inspect; source versioning and inspector feedback do not replace claim, accessibility, export, or rehearsal validation.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -2090,6 +2133,7 @@
     },
     {
       "id": "mermaid-cli-render-contract",
+      "ownerPath": "lessons/005-0010-build-diagram-as-code-with-mermaid-cli.html",
       "claimScope": "Mermaid CLI is a conditional diagram-as-code renderer whose pinned version converts Mermaid text into SVG, PNG, or PDF; render success proves syntax and conversion only, not factual correctness, accessibility, or slide fit.",
       "profile": "executable-recipe",
       "driftClass": "high",
@@ -2177,6 +2221,7 @@
     },
     {
       "id": "claude-code-command-discovery-contract",
+      "ownerPath": "reference/claude-code-command-surface.html",
       "claimScope": "Claude Code documentation defines in-session command discovery through the current / picker or /help output; the documented catalog is not a promise that every command is available on every platform, plan, environment, client, or installed version.",
       "profile": "principle-only",
       "driftClass": "high",
@@ -2230,6 +2275,7 @@
     },
     {
       "id": "course-shared-vocabulary-contract",
+      "ownerPath": "reference/course-glossary.html",
       "claimScope": "The course glossary is the single shared owner of durable route, evidence, artifact, review, safety, and workflow vocabulary; product availability, command catalogs, and model aliases remain owned by their current high-drift anchors.",
       "profile": "principle-only",
       "driftClass": "lower",
@@ -2265,6 +2311,7 @@
     },
     {
       "id": "functional-workflow-case-hub-contract",
+      "ownerPath": "reference/ai-functional-workflow-case-library.html",
       "claimScope": "The canonical case hub indexes first-party workflow examples by responsibility and reviewable artifact, while compatibility case pages point directly to its final functional anchors and do not retain independent Source ownership.",
       "profile": "principle-only",
       "driftClass": "medium",
@@ -2318,6 +2365,7 @@
     },
     {
       "id": "agent-operations-safety-contract",
+      "ownerPath": "reference/agent-operations-safety.html",
       "claimScope": "Shared agent operations require least authority, recoverable scope, explicit external side-effect approval, deterministic validation, visible failure and rollback evidence, and no unattended production mutation in canonical self-study exercises.",
       "profile": "principle-only",
       "driftClass": "high",

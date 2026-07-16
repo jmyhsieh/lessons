@@ -21,6 +21,8 @@ EXPECTED_AUTHORITY = {
     "pageMappings": "docs/migration/course-migration-manifest.json",
 }
 EXPECTED_DRIFT_WINDOWS = {"high": 30, "medium": 90, "lower": 365}
+EXPECTED_COVERAGE_MODE = "pre-authoring-baseline"
+EXPECTED_NEXT_WAVE = "author-canonical-pages"
 PROFILE_CONTRACTS = {
     "executable-recipe": {
         "evidenceMethod": "command-reproduction",
@@ -146,13 +148,26 @@ def validate_top_level(registry: dict[str, Any], errors: list[dict[str, str]]) -
     if not isinstance(coverage, dict):
         errors.append(blocker("coverage", "coverage must be an object"))
     else:
-        if coverage.get("mode") != "representative-thin-slice":
+        if coverage.get("mode") != EXPECTED_COVERAGE_MODE:
             errors.append(
-                blocker("coverage", "T03 coverage must be representative-thin-slice")
+                blocker(
+                    "coverage",
+                    f"coverage mode must be {EXPECTED_COVERAGE_MODE}",
+                )
             )
         if coverage.get("complete") is not False:
             errors.append(
-                blocker("coverage", "T03 must not claim complete Source inventory")
+                blocker(
+                    "coverage",
+                    "full page coverage must remain incomplete while authoring pages are pending",
+                )
+            )
+        if coverage.get("nextWave") != EXPECTED_NEXT_WAVE:
+            errors.append(
+                blocker(
+                    "coverage",
+                    f"coverage nextWave must be {EXPECTED_NEXT_WAVE}",
+                )
             )
 
     if registry.get("driftWindowsDays") != EXPECTED_DRIFT_WINDOWS:
@@ -420,6 +435,7 @@ def trace_anchor(
         errors.append(blocker("anchor-schema", "anchor must be an object", fallback_id))
         return {
             "id": fallback_id,
+            "ownerPath": None,
             "profile": None,
             "publicationState": None,
             "freshnessState": "stale",
@@ -430,6 +446,8 @@ def trace_anchor(
 
     anchor_id_value = anchor.get("id")
     anchor_id = anchor_id_value if nonempty_string(anchor_id_value) else fallback_id
+    owner_path_value = anchor.get("ownerPath")
+    owner_path = owner_path_value if nonempty_string(owner_path_value) else None
     if not nonempty_string(anchor_id_value):
         errors.append(blocker("anchor-id", "anchor id is required", anchor_id))
     elif anchor_id in seen_ids:
@@ -615,6 +633,7 @@ def trace_anchor(
 
     return {
         "id": anchor_id,
+        "ownerPath": owner_path,
         "profile": profile,
         "publicationState": publication,
         "freshnessState": freshness,
@@ -622,6 +641,99 @@ def trace_anchor(
         "gateState": gate_state,
         "reasonCodes": reason_codes,
     }
+
+
+def validate_anchor_ownership(
+    anchors: list[Any],
+    anchor_results: list[dict[str, Any]],
+    manifest: Any,
+    errors: list[dict[str, str]],
+) -> None:
+    """Require one registered manifest page to own and map every active anchor."""
+    if not isinstance(manifest, dict) or not isinstance(manifest.get("pages"), list):
+        return
+
+    page_by_path = {
+        page.get("path"): page
+        for page in manifest["pages"]
+        if isinstance(page, dict) and nonempty_string(page.get("path"))
+    }
+    mapped_anchor_ids: set[str] = set()
+    for page in page_by_path.values():
+        dependencies = page.get("sourceDependencies")
+        if not isinstance(dependencies, dict) or dependencies.get("state") != "registered":
+            continue
+        anchor_ids = dependencies.get("anchorIds")
+        if isinstance(anchor_ids, list):
+            mapped_anchor_ids.update(
+                item for item in anchor_ids if nonempty_string(item)
+            )
+
+    for index, result in enumerate(anchor_results):
+        anchor = anchors[index] if index < len(anchors) else None
+        if not isinstance(anchor, dict) or result.get("publicationState") != "active":
+            continue
+        start = len(errors)
+        anchor_id = result["id"]
+        owner_path = result.get("ownerPath")
+        if owner_path is None:
+            errors.append(
+                blocker(
+                    "anchor-owner",
+                    "active anchor requires exactly one ownerPath",
+                    anchor_id,
+                )
+            )
+        else:
+            owner_page = page_by_path.get(owner_path)
+            if owner_page is None:
+                errors.append(
+                    blocker(
+                        "anchor-owner-missing",
+                        f"owner page is absent from the manifest: {owner_path}",
+                        anchor_id,
+                    )
+                )
+            else:
+                dependencies = owner_page.get("sourceDependencies")
+                if (
+                    not isinstance(dependencies, dict)
+                    or dependencies.get("state") != "registered"
+                ):
+                    errors.append(
+                        blocker(
+                            "anchor-owner-unregistered",
+                            f"owner page is not Source-registered: {owner_path}",
+                            anchor_id,
+                        )
+                    )
+                else:
+                    anchor_ids = dependencies.get("anchorIds")
+                    if not isinstance(anchor_ids, list) or anchor_id not in anchor_ids:
+                        errors.append(
+                            blocker(
+                                "anchor-owner-mismatch",
+                                f"owner page does not map the anchor: {owner_path}",
+                                anchor_id,
+                            )
+                        )
+        if anchor_id not in mapped_anchor_ids:
+            errors.append(
+                blocker(
+                    "anchor-unmapped",
+                    "active anchor is not mapped by any registered page",
+                    anchor_id,
+                )
+            )
+
+        local_errors = errors[start:]
+        if local_errors:
+            result["reasonCodes"] = list(
+                dict.fromkeys(
+                    [*result["reasonCodes"], *(item["code"] for item in local_errors)]
+                )
+            )
+            result["gateState"] = "blocked"
 
 
 def trace_pages(
@@ -775,6 +887,8 @@ def trace_registry(
             "blockedAnchors": 0,
             "blockedPages": 0,
             "blockers": len(errors),
+            "ownedAnchors": 0,
+            "baselineReady": False,
         }
         return report
 
@@ -804,6 +918,7 @@ def trace_registry(
         for index, anchor in enumerate(anchors)
     ]
     anchor_states = {item["id"]: item for item in anchor_results}
+    validate_anchor_ownership(anchors, anchor_results, manifest, errors)
     page_results = trace_pages(
         manifest,
         anchor_states,
@@ -822,6 +937,21 @@ def trace_registry(
         ),
         "blockedPages": sum(item["gateState"] == "blocked" for item in page_results),
         "blockers": len(errors),
+        "ownedAnchors": sum(
+            item["publicationState"] == "active" and item["ownerPath"] is not None
+            for item in anchor_results
+        ),
+        "baselineReady": bool(anchor_results)
+        and not errors
+        and all(
+            item["publicationState"] != "active"
+            or (
+                item["ownerPath"] is not None
+                and item["freshnessState"] == "current"
+                and item["gateState"] == "pass"
+            )
+            for item in anchor_results
+        ),
     }
     return report
 
@@ -831,6 +961,8 @@ def refresh_blocker_summary(report: dict[str, Any]) -> None:
     summary = report.get("summary")
     if isinstance(errors, list) and isinstance(summary, dict):
         summary["blockers"] = len(errors)
+        if errors:
+            summary["baselineReady"] = False
 
 
 def trace_required_pages(
@@ -1199,7 +1331,11 @@ def positive_fixture() -> tuple[dict[str, Any], dict[str, Any]]:
         "schemaVersion": 1,
         "authority": EXPECTED_AUTHORITY,
         "gateMode": "report-only",
-        "coverage": {"mode": "representative-thin-slice", "complete": False},
+        "coverage": {
+            "mode": EXPECTED_COVERAGE_MODE,
+            "complete": False,
+            "nextWave": EXPECTED_NEXT_WAVE,
+        },
         "driftWindowsDays": EXPECTED_DRIFT_WINDOWS,
         "stateModel": EXPECTED_STATE_MODEL,
         "profiles": profile_definitions(),
@@ -1222,6 +1358,8 @@ def positive_fixture() -> tuple[dict[str, Any], dict[str, Any]]:
             for index, anchor in enumerate(registry["anchors"])
         ]
     }
+    for index, anchor in enumerate(registry["anchors"]):
+        anchor["ownerPath"] = f"lessons/001-000{index + 1}-fixture.html"
     return registry, manifest
 
 
@@ -1241,6 +1379,8 @@ def run_self_test() -> None:
     assert all(item["freshnessState"] == "current" for item in report["anchors"])
     assert all(item["gateState"] == "pass" for item in report["anchors"])
     assert all(item["gateState"] == "pass" for item in report["pages"])
+    assert report["summary"]["ownedAnchors"] == 3
+    assert report["summary"]["baselineReady"] is True
 
     online_summary, online_errors = verify_source_urls(
         registry,
@@ -1456,6 +1596,31 @@ def run_self_test() -> None:
     mapping_report = trace_registry(registry, missing_mapping, as_of=as_of)
     assert_has_code(mapping_report, "page-anchor-missing")
 
+    missing_owner = copy.deepcopy(registry)
+    del missing_owner["anchors"][0]["ownerPath"]
+    missing_owner_report = trace_registry(missing_owner, manifest, as_of=as_of)
+    assert_has_code(missing_owner_report, "anchor-owner")
+
+    unregistered_owner_manifest = copy.deepcopy(manifest)
+    unregistered_owner_manifest["pages"][0]["sourceDependencies"] = {
+        "state": "pending-t03",
+        "anchorIds": [],
+    }
+    unregistered_owner_report = trace_registry(
+        registry, unregistered_owner_manifest, as_of=as_of
+    )
+    assert_has_code(unregistered_owner_report, "anchor-owner-unregistered")
+    assert_has_code(unregistered_owner_report, "anchor-unmapped")
+
+    owner_mapping_mismatch = copy.deepcopy(manifest)
+    owner_mapping_mismatch["pages"][0]["sourceDependencies"]["anchorIds"] = [
+        "fixture-surface"
+    ]
+    owner_mapping_mismatch_report = trace_registry(
+        registry, owner_mapping_mismatch, as_of=as_of
+    )
+    assert_has_code(owner_mapping_mismatch_report, "anchor-owner-mismatch")
+
     authored_state = copy.deepcopy(registry)
     authored_state["anchors"][0]["gateState"] = "pass"
     state_report = trace_registry(authored_state, manifest, as_of=as_of)
@@ -1470,6 +1635,11 @@ def run_self_test() -> None:
     bad_mode["gateMode"] = "enforced"
     mode_report = trace_registry(bad_mode, manifest, as_of=as_of)
     assert_has_code(mode_report, "gate-mode")
+
+    bad_next_wave = copy.deepcopy(registry)
+    bad_next_wave["coverage"]["nextWave"] = "skip-authoring"
+    next_wave_report = trace_registry(bad_next_wave, manifest, as_of=as_of)
+    assert_has_code(next_wave_report, "coverage")
 
     malformed_drift = copy.deepcopy(registry)
     malformed_drift["driftWindowsDays"]["high"] = []
@@ -1528,6 +1698,8 @@ def runtime_report(message: str, *, as_of: date) -> dict[str, Any]:
             "blockedAnchors": 0,
             "blockedPages": 0,
             "blockers": 1,
+            "ownedAnchors": 0,
+            "baselineReady": False,
         },
     }
 
@@ -1543,7 +1715,9 @@ def print_text_report(report: dict[str, Any]) -> None:
         f"registered-pages={summary['registeredPages']} "
         f"blocked-anchors={summary['blockedAnchors']} "
         f"blocked-pages={summary['blockedPages']} "
-        f"blockers={summary['blockers']}"
+        f"blockers={summary['blockers']} "
+        f"owned-anchors={summary['ownedAnchors']} "
+        f"baseline-ready={str(summary['baselineReady']).lower()}"
     )
     for item in report["anchors"]:
         print(
@@ -1557,6 +1731,13 @@ def print_text_report(report: dict[str, Any]) -> None:
     for item in report["blockers"]:
         subject = f" {item['subject']}" if "subject" in item else ""
         print(f"BLOCKER [{item['code']}]{subject}: {item['message']}")
+    online_sources = report.get("onlineSources")
+    if isinstance(online_sources, dict):
+        print(
+            "ONLINE SOURCES "
+            f"urls={online_sources.get('urls', 0)} "
+            f"passing={online_sources.get('passing', 0)}"
+        )
     print("PUBLICATION UNAFFECTED (report-only)")
 
 
@@ -1662,7 +1843,7 @@ def main() -> int:
             )
             report["onlineSources"] = online_summary
             report["blockers"].extend(online_errors)
-            report["summary"]["blockers"] = len(report["blockers"])
+            refresh_blocker_summary(report)
     except (OSError, json.JSONDecodeError) as error:
         report = runtime_report(str(error), as_of=as_of)
     except Exception as error:  # Keep unexpected tracer failures observable but non-blocking.
