@@ -118,19 +118,13 @@ ALLOWED_RETURN_ANCHORS = {
     "toolbox",
 }
 EXPECTED_NAVIGATION_PATHS = {"index.html", "toc.html"}
-BASELINE_MATRIX_FIELDS = (
-    "path",
-    "pageKind",
-    "canonicalCoordinate",
-    "contentDisposition",
-    "routeMemberships",
-    "compatibility",
-    "deprecation",
+# Independent digests of the manually reviewed Issue #12/#13 projections pin
+# exact page and route contracts without creating a second readable manifest.
+EXPECTED_PAGE_MATRIX_SHA256 = (
+    "e57388bdab420c7c3d16744a064755cb505bed1881c5bd279e81c07302bc91ff"
 )
-# Independent digest of the manually reviewed Issue #12 baseline projection. The
-# digest pins exact dispositions and targets without creating a second manifest.
-EXPECTED_BASELINE_MATRIX_SHA256 = (
-    "42e6e42ebb7edb86481124d1feacc81018a46d04edcd6ab0a949f66b4c9dfb80"
+EXPECTED_ROUTE_CONTRACT_SHA256 = (
+    "f412397e52c5cc19a858519238f049ac7b3e1ed7c4048f3120073832d5a56a4e"
 )
 EXPECTED_TOOLBOX_SELECTIONS = [
     "lessons/002-0002-set-permission-boundaries.html",
@@ -144,9 +138,6 @@ EXPECTED_TOOLBOX_SELECTIONS = [
     "lessons/002-0010-run-headless-one-shot.html",
     "lessons/002-0011-bound-ci-automation.html",
 ]
-EXPECTED_ROUTE_REMEDIATION_SHA256 = (
-    "93b56d82e99eba5f65a00ac9590ce0607a9bf8f51517dfa5842e202b3b5c2046"
-)
 EXPECTED_PAGE_POLICIES = {
     "navigation": ("not-applicable", "pending-t03"),
     "canonical-lesson": ("current-route-contract", "pending-t03"),
@@ -528,7 +519,9 @@ def validate_route_schema(route: Any, index: int) -> list[str]:
     return errors
 
 
-def validate_manifest(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]:
+def validate_manifest(manifest: Any, freeze: dict[str, Any]) -> list[str]:
+    if not isinstance(manifest, dict):
+        return [failure("manifest-schema", "manifest must be a JSON object")]
     errors = []
     if set(manifest) != EXPECTED_TOP_LEVEL_KEYS:
         errors.append(
@@ -683,24 +676,19 @@ def validate_manifest(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[
         errors.append(
             failure("navigation-paths", f"navigation paths differ: {sorted(navigation_paths)}")
         )
-    baseline_projection = [
-        {field: page[field] for field in BASELINE_MATRIX_FIELDS}
-        for page in pages
-        if page["origin"] == "baseline"
-    ]
-    baseline_digest = hashlib.sha256(
+    page_digest = hashlib.sha256(
         json.dumps(
-            baseline_projection,
+            pages,
             ensure_ascii=False,
             sort_keys=True,
             separators=(",", ":"),
         ).encode("utf-8")
     ).hexdigest()
-    if baseline_digest != EXPECTED_BASELINE_MATRIX_SHA256:
+    if page_digest != EXPECTED_PAGE_MATRIX_SHA256:
         errors.append(
             failure(
-                "baseline-matrix",
-                "Issue #12 baseline dispositions or final targets differ",
+                "page-matrix",
+                "Issue #12 page dispositions, roles, or final targets differ",
             )
         )
 
@@ -1113,23 +1101,19 @@ def validate_manifest(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[
                 errors.append(
                     failure("route-remediation", f"{label} dynamic return is toolbox-only")
                 )
-    remediation_projection = [
-        {"id": route["id"], "remediation": route["remediation"]}
-        for route in routes
-    ]
-    remediation_digest = hashlib.sha256(
+    route_digest = hashlib.sha256(
         json.dumps(
-            remediation_projection,
+            routes,
             ensure_ascii=False,
             sort_keys=True,
             separators=(",", ":"),
         ).encode("utf-8")
     ).hexdigest()
-    if remediation_digest != EXPECTED_ROUTE_REMEDIATION_SHA256:
+    if route_digest != EXPECTED_ROUTE_CONTRACT_SHA256:
         errors.append(
             failure(
-                "route-remediation-contract",
-                "approved route remediation mappings differ",
+                "route-contract",
+                "Issue #13 route graph or remediation contract differs",
             )
         )
     return errors
@@ -1428,7 +1412,12 @@ def validate_thin_slice(manifest: dict[str, Any]) -> list[str]:
 
 def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]:
     errors = []
-    cases: list[tuple[str, dict[str, Any], str]] = []
+    cases: list[tuple[str, Any, str]] = [
+        ("null manifest root", None, "manifest-schema"),
+        ("boolean manifest root", False, "manifest-schema"),
+        ("numeric manifest root", 0.25, "manifest-schema"),
+        ("list manifest root", [{"unexpected": None}], "manifest-schema"),
+    ]
 
     missing_baseline = copy.deepcopy(manifest)
     missing_baseline["pages"] = [
@@ -1560,6 +1549,58 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
         ("container TOC fragment enum", container_toc_fragment, "target-fragment")
     )
 
+    legal_route_kind_swap = copy.deepcopy(manifest)
+    next(
+        route
+        for route in legal_route_kind_swap["routes"]
+        if route["id"] == "common-foundation"
+    )["kind"] = "task"
+    cases.append(("legal route kind swap", legal_route_kind_swap, "route-contract"))
+
+    legal_readiness_mode_swap = copy.deepcopy(manifest)
+    next(
+        route
+        for route in legal_readiness_mode_swap["routes"]
+        if route["id"] == "workflow-standardization"
+    )["readiness"]["mode"] = "all-of"
+    cases.append(
+        ("legal readiness mode swap", legal_readiness_mode_swap, "route-contract")
+    )
+
+    legal_readiness_target_swap = copy.deepcopy(manifest)
+    next(
+        route
+        for route in legal_readiness_target_swap["routes"]
+        if route["id"] == "common-foundation"
+    )["readiness"]["targets"] = [
+        "lessons/012-0007-complete-governance-lifecycle-policy.html"
+    ]
+    cases.append(
+        ("legal readiness target swap", legal_readiness_target_swap, "route-contract")
+    )
+
+    legal_continuation_kind_swap = copy.deepcopy(manifest)
+    next(
+        route
+        for route in legal_continuation_kind_swap["routes"]
+        if route["id"] == "common-foundation"
+    )["continuations"][0]["kind"] = "requires-readiness"
+    cases.append(
+        (
+            "legal continuation kind swap",
+            legal_continuation_kind_swap,
+            "route-contract",
+        )
+    )
+
+    legal_edge_kind_swap = copy.deepcopy(manifest)
+    next(
+        route
+        for route in legal_edge_kind_swap["routes"]
+        if route["id"] == "common-foundation"
+    )["edges"][0]["kind"] = "optional-continuation"
+    cases.append(("legal edge kind swap", legal_edge_kind_swap, "route-contract"))
+
     malformed_remediation_return = copy.deepcopy(manifest)
     next(
         route
@@ -1683,7 +1724,7 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
         (
             "wrong toolbox remediation",
             wrong_toolbox_remediation,
-            "route-remediation-contract",
+            "route-contract",
         )
     )
 
@@ -1697,7 +1738,7 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
         (
             "missing originating-route remediation",
             missing_origin_remediation,
-            "route-remediation-contract",
+            "route-contract",
         )
     )
 
@@ -1713,7 +1754,7 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
         (
             "wrong general remediation target",
             wrong_general_remediation_target,
-            "route-remediation-contract",
+            "route-contract",
         )
     )
 
@@ -1727,7 +1768,7 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
         (
             "wrong general remediation condition",
             wrong_general_remediation_condition,
-            "route-remediation-contract",
+            "route-contract",
         )
     )
 
@@ -1743,7 +1784,7 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
         (
             "wrong general remediation return",
             wrong_general_remediation_return,
-            "route-remediation-contract",
+            "route-contract",
         )
     )
 
@@ -1755,7 +1796,7 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
     )["compatibility"]["finalTargets"][0][
         "path"
     ] = "lessons/001-0003-complete-cowork-starter.html"
-    cases.append(("exact target swap", exact_target_swap, "baseline-matrix"))
+    cases.append(("exact target swap", exact_target_swap, "page-matrix"))
 
     unsampled_disposition = copy.deepcopy(manifest)
     next(
@@ -1764,7 +1805,7 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
         if page["path"] == "lessons/001-0003-read-only-repo-tour.html"
     )["contentDisposition"]["actions"] = ["keep"]
     cases.append(
-        ("unsampled disposition change", unsampled_disposition, "baseline-matrix")
+        ("unsampled disposition change", unsampled_disposition, "page-matrix")
     )
 
     unsampled_target = copy.deepcopy(manifest)
@@ -1775,7 +1816,7 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
     )["compatibility"]["finalTargets"][0][
         "path"
     ] = "lessons/001-0004-prepare-claude-code-session.html"
-    cases.append(("unsampled target change", unsampled_target, "baseline-matrix"))
+    cases.append(("unsampled target change", unsampled_target, "page-matrix"))
 
     unsampled_fragment = copy.deepcopy(manifest)
     next(
@@ -1783,7 +1824,7 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
         for page in unsampled_fragment["pages"]
         if page["path"] == "reference/ai-developer-workflow-case-library.html"
     )["compatibility"]["finalTargets"][0]["fragment"] = "founder"
-    cases.append(("unsampled fragment change", unsampled_fragment, "baseline-matrix"))
+    cases.append(("unsampled fragment change", unsampled_fragment, "page-matrix"))
 
     removed_conditional_role = copy.deepcopy(manifest)
     roles = next(
@@ -1792,7 +1833,7 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
         if page["path"] == "lessons/004-0003-sync-design-system.html"
     )["routeMemberships"][0]["roles"]
     roles.remove("conditional")
-    cases.append(("removed conditional role", removed_conditional_role, "baseline-matrix"))
+    cases.append(("removed conditional role", removed_conditional_role, "page-matrix"))
 
     removed_conditional_disposition = copy.deepcopy(manifest)
     next(
@@ -1804,7 +1845,7 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
         (
             "removed conditional disposition",
             removed_conditional_disposition,
-            "baseline-matrix",
+            "page-matrix",
         )
     )
 
