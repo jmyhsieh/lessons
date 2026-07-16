@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="008-0008">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="agent-operations:conditional,agent-operations:feedback,agent-operations:tangible-win">
+<meta name="course:source-ids" content="agent-operations-safety-contract,llm-wiki-local-slice-contract">
+<title>008-0008：執行可復原的 LLM Wiki maintenance</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:900px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#315f86;margin-top:2rem}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{border:1px solid #ccd9e3;padding:.55rem;text-align:left;vertical-align:top}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem;overflow-wrap:anywhere}pre{padding:.8rem;white-space:pre-wrap;overflow-wrap:anywhere}label{display:block;margin:.45rem 0}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:680px){body{margin-top:1rem}table{display:block;overflow-x:auto;font-size:.76rem}}</style>
+</head><body>
+<p><a href="008-0003-bound-write-authority.html">← authority envelope</a> · <a href="003-0007-produce-first-llm-wiki-slice.html">原始 Knowledge branch</a> · <a href="008-0005-prove-workflow-completion.html">返回 completion proof →</a></p>
+<header><p>Phase 8 · Operate · 008-0008 · Conditional maintenance branch</p><h1>在 raw-source boundary 內維護一次既有 LLM Wiki slice</h1><p class="mission"><strong>Entry：</strong>Mission 明確需要維護 Phase 3 已完成且已 review 的 LLM Wiki slice；raw source pack、stable source IDs、provenance、既有 revision identity，以及 008-0001 deterministic check 和 008-0003 authority envelope 都存在。若要建立第一個 slice，應回 <a href="003-0007-produce-first-llm-wiki-slice.html">003-0007</a>；本課不把維運頁面變成新的 Knowledge source of truth。</p></header>
+
+<h2>1. 將 maintenance claim 鎖在一個 recoverable change set</h2>
+<div class="card"><pre>Maintenance run ID / owner / timestamp:
+Existing wiki revision / output path:
+Raw source IDs / versions / rights:
+Change trigger / affected topic cluster:
+Expected pages / links / exports:
+Allowed read paths / allowed write paths:
+Fixture copy / restore point / baseline fingerprint:
+Exact maintenance command or procedure:
+Deterministic completion oracle:
+Excluded topics / external actions: none
+Stop / escalation owner:</pre></div>
+<p class="rule"><strong>Source-of-truth rule：</strong>Changed wiki page、generated summary、internal link 與 machine-readable export 都是 derived artifacts。只有原始 source pack 與 claim-level locator 能支持 material claim；maintenance 不得用舊 wiki 文字反向證明新 claim，也不得默默替換、刪除或擴大來源集合。</p>
+
+<h2>2. 先比較，再更新最小 slice</h2>
+<ol><li>在 recoverable fixture 複製既有 revision，驗證 restore 能重建原始 pages、links、exports 與 review log；不要直接在唯一 working copy 練習。</li><li>以 stable source ID 比對 raw source change，只列出 added、changed、removed、conflict 與 unchanged claims。來源版本或 rights 不明時停止，不讓 agent 猜測差異。</li><li>用相同 input boundary 執行 read-only preview，記錄預測的 page／link／export write set。Preview 超出 topic cluster 或需要讀取未授權資料時回 authority gate。</li><li>建立唯一 run／idempotency identity，只對最小 affected cluster 執行一次 update；保存逐檔 before／after fingerprint、source locator diff、actual write set 與 command output。</li><li>逐頁重跑 title、source references、internal links、duplicate／blank-page、export 與三個 material-claim trace checks；actual scope 必須等於 envelope。</li></ol>
+<div class="card"><strong>Maintenance evidence checklist</strong><label><input type="checkbox"> Raw source pack 與 stable IDs 保持獨立且可讀</label><label><input type="checkbox"> Baseline revision、fixture 與 restore 已實測</label><label><input type="checkbox"> Source diff 與 affected claim／page mapping 已保存</label><label><input type="checkbox"> Preview 和 actual read／write set 都在 authority 內</label><label><input type="checkbox"> Source references、links、exports 與 material claims 已檢查</label><label><input type="checkbox"> Unsupported／conflict／omission 已寫入 review log</label><label><input type="checkbox"> External／production actions 為 none</label></div>
+
+<h2>3. 保存可退回的 maintenance evidence</h2>
+<table><tr><th>Evidence</th><th>另一人必須能觀察</th></tr><tr><td>Source delta</td><td>哪個 raw source identity 觸發哪一個 claim／page change；derived wiki 不是證據來源。</td></tr><tr><td>Artifact delta</td><td>新增、修改、刪除或保留哪些 pages、links、exports，且沒有 cluster 外 mutation。</td></tr><tr><td>Verification</td><td>同一 oracle 對 baseline／disconfirming copy 失敗或指出 stale state，對 maintained fixture 通過。</td></tr><tr><td>Recovery</td><td>Restore 能回原 revision，或 checkpoint 能安全重跑而不產生 duplicate／orphan pages。</td></tr><tr><td>Judgment</td><td>Reviewer 對 unsupported、conflict、omission、rights 與 limitations 的 disposition；agent 不批准自己的 maintenance。</td></tr></table>
+<p class="boundary"><strong>Maintenance boundary：</strong>Canonical hands-on 只更新 recoverable local fixture。若真實 wiki 位於 shared／remote system，本課只建立可檢查的 change set 或 payload preview；發布、同步、push、deploy、通知與刪除 remote content 都需要另行 authority、approval、receipt 與 recovery，不是本選修的 completion requirement。</p>
+<div class="win"><strong>Tangible win：</strong>一次具 raw-source delta、bounded artifact diff、revision identity、restore／retry evidence 與 review log 的 recoverable LLM Wiki maintenance run。<br><strong>Observable feedback：</strong>Reviewer 能由每個 changed claim 回到 raw source locator，重建 before／after cluster，確認 cluster 外未變，並在 restore 後得到原 revision；這份 evidence 可回到 Operations completion proof，而不取代 Phase 3 Knowledge evidence。</div>
+
+<div class="quiz" data-answer="2"><p>Maintenance 後 wiki summary 新增一個合理結論，但 raw source pack 找不到 locator，該怎麼做？</p><button type="button">保留，因為既有 wiki 已是可信 source</button><button type="button">請同一個 agent 再判斷一次是否正確</button><button type="button">標為 unsupported，移除或補齊 raw source locator，並記入 review log</button><div class="why">Maintenance 只更新 derived artifact；原始 sources 與 claim-level provenance 仍是 Knowledge source of truth，不能由 wiki 或 agent 自我背書取代。</div></div>
+
+<p class="stop"><strong>Legal stop／return／continuation：</strong>Raw source identity／rights 不明、existing revision 不可重建、restore 未實測、preview 或 actual scope 超界、source locator 缺失、link／export／claim check 失敗、partial／duplicate 未 disposition，或 external write 未另行核准時，保存 checkpoint 後停止；source／artifact 問題回 Phase 3 Knowledge verification，authority 問題回 008-0003。Maintenance evidence 完整後立即進 <a href="008-0005-prove-workflow-completion.html">008-0005</a>，用同一 deterministic oracle 建立 completion proof；不要接著擴寫其他 clusters，也不要宣稱 Phase 8 或 Knowledge route 已完成。</p>
+<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code>、<code>llm-wiki-local-slice-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>
