@@ -3039,6 +3039,44 @@
       }
     },
     {
+      "id": "scenario-rollout-contract",
+      "ownerPath": "lessons/011-0007-complete-scenario-rollout-plan.html",
+      "claimScope": "Scenario rollout design applies one Workflow evidence dossier to one fictional, bounded team scenario and records roles, least-privilege access, synthetic data, readiness, review, escalation, feedback, pause, rollback, and learner judgment without claiming deployment, adoption, production readiness, compliance, or organizational approval.",
+      "profile": "principle-only",
+      "driftClass": "lower",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "course-migration-spec-scenario-rollout",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-17"
+        }
+      ],
+      "principleStatement": "Design a rollout only for one declared fictional or local tabletop scenario, assign explicit accountable and stop authority, keep access least-privilege and data synthetic or non-sensitive, separate deterministic readiness checks from human approval, define non-surveillant feedback and tested pause or rollback exercises, and close with a learner-owned plan rather than a claim that any team adopted the workflow.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The approved Scenario rollout plan, role, access, data, readiness, feedback, escalation, pause, rollback, or learner-judgment boundary changes",
+        "The course begins to claim real deployment, adoption, organization readiness, compliance, or production authorization from self-study scenario evidence"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-17",
+        "actor": "Codex implementation session for Issue #48",
+        "sourceIds": [
+          "course-migration-spec-scenario-rollout"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "Issue #13 defines Scenario rollout as a bounded self-study plan rather than evidence of real organizational adoption.",
+          "The approved plan records roles, access and data boundaries, onboarding and support, review and escalation, feedback cadence, resistance handling, pause and rollback triggers, and learner judgment.",
+          "The route preserves deterministic checks, human approval, claim limits, artifact lineage, and a legal stop before Governance or any real external action."
+        ]
+      }
+    },
+    {
       "id": "ccusage-local-cost-evidence",
       "ownerPath": "lessons/010-0008-add-local-usage-cost-evidence.html",
       "claimScope": "At the reviewed ccusage 20.0.17 release and first-party repository snapshot 7acee6c5853c26fe66fbe1453bd94c9376afec06, ccusage documents local Claude Code usage and estimated-cost summaries with daily, weekly, monthly, session, JSON, date-filter, timezone, and offline options; these locally parsed estimates are conditional workflow evidence, not authoritative billing, productivity, quality, ROI, adoption, or permission evidence.",
