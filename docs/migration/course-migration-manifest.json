@@ -5874,10 +5874,14 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "agent-operations-safety-contract",
+          "llm-wiki-local-slice-contract",
+          "workflow-standardization-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/010-0001-set-workflow-evaluation-claim.html",
@@ -7179,10 +7183,14 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "agent-operations-safety-contract",
+          "llm-wiki-local-slice-contract",
+          "workflow-standardization-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/mattpocock-skills-phase3-reference.html",
