@@ -6415,10 +6415,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "governance-lifecycle-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/012-0002-design-change-control.html",
@@ -6446,10 +6448,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "governance-lifecycle-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/012-0003-define-data-lifecycle-controls.html",
@@ -6477,10 +6481,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "governance-lifecycle-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/012-0004-build-risk-and-cost-register.html",
@@ -6508,10 +6514,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "governance-lifecycle-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/012-0005-run-incident-tabletop.html",
@@ -6539,10 +6547,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "governance-lifecycle-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/012-0006-run-change-retirement-tabletop.html",
@@ -6570,10 +6580,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "governance-lifecycle-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/012-0007-complete-governance-lifecycle-policy.html",
@@ -6603,10 +6615,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "governance-lifecycle-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/agent-operations-safety.html",

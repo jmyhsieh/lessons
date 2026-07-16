@@ -3077,6 +3077,44 @@
       }
     },
     {
+      "id": "governance-lifecycle-contract",
+      "ownerPath": "lessons/012-0007-complete-governance-lifecycle-policy.html",
+      "claimScope": "Governance lifecycle design turns one bounded Scenario rollout plan into an auditable self-study policy draft that records ownership, change control, data lifecycle, risk and cost, incident response, retirement, tabletop evidence, and learner disposition without claiming legal, security, privacy, compliance, production, or organizational approval.",
+      "profile": "principle-only",
+      "driftClass": "lower",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "course-migration-spec-governance-lifecycle",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-17"
+        }
+      ],
+      "principleStatement": "Charter governance only for one exact workflow lineage, assign accountable ownership and explicit decision rights, version every material change and require approval plus retest, preserve source provenance and bounded access, retention, and deletion rules, rank risk and cost from recorded evidence rather than a universal score, rehearse incident and retirement responses only with fictional or local tabletops, and close with a learner-owned retain, revise, or retire disposition rather than a claim of external approval.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The approved Governance lifecycle policy, ownership, change-control, data-lifecycle, risk, cost, incident, retirement, tabletop, or learner-disposition boundary changes",
+        "The course begins to claim legal, security, privacy, compliance, production, or organizational approval from self-study governance artifacts"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-17",
+        "actor": "Codex implementation session for Issue #49",
+        "sourceIds": [
+          "course-migration-spec-governance-lifecycle"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "Issue #13 defines Governance as an auditable self-study lifecycle policy rather than legal, compliance, security, privacy, production, or organizational approval.",
+          "The approved policy preserves ownership, decision rights, versions, source recertification, access and data boundaries, risk and cost controls, incident and retirement conditions, tabletop evidence, and learner disposition.",
+          "Change, incident, and retirement exercises remain fictional or local and cannot be used as evidence that a real organization approved or executed the policy."
+        ]
+      }
+    },
+    {
       "id": "ccusage-local-cost-evidence",
       "ownerPath": "lessons/010-0008-add-local-usage-cost-evidence.html",
       "claimScope": "At the reviewed ccusage 20.0.17 release and first-party repository snapshot 7acee6c5853c26fe66fbe1453bd94c9376afec06, ccusage documents local Claude Code usage and estimated-cost summaries with daily, weekly, monthly, session, JSON, date-filter, timezone, and offline options; these locally parsed estimates are conditional workflow evidence, not authoritative billing, productivity, quality, ROI, adoption, or permission evidence.",
