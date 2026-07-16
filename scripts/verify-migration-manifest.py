@@ -118,10 +118,10 @@ ALLOWED_RETURN_ANCHORS = {
     "toolbox",
 }
 EXPECTED_NAVIGATION_PATHS = {"index.html", "toc.html"}
-# Independent digests of the manually reviewed Issue #12/#13 projections pin
-# exact page and route contracts without creating a second readable manifest.
+# Independent digests of the reviewed page and route projections pin exact
+# contracts, including the evolving Source mappings, without a second manifest.
 EXPECTED_PAGE_MATRIX_SHA256 = (
-    "8227bcf6cab55c5efea7a9ed033688fe8d71ee9350ee34063aa1340a99a8519e"
+    "22d0718514626b6bf99fb77e7ac8d7e61b485c34b0ec020cf01dd4e24ede4249"
 )
 EXPECTED_ROUTE_CONTRACT_SHA256 = (
     "f412397e52c5cc19a858519238f049ac7b3e1ed7c4048f3120073832d5a56a4e"
@@ -707,7 +707,7 @@ def validate_manifest(manifest: Any, freeze: dict[str, Any]) -> list[str]:
         errors.append(
             failure(
                 "page-matrix",
-                "Issue #12 page dispositions, roles, or final targets differ",
+                "reviewed page contract or Source mappings differ",
             )
         )
 

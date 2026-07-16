@@ -1500,8 +1500,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-product-surface-selection"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -1534,8 +1536,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "course-orient-readiness-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -1607,8 +1611,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-cowork-starter-surface"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -1785,8 +1791,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-code-cli-execution-controls",
+          "claude-code-permission-plan-boundary"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -1852,8 +1861,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-code-cli-execution-controls",
+          "claude-code-permission-plan-boundary"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -1922,8 +1934,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-code-cli-execution-controls",
+          "course-orient-readiness-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -2154,8 +2169,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "course-equip-toolbox-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -2262,8 +2279,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-code-cli-execution-controls",
+          "claude-code-permission-plan-boundary"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -2294,8 +2314,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-code-cli-execution-controls",
+          "claude-code-model-effort-selection"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -2400,8 +2423,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-code-hook-safety-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -2432,8 +2457,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-code-hook-safety-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -2543,8 +2570,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-code-existing-skill-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -2575,8 +2604,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-code-cli-execution-controls",
+          "claude-code-trusted-mcp-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -2645,8 +2677,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-code-cli-execution-controls",
+          "claude-code-read-only-isolation-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -2756,8 +2791,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-code-cli-execution-controls",
+          "claude-code-read-only-isolation-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -2826,8 +2864,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-code-cli-execution-controls",
+          "claude-code-headless-ci-boundary"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -2858,8 +2899,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-code-cli-execution-controls",
+          "claude-code-headless-ci-boundary"
+        ]
       },
       "migrationStatus": "planned"
     },

@@ -6,10 +6,14 @@ from __future__ import annotations
 import argparse
 import copy
 import json
+import subprocess
+from collections.abc import Callable
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
+from urllib.request import Request, urlopen
 
 
 EXPECTED_AUTHORITY = {
@@ -58,6 +62,8 @@ EXPECTED_STATE_MODEL = {
 }
 ALLOWED_PAGE_STATES = {"pending-t03", "registered", "not-applicable"}
 MOVING_VERSION_IDENTITIES = {"latest", "stable", "main", "head", "trunk"}
+
+StatusFetcher = Callable[[str], int]
 
 
 def blocker(code: str, message: str, subject: str | None = None) -> dict[str, str]:
@@ -820,6 +826,178 @@ def trace_registry(
     return report
 
 
+def trace_required_coordinate_scope(
+    report: dict[str, Any],
+    manifest: Any,
+    *,
+    coordinate_prefixes: list[str],
+) -> set[str]:
+    """Require selected canonical lesson phases without authoring a page allowlist."""
+    if not coordinate_prefixes:
+        return set()
+    errors = report.get("blockers")
+    if not isinstance(errors, list):
+        raise ValueError("Source report blockers must be a list")
+    pages = manifest.get("pages") if isinstance(manifest, dict) else None
+    if not isinstance(pages, list):
+        errors.append(
+            blocker(
+                "required-scope-manifest",
+                "required coordinate scope needs manifest pages",
+            )
+        )
+        return set()
+
+    prefixes = set(coordinate_prefixes)
+    required_paths = []
+    for page in pages:
+        if not isinstance(page, dict) or page.get("pageKind") != "canonical-lesson":
+            continue
+        coordinate = page.get("canonicalCoordinate")
+        path = page.get("path")
+        if (
+            isinstance(coordinate, str)
+            and coordinate.split("-", 1)[0] in prefixes
+            and isinstance(path, str)
+        ):
+            required_paths.append(path)
+
+    traced_pages = {
+        page.get("path"): page
+        for page in report.get("pages", [])
+        if isinstance(page, dict) and isinstance(page.get("path"), str)
+    }
+    passing = 0
+    required_anchor_ids: set[str] = set()
+    if not required_paths:
+        errors.append(
+            blocker(
+                "required-scope-empty",
+                "coordinate prefixes select no canonical lessons",
+            )
+        )
+    for path in required_paths:
+        traced = traced_pages.get(path)
+        if traced is None:
+            errors.append(
+                blocker("required-page-missing", "page is absent from Source trace", path)
+            )
+        elif traced.get("mappingState") != "registered":
+            errors.append(
+                blocker(
+                    "required-page-unregistered",
+                    "required page must have registered Source dependencies",
+                    path,
+                )
+            )
+        elif traced.get("gateState") != "pass":
+            errors.append(
+                blocker(
+                    "required-page-blocked",
+                    "required page Source gate must pass",
+                    path,
+                )
+            )
+        else:
+            passing += 1
+            required_anchor_ids.update(traced.get("anchorIds", []))
+    report["requiredCoordinateScope"] = {
+        "prefixes": sorted(prefixes),
+        "pages": len(required_paths),
+        "passing": passing,
+    }
+    summary = report.get("summary")
+    if isinstance(summary, dict):
+        summary["blockers"] = len(errors)
+    return required_anchor_ids
+
+
+def fetch_source_status(url: str) -> int:
+    parsed = urlparse(url)
+    parts = parsed.path.strip("/").split("/")
+    if (
+        parsed.netloc == "github.com"
+        and len(parts) == 4
+        and parts[2] == "issues"
+        and parts[3].isdigit()
+    ):
+        result = subprocess.run(
+            [
+                "gh",
+                "issue",
+                "view",
+                parts[3],
+                "--repo",
+                f"{parts[0]}/{parts[1]}",
+                "--json",
+                "number",
+            ],
+            check=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+        if result.returncode == 0:
+            return 200
+        raise OSError(result.stderr.strip() or "authenticated GitHub issue fetch failed")
+    request = Request(
+        url,
+        headers={"User-Agent": "lessons-source-registry-validator/1.0"},
+    )
+    with urlopen(request, timeout=20) as response:
+        return response.status
+
+
+def verify_source_urls(
+    registry: Any,
+    *,
+    status_fetcher: StatusFetcher = fetch_source_status,
+    anchor_ids: set[str] | None = None,
+) -> tuple[dict[str, int], list[dict[str, str]]]:
+    """Check declared primary-source URLs without changing publication state."""
+    anchors = registry.get("anchors") if isinstance(registry, dict) else None
+    if not isinstance(anchors, list):
+        return (
+            {"urls": 0, "passing": 0},
+            [blocker("source-url-schema", "online check requires registry anchors")],
+        )
+    selected_anchors = [
+        anchor
+        for anchor in anchors
+        if isinstance(anchor, dict)
+        and (anchor_ids is None or anchor.get("id") in anchor_ids)
+    ]
+    urls = sorted(
+        {
+            source["url"]
+            for anchor in selected_anchors
+            if isinstance(anchor.get("sources"), list)
+            for source in anchor["sources"]
+            if isinstance(source, dict) and valid_https_url(source.get("url"))
+        }
+    )
+
+    def check(url: str) -> tuple[str, int | None, str | None]:
+        try:
+            return url, status_fetcher(url), None
+        except Exception as error:  # Network and TLS failures vary by platform.
+            return url, None, str(error)
+
+    errors: list[dict[str, str]] = []
+    passing = 0
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        for url, status, fetch_error in executor.map(check, urls):
+            if fetch_error is not None:
+                errors.append(blocker("source-url-fetch", fetch_error, url))
+            elif status is None or status < 200 or status >= 400:
+                errors.append(
+                    blocker("source-url-status", f"returned HTTP {status}", url)
+                )
+            else:
+                passing += 1
+    return {"urls": len(urls), "passing": passing}, errors
+
+
 def profile_definitions() -> dict[str, dict[str, Any]]:
     return copy.deepcopy(PROFILE_CONTRACTS)
 
@@ -911,6 +1089,7 @@ def positive_fixture() -> tuple[dict[str, Any], dict[str, Any]]:
         "pages": [
             {
                 "path": f"lessons/001-000{index + 1}-fixture.html",
+                "canonicalCoordinate": f"001-000{index + 1}",
                 "pageKind": "canonical-lesson",
                 "sourceDependencies": {
                     "state": "registered",
@@ -939,6 +1118,58 @@ def run_self_test() -> None:
     assert all(item["freshnessState"] == "current" for item in report["anchors"])
     assert all(item["gateState"] == "pass" for item in report["anchors"])
     assert all(item["gateState"] == "pass" for item in report["pages"])
+
+    online_summary, online_errors = verify_source_urls(
+        registry,
+        status_fetcher=lambda _url: 200,
+    )
+    assert online_errors == [], online_errors
+    assert online_summary == {"urls": 1, "passing": 1}
+
+    failed_summary, failed_errors = verify_source_urls(
+        registry,
+        status_fetcher=lambda _url: 503,
+    )
+    assert failed_summary == {"urls": 1, "passing": 0}
+    assert any(error["code"] == "source-url-status" for error in failed_errors)
+
+    def failing_fetcher(_url: str) -> int:
+        raise OSError("fixture network failure")
+
+    _, fetch_errors = verify_source_urls(
+        registry,
+        status_fetcher=failing_fetcher,
+    )
+    assert any(error["code"] == "source-url-fetch" for error in fetch_errors)
+
+    scoped_report = copy.deepcopy(report)
+    trace_required_coordinate_scope(
+        scoped_report,
+        manifest,
+        coordinate_prefixes=["001"],
+    )
+    assert scoped_report["blockers"] == [], scoped_report["blockers"]
+
+    pending_manifest = copy.deepcopy(manifest)
+    pending_manifest["pages"][0]["sourceDependencies"] = {
+        "state": "pending-t03",
+        "anchorIds": [],
+    }
+    pending_report = trace_registry(registry, pending_manifest, as_of=as_of)
+    trace_required_coordinate_scope(
+        pending_report,
+        pending_manifest,
+        coordinate_prefixes=["001"],
+    )
+    assert_has_code(pending_report, "required-page-unregistered")
+
+    empty_scope_report = copy.deepcopy(report)
+    trace_required_coordinate_scope(
+        empty_scope_report,
+        manifest,
+        coordinate_prefixes=["999"],
+    )
+    assert_has_code(empty_scope_report, "required-scope-empty")
 
     due_registry = copy.deepcopy(registry)
     due_report = trace_registry(due_registry, manifest, as_of=date(2026, 8, 15))
@@ -1148,6 +1379,18 @@ def main() -> int:
     parser.add_argument("--as-of", default=date.today().isoformat())
     parser.add_argument("--json", action="store_true", dest="json_output")
     parser.add_argument("--self-test", action="store_true")
+    parser.add_argument(
+        "--online",
+        action="store_true",
+        help="check every declared Source URL while keeping the gate report-only",
+    )
+    parser.add_argument(
+        "--require-coordinate-prefix",
+        action="append",
+        default=[],
+        metavar="PPP",
+        help="require every canonical lesson in a three-digit phase to pass",
+    )
     args = parser.parse_args()
 
     as_of = parse_date(args.as_of)
@@ -1165,6 +1408,35 @@ def main() -> int:
         registry = load_json(Path(args.registry))
         manifest = load_json(Path(args.manifest))
         report = trace_registry(registry, manifest, as_of=as_of)
+        required_anchor_ids: set[str] | None = None
+        invalid_prefixes = [
+            prefix
+            for prefix in args.require_coordinate_prefix
+            if len(prefix) != 3 or not prefix.isdigit() or prefix == "000"
+        ]
+        if invalid_prefixes:
+            report["blockers"].append(
+                blocker(
+                    "required-scope-prefix",
+                    "coordinate prefixes must be three digits other than 000: "
+                    + ", ".join(invalid_prefixes),
+                )
+            )
+            report["summary"]["blockers"] = len(report["blockers"])
+        elif args.require_coordinate_prefix:
+            required_anchor_ids = trace_required_coordinate_scope(
+                report,
+                manifest,
+                coordinate_prefixes=args.require_coordinate_prefix,
+            )
+        if args.online:
+            online_summary, online_errors = verify_source_urls(
+                registry,
+                anchor_ids=required_anchor_ids,
+            )
+            report["onlineSources"] = online_summary
+            report["blockers"].extend(online_errors)
+            report["summary"]["blockers"] = len(report["blockers"])
     except (OSError, json.JSONDecodeError) as error:
         report = runtime_report(str(error), as_of=as_of)
     except Exception as error:  # Keep unexpected tracer failures observable but non-blocking.

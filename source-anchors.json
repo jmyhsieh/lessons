@@ -11,7 +11,7 @@
   "coverage": {
     "mode": "representative-thin-slice",
     "complete": false,
-    "nextWave": "inventory-and-recertify-all-active-anchors"
+    "nextWave": "recertify-engineering-workflow-anchors"
   },
   "driftWindowsDays": {
     "high": 30,
@@ -96,7 +96,7 @@
       "sources": [
         {
           "id": "anthropic-claude-code-cli-reference",
-          "url": "https://docs.anthropic.com/en/docs/claude-code/cli-usage",
+          "url": "https://code.claude.com/docs/en/cli-reference",
           "kind": "first-party-product-doc",
           "checkedAt": "2026-07-16"
         }
@@ -132,7 +132,7 @@
       "conflicts": [],
       "recertificationEvidence": {
         "checkedAt": "2026-07-16",
-        "actor": "Codex implementation session for Issue #16",
+        "actor": "Codex implementation session for Issue #18",
         "sourceIds": [
           "anthropic-claude-code-cli-reference"
         ],
@@ -152,7 +152,8 @@
         "result": "pass",
         "observations": [
           "claude --version returned 2.1.211 (Claude Code).",
-          "claude --help returned the documented interactive and print-mode command surface without starting a session."
+          "claude --help returned the documented interactive and print-mode command surface without starting a session.",
+          "The current first-party CLI reference documents the same interactive and -p/--print entry points."
         ]
       }
     },
@@ -235,6 +236,610 @@
         "observations": [
           "Issue #13 explicitly binds repository delivery to an immutable Review checkpoint.",
           "Issue #13 explicitly requires a new checkpoint and full Review contract rerun after any candidate mutation."
+        ]
+      }
+    },
+    {
+      "id": "claude-product-surface-selection",
+      "claimScope": "Claude, Cowork, Claude Code, and Claude Design are distinct first-party work surfaces whose documented output and interaction boundaries should determine the learner entry point.",
+      "profile": "surface-procedure",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-claude-product-overview",
+          "url": "https://claude.com/product/overview",
+          "kind": "first-party-product-surface",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-claude-cowork-product",
+          "url": "https://claude.com/product/cowork",
+          "kind": "first-party-product-surface",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-claude-design-product",
+          "url": "https://claude.com/product/design",
+          "kind": "first-party-product-surface",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-claude-code-overview",
+          "url": "https://code.claude.com/docs/en/overview",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "surfacePath": "Claude product overview > Cowork product page > Claude Design product page > Claude Code overview",
+      "availabilityAssumptions": [
+        "Public Anthropic product pages are reachable.",
+        "Actual product availability may vary by plan, account, region, and rollout state."
+      ],
+      "expectedEvidence": [
+        "The overview presents Claude as the general problem-solving surface and links to specialized products.",
+        "Cowork is described for delegated cross-file and connected-app knowledge work.",
+        "Claude Design is described for visual drafts such as prototypes, decks, and one-pagers.",
+        "Claude Code is documented as an agentic coding tool that works in a codebase and development environment."
+      ],
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Anthropic changes a product name or surface boundary",
+        "A required surface changes plan or platform availability",
+        "The product overview removes or replaces one of the selected surfaces"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #18",
+        "sourceIds": [
+          "anthropic-claude-product-overview",
+          "anthropic-claude-cowork-product",
+          "anthropic-claude-design-product",
+          "anthropic-claude-code-overview"
+        ],
+        "verificationMethod": "surface-observation",
+        "surfacePath": "Claude product overview > Cowork product page > Claude Design product page > Claude Code overview",
+        "result": "pass",
+        "observations": [
+          "All four first-party pages returned current product content on 2026-07-16.",
+          "The pages keep the surfaces distinct by task shape: general problem solving, knowledge work, visual design, and codebase delivery.",
+          "Availability is explicitly treated as an assumption rather than inferred from page reachability."
+        ]
+      }
+    },
+    {
+      "id": "claude-cowork-starter-surface",
+      "claimScope": "Cowork can carry a bounded knowledge-work task across files and connected tools to a reviewable deliverable, while the learner remains responsible for scope and review.",
+      "profile": "surface-procedure",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-cowork-product-surface",
+          "url": "https://claude.com/product/cowork",
+          "kind": "first-party-product-surface",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-cowork-product-guide",
+          "url": "https://claude.com/blog/the-claude-cowork-product-guide",
+          "kind": "first-party-product-guide",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "surfacePath": "Claude Cowork product page > product guide > first bounded task",
+      "availabilityAssumptions": [
+        "The learner has a Claude plan and platform on which Cowork is available.",
+        "The starter task uses copied or otherwise recoverable files and no sensitive production data.",
+        "Connected apps are optional for the starter and require separate authorization."
+      ],
+      "expectedEvidence": [
+        "The product page describes goal-directed work across files and tools with a polished result returned for review.",
+        "The product guide distinguishes Cowork knowledge work from Claude Code coding work and keeps human review in the workflow."
+      ],
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Cowork task or file-access behavior changes",
+        "Cowork platform or plan availability changes",
+        "The first-party starter guidance changes its review or safety boundary"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #18",
+        "sourceIds": [
+          "anthropic-cowork-product-surface",
+          "anthropic-cowork-product-guide"
+        ],
+        "verificationMethod": "surface-observation",
+        "surfacePath": "Claude Cowork product page > product guide > first bounded task",
+        "result": "pass",
+        "observations": [
+          "The product page states that Cowork works across files and tools and returns work for review.",
+          "The official product guide describes Cowork as a knowledge-work agent and identifies Claude Code as the coding surface.",
+          "No claim was made that the product page proves account-specific availability or connected-app authorization."
+        ]
+      }
+    },
+    {
+      "id": "course-orient-readiness-contract",
+      "claimScope": "Phase 1 produces readiness evidence only: safe scope, route choice, bounded fixture practice, learner judgment, and a clear distinction between practice and repository delivery.",
+      "profile": "principle-only",
+      "driftClass": "lower",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "course-migration-spec-orient-contract",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "principleStatement": "Orient ends with evidence that the learner can choose a route and work safely in a readiness fixture; it does not produce a real repository deliverable or route completion.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The approved Phase 1 boundary changes",
+        "Readiness evidence or course completion definitions change"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #18",
+        "sourceIds": [
+          "course-migration-spec-orient-contract"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "Issue #13 defines Phase 1 as an onboarding and readiness hub whose outcome is route choice and readiness evidence.",
+          "Issue #13 states that Cowork starter is an onboarding branch and readiness-fixture practice is not a real repository deliverable.",
+          "Issue #13 requires safe scope, verifiable success, read-only reconnaissance, plan, bounded edit, checks, and controlled commit evidence."
+        ]
+      }
+    },
+    {
+      "id": "claude-code-cli-execution-controls",
+      "claimScope": "The installed Claude Code CLI exposes bounded execution controls for permissions, model and effort, agents, MCP configuration, worktree isolation, allowed tools, and non-interactive print mode.",
+      "profile": "executable-recipe",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-cli-controls-reference",
+          "url": "https://code.claude.com/docs/en/cli-reference",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "versionAnchor": {
+        "kind": "native-binary-version",
+        "resolvedIdentity": "claude-code@2.1.211",
+        "resolvedFrom": "claude --version",
+        "resolvedAt": "2026-07-16",
+        "binarySha256": "5a728a76198b6eca7f3c7cdbff43bab44b77b48c2108f7a3107d889773382629"
+      },
+      "declaredEnvironment": {
+        "platform": "macOS 26.5.2",
+        "architecture": "arm64",
+        "shell": "zsh"
+      },
+      "availabilityAssumptions": [
+        "Claude Code 2.1.211 is installed as the native binary.",
+        "The check inspects local help and does not authenticate, start a session, or invoke a model."
+      ],
+      "steps": [
+        "claude --version",
+        "claude --help",
+        "claude mcp --help"
+      ],
+      "expectedEvidence": [
+        "The binary resolves to Claude Code 2.1.211.",
+        "Help lists --permission-mode, --model, --effort, --agent, --worktree, --allowedTools, --mcp-config, and -p/--print.",
+        "MCP help lists non-mutating discovery commands and explicit add/remove configuration commands."
+      ],
+      "changeTriggers": [
+        "Claude Code version changes",
+        "A required CLI flag or command changes",
+        "The documented safety or execution boundary for a flag changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #18",
+        "sourceIds": [
+          "anthropic-cli-controls-reference"
+        ],
+        "verificationMethod": "command-reproduction",
+        "environment": {
+          "platform": "macOS 26.5.2",
+          "architecture": "arm64",
+          "shell": "zsh"
+        },
+        "steps": [
+          "claude --version",
+          "claude --help",
+          "claude mcp --help"
+        ],
+        "resolvedVersions": [
+          "claude-code@2.1.211"
+        ],
+        "result": "pass",
+        "observations": [
+          "The installed binary hash remained 5a728a76198b6eca7f3c7cdbff43bab44b77b48c2108f7a3107d889773382629.",
+          "Local help exposed every required bounded execution flag without starting a session.",
+          "Local MCP help identified project approval state and separated read-only list/get from configuration mutations."
+        ]
+      }
+    },
+    {
+      "id": "claude-code-permission-plan-boundary",
+      "claimScope": "Claude Code permissions are enforced by the application, deny rules take precedence, and plan mode permits exploration while preventing source edits.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-claude-code-permissions",
+          "url": "https://code.claude.com/docs/en/permissions",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-claude-code-cli-permission-mode",
+          "url": "https://code.claude.com/docs/en/cli-reference",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "principleStatement": "Use application-enforced permission rules and plan mode to bound tool authority; prompts and CLAUDE.md influence intent but do not grant permissions.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Permission precedence or plan-mode behavior changes",
+        "A required permission mode is renamed or removed",
+        "Managed permission policy semantics change"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #18",
+        "sourceIds": [
+          "anthropic-claude-code-permissions",
+          "anthropic-claude-code-cli-permission-mode"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The permissions reference states that read-only file and search tools do not require approval within allowed directories.",
+          "The reference defines deny, ask, then allow precedence and states that enforcement belongs to Claude Code rather than the model.",
+          "The current permission-mode table defines plan as read-only exploration without source edits, and the CLI reference exposes --permission-mode."
+        ]
+      }
+    },
+    {
+      "id": "claude-code-model-effort-selection",
+      "claimScope": "Claude Code model selection controls capability while effort controls how much work the agent attempts; availability and accepted effort levels remain model, account, provider, and version dependent.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-claude-code-model-config",
+          "url": "https://code.claude.com/docs/en/model-config",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-claude-code-model-effort-guide",
+          "url": "https://claude.com/blog/claude-model-and-effort-level-in-claude-code",
+          "kind": "first-party-product-guide",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-claude-code-cli-effort-reference",
+          "url": "https://code.claude.com/docs/en/cli-reference",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "principleStatement": "Choose model for the capability needed and effort for the desired thoroughness; verify available choices in the current surface instead of teaching moving aliases or every documented level as universal.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Claude model aliases or defaults change",
+        "Effort levels or persistence semantics change",
+        "Plan, provider, or organization availability changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [
+        {
+          "id": "cli-effort-ultracode-help-mismatch",
+          "summary": "The current CLI reference documents ultracode for v2.1.203+, while local Claude Code 2.1.211 help lists low, medium, high, xhigh, and max only.",
+          "status": "resolved",
+          "scope": "optional-path",
+          "disposition": "Exclude ultracode from the required T05 claim and teach only choices observed in the learner's current surface; a future ultracode lesson requires separate reproduction."
+        }
+      ],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #18",
+        "sourceIds": [
+          "anthropic-claude-code-model-config",
+          "anthropic-claude-code-model-effort-guide",
+          "anthropic-claude-code-cli-effort-reference"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The first-party guide distinguishes fixed model capability from effort-driven breadth, tool use, and verification.",
+          "The model configuration reference says availability depends on account, provider, and organizational settings.",
+          "The local help discrepancy for ultracode was bounded as an optional-path conflict rather than hidden or generalized."
+        ]
+      }
+    },
+    {
+      "id": "claude-code-hook-safety-contract",
+      "claimScope": "Claude Code hooks are deterministic lifecycle callbacks whose event, matcher, command, input, output, and blocking semantics must be smoke-tested before use as guardrails.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-claude-code-hooks-guide",
+          "url": "https://code.claude.com/docs/en/hooks-guide",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-claude-code-hooks-reference",
+          "url": "https://code.claude.com/docs/en/hooks",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "principleStatement": "A hook claim is valid only when its exact lifecycle event and matcher run in a recoverable fixture and its allow or block result is observed; configuration presence alone is not evidence.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Hook event or matcher semantics change",
+        "Blocking exit-code or JSON output behavior changes",
+        "Hook configuration locations or input schema change"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #18",
+        "sourceIds": [
+          "anthropic-claude-code-hooks-guide",
+          "anthropic-claude-code-hooks-reference"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The hooks guide defines lifecycle events and matcher-scoped commands and states that the /hooks browser is read-only.",
+          "The guardrail example uses PreToolUse with an Edit|Write matcher and exit code 2 to block protected-file edits.",
+          "The anchor deliberately certifies the hook contract, not an unexecuted lesson-specific hook result."
+        ]
+      }
+    },
+    {
+      "id": "claude-code-existing-skill-contract",
+      "claimScope": "Claude Code skills are directory-scoped instruction packages rooted at SKILL.md that can be discovered automatically or invoked explicitly, so Equip should use an existing skill before authoring a new shared workflow.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-claude-code-skills",
+          "url": "https://code.claude.com/docs/en/skills",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "course-migration-spec-skill-boundary",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "principleStatement": "Equip may select and smoke-test an existing skill; creating a reusable shared skill is a Standardize responsibility and must not be smuggled into the toolbox lesson.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Skill discovery, invocation, or scope changes",
+        "SKILL.md packaging requirements change",
+        "The approved Equip versus Standardize boundary changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #18",
+        "sourceIds": [
+          "anthropic-claude-code-skills",
+          "course-migration-spec-skill-boundary"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The official skill reference requires SKILL.md and distinguishes personal, project, and plugin locations.",
+          "The reference states that skills may load when relevant or be invoked by name.",
+          "Issue #13 keeps Phase 2 to using existing capabilities and moves shared workflow authoring to Phase 9."
+        ]
+      }
+    },
+    {
+      "id": "claude-code-trusted-mcp-contract",
+      "claimScope": "Claude Code MCP connections expose external tools and data, require explicit trust and scope choices, and should begin with the minimum read-only capability needed by the active route.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-claude-code-mcp",
+          "url": "https://code.claude.com/docs/en/mcp",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "course-migration-spec-mcp-boundary",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "principleStatement": "Connect only a trusted MCP server, choose the narrowest local, project, or user scope, approve project configuration explicitly, and expose only the read capability required for the exercise.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "MCP transport, trust, approval, or scope semantics change",
+        "The Anthropic Directory or prompt-injection guidance changes",
+        "The course minimum-authority boundary changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #18",
+        "sourceIds": [
+          "anthropic-claude-code-mcp",
+          "course-migration-spec-mcp-boundary"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The MCP reference warns learners to verify trust because fetched external content can carry prompt-injection risk.",
+          "The reference distinguishes local, project, and user installation scopes and keeps unapproved project servers pending.",
+          "Issue #13 requires a trusted source and minimum read-only permission for the Phase 2 MCP lesson."
+        ]
+      }
+    },
+    {
+      "id": "claude-code-read-only-isolation-contract",
+      "claimScope": "Claude Code can isolate bounded investigation in read-only subagents and isolate parallel file edits in separate git worktrees; these solve different context and filesystem collision risks.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-claude-code-subagents",
+          "url": "https://code.claude.com/docs/en/sub-agents",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-claude-code-worktrees",
+          "url": "https://code.claude.com/docs/en/worktrees",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "principleStatement": "Use a fresh read-only Explore or Plan subagent for bounded investigation; use a worktree when parallel sessions may edit files, because context isolation alone does not isolate the filesystem.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Built-in subagent tool boundaries change",
+        "Worktree creation, branch, location, or cleanup behavior changes",
+        "Desktop and CLI worktree behavior diverges"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #18",
+        "sourceIds": [
+          "anthropic-claude-code-subagents",
+          "anthropic-claude-code-worktrees"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The subagent reference defines Explore and Plan as read-only and denies Write and Edit.",
+          "The worktree reference states that worktrees isolate edits and documents --worktree under .claude/worktrees/.",
+          "The worktree reference explicitly distinguishes edit isolation from subagent coordination."
+        ]
+      }
+    },
+    {
+      "id": "claude-code-headless-ci-boundary",
+      "claimScope": "Claude Code non-interactive execution uses -p/--print and explicit tool, output, budget, and configuration flags; CI adds repository permissions, secret handling, and untrusted-input boundaries that must remain explicit.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-claude-code-headless",
+          "url": "https://code.claude.com/docs/en/headless",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-claude-code-github-actions",
+          "url": "https://code.claude.com/docs/en/github-actions",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "principleStatement": "A headless or CI exercise must declare prompt, allowed tools, output form, budget, credentials, repository permissions, and stop conditions; local one-shot evidence does not prove remote CI authorization.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Non-interactive flags or context-loading behavior changes",
+        "Claude Code GitHub Actions setup, permissions, or secret guidance changes",
+        "The action major version or security contract changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #18",
+        "sourceIds": [
+          "anthropic-claude-code-headless",
+          "anthropic-claude-code-github-actions"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The headless reference requires -p/--print and documents allowed tools, structured output, budget, and explicit configuration.",
+          "The reference warns that normal non-interactive mode loads project and user context unless bare mode is deliberately selected.",
+          "The GitHub Actions reference separately documents app permissions, repository secrets, and allowed/disallowed tool controls."
+        ]
+      }
+    },
+    {
+      "id": "course-equip-toolbox-contract",
+      "claimScope": "Phase 2 is a just-in-time toolbox selected by the active route; it has no phase completion state and returns the learner after one bounded capability smoke test.",
+      "profile": "principle-only",
+      "driftClass": "lower",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "course-migration-spec-equip-contract",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "principleStatement": "Choose only the capability required by the active route, record permissions, side effects, stop and return points, run one safe smoke test, then return; Equip is not a feature tour or completion ladder.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The approved Phase 2 boundary or toolbox route changes",
+        "Equip gains a completion state or workflow-authoring responsibility"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #18",
+        "sourceIds": [
+          "course-migration-spec-equip-contract"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "Issue #13 defines Phase 2 as a task-selected toolbox with no overall completion state.",
+          "Issue #13 requires permission, side-effect, stop-condition, return-point, and safe-smoke-test evidence.",
+          "Issue #13 keeps shared workflow authoring in Phase 9 and requires return to the active route."
         ]
       }
     }
