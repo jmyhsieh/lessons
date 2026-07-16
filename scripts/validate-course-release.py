@@ -37,6 +37,8 @@ class CourseHTMLParser(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.hrefs: list[str] = []
         self.ids: list[str] = []
+        self.lang: str | None = None
+        self.metadata: dict[str, list[str | None]] = {}
         self.quizzes: list[dict[str, Any]] = []
         self._quiz_stack: list[dict[str, Any]] = []
 
@@ -44,6 +46,12 @@ class CourseHTMLParser(HTMLParser):
         self, tag: str, attrs: list[tuple[str, str | None]]
     ) -> None:
         attributes = dict(attrs)
+        if tag == "html":
+            self.lang = attributes.get("lang")
+        elif tag == "meta":
+            name = attributes.get("name")
+            if name and name.startswith("course:"):
+                self.metadata.setdefault(name, []).append(attributes.get("content"))
         identifier = attributes.get("id")
         if identifier:
             self.ids.append(identifier)
@@ -249,6 +257,83 @@ def validate_links_and_quizzes(
     return errors
 
 
+def authored_metadata(page: dict[str, Any]) -> dict[str, str]:
+    memberships = page.get("routeMemberships")
+    route_roles: list[str] = []
+    if isinstance(memberships, list):
+        route_roles = sorted(
+            f"{membership['routeId']}:{role}"
+            for membership in memberships
+            if isinstance(membership, dict)
+            and isinstance(membership.get("routeId"), str)
+            and isinstance(membership.get("roles"), list)
+            for role in membership["roles"]
+            if isinstance(role, str)
+        )
+    dependencies = page.get("sourceDependencies")
+    anchor_ids = (
+        sorted(dependencies.get("anchorIds", []))
+        if isinstance(dependencies, dict)
+        and isinstance(dependencies.get("anchorIds"), list)
+        else []
+    )
+    return {
+        "course:canonical-coordinate": page.get("canonicalCoordinate")
+        or "not-applicable",
+        "course:page-kind": page.get("pageKind", ""),
+        "course:route-roles": ",".join(route_roles) or "not-applicable",
+        "course:source-ids": ",".join(anchor_ids) or "not-applicable",
+    }
+
+
+def validate_authored_pages(
+    manifest: Any,
+    documents: dict[str, CourseHTMLParser],
+    *,
+    required_paths: set[str],
+) -> list[dict[str, str]]:
+    if not isinstance(manifest, dict) or not isinstance(manifest.get("pages"), list):
+        return [blocker("release-manifest", "manifest pages must be a list")]
+    pages = {
+        page.get("path"): page
+        for page in manifest["pages"]
+        if isinstance(page, dict) and isinstance(page.get("path"), str)
+    }
+    errors: list[dict[str, str]] = []
+    for path in sorted(required_paths):
+        page = pages.get(path)
+        if page is None:
+            errors.append(blocker("authored-path", "path is absent from manifest", path))
+            continue
+        if page.get("migrationStatus") != "authored":
+            errors.append(
+                blocker(
+                    "authored-status",
+                    "required authored page must have migrationStatus=authored",
+                    path,
+                )
+            )
+        document = documents.get(path)
+        if document is None:
+            errors.append(blocker("authored-page-missing", "HTML page is absent", path))
+            continue
+        if document.lang != "zh-Hant":
+            errors.append(
+                blocker("page-language", "html lang must be zh-Hant", path)
+            )
+        for name, expected in authored_metadata(page).items():
+            actual = document.metadata.get(name, [])
+            if actual != [expected]:
+                errors.append(
+                    blocker(
+                        "page-metadata",
+                        f"{name} must appear exactly once with content {expected!r}",
+                        path,
+                    )
+                )
+    return errors
+
+
 def document_link_identities(
     source: str, document: CourseHTMLParser
 ) -> set[tuple[str, str | None]]:
@@ -331,15 +416,29 @@ def validate_site_release(
     inventory_errors = validate_inventory(manifest, actual_paths)
     link_quiz_errors = validate_links_and_quizzes(repo_root, documents)
     compatibility_errors = validate_compatibility_graph(manifest, documents)
+    authored_paths: set[str] = set()
+    if isinstance(manifest, dict):
+        authored_paths = {
+            page.get("path")
+            for page in manifest.get("pages", [])
+            if isinstance(page, dict)
+            and page.get("migrationStatus") == "authored"
+            and isinstance(page.get("path"), str)
+        }
+    authored_errors = validate_authored_pages(
+        manifest, documents, required_paths=authored_paths
+    )
     errors.extend(inventory_errors)
     errors.extend(link_quiz_errors)
     errors.extend(compatibility_errors)
+    errors.extend(authored_errors)
     details = {
         "physicalHtmlPages": len(actual_paths),
         "parsedHtmlPages": len(documents),
         "inventoryBlockers": len(inventory_errors),
         "linkOrQuizBlockers": len(link_quiz_errors),
         "compatibilityBlockers": len(compatibility_errors),
+        "authoredPageBlockers": len(authored_errors),
     }
     return details, errors
 
@@ -382,6 +481,89 @@ def validate_report_only_modes(manifest: Any, registry: Any) -> list[dict[str, s
 
 def report_only_exit_code(_report: dict[str, Any]) -> int:
     return 0
+
+
+def error_matches_paths(error: dict[str, str], paths: set[str]) -> bool:
+    subject = error.get("subject", "")
+    return any(subject == path or subject.startswith(f"{path} ") for path in paths)
+
+
+def build_authored_slice_report(
+    repo_root: Path,
+    *,
+    required_paths: set[str],
+    as_of: date,
+) -> dict[str, Any]:
+    report: dict[str, Any] = {
+        "mode": REPORT_MODE,
+        "scope": "authored-slice",
+        "asOf": as_of.isoformat(),
+        "releaseReady": False,
+        "checks": {},
+        "blockers": [],
+    }
+    errors: list[dict[str, str]] = report["blockers"]
+    try:
+        _freeze_module, manifest_module, source_module = load_modules(repo_root)
+        freeze = manifest_module["load_validated_freeze"](repo_root)
+        manifest = load_json(repo_root / MANIFEST_PATH, "migration manifest")
+        registry = load_json(repo_root / REGISTRY_PATH, "Source registry")
+    except Exception as error:
+        errors.append(blocker("release-runtime", f"authority loading failed: {error}"))
+        report["summary"] = {"blockers": len(errors)}
+        return report
+
+    manifest_errors = manifest_module["validate_manifest"](manifest, freeze)
+    if not manifest_errors:
+        manifest_errors = manifest_module["validate_thin_slice"](manifest)
+    errors.extend(blocker("manifest-authority", error) for error in manifest_errors)
+
+    actual_paths = collect_site_paths(repo_root)
+    documents, parse_errors = parse_site_documents(repo_root, actual_paths)
+    errors.extend(
+        error
+        for error in parse_errors
+        if error_matches_paths(error, required_paths)
+    )
+    metadata_errors = validate_authored_pages(
+        manifest, documents, required_paths=required_paths
+    )
+    link_quiz_errors = [
+        error
+        for error in validate_links_and_quizzes(repo_root, documents)
+        if error_matches_paths(error, required_paths)
+    ]
+    errors.extend(metadata_errors)
+    errors.extend(link_quiz_errors)
+
+    source_report = source_module["trace_registry"](
+        registry, manifest, as_of=as_of
+    )
+    source_module["trace_required_path_scope"](
+        source_report, manifest, paths=sorted(required_paths)
+    )
+    errors.extend(
+        blocker(
+            f"source-{error['code']}",
+            error["message"],
+            error.get("subject"),
+        )
+        for error in source_report["blockers"]
+    )
+    errors.extend(validate_report_only_modes(manifest, registry))
+    report["checks"] = {
+        "requiredPaths": len(required_paths),
+        "presentPaths": sum(path in documents for path in required_paths),
+        "metadataBlockers": len(metadata_errors),
+        "linkOrQuizBlockers": len(link_quiz_errors),
+        "sourceTrace": source_report.get("summary", {}),
+    }
+    report["releaseReady"] = not errors
+    report["summary"] = {
+        "blockers": len(errors),
+        "requiredPaths": len(required_paths),
+    }
+    return report
 
 
 def build_release_report(repo_root: Path, *, as_of: date) -> dict[str, Any]:
@@ -476,6 +658,22 @@ def fixture_manifest() -> dict[str, Any]:
         page("lessons/001-0002-old.html", "compatibility"),
         page("reference/retired.html", "deprecation"),
     ]
+    pages[2].update(
+        {
+            "canonicalCoordinate": "001-0001",
+            "migrationStatus": "authored",
+            "routeMemberships": [
+                {
+                    "routeId": "common-foundation",
+                    "roles": ["entry", "feedback", "tangible-win"],
+                }
+            ],
+            "sourceDependencies": {
+                "state": "registered",
+                "anchorIds": ["fixture-source"],
+            },
+        }
+    )
     pages[3]["compatibility"] = {
         "finalTargets": [
             {"path": "lessons/001-0001-target.html", "fragment": "target", "role": "successor"}
@@ -499,8 +697,16 @@ def write_fixture_site(root: Path) -> None:
         '<a href="lessons/001-0001-target.html#target">Start</a>', encoding="utf-8"
     )
     (root / "lessons" / "001-0001-target.html").write_text(
-        '<h1 id="target">Target</h1><div class="quiz" data-answer="1">'
-        '<button>A</button><button>B</button></div>',
+        '<!doctype html><html lang="zh-Hant"><head>'
+        '<meta name="course:canonical-coordinate" content="001-0001">'
+        '<meta name="course:page-kind" content="canonical-lesson">'
+        '<meta name="course:route-roles" '
+        'content="common-foundation:entry,common-foundation:feedback,'
+        'common-foundation:tangible-win">'
+        '<meta name="course:source-ids" content="fixture-source">'
+        '</head><body><h1 id="target">Target</h1>'
+        '<div class="quiz" data-answer="1">'
+        '<button>A</button><button>B</button></div></body></html>',
         encoding="utf-8",
     )
     (root / "lessons" / "001-0002-old.html").write_text(
@@ -524,6 +730,46 @@ def run_site_self_test() -> None:
         write_fixture_site(root)
         _, errors = validate_site_release(root, manifest)
         assert errors == [], errors
+        documents, parse_errors = parse_site_documents(
+            root, {"lessons/001-0001-target.html"}
+        )
+        assert parse_errors == [], parse_errors
+        authored_errors = validate_authored_pages(
+            manifest,
+            documents,
+            required_paths={"lessons/001-0001-target.html"},
+        )
+        assert authored_errors == [], authored_errors
+
+        invalid_document = CourseHTMLParser()
+        invalid_document.feed(
+            '<html lang="en"><head>'
+            '<meta name="course:canonical-coordinate" content="999-9999">'
+            '</head><body></body></html>'
+        )
+        invalid_document.close()
+        authored_errors = validate_authored_pages(
+            manifest,
+            {"lessons/001-0001-target.html": invalid_document},
+            required_paths={"lessons/001-0001-target.html"},
+        )
+        assert_codes(authored_errors, "page-language", "page-metadata")
+
+        planned_manifest = copy.deepcopy(manifest)
+        planned_manifest["pages"][2]["migrationStatus"] = "planned"
+        authored_errors = validate_authored_pages(
+            planned_manifest,
+            documents,
+            required_paths={"lessons/001-0001-target.html"},
+        )
+        assert_codes(authored_errors, "authored-status")
+
+        authored_errors = validate_authored_pages(
+            manifest,
+            {},
+            required_paths={"lessons/001-0001-target.html"},
+        )
+        assert_codes(authored_errors, "authored-page-missing")
 
         (root / "toc.html").write_text(
             '<a href="missing.html">Broken</a>'
@@ -609,7 +855,17 @@ def parse_as_of(value: str) -> date:
 
 def print_text_report(report: dict[str, Any]) -> None:
     status = "READY" if report["releaseReady"] else "BLOCKED"
-    print(f"COURSE RELEASE TRACE {status} ({report['mode']})")
+    label = "AUTHORED SLICE" if report.get("scope") == "authored-slice" else "RELEASE"
+    print(f"COURSE {label} TRACE {status} ({report['mode']})")
+    if report.get("scope") == "authored-slice":
+        checks = report.get("checks", {})
+        print(
+            "SUMMARY "
+            f"required-paths={checks.get('requiredPaths', 0)} "
+            f"present-paths={checks.get('presentPaths', 0)} "
+            f"metadata-blockers={checks.get('metadataBlockers', 0)} "
+            f"link-or-quiz-blockers={checks.get('linkOrQuizBlockers', 0)}"
+        )
     for error in report["blockers"]:
         subject = f" {error['subject']}" if error.get("subject") else ""
         print(f"BLOCKER [{error['code']}]{subject}: {error['message']}")
@@ -623,6 +879,13 @@ def main() -> int:
     parser.add_argument("--as-of", type=parse_as_of, default=date.today())
     parser.add_argument("--json", action="store_true", dest="json_output")
     parser.add_argument("--self-test", action="store_true")
+    parser.add_argument(
+        "--require-path",
+        action="append",
+        default=[],
+        metavar="PATH",
+        help="validate one authored canonical page without requiring full cutover inventory",
+    )
     args = parser.parse_args()
     repo_root = Path(__file__).resolve().parent.parent
 
@@ -640,7 +903,14 @@ def main() -> int:
         return 0
 
     try:
-        report = build_release_report(repo_root, as_of=args.as_of)
+        if args.require_path:
+            report = build_authored_slice_report(
+                repo_root,
+                required_paths=set(args.require_path),
+                as_of=args.as_of,
+            )
+        else:
+            report = build_release_report(repo_root, as_of=args.as_of)
     except Exception as error:  # A report-only tracer must surface, not enforce, failures.
         report = {
             "mode": REPORT_MODE,

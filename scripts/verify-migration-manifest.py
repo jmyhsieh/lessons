@@ -68,6 +68,7 @@ EXPECTED_ROUTE_IDS = {
     "workflow-standardization",
 }
 ALLOWED_PAGE_KINDS = set(EXPECTED_KIND_COUNTS)
+ALLOWED_MIGRATION_STATUSES = {"planned", "authored"}
 ALLOWED_ACTIONS = {
     "conditional",
     "conditionalize",
@@ -121,7 +122,7 @@ EXPECTED_NAVIGATION_PATHS = {"index.html", "toc.html"}
 # Independent digests of the reviewed page and route projections pin exact
 # contracts, including the evolving Source mappings, without a second manifest.
 EXPECTED_PAGE_MATRIX_SHA256 = (
-    "c4248c52368cd149e4fa78974573feca247ce155184ddcaed81cb537fb667455"
+    "6780a48464e5f3bb71dba19f4a09fbc8852b55d982ba3acf9c42cb03cef40fda"
 )
 EXPECTED_ROUTE_CONTRACT_SHA256 = (
     "f412397e52c5cc19a858519238f049ac7b3e1ed7c4048f3120073832d5a56a4e"
@@ -370,8 +371,8 @@ def validate_page_schema(page: Any, index: int) -> list[str]:
             errors.append(
                 failure("source-placeholder", f"{path} unregistered Source dependencies need no IDs")
             )
-    if page.get("migrationStatus") != "planned":
-        errors.append(failure("migration-status", f"{path} must remain planned in T02"))
+    if page.get("migrationStatus") not in ALLOWED_MIGRATION_STATUSES:
+        errors.append(failure("migration-status", f"{path} has invalid migrationStatus"))
     if not isinstance(page.get("evidenceCarryover"), str) or page.get(
         "evidenceCarryover"
     ) not in {
@@ -1531,6 +1532,12 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
         "anchorIds": ["fabricated-anchor"],
     }
     cases.append(("pending Source with IDs", pending_with_ids, "source-placeholder"))
+
+    invalid_migration_status = copy.deepcopy(manifest)
+    invalid_migration_status["pages"][0]["migrationStatus"] = "complete"
+    cases.append(
+        ("invalid migration status", invalid_migration_status, "migration-status")
+    )
 
     container_carryover = copy.deepcopy(manifest)
     container_carryover["pages"][0]["evidenceCarryover"] = {}

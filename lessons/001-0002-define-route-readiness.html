@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="001-0002">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="common-foundation:exit-evidence,common-foundation:feedback,common-foundation:readiness,common-foundation:stop,common-foundation:tangible-win">
+<meta name="course:source-ids" content="course-orient-readiness-contract">
+<title>001-0002：定義 route readiness</title>
+<style>
+  * { box-sizing: border-box; } body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 760px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
+  h1 { font-size: 1.8rem; line-height: 1.35; } h2 { color: #a94716; margin-top: 2rem; } .kicker { color: #a94716; font-size: .86rem; letter-spacing: .08em; }
+  .mission, .stop { border-left: 4px solid #c2571a; background: #fff7f0; padding: .8rem 1rem; } .card, .win, .quiz { border: 1px solid #ded6cf; border-radius: 8px; padding: 1rem; margin: 1rem 0; } .win { background: #f2f8f3; border-color: #a9c9ae; }
+  code { background: #f3efeb; padding: .1rem .3rem; border-radius: 3px; overflow-wrap: anywhere; } button { display: block; width: 100%; margin: .45rem 0; padding: .65rem; text-align: left; background: white; border: 1px solid #bbb; border-radius: 6px; font: inherit; cursor: pointer; }
+  button.correct { background: #e5f4e7; border-color: #2e7d32; } button.wrong { background: #fbe8e8; border-color: #b3261e; } .why { display: none; background: #fff7f0; padding: .7rem; margin-top: .7rem; }
+  footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; } a { color: #99400f; } @media (max-width: 620px) { body { margin-top: 1.2rem; } }
+</style>
+</head>
+<body>
+<p><a href="001-0001-four-claude-surfaces.html">← 上一課</a> · <a href="../toc.html">回課目表</a></p>
+<header><p class="kicker">Phase 1 · Orient · 001-0002 · Common foundation stop</p><h1>把安全範圍與續作點寫成 Return notebook</h1><p class="mission"><strong>任務：</strong>把模糊的「開始使用 Claude」改寫成可安全開始、可觀察成功、也能合法停止的 route contract。</p></header>
+
+<h2>建立 learner-owned notebook</h2>
+<p>複製<a href="../assets/return-notebook-template.md">Return notebook Markdown 模板</a>到你自己控制的位置。它跨裝置、跨 session 都能帶走，但不會自動判定你完成課程。</p>
+<div class="card">
+  <ol>
+    <li><strong>Mission：</strong>一句話說清楚對象、成果與目的。</li>
+    <li><strong>Safe scope：</strong>列出可以讀、可以寫、不得碰的範圍。</li>
+    <li><strong>Verifiable success：</strong>寫一個人或工具能觀察的結果。</li>
+    <li><strong>Selected route：</strong>記下 route、current anchor 與下一個 tangible win。</li>
+    <li><strong>Readiness：</strong>保留有效 evidence；若有缺口，只指定最小 remediation 與 return point。</li>
+    <li><strong>State：</strong>明確區分 <code>Lesson practiced</code> 與 <code>Route artifact produced</code>。</li>
+  </ol>
+</div>
+<div class="win"><strong>Tangible win：</strong>一份至少填完 Mission、Selected route、Readiness 與 Resume line 的 Return notebook。<br><strong>Observable feedback：</strong>隔十分鐘不看本頁，只讀 Resume line，仍知道下一步、停止線與遇到缺口時要回哪裡。</div>
+
+<h2>選擇下一條 readiness branch</h2>
+<ul>
+  <li><strong>Cowork starter（conditional）：</strong>想先練低風險檔案任務，前往<a href="001-0003-complete-cowork-starter.html">001-0003</a>，完成後可合法停止。</li>
+  <li><strong>Code readiness（requires readiness）：</strong>之後要進 Engineering，前往<a href="001-0004-prepare-claude-code-session.html">001-0004</a>，走到 001-0007 才取得 readiness evidence。</li>
+  <li><strong>其他 Task routes：</strong>在 coherent catalog 完成前只記錄為 optional continuation，不把尚未完成的 route 當成可用入口。</li>
+</ul>
+
+<div class="quiz" data-answer="1"><p>哪一筆最適合放進 Resume line？</p><button type="button">下次繼續學 Phase 1</button><button type="button">下次從 001-0004 開始，先取得 session smoke evidence；若登入失敗就停在該課，不進 fixture edit</button><button type="button">等 Claude 自動判斷我完成到哪裡</button><div class="why">Resume line 要能還原具體 route、下一個 win、阻塞條件與停止線；Return notebook 不替你判定完成。</div></div>
+
+<p class="stop"><strong>Common foundation legal stop：</strong>route choice 與 readiness evidence 已記錄後，可以停在這裡。這只證明你能選路與界定成功，不代表任何 Task route 已產出交付物。</p>
+<footer>Page kind：canonical lesson · Route roles：readiness／exit evidence／stop · Source IDs：<code>course-orient-readiness-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
+</body>
+</html>

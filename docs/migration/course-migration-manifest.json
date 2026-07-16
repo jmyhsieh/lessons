@@ -1505,7 +1505,7 @@
           "claude-product-surface-selection"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0002-define-route-readiness.html",
@@ -1541,7 +1541,7 @@
           "course-orient-readiness-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0002-first-session-read-only.html",
@@ -1616,7 +1616,7 @@
           "claude-cowork-starter-surface"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0003-read-only-repo-tour.html",
@@ -1727,7 +1727,7 @@
           "claude-code-cli-session-start"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0005-first-safe-code-change.html",
@@ -1797,7 +1797,7 @@
           "claude-code-permission-plan-boundary"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0006-claude-md.html",
@@ -1867,7 +1867,7 @@
           "claude-code-permission-plan-boundary"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0007-permission-rules.html",
@@ -1940,7 +1940,7 @@
           "course-orient-readiness-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0008-session-commands.html",
@@ -6983,7 +6983,7 @@
           "claude-product-surface-selection"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/course-glossary.html",

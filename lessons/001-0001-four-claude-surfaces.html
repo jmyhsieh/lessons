@@ -1,138 +1,69 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+<link rel="icon" href="data:,">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>01：四個 Claude 工作表面，四種交付路線</title>
+<meta name="course:canonical-coordinate" content="001-0001">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="common-foundation:entry,common-foundation:feedback,common-foundation:tangible-win">
+<meta name="course:source-ids" content="claude-product-surface-selection">
+<title>001-0001：選擇 Claude 工作表面</title>
 <style>
-  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
-         max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
-  header { margin-bottom: 2.5rem; }
-  .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
-  h1 { font-size: 1.7rem; margin: .3rem 0; }
-  .mission { font-style: italic; color: #555; border-left: 3px solid #c2571a; padding-left: 1rem; }
-  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #c2571a; }
-  .card { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
-  .card h3 { margin: 0 0 .3rem; font-size: 1.05rem; }
-  .card .tagline { color: #c2571a; font-weight: 600; }
-  code { background: #f4f0ec; padding: .12rem .35rem; border-radius: 3px; font-size: .88em; }
-  a { color: #b04a12; }
-  /* quiz */
-  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
-  .quiz p { margin-top: 0; font-weight: 600; }
-  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
-    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
-  .quiz button:hover { border-color: #c2571a; }
-  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
-  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
-  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #faf3ee; padding: .6rem .9rem; border-radius: 6px; }
-  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
-  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
+  * { box-sizing: border-box; }
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 760px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
+  h1 { font-size: 1.8rem; line-height: 1.35; } h2 { color: #a94716; margin-top: 2rem; }
+  .kicker { color: #a94716; font-size: .86rem; letter-spacing: .08em; }
+  .mission, .stop { border-left: 4px solid #c2571a; background: #fff7f0; padding: .8rem 1rem; }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+  .card, .win, .quiz { border: 1px solid #ded6cf; border-radius: 8px; padding: 1rem; }
+  .card h3 { margin-top: 0; } .win { background: #f2f8f3; border-color: #a9c9ae; }
+  code { background: #f3efeb; padding: .1rem .3rem; border-radius: 3px; overflow-wrap: anywhere; }
+  button { display: block; width: 100%; margin: .45rem 0; padding: .65rem; text-align: left; background: white; border: 1px solid #bbb; border-radius: 6px; font: inherit; cursor: pointer; }
+  button.correct { background: #e5f4e7; border-color: #2e7d32; } button.wrong { background: #fbe8e8; border-color: #b3261e; }
+  .why { display: none; background: #fff7f0; padding: .7rem; margin-top: .7rem; }
+  footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; }
+  a { color: #99400f; } @media (max-width: 620px) { .grid { grid-template-columns: 1fr; } body { margin-top: 1.2rem; } }
 </style>
 </head>
 <body>
-<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<p><a href="../toc.html">← 回課目表</a></p>
 <header>
-  <div class="kicker">Phase 1 · 第 01 課 · 約 10 分鐘</div>
-  <h1>四個 Claude 工作表面，四種交付路線</h1>
-  <p class="mission">任務：能依工作環境與成果類型，判斷一項工作該留在 Claude 對話、交給 Cowork、進入 Claude Design，還是開 Claude Code session。</p>
-<div class="scope"><strong>本課只做：</strong>判斷同一件事該交給哪個 Claude 工作表面。<br><strong>先不要做：</strong>用「哪個模型最強」或「哪個畫面最新」當唯一判斷標準。</div>
-
+  <p class="kicker">Phase 1 · Orient · 001-0001 · Common foundation entry</p>
+  <h1>先選工作表面，再選 Task route</h1>
+  <p class="mission"><strong>任務：</strong>用成果、工作環境與權限邊界，替目前任務選一個 Claude 工作表面，並把選擇寫進 Return notebook。</p>
 </header>
 
-<h2>核心觀念：差別不在「聰明程度」，在工作環境</h2>
-<p>這四種入口會重疊，但主要交付物不同。真正的判斷軸是<strong>工作環境與成果類型</strong>：你要一段回答、一組完成的知識工作檔案、一個可反覆評論的視覺原型，還是經過測試的 repo 變更？</p>
-
-<div class="card">
-  <h3>Claude（claude.ai 網頁 / App）</h3>
-  <p class="tagline">對話助理 — 你貼內容進去，它回答出來。</p>
-  適合：問問題、寫草稿、分析你附上的檔案或程式碼片段、使用 connectors 查資料。重點是由你提供 context，不是把一個本機工作區交給它持續操作。
+<h2>四個表面，各自負責什麼</h2>
+<div class="grid">
+  <section class="card"><h3>Claude</h3><p>適合對話、分析附件與形成草稿。成果主要留在對話，由你提供 context 並判斷可否採用。</p></section>
+  <section class="card"><h3>Cowork</h3><p>適合在授權範圍內完成多步驟知識工作與檔案任務。先從低風險副本開始，交付後仍由你 review。</p></section>
+  <section class="card"><h3>Claude Design</h3><p>適合探索視覺方向、原型與簡報。Prototype 是 feedback artifact，不是 usability、accessibility 或 production readiness 證明。</p></section>
+  <section class="card"><h3>Claude Code</h3><p>適合在 repo 中探索、修改、執行 checks 與建立可 review 的 diff。進真實交付前，先完成 Code readiness。</p></section>
 </div>
 
-<div class="card">
-  <h3>Claude Cowork</h3>
-  <p class="tagline">知識工作代理 — 遠端任務可跨裝置接續；Desktop 也能直接處理本機檔案。</p>
-  可從 web、Desktop 或 mobile 委派多步驟任務，遠端 session 會跟著帳號跨裝置接續；Desktop 另支援直接讀寫你授權的本機檔案。適合：整理文件、研究彙整、產出報告與簡報。Dispatch 若判斷任務屬於軟體開發，也可能建立 Code session；不要把分頁名稱當成硬邊界。
-  （<a href="https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork">官方上手指南</a>）
-</div>
+<h2>建立你的 route choice</h2>
+<ol>
+  <li>寫下一句 mission：「我要讓誰能用什麼成果完成什麼事？」</li>
+  <li>列出成果所在環境：對話、文件資料夾、視覺畫布或 git repo。</li>
+  <li>標出允許的 read、write 與 external side effects。</li>
+  <li>用<a href="../reference/claude-product-picker.html">產品選用速查表</a>選一個起始表面。</li>
+  <li>把 mission、選定表面與一個尚未確認的假設寫進<a href="../assets/return-notebook-template.md">Return notebook</a>。</li>
+</ol>
+<div class="win"><strong>Tangible win：</strong>一張可解釋的 route choice card。<br><strong>Observable feedback：</strong>另一個人只看 mission、成果環境與權限，就能重述你為何選這個表面。</div>
 
-<div class="card">
-  <h3>Claude Design</h3>
-  <p class="tagline">視覺協作畫布 — 建立設計、互動原型、簡報與可交接的 design intent。</p>
-  適合：先比較多個視覺方向、套用 design system、在 canvas 上評論與精修，再把選定方向交給 Claude Code 實作。它仍是 beta，現階段在 web 與 Claude Desktop 使用；prototype 不是 usability、accessibility 或 production readiness 的證明。
-  （<a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">官方入門指南</a>）
-</div>
-
-<div class="card">
-  <h3>Claude Code</h3>
-  <p class="tagline">軟體工程代理 — 在 git repo 裡讀程式碼、改檔案、跑指令、開 PR。</p>
-  可在終端機、VS Code/JetBrains、桌面 App、瀏覽器使用。理解整個 codebase，能跨多檔案修改、執行測試驗證、操作 git。這是你要在工作 repo 上用的工具。
-  後續進入工作 repo 前，會在安裝課確認 Git 是否可用；本課先只練工具選擇。
-  （<a href="https://code.claude.com/docs/en/overview">官方文件</a>）
-</div>
-
-<p>📄 已為你整理成一頁<a href="../reference/claude-product-picker.html">速查表</a>，可列印放手邊。</p>
-
-<h2>練習：你來判斷</h2>
-<p>不要回頭看上面 — 先憑記憶作答（提取練習才能建立長期記憶）。</p>
-
+<h2>快速判斷</h2>
 <div class="quiz" data-answer="2">
-  <p>1. 「把專案裡所有過時的 API 呼叫改成新版，並跑測試確認沒壞。」</p>
-  <button>Claude 一般對話</button>
-  <button>Claude Cowork</button>
-  <button>Claude Code</button>
-  <button>Claude Design</button>
-  <div class="why">需要跨檔案修改 repo 程式碼並執行測試 → Claude Code。</div>
+  <p>要在練習 repo 中做 bounded edit、查看 diff 並跑 check，應從哪個表面開始？</p>
+  <button type="button">Claude</button><button type="button">Cowork</button><button type="button">Claude Code</button><button type="button">Claude Design</button>
+  <div class="why">正確：Claude Code 的工作環境就是 repo；但本階段只使用 readiness fixture，不代表已完成真實 repo deliverable。</div>
 </div>
 
-<div class="quiz" data-answer="1">
-  <p>2. 「把這個資料夾裡 30 份會議記錄整理成一份季度總結文件。」</p>
-  <button>Claude 一般對話</button>
-  <button>Claude Cowork</button>
-  <button>Claude Code</button>
-  <button>Claude Design</button>
-  <div class="why">多步驟檔案處理、產出文件、非程式碼 → Cowork。</div>
-</div>
-
-<div class="quiz" data-answer="0">
-  <p>3. 「這段 error message 是什麼意思？大概該往哪個方向查？」</p>
-  <button>Claude 一般對話</button>
-  <button>Claude Cowork</button>
-  <button>Claude Code</button>
-  <button>Claude Design</button>
-  <div class="why">貼上內容、得到解釋即可，不需動到檔案 → Claude 就夠了。若要它直接在 repo 裡追出根因並修掉，才升級到 Claude Code。</div>
-</div>
-
-<div class="quiz" data-answer="3">
-  <p>4. 「先用品牌元件做三個可互動的 dashboard 方向，選定後再交給工程實作。」</p>
-  <button>Claude 一般對話</button>
-  <button>Claude Cowork</button>
-  <button>Claude Code</button>
-  <button>Claude Design</button>
-  <div class="why">要先在視覺畫布探索、比較與評論原型，再 handoff 給工程 → Claude Design。</div>
-</div>
-
-<h2>下一步</h2>
-<p>下一課：<a href="001-0002-first-session-read-only.html">Phase 1 第 02 課 — 安裝 Claude Code，開第一個 session</a>。先把工具裝好、登入、確認權限模式；下一步才進工作 repo 做唯讀導覽。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Get started with Claude Design</a> 與 <a href="https://code.claude.com/docs/en/quickstart">Claude Code Quickstart</a>（官方）— 先看兩種工作表面的交接邊界。</p>
-
-<footer>
-  有任何不清楚的地方，直接回到對話視窗問你的 AI 老師。<br>
-  參考：<a href="../reference/claude-product-picker.html">產品選用速查表</a> · <a href="../reference/claude-design-to-code-workflow.html">Design-to-Code 速查表</a> · 課程依據 <a href="https://code.claude.com/docs/en/overview">Claude Code</a> 與 <a href="https://claude.com/product/design">Claude Design</a> 官方資料（2026-07）
-</footer>
-
+<p class="stop"><strong>邊界：</strong>本課只完成工作表面選擇，狀態記為 <code>Lesson practiced</code>。還沒有 Route artifact，也沒有 production authorization。</p>
+<p><strong>下一課：</strong><a href="001-0002-define-route-readiness.html">定義 safe scope、成功證據與 Return notebook</a>。</p>
+<footer>Page kind：canonical lesson · Route role：Common foundation entry · Source IDs：<code>claude-product-surface-selection</code></footer>
 <script>
-document.querySelectorAll('.quiz').forEach(q => {
-  const ans = +q.dataset.answer;
-  q.querySelectorAll('button').forEach((b, i) => {
-    b.addEventListener('click', () => {
-      q.querySelectorAll('button').forEach(x => x.disabled = true);
-      q.querySelectorAll('button')[ans].classList.add('correct');
-      if (i !== ans) b.classList.add('wrong');
-      q.querySelector('.why').style.display = 'block';
-    });
-  });
-});
+document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });
 </script>
 </body>
 </html>

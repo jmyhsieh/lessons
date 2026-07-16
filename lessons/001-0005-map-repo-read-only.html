@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="001-0005">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="code-readiness:feedback,code-readiness:tangible-win">
+<meta name="course:source-ids" content="claude-code-cli-execution-controls,claude-code-permission-plan-boundary">
+<title>001-0005：唯讀理解 repo</title>
+<style>
+  * { box-sizing: border-box; } body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 760px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; } h1 { font-size: 1.8rem; line-height: 1.35; } h2 { color: #a94716; margin-top: 2rem; } .kicker { color: #a94716; font-size: .86rem; letter-spacing: .08em; } .mission, .stop { border-left: 4px solid #c2571a; background: #fff7f0; padding: .8rem 1rem; } .card, .win, .quiz { border: 1px solid #ded6cf; border-radius: 8px; padding: 1rem; margin: 1rem 0; } .win { background: #f2f8f3; border-color: #a9c9ae; } code { background: #f3efeb; padding: .1rem .3rem; border-radius: 3px; overflow-wrap: anywhere; } button { display: block; width: 100%; margin: .45rem 0; padding: .65rem; text-align: left; background: white; border: 1px solid #bbb; border-radius: 6px; font: inherit; cursor: pointer; } button.correct { background: #e5f4e7; border-color: #2e7d32; } button.wrong { background: #fbe8e8; border-color: #b3261e; } .why { display: none; background: #fff7f0; padding: .7rem; margin-top: .7rem; } footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; } a { color: #99400f; } @media (max-width: 620px) { body { margin-top: 1.2rem; } }
+</style>
+</head>
+<body>
+<p><a href="001-0004-prepare-claude-code-session.html">← 上一課</a> · <a href="../toc.html">回課目表</a></p>
+<header><p class="kicker">Phase 1 · Orient · 001-0005 · Code readiness</p><h1>先用檔案證據畫出 repo map</h1><p class="mission"><strong>任務：</strong>在可丟棄的練習 repo 或安全副本中，只讀取高層結構、instructions、entry points 與 checks，產出一張有檔案依據的 map。</p></header>
+
+<h2>宣告 read-only boundary</h2>
+<div class="card">告訴 Claude Code：「只做 read-only reconnaissance。不要建立、修改、刪除檔案，不要安裝套件，不要執行會改變 state 的命令。請先找 repo instructions，再用具體路徑說明結構、入口與可用 checks。」</div>
+<ol>
+  <li>確認它找到的 instructions 路徑，例如 README、AGENTS.md 或 CLAUDE.md。</li>
+  <li>要求它說明主要目錄、入口、資料流與最相關的 3–5 個檔案。</li>
+  <li>每個主張都要附路徑；你抽查至少兩個檔案，確認摘要與內容相符。</li>
+  <li>把 map 複製到 Return notebook；不要為了保存 map 讓它寫入 repo。</li>
+</ol>
+<div class="win"><strong>Tangible win：</strong>一張包含 instructions、entry point、relevant files 與 checks 的 repo map。<br><strong>Observable feedback：</strong>抽查的檔案支持 map，且 <code>git status --short</code> 沒有因 reconnaissance 產生變更。</div>
+
+<div class="quiz" data-answer="2"><p>哪一種 repo map 最可 review？</p><button type="button">這是一個標準的 web app，結構看起來清楚</button><button type="button">Claude 已完整理解整個 codebase</button><button type="button">入口是 src/main.py；測試命令記在 README 的 Testing 段落；目前不確定部署路徑</button><div class="why">可 review 的 map 用路徑支持主張，也保留 unknown；模型的信心或一般化描述不是 evidence。</div></div>
+
+<p class="stop"><strong>停止線：</strong>若讀檔需要未授權資料或出現意外 write，立即停止並回到 safe scope。完成後前往<a href="001-0006-plan-readiness-fixture.html">fixture plan</a>。</p>
+<footer>Verified environment summary：Claude Code 2.1.211 help surface；Plan mode 是 read-only exploration boundary · Source IDs：<code>claude-code-cli-execution-controls</code>、<code>claude-code-permission-plan-boundary</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
+</body>
+</html>
