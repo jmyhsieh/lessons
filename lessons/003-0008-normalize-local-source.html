@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="003-0008">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="knowledge-delivery:conditional,knowledge-delivery:feedback,knowledge-delivery:tangible-win">
+<meta name="course:source-ids" content="course-knowledge-delivery-contract,docling-conversion-surface,knowledge-source-provenance-contract,markitdown-conversion-surface">
+<title>003-0008：用 MarkItDown 或 Docling normalize local source</title>
+<style>
+  * { box-sizing: border-box; } body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
+  h1 { font-size: 1.8rem; line-height: 1.35; } h2 { color: #48633e; margin-top: 2rem; } .kicker { color: #48633e; font-size: .86rem; letter-spacing: .08em; }
+  .mission, .stop { border-left: 4px solid #5f7f52; background: #f4f8f1; padding: .8rem 1rem; } .card, .win, .quiz { border: 1px solid #d5ddd1; border-radius: 8px; padding: 1rem; margin: 1rem 0; } .win { background: #edf7eb; border-color: #9eb895; }
+  table { width: 100%; border-collapse: collapse; font-size: .94rem; } th, td { border: 1px solid #d5ddd1; padding: .65rem; text-align: left; vertical-align: top; } th { background: #f0f5ed; } .table-wrap { overflow-x: auto; }
+  code, pre { background: #eef2eb; border-radius: 3px; } code { padding: .1rem .3rem; overflow-wrap: anywhere; } pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  button { display: block; width: 100%; margin: .45rem 0; padding: .65rem; text-align: left; background: white; border: 1px solid #bbb; border-radius: 6px; font: inherit; cursor: pointer; } button.correct { background: #e5f4e7; border-color: #2e7d32; } button.wrong { background: #fbe8e8; border-color: #b3261e; } .why { display: none; background: #f4f8f1; padding: .7rem; margin-top: .7rem; }
+  footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; } a { color: #405f35; } @media (max-width: 620px) { body { margin-top: 1.2rem; } }
+</style>
+</head>
+<body>
+<p><a href="003-0002-preserve-sources-and-provenance.html">← 回 sources／provenance</a> · <a href="003-0003-build-source-to-claim-outline.html">返回共同 outline →</a></p>
+<header><p class="kicker">Phase 3 · Deliver · 003-0008 · Conditional branch</p><h1>只把 active source normalize 成可檢查的 working copy</h1><p class="mission"><strong>進入條件：</strong>Raw source 可合法處理，但其 PDF、Office、image 或 layout 讓 claim extraction 不可靠。Readable source 不需轉換；MarkItDown 與 Docling 是二選一，不是連續必修。</p></header>
+
+<h2>依 source shape 選一個工具</h2>
+<div class="table-wrap"><table><thead><tr><th>選擇</th><th>適合</th><th>必查邊界</th></tr></thead><tbody>
+  <tr><td>MarkItDown</td><td>需要輕量 Markdown working copy，原檔結構相對直接。</td><td>Output 服務 text analysis，不代表 human-layout fidelity；process I/O 權限必須受限。</td></tr>
+  <tr><td>Docling</td><td>Layout、table、OCR 或 structured output 需要較細檢查。</td><td>限制 input／output；remote services 與 external plugins 未明確授權時保持關閉。</td></tr>
+</tbody></table></div>
+<div class="card"><pre>Source ID and raw path:
+Selected converter and reason:
+Allowed input / output directory:
+Remote / plugin policy:
+Normalized path and transformation record:
+Sample pages / tables to compare:
+Observed omissions or distortions:</pre></div>
+<ol>
+  <li>在隔離環境閱讀 current official help，只選一個 converter 與最窄 input scope；raw file 保持不變。</li>
+  <li>輸出到獨立 working directory，記錄 tool、time、options 與 normalized file identity。</li>
+  <li>抽查開頭、含 table／image 的一段與結尾；比較 headings、reading order、numbers、links、footnotes 與 missing content。</li>
+  <li>把錯置、OCR uncertainty 與缺少元素標在 transformation record；不得靜默修成看似合理的文字。</li>
+</ol>
+<div class="win"><strong>Tangible win：</strong>一份不覆蓋 raw source、帶 transformation record 的 normalized working copy。<br><strong>Observable feedback：</strong>Reviewer 能用抽樣位置重做 raw／normalized 對照，辨識工具選擇、remote boundary 與至少一項已檢查的 fidelity risk。</div>
+<div class="quiz" data-answer="2"><p>一份可直接閱讀的 Markdown source 已有 stable ID，下一步應該是？</p><button type="button">再跑 MarkItDown</button><button type="button">依序跑 MarkItDown 與 Docling 比較</button><button type="button">跳過 normalization，直接回共同 claim outline</button><div class="why">Normalization 只修正 active source 的可用性缺口；沒有缺口就不增加 derived copies。</div></div>
+<p class="stop"><strong>Return／legal stop：</strong>抽樣 fidelity 可接受且 limitations 已記錄後，回 <a href="003-0003-build-source-to-claim-outline.html">003-0003</a>；工具成功不是 route completion。若 rights、sensitive-data policy、input boundary、remote behavior 或數字／reading order 無法驗證，保存 raw source 與 failure log 後停止，改用 manual extraction 或回 readiness。</p>
+<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>course-knowledge-delivery-contract</code>、<code>docling-conversion-surface</code>、<code>knowledge-source-provenance-contract</code>、<code>markitdown-conversion-surface</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
+</body></html>

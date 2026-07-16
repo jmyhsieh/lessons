@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="003-0009"><meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="knowledge-delivery:conditional,knowledge-delivery:feedback,knowledge-delivery:tangible-win">
+<meta name="course:source-ids" content="course-knowledge-delivery-contract,knowledge-source-provenance-contract,qmd-local-search-surface">
+<title>003-0009：用 QMD query local source corpus</title>
+<style>
+  * { box-sizing: border-box; } body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; } h1 { font-size: 1.8rem; line-height: 1.35; } h2 { color: #48633e; margin-top: 2rem; } .kicker { color: #48633e; font-size: .86rem; letter-spacing: .08em; }
+  .mission, .stop { border-left: 4px solid #5f7f52; background: #f4f8f1; padding: .8rem 1rem; } .card, .win, .quiz { border: 1px solid #d5ddd1; border-radius: 8px; padding: 1rem; margin: 1rem 0; } .win { background: #edf7eb; border-color: #9eb895; } code, pre { background: #eef2eb; border-radius: 3px; } code { padding: .1rem .3rem; overflow-wrap: anywhere; } pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  button { display: block; width: 100%; margin: .45rem 0; padding: .65rem; text-align: left; background: white; border: 1px solid #bbb; border-radius: 6px; font: inherit; cursor: pointer; } button.correct { background: #e5f4e7; border-color: #2e7d32; } button.wrong { background: #fbe8e8; border-color: #b3261e; } .why { display: none; background: #f4f8f1; padding: .7rem; margin-top: .7rem; } footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; } a { color: #405f35; } @media (max-width: 620px) { body { margin-top: 1.2rem; } }
+</style></head>
+<body>
+<p><a href="003-0002-preserve-sources-and-provenance.html">← 回 sources／provenance</a> · <a href="003-0003-build-source-to-claim-outline.html">返回共同 outline →</a></p>
+<header><p class="kicker">Phase 3 · Deliver · 003-0009 · Conditional branch</p><h1>用 QMD 找候選 evidence，再親自打開原文件</h1><p class="mission"><strong>進入條件：</strong>Active sources 是已核准的 local markup corpus，而且人工逐檔查找成本過高。只有少量已知文件時，直接閱讀，不需要建立 search collection。</p></header>
+
+<h2>把 retrieval 變成可重跑的 evidence</h2>
+<div class="card"><pre>Collection name / included path / mask:
+Privacy and model-download boundary:
+Context description:
+Question and expected terms:
+Keyword query result IDs:
+Hybrid query result IDs:
+Opened source paths / locators:
+Misses, ranking uncertainty, next query:</pre></div>
+<ol>
+  <li>依 current official QMD documentation建立一個明確命名、範圍最窄的 collection；確認 ignore rules、local model storage 與首次下載是否符合 policy。</li>
+  <li>補上 collection context，先跑 keyword search，再於 mission 需要同義概念時跑 semantic／hybrid query；保存 exact query 與 result IDs。</li>
+  <li>不要把 snippet 或 ranking 當 evidence。打開命中的原文件，記錄 source ID、section／line range 與它實際支持的 claim。</li>
+  <li>用一個已知存在的 phrase 檢查 recall；若找不到，記為 retrieval miss，調整 scope／context 或回 manual search。</li>
+</ol>
+<div class="win"><strong>Tangible win：</strong>一份含 exact queries、result IDs、opened source locators 與 retrieval misses 的 local corpus search log。<br><strong>Observable feedback：</strong>Reviewer 能重跑一個 query、打開同一份原文件，並指出 result ranking 與 claim evidence 之間的差別。</div>
+<div class="quiz" data-answer="1"><p>QMD 的第一名結果摘要正好回答問題，下一步是？</p><button type="button">直接把摘要貼進 deliverable</button><button type="button">打開原文件並記錄 locator，再判斷它是否支持 claim</button><button type="button">只需保存 ranking score</button><div class="why">Retrieval result 是候選 evidence；只有原文件與 locator 能進入 source-to-claim ledger。</div></div>
+<p class="stop"><strong>Return／legal stop：</strong>取得足夠候選 evidence 或確認 retrieval gap 後，停止搜尋並回 <a href="003-0003-build-source-to-claim-outline.html">003-0003</a>；QMD 不是必修索引層。若 collection scope、privacy、model download、index freshness 或 recall 無法接受，保存 query log 後停止，改用 manual search，不以空結果證明資料不存在。</p>
+<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>course-knowledge-delivery-contract</code>、<code>knowledge-source-provenance-contract</code>、<code>qmd-local-search-surface</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
+</body></html>

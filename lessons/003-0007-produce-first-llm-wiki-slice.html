@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="003-0007">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="knowledge-delivery:conditional,knowledge-delivery:feedback,knowledge-delivery:tangible-win">
+<meta name="course:source-ids" content="course-knowledge-delivery-contract,knowledge-source-provenance-contract,llm-wiki-local-slice-contract">
+<title>003-0007：產生第一個 LLM Wiki slice</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
+  h1 { font-size: 1.8rem; line-height: 1.35; } h2 { color: #48633e; margin-top: 2rem; }
+  .kicker { color: #48633e; font-size: .86rem; letter-spacing: .08em; }
+  .mission, .stop { border-left: 4px solid #5f7f52; background: #f4f8f1; padding: .8rem 1rem; }
+  .card, .win, .quiz { border: 1px solid #d5ddd1; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .win { background: #edf7eb; border-color: #9eb895; }
+  code, pre { background: #eef2eb; border-radius: 3px; } code { padding: .1rem .3rem; overflow-wrap: anywhere; } pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  button { display: block; width: 100%; margin: .45rem 0; padding: .65rem; text-align: left; background: white; border: 1px solid #bbb; border-radius: 6px; font: inherit; cursor: pointer; }
+  button.correct { background: #e5f4e7; border-color: #2e7d32; } button.wrong { background: #fbe8e8; border-color: #b3261e; }
+  .why { display: none; background: #f4f8f1; padding: .7rem; margin-top: .7rem; }
+  footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; } a { color: #405f35; }
+  @media (max-width: 620px) { body { margin-top: 1.2rem; } }
+</style>
+</head>
+<body>
+<p><a href="003-0003-build-source-to-claim-outline.html">← 回 source-to-claim outline</a> · <a href="003-0005-verify-knowledge-deliverable.html">返回共同 verification →</a></p>
+<header>
+  <p class="kicker">Phase 3 · Deliver · 003-0007 · Conditional branch</p>
+  <h1>只編出一個可追溯的 LLM Wiki topic cluster</h1>
+  <p class="mission"><strong>進入條件：</strong>Mission 已選 local knowledge base，而且 raw source pack、stable source IDs 與 source-to-claim outline 都存在；若只需一次性 memo 或 summary，留在一般 Knowledge slice。</p>
+</header>
+
+<h2>先鎖定這次的 wiki slice</h2>
+<div class="card"><pre>Topic cluster and audience:
+Included source IDs:
+Expected pages / links:
+Material claims to retain:
+Excluded topics:
+Output path and revision identity:
+Reviewer question:</pre></div>
+<ol>
+  <li>在隔離的 workspace 使用當下官方文件確認 LLM Wiki 的 current input、local-data 與 output boundary；不要把 access 擴到整個 home directory。</li>
+  <li>只帶入本次列出的 sources，保留 raw pack；wiki page、摘要、links 與 machine-readable export 都是 derived artifacts。</li>
+  <li>產生一個小 topic cluster 後停止擴寫。逐頁檢查 title、source references、internal links、重複內容與空白頁。</li>
+  <li>從三個 material claims 反查 raw source locator；unsupported、conflict、遺漏或錯誤連結寫入 review log，不讓生成頁面自行成為 evidence。</li>
+  <li>保存 revision identity、輸入範圍與 review log，帶著 slice 回共同 verification。</li>
+</ol>
+<div class="win"><strong>Tangible win：</strong>一個具 source references、internal links 與 revision identity 的 LLM Wiki topic cluster。<br><strong>Observable feedback：</strong>Reviewer 能從 wiki page 回到 raw source，指出至少一個 retained claim 與一個已記錄的 omission／limitation，且知道這只是 optional artifact branch。</div>
+
+<div class="quiz" data-answer="1">
+  <p>Wiki page 看起來完整，但一個關鍵結論只出現在 generated summary，該怎麼做？</p>
+  <button type="button">把 summary 登記為新的 raw source</button>
+  <button type="button">標為 unsupported，回 raw sources 補 locator 或移除 claim</button>
+  <button type="button">只要 internal link 可用就接受</button>
+  <div class="why">LLM Wiki 是衍生 artifact；它不能取代 raw source 與 claim-level provenance。</div>
+</div>
+
+<p class="stop"><strong>Return／legal stop／continuation：</strong>Topic cluster 可重開且 review log 已保存時，立即回 <a href="003-0005-verify-knowledge-deliverable.html">003-0005 共同 verification</a>；不要接著建立其他 clusters 來假裝完成必修。若 source rights、local-data boundary、生成工具可用性或 claim trace 不成立，保存既有 evidence 後停止。只有 closeout 完成且後續 mission 明確需要維運，才可進 Operate route。</p>
+<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>course-knowledge-delivery-contract</code>、<code>knowledge-source-provenance-contract</code>、<code>llm-wiki-local-slice-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
+</body>
+</html>

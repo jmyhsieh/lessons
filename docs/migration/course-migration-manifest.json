@@ -3373,10 +3373,14 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "course-knowledge-delivery-contract",
+          "knowledge-source-provenance-contract",
+          "llm-wiki-local-slice-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/003-0007-to-tickets.html",
@@ -3488,10 +3492,15 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "course-knowledge-delivery-contract",
+          "docling-conversion-surface",
+          "knowledge-source-provenance-contract",
+          "markitdown-conversion-surface"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/003-0009-query-local-source-corpus.html",
@@ -3520,10 +3529,14 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "course-knowledge-delivery-contract",
+          "knowledge-source-provenance-contract",
+          "qmd-local-search-surface"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/003-0009-triage.html",
@@ -3628,10 +3641,14 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "course-knowledge-delivery-contract",
+          "duckdb-local-query-surface",
+          "knowledge-source-provenance-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/003-0011-architecture.html",

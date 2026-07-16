@@ -1799,6 +1799,200 @@
       }
     },
     {
+      "id": "llm-wiki-local-slice-contract",
+      "ownerPath": "lessons/003-0007-produce-first-llm-wiki-slice.html",
+      "claimScope": "LLM Wiki is an optional local-knowledge-base artifact branch that compiles a bounded, attributable source set into reviewable linked pages and machine-readable exports without replacing raw sources or shared Knowledge verification.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "llm-wiki-first-party-readme",
+          "url": "https://github.com/Pratiyush/llm-wiki/blob/master/README.md",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-17"
+        },
+        {
+          "id": "course-migration-spec-knowledge-branches",
+          "url": "https://github.com/jmyhsieh/lessons/issues/29",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-17"
+        }
+      ],
+      "principleStatement": "Select LLM Wiki only when the mission needs a maintained local knowledge-base slice; preserve raw sources and stable IDs, inspect a small generated topic cluster and its links, record omissions and unsupported claims, then return to the common Knowledge verification path.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "LLM Wiki input, generated artifact, export, review, or local-data behavior changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-17",
+        "actor": "Codex implementation session for Issue #29",
+        "sourceIds": [
+          "course-migration-spec-knowledge-branches",
+          "llm-wiki-first-party-readme"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The project documents local searchable and interlinked wiki output plus AI-consumable exports from supported agent sessions.",
+          "Issue #29 keeps LLM Wiki conditional and requires its branch to return to the Knowledge route."
+        ]
+      }
+    },
+    {
+      "id": "markitdown-conversion-surface",
+      "ownerPath": "lessons/003-0008-normalize-local-source.html",
+      "claimScope": "MarkItDown is a lightweight optional conversion surface for turning supported local files into structure-preserving Markdown for text analysis, with process-level I/O authority and no claim of human-layout fidelity.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "microsoft-markitdown-readme",
+          "url": "https://github.com/microsoft/markitdown/blob/main/README.md",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-17"
+        }
+      ],
+      "principleStatement": "Use MarkItDown only when a supported source needs lightweight Markdown normalization; bound file access, retain the raw file, compare headings, tables and omissions against the original, and treat conversion output as a derived working copy.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "MarkItDown supported formats, CLI, security guidance, or conversion behavior changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-17",
+        "actor": "Codex implementation session for Issue #29",
+        "sourceIds": [
+          "microsoft-markitdown-readme"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The first-party README describes Markdown output for supported document formats and says the output targets text analysis rather than high-fidelity human conversion.",
+          "The security guidance says conversion has the current process I/O privileges and recommends narrow input handling."
+        ]
+      }
+    },
+    {
+      "id": "docling-conversion-surface",
+      "ownerPath": "lessons/003-0008-normalize-local-source.html",
+      "claimScope": "Docling is an optional local document-conversion surface for supported structured or layout-heavy sources, with explicit output formats and remote services disabled unless deliberately enabled.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "docling-cli-reference",
+          "url": "https://docling-project.github.io/docling/reference/cli/",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-17"
+        }
+      ],
+      "principleStatement": "Choose Docling when layout, tables, OCR, or structured conversion needs inspection beyond a lightweight pass; constrain accepted inputs and outputs, keep remote services and external plugins off unless authorized, compare a sampled conversion with the raw source, and preserve limitations.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Docling CLI, supported inputs, output formats, model behavior, remote-service defaults, or plugin controls change"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-17",
+        "actor": "Codex implementation session for Issue #29",
+        "sourceIds": [
+          "docling-cli-reference"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The first-party CLI reference documents local conversion, accepted source boundaries, multiple output formats, and an output directory.",
+          "Remote services and external plugins require explicit enabling in the documented CLI surface."
+        ]
+      }
+    },
+    {
+      "id": "qmd-local-search-surface",
+      "ownerPath": "lessons/003-0009-query-local-source-corpus.html",
+      "claimScope": "QMD is an optional on-device search surface for local markup collections that provides keyword, semantic, and hybrid retrieval while requiring the learner to inspect returned source documents before retaining claims.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "qmd-first-party-readme",
+          "url": "https://github.com/tobi/qmd",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-17"
+        }
+      ],
+      "principleStatement": "Use QMD only when a bounded local markup corpus needs retrieval; name the collection and scope, add context, compare keyword and hybrid results, open the returned documents, and record retrieval misses or ranking uncertainty before returning to the claim outline.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "QMD collection, indexing, model download, search mode, ranking, privacy, or CLI behavior changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-17",
+        "actor": "Codex implementation session for Issue #29",
+        "sourceIds": [
+          "qmd-first-party-readme"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The first-party README documents named local collections, context, keyword search, semantic search, hybrid reranking, and opening matched documents.",
+          "The documented semantic and hybrid paths use local models that may be downloaded on first use, so model storage and network policy remain readiness checks."
+        ]
+      }
+    },
+    {
+      "id": "duckdb-local-query-surface",
+      "ownerPath": "lessons/003-0010-query-local-tabular-data.html",
+      "claimScope": "DuckDB is an optional local SQL analysis surface that can query tabular files directly and emit reviewable results, without turning query output into evidence unless schema, filters, aggregation, source rows, and interpretation are checked.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "duckdb-cli-overview",
+          "url": "https://duckdb.org/docs/stable/clients/cli/overview",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-17"
+        },
+        {
+          "id": "duckdb-parquet-overview",
+          "url": "https://duckdb.org/docs/stable/data/parquet/overview",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-17"
+        }
+      ],
+      "principleStatement": "Use DuckDB only when the active source is tabular and SQL is the shortest path to a bounded answer; start read-only or in memory, inspect schema and nulls, save the exact query and output, reconcile sample rows and totals, and return the supported finding to the claim outline.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "DuckDB CLI, file readers, read-only behavior, SQL semantics, or export behavior changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-17",
+        "actor": "Codex implementation session for Issue #29",
+        "sourceIds": [
+          "duckdb-cli-overview",
+          "duckdb-parquet-overview"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The first-party CLI documentation describes in-memory and read-only operation plus non-interactive output modes.",
+          "The first-party Parquet documentation describes direct file queries and automatic filter and projection pushdown."
+        ]
+      }
+    },
+    {
       "id": "course-presentation-delivery-contract",
       "ownerPath": "lessons/005-0001-choose-presentation-route.html",
       "claimScope": "The core Presentation route converts a bounded source pack into a claim-checked, accessible, exported, and rehearsed deck; repurposing, Open-Slide, and Mermaid CLI remain conditional continuations rather than completion requirements.",

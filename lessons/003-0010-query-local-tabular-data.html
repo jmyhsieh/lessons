@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="003-0010"><meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="knowledge-delivery:conditional,knowledge-delivery:feedback,knowledge-delivery:tangible-win">
+<meta name="course:source-ids" content="course-knowledge-delivery-contract,duckdb-local-query-surface,knowledge-source-provenance-contract">
+<title>003-0010：用 DuckDB query local tabular data</title>
+<style>
+  * { box-sizing: border-box; } body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; } h1 { font-size: 1.8rem; line-height: 1.35; } h2 { color: #48633e; margin-top: 2rem; } .kicker { color: #48633e; font-size: .86rem; letter-spacing: .08em; }
+  .mission, .stop { border-left: 4px solid #5f7f52; background: #f4f8f1; padding: .8rem 1rem; } .card, .win, .quiz { border: 1px solid #d5ddd1; border-radius: 8px; padding: 1rem; margin: 1rem 0; } .win { background: #edf7eb; border-color: #9eb895; } code, pre { background: #eef2eb; border-radius: 3px; } code { padding: .1rem .3rem; overflow-wrap: anywhere; } pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  button { display: block; width: 100%; margin: .45rem 0; padding: .65rem; text-align: left; background: white; border: 1px solid #bbb; border-radius: 6px; font: inherit; cursor: pointer; } button.correct { background: #e5f4e7; border-color: #2e7d32; } button.wrong { background: #fbe8e8; border-color: #b3261e; } .why { display: none; background: #f4f8f1; padding: .7rem; margin-top: .7rem; } footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; } a { color: #405f35; } @media (max-width: 620px) { body { margin-top: 1.2rem; } }
+</style></head>
+<body>
+<p><a href="003-0002-preserve-sources-and-provenance.html">← 回 sources／provenance</a> · <a href="003-0003-build-source-to-claim-outline.html">返回共同 outline →</a></p>
+<header><p class="kicker">Phase 3 · Deliver · 003-0010 · Conditional branch</p><h1>用 DuckDB 產生一個可重算的 tabular finding</h1><p class="mission"><strong>進入條件：</strong>Active evidence 是 CSV、Parquet 或其他支援的 tabular source，而且 mission 有一個可用 SQL 回答的 bounded question。若只需閱讀幾列，直接抽查即可。</p></header>
+
+<h2>先定義 query contract</h2>
+<div class="card"><pre>Question / decision supported:
+Source ID / file identity / captured at:
+Read-only or in-memory boundary:
+Expected schema, grain, units, time range:
+Null / duplicate / exclusion rules:
+Exact SQL and DuckDB version:
+Output path:
+Sample-row and aggregate reconciliation:</pre></div>
+<ol>
+  <li>依 current official DuckDB documentation確認 file reader 與 CLI option；優先 read-only 或 in-memory，不覆寫 source。</li>
+  <li>先看 schema、row count、null、duplicate、units 與時間範圍；把 data grain 寫進 query contract。</li>
+  <li>保存 exact SQL，再輸出一個 bounded table。Filter、join、denominator 與 aggregation 要能由 reviewer 看懂。</li>
+  <li>抽查至少三個 source rows，並以獨立 subtotal 或簡單計算對照 aggregate；將 discrepancy 保留為 limitation。</li>
+  <li>把 finding、query、output 與 source locator 一起帶回 claim ledger；query result 不會自動成為 interpretation。</li>
+</ol>
+<div class="win"><strong>Tangible win：</strong>一個帶 exact SQL、schema assumptions、output 與 reconciliation record 的 tabular finding。<br><strong>Observable feedback：</strong>Reviewer 能重跑 query 得到同一結果，追到抽樣 source rows，並說明 filter、denominator 與 limitation 如何影響 finding。</div>
+<div class="quiz" data-answer="2"><p>Aggregate 看起來合理，但 denominator 的 null rows 未定義，該怎麼做？</p><button type="button">直接交付，因為 SQL 可重跑</button><button type="button">把 null 當 0，不需記錄</button><button type="button">明確定義 exclusion／null rule，重跑並保存差異</button><div class="why">可重跑不代表語意正確；schema、grain、null 與 denominator 都是 claim boundary。</div></div>
+<p class="stop"><strong>Return／legal stop：</strong>Finding 通過 sample-row 與 aggregate reconciliation 後，回 <a href="003-0003-build-source-to-claim-outline.html">003-0003</a>；不要把 DuckDB 練習升格為 Knowledge completion。若 schema、units、join key、rights 或 discrepancy 無法釐清，保存 SQL 與 failure evidence 後停止，不輸出確定語氣的結論。</p>
+<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>course-knowledge-delivery-contract</code>、<code>duckdb-local-query-surface</code>、<code>knowledge-source-provenance-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
+</body></html>
