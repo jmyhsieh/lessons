@@ -4817,7 +4817,7 @@
           "immutable-review-checkpoint-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/006-0008-review-final-candidate.html",
@@ -4852,7 +4852,7 @@
           "immutable-review-checkpoint-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/006-0009-complete-engineering-closeout.html",
@@ -7218,7 +7218,7 @@
           "immutable-review-checkpoint-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/wayfinder-map-workflow.html",
