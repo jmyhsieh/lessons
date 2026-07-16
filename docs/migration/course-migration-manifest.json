@@ -1465,8 +1465,10 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "course-production-index-surface"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4236,10 +4238,8 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "registered",
-        "anchorIds": [
-          "claude-file-creation-surface"
-        ]
+        "state": "pending-t03",
+        "anchorIds": []
       },
       "migrationStatus": "planned"
     },

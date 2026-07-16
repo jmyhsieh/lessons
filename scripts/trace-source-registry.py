@@ -194,6 +194,7 @@ def validate_top_level(registry: dict[str, Any], errors: list[dict[str, str]]) -
 def validate_sources(
     anchor: dict[str, Any],
     anchor_id: str,
+    as_of: date,
     errors: list[dict[str, str]],
 ) -> set[str]:
     sources = anchor.get("sources")
@@ -217,9 +218,14 @@ def validate_sources(
         if not valid_https_url(source.get("url")):
             errors.append(blocker("source-metadata", "source URL must use HTTPS", subject))
         add_required_string_blocker(errors, source, "kind", "source-metadata", subject)
-        if parse_date(source.get("checkedAt")) is None:
+        source_checked_at = parse_date(source.get("checkedAt"))
+        if source_checked_at is None:
             errors.append(
                 blocker("source-metadata", "checkedAt must use YYYY-MM-DD", subject)
+            )
+        elif source_checked_at > as_of:
+            errors.append(
+                blocker("source-metadata", "checkedAt cannot be in the future", subject)
             )
     return source_ids
 
@@ -259,6 +265,7 @@ def validate_profile(
     anchor_id: str,
     profile: str | None,
     evidence: dict[str, Any] | None,
+    as_of: date,
     errors: list[dict[str, str]],
 ) -> bool:
     unresolved_version = False
@@ -286,9 +293,15 @@ def validate_profile(
                     unresolved_version = True
             else:
                 unresolved_version = True
-            if parse_date(version.get("resolvedAt")) is None:
+            resolved_at = parse_date(version.get("resolvedAt"))
+            if resolved_at is None:
                 errors.append(
                     blocker("version-anchor", "resolvedAt must use YYYY-MM-DD", anchor_id)
+                )
+                unresolved_version = True
+            elif resolved_at > as_of:
+                errors.append(
+                    blocker("version-anchor", "resolvedAt cannot be in the future", anchor_id)
                 )
                 unresolved_version = True
         if not nonempty_string_mapping(anchor.get("declaredEnvironment")):
@@ -443,7 +456,7 @@ def trace_anchor(
     if publication not in {"draft", "active", "inactive"}:
         errors.append(blocker("publication-state", "invalid Publication state", anchor_id))
 
-    source_ids = validate_sources(anchor, anchor_id, errors)
+    source_ids = validate_sources(anchor, anchor_id, as_of, errors)
     if not nonempty_string_list(anchor.get("changeTriggers")):
         errors.append(
             blocker("change-triggers", "changeTriggers must be a non-empty string list", anchor_id)
@@ -484,6 +497,14 @@ def trace_anchor(
                 blocker(
                     "recertification-evidence",
                     "evidence checkedAt must use YYYY-MM-DD",
+                    anchor_id,
+                )
+            )
+        elif checked_at > as_of:
+            errors.append(
+                blocker(
+                    "recertification-evidence",
+                    "evidence checkedAt cannot be in the future",
                     anchor_id,
                 )
             )
@@ -535,7 +556,9 @@ def trace_anchor(
                 )
             )
 
-    unresolved_version = validate_profile(anchor, anchor_id, profile, evidence, errors)
+    unresolved_version = validate_profile(
+        anchor, anchor_id, profile, evidence, as_of, errors
+    )
 
     due_at: date | None = None
     if checked_at is not None and drift_class in drift_windows:
@@ -543,7 +566,13 @@ def trace_anchor(
 
     if evidence_result == "fail":
         freshness = "stale"
-    elif checked_at is None or due_at is None or as_of >= due_at or open_trigger:
+    elif (
+        checked_at is None
+        or checked_at > as_of
+        or due_at is None
+        or as_of >= due_at
+        or open_trigger
+    ):
         freshness = "due"
     else:
         freshness = "current"
@@ -937,6 +966,22 @@ def run_self_test() -> None:
     ]
     profile_report = trace_registry(contradictory_profile, manifest, as_of=as_of)
     assert_has_code(profile_report, "source-profiles")
+
+    future_evidence = copy.deepcopy(registry)
+    future_evidence["anchors"][0]["sources"][0]["checkedAt"] = "2027-07-16"
+    future_evidence["anchors"][0]["versionAnchor"]["resolvedAt"] = "2027-07-16"
+    future_evidence["anchors"][0]["recertificationEvidence"][
+        "checkedAt"
+    ] = "2027-07-16"
+    future_report = trace_registry(future_evidence, manifest, as_of=as_of)
+    assert_has_code(future_report, "source-metadata")
+    assert_has_code(future_report, "version-anchor")
+    assert_has_code(future_report, "recertification-evidence")
+    future_anchor = next(
+        item for item in future_report["anchors"] if item["id"] == "fixture-executable"
+    )
+    assert future_anchor["freshnessState"] == "due"
+    assert future_anchor["gateState"] == "blocked"
 
     stale_registry = copy.deepcopy(registry)
     stale_registry["anchors"][0]["recertificationEvidence"]["result"] = "fail"

@@ -121,7 +121,7 @@ EXPECTED_NAVIGATION_PATHS = {"index.html", "toc.html"}
 # Independent digests of the manually reviewed Issue #12/#13 projections pin
 # exact page and route contracts without creating a second readable manifest.
 EXPECTED_PAGE_MATRIX_SHA256 = (
-    "df065862e0d4bb0a321b2927ff362b271f691bc573421acaf6f6574f6eafd9aa"
+    "8227bcf6cab55c5efea7a9ed033688fe8d71ee9350ee34063aa1340a99a8519e"
 )
 EXPECTED_ROUTE_CONTRACT_SHA256 = (
     "f412397e52c5cc19a858519238f049ac7b3e1ed7c4048f3120073832d5a56a4e"

@@ -157,33 +157,33 @@
       }
     },
     {
-      "id": "claude-file-creation-surface",
-      "claimScope": "Claude conversations can create downloadable PowerPoint, Word, PDF, and spreadsheet files when code execution and file creation are available.",
+      "id": "course-production-index-surface",
+      "claimScope": "The canonical production host serves the frozen pre-migration index identity and has not partially published the route-based catalog.",
       "profile": "surface-procedure",
       "driftClass": "high",
       "publicationState": "active",
       "sources": [
         {
-          "id": "anthropic-create-and-edit-files-help",
-          "url": "https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude",
-          "kind": "first-party-product-help",
+          "id": "course-production-index",
+          "url": "https://lessons-three-xi.vercel.app/",
+          "kind": "first-party-production-surface",
           "checkedAt": "2026-07-16"
         }
       ],
-      "surfacePath": "Claude web, Desktop, or Mobile > conversation > provide source material > request a downloadable PowerPoint file",
+      "surfacePath": "https://lessons-three-xi.vercel.app/ > index.html",
       "availabilityAssumptions": [
-        "Code execution and file creation are enabled for the account or organization.",
-        "Plan and administrator controls may change surface availability."
+        "The Vercel Production alias remains the canonical public host.",
+        "Remote main remains pinned to the frozen pre-migration commit until coherent cutover."
       ],
       "expectedEvidence": [
-        "The official help article identifies PowerPoint as a supported generated file type.",
-        "The article states the applicable Claude surfaces and availability boundary."
+        "The production index returns HTTP 200 and matches the frozen Git blob byte-for-byte.",
+        "All 73 frozen baseline URLs remain resolvable and no remote migration branch exists."
       ],
       "commandMetadata": "not-applicable",
       "changeTriggers": [
-        "Claude file-creation availability changes",
-        "Plan or administrator capability controls change",
-        "The presentation creation surface path changes"
+        "The production deployment SHA changes",
+        "The canonical host or deployment trigger changes",
+        "A remote migration branch or Preview deployment appears"
       ],
       "triggerEvents": [],
       "conflicts": [],
@@ -191,14 +191,14 @@
         "checkedAt": "2026-07-16",
         "actor": "Codex implementation session for Issue #16",
         "sourceIds": [
-          "anthropic-create-and-edit-files-help"
+          "course-production-index"
         ],
         "verificationMethod": "surface-observation",
-        "surfacePath": "Claude web, Desktop, or Mobile > conversation > provide source material > request a downloadable PowerPoint file",
+        "surfacePath": "https://lessons-three-xi.vercel.app/ > index.html",
         "result": "pass",
         "observations": [
-          "The dated first-party help content explicitly lists PowerPoint creation rather than merely returning HTTP success.",
-          "The same content records web, Desktop, and Mobile availability plus the code-execution and file-creation capability boundary."
+          "On 2026-07-16 the online Freeze verifier observed the production baseline at the frozen pre-migration identity and the index bytes matched SHA-256 cae763f33a866da38b0ff4d8b7a06907a4715a38c6f6cd76432470d40f0a9de5.",
+          "The same live observation returned ONLINE URLS PASS (73/73) and confirmed the local-only migration branch had not produced a partial publication."
         ]
       }
     },
