@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+<link rel="icon" href="data:,">
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="not-applicable">
+<meta name="course:page-kind" content="canonical-reference">
+<meta name="course:route-roles" content="not-applicable">
+<meta name="course:source-ids" content="claude-design-presentation-surface,course-presentation-delivery-contract,mermaid-cli-render-contract,open-slide-agent-deck-contract,open-slide-cli-build-contract,presentation-repurpose-contract">
 <title>Phase 5 日常視覺交付物速查表</title>
 <style>
   *{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:900px;margin:2.5rem auto;padding:0 1.5rem;color:#18232d;line-height:1.7;background:#f5f8fb}.sheet{background:#fff;border:1px solid #d7e0e8;border-radius:14px;padding:2rem 2.2rem;box-shadow:0 8px 28px rgba(49,95,134,.08)}.kicker{color:#315f86;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}h1{font-size:1.8rem;margin:.3rem 0}h2{font-size:1.08rem;color:#315f86;margin-top:2rem;border-bottom:1px solid #d7e0e8;padding-bottom:.35rem}.lead{color:#596775;margin-top:.4rem}table{border-collapse:collapse;width:100%;font-size:.88rem}th,td{border:1px solid #d7e0e8;padding:.55rem .65rem;text-align:left;vertical-align:top}th{background:#edf4f8}.route{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.card{border:1px solid #d7e0e8;border-radius:9px;padding:.85rem 1rem}.card strong{color:#315f86}.rule{background:#edf4f8;border-left:4px solid #315f86;padding:.8rem 1rem}.avoid{background:#fff8e8;border-left:4px solid #d08800;padding:.8rem 1rem}a{color:#315f86}footer{margin-top:2rem;font-size:.84rem;color:#667;border-top:1px solid #d7e0e8;padding-top:.8rem}@media(max-width:680px){.route{grid-template-columns:1fr}.sheet{padding:1.4rem}}@media print{body{background:#fff;margin:0}.sheet{box-shadow:none;border:0;padding:0}a{color:#000;text-decoration:none}}
@@ -32,9 +37,13 @@
 
 <h2>Deck 選定後，再選 authoring surface</h2>
 <div class="route">
-  <div class="card"><strong>Claude Design</strong><br>需要 canvas 精修、非工程協作或 PPTX 交接；走 Phase 5 第 04–08 課主線。</div>
-  <div class="card"><strong>open-slide</strong><br>需要 React 客製、Git diff 或 static HTML／PDF；完成主線後走 <a href="../lessons/005-0009-build-versioned-deck-with-open-slide.html">第 09 課 vertical slice</a>。</div>
+  <div class="card"><strong>Claude Design core</strong><br>需要 canvas 精修、非工程協作或 PPTX 交接；走 <a href="../lessons/005-0001-choose-presentation-route.html">005-0001</a> 至 <a href="../lessons/005-0007-export-and-rehearse.html">005-0007</a>。第 07 課通過即可合法停止。</div>
+  <div class="card"><strong>Open-Slide elective</strong><br>只有在 core closeout 後，新需求需要 React 客製、Git diff 或 static HTML／PDF，才走 <a href="../lessons/005-0009-build-versioned-deck-with-open-slide.html">005-0009 vertical slice</a>。</div>
+  <div class="card"><strong>Repurpose elective</strong><br>新需求是自行閱讀／轉寄或單一 CTA，才選 <a href="../lessons/005-0008-repurpose-one-pager-social.html">005-0008 one-pager／social adaptation</a>，並重新驗證新格式。</div>
+  <div class="card"><strong>Mermaid CLI elective</strong><br>只有在 core closeout 後，新需求需要可 diff、可重跑的 diagram source，才走 <a href="../lessons/005-0010-build-diagram-as-code-with-mermaid-cli.html">005-0010</a>。</div>
 </div>
+
+<div class="rule"><strong>Elective 與 Review 邊界：</strong>三個 electives 彼此沒有先後依賴，也都不能單獨構成 Presentation closeout。若 elective 產生 repo／code artifact，必須固定 candidate SHA 並依 <a href="repo-review-contract.html">Repo Review contract</a>做兩軸 Review；視覺回饋或 render／build green 不能替代。</div>
 
 <h2>選定後填四欄</h2>
 <div class="rule"><strong>Audience</strong>：誰？已知什麼？<br><strong>Moment</strong>：現場聽、自行讀、滑到內容或實際操作？<br><strong>Next action</strong>：之後要決定、核准、分享、點擊或完成什麼？<br><strong>Success</strong>：能觀察到什麼才算交付有效？</div>
@@ -43,7 +52,7 @@
 <div class="avoid">不要用 Claude Design 的能力清單替你決定格式。若受眾、使用時刻與下一個動作還寫不出來，先不要生成。</div>
 
 <p><strong>主要來源：</strong><a href="https://claude.com/product/design">Claude Design product page</a>、<a href="https://open-slide.dev/docs">open-slide Introduction</a>。</p>
-<footer>對應課程：<a href="../lessons/005-0001-choose-daily-visual-output.html">Phase 5 第 01 課</a> · <a href="claude-design-presentation-workflow.html">簡報工作流</a> · <a href="open-slide-agent-deck-workflow.html">open-slide 速查</a> · <a href="../toc.html">課目表</a></footer>
+<footer>Page kind：canonical reference · 對應課程：<a href="../lessons/005-0001-choose-presentation-route.html">Presentation route</a> · <a href="claude-design-presentation-workflow.html">簡報工作流</a> · <a href="open-slide-agent-deck-workflow.html">Open-Slide 速查</a> · <a href="../toc.html">課目表</a> · Source IDs：<code>claude-design-presentation-surface</code>、<code>course-presentation-delivery-contract</code>、<code>mermaid-cli-render-contract</code>、<code>open-slide-agent-deck-contract</code>、<code>open-slide-cli-build-contract</code>、<code>presentation-repurpose-contract</code></footer>
 </main>
 </body>
 </html>

@@ -4504,7 +4504,7 @@
           "presentation-source-claim-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/005-0009-build-versioned-deck-with-open-slide.html",
@@ -4543,7 +4543,7 @@
           "presentation-source-claim-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/005-0010-build-diagram-as-code-with-mermaid-cli.html",
@@ -4579,7 +4579,7 @@
           "presentation-source-claim-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/006-0001-choose-engineering-route.html",
@@ -6928,7 +6928,7 @@
           "presentation-repurpose-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/claude-design-presentation-workflow.html",
@@ -7192,7 +7192,7 @@
           "presentation-source-claim-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/repo-review-contract.html",
