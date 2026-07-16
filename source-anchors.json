@@ -11,7 +11,7 @@
   "coverage": {
     "mode": "representative-thin-slice",
     "complete": false,
-    "nextWave": "recertify-engineering-workflow-anchors"
+    "nextWave": "recertify-design-baseline-anchors"
   },
   "driftWindowsDays": {
     "high": 30,
@@ -87,6 +87,449 @@
     }
   },
   "anchors": [
+    {
+      "id": "course-engineering-delivery-contract",
+      "claimScope": "Phase 6 is a repository-delivery route that begins after Code readiness and ends only with an implemented, deterministically checked, reviewed closeout tied to the delivered checkpoint.",
+      "profile": "principle-only",
+      "driftClass": "lower",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "course-migration-spec-engineering-contract",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "principleStatement": "Enter Engineering only after Code readiness, select the fitting on-ramp, preserve deterministic evidence, and stop only after Review evidence matches the final checkpoint.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The approved Engineering route, readiness requirement, or closeout contract changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #19",
+        "sourceIds": [
+          "course-migration-spec-engineering-contract"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "Issue #13 defines Engineering as an end-to-end repository delivery route rather than a collection of isolated skill demos.",
+          "The approved route requires Code readiness before entry and an immutable, reviewed closeout before completion."
+        ]
+      }
+    },
+    {
+      "id": "engineering-repository-reconnaissance-contract",
+      "claimScope": "Claude Code can map an unfamiliar repository by starting at the project root, requesting a high-level overview, narrowing to relevant files, and tracing execution flow before any implementation edit.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-claude-code-common-workflows",
+          "url": "https://code.claude.com/docs/en/common-workflows",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "course-migration-spec-read-only-reconnaissance",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "inspectionContext": "Claude Code documentation surface checked from macOS 26.5.2, arm64; contract inspection only",
+      "principleStatement": "Map before editing: establish the repository root, structure, conventions, domain terms, relevant files, interactions, and execution flow using read-only investigation, then carry the map into request alignment.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Anthropic changes its codebase exploration workflow",
+        "The course read-only reconnaissance or Engineering entry boundary changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #19",
+        "sourceIds": [
+          "anthropic-claude-code-common-workflows",
+          "course-migration-spec-read-only-reconnaissance"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The first-party workflow starts at the project root, requests a codebase overview, then narrows into architecture, data models, conventions, and project terminology.",
+          "The same workflow separately traces relevant files, their interactions, and execution flow; Issue #13 keeps this investigation read-only before repository delivery."
+        ]
+      }
+    },
+    {
+      "id": "engineering-skill-router-contract",
+      "claimScope": "The current Ask Matt router distinguishes the idea-to-ship flow, triage and diagnosis on-ramps, architecture upkeep, Wayfinder planning, and session handoff without collapsing their evidence boundaries.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "mattpocock-ask-matt-skill",
+          "url": "https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/ask-matt/SKILL.md",
+          "kind": "first-party-upstream-skill-source",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "sourceRevision": "mattpocock/skills@9603c1cc8118d08bc1b3bf34cf714f62178dea3b",
+      "inspectionContext": "macOS 26.5.2, arm64, zsh; immutable Git checkout and contract inspection",
+      "principleStatement": "Choose the engineering flow by work shape and preserve the handoff between planning, delivery, review, diagnosis, architecture, and Wayfinder instead of invoking every skill as one linear checklist.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The upstream Ask Matt route changes",
+        "The pinned upstream revision is superseded for course use"
+      ],
+      "triggerEvents": [],
+      "conflicts": [
+        {
+          "id": "legacy-repo-map-skill-removed",
+          "summary": "The legacy Phase 3 repo-map lesson names a skill that is absent from the current upstream engineering skill set.",
+          "status": "resolved",
+          "scope": "optional-path",
+          "disposition": "Do not claim a current repo-map skill; anchor the canonical repository-map lesson to the first-party Claude Code reconnaissance contract instead."
+        }
+      ],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #19",
+        "sourceIds": [
+          "mattpocock-ask-matt-skill"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The pinned Ask Matt contract separates the main idea-to-ship flow from triage, diagnosis, architecture, and Wayfinder on-ramps.",
+          "The legacy repo-map skill is no longer present upstream, so the canonical course does not teach it as an available skill."
+        ]
+      }
+    },
+    {
+      "id": "engineering-request-shaping-contract",
+      "claimScope": "Engineering request shaping uses repository-aware grilling for decisions and a throwaway prototype only when a runnable answer is needed before the delivery spec.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "mattpocock-grill-with-docs-skill",
+          "url": "https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/grill-with-docs/SKILL.md",
+          "kind": "first-party-upstream-skill-source",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "mattpocock-prototype-skill",
+          "url": "https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/prototype/SKILL.md",
+          "kind": "first-party-upstream-skill-source",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "sourceRevision": "mattpocock/skills@9603c1cc8118d08bc1b3bf34cf714f62178dea3b",
+      "inspectionContext": "macOS 26.5.2, arm64, zsh; immutable Git checkout and contract inspection",
+      "principleStatement": "Resolve conversational uncertainty with repository-aware grilling; detour through a deliberately throwaway prototype only for a concrete technical question, then carry the decision back into the delivery flow.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Upstream grilling or prototype boundaries change",
+        "Prototype output becomes a production deliverable in the approved route"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #19",
+        "sourceIds": [
+          "mattpocock-grill-with-docs-skill",
+          "mattpocock-prototype-skill"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The pinned grilling contract preserves repository decisions in project documentation.",
+          "The pinned prototype contract treats code as disposable evidence for one design question, not the implementation candidate."
+        ]
+      }
+    },
+    {
+      "id": "engineering-spec-implementation-contract",
+      "claimScope": "The current delivery flow turns settled decisions into a spec, slices tracer-bullet tickets with blocking edges, implements each ticket test-first, reviews the fixed candidate, and hands context across sessions when needed.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "mattpocock-to-spec-skill",
+          "url": "https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/to-spec/SKILL.md",
+          "kind": "first-party-upstream-skill-source",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "mattpocock-to-tickets-skill",
+          "url": "https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/to-tickets/SKILL.md",
+          "kind": "first-party-upstream-skill-source",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "mattpocock-implement-skill",
+          "url": "https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/implement/SKILL.md",
+          "kind": "first-party-upstream-skill-source",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "mattpocock-tdd-skill",
+          "url": "https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/tdd/SKILL.md",
+          "kind": "first-party-upstream-skill-source",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "mattpocock-handoff-skill",
+          "url": "https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/productivity/handoff/SKILL.md",
+          "kind": "first-party-upstream-skill-source",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "sourceRevision": "mattpocock/skills@9603c1cc8118d08bc1b3bf34cf714f62178dea3b",
+      "inspectionContext": "macOS 26.5.2, arm64, zsh; immutable Git checkout and contract inspection",
+      "principleStatement": "Preserve the sequence from settled decisions to spec, dependency-aware tickets, test-first implementation, fixed-point review, commit, and session handoff; each artifact carries evidence into the next step without replacing it.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Upstream spec, ticket, implement, TDD, or handoff contracts change",
+        "The course changes its issue dependency or review checkpoint model"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #19",
+        "sourceIds": [
+          "mattpocock-to-spec-skill",
+          "mattpocock-to-tickets-skill",
+          "mattpocock-implement-skill",
+          "mattpocock-tdd-skill",
+          "mattpocock-handoff-skill"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The pinned contracts preserve one flow from spec through dependency-aware tickets to TDD implementation and review.",
+          "Handoff is explicitly a context bridge and does not substitute for deterministic checks or final Review evidence."
+        ]
+      }
+    },
+    {
+      "id": "engineering-two-axis-review-contract",
+      "claimScope": "Repository review compares an immutable candidate against a fixed point on two independent axes: documented standards and the originating spec.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "mattpocock-code-review-skill",
+          "url": "https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/code-review/SKILL.md",
+          "kind": "first-party-upstream-skill-source",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "course-migration-spec-review-evidence",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "sourceRevision": "mattpocock/skills@9603c1cc8118d08bc1b3bf34cf714f62178dea3b",
+      "inspectionContext": "macOS 26.5.2, arm64, zsh; immutable Git checkout and contract inspection",
+      "principleStatement": "Pin the candidate and fixed point, review Standards and Spec independently, and invalidate all review evidence when the candidate changes.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The upstream two-axis Review contract changes",
+        "The project immutable checkpoint rule changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #19",
+        "sourceIds": [
+          "mattpocock-code-review-skill",
+          "course-migration-spec-review-evidence"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The pinned Review contract keeps Standards and Spec findings separate and compares the diff to a fixed point.",
+          "Issue #13 requires the reviewed candidate to be immutable and requires a full rerun after mutation."
+        ]
+      }
+    },
+    {
+      "id": "engineering-triage-contract",
+      "claimScope": "Triage is reserved for externally arriving issues or pull requests and moves each item through explicit category and state roles before implementation.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "mattpocock-triage-skill",
+          "url": "https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/triage/SKILL.md",
+          "kind": "first-party-upstream-skill-source",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "sourceRevision": "mattpocock/skills@9603c1cc8118d08bc1b3bf34cf714f62178dea3b",
+      "inspectionContext": "macOS 26.5.2, arm64, zsh; immutable Git checkout and contract inspection",
+      "principleStatement": "Use triage for raw external requests, verify the claim and repository context, then assign exactly one category role and one state role; generated delivery tickets are already agent-ready and bypass triage.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The upstream triage state machine or issue-versus-PR boundary changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #19",
+        "sourceIds": [
+          "mattpocock-triage-skill"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The pinned contract limits triage to external reports and requests, including configured external PRs.",
+          "It requires claim verification and separates category roles from workflow state roles before handoff to implementation."
+        ]
+      }
+    },
+    {
+      "id": "engineering-diagnosis-contract",
+      "claimScope": "Hard-bug diagnosis must establish a tight deterministic feedback loop before theorizing, then preserve the fix with a regression test and capture architectural follow-through separately.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "mattpocock-diagnosing-bugs-skill",
+          "url": "https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/diagnosing-bugs/SKILL.md",
+          "kind": "first-party-upstream-skill-source",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "sourceRevision": "mattpocock/skills@9603c1cc8118d08bc1b3bf34cf714f62178dea3b",
+      "inspectionContext": "macOS 26.5.2, arm64, zsh; immutable Git checkout and contract inspection",
+      "principleStatement": "Do not diagnose from a story alone: create one command that reliably fails for the reported bug, localize the cause with evidence, fix it with a regression test, and route architectural debt to a separate follow-through.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The upstream diagnosis loop or regression-test boundary changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #19",
+        "sourceIds": [
+          "mattpocock-diagnosing-bugs-skill"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The pinned diagnosis contract refuses hypothesis-driven changes until a tight red feedback loop exists.",
+          "It preserves the fix with regression evidence and hands architecture concerns to a separate workflow."
+        ]
+      }
+    },
+    {
+      "id": "engineering-architecture-contract",
+      "claimScope": "Architecture work first surveys for a narrow deepening opportunity, then designs a deep module at a clean seam with explicit domain vocabulary and testable interface evidence.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "mattpocock-improve-codebase-architecture-skill",
+          "url": "https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/improve-codebase-architecture/SKILL.md",
+          "kind": "first-party-upstream-skill-source",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "mattpocock-codebase-design-skill",
+          "url": "https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/codebase-design/SKILL.md",
+          "kind": "first-party-upstream-skill-source",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "mattpocock-domain-modeling-skill",
+          "url": "https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/domain-modeling/SKILL.md",
+          "kind": "first-party-upstream-skill-source",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "sourceRevision": "mattpocock/skills@9603c1cc8118d08bc1b3bf34cf714f62178dea3b",
+      "inspectionContext": "macOS 26.5.2, arm64, zsh; immutable Git checkout and contract inspection",
+      "principleStatement": "Separate surveying from designing: identify one evidence-backed deepening opportunity, place a small interface at a clean seam, preserve domain language, and carry the chosen change into the normal delivery flow.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Upstream architecture survey, deep-module, or domain-modeling vocabulary changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #19",
+        "sourceIds": [
+          "mattpocock-improve-codebase-architecture-skill",
+          "mattpocock-codebase-design-skill",
+          "mattpocock-domain-modeling-skill"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The pinned architecture survey generates one bounded candidate instead of directly implementing broad cleanup.",
+          "The supporting contracts define a deep module, clean seam, testable interface, and durable domain language for the selected candidate."
+        ]
+      }
+    },
+    {
+      "id": "engineering-wayfinder-contract",
+      "claimScope": "Wayfinder is a planning flow for efforts larger than one context window: it charts named decision tickets, resolves only the frontier, records decisions on the shared map, and hands the cleared route to specification rather than implementation.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "mattpocock-wayfinder-skill",
+          "url": "https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/wayfinder/SKILL.md",
+          "kind": "first-party-upstream-skill-source",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "sourceRevision": "mattpocock/skills@9603c1cc8118d08bc1b3bf34cf714f62178dea3b",
+      "inspectionContext": "macOS 26.5.2, arm64, zsh; immutable Git checkout and contract inspection",
+      "principleStatement": "Use Wayfinder only when the route to a large destination is still foggy; chart decisions, work one unblocked frontier ticket per session, maintain the map as an index, then hand a cleared route to specification before implementation.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The upstream map, frontier, ticket-type, or handoff contract changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #19",
+        "sourceIds": [
+          "mattpocock-wayfinder-skill"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The pinned contract defines the map as an index of named decision tickets and the frontier as open, unblocked, unclaimed work.",
+          "It produces decisions rather than deliverables and hands a cleared map to specification instead of skipping directly to implementation."
+        ]
+      }
+    },
     {
       "id": "claude-code-cli-session-start",
       "claimScope": "Claude Code exposes version and help commands, and starts an interactive session when invoked without print mode.",

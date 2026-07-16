@@ -826,42 +826,21 @@ def trace_registry(
     return report
 
 
-def trace_required_coordinate_scope(
+def refresh_blocker_summary(report: dict[str, Any]) -> None:
+    errors = report.get("blockers")
+    summary = report.get("summary")
+    if isinstance(errors, list) and isinstance(summary, dict):
+        summary["blockers"] = len(errors)
+
+
+def trace_required_pages(
     report: dict[str, Any],
-    manifest: Any,
-    *,
-    coordinate_prefixes: list[str],
-) -> set[str]:
-    """Require selected canonical lesson phases without authoring a page allowlist."""
-    if not coordinate_prefixes:
-        return set()
+    required_paths: list[str],
+) -> tuple[set[str], int]:
+    """Validate preselected required pages and return their anchors and pass count."""
     errors = report.get("blockers")
     if not isinstance(errors, list):
         raise ValueError("Source report blockers must be a list")
-    pages = manifest.get("pages") if isinstance(manifest, dict) else None
-    if not isinstance(pages, list):
-        errors.append(
-            blocker(
-                "required-scope-manifest",
-                "required coordinate scope needs manifest pages",
-            )
-        )
-        return set()
-
-    prefixes = set(coordinate_prefixes)
-    required_paths = []
-    for page in pages:
-        if not isinstance(page, dict) or page.get("pageKind") != "canonical-lesson":
-            continue
-        coordinate = page.get("canonicalCoordinate")
-        path = page.get("path")
-        if (
-            isinstance(coordinate, str)
-            and coordinate.split("-", 1)[0] in prefixes
-            and isinstance(path, str)
-        ):
-            required_paths.append(path)
-
     traced_pages = {
         page.get("path"): page
         for page in report.get("pages", [])
@@ -869,13 +848,6 @@ def trace_required_coordinate_scope(
     }
     passing = 0
     required_anchor_ids: set[str] = set()
-    if not required_paths:
-        errors.append(
-            blocker(
-                "required-scope-empty",
-                "coordinate prefixes select no canonical lessons",
-            )
-        )
     for path in required_paths:
         traced = traced_pages.get(path)
         if traced is None:
@@ -901,14 +873,162 @@ def trace_required_coordinate_scope(
         else:
             passing += 1
             required_anchor_ids.update(traced.get("anchorIds", []))
+    refresh_blocker_summary(report)
+    return required_anchor_ids, passing
+
+
+def trace_required_coordinate_scope(
+    report: dict[str, Any],
+    manifest: Any,
+    *,
+    coordinate_prefixes: list[str],
+) -> set[str]:
+    """Require selected canonical lesson phases without authoring a page allowlist."""
+    if not coordinate_prefixes:
+        return set()
+    errors = report.get("blockers")
+    if not isinstance(errors, list):
+        raise ValueError("Source report blockers must be a list")
+    pages = manifest.get("pages") if isinstance(manifest, dict) else None
+    if not isinstance(pages, list):
+        errors.append(
+            blocker(
+                "required-scope-manifest",
+                "required coordinate scope needs manifest pages",
+            )
+        )
+        refresh_blocker_summary(report)
+        return set()
+
+    prefixes = set(coordinate_prefixes)
+    required_paths = []
+    for page in pages:
+        if not isinstance(page, dict) or page.get("pageKind") != "canonical-lesson":
+            continue
+        coordinate = page.get("canonicalCoordinate")
+        path = page.get("path")
+        if (
+            isinstance(coordinate, str)
+            and coordinate.split("-", 1)[0] in prefixes
+            and isinstance(path, str)
+        ):
+            required_paths.append(path)
+
+    if not required_paths:
+        errors.append(
+            blocker(
+                "required-scope-empty",
+                "coordinate prefixes select no canonical lessons",
+            )
+        )
+    required_anchor_ids, passing = trace_required_pages(report, required_paths)
     report["requiredCoordinateScope"] = {
         "prefixes": sorted(prefixes),
         "pages": len(required_paths),
         "passing": passing,
     }
-    summary = report.get("summary")
-    if isinstance(summary, dict):
-        summary["blockers"] = len(errors)
+    return required_anchor_ids
+
+
+def trace_required_route_scope(
+    report: dict[str, Any],
+    manifest: Any,
+    *,
+    route_ids: list[str],
+) -> set[str]:
+    """Require canonical lessons selected by manifest route membership."""
+    if not route_ids:
+        return set()
+    errors = report.get("blockers")
+    if not isinstance(errors, list):
+        raise ValueError("Source report blockers must be a list")
+    pages = manifest.get("pages") if isinstance(manifest, dict) else None
+    if not isinstance(pages, list):
+        errors.append(
+            blocker("required-route-manifest", "required route scope needs manifest pages")
+        )
+        refresh_blocker_summary(report)
+        return set()
+
+    selected_route_ids = set(route_ids)
+    required_paths = []
+    for page in pages:
+        if not isinstance(page, dict) or page.get("pageKind") != "canonical-lesson":
+            continue
+        memberships = page.get("routeMemberships")
+        path = page.get("path")
+        if not isinstance(memberships, list) or not isinstance(path, str):
+            continue
+        if any(
+            isinstance(membership, dict)
+            and membership.get("routeId") in selected_route_ids
+            for membership in memberships
+        ):
+            required_paths.append(path)
+
+    if not required_paths:
+        errors.append(
+            blocker(
+                "required-route-empty",
+                "route ids select no canonical lessons",
+            )
+        )
+    required_anchor_ids, passing = trace_required_pages(report, required_paths)
+    report["requiredRouteScope"] = {
+        "routeIds": sorted(selected_route_ids),
+        "pages": len(required_paths),
+        "passing": passing,
+    }
+    return required_anchor_ids
+
+
+def trace_required_path_scope(
+    report: dict[str, Any],
+    manifest: Any,
+    *,
+    paths: list[str],
+) -> set[str]:
+    """Require explicitly requested canonical paths in addition to route scope."""
+    if not paths:
+        return set()
+    errors = report.get("blockers")
+    if not isinstance(errors, list):
+        raise ValueError("Source report blockers must be a list")
+    pages = manifest.get("pages") if isinstance(manifest, dict) else None
+    if not isinstance(pages, list):
+        errors.append(
+            blocker("required-path-manifest", "required path scope needs manifest pages")
+        )
+        refresh_blocker_summary(report)
+        return set()
+
+    canonical_by_path = {
+        page.get("path"): page
+        for page in pages
+        if isinstance(page, dict)
+        and page.get("pageKind") in {"canonical-lesson", "canonical-reference", "navigation"}
+        and isinstance(page.get("path"), str)
+    }
+    requested_paths = sorted(set(paths))
+    required_paths = []
+    for path in requested_paths:
+        if path not in canonical_by_path:
+            errors.append(
+                blocker(
+                    "required-path-missing",
+                    "required path is absent or not canonical in the manifest",
+                    path,
+                )
+            )
+        else:
+            required_paths.append(path)
+
+    required_anchor_ids, passing = trace_required_pages(report, required_paths)
+    report["requiredPathScope"] = {
+        "paths": requested_paths,
+        "pages": len(required_paths),
+        "passing": passing,
+    }
     return required_anchor_ids
 
 
@@ -1091,6 +1211,9 @@ def positive_fixture() -> tuple[dict[str, Any], dict[str, Any]]:
                 "path": f"lessons/001-000{index + 1}-fixture.html",
                 "canonicalCoordinate": f"001-000{index + 1}",
                 "pageKind": "canonical-lesson",
+                "routeMemberships": [
+                    {"routeId": "fixture-route", "roles": ["fixture"]}
+                ],
                 "sourceDependencies": {
                     "state": "registered",
                     "anchorIds": [anchor["id"]],
@@ -1170,6 +1293,75 @@ def run_self_test() -> None:
         coordinate_prefixes=["999"],
     )
     assert_has_code(empty_scope_report, "required-scope-empty")
+
+    route_scoped_report = copy.deepcopy(report)
+    trace_required_route_scope(
+        route_scoped_report,
+        manifest,
+        route_ids=["fixture-route"],
+    )
+    assert route_scoped_report["blockers"] == [], route_scoped_report["blockers"]
+
+    pending_route_report = trace_registry(registry, pending_manifest, as_of=as_of)
+    trace_required_route_scope(
+        pending_route_report,
+        pending_manifest,
+        route_ids=["fixture-route"],
+    )
+    assert_has_code(pending_route_report, "required-page-unregistered")
+
+    empty_route_report = copy.deepcopy(report)
+    trace_required_route_scope(
+        empty_route_report,
+        manifest,
+        route_ids=["missing-route"],
+    )
+    assert_has_code(empty_route_report, "required-route-empty")
+
+    path_scoped_report = copy.deepcopy(report)
+    trace_required_path_scope(
+        path_scoped_report,
+        manifest,
+        paths=["lessons/001-0001-fixture.html"],
+    )
+    assert path_scoped_report["blockers"] == [], path_scoped_report["blockers"]
+
+    pending_path_report = trace_registry(registry, pending_manifest, as_of=as_of)
+    trace_required_path_scope(
+        pending_path_report,
+        pending_manifest,
+        paths=["lessons/001-0001-fixture.html"],
+    )
+    assert_has_code(pending_path_report, "required-page-unregistered")
+
+    missing_path_report = copy.deepcopy(report)
+    trace_required_path_scope(
+        missing_path_report,
+        manifest,
+        paths=["reference/missing.html"],
+    )
+    assert_has_code(missing_path_report, "required-path-missing")
+
+    invalid_scope_manifest = {"pages": None}
+    invalid_route_manifest_report = copy.deepcopy(report)
+    trace_required_route_scope(
+        invalid_route_manifest_report,
+        invalid_scope_manifest,
+        route_ids=["fixture-route"],
+    )
+    assert invalid_route_manifest_report["summary"]["blockers"] == len(
+        invalid_route_manifest_report["blockers"]
+    )
+
+    invalid_path_manifest_report = copy.deepcopy(report)
+    trace_required_path_scope(
+        invalid_path_manifest_report,
+        invalid_scope_manifest,
+        paths=["lessons/001-0001-fixture.html"],
+    )
+    assert invalid_path_manifest_report["summary"]["blockers"] == len(
+        invalid_path_manifest_report["blockers"]
+    )
 
     due_registry = copy.deepcopy(registry)
     due_report = trace_registry(due_registry, manifest, as_of=date(2026, 8, 15))
@@ -1391,6 +1583,20 @@ def main() -> int:
         metavar="PPP",
         help="require every canonical lesson in a three-digit phase to pass",
     )
+    parser.add_argument(
+        "--require-route",
+        action="append",
+        default=[],
+        metavar="ROUTE_ID",
+        help="require every canonical lesson in a manifest route to pass",
+    )
+    parser.add_argument(
+        "--require-path",
+        action="append",
+        default=[],
+        metavar="PATH",
+        help="also require an explicit canonical manifest path to pass",
+    )
     args = parser.parse_args()
 
     as_of = parse_date(args.as_of)
@@ -1429,6 +1635,26 @@ def main() -> int:
                 manifest,
                 coordinate_prefixes=args.require_coordinate_prefix,
             )
+        if args.require_route:
+            route_anchor_ids = trace_required_route_scope(
+                report,
+                manifest,
+                route_ids=args.require_route,
+            )
+            if required_anchor_ids is None:
+                required_anchor_ids = route_anchor_ids
+            else:
+                required_anchor_ids.update(route_anchor_ids)
+        if args.require_path:
+            path_anchor_ids = trace_required_path_scope(
+                report,
+                manifest,
+                paths=args.require_path,
+            )
+            if required_anchor_ids is None:
+                required_anchor_ids = path_anchor_ids
+            else:
+                required_anchor_ids.update(path_anchor_ids)
         if args.online:
             online_summary, online_errors = verify_source_urls(
                 registry,

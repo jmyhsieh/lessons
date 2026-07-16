@@ -4509,8 +4509,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "course-engineering-delivery-contract",
+          "engineering-skill-router-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4540,8 +4543,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "course-engineering-delivery-contract",
+          "engineering-repository-reconnaissance-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4571,8 +4577,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "engineering-request-shaping-contract",
+          "engineering-skill-router-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4603,8 +4612,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "engineering-request-shaping-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4634,8 +4645,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "engineering-spec-implementation-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4665,8 +4678,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "engineering-spec-implementation-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4696,8 +4711,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "engineering-spec-implementation-contract",
+          "immutable-review-checkpoint-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4730,6 +4748,7 @@
       "sourceDependencies": {
         "state": "registered",
         "anchorIds": [
+          "engineering-two-axis-review-contract",
           "immutable-review-checkpoint-contract"
         ]
       },
@@ -4763,8 +4782,13 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "course-engineering-delivery-contract",
+          "engineering-spec-implementation-contract",
+          "engineering-two-axis-review-contract",
+          "immutable-review-checkpoint-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4795,8 +4819,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "engineering-triage-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4827,8 +4853,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "engineering-diagnosis-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4859,8 +4887,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "engineering-architecture-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4891,8 +4921,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "engineering-wayfinder-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4923,8 +4955,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "engineering-wayfinder-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -6892,8 +6926,18 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "engineering-architecture-contract",
+          "engineering-diagnosis-contract",
+          "engineering-repository-reconnaissance-contract",
+          "engineering-request-shaping-contract",
+          "engineering-skill-router-contract",
+          "engineering-spec-implementation-contract",
+          "engineering-triage-contract",
+          "engineering-two-axis-review-contract",
+          "engineering-wayfinder-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -7021,8 +7065,11 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "engineering-two-axis-review-contract",
+          "immutable-review-checkpoint-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -7045,8 +7092,10 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "engineering-wayfinder-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
