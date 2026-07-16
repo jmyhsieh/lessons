@@ -122,7 +122,7 @@ EXPECTED_NAVIGATION_PATHS = {"index.html", "toc.html"}
 # Independent digests of the reviewed page and route projections pin exact
 # contracts, including the evolving Source mappings, without a second manifest.
 EXPECTED_PAGE_MATRIX_SHA256 = (
-    "c57d9861cc495839a83b111f1291c4ca62fdadb99bd0a0f93ebce1e6632c3f5b"
+    "705eeb80c75cf022c778f2d1371f6253b03a1c0cba740a004db2bc83040dc7a8"
 )
 EXPECTED_ROUTE_CONTRACT_SHA256 = (
     "f412397e52c5cc19a858519238f049ac7b3e1ed7c4048f3120073832d5a56a4e"
@@ -1249,6 +1249,92 @@ def validate_thin_slice(manifest: dict[str, Any]) -> list[str]:
             }
         ],
     )
+
+    legacy_phase_three_contract = {
+        "lessons/003-0001-matt-pocock-skills-foundation.html": (
+            "transition",
+            (
+                ("lessons/002-0006-use-existing-skill.html", "existing-skill-toolbox"),
+                ("lessons/006-0001-choose-engineering-route.html", "engineering-route-entry"),
+                ("lessons/006-0003-align-engineering-request.html", "request-alignment"),
+            ),
+        ),
+        "lessons/003-0002-ask-matt.html": (
+            "direct",
+            (("lessons/006-0001-choose-engineering-route.html", "primary-successor"),),
+        ),
+        "lessons/003-0003-repo-map.html": (
+            "direct",
+            (("lessons/006-0002-map-repository.html", "primary-successor"),),
+        ),
+        "lessons/003-0004-grill-with-docs.html": (
+            "direct",
+            (("lessons/006-0003-align-engineering-request.html", "primary-successor"),),
+        ),
+        "lessons/003-0005-prototype.html": (
+            "direct",
+            (("lessons/006-0004-prototype-technical-question.html", "primary-successor"),),
+        ),
+        "lessons/003-0006-to-spec.html": (
+            "direct",
+            (("lessons/006-0005-write-delivery-spec.html", "primary-successor"),),
+        ),
+        "lessons/003-0007-to-tickets.html": (
+            "direct",
+            (("lessons/006-0006-slice-spec-into-tickets.html", "primary-successor"),),
+        ),
+        "lessons/003-0008-implement.html": (
+            "transition",
+            (
+                ("lessons/006-0007-implement-and-create-review-checkpoint.html", "implementation"),
+                ("lessons/006-0008-review-final-candidate.html", "review"),
+                ("lessons/006-0009-complete-engineering-closeout.html", "closeout"),
+            ),
+        ),
+        "lessons/003-0009-triage.html": (
+            "direct",
+            (("lessons/006-0010-triage-external-report.html", "primary-successor"),),
+        ),
+        "lessons/003-0010-diagnosing-bugs.html": (
+            "direct",
+            (("lessons/006-0011-diagnose-hard-bug.html", "primary-successor"),),
+        ),
+        "lessons/003-0011-architecture.html": (
+            "direct",
+            (("lessons/006-0012-find-architecture-seam.html", "primary-successor"),),
+        ),
+        "lessons/003-0012-handoff.html": (
+            "direct",
+            (("lessons/006-0009-complete-engineering-closeout.html", "primary-successor"),),
+        ),
+        "lessons/003-0013-wayfinder-chart-map.html": (
+            "direct",
+            (("lessons/006-0013-chart-wayfinder-map.html", "primary-successor"),),
+        ),
+        "lessons/003-0014-wayfinder-frontier.html": (
+            "direct",
+            (("lessons/006-0014-resolve-wayfinder-frontier.html", "primary-successor"),),
+        ),
+    }
+    actual_legacy_phase_three = {
+        page["path"]
+        for page in pages
+        if page.get("origin") == "baseline" and page["path"].startswith("lessons/003-")
+    }
+    if actual_legacy_phase_three != set(legacy_phase_three_contract):
+        errors.append(failure("thin-slice", "legacy Phase 3 inventory differs"))
+    for path, (mode, target_pairs) in legacy_phase_three_contract.items():
+        expect_compatibility(
+            path,
+            mode,
+            [
+                {"path": target_path, "fragment": None, "role": role}
+                for target_path, role in target_pairs
+            ],
+        )
+        page = by_path.get(path, {})
+        if page.get("canonicalCoordinate") is not None or page.get("routeMemberships") != []:
+            errors.append(failure("thin-slice", f"{path} must not be reused by a route"))
 
     deprecation = by_path.get("reference/ai-workflow-skill-composer.html", {}).get(
         "deprecation"
