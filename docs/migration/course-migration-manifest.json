@@ -2212,7 +2212,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0002-guardrail-hooks.html",
@@ -2250,7 +2250,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0002-set-permission-boundaries.html",
@@ -2356,7 +2356,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0004-mcp.html",
@@ -2394,7 +2394,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0004-smoke-test-hook.html",
@@ -2500,7 +2500,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0006-custom-subagent-review.html",
@@ -2541,7 +2541,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0006-use-existing-skill.html",
@@ -2648,7 +2648,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0008-delegate-read-only-investigation.html",
@@ -2724,7 +2724,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0009-headless-one-shot.html",
@@ -2762,7 +2762,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0009-isolate-parallel-work.html",
@@ -2835,7 +2835,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0010-run-headless-one-shot.html",

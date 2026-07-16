@@ -1,116 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>08：用兩個 session 分工寫作與審查</title>
-<style>
-  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
-  .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
-  h1 { font-size: 1.7rem; margin: .3rem 0; }
-  .mission { font-style: italic; color: #555; border-left: 3px solid #c2571a; padding-left: 1rem; }
-  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #c2571a; }
-  code, pre { background: #f4f0ec; border-radius: 4px; font-size: .9em; }
-  code { padding: .12rem .35rem; }
-  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
-  a { color: #b04a12; }
-  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
-  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
-  th { background: #faf3ee; }
-  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
-  .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
-  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
-  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
-  .quiz p { margin-top: 0; font-weight: 600; }
-  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
-  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
-  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
-  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #faf3ee; padding: .6rem .9rem; border-radius: 6px; }
-  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
-  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
-</style>
-</head>
-<body>
-<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 2 · 第 08 課 · 約 20 分鐘 · 品質工作流</div>
-<h1>用兩個 session 分工寫作與審查</h1>
-<p class="mission">任務目標：用兩個乾淨 session 分工：一個寫，一個審。你要練的是把 review 意見帶回 writer，而不是讓同一個對話自我確認。</p>
-<div class="scope"><strong>本課只做：</strong>用兩個 session 分開寫作與審查。<br><strong>先不要做：</strong>讓同一個 session 自寫自審後直接合併。</div>
-
-
-<h2>雙 session 流程</h2>
-<table>
-<tr><th>Writer session</th><th>Reviewer session</th></tr>
-<tr><td>在 writer worktree 實作、驗證，建立 checkpoint commit。</td><td></td></tr>
-<tr><td></td><td>在另一個 worktree 以明確 base ref 與 writer branch 讀取同一份 committed diff。</td></tr>
-<tr><td>逐項處理 reviewer 意見。</td><td></td></tr>
-</table>
-<div class="scope"><strong>為什麼要 checkpoint commit：</strong>不同 worktree 共用 git objects 與 refs，但不共用未提交的工作目錄變更。若 writer 只留下 uncommitted diff，reviewer worktree 看不到那份內容。</div>
-
-<h2>實作步驟（做完打勾）</h2>
-<div class="step">
-  <label><input type="checkbox"> 1. Writer 完成一個小任務</label>
-  <p>照 Phase 1 第 11 課/Phase 1 第 12 課完成探索、實作、驗證與 diff review，然後在 writer branch 建立 checkpoint commit。先記下 base ref 與 writer branch，例如 <code>main</code> 與 <code>claude/task-name</code>。</p>
-</div>
-<div class="step">
-  <label><input type="checkbox"> 2. Reviewer 先驗證 diff 身分</label>
-  <p>在另一個 worktree 的乾淨 session，不必 checkout writer branch；用明確 refs 取得 committed diff，先確認檔案清單正是要審的範圍：</p>
-  <pre>git diff --stat main...claude/task-name
-git diff main...claude/task-name</pre>
-</div>
-<div class="step">
-  <label><input type="checkbox"> 3. Reviewer 只審查</label>
-  <pre>Review the committed diff from main...claude/task-name
-against this task brief. Only report correctness gaps,
-missing tests, or scope creep.</pre>
-</div>
-<div class="step">
-  <label><input type="checkbox"> 4. 把有效意見帶回 Writer</label>
-  <p>不要全部照單全收。先分類：must fix / optional / not relevant。</p>
-</div>
-<div class="step">
-  <label><input type="checkbox"> 5. 再跑驗證</label>
-  <p>修完 reviewer 意見後，重新跑原本的成功條件，並用新 commit 或 amend 更新 writer branch。若 diff refs 改變，reviewer 必須重新讀取新的 committed diff。</p>
-</div>
-
-<div class="done-banner" id="done">🎉 <strong>完成！</strong>你完成了一輪雙 session 品質工作流。</div>
-
-<h2>觀念檢查</h2>
-<div class="quiz" data-answer="1">
-  <p>1. 雙 session 比同一對話直接 review 的主要優點是？</p>
-  <button>降低 writer 執行成本</button>
-  <button>保持 reviewer 脈絡乾淨</button>
-  <button>省略 verification 流程</button>
-  <div class="why">乾淨 context 比「自己檢查自己」更接近獨立審查。</div>
-</div>
-<div class="quiz" data-answer="2">
-  <p>2. reviewer 回報很多建議時，第一步是？</p>
-  <button>全部交回 writer</button>
-  <button>全部直接忽略掉</button>
-  <button>分成必修與可選</button>
-  <div class="why">review 意見仍要人類判斷，不是新的命令來源。</div>
-</div>
-
-<h2>下一步</h2>
-<p>下一課：<a href="002-0009-headless-one-shot.html">Phase 2 第 09 課 — 用指令列跑一次性任務（claude -p）</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/worktrees">Run parallel sessions with worktrees（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="002-0007-worktrees.html">Phase 2 第 07 課 — Worktrees</a></footer>
-<script>
-const boxes = document.querySelectorAll('input[type=checkbox]');
-boxes.forEach(b => b.addEventListener('change', () => {
-  document.getElementById('done').style.display = [...boxes].every(x => x.checked) ? 'block' : 'none';
-}));
-document.querySelectorAll('.quiz').forEach(q => {
-  const ans = +q.dataset.answer;
-  q.querySelectorAll('button').forEach((b, i) => {
-    b.addEventListener('click', () => {
-      q.querySelectorAll('button').forEach(x => x.disabled = true);
-      q.querySelectorAll('button')[ans].classList.add('correct');
-      if (i !== ans) b.classList.add('wrong');
-      q.querySelector('.why').style.display = 'block';
-    });
-  });
-});
-</script>
-</body>
-</html>
+<html lang="zh-Hant"><head><link rel="icon" href="data:,"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="not-applicable"><meta name="course:page-kind" content="compatibility"><meta name="course:route-roles" content="not-applicable"><meta name="course:source-ids" content="not-applicable"><meta name="course:legacy-identity" content="lessons/002-0008-writer-reviewer-session"><meta name="course:transition-reason" content="Merge"><meta name="course:evidence-carryover" content="lesson-practiced-unless-current-route-stop-is-revalidated"><meta name="course:transition-mode" content="transition"><title>原課程 002-0008 已拆分轉接</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:780px;margin:3rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}main{border:1px solid #ded6cf;border-radius:12px;padding:1.4rem;background:#fffdfb}h1{font-size:1.7rem;line-height:1.35}h2{font-size:1.1rem;color:#a94716;margin-top:1.7rem}.kicker{color:#a94716;font-weight:700}.identity,.carryover{background:#f5f1ed;padding:.8rem 1rem;border-radius:7px}.targets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.target{border:1px solid #ded6cf;border-radius:8px;padding:1rem}.target h3{margin-top:0}.target a{font-weight:700;color:#923b10}code{overflow-wrap:anywhere}@media(max-width:620px){body{margin:1.25rem auto}main{padding:1rem}.targets{grid-template-columns:1fr}}</style></head><body><main>
+<p class="kicker">Compatibility entry · 原 Phase 2 第 08 課</p><h1>「Writer／Reviewer 雙 session」已合併到 Review contract 與執行課</h1>
+<p class="identity"><strong>Stable public URL identity：</strong><code>lessons/002-0008-writer-reviewer-session</code></p>
+<h2>轉接原因</h2><p>原課以 session topology 表達獨立 review；現在由共同 contract 定義不可變 candidate、reviewer write boundary 與證據，再由 Build 課選擇合適 execution surface。</p>
+<h2>何時選哪個最終目標</h2><div class="targets">
+<section class="target"><h3>執行一次 final review</h3><p>何時選：writer 已建立 immutable review checkpoint，要用隔離 reviewer context 完成 Standards 與 Spec。</p><a href="006-0008-review-final-candidate.html">前往 final candidate review</a></section>
+<section class="target"><h3>查共同 Review contract</h3><p>何時選：需要判斷雙 session、subagent 或 worktree 的責任邊界，而不是立即執行 review。</p><a href="../reference/repo-review-contract.html">開啟 Repo review contract</a></section>
+</div><h2>Evidence carryover</h2><p class="carryover">若你已保存舊課的 writer checkpoint 與 reviewer report，可保留為 <code>Lesson practiced</code>；只有 report 對應目前 final checkpoint，且 findings 已由人類 disposition，才能計入 current Review evidence。它不會自動成為 Route artifact、approval 或 completion。</p>
+</main></body></html>
