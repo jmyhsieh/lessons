@@ -91,10 +91,20 @@ ALLOWED_MEMBERSHIP_ROLES = {
     "exit-evidence",
     "feedback",
     "readiness",
+    "review-reentry",
     "stop",
     "tangible-win",
 }
 ALLOWED_EDGE_KINDS = {"choose-one", "next", "optional-continuation"}
+ALLOWED_STATIC_CONTINUATION_KINDS = {
+    "conditional-review-reentry",
+    "llm-wiki-overlay",
+    "optional-route",
+    "requires-readiness",
+    "return-to-catalog",
+    "review-reentry",
+    "route",
+}
 ALLOWED_RETURN_ANCHORS = {
     "extensions",
     "phase-catalog",
@@ -105,6 +115,32 @@ ALLOWED_RETURN_ANCHORS = {
     "route-presentation",
     "start",
     "toolbox",
+}
+EXPECTED_NAVIGATION_PATHS = {"index.html", "toc.html"}
+EXPECTED_TOOLBOX_SELECTIONS = [
+    "lessons/002-0002-set-permission-boundaries.html",
+    "lessons/002-0003-select-model-and-effort.html",
+    "lessons/002-0004-smoke-test-hook.html",
+    "lessons/002-0005-add-guardrail-hook.html",
+    "lessons/002-0006-use-existing-skill.html",
+    "lessons/002-0007-connect-trusted-mcp.html",
+    "lessons/002-0008-delegate-read-only-investigation.html",
+    "lessons/002-0009-isolate-parallel-work.html",
+    "lessons/002-0010-run-headless-one-shot.html",
+    "lessons/002-0011-bound-ci-automation.html",
+]
+EXPECTED_PAGE_POLICIES = {
+    "navigation": ("not-applicable", "pending-t03"),
+    "canonical-lesson": ("current-route-contract", "pending-t03"),
+    "canonical-reference": ("not-applicable", "pending-t03"),
+    "compatibility": (
+        "lesson-practiced-unless-current-route-stop-is-revalidated",
+        "not-applicable",
+    ),
+    "deprecation": (
+        "lesson-practiced-unless-current-route-stop-is-revalidated",
+        "not-applicable",
+    ),
 }
 LESSON_PATH_PATTERN = re.compile(
     r"^lessons/(?P<phase>\d{3})-(?P<lesson>\d{4})-[a-z0-9-]+\.html$"
@@ -316,6 +352,37 @@ def validate_page_schema(page: Any, index: int) -> list[str]:
     return errors
 
 
+def validate_dynamic_return(value: Any, label: str) -> list[str]:
+    fields = {"kind", "routeId", "from", "targetSource", "fallback"}
+    if not isinstance(value, dict) or set(value) != fields:
+        return [failure("route-continuation", f"{label} has invalid dynamic-return fields")]
+    errors = []
+    if value.get("kind") != "return-to-caller" or value.get("routeId") is not None:
+        errors.append(failure("route-continuation", f"{label} is not return-to-caller"))
+    if value.get("from") != EXPECTED_TOOLBOX_SELECTIONS:
+        errors.append(
+            failure("route-continuation", f"{label}.from must be the ten toolbox selections")
+        )
+    if value.get("targetSource") != "route-notebook.targetedRemediationReturnPoint":
+        errors.append(failure("route-continuation", f"{label}.targetSource is invalid"))
+    if value.get("fallback") != "tocReturn":
+        errors.append(failure("route-continuation", f"{label}.fallback is invalid"))
+    return errors
+
+
+def validate_remediation_return(value: Any, label: str) -> list[str]:
+    if isinstance(value, str):
+        return []
+    if not isinstance(value, dict) or set(value) != {"source", "fallback"}:
+        return [failure("route-remediation", f"{label} has invalid fields")]
+    if value != {
+        "source": "route-notebook.targetedRemediationReturnPoint",
+        "fallback": "tocReturn",
+    }:
+        return [failure("route-remediation", f"{label} is not the toolbox dynamic return")]
+    return []
+
+
 def validate_route_schema(route: Any, index: int) -> list[str]:
     if not isinstance(route, dict):
         return [failure("route-schema", f"routes[{index}] must be an object")]
@@ -344,24 +411,84 @@ def validate_route_schema(route: Any, index: int) -> list[str]:
     readiness = route.get("readiness")
     if not isinstance(readiness, dict) or set(readiness) != {"mode", "targets"}:
         errors.append(failure("route-readiness", f"{route_id}.readiness is invalid"))
-    elif readiness.get("mode") not in {"all-of", "any-of"} or not isinstance(
-        readiness.get("targets"), list
-    ) or not readiness["targets"] or not all(
-        isinstance(path, str) for path in readiness["targets"]
-    ):
-        errors.append(failure("route-readiness", f"{route_id}.readiness is invalid"))
+    else:
+        readiness_targets = readiness.get("targets")
+        if (
+            readiness.get("mode") not in {"all-of", "any-of"}
+            or not isinstance(readiness_targets, list)
+            or not readiness_targets
+            or not all(isinstance(path, str) for path in readiness_targets)
+            or len(readiness_targets) != len(set(readiness_targets))
+        ):
+            errors.append(failure("route-readiness", f"{route_id}.readiness is invalid"))
     stop = route.get("stop")
     if stop is not None and not isinstance(stop, str):
         errors.append(failure("route-schema", f"{route_id}.stop must be a path or null"))
     for field in ("exitEvidence", "legalStop", "returnPolicy"):
         if not isinstance(route.get(field), str) or not route[field]:
             errors.append(failure("route-schema", f"{route_id}.{field} is required"))
-    if not isinstance(route.get("continuations"), list) or not route["continuations"]:
+
+    continuations = route.get("continuations")
+    if not isinstance(continuations, list) or not continuations:
         errors.append(failure("route-continuation", f"{route_id} needs continuations"))
-    if not isinstance(route.get("remediation"), list) or not route["remediation"]:
+    else:
+        for continuation_index, continuation in enumerate(continuations):
+            label = f"{route_id}.continuations[{continuation_index}]"
+            if not isinstance(continuation, dict):
+                errors.append(failure("route-continuation", f"{label} must be an object"))
+                continue
+            if continuation.get("kind") == "return-to-caller":
+                errors.extend(validate_dynamic_return(continuation, label))
+                continue
+            if set(continuation) != {"kind", "routeId", "target"}:
+                errors.append(failure("route-continuation", f"{label} has invalid fields"))
+                continue
+            if continuation.get("kind") not in ALLOWED_STATIC_CONTINUATION_KINDS:
+                errors.append(failure("route-continuation-kind", f"{label} kind is invalid"))
+            target_route = continuation.get("routeId")
+            if target_route is not None and not isinstance(target_route, str):
+                errors.append(failure("route-continuation", f"{label}.routeId is invalid"))
+            errors.extend(validate_target(continuation.get("target"), f"{label}.target"))
+
+    remediation = route.get("remediation")
+    if not isinstance(remediation, list) or not remediation:
         errors.append(failure("route-remediation", f"{route_id} needs remediation"))
-    if not isinstance(route.get("edges"), list):
+    else:
+        for remediation_index, item in enumerate(remediation):
+            label = f"{route_id}.remediation[{remediation_index}]"
+            if not isinstance(item, dict) or set(item) != {"when", "target", "returnTo"}:
+                errors.append(failure("route-remediation", f"{label} is invalid"))
+                continue
+            if not isinstance(item.get("when"), str) or not item["when"]:
+                errors.append(failure("route-remediation", f"{label}.when is required"))
+            if not isinstance(item.get("target"), str):
+                errors.append(failure("route-remediation", f"{label}.target must be a path"))
+            errors.extend(validate_remediation_return(item.get("returnTo"), f"{label}.returnTo"))
+
+    edges = route.get("edges")
+    if not isinstance(edges, list):
         errors.append(failure("route-edge-schema", f"{route_id}.edges must be a list"))
+    else:
+        for edge_index, edge in enumerate(edges):
+            label = f"{route_id}.edges[{edge_index}]"
+            if not isinstance(edge, dict) or set(edge) != {"kind", "from", "to", "rejoin"}:
+                errors.append(failure("route-edge-schema", f"{label} is invalid"))
+                continue
+            if edge.get("kind") not in ALLOWED_EDGE_KINDS:
+                errors.append(failure("route-edge-schema", f"{label} kind is invalid"))
+            if not isinstance(edge.get("from"), str):
+                errors.append(failure("route-edge-schema", f"{label}.from must be a path"))
+            edge_targets = edge.get("to")
+            if (
+                not isinstance(edge_targets, list)
+                or not edge_targets
+                or not all(isinstance(path, str) for path in edge_targets)
+            ):
+                errors.append(failure("route-edge-schema", f"{label}.to is invalid"))
+            elif len(edge_targets) != len(set(edge_targets)):
+                errors.append(failure("route-edge-duplicate", f"{label}.to repeats a target"))
+            if edge.get("rejoin") is not None and not isinstance(edge.get("rejoin"), str):
+                errors.append(failure("route-edge-schema", f"{label}.rejoin is invalid"))
     return errors
 
 
@@ -408,6 +535,7 @@ def validate_manifest(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[
         return errors
 
     page_paths = [page["path"] for page in pages]
+    page_identities = [page["expectedIdentity"] for page in pages]
     expected_paths = sorted(freeze["baselinePaths"] + freeze["newCanonicalPaths"])
     if len(page_paths) != 172 or set(page_paths) != set(expected_paths):
         missing = sorted(set(expected_paths) - set(page_paths))
@@ -422,9 +550,10 @@ def validate_manifest(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[
         errors.append(failure("manifest-path-duplicate", "page paths must be unique"))
     if page_paths != sorted(page_paths):
         errors.append(failure("manifest-order", "pages must be sorted by path"))
+    if len(page_identities) != len(set(page_identities)):
+        errors.append(failure("page-identity-duplicate", "expectedIdentity values must be unique"))
 
     baseline_set = set(freeze["baselinePaths"])
-    new_set = set(freeze["newCanonicalPaths"])
     for page in pages:
         expected_origin = "baseline" if page["path"] in baseline_set else "new"
         if page["origin"] != expected_origin:
@@ -451,6 +580,31 @@ def validate_manifest(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[
                 failure(
                     "disposition-kind",
                     f"{page['path']} Deprecation must use retire disposition",
+                )
+            )
+        expected_identity = page["path"][: -len(".html")]
+        if page["expectedIdentity"] != expected_identity:
+            errors.append(
+                failure(
+                    "page-identity",
+                    f"{page['path']} expectedIdentity must be {expected_identity}",
+                )
+            )
+        expected_carryover, expected_source_state = EXPECTED_PAGE_POLICIES[
+            page["pageKind"]
+        ]
+        if page["evidenceCarryover"] != expected_carryover:
+            errors.append(
+                failure(
+                    "evidence-carryover",
+                    f"{page['path']} carryover must match {page['pageKind']}",
+                )
+            )
+        if page["sourceDependencies"]["state"] != expected_source_state:
+            errors.append(
+                failure(
+                    "source-placeholder",
+                    f"{page['path']} source state must match {page['pageKind']}",
                 )
             )
     origin_counts = Counter(page["origin"] for page in pages)
@@ -485,6 +639,13 @@ def validate_manifest(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[
     ):
         errors.append(
             failure("new-classification", f"unexpected new classification: {new_kind_counts}")
+        )
+    navigation_paths = {
+        page["path"] for page in pages if page["pageKind"] == "navigation"
+    }
+    if navigation_paths != EXPECTED_NAVIGATION_PATHS:
+        errors.append(
+            failure("navigation-paths", f"navigation paths differ: {sorted(navigation_paths)}")
         )
 
     by_path = {page["path"]: page for page in pages}
@@ -566,6 +727,15 @@ def validate_manifest(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[
             if not isinstance(targets, list) or not targets:
                 errors.append(failure("compatibility-target", f"{path} needs targets"))
                 continue
+            target_paths = [
+                target.get("path")
+                for target in targets
+                if isinstance(target, dict) and isinstance(target.get("path"), str)
+            ]
+            if len(target_paths) != len(set(target_paths)):
+                errors.append(
+                    failure("transition-target-duplicate", f"{path} repeats a final target")
+                )
             for index, target in enumerate(targets):
                 target_errors = validate_target(target, f"{path}.finalTargets[{index}]")
                 errors.extend(target_errors)
@@ -618,6 +788,18 @@ def validate_manifest(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[
             if not isinstance(targets, list) or not targets:
                 errors.append(failure("deprecation-target", f"{path} needs a successor"))
             else:
+                target_paths = [
+                    target.get("path")
+                    for target in targets
+                    if isinstance(target, dict) and isinstance(target.get("path"), str)
+                ]
+                if len(target_paths) != len(set(target_paths)):
+                    errors.append(
+                        failure(
+                            "transition-target-duplicate",
+                            f"{path} repeats a successor target",
+                        )
+                    )
                 for index, target in enumerate(targets):
                     target_errors = validate_target(
                         target, f"{path}.successorTargets[{index}]"
@@ -684,110 +866,513 @@ def validate_manifest(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[
         elif by_path[path]["pageKind"] != "canonical-lesson":
             errors.append(failure("route-target", f"{label} must target a canonical lesson"))
 
+    def require_route_member(path: str, route_id: str, label: str) -> None:
+        require_canonical_lesson(path, label)
+        if route_id not in membership_by_path.get(path, {}):
+            errors.append(
+                failure("route-membership", f"{label} is not a member of {route_id}")
+            )
+
+    def reachable_from(start: str, adjacency: dict[str, set[str]]) -> set[str]:
+        reached = set()
+        pending = [start]
+        while pending:
+            current = pending.pop()
+            if current in reached:
+                continue
+            reached.add(current)
+            pending.extend(adjacency.get(current, set()) - reached)
+        return reached
+
     for route_id, route in route_by_id.items():
         entry = route["entry"]
         stop = route["stop"]
-        require_canonical_lesson(entry, f"{route_id}.entry")
-        if entry in membership_by_path and "entry" not in membership_by_path[entry].get(
-            route_id, set()
-        ):
+        require_route_member(entry, route_id, f"{route_id}.entry")
+        if "entry" not in membership_by_path.get(entry, {}).get(route_id, set()):
             errors.append(failure("route-entry", f"{route_id} entry role is missing"))
         if route_id == "toolbox":
             if stop is not None or route["returnPolicy"] != "caller-provided-active-route":
                 errors.append(
                     failure("toolbox-return", "toolbox must return to caller without Phase stop")
                 )
-            if any(edge.get("kind") == "next" for edge in route["edges"]):
+            if any(edge["kind"] == "next" for edge in route["edges"]):
                 errors.append(failure("toolbox-next", "toolbox must not claim universal next"))
+            if len(route["continuations"]) != 1 or route["continuations"][0][
+                "kind"
+            ] != "return-to-caller":
+                errors.append(
+                    failure("route-continuation", "toolbox needs one dynamic return-to-caller")
+                )
+            if route["tocReturn"] != {
+                "path": "toc.html",
+                "fragment": "toolbox",
+                "role": "catalog-fallback",
+            }:
+                errors.append(
+                    failure("toolbox-return", "toolbox TOC target must be fallback-only")
+                )
         else:
-            require_canonical_lesson(stop, f"{route_id}.stop")
-            if stop in membership_by_path and not {
-                "stop",
-                "exit-evidence",
-            }.issubset(membership_by_path[stop].get(route_id, set())):
+            require_route_member(stop, route_id, f"{route_id}.stop")
+            if not {"stop", "exit-evidence"}.issubset(
+                membership_by_path.get(stop, {}).get(route_id, set())
+            ):
                 errors.append(failure("route-stop", f"{route_id} stop roles are missing"))
             if route["returnPolicy"] != "fixed-toc-anchor":
                 errors.append(failure("route-return", f"{route_id} return policy is invalid"))
-        readiness = route["readiness"]
-        for target in readiness["targets"]:
+            if route["tocReturn"]["role"] != "route-return":
+                errors.append(
+                    failure("route-return", f"{route_id} TOC target needs route-return role")
+                )
+        for target in route["readiness"]["targets"]:
             require_canonical_lesson(target, f"{route_id}.readiness")
+
+        edge_signatures = [json.dumps(edge, sort_keys=True) for edge in route["edges"]]
+        if len(edge_signatures) != len(set(edge_signatures)):
+            errors.append(failure("route-edge-duplicate", f"{route_id} repeats an edge"))
+        graph_nodes = {entry}
+        if stop is not None:
+            graph_nodes.add(stop)
+        adjacency: dict[str, set[str]] = {}
         for index, edge in enumerate(route["edges"]):
             label = f"{route_id}.edges[{index}]"
-            if not isinstance(edge, dict) or set(edge) != {"kind", "from", "to", "rejoin"}:
-                errors.append(failure("route-edge-schema", f"{label} is invalid"))
-                continue
-            if edge.get("kind") not in ALLOWED_EDGE_KINDS:
-                errors.append(failure("route-edge-schema", f"{label} kind is invalid"))
-            require_canonical_lesson(edge.get("from"), f"{label}.from")
-            targets = edge.get("to")
-            if not isinstance(targets, list) or not targets:
-                errors.append(failure("route-edge-schema", f"{label}.to is invalid"))
-            else:
-                for target in targets:
-                    require_canonical_lesson(target, f"{label}.to")
-            rejoin = edge.get("rejoin")
+            edge_from = edge["from"]
+            require_route_member(edge_from, route_id, f"{label}.from")
+            graph_nodes.add(edge_from)
+            adjacency.setdefault(edge_from, set()).update(edge["to"])
+            for target in edge["to"]:
+                require_route_member(target, route_id, f"{label}.to")
+                graph_nodes.add(target)
+            rejoin = edge["rejoin"]
             if rejoin is not None:
-                require_canonical_lesson(rejoin, f"{label}.rejoin")
+                require_route_member(rejoin, route_id, f"{label}.rejoin")
+                graph_nodes.add(rejoin)
+
+        member_paths = {
+            path for path, memberships in membership_by_path.items() if route_id in memberships
+        }
+        ungraphed = sorted(member_paths - graph_nodes)
+        if ungraphed:
+            errors.append(
+                failure("route-member-graph", f"{route_id} members are outside its graph: {ungraphed}")
+            )
+        reached = reachable_from(entry, adjacency)
+        unreachable = sorted(graph_nodes - reached)
+        if unreachable:
+            errors.append(
+                failure("route-reachability", f"{route_id} has unreachable nodes: {unreachable}")
+            )
+        if stop is not None and stop not in reached:
+            errors.append(failure("route-stop-reachability", f"{route_id} stop is unreachable"))
+        for index, edge in enumerate(route["edges"]):
+            rejoin = edge["rejoin"]
+            if rejoin is None:
+                continue
+            for target in edge["to"]:
+                if rejoin not in reachable_from(target, adjacency):
+                    errors.append(
+                        failure(
+                            "route-rejoin",
+                            f"{route_id}.edges[{index}] target {target} cannot reach {rejoin}",
+                        )
+                    )
+
+        continuation_signatures = []
         for index, continuation in enumerate(route["continuations"]):
             label = f"{route_id}.continuations[{index}]"
-            if not isinstance(continuation, dict) or set(continuation) != {
-                "kind",
-                "routeId",
-                "target",
-            }:
-                errors.append(failure("route-continuation", f"{label} is invalid"))
+            continuation_signatures.append(json.dumps(continuation, sort_keys=True))
+            kind = continuation["kind"]
+            if kind == "return-to-caller":
+                if route_id != "toolbox":
+                    errors.append(
+                        failure("route-continuation", f"{label} is only valid for toolbox")
+                    )
                 continue
-            errors.extend(validate_target(continuation["target"], f"{label}.target"))
-            target_path = continuation["target"].get("path")
-            if target_path not in canonical_paths:
-                errors.append(failure("route-target", f"{label} targets non-canonical page"))
-            target_route = continuation.get("routeId")
-            if target_route is not None and target_route not in EXPECTED_ROUTE_IDS:
-                errors.append(failure("route-continuation", f"{label} routeId is unknown"))
+            target = continuation["target"]
+            target_path = target["path"]
+            target_route = continuation["routeId"]
+            if kind in {"route", "requires-readiness", "optional-route", "llm-wiki-overlay"}:
+                if target_route not in route_by_id:
+                    errors.append(
+                        failure("route-continuation", f"{label} routeId is unknown")
+                    )
+                elif target_path != route_by_id[target_route]["entry"]:
+                    errors.append(
+                        failure(
+                            "route-continuation-target",
+                            f"{label} must target {target_route}'s entry",
+                        )
+                    )
+                if target["fragment"] is not None or target["role"] != "route-entry":
+                    errors.append(
+                        failure(
+                            "route-continuation-target",
+                            f"{label} must use the target route-entry identity",
+                        )
+                    )
+            elif kind in {"review-reentry", "conditional-review-reentry"}:
+                if target_route not in route_by_id:
+                    errors.append(
+                        failure("route-continuation", f"{label} routeId is unknown")
+                    )
+                else:
+                    require_route_member(target_path, target_route, f"{label}.target")
+                    if "review-reentry" not in membership_by_path.get(target_path, {}).get(
+                        target_route, set()
+                    ):
+                        errors.append(
+                            failure(
+                                "route-continuation-target",
+                                f"{label} target lacks review-reentry role",
+                            )
+                        )
+                if target["fragment"] is not None or target["role"] != "review-reentry":
+                    errors.append(
+                        failure(
+                            "route-continuation-target",
+                            f"{label} must use the review-reentry identity",
+                        )
+                    )
+            elif kind == "return-to-catalog":
+                if target_route is not None or target != route["tocReturn"]:
+                    errors.append(
+                        failure(
+                            "route-continuation-target",
+                            f"{label} must equal the route TOC return target",
+                        )
+                    )
+        if len(continuation_signatures) != len(set(continuation_signatures)):
+            errors.append(
+                failure("route-continuation-duplicate", f"{route_id} repeats a continuation")
+            )
+
         for index, remediation in enumerate(route["remediation"]):
             label = f"{route_id}.remediation[{index}]"
-            if not isinstance(remediation, dict) or set(remediation) != {
-                "when",
-                "target",
-                "returnTo",
-            }:
-                errors.append(failure("route-remediation", f"{label} is invalid"))
-                continue
-            if not isinstance(remediation.get("when"), str) or not remediation["when"]:
-                errors.append(failure("route-remediation", f"{label}.when is required"))
-            require_canonical_lesson(remediation.get("target"), f"{label}.target")
-            require_canonical_lesson(remediation.get("returnTo"), f"{label}.returnTo")
+            require_canonical_lesson(remediation["target"], f"{label}.target")
+            return_to = remediation["returnTo"]
+            if isinstance(return_to, str):
+                require_route_member(return_to, route_id, f"{label}.returnTo")
+            elif route_id != "toolbox":
+                errors.append(
+                    failure("route-remediation", f"{label} dynamic return is toolbox-only")
+                )
+        if route_id == "toolbox" and route["remediation"] != [
+            {
+                "when": "tool-selection-gap",
+                "target": "lessons/002-0001-choose-toolbox-lesson.html",
+                "returnTo": {
+                    "source": "route-notebook.targetedRemediationReturnPoint",
+                    "fallback": "tocReturn",
+                },
+            }
+        ]:
+            errors.append(
+                failure("route-remediation", "toolbox remediation contract differs")
+            )
+        if route_id == "workflow-standardization":
+            remediation_targets = {
+                remediation["target"] for remediation in route["remediation"]
+            }
+            if remediation_targets != set(route["readiness"]["targets"]) or any(
+                remediation["returnTo"] != route["entry"]
+                for remediation in route["remediation"]
+            ):
+                errors.append(
+                    failure(
+                        "route-remediation",
+                        "workflow-standardization must remediate every accepted origin",
+                    )
+                )
     return errors
 
 
 def validate_thin_slice(manifest: dict[str, Any]) -> list[str]:
     pages = manifest.get("pages")
-    if not isinstance(pages, list) or not all(isinstance(page, dict) for page in pages):
-        return [failure("thin-slice", "pages are not available")]
-    by_path = {page.get("path"): page for page in pages}
-    expected = {
+    routes = manifest.get("routes")
+    if (
+        not isinstance(pages, list)
+        or not all(
+            isinstance(page, dict) and isinstance(page.get("path"), str) for page in pages
+        )
+        or not isinstance(routes, list)
+        or not all(
+            isinstance(route, dict) and isinstance(route.get("id"), str) for route in routes
+        )
+    ):
+        return [failure("thin-slice-skipped", "validated pages and routes are required")]
+    by_path = {page["path"]: page for page in pages}
+    route_by_id = {route["id"]: route for route in routes}
+    expected_kinds = {
         "index.html": "navigation",
         "lessons/001-0001-four-claude-surfaces.html": "canonical-lesson",
         "lessons/001-0002-first-session-read-only.html": "compatibility",
         "lessons/001-0011-explore-plan-implement-commit.html": "compatibility",
         "lessons/001-0002-define-route-readiness.html": "canonical-lesson",
+        "lessons/004-0007-handoff-to-claude-code.html": "compatibility",
         "reference/agent-operations-safety.html": "canonical-reference",
+        "reference/ai-workflow-case-library.html": "compatibility",
         "reference/ai-workflow-skill-composer.html": "deprecation",
     }
     errors = []
-    for path, kind in expected.items():
+    for path, kind in expected_kinds.items():
         if path not in by_path or by_path[path].get("pageKind") != kind:
             errors.append(failure("thin-slice", f"{path} must be {kind}"))
-    direct = by_path.get("lessons/001-0002-first-session-read-only.html", {}).get(
-        "compatibility"
+
+    def expect_compatibility(path: str, mode: str, targets: list[dict[str, Any]]) -> None:
+        value = by_path.get(path, {}).get("compatibility")
+        if (
+            not isinstance(value, dict)
+            or value.get("mode") != mode
+            or value.get("finalTargets") != targets
+        ):
+            errors.append(failure("thin-slice", f"{path} exact Compatibility targets differ"))
+
+    expect_compatibility(
+        "lessons/001-0002-first-session-read-only.html",
+        "direct",
+        [
+            {
+                "path": "lessons/001-0004-prepare-claude-code-session.html",
+                "fragment": None,
+                "role": "primary-successor",
+            }
+        ],
     )
-    transition = by_path.get(
-        "lessons/001-0011-explore-plan-implement-commit.html", {}
-    ).get("compatibility")
-    if not isinstance(direct, dict) or direct.get("mode") != "direct":
-        errors.append(failure("thin-slice", "direct Compatibility example is invalid"))
-    if not isinstance(transition, dict) or transition.get("mode") != "transition":
-        errors.append(failure("thin-slice", "transition Compatibility example is invalid"))
+    expect_compatibility(
+        "lessons/001-0011-explore-plan-implement-commit.html",
+        "transition",
+        [
+            {
+                "path": "lessons/006-0001-choose-engineering-route.html",
+                "fragment": None,
+                "role": "route-entry",
+            },
+            {
+                "path": "lessons/006-0007-implement-and-create-review-checkpoint.html",
+                "fragment": None,
+                "role": "implementation",
+            },
+            {
+                "path": "lessons/006-0008-review-final-candidate.html",
+                "fragment": None,
+                "role": "review",
+            },
+            {
+                "path": "lessons/006-0009-complete-engineering-closeout.html",
+                "fragment": None,
+                "role": "closeout",
+            },
+        ],
+    )
+    expect_compatibility(
+        "lessons/004-0007-handoff-to-claude-code.html",
+        "transition",
+        [
+            {
+                "path": "lessons/004-0007-assemble-design-handoff-bundle.html",
+                "fragment": None,
+                "role": "primary-successor",
+            },
+            {
+                "path": "lessons/002-0001-choose-toolbox-lesson.html",
+                "fragment": None,
+                "role": "toolbox-continuation",
+            },
+            {
+                "path": "lessons/006-0001-choose-engineering-route.html",
+                "fragment": None,
+                "role": "engineering-continuation",
+            },
+        ],
+    )
+    expect_compatibility(
+        "reference/ai-workflow-case-library.html",
+        "direct",
+        [
+            {
+                "path": "reference/ai-functional-workflow-case-library.html",
+                "fragment": "product",
+                "role": "canonical-case-hub",
+            }
+        ],
+    )
+
+    deprecation = by_path.get("reference/ai-workflow-skill-composer.html", {}).get(
+        "deprecation"
+    )
+    expected_successor = [
+        {
+            "path": "lessons/009-0003-choose-workflow-package.html",
+            "fragment": None,
+            "role": "workflow-package-selector",
+        }
+    ]
+    if not isinstance(deprecation, dict) or deprecation.get(
+        "successorTargets"
+    ) != expected_successor:
+        errors.append(failure("thin-slice", "Deprecation successor differs"))
+
+    def membership_roles(path: str, route_id: str) -> list[str] | None:
+        memberships = by_path.get(path, {}).get("routeMemberships")
+        if not isinstance(memberships, list):
+            return None
+        for membership in memberships:
+            if isinstance(membership, dict) and membership.get("routeId") == route_id:
+                roles = membership.get("roles")
+                return roles if isinstance(roles, list) else None
+        return None
+
+    expected_conditional_roles = ["conditional", "feedback", "tangible-win"]
+    for path, route_id in (
+        ("lessons/004-0003-sync-design-system.html", "design-delivery"),
+        ("lessons/007-0006-diagnose-with-trace.html", "browser-evidence"),
+    ):
+        if membership_roles(path, route_id) != expected_conditional_roles:
+            errors.append(failure("thin-slice", f"{path} conditional role differs"))
+    if by_path.get("lessons/004-0003-sync-design-system.html", {}).get(
+        "contentDisposition", {}
+    ).get("actions") != ["conditionalize", "keep"]:
+        errors.append(failure("thin-slice", "Design-system conditional disposition differs"))
+    if membership_roles(
+        "lessons/006-0008-review-final-candidate.html", "engineering-delivery"
+    ) != ["feedback", "review-reentry", "tangible-win"]:
+        errors.append(failure("thin-slice", "engineering review-reentry role differs"))
+
+    def edge_signatures(route_id: str) -> list[tuple[Any, ...]] | None:
+        route = route_by_id.get(route_id)
+        if not isinstance(route, dict) or not isinstance(route.get("edges"), list):
+            return None
+        signatures = []
+        for edge in route["edges"]:
+            try:
+                signatures.append(
+                    (
+                        edge["kind"],
+                        by_path[edge["from"]]["canonicalCoordinate"],
+                        tuple(by_path[target]["canonicalCoordinate"] for target in edge["to"]),
+                        by_path[edge["rejoin"]]["canonicalCoordinate"]
+                        if edge["rejoin"] is not None
+                        else None,
+                    )
+                )
+            except (KeyError, TypeError):
+                return None
+        return signatures
+
+    expected_graphs = {
+        "knowledge-delivery": [
+            ("next", "003-0001", ("003-0002",), None),
+            (
+                "choose-one",
+                "003-0002",
+                ("003-0003", "003-0008", "003-0009", "003-0010"),
+                "003-0003",
+            ),
+            ("next", "003-0008", ("003-0003",), None),
+            ("next", "003-0009", ("003-0003",), None),
+            ("next", "003-0010", ("003-0003",), None),
+            ("choose-one", "003-0003", ("003-0004", "003-0007"), "003-0005"),
+            ("next", "003-0004", ("003-0005",), None),
+            ("next", "003-0007", ("003-0005",), None),
+            ("next", "003-0005", ("003-0006",), None),
+        ],
+        "design-delivery": [
+            ("next", "004-0001", ("004-0002",), None),
+            ("choose-one", "004-0002", ("004-0003", "004-0004"), "004-0004"),
+            ("next", "004-0003", ("004-0004",), None),
+            ("next", "004-0004", ("004-0005",), None),
+            ("next", "004-0005", ("004-0006",), None),
+            ("next", "004-0006", ("004-0007",), None),
+        ],
+        "engineering-delivery": [
+            (
+                "choose-one",
+                "006-0001",
+                ("006-0002", "006-0010", "006-0011", "006-0012", "006-0013"),
+                "006-0003",
+            ),
+            ("next", "006-0002", ("006-0003",), None),
+            ("choose-one", "006-0003", ("006-0004", "006-0005"), "006-0005"),
+            ("next", "006-0004", ("006-0005",), None),
+            ("next", "006-0005", ("006-0006",), None),
+            ("next", "006-0006", ("006-0007",), None),
+            ("next", "006-0007", ("006-0008",), None),
+            ("next", "006-0008", ("006-0009",), None),
+            ("next", "006-0010", ("006-0003",), None),
+            ("next", "006-0011", ("006-0003",), None),
+            ("next", "006-0012", ("006-0003",), None),
+            ("next", "006-0013", ("006-0014",), None),
+            ("next", "006-0014", ("006-0003",), None),
+        ],
+        "browser-evidence": [
+            ("next", "007-0001", ("007-0002",), None),
+            ("next", "007-0002", ("007-0003",), None),
+            ("next", "007-0003", ("007-0004",), None),
+            ("next", "007-0004", ("007-0005",), None),
+            ("choose-one", "007-0005", ("007-0006", "007-0007"), "007-0007"),
+            ("next", "007-0006", ("007-0007",), None),
+        ],
+        "agent-operations": [
+            ("next", "008-0001", ("008-0002",), None),
+            ("next", "008-0002", ("008-0003",), None),
+            ("choose-one", "008-0003", ("008-0004", "008-0008"), "008-0005"),
+            ("next", "008-0004", ("008-0005",), None),
+            ("next", "008-0005", ("008-0006",), None),
+            ("next", "008-0008", ("008-0005",), None),
+            ("next", "008-0006", ("008-0007",), None),
+        ],
+        "workflow-standardization": [
+            ("choose-one", "009-0001", ("009-0002", "009-0009"), "009-0003"),
+            ("next", "009-0002", ("009-0003",), None),
+            ("next", "009-0009", ("009-0003",), None),
+            (
+                "choose-one",
+                "009-0003",
+                ("009-0004", "009-0005", "009-0006", "009-0007"),
+                "009-0008",
+            ),
+            ("next", "009-0004", ("009-0008",), None),
+            ("next", "009-0005", ("009-0008",), None),
+            ("next", "009-0006", ("009-0008",), None),
+            ("next", "009-0007", ("009-0008",), None),
+        ],
+    }
+    for route_id, expected_signatures in expected_graphs.items():
+        if edge_signatures(route_id) != expected_signatures:
+            errors.append(failure("thin-slice", f"{route_id} graph signature differs"))
+
+    expected_knowledge_overlay = {
+        "kind": "llm-wiki-overlay",
+        "routeId": "agent-operations",
+        "target": {
+            "path": "lessons/008-0001-define-deterministic-check.html",
+            "fragment": None,
+            "role": "route-entry",
+        },
+    }
+    knowledge_continuations = route_by_id.get("knowledge-delivery", {}).get(
+        "continuations", []
+    )
+    if expected_knowledge_overlay not in knowledge_continuations:
+        errors.append(failure("thin-slice", "Knowledge overlay must target the Phase 8 entry"))
+    if any(
+        continuation.get("kind") == "llm-wiki-overlay"
+        for continuation in route_by_id.get("agent-operations", {}).get("continuations", [])
+        if isinstance(continuation, dict)
+    ):
+        errors.append(failure("thin-slice", "Phase 8 must not duplicate the overlay continuation"))
+    expected_review_reentry = {
+        "kind": "review-reentry",
+        "routeId": "engineering-delivery",
+        "target": {
+            "path": "lessons/006-0008-review-final-candidate.html",
+            "fragment": None,
+            "role": "review-reentry",
+        },
+    }
+    if route_by_id.get("browser-evidence", {}).get("continuations") != [
+        expected_review_reentry
+    ]:
+        errors.append(failure("thin-slice", "Phase 7 review re-entry differs"))
     return errors
 
 
@@ -833,8 +1418,215 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
     deprecation["contentDisposition"]["actions"] = ["create"]
     cases.append(("invalid Deprecation disposition", invalid_deprecation, "disposition-kind"))
 
+    malformed_edge = copy.deepcopy(manifest)
+    next(route for route in malformed_edge["routes"] if route["id"] == "toolbox")[
+        "edges"
+    ][0] = "not-an-object"
+    cases.append(("malformed edge", malformed_edge, "route-edge-schema"))
+
+    malformed_continuation_target = copy.deepcopy(manifest)
+    malformed_continuation_target["routes"][0]["continuations"][0][
+        "target"
+    ] = "not-an-object"
+    cases.append(
+        (
+            "malformed continuation target",
+            malformed_continuation_target,
+            "target-schema",
+        )
+    )
+
+    malformed_dynamic_return = copy.deepcopy(manifest)
+    next(
+        route for route in malformed_dynamic_return["routes"] if route["id"] == "toolbox"
+    )["continuations"][0]["from"] = "not-a-list"
+    cases.append(
+        ("malformed dynamic return", malformed_dynamic_return, "route-continuation")
+    )
+
+    malformed_remediation_return = copy.deepcopy(manifest)
+    next(
+        route
+        for route in malformed_remediation_return["routes"]
+        if route["id"] == "toolbox"
+    )["remediation"][0]["returnTo"] = {"source": "missing-fallback"}
+    cases.append(
+        (
+            "malformed remediation return",
+            malformed_remediation_return,
+            "route-remediation",
+        )
+    )
+
+    duplicate_identity = copy.deepcopy(manifest)
+    duplicate_identity["pages"][1]["expectedIdentity"] = duplicate_identity["pages"][0][
+        "expectedIdentity"
+    ]
+    cases.append(("duplicate identity", duplicate_identity, "page-identity-duplicate"))
+
+    wrong_identity = copy.deepcopy(manifest)
+    wrong_identity["pages"][1]["expectedIdentity"] = "wrong-identity"
+    cases.append(("wrong path identity", wrong_identity, "page-identity"))
+
+    wrong_source_state = copy.deepcopy(manifest)
+    next(
+        page
+        for page in wrong_source_state["pages"]
+        if page["pageKind"] == "canonical-lesson"
+    )["sourceDependencies"]["state"] = "not-applicable"
+    cases.append(("wrong source state", wrong_source_state, "source-placeholder"))
+
+    wrong_carryover = copy.deepcopy(manifest)
+    next(
+        page for page in wrong_carryover["pages"] if page["pageKind"] == "canonical-lesson"
+    )["evidenceCarryover"] = "not-applicable"
+    cases.append(("wrong carryover", wrong_carryover, "evidence-carryover"))
+
+    wrong_navigation = copy.deepcopy(manifest)
+    next(page for page in wrong_navigation["pages"] if page["path"] == "index.html")[
+        "pageKind"
+    ] = "canonical-reference"
+    cases.append(("wrong navigation inventory", wrong_navigation, "navigation-paths"))
+
+    cross_route_edge = copy.deepcopy(manifest)
+    next(
+        route for route in cross_route_edge["routes"] if route["id"] == "common-foundation"
+    )["edges"][0]["to"][0] = "lessons/012-0007-complete-governance-lifecycle-policy.html"
+    cases.append(("cross-route edge", cross_route_edge, "route-membership"))
+
+    wrong_membership = copy.deepcopy(manifest)
+    next(
+        page
+        for page in wrong_membership["pages"]
+        if page["path"] == "lessons/003-0004-produce-reviewable-knowledge-slice.html"
+    )["routeMemberships"][0]["routeId"] = "governance-lifecycle"
+    cases.append(("wrong route membership", wrong_membership, "route-membership"))
+
+    unknown_continuation_kind = copy.deepcopy(manifest)
+    unknown_continuation_kind["routes"][0]["continuations"][0]["kind"] = "invented"
+    cases.append(
+        (
+            "unknown continuation kind",
+            unknown_continuation_kind,
+            "route-continuation-kind",
+        )
+    )
+
+    wrong_continuation_target = copy.deepcopy(manifest)
+    continuation = wrong_continuation_target["routes"][0]["continuations"][0]
+    continuation["target"]["path"] = "lessons/003-0001-select-knowledge-deliverable.html"
+    cases.append(
+        (
+            "wrong continuation target",
+            wrong_continuation_target,
+            "route-continuation-target",
+        )
+    )
+
+    wrong_review_role = copy.deepcopy(manifest)
+    next(
+        route for route in wrong_review_role["routes"] if route["id"] == "browser-evidence"
+    )["continuations"][0]["target"]["role"] = "route-entry"
+    cases.append(("wrong review target role", wrong_review_role, "route-continuation-target"))
+
+    duplicate_transition_target = copy.deepcopy(manifest)
+    transition = next(
+        page
+        for page in duplicate_transition_target["pages"]
+        if page["path"] == "lessons/001-0011-explore-plan-implement-commit.html"
+    )["compatibility"]["finalTargets"]
+    transition[1] = copy.deepcopy(transition[0])
+    cases.append(
+        (
+            "duplicate transition target",
+            duplicate_transition_target,
+            "transition-target-duplicate",
+        )
+    )
+
+    duplicate_edge = copy.deepcopy(manifest)
+    edge_route = next(
+        route for route in duplicate_edge["routes"] if route["id"] == "common-foundation"
+    )
+    edge_route["edges"].append(copy.deepcopy(edge_route["edges"][0]))
+    cases.append(("duplicate edge", duplicate_edge, "route-edge-duplicate"))
+
+    unreachable_stop = copy.deepcopy(manifest)
+    next(
+        route for route in unreachable_stop["routes"] if route["id"] == "common-foundation"
+    )["edges"] = []
+    cases.append(("unreachable route stop", unreachable_stop, "route-stop-reachability"))
+
+    wrong_toolbox_remediation = copy.deepcopy(manifest)
+    next(
+        route
+        for route in wrong_toolbox_remediation["routes"]
+        if route["id"] == "toolbox"
+    )["remediation"][0]["target"] = "lessons/001-0002-define-route-readiness.html"
+    cases.append(
+        ("wrong toolbox remediation", wrong_toolbox_remediation, "route-remediation")
+    )
+
+    missing_origin_remediation = copy.deepcopy(manifest)
+    next(
+        route
+        for route in missing_origin_remediation["routes"]
+        if route["id"] == "workflow-standardization"
+    )["remediation"].pop()
+    cases.append(
+        (
+            "missing originating-route remediation",
+            missing_origin_remediation,
+            "route-remediation",
+        )
+    )
+
+    exact_target_swap = copy.deepcopy(manifest)
+    next(
+        page
+        for page in exact_target_swap["pages"]
+        if page["path"] == "lessons/001-0002-first-session-read-only.html"
+    )["compatibility"]["finalTargets"][0][
+        "path"
+    ] = "lessons/001-0003-complete-cowork-starter.html"
+    cases.append(("exact target swap", exact_target_swap, "thin-slice"))
+
+    removed_conditional_role = copy.deepcopy(manifest)
+    roles = next(
+        page
+        for page in removed_conditional_role["pages"]
+        if page["path"] == "lessons/004-0003-sync-design-system.html"
+    )["routeMemberships"][0]["roles"]
+    roles.remove("conditional")
+    cases.append(("removed conditional role", removed_conditional_role, "thin-slice"))
+
+    removed_conditional_disposition = copy.deepcopy(manifest)
+    next(
+        page
+        for page in removed_conditional_disposition["pages"]
+        if page["path"] == "lessons/004-0003-sync-design-system.html"
+    )["contentDisposition"]["actions"] = ["keep"]
+    cases.append(
+        (
+            "removed conditional disposition",
+            removed_conditional_disposition,
+            "thin-slice",
+        )
+    )
+
     for name, mutated, expected_code in cases:
-        actual = validate_manifest(mutated, freeze)
+        try:
+            actual = validate_manifest(mutated, freeze)
+            if not actual:
+                actual = validate_thin_slice(mutated)
+        except Exception as error:
+            errors.append(
+                failure(
+                    "negative-fixture",
+                    f"{name} crashed instead of returning blockers: {type(error).__name__}: {error}",
+                )
+            )
+            continue
         if expected_code not in blocker_codes(actual):
             errors.append(
                 failure(
@@ -842,6 +1634,12 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
                     f"{name} did not fail with [{expected_code}]; got {sorted(blocker_codes(actual))}",
                 )
             )
+        if exit_status(actual, report_only=True) != 0:
+            errors.append(
+                failure("negative-fixture", f"{name} blocked report-only verification")
+            )
+        if exit_status(actual, report_only=False) == 0:
+            errors.append(failure("negative-fixture", f"{name} failed open in strict mode"))
 
     simulated_blockers = [failure("fixture", "report-only diagnostic")]
     if exit_status(simulated_blockers, report_only=True) != 0:
@@ -905,7 +1703,11 @@ def main() -> int:
         return exit_status(manifest_errors, report_only=args.report_only)
 
     manifest_errors = validate_manifest(manifest, freeze)
-    thin_slice_errors = validate_thin_slice(manifest)
+    thin_slice_errors = (
+        validate_thin_slice(manifest)
+        if not manifest_errors
+        else [failure("thin-slice-skipped", "valid manifest is required")]
+    )
     report("MIGRATION MANIFEST", manifest_errors)
     report("POSITIVE THIN SLICE", thin_slice_errors)
     all_errors.extend(manifest_errors)
