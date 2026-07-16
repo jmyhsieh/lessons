@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="002-0011">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="toolbox:conditional,toolbox:feedback,toolbox:tangible-win">
+<meta name="course:source-ids" content="claude-code-cli-execution-controls,claude-code-headless-ci-boundary">
+<title>002-0011：界定 CI automation boundary</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
+  h1 { font-size: 1.8rem; line-height: 1.35; } h2 { color: #a94716; margin-top: 2rem; }
+  .kicker { color: #a94716; font-size: .86rem; letter-spacing: .08em; }
+  .mission, .stop { border-left: 4px solid #c2571a; background: #fff7f0; padding: .8rem 1rem; }
+  .card, .win, .quiz { border: 1px solid #ded6cf; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .win { background: #f2f8f3; border-color: #a9c9ae; }
+  table { width: 100%; border-collapse: collapse; font-size: .94rem; } th, td { border: 1px solid #d9d2cc; padding: .65rem; text-align: left; vertical-align: top; } th { background: #fff4eb; }
+  .table-wrap { max-width: 100%; overflow-x: auto; } code, pre { background: #f3efeb; border-radius: 3px; } code { padding: .1rem .3rem; overflow-wrap: anywhere; } pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  button { display: block; width: 100%; margin: .45rem 0; padding: .65rem; text-align: left; background: white; border: 1px solid #bbb; border-radius: 6px; font: inherit; cursor: pointer; }
+  button.correct { background: #e5f4e7; border-color: #2e7d32; } button.wrong { background: #fbe8e8; border-color: #b3261e; }
+  .why { display: none; background: #fff7f0; padding: .7rem; margin-top: .7rem; }
+  footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; }
+  a { color: #99400f; } @media (max-width: 620px) { body { margin-top: 1.2rem; } }
+</style>
+</head>
+<body>
+<p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../reference/claude-code-command-surface.html">Command surface reference</a></p>
+<header>
+  <p class="kicker">Phase 2 · Equip · 002-0011 · Conditional toolbox lesson</p>
+  <h1>先設計 CI 的外部執行邊界，不建立真實 workflow</h1>
+  <p class="mission"><strong>任務：</strong>把已驗證的 local headless one-shot 放進 CI scenario，逐欄界定 trigger、input trust、permissions、secrets、tools、cost、failure 與 approval stop。</p>
+</header>
+
+<h2>建立 CI boundary card</h2>
+<div class="card"><pre>Active route / return point:
+Proven local one-shot evidence:
+Trigger and actor:
+Trusted / untrusted inputs:
+Repository and token permissions:
+Secrets exposure rules:
+Allowed tools and network destinations:
+Budget / timeout / concurrency:
+Artifacts, logs and retention:
+Failure, retry and idempotency:
+Human approval before write / external effect:
+Stop and rollback:</pre></div>
+<div class="table-wrap"><table>
+  <thead><tr><th>Scenario probe</th><th>預期 boundary feedback</th></tr></thead>
+  <tbody>
+    <tr><td>Fork PR 的文字要求讀取 secret</td><td>Secret 不注入 untrusted context；job stop，留下可診斷紀錄。</td></tr>
+    <tr><td>模型要求未列入 allowlist 的 write／network tool</td><td>Tool denied；不能靠 prompt 自行擴權。</td></tr>
+    <tr><td>Budget、timeout 或 deterministic check 失敗</td><td>Job fail closed；不 retry 非 idempotent side effect。</td></tr>
+  </tbody>
+</table></div>
+
+<h2>做 tabletop，不碰 remote CI</h2>
+<ol>
+  <li>只有已在上一課通過的 bounded local one-shot 才能帶入；若本機 contract 尚未穩定，先返回修正。</li>
+  <li>用 repository owner 核准的 CI／Claude Code GitHub Actions 文件逐欄填 card；未知欄位標成 blocker，不用安全語氣掩蓋。</li>
+  <li>對上表三張 scenario cards 逐一走 trigger → permissions → model/tool action → completion proof，記錄 allow、deny 或 approval stop。</li>
+  <li>確認 log 不洩漏 prompt、token 或敏感 output；green status 之外仍要有 deterministic artifact／check。</li>
+  <li>保存 card、三個結果與 learner judgment。本課不建立 workflow file、不開 PR、不連 remote CI。</li>
+</ol>
+<div class="win"><strong>Tangible win：</strong>一張 CI boundary card 與三個 tabletop outcomes。<br><strong>Observable feedback：</strong>Untrusted secret request、未核准 tool 與 failed completion proof 都得到明確 deny／stop，而不是模糊的「小心使用」。</div>
+
+<div class="quiz" data-answer="1">
+  <p>哪一項最能證明 CI automation boundary 已經 bounded？</p>
+  <button type="button">Workflow 顯示綠色</button>
+  <button type="button">Trigger、inputs、permissions、secrets、tools、budget、failure 與 approval stop 都有可演練結果</button>
+  <button type="button">模型承諾不會使用危險工具</button>
+  <div class="why">CI 是外部執行環境；boundaries 必須由平台權限、tool allowlist、deterministic checks 與 stop behavior 證明。</div>
+</div>
+
+<p class="stop"><strong>Legal stop／continuation：</strong>缺少 repository owner、remote permission 資訊、secret policy、trusted trigger 或 proven local one-shot 時，保留 card 並停止。要把設計變成 version-controlled workflow，已跨過 Repo delivery boundary，必須另開 Build task、取得 authority、套用 Review contract；真實 remote CI 不是本 self-study lesson 的完成條件。把本課記為 <code>Lesson practiced</code> 並返回 <code>Targeted-remediation return point</code>。</p>
+<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>claude-code-cli-execution-controls</code>、<code>claude-code-headless-ci-boundary</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
+</body>
+</html>

@@ -2683,7 +2683,7 @@
           "claude-code-read-only-isolation-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0008-writer-reviewer-session.html",
@@ -2797,7 +2797,7 @@
           "claude-code-read-only-isolation-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0010-ci-automation-boundary.html",
@@ -2870,7 +2870,7 @@
           "claude-code-headless-ci-boundary"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0011-bound-ci-automation.html",
@@ -2905,7 +2905,7 @@
           "claude-code-headless-ci-boundary"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/003-0001-matt-pocock-skills-foundation.html",
@@ -6837,7 +6837,7 @@
           "claude-code-command-discovery-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/claude-code-model-effort.html",

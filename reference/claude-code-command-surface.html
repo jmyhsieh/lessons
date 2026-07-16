@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+<link rel="icon" href="data:,">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="not-applicable">
+<meta name="course:page-kind" content="canonical-reference">
+<meta name="course:route-roles" content="not-applicable">
+<meta name="course:source-ids" content="claude-code-cli-execution-controls,claude-code-command-discovery-contract">
 <title>Claude Code 操作速查表：Desktop UI 與 CLI commands</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
@@ -131,9 +136,33 @@
 
 <p><strong>CLI 特別注意：</strong>官方文件明確說 command availability 會依 platform、plan、environment 改變；實際仍以你在 CLI 輸入 <code>/</code> 或 <code>/help</code> 看到的清單為準。</p>
 
+<h2>CLI launch flags：在 session 外先界定 execution</h2>
+<p>Slash commands 控制已開啟的 session；launch flags 則在啟動前固定 context、tools、permissions 與輸出。兩者不要混用。以下只作 task-based discovery，真正執行前仍以本機 <code>claude --help</code> 為 authority。</p>
+<div class="guide-list">
+  <section class="guide-item">
+    <div class="guide-label">隔離調查</div>
+    <div class="guide-body"><div class="cmds"><code>--agent</code><code>--agents</code></div><p>選擇或定義 bounded agent；read-only authority 仍由 agent tools／permissions 明確限制。先練習：<a href="../lessons/002-0008-delegate-read-only-investigation.html">002-0008</a>。</p></div>
+  </section>
+  <section class="guide-item">
+    <div class="guide-label">隔離改動</div>
+    <div class="guide-body"><div class="cmds"><code>-w</code><code>--worktree [name]</code></div><p>建立獨立 working directory／branch；不隔離 credentials、network 或 external resources。先練習：<a href="../lessons/002-0009-isolate-parallel-work.html">002-0009</a>。</p></div>
+  </section>
+  <section class="guide-item">
+    <div class="guide-label">一次性執行</div>
+    <div class="guide-body"><div class="cmds"><code>-p</code><code>--tools</code><code>--allowedTools</code><code>--output-format</code><code>--max-budget-usd</code><code>--no-session-persistence</code></div><p>固定 headless one-shot 的 tools、output、cost 與 persistence；non-interactive mode 會跳過 workspace trust dialog，只能從可信 directory 執行。先練習：<a href="../lessons/002-0010-run-headless-one-shot.html">002-0010</a>。</p></div>
+  </section>
+  <section class="guide-item">
+    <div class="guide-label">外部執行邊界</div>
+    <div class="guide-body"><div class="cmds"><code>--permission-mode</code><code>--setting-sources</code><code>--strict-mcp-config</code></div><p>這些 flags 只能表達部分 runtime boundary；remote trigger、token permissions、secrets、untrusted input、network、retry 與 approval stop 仍要由 CI contract 限制。先做 tabletop：<a href="../lessons/002-0011-bound-ci-automation.html">002-0011</a>。</p></div>
+  </section>
+</div>
+
+<div class="rule"><strong>共同 stop：</strong>本機 help 沒有該 flag、current client 沒有對應 surface、directory 不可信，或 authority／side effects 無法逐項說明時就停止。不要用文件中的完整 catalog 推定目前帳號與環境一定可用。</div>
+
 <footer>
   對應課程：<a href="../lessons/001-0008-session-commands.html">001-08 — 整理與切換對話狀態</a><br>
-  主要來源：<a href="https://code.claude.com/docs/en/desktop">Claude Code Desktop application</a> · <a href="https://code.claude.com/docs/en/commands">Claude Code Commands</a>
+  Verified environment summary：Claude Code 2.1.211 local help；command availability 以 current picker／help 為準<br>
+  Source IDs：<code>claude-code-cli-execution-controls</code>、<code>claude-code-command-discovery-contract</code> · 主要來源：<a href="https://code.claude.com/docs/en/cli-reference">CLI reference</a> · <a href="https://code.claude.com/docs/en/desktop">Desktop application</a> · <a href="https://code.claude.com/docs/en/commands">Commands</a>
 </footer>
 </body>
 </html>

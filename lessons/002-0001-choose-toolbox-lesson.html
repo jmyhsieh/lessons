@@ -54,7 +54,10 @@
     <tr><td>需要在工具執行前阻擋一個能以 deterministic predicate 判斷的危險操作</td><td><a href="002-0005-add-guardrail-hook.html">加入 guardrail hook</a></td><td>在 fixture 證明 should-block 與 should-allow，不碰真實禁區。</td></tr>
     <tr><td>已有可信 Skill 能直接處理 active-route gap</td><td><a href="002-0006-use-existing-skill.html">使用既有 Skill</a></td><td>讀完 instruction package，在 bounded task 觀察是否遵守 scope 與 stop。</td></tr>
     <tr><td>Active route 需要從可信外部系統讀取一項資料</td><td><a href="002-0007-connect-trusted-mcp.html">連接 trusted MCP</a></td><td>以最小 scope 連接，inspect tools，只執行一個 read-only query。</td></tr>
-    <tr><td>缺口是 subagent、worktree、headless 或 CI</td><td>記錄 gap，現在合法停止</td><td>對應 lesson 尚未 authored 前，不自行拼裝未驗證流程。</td></tr>
+    <tr><td>需要隔離大量 read-only repo investigation</td><td><a href="002-0008-delegate-read-only-investigation.html">委派 read-only investigation</a></td><td>交給 fresh subagent，抽查一個 <code>file:line</code> 引用，確認 working tree 不變。</td></tr>
+    <tr><td>兩條可能改檔的 local tasks 需要平行進行</td><td><a href="002-0009-isolate-parallel-work.html">隔離 parallel work</a></td><td>在 disposable Git fixture 建立 worktree marker，證明只出現在隔離目錄後安全清理。</td></tr>
+    <tr><td>已成功的 bounded task 需要一次性非互動執行</td><td><a href="002-0010-run-headless-one-shot.html">執行 headless one-shot</a></td><td>固定 prompt、Read tools、JSON output、budget 與 deterministic oracle。</td></tr>
+    <tr><td>已驗證的 one-shot 可能進入 remote CI</td><td><a href="002-0011-bound-ci-automation.html">界定 CI automation boundary</a></td><td>以 tabletop 驗證 untrusted input、permissions、secrets、failure 與 approval stop，不建立真實 workflow。</td></tr>
   </tbody>
 </table></div>
 
