@@ -8,6 +8,7 @@ import copy
 import json
 import posixpath
 import runpy
+from collections import Counter
 from datetime import date, datetime
 from html.parser import HTMLParser
 from pathlib import Path, PurePosixPath
@@ -21,6 +22,14 @@ MANIFEST_PATH = "docs/migration/course-migration-manifest.json"
 REGISTRY_PATH = "source-anchors.json"
 SITE_ROOT_PATHS = ("index.html", "toc.html")
 SITE_DIRECTORIES = ("lessons", "reference")
+EXPECTED_INVENTORY_COUNTS = {
+    "navigation": 2,
+    "canonical-lesson": 105,
+    "canonical-reference": 18,
+    "compatibility": 46,
+    "deprecation": 1,
+}
+EXPECTED_CANONICAL_COORDINATES = 105
 
 
 def blocker(code: str, message: str, subject: str | None = None) -> dict[str, str]:
@@ -206,6 +215,55 @@ def validate_inventory(
                 + ", ".join(unexpected[:5]),
             )
         )
+    return errors
+
+
+def validate_inventory_contract(
+    manifest: Any, actual_paths: set[str]
+) -> list[dict[str, str]]:
+    """Verify the exact T45 physical and classified inventory contract."""
+    if not isinstance(manifest, dict) or not isinstance(manifest.get("pages"), list):
+        return [blocker("release-manifest", "manifest pages must be a list")]
+    pages = [page for page in manifest["pages"] if isinstance(page, dict)]
+    errors: list[dict[str, str]] = []
+    if len(actual_paths) != 172 or len(pages) != 172:
+        errors.append(
+            blocker(
+                "inventory-page-count",
+                "physical HTML and manifest inventories must each contain exactly 172 paths",
+            )
+        )
+    counts = Counter(page.get("pageKind") for page in pages)
+    if counts != Counter(EXPECTED_INVENTORY_COUNTS):
+        errors.append(
+            blocker(
+                "inventory-classification",
+                "inventory must be exactly 172 pages classified as "
+                "2 navigation, 105 canonical lessons, 18 canonical references, "
+                "46 compatibility entries, and 1 deprecation notice",
+            )
+        )
+
+    coordinates = [
+        page.get("canonicalCoordinate")
+        for page in pages
+        if page.get("pageKind") == "canonical-lesson"
+    ]
+    valid_coordinates = [
+        coordinate for coordinate in coordinates if isinstance(coordinate, str)
+    ]
+    if (
+        len(coordinates) != EXPECTED_CANONICAL_COORDINATES
+        or len(valid_coordinates) != EXPECTED_CANONICAL_COORDINATES
+        or len(set(valid_coordinates)) != EXPECTED_CANONICAL_COORDINATES
+    ):
+        errors.append(
+            blocker(
+                "inventory-coordinates",
+                "canonical lesson inventory must expose 105 unique coordinates",
+            )
+        )
+
     return errors
 
 
@@ -549,11 +607,16 @@ def validate_compatibility_graph(
 
 
 def validate_site_release(
-    repo_root: Path, manifest: Any
+    repo_root: Path, manifest: Any, *, inventory_contract: bool = True
 ) -> tuple[dict[str, Any], list[dict[str, str]]]:
     actual_paths = collect_site_paths(repo_root)
     documents, errors = parse_site_documents(repo_root, actual_paths)
     inventory_errors = validate_inventory(manifest, actual_paths)
+    contract_errors = (
+        validate_inventory_contract(manifest, actual_paths)
+        if inventory_contract
+        else []
+    )
     link_quiz_errors = validate_links_and_quizzes(repo_root, documents)
     compatibility_errors = validate_compatibility_graph(manifest, documents)
     authored_paths: set[str] = set()
@@ -568,14 +631,32 @@ def validate_site_release(
     authored_errors = validate_authored_pages(
         manifest, documents, required_paths=authored_paths
     )
+    pages = manifest.get("pages", []) if isinstance(manifest, dict) else []
+    kind_counts = Counter(
+        page.get("pageKind") for page in pages if isinstance(page, dict)
+    )
+    coordinates = {
+        page.get("canonicalCoordinate")
+        for page in pages
+        if isinstance(page, dict)
+        and page.get("pageKind") == "canonical-lesson"
+        and isinstance(page.get("canonicalCoordinate"), str)
+    }
     errors.extend(inventory_errors)
+    errors.extend(contract_errors)
     errors.extend(link_quiz_errors)
     errors.extend(compatibility_errors)
     errors.extend(authored_errors)
     details = {
         "physicalHtmlPages": len(actual_paths),
+        "declaredHtmlPages": len(pages),
+        "classification": {
+            kind: kind_counts.get(kind, 0) for kind in EXPECTED_INVENTORY_COUNTS
+        },
+        "uniqueCanonicalCoordinates": len(coordinates),
         "parsedHtmlPages": len(documents),
         "inventoryBlockers": len(inventory_errors),
+        "inventoryContractBlockers": len(contract_errors),
         "linkOrQuizBlockers": len(link_quiz_errors),
         "compatibilityBlockers": len(compatibility_errors),
         "authoredPageBlockers": len(authored_errors),
@@ -944,7 +1025,7 @@ def run_site_self_test() -> None:
     with TemporaryDirectory() as directory:
         root = Path(directory)
         write_fixture_site(root)
-        _, errors = validate_site_release(root, manifest)
+        _, errors = validate_site_release(root, manifest, inventory_contract=False)
         assert errors == [], errors
         documents, parse_errors = parse_site_documents(
             root, {"lessons/001-0001-target.html"}
@@ -1041,7 +1122,7 @@ def run_site_self_test() -> None:
         (root / "lessons" / "001-0002-old.html").write_text("No successor", encoding="utf-8")
         (root / "reference" / "retired.html").write_text("No successor", encoding="utf-8")
         (root / "reference" / "unexpected.html").write_text("Unexpected", encoding="utf-8")
-        _, errors = validate_site_release(root, manifest)
+        _, errors = validate_site_release(root, manifest, inventory_contract=False)
         assert_codes(
             errors,
             "inventory-unexpected",
@@ -1057,12 +1138,12 @@ def run_site_self_test() -> None:
             '<button>A</button></div>',
             encoding="utf-8",
         )
-        _, errors = validate_site_release(root, manifest)
+        _, errors = validate_site_release(root, manifest, inventory_contract=False)
         assert_codes(errors, "quiz-answer-invalid")
 
         (root / "reference" / "unexpected.html").unlink()
         (root / "reference" / "retired.html").unlink()
-        _, errors = validate_site_release(root, manifest)
+        _, errors = validate_site_release(root, manifest, inventory_contract=False)
         assert_codes(errors, "inventory-missing")
 
         chained = copy.deepcopy(manifest)
@@ -1070,7 +1151,7 @@ def run_site_self_test() -> None:
         (root / "lessons" / "001-0002-old.html").write_text(
             '<a href="001-0001-target.html#target">Continue</a>', encoding="utf-8"
         )
-        _, errors = validate_site_release(root, chained)
+        _, errors = validate_site_release(root, chained, inventory_contract=False)
         assert_codes(errors, "compatibility-chain")
 
 
@@ -1082,6 +1163,58 @@ def run_self_test(repo_root: Path) -> None:
     assert freeze_module["run_self_test"](freeze, repo_root) == []
     assert manifest_module["run_self_test"](manifest, freeze) == []
     source_module["run_self_test"]()
+
+    actual_paths = collect_site_paths(repo_root)
+    assert validate_inventory_contract(manifest, actual_paths) == []
+
+    physical_count_drift = set(actual_paths)
+    physical_count_drift.remove(next(iter(physical_count_drift)))
+    assert_codes(
+        validate_inventory_contract(manifest, physical_count_drift),
+        "inventory-page-count",
+    )
+
+    path_union_drift = copy.deepcopy(manifest)
+    path_union_drift["pages"][0]["path"] = "reference/not-in-physical-inventory.html"
+    assert_codes(
+        validate_inventory(path_union_drift, actual_paths),
+        "inventory-missing",
+        "inventory-unexpected",
+    )
+
+    classification_drift = copy.deepcopy(manifest)
+    next(
+        page
+        for page in classification_drift["pages"]
+        if page["pageKind"] == "canonical-reference"
+    )["pageKind"] = "compatibility"
+    assert_codes(
+        validate_inventory_contract(classification_drift, actual_paths),
+        "inventory-classification",
+    )
+
+    coordinate_drift = copy.deepcopy(manifest)
+    lessons = [
+        page
+        for page in coordinate_drift["pages"]
+        if page["pageKind"] == "canonical-lesson"
+    ]
+    lessons[1]["canonicalCoordinate"] = lessons[0]["canonicalCoordinate"]
+    assert_codes(
+        validate_inventory_contract(coordinate_drift, actual_paths),
+        "inventory-coordinates",
+    )
+
+    invalid_coordinate = copy.deepcopy(manifest)
+    next(
+        page
+        for page in invalid_coordinate["pages"]
+        if page["pageKind"] == "canonical-lesson"
+    )["canonicalCoordinate"] = {"invalid": "container"}
+    assert_codes(
+        validate_inventory_contract(invalid_coordinate, actual_paths),
+        "inventory-coordinates",
+    )
 
     registry, source_manifest = source_module["positive_fixture"]()
     missing_anchor = copy.deepcopy(source_manifest)
@@ -1123,6 +1256,20 @@ def print_text_report(report: dict[str, Any]) -> None:
             f"metadata-blockers={checks.get('metadataBlockers', 0)} "
             f"link-or-quiz-blockers={checks.get('linkOrQuizBlockers', 0)} "
             f"compatibility-blockers={checks.get('compatibilityBlockers', 0)}"
+        )
+    else:
+        site = report.get("checks", {}).get("site", {})
+        classification = site.get("classification", {})
+        print(
+            "INVENTORY "
+            f"physical={site.get('physicalHtmlPages', 0)} "
+            f"declared={site.get('declaredHtmlPages', 0)} "
+            f"kinds={classification.get('navigation', 0)}/"
+            f"{classification.get('canonical-lesson', 0)}/"
+            f"{classification.get('canonical-reference', 0)}/"
+            f"{classification.get('compatibility', 0)}/"
+            f"{classification.get('deprecation', 0)} "
+            f"unique-coordinates={site.get('uniqueCanonicalCoordinates', 0)}"
         )
     for error in report["blockers"]:
         subject = f" {error['subject']}" if error.get("subject") else ""
