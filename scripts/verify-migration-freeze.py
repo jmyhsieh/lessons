@@ -7,8 +7,10 @@ import argparse
 import copy
 import hashlib
 import json
+import re
 import subprocess
 import sys
+from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path, PurePosixPath
 from typing import Any
@@ -21,6 +23,8 @@ FREEZE_START = "<!-- migration-freeze-json:start -->"
 FREEZE_END = "<!-- migration-freeze-json:end -->"
 EXPECTED_BASELINE_COUNT = 73
 EXPECTED_NEW_CANONICAL_COUNT = 99
+
+CommandRunner = Callable[..., subprocess.CompletedProcess[Any]]
 
 
 def failure(code: str, message: str) -> str:
@@ -88,6 +92,7 @@ def validate_path_list(paths: Any, name: str, expected_count: int) -> list[str]:
             or ".." in parsed.parts
             or parsed.suffix != ".html"
             or str(parsed) != path
+            or any(ord(character) < 32 or ord(character) == 127 for character in path)
         ):
             invalid_paths.append(path)
     if invalid_paths:
@@ -95,6 +100,61 @@ def validate_path_list(paths: Any, name: str, expected_count: int) -> list[str]:
             failure(f"{name}-path", f"{name} contains invalid paths: {invalid_paths}")
         )
     return errors
+
+
+def validate_object_fields(
+    value: dict[str, Any], name: str, fields: dict[str, type]
+) -> list[str]:
+    errors = []
+    for field, expected_type in fields.items():
+        if field not in value:
+            errors.append(failure("freeze-schema", f"{name}.{field} is required"))
+            continue
+        actual = value[field]
+        valid = isinstance(actual, expected_type)
+        if expected_type is int and isinstance(actual, bool):
+            valid = False
+        if (
+            valid
+            and expected_type is str
+            and any(
+                ord(character) < 32 or ord(character) == 127
+                for character in actual
+            )
+        ):
+            errors.append(
+                failure(
+                    "freeze-schema",
+                    f"{name}.{field} must not contain control characters",
+                )
+            )
+            continue
+        if not valid:
+            errors.append(
+                failure(
+                    "freeze-schema",
+                    f"{name}.{field} must be {expected_type.__name__}",
+                )
+            )
+    return errors
+
+
+def validate_ancestry_result(returncode: int, stderr: str = "") -> list[str]:
+    if returncode == 0:
+        return []
+    if returncode == 1:
+        return [
+            failure(
+                "migration-ancestry",
+                "preMigrationCommit is not an ancestor of the Migration branch",
+            )
+        ]
+    return [
+        failure(
+            "migration-ancestry-evidence",
+            stderr or "cannot verify Migration branch ancestry",
+        )
+    ]
 
 
 def validate_isolation(
@@ -132,19 +192,29 @@ def validate_isolation(
 
 
 def validate_freeze(
-    freeze: dict[str, Any], repo_root: Path, *, verify_git_tree: bool
+    freeze: dict[str, Any],
+    repo_root: Path,
+    *,
+    verify_git_tree: bool,
+    command_runner: CommandRunner = run_command,
 ) -> list[str]:
     errors: list[str] = []
     production = freeze.get("production")
     migration = freeze.get("migration")
     cutover = freeze.get("cutoverEvidence")
     authority = freeze.get("authority")
+    issues = freeze.get("issues")
     baseline_paths = freeze.get("baselinePaths")
     new_paths = freeze.get("newCanonicalPaths")
     pre_migration_commit = freeze.get("preMigrationCommit")
 
-    if freeze.get("schemaVersion") != 1:
-        errors.append(failure("schema-version", "schemaVersion must be 1"))
+    schema_version = freeze.get("schemaVersion")
+    if (
+        not isinstance(schema_version, int)
+        or isinstance(schema_version, bool)
+        or schema_version != 1
+    ):
+        errors.append(failure("schema-version", "schemaVersion must be integer 1"))
 
     errors.extend(
         validate_path_list(baseline_paths, "baseline", EXPECTED_BASELINE_COUNT)
@@ -170,6 +240,7 @@ def validate_freeze(
         "migration": migration,
         "cutoverEvidence": cutover,
         "authority": authority,
+        "issues": issues,
     }
     invalid_objects = [
         name for name, value in object_fields.items() if not isinstance(value, dict)
@@ -185,7 +256,83 @@ def validate_freeze(
         errors.append(
             failure("freeze-schema", "preMigrationCommit must be a commit SHA string")
         )
+    elif re.fullmatch(r"[0-9a-f]{40}", pre_migration_commit) is None:
+        errors.append(
+            failure(
+                "commit-identity",
+                "preMigrationCommit must be an exact 40-character lowercase SHA",
+            )
+        )
     if invalid_objects or not isinstance(pre_migration_commit, str):
+        return errors
+
+    errors.extend(
+        validate_object_fields(
+            production,
+            "production",
+            {
+                "repository": str,
+                "provider": str,
+                "environment": str,
+                "canonicalHost": str,
+                "sourceBranch": str,
+                "trigger": str,
+                "deploymentId": int,
+                "deploymentSha": str,
+                "deploymentUrl": str,
+                "deploymentCompletedAt": str,
+                "indexSha256": str,
+                "secondaryHost": dict,
+            },
+        )
+    )
+    errors.extend(
+        validate_object_fields(
+            migration,
+            "migration",
+            {
+                "branch": str,
+                "remotePolicy": str,
+                "previewRisk": str,
+                "cutoverTrigger": str,
+            },
+        )
+    )
+    errors.extend(
+        validate_object_fields(
+            cutover,
+            "cutoverEvidence",
+            {
+                "storage": str,
+                "trackerIssue": int,
+                "recordFormat": str,
+                "appendOnly": bool,
+                "mayMutateCandidate": bool,
+                "requiredIdentity": str,
+            },
+        )
+    )
+    errors.extend(
+        validate_object_fields(
+            issues,
+            "issues",
+            {"blueprint": int, "spec": int, "ticket": int},
+        )
+    )
+    secondary_host = production.get("secondaryHost")
+    if isinstance(secondary_host, dict):
+        errors.extend(
+            validate_object_fields(
+                secondary_host,
+                "production.secondaryHost",
+                {
+                    "url": str,
+                    "expectedStatus": int,
+                    "latestObservedDeploymentSha": str,
+                },
+            )
+        )
+    if errors:
         return errors
 
     if production.get("provider") != "Vercel":
@@ -222,7 +369,7 @@ def validate_freeze(
             )
         )
 
-    current_branch = run_command(["git", "branch", "--show-current"], repo_root)
+    current_branch = command_runner(["git", "branch", "--show-current"], repo_root)
     if current_branch.returncode != 0 or not current_branch.stdout.strip():
         errors.append(
             failure(
@@ -237,6 +384,12 @@ def validate_freeze(
                 current_branch=current_branch.stdout.strip(),
             )
         )
+
+    ancestry = command_runner(
+        ["git", "merge-base", "--is-ancestor", pre_migration_commit, "HEAD"],
+        repo_root,
+    )
+    errors.extend(validate_ancestry_result(ancestry.returncode, ancestry.stderr.strip()))
 
     if cutover.get("storage") != "outside-reviewed-candidate":
         errors.append(
@@ -285,7 +438,7 @@ def validate_freeze(
         )
 
     if verify_git_tree and string_baseline_paths:
-        resolved = run_command(
+        resolved = command_runner(
             ["git", "rev-parse", f"{pre_migration_commit}^{{commit}}"], repo_root
         )
         if resolved.returncode != 0 or resolved.stdout.strip() != pre_migration_commit:
@@ -293,7 +446,7 @@ def validate_freeze(
                 failure("commit-identity", "preMigrationCommit does not resolve exactly")
             )
         else:
-            tree = run_command(
+            tree = command_runner(
                 ["git", "ls-tree", "-r", "--name-only", pre_migration_commit],
                 repo_root,
             )
@@ -331,6 +484,15 @@ def fetch_bytes(url: str) -> tuple[int, bytes]:
 
 
 def verify_online(freeze: dict[str, Any], repo_root: Path) -> list[str]:
+    precondition_errors = validate_freeze(
+        freeze, repo_root, verify_git_tree=False
+    )
+    if precondition_errors:
+        return [
+            failure("online-precondition", "Freeze contract is invalid"),
+            *precondition_errors,
+        ]
+
     errors: list[str] = []
     production = freeze["production"]
     commit = freeze["preMigrationCommit"]
@@ -509,6 +671,32 @@ def run_self_test(freeze: dict[str, Any], repo_root: Path) -> list[str]:
     malformed_path["baselinePaths"][0] = {"path": "index.html"}
     cases.append(("malformed path", malformed_path, "baseline-type"))
 
+    control_character_path = copy.deepcopy(freeze)
+    control_character_path["baselinePaths"][0] = "\x00.html"
+    cases.append(
+        ("control character path", control_character_path, "baseline-path")
+    )
+
+    boolean_schema_version = copy.deepcopy(freeze)
+    boolean_schema_version["schemaVersion"] = True
+    cases.append(("boolean schema version", boolean_schema_version, "schema-version"))
+
+    float_schema_version = copy.deepcopy(freeze)
+    float_schema_version["schemaVersion"] = 1.0
+    cases.append(("float schema version", float_schema_version, "schema-version"))
+
+    malformed_commit = copy.deepcopy(freeze)
+    malformed_commit["preMigrationCommit"] = "\x00"
+    cases.append(("malformed commit", malformed_commit, "commit-identity"))
+
+    missing_repository = copy.deepcopy(freeze)
+    del missing_repository["production"]["repository"]
+    cases.append(("missing repository", missing_repository, "freeze-schema"))
+
+    missing_secondary_host = copy.deepcopy(freeze)
+    del missing_secondary_host["production"]["secondaryHost"]
+    cases.append(("missing secondary host", missing_secondary_host, "freeze-schema"))
+
     manual_trigger = copy.deepcopy(freeze)
     manual_trigger["production"]["trigger"] = "manual"
     cases.append(("manual trigger", manual_trigger, "deployment-trigger"))
@@ -554,6 +742,44 @@ def run_self_test(freeze: dict[str, Any], repo_root: Path) -> list[str]:
                     f"remote publication did not fail with [{expected_code}]",
                 )
             )
+
+    def non_ancestor_runner(
+        args: list[str], root: Path, *, text: bool = True
+    ) -> subprocess.CompletedProcess[Any]:
+        if args[:3] == ["git", "merge-base", "--is-ancestor"]:
+            return subprocess.CompletedProcess(args, 1, stdout="", stderr="")
+        return run_command(args, root, text=text)
+
+    ancestry_errors = validate_freeze(
+        freeze,
+        repo_root,
+        verify_git_tree=False,
+        command_runner=non_ancestor_runner,
+    )
+    ancestry_codes = {
+        item.split("]", 1)[0].lstrip("[") for item in ancestry_errors
+    }
+    if "migration-ancestry" not in ancestry_codes:
+        errors.append(
+            failure(
+                "negative-fixture",
+                "non-ancestor baseline did not fail with [migration-ancestry]",
+            )
+        )
+
+    online_precondition_errors = verify_online(control_character_path, repo_root)
+    online_precondition_codes = {
+        item.split("]", 1)[0].lstrip("[") for item in online_precondition_errors
+    }
+    if not {"online-precondition", "baseline-path"}.issubset(
+        online_precondition_codes
+    ):
+        errors.append(
+            failure(
+                "negative-fixture",
+                "control character path escaped the online precondition",
+            )
+        )
     return errors
 
 
