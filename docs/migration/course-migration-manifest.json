@@ -4211,8 +4211,14 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-design-presentation-surface",
+          "course-presentation-delivery-contract",
+          "mermaid-cli-render-contract",
+          "open-slide-agent-deck-contract",
+          "open-slide-cli-build-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4243,8 +4249,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "course-presentation-delivery-contract",
+          "presentation-source-claim-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4274,8 +4283,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "presentation-source-claim-contract",
+          "presentation-storyboard-audience-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4306,8 +4318,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-design-presentation-surface",
+          "presentation-source-claim-contract",
+          "presentation-storyboard-audience-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4337,8 +4353,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-design-presentation-surface",
+          "presentation-accessibility-contract",
+          "presentation-storyboard-audience-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4368,8 +4388,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "presentation-accessibility-contract",
+          "presentation-source-claim-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4402,8 +4425,13 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "course-presentation-delivery-contract",
+          "presentation-accessibility-contract",
+          "presentation-export-rehearsal-contract",
+          "presentation-source-claim-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4435,8 +4463,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "presentation-accessibility-contract",
+          "presentation-repurpose-contract",
+          "presentation-source-claim-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4468,8 +4500,14 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "open-slide-agent-deck-contract",
+          "open-slide-cli-build-contract",
+          "presentation-accessibility-contract",
+          "presentation-export-rehearsal-contract",
+          "presentation-source-claim-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4500,8 +4538,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "mermaid-cli-render-contract",
+          "presentation-accessibility-contract",
+          "presentation-source-claim-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -6833,8 +6875,15 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-design-presentation-surface",
+          "course-presentation-delivery-contract",
+          "mermaid-cli-render-contract",
+          "open-slide-agent-deck-contract",
+          "open-slide-cli-build-contract",
+          "presentation-repurpose-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -6856,8 +6905,15 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-design-presentation-surface",
+          "course-presentation-delivery-contract",
+          "presentation-accessibility-contract",
+          "presentation-export-rehearsal-contract",
+          "presentation-source-claim-contract",
+          "presentation-storyboard-audience-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -7080,8 +7136,15 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "course-presentation-delivery-contract",
+          "open-slide-agent-deck-contract",
+          "open-slide-cli-build-contract",
+          "presentation-accessibility-contract",
+          "presentation-export-rehearsal-contract",
+          "presentation-source-claim-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
