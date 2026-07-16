@@ -4924,7 +4924,7 @@
           "engineering-triage-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/006-0011-diagnose-hard-bug.html",
@@ -4958,7 +4958,7 @@
           "engineering-diagnosis-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/006-0012-find-architecture-seam.html",
@@ -4992,7 +4992,7 @@
           "engineering-architecture-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/006-0013-chart-wayfinder-map.html",

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="006-0010">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="engineering-delivery:conditional,engineering-delivery:feedback,engineering-delivery:tangible-win">
+<meta name="course:source-ids" content="engineering-triage-contract">
+<title>006-0010：分流外部回報</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:820px;margin:2.5rem auto;padding:0 1.25rem;line-height:1.8;color:#202020}h2{color:#315f86}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccd9e3;padding:.55rem;vertical-align:top;text-align:left}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}button{display:block;width:100%;padding:.6rem;margin:.4rem 0;text-align:left;background:white;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:650px){body{margin-top:1rem}table{font-size:.84rem}th,td{padding:.4rem}}</style>
+</head><body>
+<p><a href="006-0001-choose-engineering-route.html">← Engineering route</a> · <a href="../reference/engineering-delivery-skills-reference.html">Engineering skills reference</a></p>
+<header><p>Phase 6 · Build · 006-0010 · Conditional branch</p><h1>先驗證與分流外部回報，再交回 Engineering core</h1><p class="mission"><strong>Entry／conditional：</strong>只有 issue 或 repo 設定納管的 external PR 以 raw request 進來，且你有讀取 tracker、repo instructions 與相關 code／checks 的權限時才進入。<code>/to-tickets</code> 產出的 agent-ready ticket 已經完成 shaping，不重跑 triage。</p></header>
+<h2>1. 先讀完整 report，再核對 repo</h2>
+<p>讀 body、comments、labels、author、dates；PR 還要讀 diff。保留已回答的 triage notes，並做兩個 codebase checks：以 domain concept 搜尋是否已實作，以及查看是否有相似的既有拒絕決策。接著重現 bug，或驗證 PR diff 是否符合它聲稱的行為。</p>
+<div class="card"><pre>External item identity / latest activity:
+Reporter claim:
+Relevant repo instructions / domain terms:
+Redundancy search (concepts / locations / result):
+Prior rejection search / result:
+Verification command or steps / observed result:
+Claim status: confirmed / failed / insufficient detail</pre></div>
+<h2>2. 分開 category 與 workflow state</h2>
+<table><tr><th>欄位</th><th>只選一個</th><th>判斷證據</th></tr><tr><td>Category</td><td><code>bug</code>／<code>enhancement</code></td><td>描述既有行為壞掉，或要求新增／改善能力。</td></tr><tr><td>State</td><td><code>needs-triage</code>／<code>needs-info</code>／<code>ready-for-agent</code>／<code>ready-for-human</code>／<code>wontfix</code></td><td>由 claim verification、缺漏資訊、所需 judgment／authority 與 acceptance criteria 決定，不把 category 當狀態。</td></tr></table>
+<p class="rule"><strong>Human checkpoint：</strong>先向 maintainer 提出 category、state、repo 摘要與理由，再等裁決。若要對 tracker 留 comment，依目前 triage contract 加上 AI disclaimer；label、comment、close 都是外部 mutation，沒有授權就只保存 local draft。</p>
+<h2>3. 產出可交回 core 的 handoff</h2>
+<div class="card"><pre>Recommended category / one state:
+Maintainer disposition: accepted / changed / pending
+Current behavior / desired behavior:
+Key behavioral interfaces:
+Acceptance criteria:
+Explicit out of scope:
+Evidence links / commands:
+Next route: needs-info / 006-0003 request alignment
+Unperformed external actions / required authority:</pre></div>
+<p class="boundary"><strong>Triage 不是 diagnosis：</strong>一般已確認且範圍清楚的 report 可以回 core；遇到難解、間歇或回歸 bug，handoff 應保留 exact symptom 與現有 evidence，再改走 <a href="006-0011-diagnose-hard-bug.html">006-0011 diagnosis branch</a>。不要在沒有 tight feedback loop 時用原因假說取代 triage verification。</p>
+<div class="win"><strong>Tangible win：</strong>一份 external-report triage handoff，包含 verified claim、恰好一個 category、一個 state、maintainer disposition 與可驗收的下一步。<br><strong>Observable feedback：</strong>Reviewer 能重跑 verification、看見 redundancy／prior-rejection 搜尋範圍，並確認沒有衝突的 state 或未授權 tracker mutation。</div>
+<div class="quiz" data-answer="1"><p>一張外部 bug report 描述含糊，而且依提供步驟無法重現；現在最合適的 evidence 與 state 是？</p><button type="button">直接寫可能原因，標成 ready-for-agent</button><button type="button">保存重現嘗試與缺少的具體資料，建議 needs-info</button><button type="button">因無法重現，直接 wontfix</button><div class="why">無法驗證且資訊不足是 needs-info 的強訊號；triage 要保存 evidence 與可回答的問題，不能猜原因或越過 maintainer 裁決。</div></div>
+<p class="stop"><strong>Legal stop／return／continuation：</strong>state roles 衝突、tracker mapping 不明、claim 無法驗證、需要 reporter 補件、maintainer 尚未裁決，或下一步要求未授權 external mutation時，保存 local handoff 後停止。若 report 已充分 verified 且 maintainer 接受 disposition，帶著 handoff 回 <a href="006-0003-align-engineering-request.html">006-0003</a> 對齊 bounded request；難解 bug 改走 006-0011。完成本頁只代表這一張外部回報已被分流，不代表 Engineering Phase 或 Migration complete。</p>
+<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>engineering-triage-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>
