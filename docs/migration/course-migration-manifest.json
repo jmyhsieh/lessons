@@ -7230,7 +7230,10 @@
         "state": "registered",
         "anchorIds": [
           "agent-operations-safety-contract",
+          "governance-lifecycle-contract",
           "llm-wiki-local-slice-contract",
+          "scenario-rollout-contract",
+          "workflow-evaluation-contract",
           "workflow-standardization-contract"
         ]
       },
