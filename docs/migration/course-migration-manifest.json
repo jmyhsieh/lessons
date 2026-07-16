@@ -4046,7 +4046,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/004-0007-assemble-design-handoff-bundle.html",
@@ -4131,7 +4131,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/004-0008-implement-and-verify.html",
@@ -4178,7 +4178,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/005-0001-choose-daily-visual-output.html",
@@ -4215,7 +4215,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/005-0001-choose-presentation-route.html",

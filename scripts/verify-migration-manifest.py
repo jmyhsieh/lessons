@@ -122,7 +122,7 @@ EXPECTED_NAVIGATION_PATHS = {"index.html", "toc.html"}
 # Independent digests of the reviewed page and route projections pin exact
 # contracts, including the evolving Source mappings, without a second manifest.
 EXPECTED_PAGE_MATRIX_SHA256 = (
-    "705eeb80c75cf022c778f2d1371f6253b03a1c0cba740a004db2bc83040dc7a8"
+    "0db67fbfcfc788f050cf874781ff585b9aba3458497a5df918d3afb3bc3990aa"
 )
 EXPECTED_ROUTE_CONTRACT_SHA256 = (
     "f412397e52c5cc19a858519238f049ac7b3e1ed7c4048f3120073832d5a56a4e"
@@ -1324,6 +1324,59 @@ def validate_thin_slice(manifest: dict[str, Any]) -> list[str]:
     if actual_legacy_phase_three != set(legacy_phase_three_contract):
         errors.append(failure("thin-slice", "legacy Phase 3 inventory differs"))
     for path, (mode, target_pairs) in legacy_phase_three_contract.items():
+        expect_compatibility(
+            path,
+            mode,
+            [
+                {"path": target_path, "fragment": None, "role": role}
+                for target_path, role in target_pairs
+            ],
+        )
+        page = by_path.get(path, {})
+        if page.get("canonicalCoordinate") is not None or page.get("routeMemberships") != []:
+            errors.append(failure("thin-slice", f"{path} must not be reused by a route"))
+
+    legacy_design_presentation_contract = {
+        "lessons/004-0006-prototype-and-validate.html": (
+            "direct",
+            (("lessons/004-0006-check-prototype-assumptions.html", "primary-successor"),),
+        ),
+        "lessons/004-0007-handoff-to-claude-code.html": (
+            "transition",
+            (
+                ("lessons/004-0007-assemble-design-handoff-bundle.html", "primary-successor"),
+                ("lessons/002-0001-choose-toolbox-lesson.html", "toolbox-continuation"),
+                ("lessons/006-0001-choose-engineering-route.html", "engineering-continuation"),
+            ),
+        ),
+        "lessons/004-0008-implement-and-verify.html": (
+            "transition",
+            (
+                ("lessons/006-0007-implement-and-create-review-checkpoint.html", "implementation"),
+                ("lessons/006-0008-review-final-candidate.html", "review"),
+                ("lessons/006-0009-complete-engineering-closeout.html", "closeout"),
+            ),
+        ),
+        "lessons/005-0001-choose-daily-visual-output.html": (
+            "direct",
+            (("lessons/005-0001-choose-presentation-route.html", "primary-successor"),),
+        ),
+    }
+    actual_legacy_design_presentation = {
+        page["path"]
+        for page in pages
+        if page.get("origin") == "baseline"
+        and page.get("pageKind") == "compatibility"
+        and (
+            page["path"].startswith("lessons/004-")
+            or page["path"].startswith("lessons/005-")
+        )
+    }
+    if actual_legacy_design_presentation != set(legacy_design_presentation_contract):
+        errors.append(
+            failure("thin-slice", "legacy Design and Presentation inventory differs")
+        )
+    for path, (mode, target_pairs) in legacy_design_presentation_contract.items():
         expect_compatibility(
             path,
             mode,
