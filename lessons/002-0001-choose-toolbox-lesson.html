@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="002-0001">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="toolbox:entry,toolbox:feedback,toolbox:readiness,toolbox:tangible-win">
+<meta name="course:source-ids" content="course-equip-toolbox-contract">
+<title>002-0001：選一個 Just-in-time toolbox lesson</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
+  h1 { font-size: 1.8rem; line-height: 1.35; } h2 { color: #a94716; margin-top: 2rem; }
+  .kicker { color: #a94716; font-size: .86rem; letter-spacing: .08em; }
+  .mission, .stop { border-left: 4px solid #c2571a; background: #fff7f0; padding: .8rem 1rem; }
+  .card, .win, .quiz { border: 1px solid #ded6cf; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .win { background: #f2f8f3; border-color: #a9c9ae; }
+  table { width: 100%; border-collapse: collapse; font-size: .94rem; } th, td { border: 1px solid #d9d2cc; padding: .65rem; text-align: left; vertical-align: top; } th { background: #fff4eb; }
+  .table-wrap { max-width: 100%; overflow-x: auto; } code { background: #f3efeb; padding: .1rem .3rem; border-radius: 3px; overflow-wrap: anywhere; }
+  button { display: block; width: 100%; margin: .45rem 0; padding: .65rem; text-align: left; background: white; border: 1px solid #bbb; border-radius: 6px; font: inherit; cursor: pointer; }
+  button.correct { background: #e5f4e7; border-color: #2e7d32; } button.wrong { background: #fbe8e8; border-color: #b3261e; }
+  .why { display: none; background: #fff7f0; padding: .7rem; margin-top: .7rem; }
+  footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; }
+  a { color: #99400f; } @media (max-width: 620px) { body { margin-top: 1.2rem; } }
+</style>
+</head>
+<body>
+<p><a href="001-0002-define-route-readiness.html">← 回 readiness contract</a> · <a href="../toc.html">回課目表</a></p>
+<header>
+  <p class="kicker">Phase 2 · Equip · 002-0001 · Toolbox entry</p>
+  <h1>只補目前任務缺少的一個能力</h1>
+  <p class="mission"><strong>任務：</strong>從 active route 的具體 blocker 選一個 Just-in-time toolbox lesson，先寫好 smoke test 與返回點，再進入練習。</p>
+</header>
+
+<h2>先帶著 route contract 進來</h2>
+<div class="card">
+  <ol>
+    <li>從 Return notebook 複製 mission、current anchor 與下一個 tangible win。</li>
+    <li>把阻止下一個 win 的缺口寫成可觀察句，例如「我不知道這次允許哪些 write 與 external side effects」。</li>
+    <li>先填 <code>Targeted-remediation return point</code>；它必須是 active route 的確切 lesson 或工作步驟。</li>
+    <li>只選一課，並定義一個不碰真實交付物的最小 smoke test。</li>
+  </ol>
+</div>
+
+<h2>目前可操作的 selector</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Active-route gap</th><th>選擇</th><th>最小 smoke test</th></tr></thead>
+  <tbody>
+    <tr><td>不確定本次 session 可讀、可寫或可造成哪些 side effects</td><td><a href="002-0002-set-permission-boundaries.html">設定 permission boundaries</a></td><td>在 safe fixture 證明 read 可行，未核准 write 會停止或詢問。</td></tr>
+    <tr><td>任務能力、延遲或推理深度與目前設定不匹配</td><td><a href="002-0003-select-model-and-effort.html">選 model 與 effort</a></td><td>用低風險 prompt 檢查選擇是否滿足事先寫好的 feedback rubric。</td></tr>
+    <tr><td>缺口是 hook、Skill、MCP、subagent、worktree、headless 或 CI</td><td>記錄 gap，現在合法停止</td><td>後續 coherent authoring slice 提供對應 lesson 前，不自行拼裝未驗證流程。</td></tr>
+  </tbody>
+</table></div>
+
+<div class="win"><strong>Tangible win：</strong>一張 Toolbox selection card，包含 gap、selected lesson、safe fixture、smoke-test evidence 與 return point。<br><strong>Observable feedback：</strong>另一個人可以從 card 判斷這一課是否直接移除 active route 的 blocker，且不需要完成整個 Phase 2。</div>
+
+<h2>完成後如何返回</h2>
+<ol>
+  <li>把 bounded setup、smoke-test command／steps、結果與 permission／side-effect boundary 寫回 Return notebook。</li>
+  <li>狀態只記為 <code>Lesson practiced</code>；Toolbox 沒有 Phase completion。</li>
+  <li>回到事先記錄的 <code>Targeted-remediation return point</code>，重新嘗試 active route 的 tangible win。</li>
+</ol>
+
+<div class="quiz" data-answer="1">
+  <p>你在 Presentation route 遇到模型推理不足，完成 model／effort smoke test 後，下一步是什麼？</p>
+  <button type="button">繼續依序完成 Phase 2 全部 lesson</button>
+  <button type="button">把 evidence 寫回 notebook，返回原本的 Presentation route anchor</button>
+  <button type="button">把 smoke test 當成 Presentation route artifact</button>
+  <div class="why">Toolbox 是插入 active route 的 targeted remediation；完成一個 bounded lesson 後就回到 caller-provided return point。</div>
+</div>
+
+<p class="stop"><strong>Legal stop：</strong>若目前缺口沒有對應的已 authored lesson，記錄 gap 與 return point 後停止。不要把 feature tour、未驗證安裝或整個 Phase 2 當成替代路線。</p>
+<footer>Page kind：canonical lesson · Route roles：entry／feedback／readiness／tangible win · Source IDs：<code>course-equip-toolbox-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
+</body>
+</html>

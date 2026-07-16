@@ -2174,7 +2174,7 @@
           "course-equip-toolbox-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0001-hooks-basics.html",
@@ -2285,7 +2285,7 @@
           "claude-code-permission-plan-boundary"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0003-select-model-and-effort.html",
@@ -2320,7 +2320,7 @@
           "claude-code-model-effort-selection"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0003-skills.html",
