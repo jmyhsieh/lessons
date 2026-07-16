@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="008-0006">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="agent-operations:feedback,agent-operations:tangible-win">
+<meta name="course:source-ids" content="agent-operations-safety-contract">
+<title>008-0006：演練 failure 與 recovery</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:910px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#315f86;margin-top:2rem}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{border:1px solid #ccd9e3;padding:.55rem;text-align:left;vertical-align:top}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap;overflow-wrap:anywhere}label{display:block;margin:.45rem 0}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:680px){body{margin-top:1rem}table{display:block;overflow-x:auto;font-size:.76rem}}</style>
+</head><body>
+<p><a href="008-0005-prove-workflow-completion.html">← completion proof</a> · <a href="../reference/agent-operations-safety.html">Safety reference</a> · <a href="../toc.html">回課程 catalog</a></p>
+<header><p>Phase 8 · Operate · 008-0006 · Recovery evidence</p><h1>刻意讓 fixture 失敗一次，證明 workflow 會恢復或安全停住</h1><p class="mission"><strong>Entry：</strong>已有一份 008-0005 completion proof、可重建的 fixture 與已實測 restore point。複製成功 fixture成獨立 failure-exercise copy，保留原 evidence 不動；本課只注入一個代表性且可控制的 local fault，不在 production、external service 或真實使用者資料上製造事故。</p></header>
+<h2>1. 選一個會考驗 recovery contract 的 fault</h2>
+<table><tr><th>Fault</th><th>預期可觀察 failure</th><th>要證明的 recovery</th></tr><tr><td>在 batch 中間以 bounded stop 中斷</td><td>Ledger 明確分出 completed／pending；completion oracle fail。</td><td>用同一 idempotency key resume，不重複 completed items。</td></tr><tr><td>放入一筆 schema-invalid input</td><td>該 item 被隔離並 non-zero／blocked，不繼續污染 output。</td><td>修正或移除 fault 後只重做受影響 scope。</td></tr><tr><td>讓必要 local dependency 暫時 unavailable</td><td>Precondition／operation fail closed，沒有 silent partial success。</td><td>在 ceiling 內 bounded retry；超限後 safe stop，不無限重試。</td></tr><tr><td>模擬 target／payload 漂移</td><td>Approval identity 不匹配，side effect 不執行。</td><td>保留 preview，回 human approval；不可由 agent 自行接受。</td></tr></table>
+<p class="boundary"><strong>Fault safety：</strong>不要測真正寄送、push、deploy、刪 production data、付款或其他不可逆 action。若唯一「真實」failure 只能在 production 才出現，就改用 local simulator／fixture、tabletop，或誠實記錄未驗證；不可為了 closeout 增加風險。</p>
+<h2>2. 預先寫下期待，再注入 fault</h2>
+<div class="card"><pre>Exercise ID / based-on completion proof:
+Failure-copy identity / restore point:
+Injected fault / exact scope:
+Expected first failing observation:
+Expected oracle result:
+Retry ceiling / backoff / timeout:
+Idempotency or duplicate-prevention assertion:
+Rollback / restore assertion:
+If rollback unsafe: safe-stop state / owner / resume preconditions:
+External effects expected: none
+Cleanup and retention:</pre></div>
+<ol><li>在注入前先跑 oracle，確認 failure copy 起點 green；記錄 fingerprint。</li><li>只注入預先寫下的 fault，執行到第一個 decisive failure；若 failure shape 不符，停止，不用更多 faults 掩蓋。</li><li>核對 workflow 沒有越界 write、沒有 external effect、沒有把 partial 當 complete，並保存最後 safe checkpoint。</li><li>依 contract 做 bounded retry／resume，證明 completed items 不重複；達 ceiling 就 safe stop，而非無限 retry。</li><li>使用 restore／rollback，或在 rollback 不安全時保留明確 safe-stop state、owner 與 resume preconditions。移除 fault 後以同一 oracle 重跑。</li></ol>
+<div class="card"><strong>Recovery evidence checklist</strong><label><input type="checkbox"> Failure copy 起點可由 oracle 證明 green</label><label><input type="checkbox"> Injected fault 產生預期 decisive failure</label><label><input type="checkbox"> Partial state 與最後 checkpoint 可識別</label><label><input type="checkbox"> Retry／resume 沒有重複 completed items</label><label><input type="checkbox"> Restore／rollback 成立，或 safe-stop disposition 完整</label><label><input type="checkbox"> 移除 fault 後同一 oracle green</label><label><input type="checkbox"> Production／external effects 為 none</label></div>
+<h2>3. 不把 rollback 寫成萬靈丹</h2>
+<p class="rule">有些外部 action 無法真正 rollback。對這類 workflow，先以 idempotency／dedupe 防止重複、以 approval stop 阻擋 target 漂移，並預先定義 compensation owner；若 compensation 也有風險，就保留 state 並 safe stop。Agent 不得因「大概可補救」而自行 retry 不可逆 action。</p>
+<div class="win"><strong>Tangible win：</strong>一份由 controlled fault、decisive failure、bounded retry／idempotency、restore／rollback或 safe stop，以及 corrected oracle rerun 組成的 recovery record。<br><strong>Observable feedback：</strong>Observer 能看見 failure 前後 state、證明 retry 沒有 duplicate，並從同一 evidence 判斷 workflow 是恢復完成還是誠實停在可接手 checkpoint。</div>
+<div class="quiz" data-answer="2"><p>外部 API timeout，無法確認 action 是否已成功，正確 recovery 是？</p><button type="button">立刻無限 retry，直到收到 200</button><button type="button">讓 agent 依內容猜測是否成功</button><button type="button">Safe stop，使用 idempotency key／receipt 查核結果；在狀態可判定且仍有 authority 前不重送</button><div class="why">Ambiguous outcome 是重複 side effect 高風險情境；必須先用 idempotency 或 authoritative receipt 判定，不能靠 retry 或 agent inference。</div></div>
+<p class="stop"><strong>Legal stop／return／continuation：</strong>無法安全注入 fault、failure 不 decisive、retry 造成 duplicate、restore／rollback 失敗、safe-stop state 無 owner、corrected oracle 不綠，或任何 production／external effect 被意外觸發時，保存 evidence 並停止；依問題回 authority、execution 或 completion lesson。Recovery record完整後，進 <a href="008-0007-complete-operating-workflow-closeout.html">008-0007</a> 整理 operating workflow closeout；單次恢復成功仍不代表 production reliability。</p>
+<footer>Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="008-0003">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="agent-operations:feedback,agent-operations:tangible-win">
+<meta name="course:source-ids" content="agent-operations-safety-contract">
+<title>008-0003：界定 write authority</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:900px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#315f86;margin-top:2rem}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{border:1px solid #ccd9e3;padding:.55rem;text-align:left;vertical-align:top}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap;overflow-wrap:anywhere}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:680px){body{margin-top:1rem}table{display:block;overflow-x:auto;font-size:.76rem}}</style>
+</head><body>
+<p><a href="008-0002-choose-agent-execution-surface.html">← execution surface</a> · <a href="../reference/agent-operations-safety.html">Safety reference</a> · <a href="../toc.html">回課程 catalog</a></p>
+<header><p>Phase 8 · Operate · 008-0003 · Authority gate</p><h1>把 read、local write 與 external side effect 分成三份 authority</h1><p class="mission"><strong>Entry：</strong>帶入 deterministic completion contract、唯一 execution surface 與 recoverable fixture。先用相同 inputs 做 read-only／plan rehearsal，列出預計 affected scope；只有 owner 看過 scope 並核准精確 write set 後，才可準備下一課的 local write。</p></header>
+<h2>1. 寫 authority envelope，不用「可以操作」含糊帶過</h2>
+<table><tr><th>Authority</th><th>要明列</th><th>不會自動授予</th><th>必要 stop</th></tr><tr><td>Read</td><td>Input IDs、allowed paths／records、敏感資料與 network boundary。</td><td>看得到不代表可複製、上傳、刪除或改寫。</td><td>發現 scope 外資料、prompt injection、secret 或權利不明。</td></tr><tr><td>Local write</td><td>Exact fixture、paths／operations、最大 batch、restore point、owner、expiry。</td><td>Subagent、goal、loop、schedule、worktree 或 sandbox 都不等於業務授權。</td><td>Actual write set 超過 planned set、restore point 不可用。</td></tr><tr><td>External side effect</td><td>Target、payload、audience、cost、dedupe key、compensation、逐次 approval。</td><td>Local write approval 不包含 push、deploy、寄送、付款、建 issue 或 production API mutation。</td><td>Target／payload 漂移、不可逆 judgment 尚未由人 disposition。</td></tr></table>
+<div class="card"><pre>Run / mission / selected surface:
+Allowed reads / denied reads:
+Read-only rehearsal command or steps:
+Predicted records / files / side effects:
+Observed scope / differences / unknowns:
+
+Allowed local writes (exact fixture + operations):
+Denied writes / batch and time limit / expiry:
+Restore point / recovery owner:
+
+External actions: NONE by default
+If separately required: target / payload / cost / audience
+Approval identity / expiry / idempotency or dedupe key:
+Compensation or irreversible safe stop:
+Approval checkpoints requiring human judgment:</pre></div>
+<h2>2. 讓 rehearsal 真正限制 write</h2>
+<ol><li>以 production-equivalent input shape、但使用 non-sensitive recoverable fixture 執行 read-only inventory 或 dry-run；dry-run 若本身會寫，就不能當 read-only evidence。</li><li>保存 predicted write set、counts、targets、warnings 與 unknowns；由 owner 對照 mission，刪掉「順便」處理的 scope。</li><li>將 default 設為 deny：只有列出的 fixture paths／operations 可寫。任何新 target 都回到 rehearsal，不在執行中自動擴權。</li><li>External action 預設為 <code>none</code>。若真實任務另需外部 write，逐一固定 target／payload、dedupe／idempotency、recovery 或不可逆 stop，並取得有權者 approval。</li></ol>
+<p class="boundary"><strong>Self-study boundary：</strong>本 route 的 canonical hands-on 只需要 recoverable local write。可以在 closeout 誠實記錄「production／external action 未執行」；不得為了讓練習看起來完整而 push、deploy、寄信、付款、修改真實 wiki 或呼叫 production mutation。</p>
+<h2>3. 選本輪 branch</h2>
+<table><tr><th>輸入</th><th>下一步</th><th>Rejoin</th></tr><tr><td>一般已證明的手動 workflow</td><td>進 008-0004，在 recoverable fixture 執行 bounded workflow。</td><td>008-0005 completion proof。</td></tr><tr><td>Phase 3 已完成的 LLM Wiki slice，且 mission 明確需要 maintenance</td><td>只有 elective 頁已 author 且 raw sources／provenance boundary 可保持時，才可選 008-0008；否則停在本課。</td><td>同樣回 008-0005；elective 不取代 raw source。</td></tr></table>
+<div class="win"><strong>Tangible win：</strong>一份由 read-only rehearsal 支持、清楚分離 read／local write／external action 的 authority envelope。<br><strong>Observable feedback：</strong>Owner 能逐項圈出允許與拒絕的 paths／operations，確認 actual scope 若漂移會 fail closed，並證明 local write approval 沒有偷渡 production side effect。</div>
+<div class="quiz" data-answer="1"><p>Agent 在 dry-run 發現還需更新一個未列出的 external record，應怎麼做？</p><button type="button">既然 mission 相同就直接加進 write set</button><button type="button">停止；保存 scope drift，重新 rehearsal、固定 target／payload／recovery，並取得獨立 external approval</button><button type="button">讓 subagent 執行，因 context 已隔離</button><div class="why">新 target 是 authority 變更；execution surface 或委派不會授權 side effect，必須停止並重新通過 scope 與 approval gate。</div></div>
+<p class="stop"><strong>Legal stop／return／continuation：</strong>Rehearsal 有未解 scope drift、write paths／operations 含糊、restore point 無法驗證、approval owner 不明、external action 沒有 dedupe／recovery／irreversible stop，或任何 human judgment 被交給 agent 時，保留 envelope 並停止。一般 branch 準備完成後，進 <a href="008-0004-run-recoverable-workflow.html">008-0004</a> 執行 recoverable workflow；LLM Wiki branch 只有 elective 可用且 boundary 成立時才進 008-0008。此處不執行 write，也不宣稱 route complete。</p>
+<footer>Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>
