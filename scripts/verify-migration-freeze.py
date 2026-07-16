@@ -12,6 +12,7 @@ import subprocess
 import sys
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime
 from pathlib import Path, PurePosixPath
 from typing import Any
 from urllib.error import HTTPError
@@ -30,6 +31,16 @@ GitHubFetcher = Callable[[Path, str], Any]
 
 def failure(code: str, message: str) -> str:
     return f"[{code}] {message}"
+
+
+def is_rfc3339_utc_timestamp(value: Any) -> bool:
+    if not isinstance(value, str):
+        return False
+    try:
+        parsed = datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ")
+    except ValueError:
+        return False
+    return parsed.strftime("%Y-%m-%dT%H:%M:%SZ") == value
 
 
 def run_command(
@@ -222,9 +233,7 @@ def validate_freeze(
         or schema_version != 1
     ):
         errors.append(failure("schema-version", "schemaVersion must be integer 1"))
-    if not isinstance(frozen_at, str) or re.fullmatch(
-        r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", frozen_at or ""
-    ) is None:
+    if not is_rfc3339_utc_timestamp(frozen_at):
         errors.append(
             failure("freeze-time", "frozenAt must be an RFC 3339 UTC timestamp")
         )
@@ -348,10 +357,7 @@ def validate_freeze(
     if errors:
         return errors
 
-    if re.fullmatch(
-        r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z",
-        production["deploymentCompletedAt"],
-    ) is None:
+    if not is_rfc3339_utc_timestamp(production["deploymentCompletedAt"]):
         errors.append(
             failure(
                 "deployment-completed-at",
@@ -885,6 +891,10 @@ def run_self_test(freeze: dict[str, Any], repo_root: Path) -> list[str]:
     malformed_freeze_time["frozenAt"] = "not-a-time"
     cases.append(("malformed freeze time", malformed_freeze_time, "freeze-time"))
 
+    impossible_freeze_time = copy.deepcopy(freeze)
+    impossible_freeze_time["frozenAt"] = "2026-99-99T99:99:99Z"
+    cases.append(("impossible freeze time", impossible_freeze_time, "freeze-time"))
+
     malformed_commit = copy.deepcopy(freeze)
     malformed_commit["preMigrationCommit"] = "\x00"
     cases.append(("malformed commit", malformed_commit, "commit-identity"))
@@ -895,6 +905,18 @@ def run_self_test(freeze: dict[str, Any], repo_root: Path) -> list[str]:
         (
             "malformed deployment completion time",
             malformed_completion_time,
+            "deployment-completed-at",
+        )
+    )
+
+    impossible_completion_time = copy.deepcopy(freeze)
+    impossible_completion_time["production"][
+        "deploymentCompletedAt"
+    ] = "2026-99-99T99:99:99Z"
+    cases.append(
+        (
+            "impossible deployment completion time",
+            impossible_completion_time,
             "deployment-completed-at",
         )
     )
