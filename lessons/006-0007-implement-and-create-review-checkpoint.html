@@ -28,5 +28,12 @@ Uncertainty / skipped evidence:</pre></div>
 <div class="win"><strong>Tangible win：</strong>一個綁定 exact commit SHA、可交給 reviewer 的 implementation checkpoint。<br><strong>Observable feedback：</strong>另一位 reviewer 能 checkout 該 SHA、重跑相同 commands，並由 fixed point 重建同一份 diff。</div>
 <div class="quiz" data-answer="2"><p>哪一個可以作為下一課的 immutable Review candidate？</p><button type="button">目前 working tree，等等可能還會改</button><button type="button">writer branch 的最新版本</button><button type="button">通過已列 checks 且記下 exact commit SHA 的 checkpoint</button><div class="why">Review evidence 只能綁定不會移動的 candidate identity；branch 與 working tree 不能證明 reviewer 看的是哪一版。</div></div>
 <p class="stop"><strong>Legal stop／continuation：</strong>RED 不是因 acceptance behavior 失敗、relevant check 未跑或不綠、diff 混入票外變更、仍有未提交修改，或 candidate 沒有 exact SHA 時，保存 ticket notes 後停止，不得進 Review。Checkpoint 成立後續到 <a href="006-0008-review-final-candidate.html">006-0008 independent Review</a>；Review 若產生 finding，回本課只修 findings，建立<strong>新的</strong> candidate SHA，再從頭 Review。這不是 Engineering closeout。</p>
-<footer>Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>engineering-spec-implementation-contract</code>、<code>immutable-review-checkpoint-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="engineering-delivery" data-legal-stop="Stop only after final Review evidence matches the delivered checkpoint">
+<p><strong>Route navigation · Engineering Delivery</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="engineering-delivery" data-route-action="next" href="006-0008-review-final-candidate.html">下一步：lessons/006-0008-review-final-candidate.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>Legal stop：</strong>Stop only after final Review evidence matches the delivered checkpoint</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>engineering-spec-implementation-contract</code>、<code>immutable-review-checkpoint-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

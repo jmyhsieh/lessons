@@ -44,5 +44,12 @@ Learner disposition / feedback:</pre></div>
 
 <div class="quiz" data-answer="2"><p>Fresh-context 讀者必須私訊作者，才能知道 approval 要記在哪裡。這代表？</p><button type="button">Rerun 已成功，因為最後完成了</button><button type="button">把私訊截圖附上即可，不必改 package</button><button type="button">Package 有隱含 contract gap；回填 source of truth 後重跑</button><div class="why">Fresh-context rerun 的目的就是暴露 session-only knowledge；口頭補丁不能成為可維護 package 的依賴。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>若選擇其實需要 deterministic execution、source of truth 或 owner 不明、讀者需作者補充、反例未停止、authority 擴張，或 run record 無法連回 exact version，保存 evidence 並回 <a href="009-0003-choose-workflow-package.html">009-0003</a> 或 009-0002 修正。只有 fresh-context evidence 與 owner disposition 齊全，才攜帶同一 contract ID 前往 <code>009-0008-complete-standardization-closeout.html</code>；不要再完成其他三條 package branch。</p>
-<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>workflow-standardization-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="workflow-standardization" data-legal-stop="Stop after one fitting package is rerun and reviewed">
+<p><strong>Route navigation · Workflow Standardization</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="workflow-standardization" data-route-action="next" href="009-0008-complete-standardization-closeout.html">下一步：lessons/009-0008-complete-standardization-closeout.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop after one fitting package is rerun and reviewed"><strong>Legal stop：</strong>Stop after one fitting package is rerun and reviewed</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>workflow-standardization-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

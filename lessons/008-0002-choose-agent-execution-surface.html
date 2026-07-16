@@ -31,5 +31,12 @@ Unverified cloud behavior:</pre></div>
 <div class="win"><strong>Tangible win：</strong>一張 execution selection card，固定唯一 surface、trigger、continuity、supervision、overlap、cost 與 stop。<br><strong>Observable feedback：</strong>Reviewer 能用同一張 card 解釋為何其他 surface 被拒絕，並指出排程／持續執行沒有授予任何新 write 或 external authority。</div>
 <div class="quiz" data-answer="2"><p>本機 fixture 每十分鐘要做一次唯讀 freshness check，操作者全程在線且前一輪未完必須 skip。最小合適選擇是？</p><button type="button">同時開 /goal、/loop 與 Desktop schedule，互相備援</button><button type="button">改用 reference-only cloud Routine，假設它可用</button><button type="button">選一個有明確 interval、skip-overlap 與 stop 的 local /loop</button><div class="why">Surface selection 服務 trigger 與 boundary；單一受監看的 local loop 已足夠，重複 surfaces 只會增加 state、權限與重複執行風險。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>候選 surface availability、session ownership、overlap、stop control 或 cost ceiling 任一不明，就保存 card 並回 008-0001 縮小 mission；不要用 cloud 假設填補 evidence。唯一 surface 已選且仍保持 read-only 後，進 <a href="008-0003-bound-write-authority.html">008-0003</a> 定義 authority envelope。這張 card 不代表 workflow 已執行或 Phase complete。</p>
-<footer>Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="agent-operations" data-legal-stop="Stop after completion proof and recovery evidence are both recorded">
+<p><strong>Route navigation · Agent Operations</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="agent-operations" data-route-action="next" href="008-0003-bound-write-authority.html">下一步：lessons/008-0003-bound-write-authority.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop after completion proof and recovery evidence are both recorded"><strong>Legal stop：</strong>Stop after completion proof and recovery evidence are both recorded</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

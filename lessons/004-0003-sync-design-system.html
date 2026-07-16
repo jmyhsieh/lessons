@@ -30,6 +30,13 @@ Ready for directions? yes / no</pre></div>
 <div class="win"><strong>Tangible win：</strong>一份帶 source identity、mismatch disposition 與 evidence 的 system alignment record。<br><strong>Observable feedback：</strong>Reviewer 能從 approved source 抽查一個 component／token，重現 expected 與 observed 的差異，並判斷是否可進方向探索。</div>
 <div class="quiz" data-answer="0"><p>Project import 完成後，看到 spacing token 與 approved system 不同，應怎麼做？</p><button type="button">記錄 mismatch，回 source／brief 校正或明確保留 deviation</button><button type="button">假設生成結果比 source 新，直接接受</button><button type="button">把 project import 當成 organization Published evidence</button><div class="why">匯入只帶入 context，不創造權威；差異必須回到 approved source 與人類 disposition。</div></div>
 <p class="stop"><strong>Legal stop／return：</strong>Source owner、權限、revision 或代表性 mapping 無法確認時，保存 alignment draft 並停止；不要用生成 token 填補。Alignment 可抽查，或已誠實記錄「無 approved system」後，rejoin <a href="004-0004-explore-design-directions.html">004-0004 direction exploration</a>。</p>
-<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>claude-design-system-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="design-delivery" data-legal-stop="Stop at the Design handoff bundle unless implementation is selected">
+<p><strong>Route navigation · Design Delivery</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="design-delivery" data-route-action="next" href="004-0004-explore-design-directions.html">下一步：lessons/004-0004-explore-design-directions.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop at the Design handoff bundle unless implementation is selected"><strong>Legal stop：</strong>Stop at the Design handoff bundle unless implementation is selected</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>claude-design-system-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script>
 </body></html>

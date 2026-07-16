@@ -36,5 +36,12 @@ repo / domain / 每個 session 必讀 skills / standing constraints
 <div class="win"><strong>Tangible win：</strong>一張有 destination、decision tickets、native blocking edges、frontier、fog 與 out-of-scope boundary 的 shared map。<br><strong>Observable feedback：</strong>Reviewer 能由 tracker 重現第一張 frontier ticket，並確認 map 只索引 decisions、沒有 destination deliverable 或 implementation ticket。</div>
 <div class="quiz" data-answer="1"><p>哪一種內容應留在 <em>Not yet specified</em>？</p><button type="button">已能精確提問但尚未回答的 decision</button><button type="button">在 destination scope 內，但目前還無法精確提問的 fog</button><button type="button">已經排除在 destination 外的工作</button><div class="why">能精確提問就建立 ticket；超出 destination 則放 Out of scope。Fog 是仍在 scope 內但還看不清的區域。</div></div>
 <p class="stop"><strong>Legal stop／continuation：</strong>destination 未固定、tracker 沒有可用的 claim／dependency 表達、問題仍不能精確成票、map 沒有 frontier，或 charting 開始變成 destination 施工時停止。Map 與第一個 frontier 可由 reviewer 重現後，續到 <a href="006-0014-resolve-wayfinder-frontier.html">006-0014</a>；每次只解一張普通 frontier ticket。</p>
-<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>engineering-wayfinder-contract</code> · Reviewed contract：<a href="https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/wayfinder/SKILL.md">mattpocock/skills@9603c1c</a></footer>
+<footer data-course-footer="canonical" data-route-id="engineering-delivery" data-legal-stop="Stop only after final Review evidence matches the delivered checkpoint">
+<p><strong>Route navigation · Engineering Delivery</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="engineering-delivery" data-route-action="next" href="006-0014-resolve-wayfinder-frontier.html">下一步：lessons/006-0014-resolve-wayfinder-frontier.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>Legal stop：</strong>Stop only after final Review evidence matches the delivered checkpoint</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>engineering-wayfinder-contract</code> · Reviewed contract：<a href="https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/wayfinder/SKILL.md">mattpocock/skills@9603c1c</a></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

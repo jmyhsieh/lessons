@@ -33,5 +33,12 @@ Stop and escalation owner:</pre></div>
 <div class="win"><strong>Tangible win：</strong>一次具有 run ID、restore point、bounded ledger、scope diff 與 safe resume／stop 的 recoverable local run。<br><strong>Observable feedback：</strong>Observer 能從 ledger 重建每個 item 的處置，核對 fixture 外未變，並在不依賴 agent summary 的情況下指出最後 checkpoint 與任何 partial failure。</div>
 <div class="quiz" data-answer="2"><p>第一批成功後，agent 發現輸入目錄外還有一個「應該一起修」的檔案，該怎麼做？</p><button type="button">既然 restore point 存在就直接修改</button><button type="button">把檔案加入 run ledger，完成後再告知 owner</button><button type="button">Safe stop，保存 checkpoint 與 scope drift，回 rehearsal／authority gate</button><div class="why">Restore 能力不等於授權；actual scope 超出 envelope 時必須 fail closed，重新界定 scope 後另開 run。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>Restore 未實測、preconditions 漂移、overlap 未排除、actual scope 超界、ledger 有不明 partial、external action 被要求但未另行核准，或 ceiling 已達時，保存 checkpoint 後停止；scope／authority 問題回 008-0003。Bounded run 結束後，進 <a href="008-0005-prove-workflow-completion.html">008-0005</a>，用 deterministic oracle 建 completion proof；本課的 green status 或 agent summary 都不算完成。</p>
-<footer>Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="agent-operations" data-legal-stop="Stop after completion proof and recovery evidence are both recorded">
+<p><strong>Route navigation · Agent Operations</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="agent-operations" data-route-action="next" href="008-0005-prove-workflow-completion.html">下一步：lessons/008-0005-prove-workflow-completion.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop after completion proof and recovery evidence are both recorded"><strong>Legal stop：</strong>Stop after completion proof and recovery evidence are both recorded</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

@@ -34,5 +34,12 @@ Cleanup and retention:</pre></div>
 <div class="win"><strong>Tangible win：</strong>一份由 controlled fault、decisive failure、bounded retry／idempotency、restore／rollback或 safe stop，以及 corrected oracle rerun 組成的 recovery record。<br><strong>Observable feedback：</strong>Observer 能看見 failure 前後 state、證明 retry 沒有 duplicate，並從同一 evidence 判斷 workflow 是恢復完成還是誠實停在可接手 checkpoint。</div>
 <div class="quiz" data-answer="2"><p>外部 API timeout，無法確認 action 是否已成功，正確 recovery 是？</p><button type="button">立刻無限 retry，直到收到 200</button><button type="button">讓 agent 依內容猜測是否成功</button><button type="button">Safe stop，使用 idempotency key／receipt 查核結果；在狀態可判定且仍有 authority 前不重送</button><div class="why">Ambiguous outcome 是重複 side effect 高風險情境；必須先用 idempotency 或 authoritative receipt 判定，不能靠 retry 或 agent inference。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>無法安全注入 fault、failure 不 decisive、retry 造成 duplicate、restore／rollback 失敗、safe-stop state 無 owner、corrected oracle 不綠，或任何 production／external effect 被意外觸發時，保存 evidence 並停止；依問題回 authority、execution 或 completion lesson。Recovery record完整後，進 <a href="008-0007-complete-operating-workflow-closeout.html">008-0007</a> 整理 operating workflow closeout；單次恢復成功仍不代表 production reliability。</p>
-<footer>Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="agent-operations" data-legal-stop="Stop after completion proof and recovery evidence are both recorded">
+<p><strong>Route navigation · Agent Operations</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="agent-operations" data-route-action="next" href="008-0007-complete-operating-workflow-closeout.html">下一步：lessons/008-0007-complete-operating-workflow-closeout.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop after completion proof and recovery evidence are both recorded"><strong>Legal stop：</strong>Stop after completion proof and recovery evidence are both recorded</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

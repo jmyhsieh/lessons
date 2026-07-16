@@ -50,5 +50,12 @@ Change / recertification / retirement triggers:</pre></div>
 <div class="quiz" data-answer="1"><p>既有 maintenance 成功過，但新 package 想順便允許同步 remote wiki。Contract 應怎麼處理？</p><button type="button">把 remote sync 寫成預設最後一步，成功經驗已足夠</button><button type="button">維持 external action 不在 contract；另立 authority 與 proof，否則停止</button><button type="button">讓 agent 依內容重要性自行決定是否同步</button><div class="why">Packaging 不授予新 authority；原 proof 只覆蓋 recoverable local maintenance，remote side effect 必須另立 scope、approval、receipt 與 recovery evidence。</div></div>
 
 <p class="stop"><strong>Return／legal stop／continuation：</strong>Maintenance evidence、raw-source identity、provenance、authority、oracle、failure／recovery 或 reviewer disposition 任一不可重建時，保存 draft，精確回 003-0007／003-0005、008-0008、008-0005 或 008-0007 補缺口。Contract 能在正反例中重跑後，帶著它回 <a href="009-0003-choose-workflow-package.html">009-0003</a>，依 audience 與 execution need <strong>只選一種</strong> package branch，完成後再 rejoin 009-0008；不要補做所有 package。<a href="../reference/llm-wiki-capstone-thread.html">LLM Wiki capstone thread</a> 只供保存跨 route lineage，可選且不是進入、完成或組織採用前提。</p>
-<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code>、<code>llm-wiki-local-slice-contract</code>、<code>workflow-standardization-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="workflow-standardization" data-legal-stop="Stop after one fitting package is rerun and reviewed">
+<p><strong>Route navigation · Workflow Standardization</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="workflow-standardization" data-route-action="next" href="009-0003-choose-workflow-package.html">下一步：lessons/009-0003-choose-workflow-package.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop after one fitting package is rerun and reviewed"><strong>Legal stop：</strong>Stop after one fitting package is rerun and reviewed</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code>、<code>llm-wiki-local-slice-contract</code>、<code>workflow-standardization-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

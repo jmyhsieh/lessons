@@ -74,7 +74,15 @@ Expected smoke-test evidence:</pre></div>
 </div>
 
 <p class="stop"><strong>Return boundary：</strong>把 card 與 smoke-test evidence 寫回 Return notebook，狀態記為 <code>Lesson practiced</code>，然後回到原本的 <code>Targeted-remediation return point</code>。不要在本課切到 bypass，也不要順便修改真實 route artifact。</p>
-<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>claude-code-cli-execution-controls</code>、<code>claude-code-permission-plan-boundary</code></footer>
+<footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
+<p><strong>Route navigation · Toolbox</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效 return point 時回 Toolbox catalog：toc.html</a></li>
+<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的 Targeted-remediation return point；沒有有效 return point 時才使用 catalog fallback。</span></li>
+</ul>
+<p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>Legal stop：</strong>Each selected lesson returns to the caller-provided active route; no Phase completion</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>claude-code-cli-execution-controls</code>、<code>claude-code-permission-plan-boundary</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
 </body>
 </html>

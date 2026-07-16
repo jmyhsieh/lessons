@@ -26,5 +26,12 @@ git log &lt;fixed-point&gt;..&lt;candidate-sha&gt; --oneline</pre><p>兩個 revi
 <div class="win"><strong>Tangible win：</strong>一份綁定 fixed point 與 exact candidate SHA 的 Standards／Spec Review bundle。<br><strong>Observable feedback：</strong>讀者能分別計數兩軸 findings，並驗證兩份報告 review 的是同一份 immutable diff。</div>
 <div class="quiz" data-answer="1"><p>Review 後修了一個 Spec finding，下一步是什麼？</p><button type="button">沿用原 Review，補一行「已修」</button><button type="button">回 006-0007 建立新 candidate SHA，兩軸與 checks 全部重跑</button><button type="button">只重跑 Spec 軸，因 Standards 上次已 pass</button><div class="why">任何 candidate mutation 都使舊 Review evidence 失效；新 SHA 必須重新通過完整 Review contract。</div></div>
 <p class="stop"><strong>Finding return／legal stop：</strong>任一軸有 finding、reviewer 看見不同 candidate、spec 或 standards source 缺失、checks 被跳過，或 Review 期間 candidate 改變時，停止並回 <a href="006-0007-implement-and-create-review-checkpoint.html">006-0007</a> 做 bounded repair；建立新 SHA 後從本課開頭重跑兩軸。只有兩軸都對<strong>最終 candidate SHA</strong>無未解 finding，才保存 bundle，續到 <a href="006-0009-complete-engineering-closeout.html">006-0009 Engineering closeout</a>；本頁不宣稱 route、Phase 或 Migration complete。</p>
-<footer>Page kind：canonical lesson · Route roles：feedback／review-reentry／tangible win · Source IDs：<code>engineering-two-axis-review-contract</code>、<code>immutable-review-checkpoint-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="engineering-delivery" data-legal-stop="Stop only after final Review evidence matches the delivered checkpoint">
+<p><strong>Route navigation · Engineering Delivery</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="engineering-delivery" data-route-action="next" href="006-0009-complete-engineering-closeout.html">下一步：lessons/006-0009-complete-engineering-closeout.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>Legal stop：</strong>Stop only after final Review evidence matches the delivered checkpoint</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／review-reentry／tangible win · Source IDs：<code>engineering-two-axis-review-contract</code>、<code>immutable-review-checkpoint-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

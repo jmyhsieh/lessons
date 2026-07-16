@@ -46,7 +46,19 @@
 <div class="quiz" data-answer="1"><p>哪一筆最適合放進 Resume line？</p><button type="button">下次繼續學 Phase 1</button><button type="button">下次從 001-0004 開始，先取得 session smoke evidence；若登入失敗就停在該課，不進 fixture edit</button><button type="button">等 Claude 自動判斷我完成到哪裡</button><div class="why">Resume line 要能還原具體 route、下一個 win、阻塞條件與停止線；Return notebook 不替你判定完成。</div></div>
 
 <p class="stop"><strong>Common foundation legal stop：</strong>route choice 與 readiness evidence 已記錄後，可以停在這裡。這只證明你能選路與界定成功，不代表任何 Task route 已產出交付物。</p>
-<footer>Page kind：canonical lesson · Route roles：readiness／exit evidence／stop · Source IDs：<code>course-orient-readiness-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="common-foundation" data-legal-stop="Stop after route choice and readiness evidence are recorded">
+<p><strong>Route navigation · Common Foundation</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="common-foundation" data-route-action="continuation" href="001-0003-complete-cowork-starter.html">Route continuation：lessons/001-0003-complete-cowork-starter.html</a></li>
+<li><a data-route-id="common-foundation" data-route-action="continuation" href="001-0004-prepare-claude-code-session.html">Route continuation：lessons/001-0004-prepare-claude-code-session.html</a></li>
+<li><a data-route-id="common-foundation" data-route-action="continuation" href="003-0001-select-knowledge-deliverable.html">Route continuation：lessons/003-0001-select-knowledge-deliverable.html</a></li>
+<li><a data-route-id="common-foundation" data-route-action="continuation" href="004-0001-choose-claude-design-surface.html">Route continuation：lessons/004-0001-choose-claude-design-surface.html</a></li>
+<li><a data-route-id="common-foundation" data-route-action="continuation" href="005-0001-choose-presentation-route.html">Route continuation：lessons/005-0001-choose-presentation-route.html</a></li>
+<li><a data-route-id="common-foundation" data-route-action="route-return" href="../toc.html#start">回到 route catalog：toc.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop after route choice and readiness evidence are recorded"><strong>Legal stop：</strong>Stop after route choice and readiness evidence are recorded</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：readiness／exit evidence／stop · Source IDs：<code>course-orient-readiness-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
 </body>
 </html>

@@ -50,5 +50,14 @@ Evidence retention / next review owner and date:</pre></div>
 <div class="quiz" data-answer="1"><p>Reusable Skill 的 positive、near-miss 與 recovery 都通過，但 package 改了一行 instruction，digest 已不同。可以沿用原 closeout 嗎？</p><button type="button">可以，因為 package kind 和名稱沒變</button><button type="button">不行；建立新 version／digest，重跑受影響 evidence，若有 repo diff也重新 Review</button><button type="button">先補做其餘三種 package branch，就能沿用</button><div class="why">Closeout 綁定 exact package identity；任何 package mutation 都觸發 reopen。補做其他 branch 不會恢復失效 evidence。</div></div>
 <p class="boundary"><strong>Claim ceiling：</strong>Closeout 證明的是一個 bounded package 在 declared fixtures 中忠實承載已證明 workflow。它不證明 workflow 本身、授予 authority、宣稱 production readiness、代表 organization adoption，或要求四種 branch 全部完成；後續 evaluation 也必須另立 claim 與 evidence。</p>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>若 package identity／owner／scope／authority 不完整、branch evidence 不等於一條、正例與反例不是同一 digest、failure 無 recovery、learner 未做 disposition，或 repo diff 缺 final immutable Review，保存 draft 並回 009-0001、009-0002、009-0003、唯一 selected branch，或 006-0008 的精確缺口。只有 checklist 全部可重建且 disposition 已記錄，才在本頁合法停止並回 catalog；需要比較品質或決定是否繼續投資時，可另從 <code>010-0001-set-workflow-evaluation-claim.html</code> 開始，這不是自動 continuation，也不代表 Phase 9、Phase 10、production 或 course complete。</p>
-<footer>Page kind：canonical lesson · Route roles：exit-evidence／feedback／stop／tangible win · Source IDs：<code>workflow-standardization-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="workflow-standardization" data-legal-stop="Stop after one fitting package is rerun and reviewed">
+<p><strong>Route navigation · Workflow Standardization</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="workflow-standardization" data-route-action="continuation" href="006-0008-review-final-candidate.html">Route continuation：lessons/006-0008-review-final-candidate.html</a></li>
+<li><a data-route-id="workflow-standardization" data-route-action="continuation" href="010-0001-set-workflow-evaluation-claim.html">Route continuation：lessons/010-0001-set-workflow-evaluation-claim.html</a></li>
+<li><a data-route-id="workflow-standardization" data-route-action="route-return" href="../toc.html#extensions">回到 route catalog：toc.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop after one fitting package is rerun and reviewed"><strong>Legal stop：</strong>Stop after one fitting package is rerun and reviewed</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：exit-evidence／feedback／stop／tangible win · Source IDs：<code>workflow-standardization-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

@@ -79,7 +79,23 @@
 </div>
 
 <p class="stop"><strong>Legal stop：</strong>若目前缺口沒有對應的已 authored lesson，記錄 gap 與 return point 後停止。不要把 feature tour、未驗證安裝或整個 Phase 2 當成替代路線。</p>
-<footer>Page kind：canonical lesson · Route roles：entry／feedback／readiness／tangible win · Source IDs：<code>course-equip-toolbox-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
+<p><strong>Route navigation · Toolbox</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0002-set-permission-boundaries.html">選擇一條支線：lessons/002-0002-set-permission-boundaries.html</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0003-select-model-and-effort.html">選擇一條支線：lessons/002-0003-select-model-and-effort.html</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0004-smoke-test-hook.html">選擇一條支線：lessons/002-0004-smoke-test-hook.html</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0005-add-guardrail-hook.html">選擇一條支線：lessons/002-0005-add-guardrail-hook.html</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0006-use-existing-skill.html">選擇一條支線：lessons/002-0006-use-existing-skill.html</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0007-connect-trusted-mcp.html">選擇一條支線：lessons/002-0007-connect-trusted-mcp.html</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0008-delegate-read-only-investigation.html">選擇一條支線：lessons/002-0008-delegate-read-only-investigation.html</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0009-isolate-parallel-work.html">選擇一條支線：lessons/002-0009-isolate-parallel-work.html</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0010-run-headless-one-shot.html">選擇一條支線：lessons/002-0010-run-headless-one-shot.html</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0011-bound-ci-automation.html">選擇一條支線：lessons/002-0011-bound-ci-automation.html</a></li>
+</ul>
+<p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>Legal stop：</strong>Each selected lesson returns to the caller-provided active route; no Phase completion</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：entry／feedback／readiness／tangible win · Source IDs：<code>course-equip-toolbox-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
 </body>
 </html>

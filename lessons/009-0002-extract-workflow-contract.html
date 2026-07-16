@@ -41,5 +41,12 @@ Known limits / change triggers / retirement trigger:</pre></div>
 
 <div class="quiz" data-answer="2"><p>Originating run 使用 <code>input-2026-07.csv</code>，但 contract 要支援同 schema 的每月檔。該怎麼寫？</p><button type="button">把這個 filename 固定成永遠的 invariant</button><button type="button">省略 input identity，讓 agent 自己找最新檔</button><button type="button">把 schema 與 identity rule 設為 invariant，月份 filename 設為 bounded parameter</button><div class="why">Contract 應保留真正支持 proof 的 identity／schema 規則，同時把經證明可變的偶然值明確參數化。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>任何 invariant 無法追到 evidence、promise 超過 closeout、parameter 無界、human judgment 被自動化、authority 擴張、oracle 不能對反例失敗，或 owner／recovery／limits 缺失時，保留 draft並回 009-0001 或 originating route。Contract 通過反例與新讀者檢查後，帶同一 contract ID 前往 <a href="009-0003-choose-workflow-package.html">009-0003</a>；不要同時開始寫四種 package。</p>
-<footer>Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>workflow-standardization-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="workflow-standardization" data-legal-stop="Stop after one fitting package is rerun and reviewed">
+<p><strong>Route navigation · Workflow Standardization</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="workflow-standardization" data-route-action="next" href="009-0003-choose-workflow-package.html">下一步：lessons/009-0003-choose-workflow-package.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop after one fitting package is rerun and reviewed"><strong>Legal stop：</strong>Stop after one fitting package is rerun and reviewed</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>workflow-standardization-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

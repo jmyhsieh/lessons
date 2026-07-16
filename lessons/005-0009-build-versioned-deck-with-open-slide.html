@@ -75,7 +75,14 @@ Constraints:
 <p>把命令、prompt、停止線保存成 <a href="../reference/open-slide-agent-deck-workflow.html">open-slide agent deck 速查表</a>。Static HTML／PDF 的正式邊界見 <a href="https://open-slide.dev/docs/core-feature/export">open-slide Export</a>。</p>
 <p><strong>Return／continuation：</strong>Review bundle 通過後，直接回 <a href="../toc.html">課目表</a>。只有新的 diagram-as-code 需求才另選 Mermaid CLI elective；不要把 one-pager 或 diagram 當成本課的必修下一步。</p>
 <p class="scope"><strong>Legal stop：</strong>CLI identity 不符、audit 不符合政策、repo rules 未讀、source ID／rights 不可追溯、static build 未驗證、target-screen accessibility／rehearsal 未跑、candidate 未固定，或任一 Review finding 未解決時，保留 workspace 與 evidence 後停止。回本課對應步驟或 <a href="005-0002-build-source-pack.html">005-0002</a>修正；不可擴成完整 deck、發布，也不可改寫 core closeout。</p>
-<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>open-slide-agent-deck-contract</code>、<code>open-slide-cli-build-contract</code>、<code>presentation-accessibility-contract</code>、<code>presentation-export-rehearsal-contract</code>、<code>presentation-source-claim-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="presentation-delivery" data-legal-stop="Stop at Presentation closeout; adaptations and code-first options are elective">
+<p><strong>Route navigation · Presentation Delivery</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="presentation-delivery" data-route-action="route-return" href="../toc.html#route-presentation">回到 route catalog：toc.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop at Presentation closeout; adaptations and code-first options are elective"><strong>Legal stop：</strong>Stop at Presentation closeout; adaptations and code-first options are elective</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>open-slide-agent-deck-contract</code>、<code>open-slide-cli-build-contract</code>、<code>presentation-accessibility-contract</code>、<code>presentation-export-rehearsal-contract</code>、<code>presentation-source-claim-contract</code></div>
+</footer>
 <script>const boxes=[...document.querySelectorAll('input[type=checkbox]')];boxes.forEach(b=>b.addEventListener('change',()=>document.getElementById('done').style.display=boxes.every(x=>x.checked)?'block':'none'));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

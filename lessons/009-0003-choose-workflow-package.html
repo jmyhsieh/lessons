@@ -36,5 +36,15 @@ Return after branch / legal stop:</pre></div>
 
 <div class="quiz" data-answer="0"><p>Workflow 是單一 repo 的 coding conventions，每次 Claude Code 修改該 repo 都必須看到，而且變更要走 repo Review。首選哪個 package？</p><button type="button">Repository CLAUDE.md instructions</button><button type="button">同時做 playbook、Skill 與 command</button><button type="button">只放在個人聊天紀錄</button><div class="why">Audience 與 source-of-truth 都是 repo-specific；<code>CLAUDE.md</code> 是最小 fitting package，且其 diff 仍須完整 Review。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>Contract 尚未證明、audience 或 source-of-truth 不明、需要多種 package 才能掩蓋需求衝突、owner 缺失、repo Review／write authority 尚未確認，或 branch lesson 尚未發布時，保存 selection card 後停止；contract gap 回 009-0002，proof gap 回 009-0001。條件成立後只前往上表選定的一個 branch，再 rejoin 009-0008；本票不建立 branch page，也不因完成選擇而宣稱 Standardization closeout。</p>
-<footer>Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>workflow-standardization-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="workflow-standardization" data-legal-stop="Stop after one fitting package is rerun and reviewed">
+<p><strong>Route navigation · Workflow Standardization</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="workflow-standardization" data-route-action="choose-one" href="009-0004-package-as-playbook-or-template.html">選擇一條支線：lessons/009-0004-package-as-playbook-or-template.html</a></li>
+<li><a data-route-id="workflow-standardization" data-route-action="choose-one" href="009-0005-package-as-claude-md.html">選擇一條支線：lessons/009-0005-package-as-claude-md.html</a></li>
+<li><a data-route-id="workflow-standardization" data-route-action="choose-one" href="009-0006-package-as-skill.html">選擇一條支線：lessons/009-0006-package-as-skill.html</a></li>
+<li><a data-route-id="workflow-standardization" data-route-action="choose-one" href="009-0007-package-as-command-or-process.html">選擇一條支線：lessons/009-0007-package-as-command-or-process.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop after one fitting package is rerun and reviewed"><strong>Legal stop：</strong>Stop after one fitting package is rerun and reviewed</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>workflow-standardization-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

@@ -39,5 +39,12 @@ Stop / escalation owner:</pre></div>
 <div class="quiz" data-answer="2"><p>Maintenance 後 wiki summary 新增一個合理結論，但 raw source pack 找不到 locator，該怎麼做？</p><button type="button">保留，因為既有 wiki 已是可信 source</button><button type="button">請同一個 agent 再判斷一次是否正確</button><button type="button">標為 unsupported，移除或補齊 raw source locator，並記入 review log</button><div class="why">Maintenance 只更新 derived artifact；原始 sources 與 claim-level provenance 仍是 Knowledge source of truth，不能由 wiki 或 agent 自我背書取代。</div></div>
 
 <p class="stop"><strong>Legal stop／return／continuation：</strong>Raw source identity／rights 不明、existing revision 不可重建、restore 未實測、preview 或 actual scope 超界、source locator 缺失、link／export／claim check 失敗、partial／duplicate 未 disposition，或 external write 未另行核准時，保存 checkpoint 後停止；source／artifact 問題回 Phase 3 Knowledge verification，authority 問題回 008-0003。Maintenance evidence 完整後立即進 <a href="008-0005-prove-workflow-completion.html">008-0005</a>，用同一 deterministic oracle 建立 completion proof；不要接著擴寫其他 clusters，也不要宣稱 Phase 8 或 Knowledge route 已完成。</p>
-<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code>、<code>llm-wiki-local-slice-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="agent-operations" data-legal-stop="Stop after completion proof and recovery evidence are both recorded">
+<p><strong>Route navigation · Agent Operations</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="agent-operations" data-route-action="next" href="008-0005-prove-workflow-completion.html">下一步：lessons/008-0005-prove-workflow-completion.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop after completion proof and recovery evidence are both recorded"><strong>Legal stop：</strong>Stop after completion proof and recovery evidence are both recorded</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code>、<code>llm-wiki-local-slice-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

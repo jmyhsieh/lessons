@@ -33,7 +33,14 @@ claude --help</code></pre>
 <div class="quiz" data-answer="1"><p>若登入或 session 啟動失敗，正確的 route 動作是什麼？</p><button type="button">改到真實 repo 再試，取得更多 context</button><button type="button">把阻塞寫進 Return notebook，停在本課並修復最小 readiness gap</button><button type="button">略過 smoke test，直接練 bounded edit</button><div class="why">本課是 Code readiness entry；session 尚不可用時，後續 repo 探索與 edit evidence 都不可信。</div></div>
 
 <p class="stop"><strong>停止線：</strong>本課不授權 repo write。沒有 smoke evidence 就不要前進；成功後進入<a href="001-0005-map-repo-read-only.html">read-only reconnaissance</a>。</p>
-<footer>Verified environment summary：macOS 26.5.2／arm64／zsh／claude-code@2.1.211（2026-07-16） · Source IDs：<code>claude-code-cli-session-start</code></footer>
+<footer data-course-footer="canonical" data-route-id="code-readiness" data-legal-stop="Stop after Code readiness is demonstrated; do not treat fixture work as delivery">
+<p><strong>Route navigation · Code Readiness</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="code-readiness" data-route-action="next" href="001-0005-map-repo-read-only.html">下一步：lessons/001-0005-map-repo-read-only.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop after Code readiness is demonstrated; do not treat fixture work as delivery"><strong>Legal stop：</strong>Stop after Code readiness is demonstrated; do not treat fixture work as delivery</p>
+<div class="course-page-identity">Verified environment summary：macOS 26.5.2／arm64／zsh／claude-code@2.1.211（2026-07-16） · Source IDs：<code>claude-code-cli-session-start</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
 </body>
 </html>

@@ -74,7 +74,15 @@ Stop condition:</pre></div>
 </div>
 
 <p class="stop"><strong>Legal stop／return：</strong>沒有可信 server、approval 不明、tool inventory 無法限制為 read-only、或 benign record 不可核對時，記錄 gap 後停止。把 trust card 與 evidence 寫回 Return notebook，記為 <code>Lesson practiced</code>，依 rollback 決定是否移除 local connection，返回 <code>Targeted-remediation return point</code>。</p>
-<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>claude-code-cli-execution-controls</code>、<code>claude-code-trusted-mcp-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
+<p><strong>Route navigation · Toolbox</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效 return point 時回 Toolbox catalog：toc.html</a></li>
+<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的 Targeted-remediation return point；沒有有效 return point 時才使用 catalog fallback。</span></li>
+</ul>
+<p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>Legal stop：</strong>Each selected lesson returns to the caller-provided active route; no Phase completion</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>claude-code-cli-execution-controls</code>、<code>claude-code-trusted-mcp-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
 </body>
 </html>

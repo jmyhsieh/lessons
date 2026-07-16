@@ -29,7 +29,14 @@
 <div class="quiz" data-answer="2"><p>哪一種 repo map 最可 review？</p><button type="button">這是一個標準的 web app，結構看起來清楚</button><button type="button">Claude 已完整理解整個 codebase</button><button type="button">入口是 src/main.py；測試命令記在 README 的 Testing 段落；目前不確定部署路徑</button><div class="why">可 review 的 map 用路徑支持主張，也保留 unknown；模型的信心或一般化描述不是 evidence。</div></div>
 
 <p class="stop"><strong>停止線：</strong>若讀檔需要未授權資料或出現意外 write，立即停止並回到 safe scope。完成後前往<a href="001-0006-plan-readiness-fixture.html">fixture plan</a>。</p>
-<footer>Verified environment summary：Claude Code 2.1.211 help surface；Plan mode 是 read-only exploration boundary · Source IDs：<code>claude-code-cli-execution-controls</code>、<code>claude-code-permission-plan-boundary</code></footer>
+<footer data-course-footer="canonical" data-route-id="code-readiness" data-legal-stop="Stop after Code readiness is demonstrated; do not treat fixture work as delivery">
+<p><strong>Route navigation · Code Readiness</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="code-readiness" data-route-action="next" href="001-0006-plan-readiness-fixture.html">下一步：lessons/001-0006-plan-readiness-fixture.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop after Code readiness is demonstrated; do not treat fixture work as delivery"><strong>Legal stop：</strong>Stop after Code readiness is demonstrated; do not treat fixture work as delivery</p>
+<div class="course-page-identity">Verified environment summary：Claude Code 2.1.211 help surface；Plan mode 是 read-only exploration boundary · Source IDs：<code>claude-code-cli-execution-controls</code>、<code>claude-code-permission-plan-boundary</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
 </body>
 </html>

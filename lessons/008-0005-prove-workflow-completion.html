@@ -34,5 +34,12 @@ Learner disposition: proceed to recovery exercise / return / stop</pre></div>
 <div class="win"><strong>Tangible win：</strong>一份綁定 run／inputs／workflow／fixture identity，含 decisive oracle result、negative calibration、scope check 與 honest limits 的 completion proof。<br><strong>Observable feedback：</strong>另一人能重新執行同一 oracle，讓反證 copy 失敗、讓本次 output 通過，並把 deterministic observation 與 agent inference／human acceptance 分開。</div>
 <div class="quiz" data-answer="1"><p>Validator exit 0，但檢查的是未標 run ID 的 shared output 目錄，該怎麼 disposition？</p><button type="button">接受，exit 0 就是 deterministic proof</button><button type="button">停止；先把 evidence 綁定本次 inputs、run 與 fixture，再用同一 oracle 重跑</button><button type="button">請 agent 判斷目錄內容是否像本次產物</button><div class="why">Deterministic 不只指命令可重跑；proof 必須識別本次 claim。未綁 identity 的 green 可能只是舊 output，不能由 agent 目測補足。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>Oracle mutation output、identity 對不上、negative calibration 不再失敗、input coverage／scope fingerprint 不完整、partial／skip 未 disposition，或 judgment 被偽裝成 deterministic pass 時，保存 proof draft並回 008-0001 或相應 execution branch。Proof 完整後，進 <a href="008-0006-exercise-failure-and-recovery.html">008-0006</a> 做 controlled failure／recovery exercise；現在仍不能 closeout。</p>
-<footer>Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="agent-operations" data-legal-stop="Stop after completion proof and recovery evidence are both recorded">
+<p><strong>Route navigation · Agent Operations</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="agent-operations" data-route-action="next" href="008-0006-exercise-failure-and-recovery.html">下一步：lessons/008-0006-exercise-failure-and-recovery.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop after completion proof and recovery evidence are both recorded"><strong>Legal stop：</strong>Stop after completion proof and recovery evidence are both recorded</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

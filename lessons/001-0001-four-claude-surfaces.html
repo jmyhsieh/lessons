@@ -61,7 +61,14 @@
 
 <p class="stop"><strong>邊界：</strong>本課只完成工作表面選擇，狀態記為 <code>Lesson practiced</code>。還沒有 Route artifact，也沒有 production authorization。</p>
 <p><strong>下一課：</strong><a href="001-0002-define-route-readiness.html">定義 safe scope、成功證據與 Return notebook</a>。</p>
-<footer>Page kind：canonical lesson · Route role：Common foundation entry · Source IDs：<code>claude-product-surface-selection</code></footer>
+<footer data-course-footer="canonical" data-route-id="common-foundation" data-legal-stop="Stop after route choice and readiness evidence are recorded">
+<p><strong>Route navigation · Common Foundation</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="common-foundation" data-route-action="next" href="001-0002-define-route-readiness.html">下一步：lessons/001-0002-define-route-readiness.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop after route choice and readiness evidence are recorded"><strong>Legal stop：</strong>Stop after route choice and readiness evidence are recorded</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route role：Common foundation entry · Source IDs：<code>claude-product-surface-selection</code></div>
+</footer>
 <script>
 document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });
 </script>

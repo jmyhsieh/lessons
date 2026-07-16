@@ -73,7 +73,15 @@ Stop condition:</pre></div>
 </div>
 
 <p class="stop"><strong>Return boundary：</strong>回復或保留 fixture 由 selection card 決定；把 smoke-test evidence 寫回 Return notebook，狀態記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。本課不建立 production guardrail，也不授權 fixture 外的 shell side effect。</p>
-<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>claude-code-hook-safety-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
+<p><strong>Route navigation · Toolbox</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效 return point 時回 Toolbox catalog：toc.html</a></li>
+<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的 Targeted-remediation return point；沒有有效 return point 時才使用 catalog fallback。</span></li>
+</ul>
+<p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>Legal stop：</strong>Each selected lesson returns to the caller-provided active route; no Phase completion</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>claude-code-hook-safety-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
 </body>
 </html>

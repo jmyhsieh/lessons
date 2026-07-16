@@ -932,6 +932,36 @@ def validate_site_release(
     )
     link_quiz_errors = validate_links_and_quizzes(repo_root, documents)
     compatibility_errors = validate_compatibility_graph(manifest, documents)
+    navigation_errors: list[dict[str, str]] = []
+    navigation_counts: dict[str, int] = {}
+    try:
+        if not isinstance(manifest, dict) or not isinstance(manifest.get("routes"), list):
+            raise KeyError("routes")
+        navigation_module = runpy.run_path(
+            str(Path(__file__).with_name("verify-route-navigation.py"))
+        )
+        counts, navigation_details = navigation_module["verify"](repo_root, manifest)
+        navigation_counts = dict(counts)
+        grouped_details: dict[str, list[str]] = {}
+        for detail in navigation_details:
+            code = detail.split(maxsplit=1)[0]
+            grouped_details.setdefault(code, []).append(detail)
+        navigation_errors.extend(
+            blocker(
+                f"route-navigation-{code.replace('_', '-')}",
+                f"{len(items)} mismatch(es); first: " + "; ".join(items[:5]),
+            )
+            for code, items in sorted(grouped_details.items())
+        )
+    except KeyError as error:
+        if inventory_contract:
+            navigation_errors.append(
+                blocker("route-navigation-runtime", f"navigation verifier failed: {error}")
+            )
+    except Exception as error:
+        navigation_errors.append(
+            blocker("route-navigation-runtime", f"navigation verifier failed: {error}")
+        )
     index_errors = []
     if isinstance(manifest, dict) and any(
         isinstance(page, dict)
@@ -968,6 +998,7 @@ def validate_site_release(
     errors.extend(contract_errors)
     errors.extend(link_quiz_errors)
     errors.extend(compatibility_errors)
+    errors.extend(navigation_errors)
     errors.extend(index_errors)
     errors.extend(toc_errors)
     errors.extend(authored_errors)
@@ -983,6 +1014,8 @@ def validate_site_release(
         "inventoryContractBlockers": len(contract_errors),
         "linkOrQuizBlockers": len(link_quiz_errors),
         "compatibilityBlockers": len(compatibility_errors),
+        "routeNavigationBlockers": len(navigation_errors),
+        "routeNavigationCounts": navigation_counts,
         "indexBlockers": len(index_errors),
         "tocBlockers": len(toc_errors),
         "authoredPageBlockers": len(authored_errors),

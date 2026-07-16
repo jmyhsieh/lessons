@@ -30,7 +30,15 @@
 <div class="quiz" data-answer="2"><p>哪一個 closeout claim 符合本課證據？</p><button type="button">我已能安全交付任何 production repo 變更</button><button type="button">Claude 完成 edit 且 tests 顯示 green，所以不需要 human review</button><button type="button">我在指定 fixture 完成 bounded edit、diff review、checks 與 local checkpoint；真實 repo delivery 尚未進行</button><div class="why">Readiness evidence 有明確環境與範圍；它不會自動升級成真實 repo deliverable 或 production authorization。</div></div>
 
 <p class="stop"><strong>Code readiness legal stop：</strong>把 bundle、learner judgment 與 feedback 寫進 Return notebook 後即可停止。狀態是 <code>Lesson practiced</code> 與 <strong>Code readiness demonstrated</strong>，不是 <code>Route artifact produced</code>。Engineering route 會在後續 coherent authoring slice 才成為正式 continuation。</p>
-<footer>Page kind：canonical lesson · Route roles：exit evidence／feedback／stop · Source IDs：<code>claude-code-cli-execution-controls</code>、<code>course-orient-readiness-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="code-readiness" data-legal-stop="Stop after Code readiness is demonstrated; do not treat fixture work as delivery">
+<p><strong>Route navigation · Code Readiness</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="code-readiness" data-route-action="continuation" href="006-0001-choose-engineering-route.html">Route continuation：lessons/006-0001-choose-engineering-route.html</a></li>
+<li><a data-route-id="code-readiness" data-route-action="route-return" href="../toc.html#start">回到 route catalog：toc.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop after Code readiness is demonstrated; do not treat fixture work as delivery"><strong>Legal stop：</strong>Stop after Code readiness is demonstrated; do not treat fixture work as delivery</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：exit evidence／feedback／stop · Source IDs：<code>claude-code-cli-execution-controls</code>、<code>course-orient-readiness-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
 </body>
 </html>

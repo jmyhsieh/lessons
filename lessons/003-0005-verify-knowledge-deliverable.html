@@ -73,7 +73,14 @@ Remaining blocker:</pre></div>
 </div>
 
 <p class="stop"><strong>Legal stop／return：</strong>Rights 不明、material claim 無 source、target format 無法驗證，或沒有可用 feedback 時，保留 failure evidence 並停止，不進 closeout。補齊後返回本課重跑；全部 checks 有 disposition 才進入 <a href="003-0006-complete-knowledge-delivery-closeout.html">Knowledge delivery closeout</a>。</p>
-<footer>Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>course-knowledge-delivery-contract</code>、<code>knowledge-source-provenance-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="knowledge-delivery" data-legal-stop="Stop at Knowledge delivery closeout">
+<p><strong>Route navigation · Knowledge Delivery</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="knowledge-delivery" data-route-action="next" href="003-0006-complete-knowledge-delivery-closeout.html">下一步：lessons/003-0006-complete-knowledge-delivery-closeout.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop at Knowledge delivery closeout"><strong>Legal stop：</strong>Stop at Knowledge delivery closeout</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>course-knowledge-delivery-contract</code>、<code>knowledge-source-provenance-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
 </body>
 </html>

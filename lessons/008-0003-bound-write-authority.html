@@ -37,5 +37,13 @@ Approval checkpoints requiring human judgment:</pre></div>
 <div class="win"><strong>Tangible win：</strong>一份由 read-only rehearsal 支持、清楚分離 read／local write／external action 的 authority envelope。<br><strong>Observable feedback：</strong>Owner 能逐項圈出允許與拒絕的 paths／operations，確認 actual scope 若漂移會 fail closed，並證明 local write approval 沒有偷渡 production side effect。</div>
 <div class="quiz" data-answer="1"><p>Agent 在 dry-run 發現還需更新一個未列出的 external record，應怎麼做？</p><button type="button">既然 mission 相同就直接加進 write set</button><button type="button">停止；保存 scope drift，重新 rehearsal、固定 target／payload／recovery，並取得獨立 external approval</button><button type="button">讓 subagent 執行，因 context 已隔離</button><div class="why">新 target 是 authority 變更；execution surface 或委派不會授權 side effect，必須停止並重新通過 scope 與 approval gate。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>Rehearsal 有未解 scope drift、write paths／operations 含糊、restore point 無法驗證、approval owner 不明、external action 沒有 dedupe／recovery／irreversible stop，或任何 human judgment 被交給 agent 時，保留 envelope 並停止。一般 branch 準備完成後，進 <a href="008-0004-run-recoverable-workflow.html">008-0004</a> 執行 recoverable workflow；LLM Wiki branch 只有 elective 可用且 boundary 成立時才進 008-0008。此處不執行 write，也不宣稱 route complete。</p>
-<footer>Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code></footer>
+<footer data-course-footer="canonical" data-route-id="agent-operations" data-legal-stop="Stop after completion proof and recovery evidence are both recorded">
+<p><strong>Route navigation · Agent Operations</strong></p>
+<ul class="course-route-actions">
+<li><a data-route-id="agent-operations" data-route-action="choose-one" href="008-0004-run-recoverable-workflow.html">選擇一條支線：lessons/008-0004-run-recoverable-workflow.html</a></li>
+<li><a data-route-id="agent-operations" data-route-action="choose-one" href="008-0008-run-recoverable-llm-wiki-maintenance.html">選擇一條支線：lessons/008-0008-run-recoverable-llm-wiki-maintenance.html</a></li>
+</ul>
+<p data-route-legal-stop="Stop after completion proof and recovery evidence are both recorded"><strong>Legal stop：</strong>Stop after completion proof and recovery evidence are both recorded</p>
+<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>agent-operations-safety-contract</code></div>
+</footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>
