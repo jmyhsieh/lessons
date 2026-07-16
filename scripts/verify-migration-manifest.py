@@ -121,7 +121,7 @@ EXPECTED_NAVIGATION_PATHS = {"index.html", "toc.html"}
 # Independent digests of the manually reviewed Issue #12/#13 projections pin
 # exact page and route contracts without creating a second readable manifest.
 EXPECTED_PAGE_MATRIX_SHA256 = (
-    "e57388bdab420c7c3d16744a064755cb505bed1881c5bd279e81c07302bc91ff"
+    "df065862e0d4bb0a321b2927ff362b271f691bc573421acaf6f6574f6eafd9aa"
 )
 EXPECTED_ROUTE_CONTRACT_SHA256 = (
     "f412397e52c5cc19a858519238f049ac7b3e1ed7c4048f3120073832d5a56a4e"
@@ -349,14 +349,27 @@ def validate_page_schema(page: Any, index: int) -> list[str]:
     source = page.get("sourceDependencies")
     if not isinstance(source, dict) or set(source) != {"state", "anchorIds"}:
         errors.append(failure("source-placeholder", f"{path} source placeholder is invalid"))
-    elif (
-        not isinstance(source.get("state"), str)
-        or source.get("state") not in {"not-applicable", "pending-t03"}
-        or source.get("anchorIds") != []
-    ):
-        errors.append(
-            failure("source-placeholder", f"{path} must not fabricate Source anchors")
-        )
+    else:
+        source_state = source.get("state")
+        anchor_ids = source.get("anchorIds")
+        if (
+            not isinstance(source_state, str)
+            or source_state not in {"not-applicable", "pending-t03", "registered"}
+            or not isinstance(anchor_ids, list)
+            or not all(isinstance(anchor_id, str) and anchor_id for anchor_id in anchor_ids)
+            or anchor_ids != sorted(set(anchor_ids))
+        ):
+            errors.append(
+                failure("source-placeholder", f"{path} Source dependencies are invalid")
+            )
+        elif source_state == "registered" and not anchor_ids:
+            errors.append(
+                failure("source-placeholder", f"{path} registered Source dependencies need IDs")
+            )
+        elif source_state != "registered" and anchor_ids:
+            errors.append(
+                failure("source-placeholder", f"{path} unregistered Source dependencies need no IDs")
+            )
     if page.get("migrationStatus") != "planned":
         errors.append(failure("migration-status", f"{path} must remain planned in T02"))
     if not isinstance(page.get("evidenceCarryover"), str) or page.get(
@@ -629,7 +642,13 @@ def validate_manifest(manifest: Any, freeze: dict[str, Any]) -> list[str]:
                     f"{page['path']} carryover must match {page['pageKind']}",
                 )
             )
-        if page["sourceDependencies"]["state"] != expected_source_state:
+        actual_source_state = page["sourceDependencies"]["state"]
+        source_state_matches = (
+            actual_source_state in {"pending-t03", "registered"}
+            if expected_source_state == "pending-t03"
+            else actual_source_state == expected_source_state
+        )
+        if not source_state_matches:
             errors.append(
                 failure(
                     "source-placeholder",
@@ -1496,6 +1515,22 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
     cases.append(
         ("container Source state enum", container_source_state, "source-placeholder")
     )
+
+    registered_without_ids = copy.deepcopy(manifest)
+    registered_without_ids["pages"][0]["sourceDependencies"] = {
+        "state": "registered",
+        "anchorIds": [],
+    }
+    cases.append(
+        ("registered Source without IDs", registered_without_ids, "source-placeholder")
+    )
+
+    pending_with_ids = copy.deepcopy(manifest)
+    pending_with_ids["pages"][0]["sourceDependencies"] = {
+        "state": "pending-t03",
+        "anchorIds": ["fabricated-anchor"],
+    }
+    cases.append(("pending Source with IDs", pending_with_ids, "source-placeholder"))
 
     container_carryover = copy.deepcopy(manifest)
     container_carryover["pages"][0]["evidenceCarryover"] = {}

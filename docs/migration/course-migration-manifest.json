@@ -1714,8 +1714,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-code-cli-session-start"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4234,8 +4236,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-file-creation-surface"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4680,8 +4684,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "immutable-review-checkpoint-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
