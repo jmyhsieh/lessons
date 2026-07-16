@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="009-0006">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="workflow-standardization:conditional,workflow-standardization:feedback,workflow-standardization:tangible-win">
+<meta name="course:source-ids" content="workflow-standardization-contract">
+<title>009-0006：Package as reusable Skill</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:920px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#315f86;margin-top:2rem}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{border:1px solid #ccd9e3;padding:.55rem;text-align:left;vertical-align:top}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem;overflow-wrap:anywhere}pre{padding:.8rem;white-space:pre-wrap;overflow-wrap:anywhere}label{display:block;margin:.45rem 0}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:690px){body{margin-top:1rem}table{display:block;overflow-x:auto;font-size:.76rem}}</style>
+</head><body>
+<p><a href="009-0003-choose-workflow-package.html">← package selector</a> · <a href="../reference/workflow-package-selector.html">Selector reference</a></p>
+<header><p>Phase 9 · Standardize · 009-0006 · Conditional branch</p><h1>把跨 workspace 的 bounded instructions 包成 reusable Skill</h1><p class="mission"><strong>Entry：</strong>009-0003 已選 <code>skill</code>，因為同一 proven workflow 需要跨 workspace 被正確觸發，且 contract、audience、dependencies、owner 與 distribution boundary 都清楚。Skill 是 instruction package，不是 workflow proof、tool installer、permission grant 或 universal policy。</p></header>
+
+<h2>1. 先設計 trigger，再配置 disclosure</h2>
+<table><tr><th>層次</th><th>放什麼</th><th>排除</th></tr><tr><td>Metadata</td><td>可辨識的 task trigger、明確非適用情境、owner 與 version。</td><td>「任何工作都可用」或只列工具名稱。</td></tr><tr><td><code>SKILL.md</code></td><td>Entry contract、ordered workflow、authority、checks、feedback、failure／recovery、legal stop。</td><td>整份百科、secrets、隱含 prerequisite。</td></tr><tr><td>Referenced resources</td><td>只在 matching branch 載入的 templates、examples、rubrics 或 scripts。</td><td>重複 source of truth、未使用 assets。</td></tr><tr><td>Distribution record</td><td>Package digest、dependencies、compatible scope、review、change 與 retirement path。</td><td>把安裝數當品質或完成 evidence。</td></tr></table>
+<div class="card"><pre>Skill name / version / owner:
+Use when / do not use when:
+Required inputs / prerequisites / source of truth:
+Workflow contract and ordered steps:
+Allowed tools and writes / external-action stops:
+Deterministic checks / observable feedback:
+Failure / recovery / limitations:
+Resources and exact load conditions:
+Distribution / update / retirement:</pre></div>
+<p class="boundary"><strong>Capability boundary：</strong>Skill 可以指示如何使用已可用的 capability，但不能創造 tool、credential、sandbox access 或 approval。缺 dependency 時應輸出 gap 與 safe stop，不得偷偷安裝、改全域設定或改用未授權服務。</p>
+
+<h2>2. 用 trigger matrix 驗證選擇性</h2>
+<table><tr><th>Fixture</th><th>Expected result</th></tr><tr><td>Exact positive task</td><td>觸發 Skill，讀取最少必要 resources，依 contract 產生 evidence。</td></tr><tr><td>Near-miss task</td><td>不觸發，或先指出缺少的 decisive input。</td></tr><tr><td>Missing dependency</td><td>停止並列出缺口，不安裝、不擴權。</td></tr><tr><td>External-write request</td><td>要求當次 authority、target 與 payload；Skill 文字不算 approval。</td></tr><tr><td>Failure fixture</td><td>Oracle red，保留 evidence 並依 declared recovery／safe stop。</td></tr></table>
+
+<h2>3. 在 fresh context 重跑 package</h2>
+<ol><li>建立隔離 fixture，只安裝或掛載 exact Skill package 與 declared dependencies；不要帶入作者 session。</li><li>以一個正例與至少一個 near-miss 執行；保存輸入、是否觸發、載入 resources、steps、check output 與 stop reason。</li><li>由另一位 reviewer 比對 Skill behavior 與 extracted contract，確認 package 沒新增 promise、authority 或 hidden dependency。</li><li>任何修訂都增加 package version／digest並重跑受影響 fixtures。</li></ol>
+<div class="card"><strong>Package evidence</strong><label><input type="checkbox"> Trigger 與 negative trigger 都可觀察</label><label><input type="checkbox"> Main instructions 足以執行，resources 只按需載入</label><label><input type="checkbox"> Missing capability 與 external write 都 fail closed</label><label><input type="checkbox"> Fresh context 不依賴舊聊天或全域 personal state</label><label><input type="checkbox"> Exact version、digest、owner 與 fixture results 已保存</label></div>
+<div class="win"><strong>Tangible win：</strong>一個有 bounded trigger、progressive resources、version／owner 與 fresh-context fixture evidence 的 reusable Skill package。<br><strong>Observable feedback：</strong>正例會選中並完成 declared checks；near-miss 不誤觸發，缺 dependency／authority 時安全停止，reviewer 能把 behavior 逐項追到 workflow contract。</div>
+
+<div class="quiz" data-answer="0"><p>Skill 在 fresh context 發現缺少 CLI dependency，contract 未授權安裝。正確行為是？</p><button type="button">列出 dependency gap 並 safe stop，等待新的 setup／authority</button><button type="button">自動安裝，因為 Skill 已被選用</button><button type="button">改用任意外部服務完成結果</button><div class="why">Package 不會擴張 capability 或 authority；missing dependency 是可觀察的 stop，不是繞過邊界的理由。</div></div>
+<p class="stop"><strong>Legal stop／return／continuation：</strong>Trigger 無法區分 near-miss、resources 重複 truth、dependency／distribution／owner 不明、fresh context 依賴 personal state，或 Skill 擴張 authority 時，保存 fixture evidence 並回 <a href="009-0003-choose-workflow-package.html">009-0003</a>／009-0002。只有 exact package version 通過正例、near-miss、missing-dependency 與 failure checks，才前往 <code>009-0008-complete-standardization-closeout.html</code>；不要再完成其他 package branch。</p>
+<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>workflow-standardization-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

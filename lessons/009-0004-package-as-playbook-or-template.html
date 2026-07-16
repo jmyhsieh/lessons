@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="009-0004">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="workflow-standardization:conditional,workflow-standardization:feedback,workflow-standardization:tangible-win">
+<meta name="course:source-ids" content="workflow-standardization-contract">
+<title>009-0004：Package as playbook or template</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:920px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#315f86;margin-top:2rem}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{border:1px solid #ccd9e3;padding:.55rem;text-align:left;vertical-align:top}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem;overflow-wrap:anywhere}pre{padding:.8rem;white-space:pre-wrap;overflow-wrap:anywhere}label{display:block;margin:.45rem 0}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:690px){body{margin-top:1rem}table{display:block;overflow-x:auto;font-size:.76rem}}</style>
+</head><body>
+<p><a href="009-0003-choose-workflow-package.html">← package selector</a> · <a href="../reference/workflow-package-selector.html">Selector reference</a></p>
+<header><p>Phase 9 · Standardize · 009-0004 · Conditional branch</p><h1>把需要人類判斷的 workflow 包成 playbook 或 template</h1><p class="mission"><strong>Entry：</strong>009-0003 的 selection card 已選 <code>playbook-template</code>，並帶入同一份 proven workflow contract、audience、owner 與 evidence。這條 branch 適合需要讀者理解、填寫或做 disposition 的流程；若主要責任是 deterministic execution，回 selector 改選 command／local process。</p></header>
+
+<h2>1. 分開 instruction 與 run record</h2>
+<table><tr><th>Playbook source of truth</th><th>Run template</th></tr><tr><td>Version、適用範圍、preconditions、固定順序、authority、checks、failure／recovery、owner 與 retirement trigger。</td><td>每次執行的 input identity、選擇、approval、check output、exceptions、judgment、feedback 與 closeout location。</td></tr></table>
+<p class="rule"><strong>不要把空白表單當完成：</strong>Playbook 解釋怎麼做，template 保存這次做了什麼；兩者都不能取代 originating evidence、deterministic oracle 或需要的人類批准。</p>
+
+<h2>2. Author 最小 package</h2>
+<div class="card"><pre># Workflow playbook — &lt;contract ID / package version&gt;
+Audience / owner / source of truth:
+Promise / non-goals / prerequisites:
+Inputs and identity rules:
+Read / write / external-action authority:
+Ordered steps and checkpoints:
+Human judgment and approval stops:
+Completion oracle and disconfirming example:
+Failure / retry / rollback or safe stop:
+Evidence / feedback / change / retirement:
+
+# Run record — &lt;run ID&gt;
+Exact package and workflow revision:
+Input identities / approvals / decisions:
+Check output / artifact location:
+Failure and recovery / limitations:
+Learner disposition / feedback:</pre></div>
+<p class="boundary"><strong>Authority boundary：</strong>文件可以提醒操作者取得 approval，不能代表 approval。若 target、payload、recipient、production state 或 external write 與 contract 不同，停止並取得新的當次 authority。</p>
+
+<h2>3. 在 fresh context rerun</h2>
+<ol><li>建立乾淨 fixture，只放 exact package version、允許的 inputs 與已知 expected result；不提供原 session transcript。</li><li>請一位新讀者依 playbook 填一份新的 run record；禁止用作者口頭補充隱含步驟。</li><li>以 contract 的 oracle 比對結果，再放入一個缺 prerequisite 或超 authority 的反例，確認 playbook 會要求停止。</li><li>記錄 package digest／version、fixture identity、操作者、實際 steps、output、oracle result、差異與 learner judgment。</li></ol>
+<div class="card"><strong>Fresh-context checklist</strong><label><input type="checkbox"> 新讀者只收到 package 與 declared fixture</label><label><input type="checkbox"> 正例能產生完整 run record 與 completion evidence</label><label><input type="checkbox"> 反例在承諾的 stop condition 停止</label><label><input type="checkbox"> 隱含知識已回填 source of truth，而非留在聊天</label><label><input type="checkbox"> Owner 接受、修訂或退回 package</label></div>
+<div class="win"><strong>Tangible win：</strong>一份 versioned playbook／template package，加上一份 fresh-context run record。<br><strong>Observable feedback：</strong>新讀者能在沒有原 session 記憶下重建 bounded workflow；oracle 對正例通過、對缺 prerequisite 或 authority 的反例停止，owner 能從差異決定修訂。</div>
+
+<div class="quiz" data-answer="2"><p>Fresh-context 讀者必須私訊作者，才能知道 approval 要記在哪裡。這代表？</p><button type="button">Rerun 已成功，因為最後完成了</button><button type="button">把私訊截圖附上即可，不必改 package</button><button type="button">Package 有隱含 contract gap；回填 source of truth 後重跑</button><div class="why">Fresh-context rerun 的目的就是暴露 session-only knowledge；口頭補丁不能成為可維護 package 的依賴。</div></div>
+<p class="stop"><strong>Legal stop／return／continuation：</strong>若選擇其實需要 deterministic execution、source of truth 或 owner 不明、讀者需作者補充、反例未停止、authority 擴張，或 run record 無法連回 exact version，保存 evidence 並回 <a href="009-0003-choose-workflow-package.html">009-0003</a> 或 009-0002 修正。只有 fresh-context evidence 與 owner disposition 齊全，才攜帶同一 contract ID 前往 <code>009-0008-complete-standardization-closeout.html</code>；不要再完成其他三條 package branch。</p>
+<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>workflow-standardization-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>
