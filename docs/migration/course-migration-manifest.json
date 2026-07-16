@@ -3796,8 +3796,13 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-design-availability-surface",
+          "claude-design-product-prototype-contract",
+          "claude-product-surface-selection",
+          "course-design-delivery-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -3827,8 +3832,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-design-brief-context-contract",
+          "course-design-delivery-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -3860,8 +3868,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-design-system-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -3891,8 +3901,11 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-design-exploration-revision-contract",
+          "claude-design-product-prototype-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -3922,8 +3935,10 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-design-exploration-revision-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -3953,8 +3968,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-design-accessibility-evidence-contract",
+          "claude-design-product-prototype-contract",
+          "claude-design-responsive-interaction-evidence-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -4023,8 +4042,13 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-design-accessibility-evidence-contract",
+          "claude-design-handoff-contract",
+          "claude-design-responsive-interaction-evidence-contract",
+          "course-design-delivery-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -6855,8 +6879,18 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-design-accessibility-evidence-contract",
+          "claude-design-availability-surface",
+          "claude-design-brief-context-contract",
+          "claude-design-exploration-revision-contract",
+          "claude-design-handoff-contract",
+          "claude-design-product-prototype-contract",
+          "claude-design-responsive-interaction-evidence-contract",
+          "claude-design-system-contract",
+          "course-design-delivery-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -6879,8 +6913,12 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-design-availability-surface",
+          "claude-design-product-prototype-contract",
+          "claude-product-surface-selection"
+        ]
       },
       "migrationStatus": "planned"
     },

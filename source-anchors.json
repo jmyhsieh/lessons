@@ -11,7 +11,7 @@
   "coverage": {
     "mode": "representative-thin-slice",
     "complete": false,
-    "nextWave": "recertify-design-baseline-anchors"
+    "nextWave": "recertify-presentation-baseline-anchors"
   },
   "driftWindowsDays": {
     "high": 30,
@@ -87,6 +87,408 @@
     }
   },
   "anchors": [
+    {
+      "id": "course-design-delivery-contract",
+      "claimScope": "The Design route produces a reviewable handoff bundle from a bounded brief, selected direction, prototype evidence, and explicit implementation limits; it does not claim production completion.",
+      "profile": "principle-only",
+      "driftClass": "lower",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "course-migration-spec-design-contract",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "principleStatement": "Design ends with a handoff bundle whose source, intent, states, responsive and accessibility rules, evidence, scope, and unresolved assumptions are explicit; implementation and production verification remain separate continuations.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The approved Design route, stop condition, or handoff evidence contract changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #20",
+        "sourceIds": [
+          "course-migration-spec-design-contract"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "Issue #13 defines Design as a route with its own entry, evidence, stop, and optional Engineering continuation.",
+          "The approved route stops at a reviewable handoff bundle rather than treating a prototype as production-ready software."
+        ]
+      }
+    },
+    {
+      "id": "claude-design-availability-surface",
+      "claimScope": "Claude Design is a beta Anthropic design surface for visual drafts and prototypes whose actual access depends on plan, organization settings, supported client, rollout, and shared usage limits.",
+      "profile": "surface-procedure",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-claude-design-product",
+          "url": "https://claude.com/product/design",
+          "kind": "first-party-product-surface",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-claude-design-get-started",
+          "url": "https://support.claude.com/en/articles/14604416-get-started-with-claude-design",
+          "kind": "first-party-product-guide",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-claude-design-launch",
+          "url": "https://www.anthropic.com/news/claude-design-anthropic-labs",
+          "kind": "first-party-product-announcement",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "surfacePath": "Claude Design product page > Get started guide > account-specific availability check",
+      "inspectionContext": "Public web surfaces observed from macOS 26.5.2; no learner account or organization setting was inspected",
+      "availabilityAssumptions": [
+        "The learner has a Pro, Max, Team, or Enterprise subscription on which Claude Design is available.",
+        "Enterprise access may require an administrator to enable Claude Design.",
+        "The learner uses a supported web or desktop surface and has remaining shared Claude usage."
+      ],
+      "expectedEvidence": [
+        "Current first-party pages identify Claude Design as beta and list Pro, Max, Team, and Enterprise plans.",
+        "The Help Center limits the surface to web and desktop and documents shared usage and known limitations.",
+        "Public page reachability is not treated as proof of account-specific access."
+      ],
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Claude Design beta status, plan availability, client support, or usage policy changes",
+        "Enterprise enablement or rollout behavior changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [
+        {
+          "id": "claude-design-preview-label-drift",
+          "summary": "The launch announcement says research preview while the current product and Help Center pages say beta.",
+          "status": "resolved",
+          "scope": "optional-path",
+          "disposition": "Teach beta as the current status and retain the launch wording only as historical evidence; recheck account availability at use time."
+        }
+      ],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #20",
+        "sourceIds": [
+          "anthropic-claude-design-product",
+          "anthropic-claude-design-get-started",
+          "anthropic-claude-design-launch"
+        ],
+        "verificationMethod": "surface-observation",
+        "surfacePath": "Claude Design product page > Get started guide > account-specific availability check",
+        "result": "pass",
+        "observations": [
+          "The current product and Help Center surfaces identify Claude Design as beta and list supported paid plans.",
+          "The Help Center records web and desktop availability, shared usage, and known collaboration, comment, large-repository, and import limitations.",
+          "No account-specific access claim was made because no learner account or organization settings were inspected."
+        ]
+      }
+    },
+    {
+      "id": "claude-design-product-prototype-contract",
+      "claimScope": "Claude Design creates editable visual drafts and interactive prototypes for exploration, feedback, and user testing, but neither generation nor shareability proves product correctness or production readiness.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-design-product-prototypes",
+          "url": "https://claude.com/product/design",
+          "kind": "first-party-product-surface",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-design-launch-prototypes",
+          "url": "https://www.anthropic.com/news/claude-design-anthropic-labs",
+          "kind": "first-party-product-announcement",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "inspectionContext": "Public product and launch contracts inspected from macOS 26.5.2; no generated prototype was treated as verified evidence",
+      "principleStatement": "Use the prototype to compare directions and collect observable feedback from real tasks; preserve the distinction between a testable design artifact and implemented, reviewed, production-ready software.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Claude Design prototype or handoff positioning changes",
+        "The product begins making a materially different production-readiness claim"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #20",
+        "sourceIds": [
+          "anthropic-design-product-prototypes",
+          "anthropic-design-launch-prototypes"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The product page positions interactive prototypes as artifacts to test with real people and separates them from code review.",
+          "The launch announcement describes prototypes, product mockups, exploration, sharing, and handoff; it does not certify production correctness."
+        ]
+      }
+    },
+    {
+      "id": "claude-design-brief-context-contract",
+      "claimScope": "A bounded Claude Design brief declares goal, layout, content, audience, and relevant product context so both generation and review have explicit criteria.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-design-effective-prompts",
+          "url": "https://support.claude.com/en/articles/14604416-get-started-with-claude-design",
+          "kind": "first-party-product-guide",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "inspectionContext": "Current Help Center prompt contract inspected from macOS 26.5.2",
+      "principleStatement": "Write the brief before generating: name the user and goal, layout, real content, intended devices, design-system context, accessibility expectations, and acceptance evidence.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Claude Design prompt or context guidance changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #20",
+        "sourceIds": [
+          "anthropic-design-effective-prompts"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The current guide requires a goal, layout, content, and audience and recommends attaching screenshots, assets, codebases, or design files as context.",
+          "The anchor adds acceptance evidence as the course boundary, not as a claim that the product guide validates the result."
+        ]
+      }
+    },
+    {
+      "id": "claude-design-system-contract",
+      "claimScope": "Claude Design distinguishes organization design-system setup, review, test, and publication from project-level import or synchronization; output quality remains bounded by source quality and human validation.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-design-system-setup",
+          "url": "https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design",
+          "kind": "first-party-product-guide",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-design-system-import",
+          "url": "https://support.claude.com/en/articles/14604416-get-started-with-claude-design",
+          "kind": "first-party-product-guide",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "inspectionContext": "Current Help Center setup and project-import contracts inspected from macOS 26.5.2",
+      "principleStatement": "Record the source, generated tokens and components, test-project comparison, and Published state for organization setup; record imported source and sample fidelity for project sync, without treating either operation as proof of brand fidelity.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Organization setup, Published state, import sources, or design-sync behavior changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #20",
+        "sourceIds": [
+          "anthropic-design-system-setup",
+          "anthropic-design-system-import"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The setup guide requires review of generated tokens and components, a test project, and an explicit Published toggle.",
+          "The project guide supports GitHub, design-file, upload, and local-codebase imports and warns that import quality follows source quality."
+        ]
+      }
+    },
+    {
+      "id": "claude-design-exploration-revision-contract",
+      "claimScope": "Claude Design supports comparing alternative directions and preserving a prior project state before exploring a materially different approach; the learner must record the selection criteria and revision identity.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-design-refine-revisions",
+          "url": "https://support.claude.com/en/articles/14604416-get-started-with-claude-design",
+          "kind": "first-party-product-guide",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "inspectionContext": "Current Help Center refinement and revision guidance inspected from macOS 26.5.2",
+      "principleStatement": "Define criteria before generation, compare genuinely different alternatives, name the selected revision and trade-off, and preserve a recoverable prior state before exploring another direction.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Claude Design alternatives, comments, direct-edit, or revision behavior changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #20",
+        "sourceIds": [
+          "anthropic-design-refine-revisions"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The guide calls the first generation a starting point, supports 2–3 alternative layouts, and separates chat, comments, and direct canvas editing.",
+          "Its revision guidance preserves the current project before trying a different direction; the course selection rationale remains learner-authored evidence."
+        ]
+      }
+    },
+    {
+      "id": "claude-design-responsive-interaction-evidence-contract",
+      "claimScope": "Responsive and interaction claims about a Claude Design prototype require direct observation across declared viewport sizes, states, inputs, and task paths; prompt text or generated interactivity alone is not verification.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-design-responsive-guidance",
+          "url": "https://support.claude.com/en/articles/14604416-get-started-with-claude-design",
+          "kind": "first-party-product-guide",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-design-interactive-prototype-surface",
+          "url": "https://claude.com/product/design",
+          "kind": "first-party-product-surface",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "inspectionContext": "Public product guidance inspected from macOS 26.5.2; no prototype output was certified without direct learner observation",
+      "principleStatement": "Declare device targets and state transitions in the brief, then resize and operate the prototype through the core task with relevant pointer, keyboard, error, loading, and empty states; record observations and deviations.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Claude Design responsive prompting, prototype interaction, or preview behavior changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #20",
+        "sourceIds": [
+          "anthropic-design-responsive-guidance",
+          "anthropic-design-interactive-prototype-surface"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The Help Center tells authors to identify mobile, tablet, and desktop requirements early.",
+          "The product page presents prototypes as interactive artifacts for real-person testing, so the anchor requires observation rather than inferring behavior from generation."
+        ]
+      }
+    },
+    {
+      "id": "claude-design-accessibility-evidence-contract",
+      "claimScope": "Claude Design can suggest accessibility, contrast, hierarchy, and usability improvements, but accessibility evidence requires testable criteria and a combination of automated checks and human evaluation.",
+      "profile": "principle-only",
+      "driftClass": "medium",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-design-accessibility-review",
+          "url": "https://support.claude.com/en/articles/14604416-get-started-with-claude-design",
+          "kind": "first-party-product-guide",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "w3c-wcag-22-recommendation",
+          "url": "https://www.w3.org/TR/WCAG22/",
+          "kind": "primary-normative-standard",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "w3c-accessibility-evaluation-overview",
+          "url": "https://www.w3.org/WAI/test-evaluate/",
+          "kind": "first-party-standards-guidance",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "inspectionContext": "Current Anthropic guidance and W3C Recommendation inspected from macOS 26.5.2; no conformance audit was performed",
+      "principleStatement": "Treat Claude feedback as a candidate checklist, choose applicable WCAG 2.2 criteria, and collect keyboard, focus, reflow, contrast, semantics, error, and user evidence; do not convert an AI review into a conformance claim.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Claude Design accessibility-review behavior changes",
+        "The selected W3C Recommendation or evaluation guidance changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #20",
+        "sourceIds": [
+          "anthropic-design-accessibility-review",
+          "w3c-wcag-22-recommendation",
+          "w3c-accessibility-evaluation-overview"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "Anthropic describes Claude as a design collaborator that can review accessibility, not as an auditor or conformance authority.",
+          "WCAG 2.2 supplies testable success criteria, and W3C evaluation guidance requires more than a single automated or model-generated check."
+        ]
+      }
+    },
+    {
+      "id": "claude-design-handoff-contract",
+      "claimScope": "Claude Design can hand a selected design to Claude Code or connected tools, but the handoff must preserve design intent and evidence and does not authorize repository writes or prove implementation fidelity.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-design-code-handoff-guide",
+          "url": "https://support.claude.com/en/articles/14604416-get-started-with-claude-design",
+          "kind": "first-party-product-guide",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-design-handoff-announcement",
+          "url": "https://www.anthropic.com/news/claude-design-anthropic-labs",
+          "kind": "first-party-product-announcement",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "inspectionContext": "Current Help Center and launch handoff contracts inspected from macOS 26.5.2; no account connection or repository write was performed",
+      "principleStatement": "Bundle source and revision, intent, states, responsive and accessibility rules, prototype observations, scope, and unresolved assumptions; reconnect or import only through the current documented surface and grant repository authority separately.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Claude Design export, MCP, design-sync, design-login, or Claude Code handoff behavior changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #20",
+        "sourceIds": [
+          "anthropic-design-code-handoff-guide",
+          "anthropic-design-handoff-announcement"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The guide documents design-sync, Claude Design MCP, design-login, export, and Claude Code handoff surfaces.",
+          "The launch announcement says the handoff packages design work for Claude Code; neither source grants repository authority or verifies the resulting implementation."
+        ]
+      }
+    },
     {
       "id": "course-engineering-delivery-contract",
       "claimScope": "Phase 6 is a repository-delivery route that begins after Code readiness and ends only with an implemented, deterministically checked, reviewed closeout tied to the delivered checkpoint.",
