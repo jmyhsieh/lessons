@@ -5026,7 +5026,7 @@
           "engineering-wayfinder-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/006-0014-resolve-wayfinder-frontier.html",
@@ -5060,7 +5060,7 @@
           "engineering-wayfinder-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/007-0001-scope-browser-claim.html",
@@ -7244,7 +7244,7 @@
           "engineering-wayfinder-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/workflow-maturity-workbook.html",

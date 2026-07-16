@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+<link rel="icon" href="data:,">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="not-applicable">
+<meta name="course:page-kind" content="canonical-reference">
+<meta name="course:route-roles" content="not-applicable">
+<meta name="course:source-ids" content="engineering-wayfinder-contract">
 <title>Wayfinder shared map 速查表</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
@@ -27,7 +32,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <h1>Wayfinder shared map 速查表</h1>
 <p class="sub">巨大模糊 effort 的選路、map schema、ticket types、frontier 與 session stop rules。</p>
-<p class="sub">內容校準自 reviewed snapshot <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md"><code>66898f6</code></a>；實際操作前再查 current version。</p>
+<p class="sub">內容校準自 reviewed contract <a href="https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/wayfinder/SKILL.md"><code>9603c1c</code></a>；契約漂移時先重新做 Source recertification。</p>
 
 <div class="rule"><strong>一句話：</strong>Wayfinder 不是把巨大工作切成施工票，而是把看不清的路整理成 decision tickets；路清楚後，再交給 <code>/to-spec → /to-tickets → /implement</code>。</div>
 
@@ -105,11 +110,21 @@
   <li><strong>預設產出 decisions，不產出 destination deliverables。</strong></li>
 </ul>
 
-<div class="stop"><strong>Exit：</strong>沒有 open tickets、沒有可升級 fog、路徑已清楚 → <code>/to-spec</code> 收斂 linked decisions。只有 effort 最後縮成單一小任務，才例外直接 <code>/implement</code>。</div>
+<div class="stop"><strong>Exit：</strong>沒有 open tickets、沒有可升級 fog、路徑已清楚 → 回 request alignment，再由 <code>/to-spec → /to-tickets</code> 收斂 linked decisions；本課程不把 Wayfinder map 當成直接施工授權。</div>
+
+<h2>回到 Engineering delivery flow</h2>
+<p>Wayfinder 的輸出是 evidence，不是另一條 completion path。Map 尚未完成就由新 session 繼續解一張 frontier ticket；map 完成後，先到 request alignment 對齊 linked decisions，再固定 delivery spec、切 tickets，最後才 implementation 與 Review。</p>
+<pre>006-0001 route entry
+  → 006-0013 chart map
+  → 006-0014 resolve one frontier ticket（可重複）
+  → 006-0003 align decision evidence
+  → 006-0005 delivery spec
+  → 006-0006 ticket DAG</pre>
+<div class="rule"><strong>Tangible win：</strong>一份可在 charting 與 frontier sessions 共用、且不複製 resolution 的操作速查表。<br><strong>Observable feedback：</strong>Reviewer 能沿上方回流鏈判斷何時留在 Wayfinder、何時合法回到 spec／tickets，且不會把 map completion 誤認為 delivery completion。</div>
 
 <footer>
-  對應課程：<a href="../lessons/003-0013-wayfinder-chart-map.html">Phase 3 第 13 課 — chart map</a> · <a href="../lessons/003-0014-wayfinder-frontier.html">Phase 3 第 14 課 — work the frontier</a><br>
-  主要來源：<a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md">reviewed wayfinder snapshot（66898f6）</a> · <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">current wayfinder</a>
+  對應課程：<a href="../lessons/006-0013-chart-wayfinder-map.html">006-0013 — chart map</a> · <a href="../lessons/006-0014-resolve-wayfinder-frontier.html">006-0014 — resolve frontier</a><br>
+  Page kind：canonical reference · Source IDs：<code>engineering-wayfinder-contract</code> · 主要來源：<a href="https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/wayfinder/SKILL.md">reviewed contract（9603c1c）</a>
 </footer>
 </body>
 </html>
