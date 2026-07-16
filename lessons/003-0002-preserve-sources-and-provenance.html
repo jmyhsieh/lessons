@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="003-0002">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="knowledge-delivery:feedback,knowledge-delivery:tangible-win">
+<meta name="course:source-ids" content="course-knowledge-delivery-contract,knowledge-source-provenance-contract">
+<title>003-0002：保存 sources 與 provenance</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
+  h1 { font-size: 1.8rem; line-height: 1.35; } h2 { color: #48633e; margin-top: 2rem; }
+  .kicker { color: #48633e; font-size: .86rem; letter-spacing: .08em; }
+  .mission, .stop { border-left: 4px solid #5f7f52; background: #f4f8f1; padding: .8rem 1rem; }
+  .card, .win, .quiz { border: 1px solid #d5ddd1; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .win { background: #edf7eb; border-color: #9eb895; }
+  table { width: 100%; border-collapse: collapse; font-size: .94rem; } th, td { border: 1px solid #d5ddd1; padding: .65rem; text-align: left; vertical-align: top; } th { background: #f0f5ed; }
+  .table-wrap { max-width: 100%; overflow-x: auto; } code, pre { background: #eef2eb; border-radius: 3px; } code { padding: .1rem .3rem; overflow-wrap: anywhere; } pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  button { display: block; width: 100%; margin: .45rem 0; padding: .65rem; text-align: left; background: white; border: 1px solid #bbb; border-radius: 6px; font: inherit; cursor: pointer; }
+  button.correct { background: #e5f4e7; border-color: #2e7d32; } button.wrong { background: #fbe8e8; border-color: #b3261e; }
+  .why { display: none; background: #f4f8f1; padding: .7rem; margin-top: .7rem; }
+  footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; }
+  a { color: #405f35; } @media (max-width: 620px) { body { margin-top: 1.2rem; } }
+</style>
+</head>
+<body>
+<p><a href="003-0003-build-source-to-claim-outline.html">下一課：source-to-claim outline →</a> · <a href="../reference/knowledge-delivery-evidence-checklist.html">Evidence checklist</a></p>
+<header>
+  <p class="kicker">Phase 3 · Deliver · 003-0002 · Provenance</p>
+  <h1>先建立 raw source pack，讓生成內容永遠不是 source of truth</h1>
+  <p class="mission"><strong>任務：</strong>替 mission 所需來源建立 stable IDs、原始位置、capture context、rights 與 handling metadata，並將 working notes 分開保存。</p>
+</header>
+
+<h2>Raw source 與衍生內容分層</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Layer</th><th>包含</th><th>規則</th></tr></thead>
+  <tbody>
+    <tr><td>Raw source</td><td>Original file、URL、export、recording 或 approved snapshot。</td><td>不被模型改寫；保留 owner、date、version／range 與原始位置。</td></tr>
+    <tr><td>Evidence note</td><td>帶 source ID／locator 的摘記、短 paraphrase、row／timestamp。</td><td>可追溯，不把 note 冒充原文。</td></tr>
+    <tr><td>Generated candidate</td><td>Outline、summary、claim、draft wording。</td><td>尚未驗證前不是 evidence，也不能回填成 raw source。</td></tr>
+  </tbody>
+</table></div>
+
+<h2>建立 provenance ledger</h2>
+<ol>
+  <li>只收 mission scope 需要的 sources；先檢查 access、sensitive data、copyright／license、retention 與可分享範圍。</li>
+  <li>為每份來源建立 stable local ID，例如 <code>S-01</code>；保存 title、owner、原始 location、captured at、version／time range 與 content type。</li>
+  <li>能合法保存時保留原檔或 approved snapshot；只能連結時記錄 access assumption 與未來失效風險。</li>
+  <li>記錄 transformation history，例如 OCR、conversion、filter 或 manual cleanup；raw copy 與 normalized copy 不覆蓋彼此。</li>
+  <li>隨機抽一份 source，請另一個人從 ledger 找回原始內容並說出可用／不可用 boundary。</li>
+</ol>
+<div class="card"><pre>Source ID:
+Title / owner:
+Original location:
+Captured at / version / time range:
+Raw or approved snapshot:
+Transformations:
+Access / rights / privacy / retention:
+Allowed use and sharing:
+Known limitation:</pre></div>
+<div class="win"><strong>Tangible win：</strong>一份 raw source pack 與 provenance ledger。<br><strong>Observable feedback：</strong>抽查者能從任一 source ID 找回原始內容、辨識版本與使用限制，且不會把 generated draft 認成來源。</div>
+
+<div class="quiz" data-answer="1">
+  <p>Claude 依三份文件產生一段摘要，這段摘要應放在哪一層？</p>
+  <button type="button">Raw source，因為綜合了三份文件</button>
+  <button type="button">Generated candidate，claims 仍需連回三份 raw sources</button>
+  <button type="button">Rights record，因為它是新文字</button>
+  <div class="why">生成摘要是衍生內容；即使寫得正確，也不能取代原始來源與逐 claim verification。</div>
+</div>
+
+<p class="stop"><strong>Conditional／legal stop：</strong>若 PDF／文件需 normalize、corpus 需 local search、或 tabular source 需 query，只有 active input 確實命中時才走對應 conditional lesson，完成後返回 003-0003；那些工具不是必修。來源無合法 access、rights／privacy 不明、raw copy 無法保存且沒有可接受的 reference boundary 時，記錄 gap 後停止，不開始生成。</p>
+<footer>Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>course-knowledge-delivery-contract</code>、<code>knowledge-source-provenance-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="003-0006">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="knowledge-delivery:exit-evidence,knowledge-delivery:feedback,knowledge-delivery:stop,knowledge-delivery:tangible-win">
+<meta name="course:source-ids" content="course-knowledge-delivery-contract,knowledge-source-provenance-contract">
+<title>003-0006：完成 Knowledge delivery closeout</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
+  h1 { font-size: 1.8rem; line-height: 1.35; } h2 { color: #48633e; margin-top: 2rem; }
+  .kicker { color: #48633e; font-size: .86rem; letter-spacing: .08em; }
+  .mission, .stop { border-left: 4px solid #5f7f52; background: #f4f8f1; padding: .8rem 1rem; }
+  .card, .win, .quiz { border: 1px solid #d5ddd1; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .win { background: #edf7eb; border-color: #9eb895; }
+  code, pre { background: #eef2eb; border-radius: 3px; } code { padding: .1rem .3rem; overflow-wrap: anywhere; } pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  button { display: block; width: 100%; margin: .45rem 0; padding: .65rem; text-align: left; background: white; border: 1px solid #bbb; border-radius: 6px; font: inherit; cursor: pointer; }
+  button.correct { background: #e5f4e7; border-color: #2e7d32; } button.wrong { background: #fbe8e8; border-color: #b3261e; }
+  .why { display: none; background: #f4f8f1; padding: .7rem; margin-top: .7rem; }
+  footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; }
+  a { color: #405f35; } @media (max-width: 620px) { body { margin-top: 1.2rem; } }
+</style>
+</head>
+<body>
+<p><a href="../reference/knowledge-delivery-evidence-checklist.html">Evidence checklist</a> · <a href="../toc.html">回課目表</a></p>
+<header>
+  <p class="kicker">Phase 3 · Deliver · 003-0006 · Route stop</p>
+  <h1>把 deliverable、provenance、judgment 與 feedback 收成同一個 closeout</h1>
+  <p class="mission"><strong>任務：</strong>用 evidence checklist 組裝 Knowledge delivery closeout，逐一重開 evidence，寫下 learner judgment，決定是否能記為 <code>Route artifact produced</code>。</p>
+</header>
+
+<h2>Closeout record</h2>
+<div class="card"><pre>Mission / selected artifact branch:
+Deliverable version and target format:
+Raw source pack:
+Source-to-claim ledger:
+Rights / handling / limitations:
+Verification record:
+Feedback and disposition:
+Learner judgment: accept / revise / stop
+Known unknowns:
+Evidence carryover:
+Optional continuation:</pre></div>
+
+<h2>執行 final consistency pass</h2>
+<ol>
+  <li>依 <a href="../reference/knowledge-delivery-evidence-checklist.html">evidence checklist</a> 逐欄放入可開啟的 path／URL，不貼模型摘要取代原始 evidence。</li>
+  <li>從 deliverable 抽三個 material claims，反查 ledger 與 raw source location；再從一份 raw source 正查它支撐的 retained claim。</li>
+  <li>重新開啟 target-format artifact，確認版本、結構、links、表格／圖片與 limitations 仍可見。</li>
+  <li>把 feedback 每一項標成 accepted、rejected 或 deferred，附理由與 revision identity。</li>
+  <li>由學習者寫下 <code>accept</code>、<code>revise</code> 或 <code>stop</code>。只有 artifact、provenance、verification、judgment 與 feedback 一致時，才在 Return notebook 記為 <code>Route artifact produced</code>。</li>
+</ol>
+<div class="win"><strong>Tangible win：</strong>一份可攜、可重開、可雙向追溯的 Knowledge delivery closeout。<br><strong>Observable feedback：</strong>另一個人能開啟 deliverable 與 raw sources、重走 claim trace、看見限制與 feedback disposition，並理解 learner judgment 的理由。</div>
+
+<div class="quiz" data-answer="2">
+  <p>Deliverable 很完整，但兩個 material claims 找不到 raw source，應記錄什麼狀態？</p>
+  <button type="button">Route artifact produced，因為成品可閱讀</button>
+  <button type="button">Course complete，之後再補來源</button>
+  <button type="button">保留 Lesson practiced，選 revise 或 stop 並補齊 provenance</button>
+  <div class="why">Knowledge delivery 的 Route promise 包含 provenance 與 claim verification；成品外觀不能替代缺少的 source evidence。</div>
+</div>
+
+<p class="stop"><strong>Legal stop／continuation：</strong>Evidence 缺口未解時，以 <code>revise</code> 或 <code>stop</code> 結束本次工作，保留既有 evidence，不虛報 route completion。Closeout 完整後可以合法停止並回課目表；只有 mission 需要時，才把 LLM Wiki 帶入後續 Operate route，這不是 Phase 3 completion requirement。</p>
+<footer>Page kind：canonical lesson · Route roles：exit evidence／feedback／stop／tangible win · Source IDs：<code>course-knowledge-delivery-contract</code>、<code>knowledge-source-provenance-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
+</body>
+</html>

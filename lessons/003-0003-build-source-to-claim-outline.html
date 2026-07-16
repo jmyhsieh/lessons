@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="003-0003">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="knowledge-delivery:feedback,knowledge-delivery:tangible-win">
+<meta name="course:source-ids" content="course-knowledge-delivery-contract,knowledge-source-provenance-contract">
+<title>003-0003：建立 source-to-claim outline</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
+  h1 { font-size: 1.8rem; line-height: 1.35; } h2 { color: #48633e; margin-top: 2rem; }
+  .kicker { color: #48633e; font-size: .86rem; letter-spacing: .08em; }
+  .mission, .stop { border-left: 4px solid #5f7f52; background: #f4f8f1; padding: .8rem 1rem; }
+  .card, .win, .quiz { border: 1px solid #d5ddd1; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .win { background: #edf7eb; border-color: #9eb895; }
+  table { width: 100%; border-collapse: collapse; font-size: .94rem; } th, td { border: 1px solid #d5ddd1; padding: .65rem; text-align: left; vertical-align: top; } th { background: #f0f5ed; }
+  .table-wrap { max-width: 100%; overflow-x: auto; } code, pre { background: #eef2eb; border-radius: 3px; } code { padding: .1rem .3rem; overflow-wrap: anywhere; } pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  button { display: block; width: 100%; margin: .45rem 0; padding: .65rem; text-align: left; background: white; border: 1px solid #bbb; border-radius: 6px; font: inherit; cursor: pointer; }
+  button.correct { background: #e5f4e7; border-color: #2e7d32; } button.wrong { background: #fbe8e8; border-color: #b3261e; }
+  .why { display: none; background: #f4f8f1; padding: .7rem; margin-top: .7rem; }
+  footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; }
+  a { color: #405f35; } @media (max-width: 620px) { body { margin-top: 1.2rem; } }
+</style>
+</head>
+<body>
+<p><a href="003-0004-produce-reviewable-knowledge-slice.html">下一課：產出 reviewable slice →</a> · <a href="../reference/knowledge-delivery-evidence-checklist.html">Evidence checklist</a></p>
+<header>
+  <p class="kicker">Phase 3 · Deliver · 003-0003 · Claim planning</p>
+  <h1>先把 source evidence 接到 claims，再開始生成 artifact</h1>
+  <p class="mission"><strong>任務：</strong>用 stable source IDs 建立一份 source-to-claim outline，讓每個 material claim 都有 locator、status 與 limitation。</p>
+</header>
+
+<h2>Claim ledger 最小欄位</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>欄位</th><th>寫法</th></tr></thead>
+  <tbody>
+    <tr><td>Claim ID／text</td><td><code>C-01</code> 加一個可驗證句，不用模糊 topic。</td></tr>
+    <tr><td>Type</td><td>Source statement、inference、recommendation 或 open question。</td></tr>
+    <tr><td>Evidence</td><td>Source ID 加 page／section／row／timestamp；URL 本身不是 locator。</td></tr>
+    <tr><td>Status</td><td><code>supported</code>、<code>unknown</code> 或 <code>conflict</code>；不要用語氣取代狀態。</td></tr>
+    <tr><td>Boundary</td><td>Audience、時間範圍、assumption、counterevidence 與不能推廣到哪裡。</td></tr>
+  </tbody>
+</table></div>
+
+<h2>從問題到 outline</h2>
+<ol>
+  <li>把 mission 改寫成 audience 要做的 decision／use；只保留直接服務這個目的的 sections。</li>
+  <li>先從 raw source pack 抽出 evidence notes，附 source ID／locator；不要先請模型寫結論再回頭找來源。</li>
+  <li>將 notes 組成 claims，分開 source statement 與你的 inference。沒有 evidence 的句子標 <code>unknown</code>。</li>
+  <li>同一 claim 的來源互相矛盾時標 <code>conflict</code>，保存兩側 evidence；在 resolve 前不選較順耳的一邊。</li>
+  <li>把 supported claims 排入 outline，並在每個 section 下留下 limitations 與 review question。</li>
+</ol>
+<div class="card"><pre>Audience decision / use:
+Section:
+- C-01 [source statement] [supported]
+  Evidence: S-01, section 2
+  Boundary:
+- C-02 [inference] [unknown]
+  Needed evidence:
+Conflict / limitation:
+Review question:</pre></div>
+<div class="win"><strong>Tangible win：</strong>一份按 artifact sections 組織的 source-to-claim outline。<br><strong>Observable feedback：</strong>Reviewer 能只看 ledger 找出 unsupported／conflicting claim，並能從 claim 直接開到 raw source location。</div>
+
+<div class="quiz" data-answer="2">
+  <p>兩份可信來源對同一數字定義不同，最合適的下一步是？</p>
+  <button type="button">選較新的數字，不記錄差異</button>
+  <button type="button">平均兩個數字作為答案</button>
+  <button type="button">標成 conflict，保留兩側 locator 並縮小 claim scope</button>
+  <div class="why">Conflict 是 evidence state，不是寫作障礙；先保留差異並限縮 claim，才能避免生成內容掩蓋不確定性。</div>
+</div>
+
+<p class="stop"><strong>Branch／legal stop：</strong>Core route 下一步是 <a href="003-0004-produce-reviewable-knowledge-slice.html">一般 Knowledge slice</a>；mission 若明確需要 LLM Wiki，可選對應 conditional branch，之後同樣回到 003-0005 verification。Conditional lesson 尚不可用、material claims 多數為 unknown／conflict，或 source locator 不完整時，保存 outline 後停止，不生成 artifact。</p>
+<footer>Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>course-knowledge-delivery-contract</code>、<code>knowledge-source-provenance-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
+</body>
+</html>

@@ -1725,6 +1725,80 @@
       }
     },
     {
+      "id": "course-knowledge-delivery-contract",
+      "ownerPath": "lessons/003-0001-select-knowledge-deliverable.html",
+      "claimScope": "The core Knowledge Work route turns attributable source material into one learner-reviewed knowledge artifact and stops only when deliverable, provenance, verification, judgment, and feedback evidence are reviewable together.",
+      "profile": "principle-only",
+      "driftClass": "lower",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "course-migration-spec-knowledge-contract",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-17"
+        }
+      ],
+      "principleStatement": "Select one mission-fitting artifact branch, preserve its sources, produce and verify a bounded slice, record learner judgment and feedback, then stop at Knowledge delivery closeout; optional formats and local tools are not a required ladder.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The approved Knowledge Work route, artifact-branch boundary, or closeout evidence changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-17",
+        "actor": "Codex implementation session for Issue #28",
+        "sourceIds": [
+          "course-migration-spec-knowledge-contract"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "Issue #13 defines Knowledge Work as a task route that produces one reviewable report, document, data artifact, or local knowledge-base slice.",
+          "Issue #13 requires raw-source provenance, learner judgment, feedback, and a legal stop at Knowledge delivery closeout.",
+          "LLM Wiki and local ingest, search, or analysis tools remain conditional branches rather than core-route completion requirements."
+        ]
+      }
+    },
+    {
+      "id": "knowledge-source-provenance-contract",
+      "ownerPath": "lessons/003-0002-preserve-sources-and-provenance.html",
+      "claimScope": "Core Knowledge Work keeps raw sources distinct from generated output, preserves source identity and rights boundaries, traces retained claims to evidence, and records unsupported, conflicting, or uncertain claims before delivery.",
+      "profile": "principle-only",
+      "driftClass": "lower",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "course-migration-spec-knowledge-provenance",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-17"
+        }
+      ],
+      "principleStatement": "Treat raw sources as the source of truth, assign stable local source IDs, connect every material claim to supporting evidence, label uncertainty and conflict, and verify rights, limitations, target format, and feedback before closeout.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The approved raw-source, provenance, source-to-claim, rights, or limitation evidence contract changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-17",
+        "actor": "Codex implementation session for Issue #28",
+        "sourceIds": [
+          "course-migration-spec-knowledge-provenance"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "Issue #13 requires preserving raw sources and provenance so generated content never becomes the source of truth.",
+          "Issue #13 requires a source-to-claim outline and explicit verification of claims, rights, limitations, and target format.",
+          "The route closeout combines the deliverable with provenance references, learner judgment, and feedback evidence."
+        ]
+      }
+    },
+    {
       "id": "course-presentation-delivery-contract",
       "ownerPath": "lessons/005-0001-choose-presentation-route.html",
       "claimScope": "The core Presentation route converts a bounded source pack into a claim-checked, accessible, exported, and rehearsed deck; repurposing, Open-Slide, and Mermaid CLI remain conditional continuations rather than completion requirements.",

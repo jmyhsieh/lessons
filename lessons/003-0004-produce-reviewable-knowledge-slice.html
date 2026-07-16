@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="003-0004">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="knowledge-delivery:feedback,knowledge-delivery:tangible-win">
+<meta name="course:source-ids" content="course-knowledge-delivery-contract,knowledge-source-provenance-contract">
+<title>003-0004：產出 reviewable Knowledge slice</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
+  h1 { font-size: 1.8rem; line-height: 1.35; } h2 { color: #48633e; margin-top: 2rem; }
+  .kicker { color: #48633e; font-size: .86rem; letter-spacing: .08em; }
+  .mission, .stop { border-left: 4px solid #5f7f52; background: #f4f8f1; padding: .8rem 1rem; }
+  .card, .win, .quiz { border: 1px solid #d5ddd1; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .win { background: #edf7eb; border-color: #9eb895; }
+  table { width: 100%; border-collapse: collapse; font-size: .94rem; } th, td { border: 1px solid #d5ddd1; padding: .65rem; text-align: left; vertical-align: top; } th { background: #f0f5ed; }
+  .table-wrap { max-width: 100%; overflow-x: auto; } code, pre { background: #eef2eb; border-radius: 3px; } code { padding: .1rem .3rem; overflow-wrap: anywhere; } pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  button { display: block; width: 100%; margin: .45rem 0; padding: .65rem; text-align: left; background: white; border: 1px solid #bbb; border-radius: 6px; font: inherit; cursor: pointer; }
+  button.correct { background: #e5f4e7; border-color: #2e7d32; } button.wrong { background: #fbe8e8; border-color: #b3261e; }
+  .why { display: none; background: #f4f8f1; padding: .7rem; margin-top: .7rem; }
+  footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; }
+  a { color: #405f35; } @media (max-width: 620px) { body { margin-top: 1.2rem; } }
+</style>
+</head>
+<body>
+<p><a href="003-0005-verify-knowledge-deliverable.html">下一課：驗證 deliverable →</a> · <a href="../reference/knowledge-delivery-evidence-checklist.html">Evidence checklist</a></p>
+<header>
+  <p class="kicker">Phase 3 · Deliver · 003-0004 · Core artifact branch</p>
+  <h1>先產出一個能取得 feedback 的 Knowledge slice</h1>
+  <p class="mission"><strong>任務：</strong>從 source-to-claim outline 選一個最小完整 section，產出帶 source IDs、limitations 與 review questions 的 versioned artifact。</p>
+</header>
+
+<h2>不同格式，共用同一個 slice contract</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Selected branch</th><th>一個 reviewable slice</th></tr></thead>
+  <tbody>
+    <tr><td>Report</td><td>一個 decision section：finding、evidence、limitation、recommendation。</td></tr>
+    <tr><td>Document</td><td>一個可使用的 section：目標、步驟／說明、來源與 open question。</td></tr>
+    <tr><td>Data artifact</td><td>一個有 schema／query note、結果、source IDs 與 interpretation boundary 的 table／chart。</td></tr>
+    <tr><td>Local knowledge base</td><td>一個可導覽的 topic cluster，保留 raw-source links、claim status 與未解問題。</td></tr>
+  </tbody>
+</table></div>
+<p>只做 mission 選定的一種格式；格式不是必修 ladder。若 mission 選的是 LLM Wiki slice，走對應 conditional branch後仍回到共同 verification。</p>
+
+<h2>建立 artifact v1</h2>
+<ol>
+  <li>選 outline 中能單獨被 reviewer 判斷的一個 section；寫清楚包含與不包含什麼。</li>
+  <li>把每個 material claim 的 claim ID／source ID 留在 draft 中；模型新增的內容標為 candidate，不能自動變成 evidence。</li>
+  <li>只使用 source pack 允許的內容與 handling boundary；不把受限 raw source 全文複製進 artifact。</li>
+  <li>在 artifact 直接顯示 assumptions、unknown、conflict、coverage 與時間範圍。</li>
+  <li>保存為新 version，附三個 review questions：用途是否清楚、哪個 claim 不可信、下一個最有價值的 expansion 是什麼。</li>
+</ol>
+<div class="card"><pre>Artifact branch / version:
+Audience and use:
+Slice boundary:
+Included claim IDs:
+Visible limitations:
+Raw-source references:
+Review questions:
+What remains out of scope:</pre></div>
+<div class="win"><strong>Tangible win：</strong>一份 versioned、帶 provenance 與 limitations 的 reviewable Knowledge slice。<br><strong>Observable feedback：</strong>Reviewer 不需閱讀整個 source pack，也能指出用途、最弱 claim 與下一個 expansion；其判斷可回連到 source evidence。</div>
+
+<div class="quiz" data-answer="0">
+  <p>模型在 draft 中加入一個合理但 outline 沒有的數字，應怎麼處理？</p>
+  <button type="button">標成 candidate claim，找到 source 或移除</button>
+  <button type="button">保留，因為語氣很有把握</button>
+  <button type="button">把模型輸出加入 raw source pack</button>
+  <div class="why">Generated wording 不是 source of truth；新的 factual claim 必須重新進入 source-to-claim verification。</div>
+</div>
+
+<p class="stop"><strong>Legal stop／return：</strong>Outline 沒有足夠 evidence、rights 不允許所選輸出、slice 無法被獨立 review，或 reviewer questions 尚未定義時停止，返回 provenance／outline 步驟縮小 scope。Artifact v1 只記為 <code>Lesson practiced</code>；取得 feedback 後進入 <a href="003-0005-verify-knowledge-deliverable.html">共同 verification</a>。</p>
+<footer>Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>course-knowledge-delivery-contract</code>、<code>knowledge-source-provenance-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
+</body>
+</html>
