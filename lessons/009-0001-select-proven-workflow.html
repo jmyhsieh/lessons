@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="009-0001">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="workflow-standardization:entry,workflow-standardization:feedback,workflow-standardization:readiness,workflow-standardization:tangible-win">
+<meta name="course:source-ids" content="workflow-standardization-contract">
+<title>009-0001：選擇已證明的 workflow</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:920px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#315f86;margin-top:2rem}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{border:1px solid #ccd9e3;padding:.55rem;text-align:left;vertical-align:top}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem;overflow-wrap:anywhere}pre{padding:.8rem;white-space:pre-wrap;overflow-wrap:anywhere}label{display:block;margin:.45rem 0}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:690px){body{margin-top:1rem}table{display:block;overflow-x:auto;font-size:.76rem}}</style>
+</head><body>
+<p><a href="../toc.html">← 課程 catalog</a> · <a href="../reference/workflow-package-selector.html">Package selector reference</a></p>
+<header><p>Phase 9 · Standardize · 009-0001 · Route entry</p><h1>先證明 workflow 值得重用，再談怎麼包裝</h1><p class="mission"><strong>Entry／readiness：</strong>帶入一份可解析的 Knowledge、Presentation、Engineering 或 Agent Operations closeout；它必須辨識 exact workflow revision、inputs、authority、deterministic checks、limitations、learner judgment 與 evidence locations。若只有一段看起來合理的 prompt、demo 或 agent 自評，本課尚未具備入口條件。</p></header>
+
+<h2>1. 用 evidence 判斷 eligibility</h2>
+<table><tr><th>候選來源</th><th>最低可接受 evidence</th><th>缺口的 return</th></tr><tr><td>Knowledge workflow</td><td>Attributable sources、claim verification、deliverable、judgment 與 feedback 都在同一 closeout。</td><td><a href="003-0006-complete-knowledge-delivery-closeout.html">003-0006</a></td></tr><tr><td>Presentation workflow</td><td>Source pack、audience、export、accessibility、rehearsal 與 limitations 可重建。</td><td><a href="005-0007-export-and-rehearse.html">005-0007</a></td></tr><tr><td>Engineering workflow</td><td>Final candidate、checks、兩軸 Review 與 closeout 對齊同一 immutable identity。</td><td><a href="006-0009-complete-engineering-closeout.html">006-0009</a></td></tr><tr><td>Operating workflow</td><td>Deterministic completion、bounded authority、failure／recovery 與 learner disposition 已完成。</td><td><a href="008-0007-complete-operating-workflow-closeout.html">008-0007</a></td></tr></table>
+<p class="rule"><strong>Proof rule：</strong>Standardize 可以縮短下一位使用者理解與執行的成本，但不能補做來源驗證、completion oracle、Review 或 recovery。缺失的 evidence 必須回 originating route 修正；不得把 package 寫得更肯定來掩蓋未證明行為。</p>
+
+<h2>2. 固定一個候選 workflow</h2>
+<div class="card"><pre>Candidate workflow ID / revision:
+Originating route / closeout ID:
+Mission and repeat user:
+Exact input identities / allowed variation:
+Output / completion evidence:
+Authority / external actions:
+Failure and recovery evidence:
+Learner judgment / limitations:
+Owner / evidence locations:
+Eligibility: proven / return for evidence
+Reason:</pre></div>
+<div class="card"><strong>Readiness checklist</strong><label><input type="checkbox"> Closeout 與 workflow revision 可解析且一致</label><label><input type="checkbox"> 至少一個真實 route run，而非只看 demo 或 generated plan</label><label><input type="checkbox"> Completion check 能對錯誤 state 失敗</label><label><input type="checkbox"> Authority、external actions 與 recovery boundary 清楚</label><label><input type="checkbox"> Limits、learner judgment、owner 與重用理由已記錄</label></div>
+<p class="boundary"><strong>Selection boundary：</strong>一張 closeout 只證明 declared context。高風險、不可逆、production 或 external-write workflow 不因被選中就獲得新權限；package 後仍須逐次確認 authority、target、payload 與 approval。</p>
+
+<h2>3. 只選一條 contract extraction path</h2>
+<p>一般 workflow 進 <a href="009-0002-extract-workflow-contract.html">009-0002</a>。只有候選明確是已證明的 LLM Wiki maintenance，且對應 conditional lesson 已發布時，才可改走 <code>009-0009-extract-llm-wiki-maintenance-contract.html</code>；兩條路都回到 009-0003，不必重複完成。</p>
+<div class="win"><strong>Tangible win：</strong>一張只指向一個已證明 revision、closeout 與重用需求的 workflow eligibility card。<br><strong>Observable feedback：</strong>另一位 reviewer 能沿 evidence locations 重建 proof，對任何缺口指出精確 originating-route return，並獨立同意或拒絕進入 contract extraction。</div>
+
+<div class="quiz" data-answer="1"><p>團隊有一段常用 prompt，但沒有 deterministic completion、failure 或 closeout evidence。下一步是？</p><button type="button">先包成 Skill，之後再收集 evidence</button><button type="button">回 originating route 證明 workflow；目前不進 Standardize</button><button type="button">請 agent 判斷它大概可靠即可</button><div class="why">Package 不能修補未證明的 workflow；先取得可重建的 route 或 operations evidence，才有穩定 contract 可抽取。</div></div>
+<p class="stop"><strong>Legal stop／return／continuation：</strong>Closeout 缺失、identity 衝突、completion 無法 disconfirm、authority 或 recovery 不明、learner judgment 缺漏，或候選只在 demo 成功時，保存 eligibility card 並回表中精確 route，不得建立 shared instructions。只有 evidence 齊全且 reviewer disposition 為 proven，才帶同一 candidate ID 前往 <a href="009-0002-extract-workflow-contract.html">009-0002</a>；選擇本課不代表 package、Phase 9 或 course complete。</p>
+<footer>Page kind：canonical lesson · Route roles：entry／feedback／readiness／tangible win · Source IDs：<code>workflow-standardization-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

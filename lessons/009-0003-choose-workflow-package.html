@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="009-0003">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="workflow-standardization:feedback,workflow-standardization:tangible-win">
+<meta name="course:source-ids" content="workflow-standardization-contract">
+<title>009-0003：選擇 workflow package</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:940px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#315f86;margin-top:2rem}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%;font-size:.88rem}th,td{border:1px solid #ccd9e3;padding:.55rem;text-align:left;vertical-align:top}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem;overflow-wrap:anywhere}pre{padding:.8rem;white-space:pre-wrap;overflow-wrap:anywhere}label{display:block;margin:.45rem 0}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:710px){body{margin-top:1rem}table{display:block;overflow-x:auto;font-size:.75rem}}</style>
+</head><body>
+<p><a href="009-0002-extract-workflow-contract.html">← workflow contract</a> · <a href="../reference/workflow-package-selector.html">完整 selector reference</a> · <a href="../toc.html">回課程 catalog</a></p>
+<header><p>Phase 9 · Standardize · 009-0003 · One-of selector</p><h1>依 audience 與執行責任只選一種 package</h1><p class="mission"><strong>Entry：</strong>帶入已通過反例檢查的 workflow contract、intended audience、使用環境、source-of-truth、owner 與 change／retirement triggers。這一課只做 one-of package decision；四種格式不是能力階梯，也不要求全部完成。</p></header>
+
+<h2>1. 先問 package 要替誰承擔什麼</h2>
+<table><tr><th>Package branch</th><th>適合</th><th>關鍵限制</th><th>Canonical continuation</th></tr><tr><td>Playbook／template</td><td>人需要閱讀、填寫、調整 judgment；跨 repo 或非技術 audience。</td><td>不能假裝能 deterministic execute；owner 必須維護內容。</td><td><code>009-0004-package-as-playbook-or-template.html</code></td></tr><tr><td>Repository <code>CLAUDE.md</code></td><td>規則只對一個 repo／path 生效，且 Claude Code 每次工作都應看到。</td><td>不是通用知識庫；repo diff 要 Review，instructions 不授權外部 action。</td><td><code>009-0005-package-as-claude-md.html</code></td></tr><tr><td>Reusable Skill</td><td>需要可攜 instruction package、清楚 trigger、progressive disclosure 與 bundled resources。</td><td>Skill 仍是 instructions；它不證明 workflow，也不自動取得 tools／permissions。</td><td><code>009-0006-package-as-skill.html</code></td></tr><tr><td>Command／local process</td><td>Routing、validation、transform 或 repeatable execution 應由 deterministic code 承擔。</td><td>只把 code 能可靠決定的部分自動化；judgment 與 approval 留在人手上。</td><td><code>009-0007-package-as-command-or-process.html</code></td></tr></table>
+<p class="rule"><strong>One-of rule：</strong>以最小 package 承載完整 contract。只有出現第二個獨立 consumer requirement，且單一 package 無法合法服務時，才另開新 version／ticket；不要為了「完整」把相同 truth 複製到四處。</p>
+
+<h2>2. 做可重現的選擇</h2>
+<div class="card"><pre>Workflow contract ID / version:
+Primary audience / context:
+Where source of truth must live:
+Judgment required: high / bounded / none for this step
+Deterministic execution required: yes / no
+Repo-specific scope: yes / no
+Portability / bundled resources:
+Owner / review and update path:
+Selected package: one only
+Rejected alternatives / why:
+Required Review or authority before authoring:
+Return after branch / legal stop:</pre></div>
+<ol><li>若主要價值是讓人理解並作 judgment，先選 playbook／template。</li><li>若 contract 必須在特定 repo context 每次載入，選 <code>CLAUDE.md</code>。</li><li>若同一 instruction workflow 要跨工作區重用且需要 resources，選 Skill。</li><li>若步驟可由 code 對相同 inputs 產生可靠、可驗證結果，選 command／local process；仍把例外與批准留給人。</li></ol>
+<p class="boundary"><strong>Authority／source-of-truth boundary：</strong>Package location 決定誰會讀到與誰負責維護，不會自動提升權限。不要讓 playbook、<code>CLAUDE.md</code>、Skill 與 command 各自維護一份互相漂移的規則；selection card 必須指定唯一 authoritative contract 與 package owner。</p>
+<div class="win"><strong>Tangible win：</strong>一張選定且只選定一種 package format 的 decision card，包含 rejected alternatives、owner、authority、Review 與 return point。<br><strong>Observable feedback：</strong>另一位 reviewer 使用同一 selector 能得到相同 primary choice，或精確指出是哪個 audience、scope、judgment、portability 或 deterministic-execution fact 造成分歧。</div>
+
+<div class="quiz" data-answer="0"><p>Workflow 是單一 repo 的 coding conventions，每次 Claude Code 修改該 repo 都必須看到，而且變更要走 repo Review。首選哪個 package？</p><button type="button">Repository CLAUDE.md instructions</button><button type="button">同時做 playbook、Skill 與 command</button><button type="button">只放在個人聊天紀錄</button><div class="why">Audience 與 source-of-truth 都是 repo-specific；<code>CLAUDE.md</code> 是最小 fitting package，且其 diff 仍須完整 Review。</div></div>
+<p class="stop"><strong>Legal stop／return／continuation：</strong>Contract 尚未證明、audience 或 source-of-truth 不明、需要多種 package 才能掩蓋需求衝突、owner 缺失、repo Review／write authority 尚未確認，或 branch lesson 尚未發布時，保存 selection card 後停止；contract gap 回 009-0002，proof gap 回 009-0001。條件成立後只前往上表選定的一個 branch，再 rejoin 009-0008；本票不建立 branch page，也不因完成選擇而宣稱 Standardization closeout。</p>
+<footer>Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>workflow-standardization-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

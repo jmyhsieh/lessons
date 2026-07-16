@@ -2961,6 +2961,44 @@
           "Anthropic permissions guidance distinguishes allow, ask, and deny enforcement and documents plan mode as read-only exploration."
         ]
       }
+    },
+    {
+      "id": "workflow-standardization-contract",
+      "ownerPath": "reference/workflow-package-selector.html",
+      "claimScope": "Workflow standardization starts only from a workflow with completed route or operations evidence, extracts one bounded contract, selects exactly one fitting package by audience and execution needs, and preserves owner, authority, evidence, and stop boundaries without treating packaging as proof.",
+      "profile": "principle-only",
+      "driftClass": "lower",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "course-migration-spec-workflow-standardization",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-17"
+        }
+      ],
+      "principleStatement": "Select only a workflow already supported by route closeout or operating evidence, extract its inputs, outputs, authority, decisions, deterministic checks, recovery, and stop conditions, then package that contract once as a playbook or template, repository CLAUDE.md instructions, reusable Skill, or deterministic command or local process. Packaging does not repair missing proof, grant new authority, or certify universal reuse.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The approved Workflow standardization route, package selector, proof prerequisite, or package boundary changes",
+        "A package format gains or loses authority, ownership, portability, judgment, or deterministic-execution responsibilities"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-17",
+        "actor": "Codex implementation session for Issue #42",
+        "sourceIds": [
+          "course-migration-spec-workflow-standardization"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "Issue #13 requires Standardize to begin from proven workflow evidence rather than an attractive but unverified procedure.",
+          "The approved route extracts one workflow contract and selects one package branch according to audience, scope, judgment, portability, and source-of-truth boundaries.",
+          "The route preserves authority, rerun evidence, ownership, Review re-entry, and a legal stop instead of treating a package or agent judgment as completion proof."
+        ]
+      }
     }
   ]
 }
