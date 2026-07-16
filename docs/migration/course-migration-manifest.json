@@ -6504,8 +6504,10 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "agent-operations-safety-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -6600,8 +6602,10 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "functional-workflow-case-hub-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -6827,8 +6831,11 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-code-cli-execution-controls",
+          "claude-code-command-discovery-contract"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -6851,8 +6858,10 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "claude-code-model-effort-selection"
+        ]
       },
       "migrationStatus": "planned"
     },
@@ -6971,8 +6980,6 @@
       "sourceDependencies": {
         "state": "registered",
         "anchorIds": [
-          "claude-design-availability-surface",
-          "claude-design-product-prototype-contract",
           "claude-product-surface-selection"
         ]
       },
@@ -6997,8 +7004,10 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "course-shared-vocabulary-contract"
+        ]
       },
       "migrationStatus": "planned"
     },

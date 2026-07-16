@@ -11,7 +11,7 @@
   "coverage": {
     "mode": "representative-thin-slice",
     "complete": false,
-    "nextWave": "recertify-shared-reference-anchors"
+    "nextWave": "close-pre-authoring-source-blockers"
   },
   "driftWindowsDays": {
     "high": 30,
@@ -1086,7 +1086,7 @@
     },
     {
       "id": "claude-product-surface-selection",
-      "claimScope": "Claude, Cowork, Claude Code, and Claude Design are distinct first-party work surfaces whose documented output and interaction boundaries should determine the learner entry point.",
+      "claimScope": "Claude, Cowork, Claude Code, and Claude Design are distinct first-party work surfaces whose documented output and interaction boundaries determine the shared product-selection entry point across routes.",
       "profile": "surface-procedure",
       "driftClass": "high",
       "publicationState": "active",
@@ -1137,7 +1137,7 @@
       "conflicts": [],
       "recertificationEvidence": {
         "checkedAt": "2026-07-16",
-        "actor": "Codex implementation session for Issue #18",
+        "actor": "Codex implementation session for Issue #22",
         "sourceIds": [
           "anthropic-claude-product-overview",
           "anthropic-claude-cowork-product",
@@ -1150,6 +1150,7 @@
         "observations": [
           "All four first-party pages returned current product content on 2026-07-16.",
           "The pages keep the surfaces distinct by task shape: general problem solving, knowledge work, visual design, and codebase delivery.",
+          "The shared product picker owns this cross-route selection claim; route-specific Design prototype anchors are not duplicated in its page mapping.",
           "Availability is explicitly treated as an assumption rather than inferred from page reachability."
         ]
       }
@@ -1406,12 +1407,12 @@
           "summary": "The current CLI reference documents ultracode for v2.1.203+, while local Claude Code 2.1.211 help lists low, medium, high, xhigh, and max only.",
           "status": "resolved",
           "scope": "optional-path",
-          "disposition": "Exclude ultracode from the required T05 claim and teach only choices observed in the learner's current surface; a future ultracode lesson requires separate reproduction."
+          "disposition": "Exclude ultracode from the shared required claim and teach only choices observed in the learner's current surface; a future ultracode lesson requires separate reproduction."
         }
       ],
       "recertificationEvidence": {
         "checkedAt": "2026-07-16",
-        "actor": "Codex implementation session for Issue #18",
+        "actor": "Codex implementation session for Issue #22",
         "sourceIds": [
           "anthropic-claude-code-model-config",
           "anthropic-claude-code-model-effort-guide",
@@ -1422,7 +1423,8 @@
         "observations": [
           "The first-party guide distinguishes fixed model capability from effort-driven breadth, tool use, and verification.",
           "The model configuration reference says availability depends on account, provider, and organizational settings.",
-          "The local help discrepancy for ultracode was bounded as an optional-path conflict rather than hidden or generalized."
+          "The local help discrepancy for ultracode was bounded as an optional-path conflict rather than hidden or generalized.",
+          "The shared model and effort reference owns selection guidance; route lessons consume the same anchor rather than defining competing aliases or defaults."
         ]
       }
     },
@@ -2170,6 +2172,198 @@
           "The pinned CLI returned 11.16.0 and rendered the sample without downloading a bundled browser.",
           "The non-empty SVG declared a flowchart graphics role and had SHA-256 37272b53a334050ca1c099d97f597caaf4427e2eaa0d5ab147f7368cbbca88ee.",
           "No claim was made that rendering verifies diagram facts, accessibility, or slide composition."
+        ]
+      }
+    },
+    {
+      "id": "claude-code-command-discovery-contract",
+      "claimScope": "Claude Code documentation defines in-session command discovery through the current / picker or /help output; the documented catalog is not a promise that every command is available on every platform, plan, environment, client, or installed version.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "anthropic-claude-code-commands",
+          "url": "https://code.claude.com/docs/en/commands",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-claude-code-desktop",
+          "url": "https://code.claude.com/docs/en/desktop",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "principleStatement": "Use the shared command reference to learn discovery and task categories, then treat the current client's / picker or /help output as the availability authority; keep CLI launch flags and their installed-version evidence in the separate executable anchor.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Command discovery, slash-command recognition, or Desktop command access changes",
+        "A named command changes platform, plan, environment, or version availability",
+        "Claude Code CLI or Desktop separates commands and bundled skills differently"
+      ],
+      "triggerEvents": [],
+      "conflicts": [
+        {
+          "id": "documented-command-versus-current-picker",
+          "summary": "The complete first-party catalog includes commands that may not appear for the learner's current platform, plan, environment, client, or installed version.",
+          "status": "resolved",
+          "scope": "optional-path",
+          "disposition": "Use the shared command reference as a discovery guide, but treat the current / picker or /help output as the availability authority and omit unavailable commands from required work."
+        }
+      ],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #22",
+        "sourceIds": [
+          "anthropic-claude-code-commands",
+          "anthropic-claude-code-desktop"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The current Commands page defines commands as in-session controls, documents / discovery, and explicitly limits availability by platform, plan, and environment.",
+          "The public Desktop guide documents typing / or using + then Slash commands to browse the current Desktop command and skill surface.",
+          "No account-specific command availability pass is claimed; installed CLI version, environment, and launch-flag evidence remain in claude-code-cli-execution-controls."
+        ]
+      }
+    },
+    {
+      "id": "course-shared-vocabulary-contract",
+      "claimScope": "The course glossary is the single shared owner of durable route, evidence, artifact, review, safety, and workflow vocabulary; product availability, command catalogs, and model aliases remain owned by their current high-drift anchors.",
+      "profile": "principle-only",
+      "driftClass": "lower",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "course-migration-spec-shared-vocabulary",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "principleStatement": "Define each durable course term once in the shared glossary, keep status concepts distinct, and link moving product or tool claims to their specialized anchors instead of duplicating definitions in route-specific source ownership.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The approved route, evidence, completion, review, source-governance, or safety vocabulary changes",
+        "A route-specific term becomes shared or a shared term gains a different canonical owner"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #22",
+        "sourceIds": ["course-migration-spec-shared-vocabulary"],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "Issue #13 defines route, lesson, practice, artifact, judgment, feedback, review, source, publication, compatibility, and completion boundaries.",
+          "The glossary owns durable shared meanings while current product, command, and model behavior remains in separate high-drift anchors.",
+          "No route-specific anchor was copied into the glossary mapping as a second vocabulary owner."
+        ]
+      }
+    },
+    {
+      "id": "functional-workflow-case-hub-contract",
+      "claimScope": "The canonical case hub indexes first-party workflow examples by responsibility and reviewable artifact, while compatibility case pages point directly to its final functional anchors and do not retain independent Source ownership.",
+      "profile": "principle-only",
+      "driftClass": "medium",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "course-migration-spec-case-hub",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-customer-stories-directory",
+          "url": "https://claude.com/customers",
+          "kind": "first-party-customer-story-directory",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "principleStatement": "Select cases from identifiable first-party stories, organize them by the work responsibility and next reviewable artifact, preserve source and date, and treat vendor outcomes as examples to analyze rather than independent proof or a template to copy.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The canonical case-hub functional anchors or compatibility targets change",
+        "A cited first-party story is removed, materially revised, or no longer supports its workflow claim",
+        "The case inclusion, date, or Claude Code evidence rule changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [
+        {
+          "id": "vendor-story-evidence-limit",
+          "summary": "Anthropic customer stories are primary sources for what the named customer and vendor report, but they are not independent validation of general effectiveness.",
+          "status": "resolved",
+          "scope": "optional-path",
+          "disposition": "Use stories only as cited workflow examples, preserve limitations and learner judgment, and never generalize a reported result into a universal route promise."
+        }
+      ],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #22",
+        "sourceIds": [
+          "course-migration-spec-case-hub",
+          "anthropic-customer-stories-directory"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "Issue #13 selects one canonical functional case hub and direct compatibility targets for the six role-specific legacy pages.",
+          "The current first-party customer directory provides attributable stories but does not independently establish universal workflow outcomes.",
+          "Compatibility pages remain not-applicable for Source mappings, leaving the canonical hub as the single case ownership point."
+        ]
+      }
+    },
+    {
+      "id": "agent-operations-safety-contract",
+      "claimScope": "Shared agent operations require least authority, recoverable scope, explicit external side-effect approval, deterministic validation, visible failure and rollback evidence, and no unattended production mutation in canonical self-study exercises.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "course-migration-spec-agent-safety",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-claude-code-security",
+          "url": "https://code.claude.com/docs/en/security",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        },
+        {
+          "id": "anthropic-claude-code-permissions-shared-safety",
+          "url": "https://code.claude.com/docs/en/permissions",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-16"
+        }
+      ],
+      "principleStatement": "Start read-only or in plan mode, grant only task-required tools and directories, isolate writes in recoverable fixtures, require approval before external side effects, verify outcomes deterministically, and record failure, recovery, unverified scope, and stop conditions.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "Claude Code trust, permission, sandbox, or security guidance changes",
+        "The course changes its external-write, production-mutation, approval, recovery, or completion-evidence boundary"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-16",
+        "actor": "Codex implementation session for Issue #22",
+        "sourceIds": [
+          "course-migration-spec-agent-safety",
+          "anthropic-claude-code-security",
+          "anthropic-claude-code-permissions-shared-safety"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "Issue #13 excludes unattended external writes and production mutation from canonical hands-on work and requires approval, deterministic checks, recovery, and honest completion evidence.",
+          "Anthropic security guidance describes permission-based architecture, write restrictions, prompt-injection risk, trust boundaries, and user responsibility for reviewed actions.",
+          "Anthropic permissions guidance distinguishes allow, ask, and deny enforcement and documents plan mode as read-only exploration."
         ]
       }
     }
