@@ -102,7 +102,7 @@ def validate_isolation(
     *,
     current_branch: str,
     remote_branch_exists: bool | None = None,
-    preview_deployment_exists: bool | None = None,
+    preview_deployment_shas: list[str] | None = None,
 ) -> list[str]:
     errors: list[str] = []
     migration_branch = freeze["migration"].get("branch")
@@ -120,11 +120,12 @@ def validate_isolation(
                 f"remote branch {migration_branch!r} exists and can trigger Preview",
             )
         )
-    if preview_deployment_exists is True:
+    if preview_deployment_shas:
         errors.append(
             failure(
-                "migration-preview",
-                "current Migration checkpoint already has a Vercel Preview deployment",
+                "migration-preview-history",
+                "Migration commits already have Vercel Preview deployments: "
+                + ", ".join(preview_deployment_shas),
             )
         )
     return errors
@@ -134,16 +135,13 @@ def validate_freeze(
     freeze: dict[str, Any], repo_root: Path, *, verify_git_tree: bool
 ) -> list[str]:
     errors: list[str] = []
-    try:
-        production = freeze["production"]
-        migration = freeze["migration"]
-        cutover = freeze["cutoverEvidence"]
-        authority = freeze["authority"]
-        baseline_paths = freeze["baselinePaths"]
-        new_paths = freeze["newCanonicalPaths"]
-        pre_migration_commit = freeze["preMigrationCommit"]
-    except (KeyError, TypeError) as error:
-        return [failure("freeze-schema", f"missing required freeze field: {error}")]
+    production = freeze.get("production")
+    migration = freeze.get("migration")
+    cutover = freeze.get("cutoverEvidence")
+    authority = freeze.get("authority")
+    baseline_paths = freeze.get("baselinePaths")
+    new_paths = freeze.get("newCanonicalPaths")
+    pre_migration_commit = freeze.get("preMigrationCommit")
 
     if freeze.get("schemaVersion") != 1:
         errors.append(failure("schema-version", "schemaVersion must be 1"))
@@ -154,12 +152,41 @@ def validate_freeze(
     errors.extend(
         validate_path_list(new_paths, "new-canonical", EXPECTED_NEW_CANONICAL_COUNT)
     )
-    if isinstance(baseline_paths, list) and isinstance(new_paths, list):
+    string_baseline_paths = isinstance(baseline_paths, list) and all(
+        isinstance(path, str) for path in baseline_paths
+    )
+    string_new_paths = isinstance(new_paths, list) and all(
+        isinstance(path, str) for path in new_paths
+    )
+    if string_baseline_paths and string_new_paths:
         overlap = sorted(set(baseline_paths) & set(new_paths))
         if overlap:
             errors.append(
                 failure("allowlist-overlap", f"baseline and new paths overlap: {overlap}")
             )
+
+    object_fields = {
+        "production": production,
+        "migration": migration,
+        "cutoverEvidence": cutover,
+        "authority": authority,
+    }
+    invalid_objects = [
+        name for name, value in object_fields.items() if not isinstance(value, dict)
+    ]
+    if invalid_objects:
+        errors.append(
+            failure(
+                "freeze-schema",
+                "required fields must be objects: " + ", ".join(invalid_objects),
+            )
+        )
+    if not isinstance(pre_migration_commit, str):
+        errors.append(
+            failure("freeze-schema", "preMigrationCommit must be a commit SHA string")
+        )
+    if invalid_objects or not isinstance(pre_migration_commit, str):
+        return errors
 
     if production.get("provider") != "Vercel":
         errors.append(failure("production-provider", "production provider must be Vercel"))
@@ -169,6 +196,13 @@ def validate_freeze(
         )
     if production.get("sourceBranch") != "main":
         errors.append(failure("production-branch", "production source branch must be main"))
+    if production.get("trigger") != "vercel-git-integration-on-remote-main":
+        errors.append(
+            failure(
+                "deployment-trigger",
+                "production trigger must be the frozen Vercel remote-main integration",
+            )
+        )
     if production.get("deploymentSha") != pre_migration_commit:
         errors.append(
             failure("deployment-identity", "deployment SHA must equal preMigrationCommit")
@@ -221,6 +255,20 @@ def validate_freeze(
         errors.append(
             failure("cutover-location", "cutover evidence thread must be Issue #75")
         )
+    if cutover.get("recordFormat") != "append-only-comments":
+        errors.append(
+            failure(
+                "cutover-record-format",
+                "cutover evidence must use append-only comments, not a mutable body",
+            )
+        )
+    if cutover.get("requiredIdentity") != "exact reviewed checkpoint SHA":
+        errors.append(
+            failure(
+                "cutover-identity",
+                "cutover evidence must identify the exact reviewed checkpoint SHA",
+            )
+        )
 
     expected_authority = {
         "freeze": "docs/migration/course-migration-plan.md",
@@ -236,7 +284,7 @@ def validate_freeze(
             )
         )
 
-    if verify_git_tree and isinstance(baseline_paths, list):
+    if verify_git_tree and string_baseline_paths:
         resolved = run_command(
             ["git", "rev-parse", f"{pre_migration_commit}^{{commit}}"], repo_root
         )
@@ -289,7 +337,9 @@ def verify_online(freeze: dict[str, Any], repo_root: Path) -> list[str]:
     repository = production["repository"]
 
     current_branch = run_command(["git", "branch", "--show-current"], repo_root)
-    current_head = run_command(["git", "rev-parse", "HEAD"], repo_root)
+    migration_history = run_command(
+        ["git", "rev-list", f"{commit}..HEAD"], repo_root
+    )
     remote_branch = run_command(
         [
             "git",
@@ -302,27 +352,31 @@ def verify_online(freeze: dict[str, Any], repo_root: Path) -> list[str]:
     )
     if (
         current_branch.returncode != 0
-        or current_head.returncode != 0
+        or migration_history.returncode != 0
         or remote_branch.returncode != 0
     ):
         errors.append(
             failure(
                 "isolation-evidence",
-                "cannot determine current branch, HEAD, or remote branch absence",
+                "cannot determine current branch, Migration history, or remote absence",
             )
         )
     else:
         try:
-            preview_deployments = gh_json(
-                repo_root,
-                f"repos/{repository}/deployments?environment=Preview&sha={current_head.stdout.strip()}&per_page=1",
-            )
+            previewed_shas = []
+            for sha in migration_history.stdout.splitlines():
+                preview_deployments = gh_json(
+                    repo_root,
+                    f"repos/{repository}/deployments?environment=Preview&sha={sha}&per_page=1",
+                )
+                if preview_deployments:
+                    previewed_shas.append(sha)
             errors.extend(
                 validate_isolation(
                     freeze,
                     current_branch=current_branch.stdout.strip(),
                     remote_branch_exists=bool(remote_branch.stdout.strip()),
-                    preview_deployment_exists=bool(preview_deployments),
+                    preview_deployment_shas=previewed_shas,
                 )
             )
         except (RuntimeError, json.JSONDecodeError) as error:
@@ -447,6 +501,28 @@ def run_self_test(freeze: dict[str, Any], repo_root: Path) -> list[str]:
         )
     )
 
+    malformed_object = copy.deepcopy(freeze)
+    malformed_object["migration"] = None
+    cases.append(("malformed object", malformed_object, "freeze-schema"))
+
+    malformed_path = copy.deepcopy(freeze)
+    malformed_path["baselinePaths"][0] = {"path": "index.html"}
+    cases.append(("malformed path", malformed_path, "baseline-type"))
+
+    manual_trigger = copy.deepcopy(freeze)
+    manual_trigger["production"]["trigger"] = "manual"
+    cases.append(("manual trigger", manual_trigger, "deployment-trigger"))
+
+    mutable_record = copy.deepcopy(freeze)
+    mutable_record["cutoverEvidence"]["recordFormat"] = "mutable-body"
+    cases.append(
+        ("mutable cutover record", mutable_record, "cutover-record-format")
+    )
+
+    moving_identity = copy.deepcopy(freeze)
+    moving_identity["cutoverEvidence"]["requiredIdentity"] = "latest candidate"
+    cases.append(("moving cutover identity", moving_identity, "cutover-identity"))
+
     errors = []
     for name, mutated, expected_code in cases:
         actual = validate_freeze(mutated, repo_root, verify_git_tree=False)
@@ -462,12 +538,15 @@ def run_self_test(freeze: dict[str, Any], repo_root: Path) -> list[str]:
         freeze,
         current_branch=freeze["migration"]["branch"],
         remote_branch_exists=True,
-        preview_deployment_exists=True,
+        preview_deployment_shas=["ancestor-migration-commit"],
     )
     remote_codes = {
         item.split("]", 1)[0].lstrip("[") for item in remote_publication
     }
-    for expected_code in ("remote-migration-branch", "migration-preview"):
+    for expected_code in (
+        "remote-migration-branch",
+        "migration-preview-history",
+    ):
         if expected_code not in remote_codes:
             errors.append(
                 failure(
