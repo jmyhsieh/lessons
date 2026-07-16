@@ -6743,7 +6743,7 @@
           "functional-workflow-case-hub-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/ai-ops-revops-workflow-case-library.html",

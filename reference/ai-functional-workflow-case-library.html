@@ -1,92 +1,120 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+<link rel="icon" href="data:,">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI 職能工作流案例總覽</title>
+<meta name="course:canonical-coordinate" content="not-applicable">
+<meta name="course:page-kind" content="canonical-reference">
+<meta name="course:route-roles" content="not-applicable">
+<meta name="course:source-ids" content="functional-workflow-case-hub-contract">
+<title>AI 職能工作流案例與 route 選擇器</title>
 <style>
-  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
-         max-width: 980px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
-  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #4f5d75; }
-  .sub { color: #666; margin-top: 0; }
-  h2 { font-size: 1.08rem; color: #4f5d75; margin-top: 2rem; }
-  table { width: 100%; border-collapse: collapse; font-size: .86rem; margin: 1rem 0; }
-  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
-  th { background: #eef1f6; }
-  a { color: #36506f; }
-  code { background: #eef1f6; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; }
-  .rule { border-left: 4px solid #4f5d75; background: #f8fafc; padding: .75rem 1rem; margin: 1rem 0; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: .8rem; }
-  .card { border: 1px solid #ddd; border-radius: 8px; padding: .9rem 1rem; background: #fff; }
-  .card strong { color: #4f5d75; }
-  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
-  @media print {
-    body { margin: 1rem auto; }
-    .card, .rule, tr { break-inside: avoid; }
-  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 960px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.75; }
+  h1 { line-height: 1.35; }
+  h2 { color: #315f86; margin-top: 2.5rem; scroll-margin-top: 1rem; }
+  h3 { margin-bottom: .35rem; }
+  a { color: #315f86; }
+  code { background: #eef3f7; border-radius: 4px; padding: .1rem .3rem; }
+  .rule, .stop, .feedback { border-left: 4px solid #315f86; background: #f2f6fa; padding: .8rem 1rem; margin: 1rem 0; }
+  .stop { border-color: #9a6525; background: #fff8e8; }
+  .feedback { border-color: #3b7a57; background: #f0f8f3; }
+  .jump { display: flex; flex-wrap: wrap; gap: .45rem; padding: 0; list-style: none; }
+  .jump a { display: inline-block; border: 1px solid #b9cbd9; border-radius: 999px; padding: .25rem .65rem; text-decoration: none; }
+  .case { border: 1px solid #ccd9e3; border-radius: 10px; padding: 1rem; margin: 1rem 0; }
+  .case > p:first-of-type { margin-top: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .8rem 0; font-size: .92rem; }
+  th, td { border: 1px solid #ccd9e3; padding: .55rem; text-align: left; vertical-align: top; }
+  th { background: #eef3f7; }
+  .route { white-space: nowrap; }
+  footer { margin-top: 3rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; }
+  @media (max-width: 700px) { body { margin-top: 1rem; } .table-scroll { overflow-x: auto; } table { min-width: 680px; font-size: .82rem; } }
+  @media print { .case, .rule, .stop, tr { break-inside: avoid; } }
 </style>
 </head>
 <body>
-<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<h1>AI 職能工作流案例總覽</h1>
-<p class="sub">把案例按「工作責任」整理，而不是按職稱整理。本頁只收 2026/04/01 起發布，且案例本身明確使用 Claude Code 的來源。</p>
+<p><a href="../toc.html">← 回課程 catalog</a></p>
+<header>
+  <p>Canonical reference · Responsibility-based routing</p>
+  <h1>AI 職能工作流案例與 route 選擇器</h1>
+  <p class="rule"><strong>先看責任，不看職稱：</strong>同一個人可能同時負責需求、repo change、可恢復營運或治理；每次只依「這次要交付什麼、誰能驗收、需要哪些權限」選一條最貼近的 route。案例是選路線的線索，不是職稱對課程的固定分配。</p>
+</header>
 
-<div class="rule">
-  <strong>讀法：</strong>先找你現在負責的職能，再看該職能的下一個可驗收 artifact。不要照抄公司或工具名稱；要抄的是流程槽位、驗證方式與交接證據。未明確使用 Claude Code 的 Claude 生態案例不放進主表。
-</div>
+<ul class="jump" aria-label="跳到職能案例">
+  <li><a href="#product">產品</a></li>
+  <li><a href="#developer">工程</a></li>
+  <li><a href="#research-data">研究／資料</a></li>
+  <li><a href="#operations-revops">營運／RevOps</a></li>
+  <li><a href="#founder">Founder</a></li>
+  <li><a href="#platform-governance">平台／治理</a></li>
+</ul>
 
-<h2>職能對照表</h2>
-<table>
-<tr><th>職能</th><th>適用情境</th><th>細部案例</th></tr>
-<tr>
-  <td>產品職能</td>
-  <td>收斂需求、做可驗收原型、對齊 stakeholder 與上線條件。</td>
-  <td><a href="ai-workflow-case-library.html">產品細部案例</a></td>
-</tr>
-<tr>
-  <td>工程職能</td>
-  <td>改 repo、切小 diff、跑 tests / review / PR，或處理長任務 agent session。</td>
-  <td><a href="ai-developer-workflow-case-library.html">工程細部案例</a></td>
-</tr>
-<tr>
-  <td>研究 / 資料職能</td>
-  <td>重現 paper / data、設 oracle tests、做 domain review 與 bias check。</td>
-  <td><a href="ai-research-data-workflow-case-library.html">研究 / 資料細部案例</a></td>
-</tr>
-<tr>
-  <td>營運 / IT / RevOps 職能</td>
-  <td>處理活動資料、CRM 匯入、incident / runbook 或內部工具流程。</td>
-  <td><a href="ai-ops-revops-workflow-case-library.html">營運 / IT / RevOps 細部案例</a></td>
-</tr>
-<tr>
-  <td>創業 / Founder 職能</td>
-  <td>從使用者洞察做產品切片、demo、回饋收集與下一輪假設。</td>
-  <td><a href="ai-founder-workflow-case-library.html">創業 / Founder 細部案例</a></td>
-</tr>
-<tr>
-  <td>平台 / 治理職能</td>
-  <td>管理 access、成本、eval gates、政策、長任務執行與 incident review。</td>
-  <td><a href="ai-platform-governance-workflow-case-library.html">平台 / 治理細部案例</a></td>
-</tr>
-</table>
+<section id="product" class="case">
+  <h2>產品：把模糊需求變成可驗收決定</h2>
+  <p><strong>代表責任／use cases：</strong>切小需求、建立 prototype、收集可追溯 feedback、對齊 stakeholder；若交付物最後成為 repo diff，責任就跨入 Engineering，而不是因為職稱是 PM 就留在 Design。</p>
+  <div class="table-scroll"><table><tr><th>這次真正要交付</th><th>建議 route</th><th>產生的 evidence</th></tr><tr><td>可檢查 states、interaction 與 assumptions 的設計 handoff</td><td class="route"><a href="../lessons/004-0001-choose-claude-design-surface.html">Design entry</a> → <a href="../lessons/004-0007-assemble-design-handoff-bundle.html">handoff closeout</a></td><td>Versioned Design handoff bundle、prototype assumptions、learner judgment 與 feedback disposition。</td></tr><tr><td>需要實作、checks 與 Review 的 repository change</td><td class="route"><a href="../lessons/006-0001-choose-engineering-route.html">Engineering entry</a> → <a href="../lessons/006-0009-complete-engineering-closeout.html">Engineering closeout</a></td><td>Exact candidate、deterministic checks、two-axis Review 與 handoff。</td></tr></table></div>
+  <p><strong>Prerequisite／readiness：</strong>知道 audience、要促成的決定、可用 inputs、feedback owner 與資料權限；repo implementation 另需 Code readiness。</p>
+  <p class="feedback"><strong>Tangible win／observable feedback：</strong>得到一張 route selection card；reviewer 能由 artifact 與 authority 說明為何走 Design 或 Engineering，並指出交付物何時跨越 repo delivery boundary。</p>
+  <p class="stop"><strong>Legal stop／claim ceiling：</strong>需求、feedback path 或 authority 不明就停在 readiness；prototype feedback 不是 product-market fit，Engineering checks 也不是 launch、adoption 或 production approval。</p>
+  <p><strong>案例線索（2026-04-06）：</strong><a href="https://www.businessinsider.com/ai-jobs-product-engineers-managers-2026-4">Anthropic product engineer／mini PM 報導</a>可用來分析需求切片與責任移動；vendor／媒體案例只支持其所報導情境，不是普遍成效證明。</p>
+</section>
 
-<div class="rule">
-  <strong>本次排除：</strong>Claude Managed Agents、finance agents、Claude Cowork、Figma Make、Walmart Code Puppy 等仍可作為延伸脈絡，但目前不是「2026/04 起發布且案例本身明確使用 Claude Code」的主案例。
-</div>
+<section id="developer" class="case">
+  <h2>工程：交付可重建、可 Review 的 exact candidate</h2>
+  <p><strong>代表責任／use cases：</strong>探索 repo、釐清 request、切 ticket DAG、實作小 diff、診斷 hard bug、建立 immutable Review checkpoint；瀏覽器 claim 或可重複 agent run 是不同 continuation，不是每張工程 ticket 都要走。</p>
+  <div class="table-scroll"><table><tr><th>這次真正要交付</th><th>建議 route</th><th>產生的 evidence</th></tr><tr><td>符合 spec 與 repository standards 的 code change</td><td class="route"><a href="../lessons/006-0001-choose-engineering-route.html">Engineering entry</a> → <a href="../lessons/006-0009-complete-engineering-closeout.html">Engineering closeout</a></td><td>Implemented diff、focused/full checks、final checkpoint、Standards／Spec Review bundle。</td></tr><tr><td>只需證明一個可由瀏覽器觀察的 claim</td><td class="route"><a href="../lessons/007-0001-scope-browser-claim.html">Browser Evidence entry</a> → <a href="../lessons/007-0007-complete-browser-evidence-addendum.html">evidence closeout</a></td><td>Bounded claim、baseline、interaction evidence、negative/edge observation 與 addendum。</td></tr></table></div>
+  <p><strong>Prerequisite／readiness：</strong>Code readiness 已證明；能讀 repo instructions、界定 safe workspace、看 diff、跑 relevant checks，且 originating intent 可解析。</p>
+  <p class="feedback"><strong>Tangible win／observable feedback：</strong>得到一份 exact-SHA Engineering closeout；接手者能重建 diff、重跑 checks、分開檢查兩軸 Review，且 browser continuation 的必要性可由 claim 決定。</p>
+  <p class="stop"><strong>Legal stop／claim ceiling：</strong>workspace、權限、checks 或 intent 不清就停；tests PASS 與 agent review 不等於 merge、security sign-off、production reliability 或 deploy authority。</p>
+  <p><strong>案例線索（2026-04-23）：</strong><a href="https://www.anthropic.com/engineering/april-23-postmortem">Anthropic Claude Code 品質事件 postmortem</a>可用來分析 reproduction、root cause、eval 與 rollout gates；這是該事件的第一方敘述，不是所有工程流程的模板。</p>
+</section>
 
-<h2>如何選案例</h2>
-<div class="grid">
-  <div class="card"><strong>你要收斂需求</strong><br>從產品職能開始，看 artifact 是否能被使用者或 stakeholder 驗收。</div>
-  <div class="card"><strong>你要改 repo</strong><br>從工程職能開始，先定義 test、review、PR 與 rollback。</div>
-  <div class="card"><strong>你要處理資料</strong><br>從研究 / 資料職能開始，把可重跑、oracle tests 與 bias check 寫進流程。</div>
-  <div class="card"><strong>你要導入團隊工具</strong><br>從平台 / 治理職能開始，先定義權限、成本、替換性與審計。</div>
-</div>
+<section id="research-data" class="case">
+  <h2>研究／資料：讓來源、計算與限制可重跑、可質疑</h2>
+  <p><strong>代表責任／use cases：</strong>保存 raw sources、建立 source-to-claim lineage、重現 paper/data、實作 analysis code、校準 oracle tests，並把 domain review 與 bias/limitation 留在證據中。</p>
+  <div class="table-scroll"><table><tr><th>這次真正要交付</th><th>建議 route</th><th>產生的 evidence</th></tr><tr><td>有 provenance 的報告、資料切片或 local knowledge artifact</td><td class="route"><a href="../lessons/003-0001-select-knowledge-deliverable.html">Knowledge entry</a> → <a href="../lessons/003-0006-complete-knowledge-delivery-closeout.html">Knowledge closeout</a></td><td>Raw-source references、source-to-claim checks、reviewable deliverable、judgment 與 feedback。</td></tr><tr><td>會改 repo 的 reproduction／analysis implementation</td><td class="route"><a href="../lessons/006-0001-choose-engineering-route.html">Engineering entry</a> → <a href="../lessons/006-0009-complete-engineering-closeout.html">Engineering closeout</a></td><td>Versioned code/data identity、oracle checks、domain-review limits 與 final candidate Review。</td></tr></table></div>
+  <p><strong>Prerequisite／readiness：</strong>資料使用權、source identity、expected comparison、可反證條件與 domain reviewer 已知；會執行或修改 code 時另需 Code readiness。</p>
+  <p class="feedback"><strong>Tangible win／observable feedback：</strong>得到可追到 source 與 exact computation 的交付包；另一位 reviewer 能重跑、重現差異，並指出 oracle 沒覆蓋的 domain assumptions。</p>
+  <p class="stop"><strong>Legal stop／claim ceiling：</strong>資料權利、版本、oracle 或 reviewer 不明就停；成功重現一次不等於研究正確、無 bias、可泛化、同行審查或 production data approval。</p>
+  <p><strong>案例線索（2026-05-28）：</strong><a href="https://arxiv.org/abs/2605.30353">物理學家監督 Claude Code 開發科學軟體</a>可用來分析 oracle 與 domain supervision；單一研究結果不能替代你自己的資料、方法與 reviewer。</p>
+</section>
 
-<h2>延伸細節</h2>
-<p>本頁是嚴格篩選後的主入口。每個職能都有細部案例頁：<a href="ai-workflow-case-library.html">產品</a>、<a href="ai-developer-workflow-case-library.html">工程</a>、<a href="ai-research-data-workflow-case-library.html">研究 / 資料</a>、<a href="ai-ops-revops-workflow-case-library.html">營運 / IT / RevOps</a>、<a href="ai-founder-workflow-case-library.html">創業 / Founder</a>、<a href="ai-platform-governance-workflow-case-library.html">平台 / 治理</a>。</p>
+<section id="operations-revops" class="case">
+  <h2>營運／RevOps：先證明可停、可恢復，再談重複執行</h2>
+  <p><strong>代表責任／use cases：</strong>先預覽 import diff、建立 incident/runbook handoff、處理 bounded local batch、記錄 progress/checkpoint，並讓 retry 不會重複寫入；真實 CRM 或外部通知不屬於自學 fixture。</p>
+  <div class="table-scroll"><table><tr><th>這次真正要交付</th><th>建議 route</th><th>產生的 evidence</th></tr><tr><td>一個已由人安全做過、值得重複的 recoverable local workflow</td><td class="route"><a href="../lessons/008-0001-define-deterministic-check.html">Agent Operations entry</a> → <a href="../lessons/008-0007-complete-operating-workflow-closeout.html">Operations closeout</a></td><td>Deterministic completion proof、authority envelope、failure/recovery record 與 learner judgment。</td></tr><tr><td>需要分享給他人的已證明 workflow</td><td class="route"><a href="../lessons/009-0001-select-proven-workflow.html">Standardize entry</a> → <a href="../lessons/009-0008-complete-standardization-closeout.html">package closeout</a></td><td>Single versioned package、fresh-context positive/negative rerun、owner 與 retirement conditions。</td></tr></table></div>
+  <p><strong>Prerequisite／readiness：</strong>Code readiness、recoverable local fixture、input/output identity、deterministic oracle、write boundary、restore point 與 human approval stop 已知；Standardize 還要先有可解析 closeout。</p>
+  <p class="feedback"><strong>Tangible win／observable feedback：</strong>得到一份可由第三方重跑的 bounded operations closeout；reviewer 能注入 controlled failure，確認 safe stop／recovery，並拒絕越界 target。</p>
+  <p class="stop"><strong>Legal stop／claim ceiling：</strong>沒有 safe fixture、restore、idempotency 或 authority 就停；local recovery 不等於 production SLA，package 也不授權 CRM write、寄送、付款、採購或真實 incident action。</p>
+  <p><strong>案例線索（2026-05-12）：</strong><a href="https://www.businessinsider.com/coders-keep-laptops-open-in-public-ai-agent-2026-5">Mach 1 CRM 匯入與長任務報導</a>可用來分析 preview、checkpoint 與 human approval；報導不是實際資料權限或 production authorization。</p>
+</section>
 
-<footer>
-  相關：<a href="ai-workflow-skill-composer.html">AI 工作流編排速查表</a> · <a href="../RESOURCES.md">RESOURCES.md</a>
-</footer>
+<section id="founder" class="case">
+  <h2>Founder：縮短 feedback loop，而不是跳過驗證</h2>
+  <p><strong>代表責任／use cases：</strong>把假設切成可檢查 prototype、向真實 audience 解釋 proposal、收集 feedback、做下一輪 keep/change/stop 判斷；若需要 repository implementation，另走 Engineering。</p>
+  <div class="table-scroll"><table><tr><th>這次真正要交付</th><th>建議 route</th><th>產生的 evidence</th></tr><tr><td>測試核心 task、states 與假設的 prototype handoff</td><td class="route"><a href="../lessons/004-0001-choose-claude-design-surface.html">Design entry</a> → <a href="../lessons/004-0007-assemble-design-handoff-bundle.html">handoff closeout</a></td><td>Design intent、material states、assumption evidence、feedback disposition 與 implementation unknowns。</td></tr><tr><td>需要 audience 作決定的 source-backed deck</td><td class="route"><a href="../lessons/005-0001-choose-presentation-route.html">Presentation entry</a> → <a href="../lessons/005-0007-export-and-rehearse.html">deck closeout</a></td><td>Claim ledger、rights record、accessible target-format deck、rehearsal 與 feedback。</td></tr></table></div>
+  <p><strong>Prerequisite／readiness：</strong>單一 mission、audience、decision、可用來源、素材權利、feedback owner 與不做事項已明確；付款、寄送或客戶資料預設不在練習範圍。</p>
+  <p class="feedback"><strong>Tangible win／observable feedback：</strong>得到可被 audience 檢查的 prototype handoff 或 deck；另一個人能重述假設、指出 evidence 缺口，並記錄下一輪保留、修改或停止。</p>
+  <p class="stop"><strong>Legal stop／claim ceiling：</strong>問題、audience、rights 或 feedback path 不清就停；demo、掌聲或 deck 完成不等於 business validation、收入、market fit、launch readiness 或投資批准。</p>
+  <p><strong>案例線索（2026-05-25，回顧案例）：</strong><a href="https://www.businessinsider.com/product-manager-san-francisco-used-claude-build-postcard-business-2026-5">Postcard Press prototype 報導</a>可用來分析 prototype→feedback→hardening；其後續付款、寄送與上線不能被本課當成已授權練習。</p>
+</section>
+
+<section id="platform-governance" class="case">
+  <h2>平台／治理：把 decision rights、evidence 與 claim ceiling 放在同一張圖</h2>
+  <p><strong>代表責任／use cases：</strong>定義 access/data boundaries、比較 workflow claim、設計 bounded rollout scenario、處理 cost/risk、演練 incident/change/retirement；只有既有 lineage 成立時才往後走。</p>
+  <div class="table-scroll"><table><tr><th>這次真正要交付</th><th>建議 route</th><th>產生的 evidence</th></tr><tr><td>判斷一個 proven package 應 keep、change 或 retire</td><td class="route"><a href="../lessons/010-0001-set-workflow-evaluation-claim.html">Prove entry</a> → <a href="../lessons/010-0007-complete-workflow-evidence-dossier.html">dossier closeout</a></td><td>Fixed claim、success/failure/comparative evidence、conflict dispositions、limits 與 learner judgment。</td></tr><tr><td>對既有 rollout lineage 起草可稽核 self-study policy</td><td class="route"><a href="../lessons/012-0001-charter-governance-scope.html">Govern entry</a> → <a href="../lessons/012-0007-complete-governance-lifecycle-policy.html">policy closeout</a></td><td>Ownership、change/data lifecycle、risk/cost、tabletop evidence、retirement conditions 與 dispositions。</td></tr></table></div>
+  <p><strong>Prerequisite／readiness：</strong>Evaluation 需 exact Standardization closeout；Govern 需可追溯 Scenario rollout plan、dossier、package identity、limits、owner 與 decision rights。缺上游 evidence 就回 originating route。</p>
+  <p class="feedback"><strong>Tangible win／observable feedback：</strong>得到可重建的 evidence dossier 或 policy draft；獨立 reviewer 能追到每個 material decision，重播 tabletop，並找出任何越過 authority 的 claim。</p>
+  <p class="stop"><strong>Legal stop／claim ceiling：</strong>Lineage、owner、data boundary 或 decision right 不明就停；eval、tabletop 與 policy draft都不是 adoption proof、法律意見、security/privacy/compliance certification、organization policy 或 production approval。</p>
+  <p><strong>案例線索（2026-04-23）：</strong><a href="https://www.anthropic.com/engineering/april-23-postmortem">Claude Code 品質事件 postmortem</a>可用來分析 change、eval 與 rollout evidence；事件敘述不會替你的組織建立 decision rights 或批准。</p>
+</section>
+
+<h2>Route 選擇的共用檢查</h2>
+<ol><li>用一句話寫出這次的 <strong>reviewable artifact</strong>；只選能產生它的 route。</li><li>確認 prerequisite、authority、feedback owner 與 legal stop；缺口回 readiness，不靠 agent 補猜。</li><li>完成後只宣稱該 route 的 exit evidence；需要另一種交付物時，重新選 route，不把所有 Phase 串成必修 ladder。</li></ol>
+<p class="rule"><strong>來源與證據界線：</strong>案例來源依發布資訊與可辨識的第一方／研究敘述保留日期。它們只說明「曾被報導的工作形狀」，不獨立證明普遍效果；route 完成仍以 learner 自己的 artifact、deterministic evidence、human judgment 與 feedback 為準。</p>
+
+<footer>Page kind：canonical reference · Source ID：<code>functional-workflow-case-hub-contract</code> · Source review：2026-07-16 · 六個 stable fragments：<code>product</code>、<code>developer</code>、<code>research-data</code>、<code>operations-revops</code>、<code>founder</code>、<code>platform-governance</code></footer>
 </body>
 </html>
