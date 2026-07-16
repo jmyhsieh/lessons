@@ -25,6 +25,7 @@ EXPECTED_BASELINE_COUNT = 73
 EXPECTED_NEW_CANONICAL_COUNT = 99
 
 CommandRunner = Callable[..., subprocess.CompletedProcess[Any]]
+GitHubFetcher = Callable[[Path, str], Any]
 
 
 def failure(code: str, message: str) -> str:
@@ -44,14 +45,11 @@ def run_command(
     )
 
 
-def load_freeze(plan_path: Path) -> dict[str, Any]:
-    try:
-        document = plan_path.read_text(encoding="utf-8")
-    except FileNotFoundError as error:
-        raise ValueError(f"migration plan is missing: {plan_path}") from error
-
-    if FREEZE_START not in document or FREEZE_END not in document:
-        raise ValueError("migration plan does not contain the freeze JSON markers")
+def parse_freeze_document(document: str) -> dict[str, Any]:
+    if document.count(FREEZE_START) != 1 or document.count(FREEZE_END) != 1:
+        raise ValueError("migration plan must contain exactly one freeze JSON block")
+    if document.index(FREEZE_START) >= document.index(FREEZE_END):
+        raise ValueError("freeze JSON markers are out of order")
 
     payload = document.split(FREEZE_START, 1)[1].split(FREEZE_END, 1)[0].strip()
     if not payload.startswith("```json\n") or not payload.endswith("\n```"):
@@ -65,6 +63,14 @@ def load_freeze(plan_path: Path) -> dict[str, Any]:
     if not isinstance(result, dict):
         raise ValueError("freeze JSON must be an object")
     return result
+
+
+def load_freeze(plan_path: Path) -> dict[str, Any]:
+    try:
+        document = plan_path.read_text(encoding="utf-8")
+    except FileNotFoundError as error:
+        raise ValueError(f"migration plan is missing: {plan_path}") from error
+    return parse_freeze_document(document)
 
 
 def validate_path_list(paths: Any, name: str, expected_count: int) -> list[str]:
@@ -207,6 +213,7 @@ def validate_freeze(
     baseline_paths = freeze.get("baselinePaths")
     new_paths = freeze.get("newCanonicalPaths")
     pre_migration_commit = freeze.get("preMigrationCommit")
+    frozen_at = freeze.get("frozenAt")
 
     schema_version = freeze.get("schemaVersion")
     if (
@@ -215,6 +222,12 @@ def validate_freeze(
         or schema_version != 1
     ):
         errors.append(failure("schema-version", "schemaVersion must be integer 1"))
+    if not isinstance(frozen_at, str) or re.fullmatch(
+        r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", frozen_at or ""
+    ) is None:
+        errors.append(
+            failure("freeze-time", "frozenAt must be an RFC 3339 UTC timestamp")
+        )
 
     errors.extend(
         validate_path_list(baseline_paths, "baseline", EXPECTED_BASELINE_COUNT)
@@ -335,6 +348,36 @@ def validate_freeze(
     if errors:
         return errors
 
+    if re.fullmatch(
+        r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z",
+        production["deploymentCompletedAt"],
+    ) is None:
+        errors.append(
+            failure(
+                "deployment-completed-at",
+                "deploymentCompletedAt must be an RFC 3339 UTC timestamp",
+            )
+        )
+    if re.fullmatch(r"[0-9a-f]{64}", production["indexSha256"]) is None:
+        errors.append(
+            failure(
+                "index-digest",
+                "indexSha256 must be an exact lowercase SHA-256 digest",
+            )
+        )
+    if re.fullmatch(
+        r"[0-9a-f]{40}",
+        production["secondaryHost"]["latestObservedDeploymentSha"],
+    ) is None:
+        errors.append(
+            failure(
+                "secondary-deployment-sha",
+                "latestObservedDeploymentSha must be an exact lowercase commit SHA",
+            )
+        )
+    if errors:
+        return errors
+
     if production.get("provider") != "Vercel":
         errors.append(failure("production-provider", "production provider must be Vercel"))
     if production.get("environment") != "Production":
@@ -366,6 +409,51 @@ def validate_freeze(
             failure(
                 "preview-publication",
                 "migration remotePolicy must prevent Vercel Preview publication",
+            )
+        )
+    if migration.get("previewRisk") != "Vercel deploys remote non-main commits as Preview":
+        errors.append(
+            failure(
+                "preview-risk",
+                "previewRisk must describe Vercel publication from remote non-main commits",
+            )
+        )
+    if migration.get("cutoverTrigger") != (
+        "authorized coherent merge of the exact reviewed checkpoint to main"
+    ):
+        errors.append(
+            failure(
+                "cutover-trigger",
+                "cutoverTrigger must require one authorized exact-checkpoint merge",
+            )
+        )
+
+    if issues != {"blueprint": 12, "spec": 13, "ticket": 14}:
+        errors.append(
+            failure(
+                "issue-boundary",
+                "Freeze authority must remain bound to Issues #12, #13, and #14",
+            )
+        )
+
+    repository_parts = production["repository"].split("/", 1)
+    expected_secondary_url = (
+        f"https://{repository_parts[0]}.github.io/{repository_parts[1]}/"
+        if len(repository_parts) == 2
+        else ""
+    )
+    if production["secondaryHost"]["url"] != expected_secondary_url:
+        errors.append(
+            failure(
+                "secondary-host-url",
+                "secondaryHost must be the repository's GitHub Pages URL",
+            )
+        )
+    if production["secondaryHost"]["expectedStatus"] != 404:
+        errors.append(
+            failure(
+                "secondary-host-status",
+                "secondaryHost must preserve the frozen HTTP 404 observation",
             )
         )
 
@@ -467,6 +555,29 @@ def validate_freeze(
                             f"missing from tree={missing}; unexpected in tree={unexpected}",
                         )
                     )
+
+            index_blob = command_runner(
+                ["git", "show", f"{pre_migration_commit}:index.html"],
+                repo_root,
+                text=False,
+            )
+            if index_blob.returncode != 0:
+                errors.append(
+                    failure(
+                        "index-blob",
+                        index_blob.stderr.decode(errors="replace").strip()
+                        or "cannot read frozen index.html",
+                    )
+                )
+            elif hashlib.sha256(index_blob.stdout).hexdigest() != production[
+                "indexSha256"
+            ]:
+                errors.append(
+                    failure(
+                        "index-digest-mismatch",
+                        "indexSha256 differs from the frozen index.html blob",
+                    )
+                )
     return errors
 
 
@@ -477,32 +588,35 @@ def gh_json(repo_root: Path, endpoint: str) -> Any:
     return json.loads(result.stdout)
 
 
-def fetch_bytes(url: str) -> tuple[int, bytes]:
-    request = Request(url, headers={"User-Agent": "lessons-migration-freeze-check/1"})
-    with urlopen(request, timeout=20) as response:
-        return response.status, response.read()
+def require_object(value: Any, label: str) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        raise ValueError(f"{label} must be a JSON object")
+    return value
 
 
-def verify_online(freeze: dict[str, Any], repo_root: Path) -> list[str]:
-    precondition_errors = validate_freeze(
-        freeze, repo_root, verify_git_tree=False
-    )
-    if precondition_errors:
-        return [
-            failure("online-precondition", "Freeze contract is invalid"),
-            *precondition_errors,
-        ]
+def require_object_list(value: Any, label: str) -> list[dict[str, Any]]:
+    if not isinstance(value, list) or not all(isinstance(item, dict) for item in value):
+        raise ValueError(f"{label} must be an array of JSON objects")
+    return value
 
+
+def verify_github_evidence(
+    freeze: dict[str, Any],
+    repo_root: Path,
+    *,
+    github_fetcher: GitHubFetcher = gh_json,
+    command_runner: CommandRunner = run_command,
+) -> list[str]:
     errors: list[str] = []
     production = freeze["production"]
     commit = freeze["preMigrationCommit"]
     repository = production["repository"]
 
-    current_branch = run_command(["git", "branch", "--show-current"], repo_root)
-    migration_history = run_command(
+    current_branch = command_runner(["git", "branch", "--show-current"], repo_root)
+    migration_history = command_runner(
         ["git", "rev-list", f"{commit}..HEAD"], repo_root
     )
-    remote_branch = run_command(
+    remote_branch = command_runner(
         [
             "git",
             "ls-remote",
@@ -527,9 +641,12 @@ def verify_online(freeze: dict[str, Any], repo_root: Path) -> list[str]:
         try:
             previewed_shas = []
             for sha in migration_history.stdout.splitlines():
-                preview_deployments = gh_json(
-                    repo_root,
-                    f"repos/{repository}/deployments?environment=Preview&sha={sha}&per_page=1",
+                preview_deployments = require_object_list(
+                    github_fetcher(
+                        repo_root,
+                        f"repos/{repository}/deployments?environment=Preview&sha={sha}&per_page=1",
+                    ),
+                    "Preview deployments response",
                 )
                 if preview_deployments:
                     previewed_shas.append(sha)
@@ -541,49 +658,122 @@ def verify_online(freeze: dict[str, Any], repo_root: Path) -> list[str]:
                     preview_deployment_shas=previewed_shas,
                 )
             )
-        except (RuntimeError, json.JSONDecodeError) as error:
+        except (RuntimeError, json.JSONDecodeError, ValueError) as error:
             errors.append(failure("preview-evidence", str(error)))
 
     try:
-        metadata = gh_json(repo_root, f"repos/{repository}")
+        metadata = require_object(
+            github_fetcher(repo_root, f"repos/{repository}"),
+            "repository response",
+        )
         if metadata.get("homepage") != production["canonicalHost"]:
             errors.append(
                 failure("homepage-host", "repository homepage differs from canonicalHost")
             )
 
-        remote_commit = gh_json(
-            repo_root, f"repos/{repository}/commits/{production['sourceBranch']}"
+        remote_commit = require_object(
+            github_fetcher(
+                repo_root,
+                f"repos/{repository}/commits/{production['sourceBranch']}",
+            ),
+            "remote commit response",
         )
         if remote_commit.get("sha") != commit:
             errors.append(
                 failure("remote-main", "remote production branch moved from frozen commit")
             )
 
-        deployments = gh_json(
-            repo_root,
-            f"repos/{repository}/deployments?environment=Production&per_page=1",
+        deployments = require_object_list(
+            github_fetcher(
+                repo_root,
+                f"repos/{repository}/deployments?environment=Production&per_page=1",
+            ),
+            "Production deployments response",
         )
-        if not deployments or deployments[0].get("id") != production["deploymentId"]:
-            errors.append(
-                failure("latest-deployment", "frozen deployment is not latest Production")
-            )
-        elif deployments[0].get("sha") != commit:
-            errors.append(
-                failure("deployment-sha", "latest Production deployment SHA differs")
-            )
+        if not deployments:
+            errors.append(failure("latest-deployment", "no Production deployment found"))
+        else:
+            deployment = deployments[0]
+            if deployment.get("id") != production["deploymentId"]:
+                errors.append(
+                    failure(
+                        "latest-deployment",
+                        "frozen deployment is not latest Production",
+                    )
+                )
+            if deployment.get("sha") != commit:
+                errors.append(
+                    failure("deployment-sha", "latest Production deployment SHA differs")
+                )
 
-        statuses = gh_json(
-            repo_root,
-            f"repos/{repository}/deployments/{production['deploymentId']}/statuses",
+        statuses = require_object_list(
+            github_fetcher(
+                repo_root,
+                f"repos/{repository}/deployments/{production['deploymentId']}/statuses",
+            ),
+            "deployment statuses response",
         )
-        if not statuses or statuses[0].get("state") != "success":
-            errors.append(failure("deployment-status", "frozen deployment is not successful"))
-        elif statuses[0].get("environment_url") != production["deploymentUrl"]:
+        if not statuses:
+            errors.append(failure("deployment-status", "deployment has no status"))
+        else:
+            status = statuses[0]
+            if status.get("state") != "success":
+                errors.append(
+                    failure("deployment-status", "frozen deployment is not successful")
+                )
+            if status.get("environment_url") != production["deploymentUrl"]:
+                errors.append(
+                    failure("deployment-url", "immutable deployment URL differs from freeze")
+                )
+            if status.get("created_at") != production["deploymentCompletedAt"]:
+                errors.append(
+                    failure(
+                        "deployment-completed-at-mismatch",
+                        "deployment completion timestamp differs from freeze",
+                    )
+                )
+
+        pages_deployments = require_object_list(
+            github_fetcher(
+                repo_root,
+                f"repos/{repository}/deployments?environment=github-pages&per_page=1",
+            ),
+            "GitHub Pages deployments response",
+        )
+        expected_pages_sha = production["secondaryHost"][
+            "latestObservedDeploymentSha"
+        ]
+        if not pages_deployments or pages_deployments[0].get("sha") != expected_pages_sha:
             errors.append(
-                failure("deployment-url", "immutable deployment URL differs from freeze")
+                failure(
+                    "secondary-deployment-sha-mismatch",
+                    "latest GitHub Pages deployment SHA differs from freeze",
+                )
             )
-    except (KeyError, RuntimeError, json.JSONDecodeError) as error:
+    except (KeyError, RuntimeError, json.JSONDecodeError, ValueError) as error:
         errors.append(failure("github-evidence", str(error)))
+    return errors
+
+
+def fetch_bytes(url: str) -> tuple[int, bytes]:
+    request = Request(url, headers={"User-Agent": "lessons-migration-freeze-check/1"})
+    with urlopen(request, timeout=20) as response:
+        return response.status, response.read()
+
+
+def verify_online(freeze: dict[str, Any], repo_root: Path) -> list[str]:
+    precondition_errors = validate_freeze(
+        freeze, repo_root, verify_git_tree=False
+    )
+    if precondition_errors:
+        return [
+            failure("online-precondition", "Freeze contract is invalid"),
+            *precondition_errors,
+        ]
+
+    errors = verify_github_evidence(freeze, repo_root)
+    production = freeze["production"]
+    commit = freeze["preMigrationCommit"]
 
     def compare_path(path: str) -> str | None:
         blob = run_command(
@@ -598,8 +788,14 @@ def verify_online(freeze: dict[str, Any], repo_root: Path) -> list[str]:
             return failure("production-fetch", f"{path}: {error}")
         if status != 200:
             return failure("production-status", f"{path}: HTTP {status}")
-        if hashlib.sha256(body).digest() != hashlib.sha256(blob.stdout).digest():
+        body_digest = hashlib.sha256(body)
+        if body_digest.digest() != hashlib.sha256(blob.stdout).digest():
             return failure("production-content", f"{path}: bytes differ from {commit}")
+        if path == "index.html" and body_digest.hexdigest() != production["indexSha256"]:
+            return failure(
+                "production-index-digest",
+                "index.html digest differs from the frozen indexSha256",
+            )
         return None
 
     with ThreadPoolExecutor(max_workers=8) as executor:
@@ -685,9 +881,39 @@ def run_self_test(freeze: dict[str, Any], repo_root: Path) -> list[str]:
     float_schema_version["schemaVersion"] = 1.0
     cases.append(("float schema version", float_schema_version, "schema-version"))
 
+    malformed_freeze_time = copy.deepcopy(freeze)
+    malformed_freeze_time["frozenAt"] = "not-a-time"
+    cases.append(("malformed freeze time", malformed_freeze_time, "freeze-time"))
+
     malformed_commit = copy.deepcopy(freeze)
     malformed_commit["preMigrationCommit"] = "\x00"
     cases.append(("malformed commit", malformed_commit, "commit-identity"))
+
+    malformed_completion_time = copy.deepcopy(freeze)
+    malformed_completion_time["production"]["deploymentCompletedAt"] = "not-a-time"
+    cases.append(
+        (
+            "malformed deployment completion time",
+            malformed_completion_time,
+            "deployment-completed-at",
+        )
+    )
+
+    malformed_index_digest = copy.deepcopy(freeze)
+    malformed_index_digest["production"]["indexSha256"] = "not-a-digest"
+    cases.append(("malformed index digest", malformed_index_digest, "index-digest"))
+
+    malformed_pages_sha = copy.deepcopy(freeze)
+    malformed_pages_sha["production"]["secondaryHost"][
+        "latestObservedDeploymentSha"
+    ] = "not-a-sha"
+    cases.append(
+        (
+            "malformed secondary deployment SHA",
+            malformed_pages_sha,
+            "secondary-deployment-sha",
+        )
+    )
 
     missing_repository = copy.deepcopy(freeze)
     del missing_repository["production"]["repository"]
@@ -696,6 +922,20 @@ def run_self_test(freeze: dict[str, Any], repo_root: Path) -> list[str]:
     missing_secondary_host = copy.deepcopy(freeze)
     del missing_secondary_host["production"]["secondaryHost"]
     cases.append(("missing secondary host", missing_secondary_host, "freeze-schema"))
+
+    wrong_issue_boundary = copy.deepcopy(freeze)
+    wrong_issue_boundary["issues"]["ticket"] = 999
+    cases.append(("wrong issue boundary", wrong_issue_boundary, "issue-boundary"))
+
+    wrong_preview_risk = copy.deepcopy(freeze)
+    wrong_preview_risk["migration"]["previewRisk"] = "none"
+    cases.append(("wrong Preview risk", wrong_preview_risk, "preview-risk"))
+
+    wrong_secondary_status = copy.deepcopy(freeze)
+    wrong_secondary_status["production"]["secondaryHost"]["expectedStatus"] = 200
+    cases.append(
+        ("wrong secondary host status", wrong_secondary_status, "secondary-host-status")
+    )
 
     manual_trigger = copy.deepcopy(freeze)
     manual_trigger["production"]["trigger"] = "manual"
@@ -712,6 +952,27 @@ def run_self_test(freeze: dict[str, Any], repo_root: Path) -> list[str]:
     cases.append(("moving cutover identity", moving_identity, "cutover-identity"))
 
     errors = []
+    freeze_block = (
+        f"{FREEZE_START}\n```json\n{json.dumps(freeze)}\n```\n{FREEZE_END}\n"
+    )
+    try:
+        parse_freeze_document(freeze_block + freeze_block)
+    except ValueError as error:
+        if "exactly one" not in str(error):
+            errors.append(
+                failure(
+                    "negative-fixture",
+                    f"duplicate Freeze block returned unexpected error: {error}",
+                )
+            )
+    else:
+        errors.append(
+            failure(
+                "negative-fixture",
+                "duplicate Freeze blocks did not fail closed",
+            )
+        )
+
     for name, mutated, expected_code in cases:
         actual = validate_freeze(mutated, repo_root, verify_git_tree=False)
         codes = {item.split("]", 1)[0].lstrip("[") for item in actual}
@@ -722,6 +983,23 @@ def run_self_test(freeze: dict[str, Any], repo_root: Path) -> list[str]:
                     f"{name} did not fail with [{expected_code}]; got {sorted(codes)}",
                 )
             )
+
+    mismatched_index_digest = copy.deepcopy(freeze)
+    mismatched_index_digest["production"]["indexSha256"] = "0" * 64
+    digest_errors = validate_freeze(
+        mismatched_index_digest,
+        repo_root,
+        verify_git_tree=True,
+    )
+    digest_codes = {item.split("]", 1)[0].lstrip("[") for item in digest_errors}
+    if "index-digest-mismatch" not in digest_codes:
+        errors.append(
+            failure(
+                "negative-fixture",
+                "mismatched indexSha256 did not fail against the frozen blob",
+            )
+        )
+
     remote_publication = validate_isolation(
         freeze,
         current_branch=freeze["migration"]["branch"],
@@ -764,6 +1042,98 @@ def run_self_test(freeze: dict[str, Any], repo_root: Path) -> list[str]:
             failure(
                 "negative-fixture",
                 "non-ancestor baseline did not fail with [migration-ancestry]",
+            )
+        )
+
+    def offline_isolation_runner(
+        args: list[str], root: Path, *, text: bool = True
+    ) -> subprocess.CompletedProcess[Any]:
+        if args[:3] == ["git", "ls-remote", "--heads"]:
+            return subprocess.CompletedProcess(args, 0, stdout="", stderr="")
+        return run_command(args, root, text=text)
+
+    def malformed_github_fetcher(root: Path, endpoint: str) -> Any:
+        del root
+        if "environment=Preview" in endpoint:
+            return []
+        return "not-a-json-object"
+
+    malformed_api_errors = verify_github_evidence(
+        freeze,
+        repo_root,
+        github_fetcher=malformed_github_fetcher,
+        command_runner=offline_isolation_runner,
+    )
+    malformed_api_codes = {
+        item.split("]", 1)[0].lstrip("[") for item in malformed_api_errors
+    }
+    if "github-evidence" not in malformed_api_codes:
+        errors.append(
+            failure(
+                "negative-fixture",
+                "malformed GitHub response did not return [github-evidence]",
+            )
+        )
+
+    original_production = freeze["production"]
+    original_repository = original_production["repository"]
+
+    def fixture_github_fetcher(root: Path, endpoint: str) -> Any:
+        del root
+        if "environment=Preview" in endpoint:
+            return []
+        if endpoint == f"repos/{original_repository}":
+            return {"homepage": original_production["canonicalHost"]}
+        if "/commits/" in endpoint:
+            return {"sha": freeze["preMigrationCommit"]}
+        if "environment=Production" in endpoint:
+            return [
+                {
+                    "id": original_production["deploymentId"],
+                    "sha": freeze["preMigrationCommit"],
+                }
+            ]
+        if endpoint.endswith("/statuses"):
+            return [
+                {
+                    "state": "success",
+                    "environment_url": original_production["deploymentUrl"],
+                    "created_at": original_production["deploymentCompletedAt"],
+                }
+            ]
+        if "environment=github-pages" in endpoint:
+            return [
+                {
+                    "sha": original_production["secondaryHost"][
+                        "latestObservedDeploymentSha"
+                    ]
+                }
+            ]
+        raise RuntimeError(f"unexpected fixture endpoint: {endpoint}")
+
+    drifted_evidence = copy.deepcopy(freeze)
+    drifted_evidence["production"][
+        "deploymentCompletedAt"
+    ] = "2099-01-01T00:00:00Z"
+    drifted_evidence["production"]["secondaryHost"][
+        "latestObservedDeploymentSha"
+    ] = "0" * 40
+    drift_errors = verify_github_evidence(
+        drifted_evidence,
+        repo_root,
+        github_fetcher=fixture_github_fetcher,
+        command_runner=offline_isolation_runner,
+    )
+    drift_codes = {item.split("]", 1)[0].lstrip("[") for item in drift_errors}
+    expected_drift_codes = {
+        "deployment-completed-at-mismatch",
+        "secondary-deployment-sha-mismatch",
+    }
+    if not expected_drift_codes.issubset(drift_codes):
+        errors.append(
+            failure(
+                "negative-fixture",
+                "authoritative GitHub evidence drift was not fully blocked",
             )
         )
 
