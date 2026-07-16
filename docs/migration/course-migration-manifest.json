@@ -6681,7 +6681,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/ai-founder-workflow-case-library.html",
@@ -6717,7 +6717,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/ai-functional-workflow-case-library.html",
@@ -6779,7 +6779,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/ai-platform-governance-workflow-case-library.html",
@@ -6815,7 +6815,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/ai-research-data-workflow-case-library.html",
@@ -6851,7 +6851,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/ai-workflow-case-library.html",
@@ -6887,7 +6887,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/ai-workflow-skill-composer.html",
@@ -6923,7 +6923,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/browser-evidence-selector.html",
@@ -7273,7 +7273,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/open-slide-agent-deck-workflow.html",

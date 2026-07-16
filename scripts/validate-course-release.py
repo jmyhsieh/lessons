@@ -306,6 +306,20 @@ def authored_metadata(page: dict[str, Any]) -> dict[str, str]:
                 else "",
             }
         )
+    elif page.get("pageKind") == "deprecation":
+        deprecation = page.get("deprecation")
+        metadata.update(
+            {
+                "course:legacy-identity": page.get("expectedIdentity", ""),
+                "course:retirement-reason": deprecation.get("reason", "")
+                if isinstance(deprecation, dict)
+                else "",
+                "course:retirement-effective": deprecation.get("effective", "")
+                if isinstance(deprecation, dict)
+                else "",
+                "course:evidence-carryover": page.get("evidenceCarryover", ""),
+            }
+        )
     return metadata
 
 
@@ -449,6 +463,56 @@ def validate_compatibility_graph(
                     blocker(
                         "compatibility-exclusion",
                         "Compatibility entry must not render a lesson footer",
+                        path,
+                    )
+                )
+        if kind == "deprecation" and page.get("migrationStatus") == "authored":
+            visible_text = " ".join(documents[path].text_parts)
+            expected_identity = page.get("expectedIdentity")
+            if (
+                not isinstance(expected_identity, str)
+                or expected_identity not in visible_text
+            ):
+                errors.append(
+                    blocker(
+                        "deprecation-identity",
+                        "authored retirement must show its stable legacy identity",
+                        path,
+                    )
+                )
+            if "退役原因" not in visible_text or "生效點" not in visible_text:
+                errors.append(
+                    blocker(
+                        "deprecation-reason",
+                        "authored retirement must show its reason and effective point",
+                        path,
+                    )
+                )
+            if (
+                "Evidence carryover" not in visible_text
+                or "Lesson practiced" not in visible_text
+                or "不會自動" not in visible_text
+            ):
+                errors.append(
+                    blocker(
+                        "deprecation-evidence",
+                        "authored retirement must explain conservative Evidence carryover",
+                        path,
+                    )
+                )
+            if "不再把這個舊身份指派給其他內容" not in visible_text:
+                errors.append(
+                    blocker(
+                        "deprecation-reuse",
+                        "authored retirement must state that its identity is not reused",
+                        path,
+                    )
+                )
+            if documents[path].tag_counts.get("footer", 0):
+                errors.append(
+                    blocker(
+                        "deprecation-exclusion",
+                        "Deprecation notice must not render a lesson footer",
                         path,
                     )
                 )
@@ -791,10 +855,22 @@ def fixture_manifest() -> dict[str, Any]:
         }
     )
     pages[4]["deprecation"] = {
+        "reason": "Retired fixture",
+        "effective": "fixture-cutover",
         "successorTargets": [
             {"path": "lessons/001-0001-target.html", "fragment": None, "role": "successor"}
         ]
     }
+    pages[4].update(
+        {
+            "expectedIdentity": "reference/retired",
+            "canonicalCoordinate": None,
+            "migrationStatus": "authored",
+            "routeMemberships": [],
+            "evidenceCarryover": "lesson-practiced-unless-current-route-stop-is-revalidated",
+            "sourceDependencies": {"state": "not-applicable", "anchorIds": []},
+        }
+    )
     return {"publicationGateMode": REPORT_MODE, "pages": pages}
 
 
@@ -838,7 +914,22 @@ def write_fixture_site(root: Path) -> None:
         encoding="utf-8",
     )
     (root / "reference" / "retired.html").write_text(
-        '<a href="../lessons/001-0001-target.html">Successor</a>', encoding="utf-8"
+        '<!doctype html><html lang="zh-Hant"><head>'
+        '<meta name="course:canonical-coordinate" content="not-applicable">'
+        '<meta name="course:page-kind" content="deprecation">'
+        '<meta name="course:route-roles" content="not-applicable">'
+        '<meta name="course:source-ids" content="not-applicable">'
+        '<meta name="course:legacy-identity" content="reference/retired">'
+        '<meta name="course:retirement-reason" content="Retired fixture">'
+        '<meta name="course:retirement-effective" content="fixture-cutover">'
+        '<meta name="course:evidence-carryover" '
+        'content="lesson-practiced-unless-current-route-stop-is-revalidated">'
+        '</head><body><h1>reference/retired</h1>'
+        '<p>退役原因：fixture retired。生效點：fixture-cutover。</p>'
+        '<p>Evidence carryover：保留 Lesson practiced；不會自動成為 current route evidence。</p>'
+        '<p>此網址不再把這個舊身份指派給其他內容。</p>'
+        '<a href="../lessons/001-0001-target.html">Successor</a></body></html>',
+        encoding="utf-8",
     )
 
 
@@ -885,6 +976,26 @@ def run_site_self_test() -> None:
             "evidence-carryover",
             "compatibility-guidance",
             "compatibility-exclusion",
+        )
+
+        invalid_deprecation = CourseHTMLParser()
+        invalid_deprecation.feed(
+            '<html lang="zh-Hant"><body>'
+            '<a href="../lessons/001-0001-target.html">Successor</a>'
+            '<footer>Retired lesson navigation</footer></body></html>'
+        )
+        invalid_deprecation.close()
+        deprecation_errors = validate_compatibility_graph(
+            manifest,
+            {"reference/retired.html": invalid_deprecation},
+        )
+        assert_codes(
+            deprecation_errors,
+            "deprecation-identity",
+            "deprecation-reason",
+            "deprecation-evidence",
+            "deprecation-reuse",
+            "deprecation-exclusion",
         )
 
         invalid_document = CourseHTMLParser()

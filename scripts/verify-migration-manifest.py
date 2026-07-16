@@ -122,7 +122,7 @@ EXPECTED_NAVIGATION_PATHS = {"index.html", "toc.html"}
 # Independent digests of the reviewed page and route projections pin exact
 # contracts, including the evolving Source mappings, without a second manifest.
 EXPECTED_PAGE_MATRIX_SHA256 = (
-    "0db67fbfcfc788f050cf874781ff585b9aba3458497a5df918d3afb3bc3990aa"
+    "78789d31b169a12efc48c4ad610021130b1c6d9ea26b6dd8df19ad0f57bca701"
 )
 EXPECTED_ROUTE_CONTRACT_SHA256 = (
     "f412397e52c5cc19a858519238f049ac7b3e1ed7c4048f3120073832d5a56a4e"
@@ -1249,6 +1249,45 @@ def validate_thin_slice(manifest: dict[str, Any]) -> list[str]:
             }
         ],
     )
+    role_reference_targets = {
+        "reference/ai-developer-workflow-case-library.html": "developer",
+        "reference/ai-founder-workflow-case-library.html": "founder",
+        "reference/ai-ops-revops-workflow-case-library.html": "operations-revops",
+        "reference/ai-platform-governance-workflow-case-library.html": "platform-governance",
+        "reference/ai-research-data-workflow-case-library.html": "research-data",
+    }
+    for path, fragment in role_reference_targets.items():
+        expect_compatibility(
+            path,
+            "direct",
+            [
+                {
+                    "path": "reference/ai-functional-workflow-case-library.html",
+                    "fragment": fragment,
+                    "role": "canonical-case-hub",
+                }
+            ],
+        )
+    expect_compatibility(
+        "reference/mattpocock-skills-phase3-reference.html",
+        "direct",
+        [
+            {
+                "path": "reference/engineering-delivery-skills-reference.html",
+                "fragment": None,
+                "role": "primary-successor",
+            }
+        ],
+    )
+    for path in [*role_reference_targets, "reference/ai-workflow-case-library.html", "reference/mattpocock-skills-phase3-reference.html"]:
+        page = by_path.get(path, {})
+        if (
+            page.get("canonicalCoordinate") is not None
+            or page.get("routeMemberships") != []
+            or page.get("sourceDependencies")
+            != {"state": "not-applicable", "anchorIds": []}
+        ):
+            errors.append(failure("thin-slice", f"{path} Compatibility exclusions differ"))
 
     legacy_phase_three_contract = {
         "lessons/003-0001-matt-pocock-skills-foundation.html": (
@@ -1389,20 +1428,29 @@ def validate_thin_slice(manifest: dict[str, Any]) -> list[str]:
         if page.get("canonicalCoordinate") is not None or page.get("routeMemberships") != []:
             errors.append(failure("thin-slice", f"{path} must not be reused by a route"))
 
-    deprecation = by_path.get("reference/ai-workflow-skill-composer.html", {}).get(
-        "deprecation"
-    )
-    expected_successor = [
-        {
-            "path": "lessons/009-0003-choose-workflow-package.html",
-            "fragment": None,
-            "role": "workflow-package-selector",
-        }
-    ]
-    if not isinstance(deprecation, dict) or deprecation.get(
-        "successorTargets"
-    ) != expected_successor:
-        errors.append(failure("thin-slice", "Deprecation successor differs"))
+    retired_page = by_path.get("reference/ai-workflow-skill-composer.html", {})
+    expected_deprecation = {
+        "reason": "Workflow Skill composer is retired in favor of packaging one proven workflow",
+        "effective": "coherent-migration-cutover",
+        "successorTargets": [
+            {
+                "path": "lessons/009-0003-choose-workflow-package.html",
+                "fragment": None,
+                "role": "workflow-package-selector",
+            }
+        ],
+        "catalogExcluded": True,
+        "navigationExcluded": True,
+        "completionExcluded": True,
+    }
+    if (
+        retired_page.get("deprecation") != expected_deprecation
+        or retired_page.get("canonicalCoordinate") is not None
+        or retired_page.get("routeMemberships") != []
+        or retired_page.get("sourceDependencies")
+        != {"state": "not-applicable", "anchorIds": []}
+    ):
+        errors.append(failure("thin-slice", "Deprecation contract differs"))
 
     def membership_roles(path: str, route_id: str) -> list[str] | None:
         memberships = by_path.get(path, {}).get("routeMemberships")
