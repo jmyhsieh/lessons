@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
 import json
 import re
 import runpy
@@ -117,6 +118,20 @@ ALLOWED_RETURN_ANCHORS = {
     "toolbox",
 }
 EXPECTED_NAVIGATION_PATHS = {"index.html", "toc.html"}
+BASELINE_MATRIX_FIELDS = (
+    "path",
+    "pageKind",
+    "canonicalCoordinate",
+    "contentDisposition",
+    "routeMemberships",
+    "compatibility",
+    "deprecation",
+)
+# Independent digest of the manually reviewed Issue #12 baseline projection. The
+# digest pins exact dispositions and targets without creating a second manifest.
+EXPECTED_BASELINE_MATRIX_SHA256 = (
+    "42e6e42ebb7edb86481124d1feacc81018a46d04edcd6ab0a949f66b4c9dfb80"
+)
 EXPECTED_TOOLBOX_SELECTIONS = [
     "lessons/002-0002-set-permission-boundaries.html",
     "lessons/002-0003-select-model-and-effort.html",
@@ -129,6 +144,9 @@ EXPECTED_TOOLBOX_SELECTIONS = [
     "lessons/002-0010-run-headless-one-shot.html",
     "lessons/002-0011-bound-ci-automation.html",
 ]
+EXPECTED_ROUTE_REMEDIATION_SHA256 = (
+    "93b56d82e99eba5f65a00ac9590ce0607a9bf8f51517dfa5842e202b3b5c2046"
+)
 EXPECTED_PAGE_POLICIES = {
     "navigation": ("not-applicable", "pending-t03"),
     "canonical-lesson": ("current-route-contract", "pending-t03"),
@@ -304,9 +322,14 @@ def validate_page_schema(page: Any, index: int) -> list[str]:
         or any(ord(character) < 32 or ord(character) == 127 for character in path)
     ):
         errors.append(failure("page-path", f"{path!r} is not a safe HTML path"))
-    if page.get("origin") not in {"baseline", "new"}:
+    if not isinstance(page.get("origin"), str) or page.get("origin") not in {
+        "baseline",
+        "new",
+    }:
         errors.append(failure("page-origin", f"{path} has invalid origin"))
-    if page.get("pageKind") not in ALLOWED_PAGE_KINDS:
+    if not isinstance(page.get("pageKind"), str) or page.get(
+        "pageKind"
+    ) not in ALLOWED_PAGE_KINDS:
         errors.append(failure("page-kind", f"{path} has invalid pageKind"))
     if not isinstance(page.get("expectedIdentity"), str) or not page["expectedIdentity"]:
         errors.append(failure("page-identity", f"{path} needs expectedIdentity"))
@@ -335,15 +358,19 @@ def validate_page_schema(page: Any, index: int) -> list[str]:
     source = page.get("sourceDependencies")
     if not isinstance(source, dict) or set(source) != {"state", "anchorIds"}:
         errors.append(failure("source-placeholder", f"{path} source placeholder is invalid"))
-    elif source.get("state") not in {"not-applicable", "pending-t03"} or source.get(
-        "anchorIds"
-    ) != []:
+    elif (
+        not isinstance(source.get("state"), str)
+        or source.get("state") not in {"not-applicable", "pending-t03"}
+        or source.get("anchorIds") != []
+    ):
         errors.append(
             failure("source-placeholder", f"{path} must not fabricate Source anchors")
         )
     if page.get("migrationStatus") != "planned":
         errors.append(failure("migration-status", f"{path} must remain planned in T02"))
-    if page.get("evidenceCarryover") not in {
+    if not isinstance(page.get("evidenceCarryover"), str) or page.get(
+        "evidenceCarryover"
+    ) not in {
         "current-route-contract",
         "lesson-practiced-unless-current-route-stop-is-revalidated",
         "not-applicable",
@@ -392,7 +419,7 @@ def validate_route_schema(route: Any, index: int) -> list[str]:
         return [failure("route-schema", f"{route_id} has invalid fields")]
     if not isinstance(route_id, str) or not route_id:
         errors.append(failure("route-schema", f"routes[{index}].id is invalid"))
-    if route.get("kind") not in {
+    if not isinstance(route.get("kind"), str) or route.get("kind") not in {
         "extension",
         "foundation",
         "readiness",
@@ -404,7 +431,11 @@ def validate_route_schema(route: Any, index: int) -> list[str]:
     target = route.get("tocReturn")
     errors.extend(validate_target(target, f"{route_id}.tocReturn"))
     if isinstance(target, dict):
-        if target.get("path") != "toc.html" or target.get("fragment") not in ALLOWED_RETURN_ANCHORS:
+        if (
+            target.get("path") != "toc.html"
+            or not isinstance(target.get("fragment"), str)
+            or target.get("fragment") not in ALLOWED_RETURN_ANCHORS
+        ):
             errors.append(failure("route-return", f"{route_id} has invalid TOC return"))
     if not isinstance(route.get("entry"), str):
         errors.append(failure("route-schema", f"{route_id}.entry must be a path"))
@@ -414,7 +445,8 @@ def validate_route_schema(route: Any, index: int) -> list[str]:
     else:
         readiness_targets = readiness.get("targets")
         if (
-            readiness.get("mode") not in {"all-of", "any-of"}
+            not isinstance(readiness.get("mode"), str)
+            or readiness.get("mode") not in {"all-of", "any-of"}
             or not isinstance(readiness_targets, list)
             or not readiness_targets
             or not all(isinstance(path, str) for path in readiness_targets)
@@ -443,7 +475,9 @@ def validate_route_schema(route: Any, index: int) -> list[str]:
             if set(continuation) != {"kind", "routeId", "target"}:
                 errors.append(failure("route-continuation", f"{label} has invalid fields"))
                 continue
-            if continuation.get("kind") not in ALLOWED_STATIC_CONTINUATION_KINDS:
+            if not isinstance(continuation.get("kind"), str) or continuation.get(
+                "kind"
+            ) not in ALLOWED_STATIC_CONTINUATION_KINDS:
                 errors.append(failure("route-continuation-kind", f"{label} kind is invalid"))
             target_route = continuation.get("routeId")
             if target_route is not None and not isinstance(target_route, str):
@@ -474,7 +508,9 @@ def validate_route_schema(route: Any, index: int) -> list[str]:
             if not isinstance(edge, dict) or set(edge) != {"kind", "from", "to", "rejoin"}:
                 errors.append(failure("route-edge-schema", f"{label} is invalid"))
                 continue
-            if edge.get("kind") not in ALLOWED_EDGE_KINDS:
+            if not isinstance(edge.get("kind"), str) or edge.get(
+                "kind"
+            ) not in ALLOWED_EDGE_KINDS:
                 errors.append(failure("route-edge-schema", f"{label} kind is invalid"))
             if not isinstance(edge.get("from"), str):
                 errors.append(failure("route-edge-schema", f"{label}.from must be a path"))
@@ -647,6 +683,26 @@ def validate_manifest(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[
         errors.append(
             failure("navigation-paths", f"navigation paths differ: {sorted(navigation_paths)}")
         )
+    baseline_projection = [
+        {field: page[field] for field in BASELINE_MATRIX_FIELDS}
+        for page in pages
+        if page["origin"] == "baseline"
+    ]
+    baseline_digest = hashlib.sha256(
+        json.dumps(
+            baseline_projection,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    if baseline_digest != EXPECTED_BASELINE_MATRIX_SHA256:
+        errors.append(
+            failure(
+                "baseline-matrix",
+                "Issue #12 baseline dispositions or final targets differ",
+            )
+        )
 
     by_path = {page["path"]: page for page in pages}
     canonical_kinds = {"navigation", "canonical-lesson", "canonical-reference"}
@@ -722,7 +778,9 @@ def validate_manifest(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[
                 errors.append(failure("compatibility-schema", f"{path} is invalid"))
                 continue
             targets = compatibility.get("finalTargets")
-            if compatibility.get("mode") not in {"direct", "transition"}:
+            if not isinstance(compatibility.get("mode"), str) or compatibility.get(
+                "mode"
+            ) not in {"direct", "transition"}:
                 errors.append(failure("compatibility-mode", f"{path} mode is invalid"))
             if not isinstance(targets, list) or not targets:
                 errors.append(failure("compatibility-target", f"{path} needs targets"))
@@ -1055,33 +1113,25 @@ def validate_manifest(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[
                 errors.append(
                     failure("route-remediation", f"{label} dynamic return is toolbox-only")
                 )
-        if route_id == "toolbox" and route["remediation"] != [
-            {
-                "when": "tool-selection-gap",
-                "target": "lessons/002-0001-choose-toolbox-lesson.html",
-                "returnTo": {
-                    "source": "route-notebook.targetedRemediationReturnPoint",
-                    "fallback": "tocReturn",
-                },
-            }
-        ]:
-            errors.append(
-                failure("route-remediation", "toolbox remediation contract differs")
+    remediation_projection = [
+        {"id": route["id"], "remediation": route["remediation"]}
+        for route in routes
+    ]
+    remediation_digest = hashlib.sha256(
+        json.dumps(
+            remediation_projection,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    if remediation_digest != EXPECTED_ROUTE_REMEDIATION_SHA256:
+        errors.append(
+            failure(
+                "route-remediation-contract",
+                "approved route remediation mappings differ",
             )
-        if route_id == "workflow-standardization":
-            remediation_targets = {
-                remediation["target"] for remediation in route["remediation"]
-            }
-            if remediation_targets != set(route["readiness"]["targets"]) or any(
-                remediation["returnTo"] != route["entry"]
-                for remediation in route["remediation"]
-            ):
-                errors.append(
-                    failure(
-                        "route-remediation",
-                        "workflow-standardization must remediate every accepted origin",
-                    )
-                )
+        )
     return errors
 
 
@@ -1444,6 +1494,72 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
         ("malformed dynamic return", malformed_dynamic_return, "route-continuation")
     )
 
+    container_origin = copy.deepcopy(manifest)
+    container_origin["pages"][0]["origin"] = []
+    cases.append(("container origin enum", container_origin, "page-origin"))
+
+    container_page_kind = copy.deepcopy(manifest)
+    container_page_kind["pages"][0]["pageKind"] = {}
+    cases.append(("container pageKind enum", container_page_kind, "page-kind"))
+
+    container_source_state = copy.deepcopy(manifest)
+    container_source_state["pages"][0]["sourceDependencies"]["state"] = []
+    cases.append(
+        ("container Source state enum", container_source_state, "source-placeholder")
+    )
+
+    container_carryover = copy.deepcopy(manifest)
+    container_carryover["pages"][0]["evidenceCarryover"] = {}
+    cases.append(
+        ("container carryover enum", container_carryover, "evidence-carryover")
+    )
+
+    container_route_kind = copy.deepcopy(manifest)
+    container_route_kind["routes"][0]["kind"] = []
+    cases.append(("container route kind enum", container_route_kind, "route-schema"))
+
+    container_readiness_mode = copy.deepcopy(manifest)
+    container_readiness_mode["routes"][0]["readiness"]["mode"] = {}
+    cases.append(
+        ("container readiness mode enum", container_readiness_mode, "route-readiness")
+    )
+
+    container_continuation_kind = copy.deepcopy(manifest)
+    container_continuation_kind["routes"][0]["continuations"][0]["kind"] = []
+    cases.append(
+        (
+            "container continuation kind enum",
+            container_continuation_kind,
+            "route-continuation-kind",
+        )
+    )
+
+    container_edge_kind = copy.deepcopy(manifest)
+    container_edge_kind["routes"][0]["edges"][0]["kind"] = {}
+    cases.append(
+        ("container edge kind enum", container_edge_kind, "route-edge-schema")
+    )
+
+    container_compatibility_mode = copy.deepcopy(manifest)
+    next(
+        page
+        for page in container_compatibility_mode["pages"]
+        if page["pageKind"] == "compatibility"
+    )["compatibility"]["mode"] = []
+    cases.append(
+        (
+            "container Compatibility mode enum",
+            container_compatibility_mode,
+            "compatibility-mode",
+        )
+    )
+
+    container_toc_fragment = copy.deepcopy(manifest)
+    container_toc_fragment["routes"][0]["tocReturn"]["fragment"] = []
+    cases.append(
+        ("container TOC fragment enum", container_toc_fragment, "target-fragment")
+    )
+
     malformed_remediation_return = copy.deepcopy(manifest)
     next(
         route
@@ -1564,7 +1680,11 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
         if route["id"] == "toolbox"
     )["remediation"][0]["target"] = "lessons/001-0002-define-route-readiness.html"
     cases.append(
-        ("wrong toolbox remediation", wrong_toolbox_remediation, "route-remediation")
+        (
+            "wrong toolbox remediation",
+            wrong_toolbox_remediation,
+            "route-remediation-contract",
+        )
     )
 
     missing_origin_remediation = copy.deepcopy(manifest)
@@ -1577,7 +1697,53 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
         (
             "missing originating-route remediation",
             missing_origin_remediation,
-            "route-remediation",
+            "route-remediation-contract",
+        )
+    )
+
+    wrong_general_remediation_target = copy.deepcopy(manifest)
+    next(
+        route
+        for route in wrong_general_remediation_target["routes"]
+        if route["id"] == "common-foundation"
+    )["remediation"][0][
+        "target"
+    ] = "lessons/012-0007-complete-governance-lifecycle-policy.html"
+    cases.append(
+        (
+            "wrong general remediation target",
+            wrong_general_remediation_target,
+            "route-remediation-contract",
+        )
+    )
+
+    wrong_general_remediation_condition = copy.deepcopy(manifest)
+    next(
+        route
+        for route in wrong_general_remediation_condition["routes"]
+        if route["id"] == "common-foundation"
+    )["remediation"][0]["when"] = "invented-gap"
+    cases.append(
+        (
+            "wrong general remediation condition",
+            wrong_general_remediation_condition,
+            "route-remediation-contract",
+        )
+    )
+
+    wrong_general_remediation_return = copy.deepcopy(manifest)
+    next(
+        route
+        for route in wrong_general_remediation_return["routes"]
+        if route["id"] == "common-foundation"
+    )["remediation"][0][
+        "returnTo"
+    ] = "lessons/001-0001-four-claude-surfaces.html"
+    cases.append(
+        (
+            "wrong general remediation return",
+            wrong_general_remediation_return,
+            "route-remediation-contract",
         )
     )
 
@@ -1589,7 +1755,35 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
     )["compatibility"]["finalTargets"][0][
         "path"
     ] = "lessons/001-0003-complete-cowork-starter.html"
-    cases.append(("exact target swap", exact_target_swap, "thin-slice"))
+    cases.append(("exact target swap", exact_target_swap, "baseline-matrix"))
+
+    unsampled_disposition = copy.deepcopy(manifest)
+    next(
+        page
+        for page in unsampled_disposition["pages"]
+        if page["path"] == "lessons/001-0003-read-only-repo-tour.html"
+    )["contentDisposition"]["actions"] = ["keep"]
+    cases.append(
+        ("unsampled disposition change", unsampled_disposition, "baseline-matrix")
+    )
+
+    unsampled_target = copy.deepcopy(manifest)
+    next(
+        page
+        for page in unsampled_target["pages"]
+        if page["path"] == "lessons/001-0003-read-only-repo-tour.html"
+    )["compatibility"]["finalTargets"][0][
+        "path"
+    ] = "lessons/001-0004-prepare-claude-code-session.html"
+    cases.append(("unsampled target change", unsampled_target, "baseline-matrix"))
+
+    unsampled_fragment = copy.deepcopy(manifest)
+    next(
+        page
+        for page in unsampled_fragment["pages"]
+        if page["path"] == "reference/ai-developer-workflow-case-library.html"
+    )["compatibility"]["finalTargets"][0]["fragment"] = "founder"
+    cases.append(("unsampled fragment change", unsampled_fragment, "baseline-matrix"))
 
     removed_conditional_role = copy.deepcopy(manifest)
     roles = next(
@@ -1598,7 +1792,7 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
         if page["path"] == "lessons/004-0003-sync-design-system.html"
     )["routeMemberships"][0]["roles"]
     roles.remove("conditional")
-    cases.append(("removed conditional role", removed_conditional_role, "thin-slice"))
+    cases.append(("removed conditional role", removed_conditional_role, "baseline-matrix"))
 
     removed_conditional_disposition = copy.deepcopy(manifest)
     next(
@@ -1610,7 +1804,7 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
         (
             "removed conditional disposition",
             removed_conditional_disposition,
-            "thin-slice",
+            "baseline-matrix",
         )
     )
 
@@ -1702,12 +1896,23 @@ def main() -> int:
             print("PUBLICATION UNAFFECTED (report-only)")
         return exit_status(manifest_errors, report_only=args.report_only)
 
-    manifest_errors = validate_manifest(manifest, freeze)
-    thin_slice_errors = (
-        validate_thin_slice(manifest)
-        if not manifest_errors
-        else [failure("thin-slice-skipped", "valid manifest is required")]
-    )
+    try:
+        manifest_errors = validate_manifest(manifest, freeze)
+        thin_slice_errors = (
+            validate_thin_slice(manifest)
+            if not manifest_errors
+            else [failure("thin-slice-skipped", "valid manifest is required")]
+        )
+    except Exception as error:
+        manifest_errors = [
+            failure(
+                "validator-runtime",
+                f"validation raised {type(error).__name__}: {error}",
+            )
+        ]
+        thin_slice_errors = [
+            failure("thin-slice-skipped", "validator runtime blocker must be resolved")
+        ]
     report("MIGRATION MANIFEST", manifest_errors)
     report("POSITIVE THIN SLICE", thin_slice_errors)
     all_errors.extend(manifest_errors)
