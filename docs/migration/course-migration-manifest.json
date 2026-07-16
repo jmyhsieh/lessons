@@ -7427,10 +7427,12 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "course-shared-vocabulary-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     }
   ]
 }

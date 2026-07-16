@@ -50,6 +50,8 @@ class CourseHTMLParser(HTMLParser):
         self.tag_counts: dict[str, int] = {}
         self.lang: str | None = None
         self.metadata: dict[str, list[str | None]] = {}
+        self.route_links: list[dict[str, str | None]] = []
+        self.catalog_links: list[dict[str, str | None]] = []
         self.quizzes: list[dict[str, Any]] = []
         self._quiz_stack: list[dict[str, Any]] = []
 
@@ -74,6 +76,15 @@ class CourseHTMLParser(HTMLParser):
             href = attributes.get("href")
             if href is not None:
                 self.hrefs.append(href)
+                route_role = attributes.get("data-route-role")
+                route_id = attributes.get("data-route-id")
+                if route_role is not None or route_id is not None:
+                    self.route_links.append(
+                        {"href": href, "role": route_role, "routeId": route_id}
+                    )
+                catalog_kind = attributes.get("data-catalog-kind")
+                if catalog_kind is not None:
+                    self.catalog_links.append({"href": href, "kind": catalog_kind})
 
         if tag == "div":
             for quiz in self._quiz_stack:
@@ -264,6 +275,178 @@ def validate_inventory_contract(
             )
         )
 
+    return errors
+
+
+TOC_SECTION_ANCHORS = {
+    "start",
+    "common-foundation",
+    "task-routes",
+    "extensions",
+    "toolbox",
+    "phase-catalog",
+    "references",
+}
+
+
+def validate_route_first_toc(
+    manifest: Any, documents: dict[str, CourseHTMLParser]
+) -> list[dict[str, str]]:
+    """Verify the learner-visible route catalog against the manifest graph."""
+    if not isinstance(manifest, dict):
+        return [blocker("toc-manifest", "manifest must be an object", "toc.html")]
+    routes = manifest.get("routes")
+    phases = manifest.get("phaseCatalog")
+    pages = manifest.get("pages")
+    if not isinstance(routes, list) or not isinstance(phases, list) or not isinstance(pages, list):
+        return []
+    document = documents.get("toc.html")
+    if document is None:
+        return [blocker("toc-missing", "route-first TOC is absent", "toc.html")]
+
+    errors: list[dict[str, str]] = []
+    required_anchors = set(TOC_SECTION_ANCHORS)
+    required_anchors.update(
+        toc_return.get("fragment")
+        for route in routes
+        if isinstance(route, dict)
+        and isinstance((toc_return := route.get("tocReturn")), dict)
+        and isinstance(toc_return.get("fragment"), str)
+    )
+    missing_anchors = sorted(required_anchors - set(document.ids))
+    if missing_anchors:
+        errors.append(
+            blocker(
+                "toc-section-anchors",
+                "missing route catalog anchors: " + ", ".join(missing_anchors),
+                "toc.html",
+            )
+        )
+
+    linked_identities = document_link_identities("toc.html", document)
+    linked_paths = {path for path, _fragment in linked_identities}
+    canonical_lessons = {
+        page.get("path")
+        for page in pages
+        if isinstance(page, dict) and page.get("pageKind") == "canonical-lesson"
+    }
+    canonical_references = {
+        page.get("path")
+        for page in pages
+        if isinstance(page, dict) and page.get("pageKind") == "canonical-reference"
+    }
+    excluded = {
+        page.get("path")
+        for page in pages
+        if isinstance(page, dict) and page.get("pageKind") in {"compatibility", "deprecation"}
+    }
+    catalog_lessons = Counter()
+    catalog_references = Counter()
+    for link in document.catalog_links:
+        resolved = resolve_internal_href("toc.html", link.get("href") or "")
+        if resolved is None:
+            continue
+        path, _fragment = resolved
+        if link.get("kind") == "lesson":
+            catalog_lessons[path] += 1
+        elif link.get("kind") == "reference":
+            catalog_references[path] += 1
+    expected_lessons = Counter({path: 1 for path in canonical_lessons})
+    expected_references = Counter({path: 1 for path in canonical_references})
+    visible_excluded = sorted(excluded & linked_paths)
+    if catalog_lessons != expected_lessons:
+        missing_lessons = sorted(expected_lessons - catalog_lessons)
+        duplicate_lessons = sorted(
+            path for path, count in catalog_lessons.items() if count != 1
+        )
+        errors.append(
+            blocker(
+                "toc-canonical-lessons",
+                "Phase catalog must list each of 105 canonical lessons exactly once; "
+                f"missing {len(missing_lessons)}, duplicate-or-extra {len(duplicate_lessons)}",
+                "toc.html",
+            )
+        )
+    if catalog_references != expected_references:
+        missing_references = sorted(expected_references - catalog_references)
+        duplicate_references = sorted(
+            path for path, count in catalog_references.items() if count != 1
+        )
+        errors.append(
+            blocker(
+                "toc-canonical-references",
+                "References must list each of 18 canonical references exactly once; "
+                f"missing {len(missing_references)}, duplicate-or-extra {len(duplicate_references)}",
+                "toc.html",
+            )
+        )
+    if visible_excluded:
+        errors.append(
+            blocker(
+                "toc-compatibility-exclusion",
+                "compatibility and deprecation paths must stay out of navigation: "
+                + ", ".join(visible_excluded[:5]),
+                "toc.html",
+            )
+        )
+
+    semantic_links = set()
+    for link in document.route_links:
+        resolved = resolve_internal_href("toc.html", link.get("href") or "")
+        if resolved is not None:
+            path, fragment = resolved
+            semantic_links.add(
+                (link.get("routeId"), link.get("role"), (path, fragment or None))
+            )
+    expected_semantic_links = set()
+    for route in routes:
+        if not isinstance(route, dict) or not isinstance(route.get("id"), str):
+            continue
+        route_id = route["id"]
+        expected: list[tuple[str, str, str | None]] = []
+        entry = route.get("entry")
+        if isinstance(entry, str):
+            expected.append(("entry", entry, None))
+        readiness = route.get("readiness")
+        if isinstance(readiness, dict):
+            expected.extend(
+                ("readiness", target, None)
+                for target in readiness.get("targets", [])
+                if isinstance(target, str)
+            )
+        stop = route.get("stop")
+        if isinstance(stop, str):
+            expected.append(("stop", stop, None))
+        for continuation in route.get("continuations", []):
+            target = continuation.get("target") if isinstance(continuation, dict) else None
+            if isinstance(target, dict) and isinstance(target.get("path"), str):
+                expected.append(("continuation", target["path"], target.get("fragment")))
+        for role, path, fragment in expected:
+            identity = (path, fragment)
+            semantic_identity = (route_id, role, identity)
+            expected_semantic_links.add(semantic_identity)
+            if semantic_identity not in semantic_links:
+                errors.append(
+                    blocker(
+                        "toc-route-link",
+                        f"{route_id} lacks {role} link to {path}"
+                        + (f"#{fragment}" if fragment else ""),
+                        "toc.html",
+                    )
+                )
+    unexpected_semantic_links = sorted(
+        semantic_links - expected_semantic_links,
+        key=repr,
+    )
+    if unexpected_semantic_links:
+        errors.append(
+            blocker(
+                "toc-route-link",
+                "route-role links not declared by the manifest: "
+                + ", ".join(repr(item) for item in unexpected_semantic_links[:5]),
+                "toc.html",
+            )
+        )
     return errors
 
 
@@ -619,6 +802,7 @@ def validate_site_release(
     )
     link_quiz_errors = validate_links_and_quizzes(repo_root, documents)
     compatibility_errors = validate_compatibility_graph(manifest, documents)
+    toc_errors = validate_route_first_toc(manifest, documents)
     authored_paths: set[str] = set()
     if isinstance(manifest, dict):
         authored_paths = {
@@ -646,6 +830,7 @@ def validate_site_release(
     errors.extend(contract_errors)
     errors.extend(link_quiz_errors)
     errors.extend(compatibility_errors)
+    errors.extend(toc_errors)
     errors.extend(authored_errors)
     details = {
         "physicalHtmlPages": len(actual_paths),
@@ -659,6 +844,7 @@ def validate_site_release(
         "inventoryContractBlockers": len(contract_errors),
         "linkOrQuizBlockers": len(link_quiz_errors),
         "compatibilityBlockers": len(compatibility_errors),
+        "tocBlockers": len(toc_errors),
         "authoredPageBlockers": len(authored_errors),
     }
     return details, errors
@@ -759,9 +945,15 @@ def build_authored_slice_report(
         for error in validate_compatibility_graph(manifest, documents)
         if error_matches_paths(error, required_paths)
     ]
+    toc_errors = (
+        validate_route_first_toc(manifest, documents)
+        if "toc.html" in required_paths
+        else []
+    )
     errors.extend(metadata_errors)
     errors.extend(link_quiz_errors)
     errors.extend(compatibility_errors)
+    errors.extend(toc_errors)
 
     source_report = source_module["trace_registry"](
         registry, manifest, as_of=as_of
@@ -796,6 +988,7 @@ def build_authored_slice_report(
         "metadataBlockers": len(metadata_errors),
         "linkOrQuizBlockers": len(link_quiz_errors),
         "compatibilityBlockers": len(compatibility_errors),
+        "tocBlockers": len(toc_errors),
         "sourceTrace": source_report.get("summary", {}),
     }
     report["releaseReady"] = not errors
@@ -1166,6 +1359,84 @@ def run_self_test(repo_root: Path) -> None:
 
     actual_paths = collect_site_paths(repo_root)
     assert validate_inventory_contract(manifest, actual_paths) == []
+
+    documents, parse_errors = parse_site_documents(repo_root, actual_paths)
+    assert parse_errors == [], parse_errors
+    assert validate_route_first_toc(manifest, documents) == []
+
+    toc_drift = copy.deepcopy(documents["toc.html"])
+    toc_drift.ids.remove("start")
+    removed_route_link = toc_drift.route_links.pop(0)
+    removed_route_href = removed_route_link["href"]
+    canonical_lesson = next(
+        page["path"]
+        for page in manifest["pages"]
+        if page["pageKind"] == "canonical-lesson"
+        and sum(
+            resolve_internal_href("toc.html", href) == (page["path"], "")
+            for href in toc_drift.hrefs
+        )
+        == 1
+    )
+    canonical_reference = next(
+        page["path"]
+        for page in manifest["pages"]
+        if page["pageKind"] == "canonical-reference"
+    )
+    compatibility_path = next(
+        page["path"]
+        for page in manifest["pages"]
+        if page["pageKind"] == "compatibility"
+    )
+    toc_drift.hrefs = [
+        href
+        for href in toc_drift.hrefs
+        if resolve_internal_href("toc.html", href)[0]
+        not in {canonical_lesson, canonical_reference}
+    ]
+    toc_drift.catalog_links = [
+        link
+        for link in toc_drift.catalog_links
+        if resolve_internal_href("toc.html", link.get("href") or "")[0]
+        not in {canonical_lesson, canonical_reference}
+    ]
+    toc_drift.hrefs.append(compatibility_path)
+    assert_codes(
+        validate_route_first_toc(manifest, {"toc.html": toc_drift}),
+        "toc-section-anchors",
+        "toc-canonical-lessons",
+        "toc-canonical-references",
+        "toc-compatibility-exclusion",
+        "toc-route-link",
+    )
+    assert removed_route_href is not None
+
+    duplicate_toc = copy.deepcopy(documents["toc.html"])
+    duplicate_lesson = next(
+        link for link in duplicate_toc.catalog_links if link.get("kind") == "lesson"
+    )
+    duplicate_reference = next(
+        link for link in duplicate_toc.catalog_links if link.get("kind") == "reference"
+    )
+    duplicate_toc.catalog_links.extend([duplicate_lesson, duplicate_reference])
+    assert_codes(
+        validate_route_first_toc(manifest, {"toc.html": duplicate_toc}),
+        "toc-canonical-lessons",
+        "toc-canonical-references",
+    )
+    extra_route_link = copy.deepcopy(documents["toc.html"])
+    extra_route_link.route_links.append(
+        {
+            "href": "lessons/001-0007-prove-code-readiness.html",
+            "role": "stop",
+            "routeId": "common-foundation",
+        }
+    )
+    assert_codes(
+        validate_route_first_toc(manifest, {"toc.html": extra_route_link}),
+        "toc-route-link",
+    )
+    assert_codes(validate_route_first_toc(manifest, {}), "toc-missing")
 
     physical_count_drift = set(actual_paths)
     physical_count_drift.remove(next(iter(physical_count_drift)))

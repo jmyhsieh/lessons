@@ -3,356 +3,397 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>課目表 — Claude / Claude Code / AI workflow skills</title>
+<meta name="course:canonical-coordinate" content="not-applicable">
+<meta name="course:page-kind" content="navigation">
+<meta name="course:route-roles" content="not-applicable">
+<meta name="course:source-ids" content="course-shared-vocabulary-contract">
+<link rel="icon" href="data:,">
+<title>課程路線與目錄 — Claude workflow course</title>
 <style>
-  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
-         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
-  h1 { font-size: 1.6rem; margin-bottom: .2rem; }
-  .sub { color: #666; margin-top: 0; }
-  h2 { font-size: 1.15rem; margin-top: 2.2rem; padding-bottom: .3rem; }
-  h2.p1 { color: #c2571a; border-bottom: 2px solid #c2571a; }
-  h2.p2 { color: #9a5a00; border-bottom: 2px solid #9a5a00; }
-  h2.p3 { color: #1a6b5a; border-bottom: 2px solid #1a6b5a; }
-  h2.p4 { color: #6f4dbf; border-bottom: 2px solid #6f4dbf; }
-  h2.p5 { color: #315f86; border-bottom: 2px solid #315f86; }
-  table { border-collapse: collapse; width: 100%; font-size: .92rem; }
-  td { border-bottom: 1px solid #eee; padding: .5rem .6rem; vertical-align: top; }
-  td.no { width: 2.8rem; color: #999; font-variant-numeric: tabular-nums; }
-  td.track { width: 7.5rem; color: #777; font-size: .85rem; }
-  a { color: #b04a12; text-decoration: none; }
-  .p2sec a { color: #8a5a00; }
-  .p3sec a { color: #15564a; }
-  .p4sec a { color: #5a3ba8; }
-  .p5sec a { color: #315f86; }
-  a:hover { text-decoration: underline; }
-  .flow { border: 1px solid #e8e0d8; border-left-width: 4px; border-radius: 8px; padding: .75rem .9rem; margin: .8rem 0 1.4rem; background: #fffdfa; font-size: .86rem; line-height: 1.65; }
-  .p2sec .flow { border-left-color: #9a5a00; background: #fffaf1; }
-  .p3sec .flow { border-left-color: #1a6b5a; background: #f8fcfa; }
-  .p4sec .flow { border-left-color: #6f4dbf; background: #faf8ff; }
-  .p5sec .flow { border-left-color: #315f86; background: #f6f9fc; }
-  .flow-title { font-weight: 700; margin-bottom: .35rem; color: #333; }
-  .flow-note { margin: 0 0 .45rem; color: #666; }
-  .flow-row { display: grid; grid-template-columns: 4.8rem 1fr; gap: .35rem .65rem; align-items: start; margin-top: .35rem; }
-  .flow-label { color: #666; font-weight: 700; }
-  .flow-steps { display: flex; flex-wrap: wrap; gap: .28rem; }
-  .flow-steps a { display: inline-block; border: 1px solid #e5ded8; border-radius: 999px; background: #fff; padding: .08rem .5rem; line-height: 1.45; }
-  code { white-space: normal; }
-  .ref { background: #faf7f4; border: 1px solid #e8e0d8; border-radius: 8px; padding: .8rem 1.2rem; margin: 1rem 0 2rem; }
-  .done { color: #2e7d32; }
-  footer { margin-top: 2.5rem; font-size: .85rem; color: #888; border-top: 1px solid #eee; padding-top: .8rem; }
+  :root { color-scheme: light; --ink:#17211b; --muted:#5d6962; --line:#d9e0db; --paper:#fbfcfa; --accent:#176b4d; --accent-soft:#eaf5ef; --warm:#94551f; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin:0; color:var(--ink); background:var(--paper); font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif; line-height:1.65; }
+  main, .topbar { width:min(1120px, calc(100% - 2rem)); margin-inline:auto; }
+  .topbar { padding:1rem 0; }
+  a { color:var(--accent); text-underline-offset:.18em; }
+  .hero { padding:3.5rem 0 2.5rem; border-block:1px solid var(--line); background:linear-gradient(135deg,#f0f7f3,#fff8ef); }
+  .hero > div { width:min(1120px, calc(100% - 2rem)); margin:auto; }
+  h1 { max-width:18ch; font-size:clamp(2.1rem,6vw,4.6rem); line-height:1.05; margin:0 0 1rem; }
+  .lede { max-width:68ch; color:var(--muted); font-size:1.08rem; }
+  .jump { display:flex; flex-wrap:wrap; gap:.55rem; margin-top:1.5rem; }
+  .jump a { border:1px solid var(--line); background:white; border-radius:999px; padding:.35rem .75rem; text-decoration:none; }
+  section { padding-top:3.2rem; scroll-margin-top:1rem; }
+  h2 { font-size:clamp(1.5rem,3vw,2.35rem); margin:0 0 .45rem; }
+  .section-intro { color:var(--muted); max-width:72ch; margin:0 0 1.25rem; }
+  .route-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+  .route-card { min-width:0; border:1px solid var(--line); border-radius:14px; padding:1.1rem; background:white; scroll-margin-top:1rem; }
+  .route-card h3 { margin:0; font-size:1.15rem; }
+  .route-kind { color:var(--warm); font:700 .76rem/1.2 ui-monospace,monospace; text-transform:uppercase; letter-spacing:.06em; }
+  dl, dd { margin:0; }
+  dl > div { display:grid; grid-template-columns:7.2rem minmax(0,1fr); gap:.65rem; border-top:1px solid #edf0ee; padding:.65rem 0; }
+  dt { font-weight:750; }
+  dd { min-width:0; overflow-wrap:anywhere; }
+  dd small { display:block; color:var(--muted); margin-top:.25rem; }
+  .mode { color:var(--muted); font:700 .72rem/1 ui-monospace,monospace; margin-right:.25rem; }
+  .evidence { margin:.7rem 0 0; padding:.7rem; background:var(--accent-soft); border-radius:8px; }
+  .toolbox-card { border:1px solid #e5d2bc; background:#fff9f2; border-radius:14px; padding:1rem; }
+  .phase { border-top:1px solid var(--line); }
+  .phase:last-child { border-bottom:1px solid var(--line); }
+  .phase summary { cursor:pointer; padding:1rem .15rem; font-weight:750; }
+  .phase summary span { color:var(--muted); font-weight:400; margin-left:.4rem; }
+  .phase ol { list-style:none; padding:0 0 1rem; margin:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.35rem 1.2rem; }
+  .phase li { display:grid; grid-template-columns:5rem minmax(0,1fr); gap:.5rem; align-items:start; }
+  .phase li span { color:var(--muted); font:400 .8rem/1.8 ui-monospace,monospace; }
+  .reference-list { columns:2; column-gap:2rem; padding-left:1.3rem; }
+  .reference-list li { break-inside:avoid; margin:.35rem 0; }
+  .note { border-left:4px solid var(--accent); padding:.6rem .9rem; background:var(--accent-soft); }
+  .page-end { margin:4rem 0 2rem; color:var(--muted); border-top:1px solid var(--line); padding-top:1rem; }
+  @media (max-width:720px) {
+    .route-grid, .phase ol { grid-template-columns:1fr; }
+    dl > div { grid-template-columns:1fr; gap:.15rem; }
+    .reference-list { columns:1; }
+    .hero { padding-top:2.4rem; }
+  }
 </style>
 </head>
 <body>
-<p style="margin:0"><a href="index.html" style="font-size:.85rem">← 封面</a></p>
-<h1>課目表</h1>
-<p class="sub">Claude 工作表面 → 安全開始 → 進階工具箱 → 從需求到交付 → Design-to-Code → 日常視覺應用 · 共 53 課 · 核心約 13 小時，完整選修約 22 小時</p>
+<nav class="topbar" aria-label="頁面導覽"><a href="index.html">← 封面</a></nav>
+<header class="hero">
+  <div>
+    <p>Claude workflow course</p>
+    <h1>先選任務路線，再查 Phase 目錄</h1>
+    <p class="lede">這不是要從 Phase 1 一路讀到 Phase 12 的線性課表。先完成 Common foundation，依任務選一條 route；只有任務碰到缺口時，才插入 readiness 或 toolbox 課程。</p>
+    <nav class="jump" aria-label="目錄捷徑">
+      <a href="#start">開始</a><a href="#task-routes">Task routes</a><a href="#extensions">Advanced extensions</a><a href="#toolbox">Toolbox</a><a href="#phase-catalog">Phase catalog</a><a href="#references">References</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section id="start">
+    <h2 id="common-foundation">Common foundation</h2>
+    <p class="section-intro">所有學習者先選對 Claude surface、寫下任務 route，並確認下一步需要的 readiness。Cowork starter 與 Code readiness 只補足路線起步能力，不等於完成任務交付。</p>
+    <div class="route-grid"><article class="route-card" id="route-common-foundation">
+  <h3>Common foundation</h3>
+  <p class="route-kind">foundation</p>
+  <dl>
+    <div><dt>Entry</dt><dd><a data-route-id="common-foundation" data-route-role="entry" href="lessons/001-0001-four-claude-surfaces.html">先選工作表面，再選 Task route</a></dd></div>
+    <div><dt>Readiness</dt><dd><span class="mode">all-of</span> <a data-route-id="common-foundation" data-route-role="readiness" href="lessons/001-0001-four-claude-surfaces.html">先選工作表面，再選 Task route</a></dd></div>
+    <div><dt>Stop</dt><dd><a data-route-id="common-foundation" data-route-role="stop" href="lessons/001-0002-define-route-readiness.html">把安全範圍與續作點寫成 Return notebook</a><small>Stop after route choice and readiness evidence are recorded</small></dd></div>
+    <div><dt>Continuation</dt><dd><a data-route-id="common-foundation" data-route-role="continuation" href="lessons/001-0003-complete-cowork-starter.html">Cowork starter route</a>、<a data-route-id="common-foundation" data-route-role="continuation" href="lessons/003-0001-select-knowledge-deliverable.html">Knowledge Work delivery route</a>、<a data-route-id="common-foundation" data-route-role="continuation" href="lessons/004-0001-choose-claude-design-surface.html">Design delivery route</a>、<a data-route-id="common-foundation" data-route-role="continuation" href="lessons/005-0001-choose-presentation-route.html">Presentation delivery route</a>、<a data-route-id="common-foundation" data-route-role="continuation" href="lessons/001-0004-prepare-claude-code-session.html">Code readiness</a></dd></div>
+  </dl>
+  <p class="evidence"><strong>Exit evidence：</strong>route choice and readiness evidence</p>
+</article><article class="route-card" id="route-cowork-starter">
+  <h3>Cowork starter route</h3>
+  <p class="route-kind">starter</p>
+  <dl>
+    <div><dt>Entry</dt><dd><a data-route-id="cowork-starter" data-route-role="entry" href="lessons/001-0003-complete-cowork-starter.html">在低風險副本完成一個 Cowork 檔案任務</a></dd></div>
+    <div><dt>Readiness</dt><dd><span class="mode">all-of</span> <a data-route-id="cowork-starter" data-route-role="readiness" href="lessons/001-0002-define-route-readiness.html">把安全範圍與續作點寫成 Return notebook</a></dd></div>
+    <div><dt>Stop</dt><dd><a data-route-id="cowork-starter" data-route-role="stop" href="lessons/001-0003-complete-cowork-starter.html">在低風險副本完成一個 Cowork 檔案任務</a><small>Stop after the low-risk Cowork starter evidence is recorded</small></dd></div>
+    <div><dt>Continuation</dt><dd><a data-route-id="cowork-starter" data-route-role="continuation" href="lessons/003-0001-select-knowledge-deliverable.html">Knowledge Work delivery route</a></dd></div>
+  </dl>
+  <p class="evidence"><strong>Exit evidence：</strong>bounded Cowork file-task readiness evidence</p>
+</article><article class="route-card" id="route-code-readiness">
+  <h3>Code readiness</h3>
+  <p class="route-kind">readiness</p>
+  <dl>
+    <div><dt>Entry</dt><dd><a data-route-id="code-readiness" data-route-role="entry" href="lessons/001-0004-prepare-claude-code-session.html">先證明 CLI 與 session 可用</a></dd></div>
+    <div><dt>Readiness</dt><dd><span class="mode">all-of</span> <a data-route-id="code-readiness" data-route-role="readiness" href="lessons/001-0002-define-route-readiness.html">把安全範圍與續作點寫成 Return notebook</a></dd></div>
+    <div><dt>Stop</dt><dd><a data-route-id="code-readiness" data-route-role="stop" href="lessons/001-0007-prove-code-readiness.html">把 bounded edit、diff 與 checks 組成 readiness evidence</a><small>Stop after Code readiness is demonstrated; do not treat fixture work as delivery</small></dd></div>
+    <div><dt>Continuation</dt><dd><a data-route-id="code-readiness" data-route-role="continuation" href="lessons/006-0001-choose-engineering-route.html">Engineering delivery route</a></dd></div>
+  </dl>
+  <p class="evidence"><strong>Exit evidence：</strong>safe repository reconnaissance and controlled-change evidence</p>
+</article></div>
+  </section>
 
-<div class="ref">
-<strong>常用速查</strong>：<a href="reference/claude-product-picker.html">產品選用</a>、<a href="reference/claude-design-to-code-workflow.html">Design-to-Code</a>、<a href="reference/claude-design-daily-output-picker.html">日常視覺交付物</a>、<a href="reference/claude-design-presentation-workflow.html">簡報工作流</a>、<a href="reference/open-slide-agent-deck-workflow.html">open-slide</a>、<a href="reference/claude-code-command-surface.html">Claude Code 操作</a>、<a href="reference/claude-code-model-effort.html">模型與推理程度</a>、<a href="reference/wayfinder-map-workflow.html">Wayfinder map</a>、<a href="reference/ai-functional-workflow-case-library.html">職能案例庫</a>、<a href="reference/course-glossary.html">課程詞彙表</a><br>
-<strong>完成原則：</strong>勾完 checklist 代表操作完成；能交出 artifact、說明判斷並通過回饋，才是該課的 exit evidence。
-</div>
+  <section id="task-routes">
+    <h2>Task routes</h2>
+    <p class="section-intro">每次依真正要交付的成果選一條主路線。Entry 是起點；Readiness 指出進場證據；Stop 是合法收尾；Continuation 只在下一個任務確實需要時採用。</p>
+    <div class="route-grid"><article class="route-card" id="route-knowledge">
+  <h3>Knowledge Work delivery route</h3>
+  <p class="route-kind">task</p>
+  <dl>
+    <div><dt>Entry</dt><dd><a data-route-id="knowledge-delivery" data-route-role="entry" href="lessons/003-0001-select-knowledge-deliverable.html">從 mission 選一種 Knowledge artifact，不把格式變成課程階梯</a></dd></div>
+    <div><dt>Readiness</dt><dd><span class="mode">all-of</span> <a data-route-id="knowledge-delivery" data-route-role="readiness" href="lessons/001-0002-define-route-readiness.html">把安全範圍與續作點寫成 Return notebook</a></dd></div>
+    <div><dt>Stop</dt><dd><a data-route-id="knowledge-delivery" data-route-role="stop" href="lessons/003-0006-complete-knowledge-delivery-closeout.html">把 deliverable、provenance、judgment 與 feedback 收成同一個 closeout</a><small>Stop at Knowledge delivery closeout</small></dd></div>
+    <div><dt>Continuation</dt><dd><a data-route-id="knowledge-delivery" data-route-role="continuation" href="lessons/008-0001-define-deterministic-check.html">Agent Operations extension</a>、<a data-route-id="knowledge-delivery" data-route-role="continuation" href="#route-knowledge">回到課程目錄</a></dd></div>
+  </dl>
+  <p class="evidence"><strong>Exit evidence：</strong>reviewable knowledge deliverable with provenance, judgment, and feedback</p>
+</article><article class="route-card" id="route-design">
+  <h3>Design delivery route</h3>
+  <p class="route-kind">task</p>
+  <dl>
+    <div><dt>Entry</dt><dd><a data-route-id="design-delivery" data-route-role="entry" href="lessons/004-0001-choose-claude-design-surface.html">先選對 Design surface，再開始生成</a></dd></div>
+    <div><dt>Readiness</dt><dd><span class="mode">all-of</span> <a data-route-id="design-delivery" data-route-role="readiness" href="lessons/001-0002-define-route-readiness.html">把安全範圍與續作點寫成 Return notebook</a></dd></div>
+    <div><dt>Stop</dt><dd><a data-route-id="design-delivery" data-route-role="stop" href="lessons/004-0007-assemble-design-handoff-bundle.html">把 intent、states、evidence 與 limits 組成可接手的 handoff</a><small>Stop at the Design handoff bundle unless implementation is selected</small></dd></div>
+    <div><dt>Continuation</dt><dd><a data-route-id="design-delivery" data-route-role="continuation" href="lessons/001-0004-prepare-claude-code-session.html">Code readiness</a>、<a data-route-id="design-delivery" data-route-role="continuation" href="lessons/006-0001-choose-engineering-route.html">Engineering delivery route</a>、<a data-route-id="design-delivery" data-route-role="continuation" href="lessons/007-0001-scope-browser-claim.html">Browser evidence extension</a></dd></div>
+  </dl>
+  <p class="evidence"><strong>Exit evidence：</strong>Design handoff bundle</p>
+</article><article class="route-card" id="route-presentation">
+  <h3>Presentation delivery route</h3>
+  <p class="route-kind">task</p>
+  <dl>
+    <div><dt>Entry</dt><dd><a data-route-id="presentation-delivery" data-route-role="entry" href="lessons/005-0001-choose-presentation-route.html">先固定受眾與交付環境，再開始做 deck</a></dd></div>
+    <div><dt>Readiness</dt><dd><span class="mode">all-of</span> <a data-route-id="presentation-delivery" data-route-role="readiness" href="lessons/001-0002-define-route-readiness.html">把安全範圍與續作點寫成 Return notebook</a></dd></div>
+    <div><dt>Stop</dt><dd><a data-route-id="presentation-delivery" data-route-role="stop" href="lessons/005-0007-export-and-rehearse.html">完成 target-format validation 與彩排 closeout</a><small>Stop at Presentation closeout; adaptations and code-first options are elective</small></dd></div>
+    <div><dt>Continuation</dt><dd><a data-route-id="presentation-delivery" data-route-role="continuation" href="lessons/001-0004-prepare-claude-code-session.html">Code readiness</a>、<a data-route-id="presentation-delivery" data-route-role="continuation" href="lessons/006-0008-review-final-candidate.html">Engineering delivery route</a>、<a data-route-id="presentation-delivery" data-route-role="continuation" href="#route-presentation">回到課程目錄</a></dd></div>
+  </dl>
+  <p class="evidence"><strong>Exit evidence：</strong>accessible deck, target-format validation, rehearsal, judgment, and feedback</p>
+</article><article class="route-card" id="route-engineering">
+  <h3>Engineering delivery route</h3>
+  <p class="route-kind">task</p>
+  <dl>
+    <div><dt>Entry</dt><dd><a data-route-id="engineering-delivery" data-route-role="entry" href="lessons/006-0001-choose-engineering-route.html">先選 Engineering on-ramp，再進 repo</a></dd></div>
+    <div><dt>Readiness</dt><dd><span class="mode">all-of</span> <a data-route-id="engineering-delivery" data-route-role="readiness" href="lessons/001-0007-prove-code-readiness.html">把 bounded edit、diff 與 checks 組成 readiness evidence</a></dd></div>
+    <div><dt>Stop</dt><dd><a data-route-id="engineering-delivery" data-route-role="stop" href="lessons/006-0009-complete-engineering-closeout.html">把 final candidate、Review 與判斷收成可接手的 closeout</a><small>Stop only after final Review evidence matches the delivered checkpoint</small></dd></div>
+    <div><dt>Continuation</dt><dd><a data-route-id="engineering-delivery" data-route-role="continuation" href="lessons/007-0001-scope-browser-claim.html">Browser evidence extension</a>、<a data-route-id="engineering-delivery" data-route-role="continuation" href="lessons/008-0001-define-deterministic-check.html">Agent Operations extension</a>、<a data-route-id="engineering-delivery" data-route-role="continuation" href="lessons/009-0001-select-proven-workflow.html">Workflow standardization extension</a></dd></div>
+  </dl>
+  <p class="evidence"><strong>Exit evidence：</strong>implemented, deterministically checked, reviewed Engineering closeout</p>
+</article></div>
+  </section>
 
-<h2 class="p1">Phase 1 — 安全開始：四個 Claude 工作表面與 Claude Code 入門（01–12）</h2>
-<table>
-<tr><td class="no">01</td><td><a href="lessons/001-0001-four-claude-surfaces.html">四個 Claude 工作表面，四種交付路線</a></td><td class="track">產品判斷</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/001-0002-first-session-read-only.html">安裝 Claude Code，開第一個 session</a></td><td class="track">入門</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/001-0003-read-only-repo-tour.html">先讓 Claude Code 讀 repo，不改檔案</a></td><td class="track">入門</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/001-0004-permission-plan-mode.html">先用 plan mode 讓它只規劃不修改</a></td><td class="track">安全工作流</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/001-0005-first-safe-code-change.html">第一次讓它改程式碼 — 分支、小改動、review</a></td><td class="track">安全工作流</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/001-0006-claude-md.html">讓 Claude Code 讀懂團隊規範（CLAUDE.md）</a></td><td class="track">設定</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/001-0007-permission-rules.html">控制 Claude Code 能做什麼（permission rules）</a></td><td class="track">安全工作流</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/001-0008-session-commands.html">整理與切換對話狀態（App 與 CLI）</a></td><td class="track">操作控制</td></tr>
-<tr><td class="no">09</td><td><a href="lessons/001-0009-model-effort.html">選模型與推理強度，避免浪費 token</a></td><td class="track">操作控制</td></tr>
-<tr><td class="no">10</td><td><a href="lessons/001-0010-cowork-hands-on.html">判斷 Cowork 適合的交付物</a></td><td class="track">產品判斷</td></tr>
-<tr><td class="no">11</td><td><a href="lessons/001-0011-explore-plan-implement-commit.html">從探索到 commit 的安全四步驟</a></td><td class="track">總驗收</td></tr>
-<tr><td class="no">12</td><td><a href="lessons/001-0012-verification-context.html">確認結果並整理 context</a></td><td class="track">總驗收</td></tr>
-</table>
-<div class="flow">
-  <div class="flow-title">建議走法</div>
-  <p class="flow-note">先走最短安全路徑：能讀 repo、小步修改、驗證收尾，再進入進階操作。</p>
-  <div class="flow-row">
-    <div class="flow-label">第一次使用</div>
-    <div class="flow-steps">
-      <a href="lessons/001-0001-four-claude-surfaces.html">01 選工具</a>
-      <a href="lessons/001-0002-first-session-read-only.html">02 開 session</a>
-      <a href="lessons/001-0003-read-only-repo-tour.html">03 讀 repo</a>
-      <a href="lessons/001-0004-permission-plan-mode.html">04 先規劃</a>
-      <a href="lessons/001-0005-first-safe-code-change.html">05 小改動</a>
-      <a href="lessons/001-0011-explore-plan-implement-commit.html">11 安全四步驟</a>
-      <a href="lessons/001-0012-verification-context.html">12 驗證收尾</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">進正式 repo</div>
-    <div class="flow-steps">
-      <a href="lessons/001-0003-read-only-repo-tour.html">03 先讀懂</a>
-      <a href="lessons/001-0004-permission-plan-mode.html">04 plan mode</a>
-      <a href="lessons/001-0005-first-safe-code-change.html">05 小範圍改</a>
-      <a href="lessons/001-0006-claude-md.html">06 團隊規範</a>
-      <a href="lessons/001-0007-permission-rules.html">07 權限規則</a>
-      <a href="lessons/001-0011-explore-plan-implement-commit.html">11 到 commit</a>
-      <a href="lessons/001-0012-verification-context.html">12 留證據</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">控制成本</div>
-    <div class="flow-steps">
-      <a href="lessons/001-0008-session-commands.html">08 管 context</a>
-      <a href="lessons/001-0009-model-effort.html">09 選模型</a>
-      <a href="lessons/001-0012-verification-context.html">12 收尾</a>
-    </div>
-  </div>
-</div>
+  <section id="extensions">
+    <h2>Advanced extensions</h2>
+    <p class="section-intro">先有已驗證的 route artifact，再依證據、營運、標準化、評估、導入或治理需求延伸。這些不是所有人的必修階梯。</p>
+    <div class="route-grid"><article class="route-card" id="route-browser-evidence">
+  <h3>Browser evidence extension</h3>
+  <p class="route-kind">extension</p>
+  <dl>
+    <div><dt>Entry</dt><dd><a data-route-id="browser-evidence" data-route-role="entry" href="lessons/007-0001-scope-browser-claim.html">先界定一個會被反證的 browser claim</a></dd></div>
+    <div><dt>Readiness</dt><dd><span class="mode">all-of</span> <a data-route-id="browser-evidence" data-route-role="readiness" href="lessons/001-0007-prove-code-readiness.html">把 bounded edit、diff 與 checks 組成 readiness evidence</a></dd></div>
+    <div><dt>Stop</dt><dd><a data-route-id="browser-evidence" data-route-role="stop" href="lessons/007-0007-complete-browser-evidence-addendum.html">把 durable browser evidence 附回 Engineering closeout</a><small>Stop after the browser claim is rerunnable in the declared environment</small></dd></div>
+    <div><dt>Continuation</dt><dd><a data-route-id="browser-evidence" data-route-role="continuation" href="lessons/006-0008-review-final-candidate.html">Engineering delivery route</a></dd></div>
+  </dl>
+  <p class="evidence"><strong>Exit evidence：</strong>rerunnable Playwright Test and Browser evidence addendum</p>
+</article><article class="route-card" id="route-agent-operations">
+  <h3>Agent Operations extension</h3>
+  <p class="route-kind">extension</p>
+  <dl>
+    <div><dt>Entry</dt><dd><a data-route-id="agent-operations" data-route-role="entry" href="lessons/008-0001-define-deterministic-check.html">先把「做完了」寫成 agent 無法自評通過的 check</a></dd></div>
+    <div><dt>Readiness</dt><dd><span class="mode">all-of</span> <a data-route-id="agent-operations" data-route-role="readiness" href="lessons/001-0007-prove-code-readiness.html">把 bounded edit、diff 與 checks 組成 readiness evidence</a></dd></div>
+    <div><dt>Stop</dt><dd><a data-route-id="agent-operations" data-route-role="stop" href="lessons/008-0007-complete-operating-workflow-closeout.html">把 mission、authority、completion 與 recovery 收成可稽核 closeout</a><small>Stop after completion proof and recovery evidence are both recorded</small></dd></div>
+    <div><dt>Continuation</dt><dd><a data-route-id="agent-operations" data-route-role="continuation" href="lessons/006-0008-review-final-candidate.html">Engineering delivery route</a>、<a data-route-id="agent-operations" data-route-role="continuation" href="lessons/009-0001-select-proven-workflow.html">Workflow standardization extension</a></dd></div>
+  </dl>
+  <p class="evidence"><strong>Exit evidence：</strong>recoverable operating workflow closeout with failure and recovery evidence</p>
+</article><article class="route-card" id="route-workflow-standardization">
+  <h3>Workflow standardization extension</h3>
+  <p class="route-kind">extension</p>
+  <dl>
+    <div><dt>Entry</dt><dd><a data-route-id="workflow-standardization" data-route-role="entry" href="lessons/009-0001-select-proven-workflow.html">先證明 workflow 值得重用，再談怎麼包裝</a></dd></div>
+    <div><dt>Readiness</dt><dd><span class="mode">any-of</span> <a data-route-id="workflow-standardization" data-route-role="readiness" href="lessons/003-0006-complete-knowledge-delivery-closeout.html">把 deliverable、provenance、judgment 與 feedback 收成同一個 closeout</a>、<a data-route-id="workflow-standardization" data-route-role="readiness" href="lessons/005-0007-export-and-rehearse.html">完成 target-format validation 與彩排 closeout</a>、<a data-route-id="workflow-standardization" data-route-role="readiness" href="lessons/006-0009-complete-engineering-closeout.html">把 final candidate、Review 與判斷收成可接手的 closeout</a>、<a data-route-id="workflow-standardization" data-route-role="readiness" href="lessons/008-0007-complete-operating-workflow-closeout.html">把 mission、authority、completion 與 recovery 收成可稽核 closeout</a></dd></div>
+    <div><dt>Stop</dt><dd><a data-route-id="workflow-standardization" data-route-role="stop" href="lessons/009-0008-complete-standardization-closeout.html">把一個通過 rerun 的 package 收斂成可維護 closeout</a><small>Stop after one fitting package is rerun and reviewed</small></dd></div>
+    <div><dt>Continuation</dt><dd><a data-route-id="workflow-standardization" data-route-role="continuation" href="lessons/006-0008-review-final-candidate.html">Engineering delivery route</a>、<a data-route-id="workflow-standardization" data-route-role="continuation" href="lessons/010-0001-set-workflow-evaluation-claim.html">Workflow evaluation extension</a></dd></div>
+  </dl>
+  <p class="evidence"><strong>Exit evidence：</strong>versioned Standardization closeout with rerun and ownership evidence</p>
+</article><article class="route-card" id="route-workflow-evaluation">
+  <h3>Workflow evaluation extension</h3>
+  <p class="route-kind">extension</p>
+  <dl>
+    <div><dt>Entry</dt><dd><a data-route-id="workflow-evaluation" data-route-role="entry" href="lessons/010-0001-set-workflow-evaluation-claim.html">先固定要評估的 workflow claim</a></dd></div>
+    <div><dt>Readiness</dt><dd><span class="mode">all-of</span> <a data-route-id="workflow-evaluation" data-route-role="readiness" href="lessons/009-0008-complete-standardization-closeout.html">把一個通過 rerun 的 package 收斂成可維護 closeout</a></dd></div>
+    <div><dt>Stop</dt><dd><a data-route-id="workflow-evaluation" data-route-role="stop" href="lessons/010-0007-complete-workflow-evidence-dossier.html">完成一份有界的 Workflow evidence dossier</a><small>Stop after the evidence dossier records limitations and learner judgment</small></dd></div>
+    <div><dt>Continuation</dt><dd><a data-route-id="workflow-evaluation" data-route-role="continuation" href="lessons/011-0001-bound-team-scenario.html">Scenario rollout extension</a></dd></div>
+  </dl>
+  <p class="evidence"><strong>Exit evidence：</strong>Workflow evidence dossier and learner keep/change/retire judgment</p>
+</article><article class="route-card" id="route-scenario-rollout">
+  <h3>Scenario rollout extension</h3>
+  <p class="route-kind">extension</p>
+  <dl>
+    <div><dt>Entry</dt><dd><a data-route-id="scenario-rollout" data-route-role="entry" href="lessons/011-0001-bound-team-scenario.html">先把 rollout 縮成一個可演練的團隊情境</a></dd></div>
+    <div><dt>Readiness</dt><dd><span class="mode">all-of</span> <a data-route-id="scenario-rollout" data-route-role="readiness" href="lessons/010-0007-complete-workflow-evidence-dossier.html">完成一份有界的 Workflow evidence dossier</a></dd></div>
+    <div><dt>Stop</dt><dd><a data-route-id="scenario-rollout" data-route-role="stop" href="lessons/011-0007-complete-scenario-rollout-plan.html">完成一份有界的 Scenario rollout plan</a><small>Stop at the scenario plan without claiming real organizational adoption</small></dd></div>
+    <div><dt>Continuation</dt><dd><a data-route-id="scenario-rollout" data-route-role="continuation" href="lessons/012-0001-charter-governance-scope.html">Governance lifecycle extension</a></dd></div>
+  </dl>
+  <p class="evidence"><strong>Exit evidence：</strong>bounded self-study Scenario rollout plan</p>
+</article><article class="route-card" id="route-governance-lifecycle">
+  <h3>Governance lifecycle extension</h3>
+  <p class="route-kind">extension</p>
+  <dl>
+    <div><dt>Entry</dt><dd><a data-route-id="governance-lifecycle" data-route-role="entry" href="lessons/012-0001-charter-governance-scope.html">先把治理縮成一個 workflow lineage</a></dd></div>
+    <div><dt>Readiness</dt><dd><span class="mode">all-of</span> <a data-route-id="governance-lifecycle" data-route-role="readiness" href="lessons/011-0007-complete-scenario-rollout-plan.html">完成一份有界的 Scenario rollout plan</a></dd></div>
+    <div><dt>Stop</dt><dd><a data-route-id="governance-lifecycle" data-route-role="stop" href="lessons/012-0007-complete-governance-lifecycle-policy.html">完成一份可稽核的 self-study policy draft</a><small>Stop at the policy draft without claiming legal, compliance, or organizational approval</small></dd></div>
+    <div><dt>Continuation</dt><dd><a data-route-id="governance-lifecycle" data-route-role="continuation" href="#extensions">回到課程目錄</a></dd></div>
+  </dl>
+  <p class="evidence"><strong>Exit evidence：</strong>auditable self-study Governance lifecycle policy and tabletop evidence</p>
+</article></div>
+  </section>
 
-<div class="p2sec">
-<h2 class="p2">Phase 2 工具箱 — 依任務選用 Skills、Subagents、MCP、hooks 與自動化（01–10）</h2>
-<table>
-<tr><td class="no">01</td><td><a href="lessons/002-0001-hooks-basics.html">控制 Claude Code 工具行為（hooks）</a></td><td class="track">操作控制</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/002-0002-guardrail-hooks.html">擋下危險操作（guardrail hook）</a></td><td class="track">操作控制</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/002-0003-skills.html">把重複流程打包成指令（Skills）</a></td><td class="track">操作控制</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/002-0004-mcp.html">讓 Claude Code 讀外部系統資料（MCP）</a></td><td class="track">操作控制</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/002-0005-subagents-context.html">把大型調查交給另一個 agent（Subagents）</a></td><td class="track">Context 隔離</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/002-0006-custom-subagent-review.html">建立專門負責 review 的 agent（custom subagent）</a></td><td class="track">Context 隔離</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/002-0007-worktrees.html">用 worktree 分開平行工作</a></td><td class="track">擴展</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/002-0008-writer-reviewer-session.html">用兩個 session 分工寫作與審查</a></td><td class="track">擴展</td></tr>
-<tr><td class="no">09</td><td><a href="lessons/002-0009-headless-one-shot.html">用指令列跑一次性任務（claude -p）</a></td><td class="track">擴展</td></tr>
-<tr><td class="no">10</td><td><a href="lessons/002-0010-ci-automation-boundary.html">在 CI 中安全使用 Claude Code</a></td><td class="track">擴展</td></tr>
-</table>
-<div class="flow">
-  <div class="flow-title">建議走法</div>
-  <p class="flow-note">這一階段不用全讀。先問下一個目標是重用流程、隔離 context、連外部系統、固定時點執行，還是無人值守，再選工具。完整分類可對照 <a href="https://code.claude.com/docs/en/features-overview">官方 Extend Claude Code</a>。</p>
-  <div class="flow-row">
-    <div class="flow-label">重用與連接</div>
-    <div class="flow-steps">
-      <a href="lessons/002-0003-skills.html">03 Skills</a>
-      <a href="lessons/002-0005-subagents-context.html">05 Subagents</a>
-      <a href="lessons/002-0006-custom-subagent-review.html">06 review agent</a>
-      <a href="lessons/002-0004-mcp.html">04 MCP</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">規則與自動化</div>
-    <div class="flow-steps">
-      <a href="lessons/002-0001-hooks-basics.html">01 hooks</a>
-      <a href="lessons/002-0002-guardrail-hooks.html">02 guardrail</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">多工自動化</div>
-    <div class="flow-steps">
-      <a href="lessons/002-0007-worktrees.html">07 worktree</a>
-      <a href="lessons/002-0008-writer-reviewer-session.html">08 雙 session</a>
-      <a href="lessons/002-0009-headless-one-shot.html">09 one-shot</a>
-      <a href="lessons/002-0010-ci-automation-boundary.html">10 CI</a>
-    </div>
-  </div>
-</div>
-</div>
+  <section id="toolbox">
+    <h2>Just-in-time toolbox</h2>
+    <p class="section-intro">只在現行任務暴露明確缺口時選一課。完成 bounded setup 與 smoke test 後，回到 Return notebook 記錄的 route anchor；Toolbox 沒有整體完成狀態。</p>
+    <div class="toolbox-card"><article class="route-card" id="route-toolbox">
+  <h3>Just-in-time toolbox</h3>
+  <p class="route-kind">toolbox</p>
+  <dl>
+    <div><dt>Entry</dt><dd><a data-route-id="toolbox" data-route-role="entry" href="lessons/002-0001-choose-toolbox-lesson.html">只補目前任務缺少的一個能力</a></dd></div>
+    <div><dt>Readiness</dt><dd><span class="mode">all-of</span> <a data-route-id="toolbox" data-route-role="readiness" href="lessons/001-0002-define-route-readiness.html">把安全範圍與續作點寫成 Return notebook</a></dd></div>
+    <div><dt>Stop</dt><dd><span>由現行任務的 Return notebook 決定回程點；工具箱本身沒有完成狀態</span><small>Each selected lesson returns to the caller-provided active route; no Phase completion</small></dd></div>
+    <div><dt>Continuation</dt><dd><span>完成 smoke test 後，回到 Return notebook 記錄的現行任務</span></dd></div>
+  </dl>
+  <p class="evidence"><strong>Exit evidence：</strong>one bounded capability smoke test and boundary record</p>
+</article></div>
+  </section>
 
-<div class="p3sec">
-<h2 class="p3">Phase 3 — 把模糊需求變成可交付成果（主線 01–12；選修 13–14）</h2>
-<table>
-<tr><td class="no">01</td><td><a href="lessons/003-0001-matt-pocock-skills-foundation.html">先完成 mattpocock/skills 設定</a></td><td class="track">地基</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/003-0002-ask-matt.html">用 /ask-matt 判斷該走哪條路</a></td><td class="track">路線選擇</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/003-0003-repo-map.html">不熟 repo 時，先建立地圖</a></td><td class="track">前置</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/003-0004-grill-with-docs.html">用 /grill-with-docs 把需求問清楚</a></td><td class="track">打磨</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/003-0005-prototype.html">用 /prototype 驗證講不清的問題</a></td><td class="track">分支</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/003-0006-to-spec.html">用 /to-spec 把對話凝結成 spec</a></td><td class="track">固化</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/003-0007-to-tickets.html">用 /to-tickets 切成可認領工作</a></td><td class="track">切片</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/003-0008-implement.html">用 /implement 完成 bounded slice</a></td><td class="track">實作</td></tr>
-<tr><td class="no">09</td><td><a href="lessons/003-0009-triage.html">用 /triage 處理外部回報</a></td><td class="track">入口</td></tr>
-<tr><td class="no">10</td><td><a href="lessons/003-0010-diagnosing-bugs.html">用 /diagnosing-bugs 做紀律除錯</a></td><td class="track">缺陷</td></tr>
-<tr><td class="no">11</td><td><a href="lessons/003-0011-architecture.html">用 /improve-codebase-architecture 找維護切入點</a></td><td class="track">維護</td></tr>
-<tr><td class="no">12</td><td><a href="lessons/003-0012-handoff.html">用 /handoff 做跨 session 交接</a></td><td class="track">跨 session</td></tr>
-<tr><td class="no">13</td><td><a href="lessons/003-0013-wayfinder-chart-map.html">用 /wayfinder 畫出 shared map</a></td><td class="track">選修分支</td></tr>
-<tr><td class="no">14</td><td><a href="lessons/003-0014-wayfinder-frontier.html">沿 frontier 解一張 decision ticket</a></td><td class="track">選修分支</td></tr>
-</table>
-<div class="flow">
-  <div class="flow-title">建議走法</div>
-  <p class="flow-note"><strong>所有路線都先完成第 01 課的 repo setup。</strong>其餘主線不是線性流程；第 13–14 課只給巨大、模糊、超過一個 session 的 effort。補充參考：<a href="reference/mattpocock-skills-phase3-reference.html">Phase 3 skill 參考索引</a>。</p>
-  <div class="flow-row">
-    <div class="flow-label">共同前置</div>
-    <div class="flow-steps">
-      <a href="lessons/003-0001-matt-pocock-skills-foundation.html">01 安裝＋repo setup</a>
-      <span>完成後才進入下列任一路線</span>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">新需求（單 session）</div>
-    <div class="flow-steps">
-      <a href="lessons/003-0002-ask-matt.html">02 選路線</a>
-      <a href="lessons/003-0003-repo-map.html">03 可選地圖</a>
-      <a href="lessons/003-0004-grill-with-docs.html">04 問清楚</a>
-      <a href="lessons/003-0008-implement.html">08 同 context implement</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">新需求（多 session）</div>
-    <div class="flow-steps">
-      <a href="lessons/003-0002-ask-matt.html">02 選路線</a>
-      <a href="lessons/003-0003-repo-map.html">03 可選地圖</a>
-      <a href="lessons/003-0004-grill-with-docs.html">04 問清楚</a>
-      <a href="lessons/003-0006-to-spec.html">06 spec</a>
-      <a href="lessons/003-0007-to-tickets.html">07 tickets</a>
-      <a href="lessons/003-0008-implement.html">08 fresh implement</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">原型分支（可選）</div>
-    <div class="flow-steps">
-      <a href="lessons/003-0004-grill-with-docs.html">04 留下待答問題</a>
-      <a href="lessons/003-0012-handoff.html">12 交出問題</a>
-      <a href="lessons/003-0005-prototype.html">05 跑 prototype</a>
-      <a href="lessons/003-0012-handoff.html">12 帶回答案</a>
-      <a href="lessons/003-0006-to-spec.html">06 回主線</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">外部回報</div>
-    <div class="flow-steps">
-      <a href="lessons/003-0009-triage.html">09 triage</a>
-      <span>產生 agent-ready issue</span>
-      <a href="lessons/003-0008-implement.html">08 implement</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">難解 bug</div>
-    <div class="flow-steps">
-      <span>難解、間歇或回歸時</span>
-      <a href="lessons/003-0010-diagnosing-bugs.html">10 建 feedback loop</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">巨大模糊 effort</div>
-    <div class="flow-steps">
-      <a href="lessons/003-0002-ask-matt.html">02 確認選路</a>
-      <a href="lessons/003-0013-wayfinder-chart-map.html">13 畫 shared map</a>
-      <a href="lessons/003-0014-wayfinder-frontier.html">14 一次解一票</a>
-      <a href="lessons/003-0006-to-spec.html">06 回到 spec</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">維護改善</div>
-    <div class="flow-steps">
-      <a href="lessons/003-0011-architecture.html">11 找切入點</a>
-      <a href="lessons/003-0004-grill-with-docs.html">04 回到打磨</a>
-      <span>小且同 session</span>
-      <a href="lessons/003-0008-implement.html">08 bounded implement</a>
-      <span>跨 session 才走</span>
-      <a href="lessons/003-0006-to-spec.html">06 spec</a>
-      <a href="lessons/003-0007-to-tickets.html">07 tickets</a>
-      <a href="lessons/003-0008-implement.html">08 fresh implement</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">任何路線換 session</div>
-    <div class="flow-steps">
-      <a href="lessons/003-0012-handoff.html">12 先 handoff</a>
-      <span>→ 新 session 只讀 durable artifacts 冷啟動</span>
-    </div>
-  </div>
-</div>
-</div>
+  <section id="phase-catalog">
+    <h2>Phase catalog</h2>
+    <p class="section-intro">105 個 canonical lessons 的次要查找目錄。Phase 是穩定分類，不代表每位學習者都要照數字順序完成。</p>
+    <p class="note"><strong>可見性原則：</strong>這裡只列 canonical lessons；46 個 Compatibility entries 與 1 個 Deprecation notice 仍保留穩定網址，但不列入目錄、導航或完成模型。</p>
+    <details class="phase">
+  <summary>Phase 1 — Orient <span>7 課</span></summary>
+  <ol><li><span>001-0001</span><a data-catalog-kind="lesson" href="lessons/001-0001-four-claude-surfaces.html">先選工作表面，再選 Task route</a></li>
+<li><span>001-0002</span><a data-catalog-kind="lesson" href="lessons/001-0002-define-route-readiness.html">把安全範圍與續作點寫成 Return notebook</a></li>
+<li><span>001-0003</span><a data-catalog-kind="lesson" href="lessons/001-0003-complete-cowork-starter.html">在低風險副本完成一個 Cowork 檔案任務</a></li>
+<li><span>001-0004</span><a data-catalog-kind="lesson" href="lessons/001-0004-prepare-claude-code-session.html">先證明 CLI 與 session 可用</a></li>
+<li><span>001-0005</span><a data-catalog-kind="lesson" href="lessons/001-0005-map-repo-read-only.html">先用檔案證據畫出 repo map</a></li>
+<li><span>001-0006</span><a data-catalog-kind="lesson" href="lessons/001-0006-plan-readiness-fixture.html">用 Plan mode 收斂一個 bounded fixture edit</a></li>
+<li><span>001-0007</span><a data-catalog-kind="lesson" href="lessons/001-0007-prove-code-readiness.html">把 bounded edit、diff 與 checks 組成 readiness evidence</a></li></ol>
+</details><details class="phase">
+  <summary>Phase 2 — Equip <span>11 課</span></summary>
+  <ol><li><span>002-0001</span><a data-catalog-kind="lesson" href="lessons/002-0001-choose-toolbox-lesson.html">只補目前任務缺少的一個能力</a></li>
+<li><span>002-0002</span><a data-catalog-kind="lesson" href="lessons/002-0002-set-permission-boundaries.html">先把 read、write 與 external side effects 分開</a></li>
+<li><span>002-0003</span><a data-catalog-kind="lesson" href="lessons/002-0003-select-model-and-effort.html">用任務需求選 model，用不確定性選 effort</a></li>
+<li><span>002-0004</span><a data-catalog-kind="lesson" href="lessons/002-0004-smoke-test-hook.html">先證明 hook 真的在正確事件觸發</a></li>
+<li><span>002-0005</span><a data-catalog-kind="lesson" href="lessons/002-0005-add-guardrail-hook.html">用一組正反例證明 guardrail</a></li>
+<li><span>002-0006</span><a data-catalog-kind="lesson" href="lessons/002-0006-use-existing-skill.html">先使用既有 Skill，不跨過 Workflow authoring boundary</a></li>
+<li><span>002-0007</span><a data-catalog-kind="lesson" href="lessons/002-0007-connect-trusted-mcp.html">先證明 trust，再開一個 read-only capability</a></li>
+<li><span>002-0008</span><a data-catalog-kind="lesson" href="lessons/002-0008-delegate-read-only-investigation.html">把一個 bounded question 交給 read-only subagent</a></li>
+<li><span>002-0009</span><a data-catalog-kind="lesson" href="lessons/002-0009-isolate-parallel-work.html">用 worktree 隔離一條 parallel edit line</a></li>
+<li><span>002-0010</span><a data-catalog-kind="lesson" href="lessons/002-0010-run-headless-one-shot.html">把一次成功的互動改寫成 bounded one-shot</a></li>
+<li><span>002-0011</span><a data-catalog-kind="lesson" href="lessons/002-0011-bound-ci-automation.html">先設計 CI 的外部執行邊界，不建立真實 workflow</a></li></ol>
+</details><details class="phase">
+  <summary>Phase 3 — Deliver <span>10 課</span></summary>
+  <ol><li><span>003-0001</span><a data-catalog-kind="lesson" href="lessons/003-0001-select-knowledge-deliverable.html">從 mission 選一種 Knowledge artifact，不把格式變成課程階梯</a></li>
+<li><span>003-0002</span><a data-catalog-kind="lesson" href="lessons/003-0002-preserve-sources-and-provenance.html">先建立 raw source pack，讓生成內容永遠不是 source of truth</a></li>
+<li><span>003-0003</span><a data-catalog-kind="lesson" href="lessons/003-0003-build-source-to-claim-outline.html">先把 source evidence 接到 claims，再開始生成 artifact</a></li>
+<li><span>003-0004</span><a data-catalog-kind="lesson" href="lessons/003-0004-produce-reviewable-knowledge-slice.html">先產出一個能取得 feedback 的 Knowledge slice</a></li>
+<li><span>003-0005</span><a data-catalog-kind="lesson" href="lessons/003-0005-verify-knowledge-deliverable.html">把「看起來完整」改成可查核的 deliverable</a></li>
+<li><span>003-0006</span><a data-catalog-kind="lesson" href="lessons/003-0006-complete-knowledge-delivery-closeout.html">把 deliverable、provenance、judgment 與 feedback 收成同一個 closeout</a></li>
+<li><span>003-0007</span><a data-catalog-kind="lesson" href="lessons/003-0007-produce-first-llm-wiki-slice.html">只編出一個可追溯的 LLM Wiki topic cluster</a></li>
+<li><span>003-0008</span><a data-catalog-kind="lesson" href="lessons/003-0008-normalize-local-source.html">只把 active source normalize 成可檢查的 working copy</a></li>
+<li><span>003-0009</span><a data-catalog-kind="lesson" href="lessons/003-0009-query-local-source-corpus.html">用 QMD 找候選 evidence，再親自打開原文件</a></li>
+<li><span>003-0010</span><a data-catalog-kind="lesson" href="lessons/003-0010-query-local-tabular-data.html">用 DuckDB 產生一個可重算的 tabular finding</a></li></ol>
+</details><details class="phase">
+  <summary>Phase 4 — Design <span>7 課</span></summary>
+  <ol><li><span>004-0001</span><a data-catalog-kind="lesson" href="lessons/004-0001-choose-claude-design-surface.html">先選對 Design surface，再開始生成</a></li>
+<li><span>004-0002</span><a data-catalog-kind="lesson" href="lessons/004-0002-write-design-brief.html">把模糊要求收斂成可驗收的 Design brief</a></li>
+<li><span>004-0003</span><a data-catalog-kind="lesson" href="lessons/004-0003-sync-design-system.html">只用 approved context，同步後逐項校正</a></li>
+<li><span>004-0004</span><a data-catalog-kind="lesson" href="lessons/004-0004-explore-design-directions.html">比較不同假設，不接受第一個漂亮輸出</a></li>
+<li><span>004-0005</span><a data-catalog-kind="lesson" href="lessons/004-0005-refine-and-version.html">一次精修一層，讓每個 revision 都能解釋</a></li>
+<li><span>004-0006</span><a data-catalog-kind="lesson" href="lessons/004-0006-check-prototype-assumptions.html">用可重跑觀察檢查 assumptions，不把 prototype 稱為 production</a></li>
+<li><span>004-0007</span><a data-catalog-kind="lesson" href="lessons/004-0007-assemble-design-handoff-bundle.html">把 intent、states、evidence 與 limits 組成可接手的 handoff</a></li></ol>
+</details><details class="phase">
+  <summary>Phase 5 — Communicate <span>10 課</span></summary>
+  <ol><li><span>005-0001</span><a data-catalog-kind="lesson" href="lessons/005-0001-choose-presentation-route.html">先固定受眾與交付環境，再開始做 deck</a></li>
+<li><span>005-0002</span><a data-catalog-kind="lesson" href="lessons/005-0002-build-source-pack.html">整理可追溯的 source pack</a></li>
+<li><span>005-0003</span><a data-catalog-kind="lesson" href="lessons/005-0003-storyboard-presentation.html">把素材排成簡報故事板</a></li>
+<li><span>005-0004</span><a data-catalog-kind="lesson" href="lessons/005-0004-create-deck-in-claude-design.html">在 Claude Design 產生第一版 deck</a></li>
+<li><span>005-0005</span><a data-catalog-kind="lesson" href="lessons/005-0005-refine-deck-for-audience.html">依受眾與品牌精修簡報</a></li>
+<li><span>005-0006</span><a data-catalog-kind="lesson" href="lessons/005-0006-verify-claims-and-accessibility.html">查核內容、圖表與可及性</a></li>
+<li><span>005-0007</span><a data-catalog-kind="lesson" href="lessons/005-0007-export-and-rehearse.html">完成 target-format validation 與彩排 closeout</a></li>
+<li><span>005-0008</span><a data-catalog-kind="lesson" href="lessons/005-0008-repurpose-one-pager-social.html">把已驗證 deck 改作 one-pager 或 social asset</a></li>
+<li><span>005-0009</span><a data-catalog-kind="lesson" href="lessons/005-0009-build-versioned-deck-with-open-slide.html">用 Open-Slide 建立可版本控制的 deck</a></li>
+<li><span>005-0010</span><a data-catalog-kind="lesson" href="lessons/005-0010-build-diagram-as-code-with-mermaid-cli.html">用 Mermaid CLI 建立可審查的 diagram-as-code</a></li></ol>
+</details><details class="phase">
+  <summary>Phase 6 — Build <span>14 課</span></summary>
+  <ol><li><span>006-0001</span><a data-catalog-kind="lesson" href="lessons/006-0001-choose-engineering-route.html">先選 Engineering on-ramp，再進 repo</a></li>
+<li><span>006-0002</span><a data-catalog-kind="lesson" href="lessons/006-0002-map-repository.html">用檔案證據畫出 bounded repo map</a></li>
+<li><span>006-0003</span><a data-catalog-kind="lesson" href="lessons/006-0003-align-engineering-request.html">把 request 對齊成可驗證的 delivery boundary</a></li>
+<li><span>006-0004</span><a data-catalog-kind="lesson" href="lessons/006-0004-prototype-technical-question.html">用可丟棄 prototype 回答一個問題</a></li>
+<li><span>006-0005</span><a data-catalog-kind="lesson" href="lessons/006-0005-write-delivery-spec.html">把已對齊的 request 凝結成 delivery spec</a></li>
+<li><span>006-0006</span><a data-catalog-kind="lesson" href="lessons/006-0006-slice-spec-into-tickets.html">把 spec 變成可認領的 vertical slices</a></li>
+<li><span>006-0007</span><a data-catalog-kind="lesson" href="lessons/006-0007-implement-and-create-review-checkpoint.html">逐張實作 ticket，固定 Review candidate</a></li>
+<li><span>006-0008</span><a data-catalog-kind="lesson" href="lessons/006-0008-review-final-candidate.html">以兩個獨立視角 Review 同一個 immutable candidate</a></li>
+<li><span>006-0009</span><a data-catalog-kind="lesson" href="lessons/006-0009-complete-engineering-closeout.html">把 final candidate、Review 與判斷收成可接手的 closeout</a></li>
+<li><span>006-0010</span><a data-catalog-kind="lesson" href="lessons/006-0010-triage-external-report.html">先驗證與分流外部回報，再交回 Engineering core</a></li>
+<li><span>006-0011</span><a data-catalog-kind="lesson" href="lessons/006-0011-diagnose-hard-bug.html">先造出會紅的 feedback loop，再診斷難解 bug</a></li>
+<li><span>006-0012</span><a data-catalog-kind="lesson" href="lessons/006-0012-find-architecture-seam.html">從 architecture friction 找出一個可交付的 seam</a></li>
+<li><span>006-0013</span><a data-catalog-kind="lesson" href="lessons/006-0013-chart-wayfinder-map.html">為巨大且仍在 fog 裡的 effort 畫 shared map</a></li>
+<li><span>006-0014</span><a data-catalog-kind="lesson" href="lessons/006-0014-resolve-wayfinder-frontier.html">只解一張 frontier decision ticket，再更新 map</a></li></ol>
+</details><details class="phase">
+  <summary>Phase 7 — Verify <span>7 課</span></summary>
+  <ol><li><span>007-0001</span><a data-catalog-kind="lesson" href="lessons/007-0001-scope-browser-claim.html">先界定一個會被反證的 browser claim</a></li>
+<li><span>007-0002</span><a data-catalog-kind="lesson" href="lessons/007-0002-choose-browser-surface.html">依 claim、identity 與 session 選一個 surface</a></li>
+<li><span>007-0003</span><a data-catalog-kind="lesson" href="lessons/007-0003-record-observable-baseline.html">固定比較對象，再觀察 claim</a></li>
+<li><span>007-0004</span><a data-catalog-kind="lesson" href="lessons/007-0004-promote-claim-to-playwright-test.html">把同一個 browser claim 寫成最小 Playwright Test</a></li>
+<li><span>007-0005</span><a data-catalog-kind="lesson" href="lessons/007-0005-rerun-in-declared-environment.html">先讓 controlled fault 擊中 assertion，再修正後重跑</a></li>
+<li><span>007-0006</span><a data-catalog-kind="lesson" href="lessons/007-0006-diagnose-with-trace.html">只有 failure 還解釋不了，才保留 trace</a></li>
+<li><span>007-0007</span><a data-catalog-kind="lesson" href="lessons/007-0007-complete-browser-evidence-addendum.html">把 durable browser evidence 附回 Engineering closeout</a></li></ol>
+</details><details class="phase">
+  <summary>Phase 8 — Operate <span>8 課</span></summary>
+  <ol><li><span>008-0001</span><a data-catalog-kind="lesson" href="lessons/008-0001-define-deterministic-check.html">先把「做完了」寫成 agent 無法自評通過的 check</a></li>
+<li><span>008-0002</span><a data-catalog-kind="lesson" href="lessons/008-0002-choose-agent-execution-surface.html">依 trigger 與 operating boundary，只選一個 local-first surface</a></li>
+<li><span>008-0003</span><a data-catalog-kind="lesson" href="lessons/008-0003-bound-write-authority.html">把 read、local write 與 external side effect 分成三份 authority</a></li>
+<li><span>008-0004</span><a data-catalog-kind="lesson" href="lessons/008-0004-run-recoverable-workflow.html">在 restore point 與小批次界線內執行一次 workflow</a></li>
+<li><span>008-0005</span><a data-catalog-kind="lesson" href="lessons/008-0005-prove-workflow-completion.html">讓 oracle 對本次 run 下判斷，不讓 agent 批准自己</a></li>
+<li><span>008-0006</span><a data-catalog-kind="lesson" href="lessons/008-0006-exercise-failure-and-recovery.html">刻意讓 fixture 失敗一次，證明 workflow 會恢復或安全停住</a></li>
+<li><span>008-0007</span><a data-catalog-kind="lesson" href="lessons/008-0007-complete-operating-workflow-closeout.html">把 mission、authority、completion 與 recovery 收成可稽核 closeout</a></li>
+<li><span>008-0008</span><a data-catalog-kind="lesson" href="lessons/008-0008-run-recoverable-llm-wiki-maintenance.html">在 raw-source boundary 內維護一次既有 LLM Wiki slice</a></li></ol>
+</details><details class="phase">
+  <summary>Phase 9 — Standardize <span>9 課</span></summary>
+  <ol><li><span>009-0001</span><a data-catalog-kind="lesson" href="lessons/009-0001-select-proven-workflow.html">先證明 workflow 值得重用，再談怎麼包裝</a></li>
+<li><span>009-0002</span><a data-catalog-kind="lesson" href="lessons/009-0002-extract-workflow-contract.html">把成功 run 的不變規則抽出來，不複製偶然細節</a></li>
+<li><span>009-0003</span><a data-catalog-kind="lesson" href="lessons/009-0003-choose-workflow-package.html">依 audience 與執行責任只選一種 package</a></li>
+<li><span>009-0004</span><a data-catalog-kind="lesson" href="lessons/009-0004-package-as-playbook-or-template.html">把需要人類判斷的 workflow 包成 playbook 或 template</a></li>
+<li><span>009-0005</span><a data-catalog-kind="lesson" href="lessons/009-0005-package-as-claude-md.html">把 repo-local workflow contract 寫進最窄的 CLAUDE.md scope</a></li>
+<li><span>009-0006</span><a data-catalog-kind="lesson" href="lessons/009-0006-package-as-skill.html">把跨 workspace 的 bounded instructions 包成 reusable Skill</a></li>
+<li><span>009-0007</span><a data-catalog-kind="lesson" href="lessons/009-0007-package-as-command-or-process.html">讓 deterministic code 承擔可可靠判定的流程</a></li>
+<li><span>009-0008</span><a data-catalog-kind="lesson" href="lessons/009-0008-complete-standardization-closeout.html">把一個通過 rerun 的 package 收斂成可維護 closeout</a></li>
+<li><span>009-0009</span><a data-catalog-kind="lesson" href="lessons/009-0009-extract-llm-wiki-maintenance-contract.html">把一次已證明的 LLM Wiki maintenance 萃取成可重跑 contract</a></li></ol>
+</details><details class="phase">
+  <summary>Phase 10 — Prove <span>8 課</span></summary>
+  <ol><li><span>010-0001</span><a data-catalog-kind="lesson" href="lessons/010-0001-set-workflow-evaluation-claim.html">先固定要評估的 workflow claim</a></li>
+<li><span>010-0002</span><a data-catalog-kind="lesson" href="lessons/010-0002-define-comparison-frame.html">讓 candidate 與 comparator 在同一 frame 被觀察</a></li>
+<li><span>010-0003</span><a data-catalog-kind="lesson" href="lessons/010-0003-build-success-case-set.html">建立代表性 success case set</a></li>
+<li><span>010-0004</span><a data-catalog-kind="lesson" href="lessons/010-0004-build-failure-case-set.html">用 failure 與 adversarial cases 測安全邊界</a></li>
+<li><span>010-0005</span><a data-catalog-kind="lesson" href="lessons/010-0005-record-comparative-evidence.html">把 observations 組成可追溯的比較證據</a></li>
+<li><span>010-0006</span><a data-catalog-kind="lesson" href="lessons/010-0006-dispose-evidence-conflicts.html">保留 evidence conflicts，再做可追溯處置</a></li>
+<li><span>010-0007</span><a data-catalog-kind="lesson" href="lessons/010-0007-complete-workflow-evidence-dossier.html">完成一份有界的 Workflow evidence dossier</a></li>
+<li><span>010-0008</span><a data-catalog-kind="lesson" href="lessons/010-0008-add-local-usage-cost-evidence.html">用本機 usage／cost 摘要補一個決策缺口</a></li></ol>
+</details><details class="phase">
+  <summary>Phase 11 — Roll out <span>7 課</span></summary>
+  <ol><li><span>011-0001</span><a data-catalog-kind="lesson" href="lessons/011-0001-bound-team-scenario.html">先把 rollout 縮成一個可演練的團隊情境</a></li>
+<li><span>011-0002</span><a data-catalog-kind="lesson" href="lessons/011-0002-assign-rollout-roles.html">把操作、review 與停止權分給不同角色</a></li>
+<li><span>011-0003</span><a data-catalog-kind="lesson" href="lessons/011-0003-bound-pilot-access-and-data.html">用 least privilege 與 synthetic data 封住情境</a></li>
+<li><span>011-0004</span><a data-catalog-kind="lesson" href="lessons/011-0004-prepare-rollout-readiness.html">把 deterministic preconditions 與 human approval 分開</a></li>
+<li><span>011-0005</span><a data-catalog-kind="lesson" href="lessons/011-0005-design-review-and-escalation.html">讓 findings、resistance 與 stop 有明確去處</a></li>
+<li><span>011-0006</span><a data-catalog-kind="lesson" href="lessons/011-0006-design-feedback-and-rollback.html">只收最小 feedback，並用 tabletop 證明可停可回</a></li>
+<li><span>011-0007</span><a data-catalog-kind="lesson" href="lessons/011-0007-complete-scenario-rollout-plan.html">完成一份有界的 Scenario rollout plan</a></li></ol>
+</details><details class="phase">
+  <summary>Phase 12 — Govern <span>7 課</span></summary>
+  <ol><li><span>012-0001</span><a data-catalog-kind="lesson" href="lessons/012-0001-charter-governance-scope.html">先把治理縮成一個 workflow lineage</a></li>
+<li><span>012-0002</span><a data-catalog-kind="lesson" href="lessons/012-0002-design-change-control.html">讓每個 material change 都能重查</a></li>
+<li><span>012-0003</span><a data-catalog-kind="lesson" href="lessons/012-0003-define-data-lifecycle-controls.html">讓資料從來源到刪除都有 owner</a></li>
+<li><span>012-0004</span><a data-catalog-kind="lesson" href="lessons/012-0004-build-risk-and-cost-register.html">用 evidence 排出 learner priority</a></li>
+<li><span>012-0005</span><a data-catalog-kind="lesson" href="lessons/012-0005-run-incident-tabletop.html">演練偵測、暫停與復原</a></li>
+<li><span>012-0006</span><a data-catalog-kind="lesson" href="lessons/012-0006-run-change-retirement-tabletop.html">同時演練 material change 與 retirement</a></li>
+<li><span>012-0007</span><a data-catalog-kind="lesson" href="lessons/012-0007-complete-governance-lifecycle-policy.html">完成一份可稽核的 self-study policy draft</a></li></ol>
+</details>
+  </section>
 
-<div class="p4sec">
-<h2 class="p4">Phase 4（選修實作）— Claude Design × Claude Code：從視覺探索到可驗證交付（01–08）</h2>
-<table>
-<tr><td class="no">01</td><td><a href="lessons/004-0001-choose-claude-design-surface.html">判斷 Claude Design 是否是正確工作表面</a></td><td class="track">邊界</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/004-0002-write-design-brief.html">把想法寫成可比較的 design brief</a></td><td class="track">Brief</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/004-0003-sync-design-system.html">同步 design system 與真實元件</a></td><td class="track">Design system</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/004-0004-explore-design-directions.html">先比較多個設計方向，再選一條</a></td><td class="track">探索</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/004-0005-refine-and-version.html">用 chat、comments 與 canvas 精修並保留版本</a></td><td class="track">精修</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/004-0006-prototype-and-validate.html">驗證 responsive、interaction 與 accessibility</a></td><td class="track">原型驗證</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/004-0007-handoff-to-claude-code.html">把 design intent 交給 Claude Code</a></td><td class="track">Handoff</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/004-0008-implement-and-verify.html">在 repo 實作並完成 browser verification</a></td><td class="track">交付</td></tr>
-</table>
-<div class="flow">
-  <div class="flow-title">Design-to-Code 走法</div>
-  <p class="flow-note">Claude Design 仍是 beta，現階段使用 web 或 Claude Desktop。這條路只給需要視覺探索與互動原型的工作；完整停止線見 <a href="reference/claude-design-to-code-workflow.html">Design-to-Code 速查表</a>。</p>
-  <div class="flow-row">
-    <div class="flow-label">選路與地基</div>
-    <div class="flow-steps">
-      <a href="lessons/004-0001-choose-claude-design-surface.html">01 選 surface</a>
-      <a href="lessons/004-0002-write-design-brief.html">02 寫 brief</a>
-      <a href="lessons/004-0003-sync-design-system.html">03 同步系統</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">探索與精修</div>
-    <div class="flow-steps">
-      <a href="lessons/004-0004-explore-design-directions.html">04 比較方向</a>
-      <a href="lessons/004-0005-refine-and-version.html">05 精修版本</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">驗證與交接</div>
-    <div class="flow-steps">
-      <a href="lessons/004-0006-prototype-and-validate.html">06 驗證原型</a>
-      <a href="lessons/004-0007-handoff-to-claude-code.html">07 保留 intent</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">Repo 交付</div>
-    <div class="flow-steps">
-      <a href="lessons/004-0008-implement-and-verify.html">08 實作並驗證</a>
-    </div>
-  </div>
-</div>
-</div>
+  <section id="references">
+    <h2>References</h2>
+    <p class="section-intro">18 份 canonical reference，供 route 中按需查閱；reference 不會自行形成另一條必修路線。</p>
+    <ul class="reference-list"><li><a data-catalog-kind="reference" href="reference/agent-operations-safety.html">Agent Operations safety reference</a></li>
+<li><a data-catalog-kind="reference" href="reference/ai-functional-workflow-case-library.html">AI 職能工作流案例與 route 選擇器</a></li>
+<li><a data-catalog-kind="reference" href="reference/browser-evidence-selector.html">Browser evidence selector</a></li>
+<li><a data-catalog-kind="reference" href="reference/claude-code-command-surface.html">Claude Code 操作速查表：Desktop UI 與 CLI commands</a></li>
+<li><a data-catalog-kind="reference" href="reference/claude-code-model-effort.html">Claude Code 模型與推理程度速查表</a></li>
+<li><a data-catalog-kind="reference" href="reference/claude-design-daily-output-picker.html">Phase 5 日常視覺交付物速查表</a></li>
+<li><a data-catalog-kind="reference" href="reference/claude-design-presentation-workflow.html">Claude Design 簡報工作流速查表</a></li>
+<li><a data-catalog-kind="reference" href="reference/claude-design-to-code-workflow.html">Design route 與 handoff 速查表</a></li>
+<li><a data-catalog-kind="reference" href="reference/claude-product-picker.html">速查表：先選成果環境，再選 Claude 工作表面</a></li>
+<li><a data-catalog-kind="reference" href="reference/course-glossary.html">課程詞彙表</a></li>
+<li><a data-catalog-kind="reference" href="reference/engineering-delivery-skills-reference.html">Engineering delivery skills reference</a></li>
+<li><a data-catalog-kind="reference" href="reference/knowledge-delivery-evidence-checklist.html">Knowledge delivery evidence checklist</a></li>
+<li><a data-catalog-kind="reference" href="reference/llm-wiki-capstone-thread.html">把 LLM Wiki 的 Deliver → Operate → Standardize → Prove → Roll out → Govern 證據串起來</a></li>
+<li><a data-catalog-kind="reference" href="reference/open-slide-agent-deck-workflow.html">Open-Slide agent deck 速查表</a></li>
+<li><a data-catalog-kind="reference" href="reference/repo-review-contract.html">Repo Review contract</a></li>
+<li><a data-catalog-kind="reference" href="reference/wayfinder-map-workflow.html">Wayfinder shared map 速查表</a></li>
+<li><a data-catalog-kind="reference" href="reference/workflow-maturity-workbook.html">Workflow maturity workbook</a></li>
+<li><a data-catalog-kind="reference" href="reference/workflow-package-selector.html">Workflow package selector</a></li></ul>
+  </section>
 
-<div class="p5sec">
-<h2 class="p5">Phase 5（日常應用）— Claude Design 主線＋open-slide 選修：從真實素材到視覺交付（01–09）</h2>
-<table>
-<tr><td class="no">01</td><td><a href="lessons/005-0001-choose-daily-visual-output.html">先選對日常視覺交付物</a></td><td class="track">選路</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/005-0002-build-source-pack.html">整理可追溯的 source pack</a></td><td class="track">內容地基</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/005-0003-storyboard-presentation.html">把素材排成簡報故事板</a></td><td class="track">敘事</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/005-0004-create-deck-in-claude-design.html">在 Claude Design 產生第一版 deck</a></td><td class="track">生成</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/005-0005-refine-deck-for-audience.html">依受眾與品牌精修簡報</a></td><td class="track">精修</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/005-0006-verify-claims-and-accessibility.html">查核內容、圖表與可及性</a></td><td class="track">驗證</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/005-0007-export-and-rehearse.html">輸出並完成一次真實彩排</a></td><td class="track">交付</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/005-0008-repurpose-one-pager-social.html">把同一故事改作 one-pager 與社群素材</a></td><td class="track">改作</td></tr>
-<tr><td class="no">09</td><td><a href="lessons/005-0009-build-versioned-deck-with-open-slide.html">用 open-slide 建立可版本控制的簡報</a></td><td class="track">選修 · Code-first</td></tr>
-</table>
-<div class="flow">
-  <div class="flow-title">日常應用走法</div>
-  <p class="flow-note">主線 01–08 用一份真實素材完成 5–7 頁決策簡報並跨格式改作；選修 09 再用同一組 source pack 與 story spine 建立 3 頁 open-slide vertical slice，比較 code-first 路線。速查：<a href="reference/claude-design-presentation-workflow.html">Claude Design</a>、<a href="reference/open-slide-agent-deck-workflow.html">open-slide</a>。</p>
-  <div class="flow-row">
-    <div class="flow-label">選路與地基</div>
-    <div class="flow-steps">
-      <a href="lessons/005-0001-choose-daily-visual-output.html">01 選交付物</a>
-      <a href="lessons/005-0002-build-source-pack.html">02 整理來源</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">故事與生成</div>
-    <div class="flow-steps">
-      <a href="lessons/005-0003-storyboard-presentation.html">03 排故事板</a>
-      <a href="lessons/005-0004-create-deck-in-claude-design.html">04 產生 deck</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">精修與驗證</div>
-    <div class="flow-steps">
-      <a href="lessons/005-0005-refine-deck-for-audience.html">05 精修品牌</a>
-      <a href="lessons/005-0006-verify-claims-and-accessibility.html">06 查核內容</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">交付與改作</div>
-    <div class="flow-steps">
-      <a href="lessons/005-0007-export-and-rehearse.html">07 輸出彩排</a>
-      <a href="lessons/005-0008-repurpose-one-pager-social.html">08 跨格式改作</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">Code-first 選修</div>
-    <div class="flow-steps">
-      <a href="lessons/005-0009-build-versioned-deck-with-open-slide.html">09 open-slide vertical slice</a>
-    </div>
-  </div>
-</div>
-</div>
-
-<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-07-15</footer>
+  <p class="page-end">課程完成以 route artifact、learner judgment、feedback 與適用的 verification evidence 為準，不以讀完所有 Phase 判定。</p>
+</main>
 </body>
 </html>
