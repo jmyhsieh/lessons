@@ -4890,7 +4890,7 @@
           "immutable-review-checkpoint-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/006-0010-triage-external-report.html",
