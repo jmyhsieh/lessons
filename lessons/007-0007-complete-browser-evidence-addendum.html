@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="007-0007">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="browser-evidence:exit-evidence,browser-evidence:feedback,browser-evidence:stop,browser-evidence:tangible-win">
+<meta name="course:source-ids" content="browser-evidence-addendum-contract,course-engineering-delivery-contract,engineering-two-axis-review-contract,immutable-review-checkpoint-contract,playwright-durable-browser-evidence">
+<title>007-0007：完成 Browser evidence addendum</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:900px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#315f86;margin-top:2rem}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%;font-size:.94rem}th,td{border:1px solid #ccd9e3;padding:.55rem;vertical-align:top;text-align:left}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap;overflow-wrap:anywhere}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:680px){body{margin-top:1rem}table{display:block;max-width:100%;overflow-x:auto;font-size:.78rem}th,td{padding:.38rem}}</style>
+</head><body>
+<p><a href="007-0005-rerun-in-declared-environment.html">← RED／GREEN rerun</a> · <a href="007-0006-diagnose-with-trace.html">Conditional trace</a> · <a href="../toc.html">回課程 catalog</a></p>
+<header><p>Phase 7 · Verify · 007-0007 · Route exit evidence</p><h1>把 durable browser evidence 附回 Engineering closeout</h1><p class="mission"><strong>Entry：</strong>帶入一份既有 <a href="006-0009-complete-engineering-closeout.html">Engineering closeout</a>、單一 Browser claim card、observable baseline、固定 test identity，以及 007-0005 的 decisive RED／corrected GREEN evidence。007-0006 trace record只在實際走過 diagnosis branch 時帶入。這份 addendum 延伸原 closeout，不取代 candidate、deterministic checks、Review、risk judgment或 handoff。</p></header>
+<h2>1. 先決定是否必須 Review re-entry</h2>
+<table><tr><th>從原 closeout 後發生什麼</th><th>Review 狀態</th><th>下一步</th></tr><tr><td>只在既有 final candidate上執行已存在 test，沒有 repo byte改變</td><td>原 exact Review checkpoint仍可能適用；記錄 test run所對應的 candidate SHA。</td><td>核對 SHA無漂移後整理 addendum。</td></tr><tr><td>新增／修改 Playwright Test、fixture、config或 app fix</td><td>原 Review evidence已失效；browser evidence不能替代 Review。</td><td>回 <a href="006-0008-review-final-candidate.html">006-0008</a> 前，先建立新 immutable candidate，再完整跑 Standards／Spec與 post-fix checks。</td></tr><tr><td>無法解析原 fixed point／candidate，或 Review後仍有修改</td><td>沒有可用 final Review identity。</td><td>停止；回 Engineering route重建 checkpoint與 closeout。</td></tr></table>
+<p class="rule"><strong>Identity oracle：</strong>Addendum、test result、兩軸 Review與 delivered candidate必須指向同一 exact SHA。Branch、working tree、「最新 build」或只有 timestamp都不是 immutable identity；若 candidate changed，不能只補一行 finding disposition或只重跑其中一軸。</p>
+<h2>2. 把 evidence 類型分開</h2>
+<table><tr><th>類型</th><th>Addendum 要保存</th><th>不可替代</th></tr><tr><td><strong>Test</strong></td><td>Exact file／name／command、assertion、RED故障條件、GREEN result、exit status、candidate與environment identity。</td><td>不能由 screenshot、trace或 agent summary代替。</td></tr><tr><td><strong>Trace</strong></td><td>若實際需要 diagnosis：justification、local artifact identity、direct observations、cleanup；否則寫 <code>not captured — decisive RED/GREEN; bypassed</code>。</td><td>不能當每次必做，也不能證明root cause已修。</td></tr><tr><td><strong>Captured artifact</strong></td><td>Report／log／screenshot／video的 path或identity、retention與敏感資料處置。</td><td>Artifact存在不等於 assertion通過。</td></tr><tr><td><strong>Inference</strong></td><td>把 hypotheses／interpretation另列，說明哪些被 test或trace支持、反駁或仍 unknown。</td><td>不能改寫成 direct observation。</td></tr><tr><td><strong>Limits</strong></td><td>未測 browser、viewport、role、data、auth、service、locale、network、real-user與CI scope。</td><td>一個 declared environment不能外推所有使用情境。</td></tr><tr><td><strong>Learner judgment</strong></td><td>Accept／mitigate／stop、理由、risk owner與reopen trigger。</td><td>模型或 green run不能自動批准產品風險。</td></tr></table>
+<h2>3. 填寫 addendum</h2>
+<div class="card"><pre>Browser evidence addendum ID / timestamp:
+Originating Engineering closeout / ticket / claim ID:
+Fixed point / final reviewed candidate SHA:
+App revision / build / dirty-state identity:
+
+Claim: Given / When / Then / disproving observation
+Observable baseline ID / direct observations:
+Exploration surface used (context only):
+
+Playwright test file / exact test name / assertion:
+Declared environment / package / browser / viewport / role / fixture:
+Controlled RED command / exit / decisive failure:
+Corrected GREEN command / exit / result:
+Same test identity confirmed:
+
+Conditional trace: bypassed with reason / artifact identity + diagnosis:
+Other captured artifacts / retention / cleanup:
+Inferences or unknowns (separate from observations):
+
+Reviewed candidate changed since original closeout: yes / no
+Standards report / Spec report / finding dispositions:
+Post-review checks and exact candidate identity:
+
+Verified scope:
+Unverified limits / residual risk:
+Learner judgment: accept / mitigate / stop
+Reason / owner / reopen trigger:
+External actions not performed: CI / PR / push / deploy / real-user validation
+Return / handoff:</pre></div>
+<p class="boundary"><strong>Claim boundary：</strong>這份 self-study artifact證明「一個 browser claim能在 declared environment由同一 Playwright Test反覆檢查，且 assertion會對 controlled failure變紅」。它不證明所有 browsers／roles、production可靠度、real-user impact、遠端CI或actual PR狀態。CI、PR、push與deploy只有在真實任務需要且另有authority時才列為後續動作，不是本 route completion requirement。</p>
+<h2>4. 做交叉核對與 handoff</h2>
+<ol><li>由 claim card逐字對回 test的 starting state、action、assertion與反證條件；不允許 addendum擴大主張。</li><li>由 RED／GREEN logs核對相同 test identity與唯一受控差異；確認 RED不是 setup failure，GREEN不是 retry掩蓋。</li><li>若有 trace，確認它只支持 diagnosis且已處理 retention；若 bypass，確認理由是已存在 decisive evidence，而不是工具不可用卻隱瞞。</li><li>解析 final candidate SHA，核對兩軸 Review與post-review checks都指向同一 candidate；任何 mutation都回 Review re-entry。</li><li>由 learner親自 disposition limits與risk，指定 owner／reopen trigger，然後把 addendum link附回原 Engineering closeout或handoff。</li></ol>
+<div class="win"><strong>Tangible win：</strong>一份連回既有 Engineering closeout、綁定 exact final candidate與可重跑 Playwright Test的 Browser evidence addendum，包含 conditional trace disposition、limits與 learner judgment。<br><strong>Observable feedback：</strong>接手者能解析 candidate、重跑同一 test、重建 controlled RED與 corrected GREEN、分辨 test／artifact／inference，並明確指出未驗證範圍；任何一項對不上就能把 addendum退回對應 lesson。</div>
+<div class="quiz" data-answer="1"><p>新增 Playwright Test後 candidate SHA改變，但舊 Engineering closeout已有兩軸 Review。Addendum 怎麼處理？</p><button type="button">沿用舊 Review，因 browser test只是附錄</button><button type="button">建立新 immutable candidate，完整重跑 Standards／Spec與checks，再讓 addendum、Review與delivered SHA對齊</button><button type="button">用 trace.zip取代 Review reports</button><div class="why">任何 repo byte改變都使舊 checkpoint的 Review evidence失效；addendum不能繞過 Review contract，也不能用 artifact替代兩軸 findings。</div></div>
+<p class="stop"><strong>Legal stop／return／continuation：</strong>Claim／test mapping不一致、沒有 decisive RED、corrected GREEN不可重跑、declared environment不完整、trace或artifact敏感資料未處理、limits／learner judgment缺漏、candidate無法解析、Review後有 mutation、任一 Review finding未解，或 relevant check被跳過／partial／uncertain時，保存 addendum draft並停止：test回 007-0004、rerun回 007-0005、未解 diagnosis才回 007-0006、candidate／Review回 006-0007／006-0008。全部對齊後，將 addendum附回 Engineering closeout並回 <a href="../toc.html">課程 catalog</a>；這是 Browser Evidence route的合法 stop，只表示這一個 claim的 route artifact已產生，不代表整個 Phase、course、Migration、production或real-user impact complete。</p>
+<footer>Page kind：canonical lesson · Route roles：exit-evidence／feedback／stop／tangible win · Source IDs：<code>browser-evidence-addendum-contract</code>、<code>course-engineering-delivery-contract</code>、<code>engineering-two-axis-review-contract</code>、<code>immutable-review-checkpoint-contract</code>、<code>playwright-durable-browser-evidence</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

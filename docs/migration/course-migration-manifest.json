@@ -5191,10 +5191,13 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "browser-claim-observation-contract",
+          "playwright-durable-browser-evidence"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/007-0005-rerun-in-declared-environment.html",
@@ -5222,10 +5225,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "playwright-durable-browser-evidence"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/007-0006-diagnose-with-trace.html",
@@ -5254,10 +5259,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "playwright-durable-browser-evidence"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/007-0007-complete-browser-evidence-addendum.html",
@@ -5287,10 +5294,16 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "browser-evidence-addendum-contract",
+          "course-engineering-delivery-contract",
+          "engineering-two-axis-review-contract",
+          "immutable-review-checkpoint-contract",
+          "playwright-durable-browser-evidence"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/008-0001-define-deterministic-check.html",

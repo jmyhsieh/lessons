@@ -2754,6 +2754,163 @@
       }
     },
     {
+      "id": "playwright-durable-browser-evidence",
+      "ownerPath": "lessons/007-0004-promote-claim-to-playwright-test.html",
+      "claimScope": "A durable browser claim is a minimal Playwright Test whose user-observable assertion fails against a controlled faulty fixture and passes under the same test identity after the fixture is corrected; the run records an exact environment, and trace is retained only when failure diagnosis needs it.",
+      "profile": "executable-recipe",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "playwright-test-assertions",
+          "url": "https://playwright.dev/docs/test-assertions",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-17"
+        },
+        {
+          "id": "playwright-test-retries",
+          "url": "https://playwright.dev/docs/test-retries",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-17"
+        },
+        {
+          "id": "playwright-trace-viewer-intro",
+          "url": "https://playwright.dev/docs/trace-viewer-intro",
+          "kind": "first-party-product-doc",
+          "checkedAt": "2026-07-17"
+        },
+        {
+          "id": "playwright-test-package-1-61-1",
+          "url": "https://registry.npmjs.org/@playwright/test/-/test-1.61.1.tgz",
+          "kind": "first-party-package-artifact",
+          "checkedAt": "2026-07-17"
+        },
+        {
+          "id": "course-migration-spec-browser-durable-evidence",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-17"
+        }
+      ],
+      "versionAnchor": {
+        "kind": "npm-package-version-and-git-commit",
+        "resolvedIdentity": "@playwright/test@1.61.1",
+        "resolvedFrom": "npm registry package artifact",
+        "resolvedAt": "2026-07-17",
+        "gitCommit": "39e3553a4f283a41134d75d7e404484bd9e6865a",
+        "distIntegrity": "sha512-8nKv6+0RJSL9FE4jYOEGXnPeM/Hg12qZpmqzZjRh3qM0Y7c3z1mrOTfFLids72RDQYVh9WpLEfR5WdpNX4fkig=="
+      },
+      "declaredEnvironment": {
+        "platform": "macOS 26.5.2",
+        "architecture": "arm64",
+        "shell": "zsh",
+        "node": "24.16.0",
+        "npm": "11.17.0",
+        "browser": "system Google Chrome through Playwright chromium launcher"
+      },
+      "availabilityAssumptions": [
+        "The learner has Code readiness, permission to add or run a repository test, and a safe controlled fixture rather than a production mutation.",
+        "The repository's own instructions and pinned Playwright setup take precedence over the isolated recertification setup.",
+        "A compatible browser binary and permission to create then clean test artifacts are available."
+      ],
+      "steps": [
+        "Create an isolated /tmp/t26-playwright project pinned to @playwright/test@1.61.1 with one test named guest can complete the controlled checkout fixture.",
+        "Use one controlled HTML fixture whose FAULTY_FIXTURE mode changes the post-click heading from 訂單完成 to 仍在處理 without changing the test identity.",
+        "Run npm install --prefix /tmp/t26-playwright --ignore-scripts --no-audit --no-fund.",
+        "Run FAULTY_FIXTURE=1 TRACE_MODE=0 /tmp/t26-playwright/node_modules/.bin/playwright test --config=/tmp/t26-playwright/playwright.config.mjs and require the exact heading assertion to fail.",
+        "Run FAULTY_FIXTURE=0 TRACE_MODE=0 /tmp/t26-playwright/node_modules/.bin/playwright test --config=/tmp/t26-playwright/playwright.config.mjs and require the same named test to pass.",
+        "Only for unresolved diagnosis, run FAULTY_FIXTURE=1 TRACE_MODE=1 with trace=retain-on-failure and require a non-empty trace.zip artifact.",
+        "Run the corrected fixture again with TRACE_MODE=0 and confirm the normal bypass path produces no trace.zip."
+      ],
+      "expectedEvidence": [
+        "The controlled faulty fixture fails because the exact heading 訂單完成 is absent, demonstrating that the assertion can disagree with broken behavior.",
+        "The corrected fixture passes under the identical test name and assertion in the same declared environment.",
+        "The diagnostic run retains trace.zip only when TRACE_MODE=1 and a failure occurs; the ordinary green rerun with trace off produces no trace artifact."
+      ],
+      "changeTriggers": [
+        "Playwright Test assertion, retry, trace configuration, package version, browser launch, or artifact behavior changes",
+        "The approved Browser Evidence durable-test, declared-environment, trace, or addendum boundary changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-17",
+        "actor": "Codex implementation session for Issue #39",
+        "sourceIds": [
+          "playwright-test-assertions",
+          "playwright-test-retries",
+          "playwright-trace-viewer-intro",
+          "playwright-test-package-1-61-1",
+          "course-migration-spec-browser-durable-evidence"
+        ],
+        "verificationMethod": "command-reproduction",
+        "environment": {
+          "platform": "macOS 26.5.2",
+          "architecture": "arm64",
+          "shell": "zsh",
+          "node": "24.16.0",
+          "npm": "11.17.0",
+          "browser": "system Google Chrome through Playwright chromium launcher"
+        },
+        "steps": [
+          "Created the isolated pinned package, controlled HTML fixture, one Playwright Test, and conditional trace configuration in /tmp/t26-playwright.",
+          "npm install --prefix /tmp/t26-playwright --ignore-scripts --no-audit --no-fund",
+          "FAULTY_FIXTURE=1 TRACE_MODE=0 /tmp/t26-playwright/node_modules/.bin/playwright test --config=/tmp/t26-playwright/playwright.config.mjs",
+          "FAULTY_FIXTURE=0 TRACE_MODE=0 /tmp/t26-playwright/node_modules/.bin/playwright test --config=/tmp/t26-playwright/playwright.config.mjs",
+          "FAULTY_FIXTURE=1 TRACE_MODE=1 /tmp/t26-playwright/node_modules/.bin/playwright test --config=/tmp/t26-playwright/playwright.config.mjs --output=/tmp/t26-trace-output",
+          "test -s /tmp/t26-trace-output/browser-claim-guest-can-co-83e61-controlled-checkout-fixture/trace.zip",
+          "FAULTY_FIXTURE=0 TRACE_MODE=0 /tmp/t26-playwright/node_modules/.bin/playwright test --config=/tmp/t26-playwright/playwright.config.mjs --output=/tmp/t26-bypass-output and verified no trace.zip existed"
+        ],
+        "resolvedVersions": [
+          "@playwright/test@1.61.1"
+        ],
+        "result": "pass",
+        "observations": [
+          "The faulty mode failed the exact getByRole heading assertion with element(s) not found; this was an intended behavior failure rather than setup failure.",
+          "The corrected mode passed the same guest can complete the controlled checkout fixture test without changing its assertion or identity.",
+          "The diagnostic failure produced a non-empty trace.zip under retain-on-failure, while the corrected TRACE_MODE=0 rerun passed and produced no trace artifact.",
+          "Retries remained zero so the deliberate RED was not hidden or relabeled as flaky."
+        ]
+      }
+    },
+    {
+      "id": "browser-evidence-addendum-contract",
+      "ownerPath": "lessons/007-0007-complete-browser-evidence-addendum.html",
+      "claimScope": "A Browser evidence addendum attaches one bounded browser claim, its repeatable Playwright Test, declared environment and result, conditional diagnostic evidence, limitations, learner judgment, and applicable final Review evidence to an existing Engineering closeout without replacing it or claiming real-user impact.",
+      "profile": "principle-only",
+      "driftClass": "lower",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "course-migration-spec-browser-addendum",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-17"
+        }
+      ],
+      "principleStatement": "Extend, do not replace, the originating Engineering closeout: identify the claim and final candidate, distinguish the repeatable test result from trace or screenshot artifacts and from inference, state environment and unverified limits, record learner judgment, and re-enter the full Review contract whenever the browser-test or application diff changes the candidate.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The approved Browser evidence addendum, Engineering closeout linkage, learner-judgment, limitation, or Review re-entry contract changes"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-17",
+        "actor": "Codex implementation session for Issue #39",
+        "sourceIds": [
+          "course-migration-spec-browser-addendum"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "Issue #13 defines the Browser evidence addendum as an extension to an existing Engineering closeout, not a replacement route artifact.",
+          "The approved addendum separates the repeatable test, environment, conditional trace, limitations, and learner judgment instead of treating artifacts or agent inference as proof.",
+          "Issue #13 requires any browser-related repository diff to re-enter the Review contract and does not require CI, an actual pull request, or real-user validation for self-study completion."
+        ]
+      }
+    },
+    {
       "id": "agent-operations-safety-contract",
       "ownerPath": "reference/agent-operations-safety.html",
       "claimScope": "Shared agent operations require least authority, recoverable scope, explicit external side-effect approval, deterministic validation, visible failure and rollback evidence, and no unattended production mutation in canonical self-study exercises.",
