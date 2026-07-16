@@ -3037,6 +3037,51 @@
           "The maturity workbook preserves lineage across selected advanced routes without creating an automatic score, promotion, route, or completion state."
         ]
       }
+    },
+    {
+      "id": "ccusage-local-cost-evidence",
+      "ownerPath": "lessons/010-0008-add-local-usage-cost-evidence.html",
+      "claimScope": "At the reviewed ccusage 20.0.17 release and first-party repository snapshot 7acee6c5853c26fe66fbe1453bd94c9376afec06, ccusage documents local Claude Code usage and estimated-cost summaries with daily, weekly, monthly, session, JSON, date-filter, timezone, and offline options; these locally parsed estimates are conditional workflow evidence, not authoritative billing, productivity, quality, ROI, adoption, or permission evidence.",
+      "profile": "principle-only",
+      "driftClass": "high",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "ccusage-readme-7acee6c",
+          "url": "https://github.com/ccusage/ccusage/blob/7acee6c5853c26fe66fbe1453bd94c9376afec06/apps/ccusage/README.md",
+          "kind": "first-party-project-doc",
+          "checkedAt": "2026-07-17"
+        },
+        {
+          "id": "ccusage-npm-version-20-0-17",
+          "url": "https://registry.npmjs.org/ccusage/20.0.17",
+          "kind": "first-party-package-metadata",
+          "checkedAt": "2026-07-17"
+        }
+      ],
+      "principleStatement": "Select this optional branch only when a fixed workflow decision needs local Claude Code usage or estimated-cost evidence and compatible local records exist; preserve the exact reviewed ccusage version, input path scope, date range, timezone, privacy boundary, output provenance, missing or unknown data, and return the bounded record to the existing Workflow evidence dossier without treating it as invoice, outcome, adoption, authority, or approval evidence.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The ccusage release, Claude Code input format or path discovery, pricing data, aggregation fields, date filtering, timezone, JSON, or offline behavior changes",
+        "The course changes the distinction between local usage or estimated-cost evidence and authoritative billing, productivity, quality, ROI, adoption, permission, or approval evidence"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-17",
+        "actor": "Codex implementation session for Issue #47",
+        "sourceIds": [
+          "ccusage-readme-7acee6c",
+          "ccusage-npm-version-20-0-17"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "The first-party README snapshot documents Claude Code analysis through ccusage claude daily, overall daily, weekly, monthly and session reports, JSON output, date filters, timezone selection, offline mode, and npx ccusage@latest as a quick start.",
+          "The npm registry metadata identifies 20.0.17 as the reviewed immutable package release; course instructions use ccusage@20.0.17 rather than the README moving alias for reproducibility.",
+          "This recertification inspected official source and package metadata only: it did not install or execute ccusage, read any learner Claude Code records, validate a learner path, or establish invoice accuracy, productivity, quality, ROI, adoption, permission, or approval."
+        ]
+      }
     }
   ]
 }
