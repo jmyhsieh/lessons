@@ -4615,7 +4615,7 @@
           "engineering-skill-router-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/006-0002-map-repository.html",
@@ -4649,7 +4649,7 @@
           "engineering-repository-reconnaissance-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/006-0003-align-engineering-request.html",
@@ -4683,7 +4683,7 @@
           "engineering-skill-router-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/006-0004-prototype-technical-question.html",
@@ -4717,7 +4717,7 @@
           "engineering-request-shaping-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/006-0005-write-delivery-spec.html",
@@ -4750,7 +4750,7 @@
           "engineering-spec-implementation-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/006-0006-slice-spec-into-tickets.html",
@@ -4783,7 +4783,7 @@
           "engineering-spec-implementation-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/006-0007-implement-and-create-review-checkpoint.html",
@@ -7076,7 +7076,7 @@
           "engineering-wayfinder-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/knowledge-delivery-evidence-checklist.html",
