@@ -33,14 +33,20 @@ def failure(code: str, message: str) -> str:
     return f"[{code}] {message}"
 
 
-def is_rfc3339_utc_timestamp(value: Any) -> bool:
+def parse_rfc3339_utc_timestamp(value: Any) -> datetime | None:
     if not isinstance(value, str):
-        return False
+        return None
     try:
         parsed = datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ")
     except ValueError:
-        return False
-    return parsed.strftime("%Y-%m-%dT%H:%M:%SZ") == value
+        return None
+    if parsed.strftime("%Y-%m-%dT%H:%M:%SZ") != value:
+        return None
+    return parsed
+
+
+def is_rfc3339_utc_timestamp(value: Any) -> bool:
+    return parse_rfc3339_utc_timestamp(value) is not None
 
 
 def run_command(
@@ -382,6 +388,23 @@ def validate_freeze(
             )
         )
     if errors:
+        return errors
+
+    frozen_time = parse_rfc3339_utc_timestamp(frozen_at)
+    deployment_completed_time = parse_rfc3339_utc_timestamp(
+        production["deploymentCompletedAt"]
+    )
+    if (
+        frozen_time is not None
+        and deployment_completed_time is not None
+        and deployment_completed_time > frozen_time
+    ):
+        errors.append(
+            failure(
+                "evidence-chronology",
+                "deploymentCompletedAt must not be later than frozenAt",
+            )
+        )
         return errors
 
     if production.get("provider") != "Vercel":
@@ -918,6 +941,16 @@ def run_self_test(freeze: dict[str, Any], repo_root: Path) -> list[str]:
             "impossible deployment completion time",
             impossible_completion_time,
             "deployment-completed-at",
+        )
+    )
+
+    impossible_evidence_chronology = copy.deepcopy(freeze)
+    impossible_evidence_chronology["frozenAt"] = "2026-07-14T00:00:00Z"
+    cases.append(
+        (
+            "Freeze before deployment completion",
+            impossible_evidence_chronology,
+            "evidence-chronology",
         )
     )
 
