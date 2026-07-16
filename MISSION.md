@@ -1,29 +1,52 @@
-# Mission: 與 Claude 建立從想法到可驗證交付的工作流
+# Mission: 與 Claude 建立可驗證、可續作的任務工作流
 
 ## Why
-學會判斷 Claude、Cowork、Claude Design、Claude Code 與 skills 各自適合的工作流，並能把模糊想法、視覺探索與 repo 實作串成可驗證、可交付的成果。
+
+協助自學者從一個真實任務出發，選擇合適的 Claude surface 與 Task route，產出可檢查的 artifact、learner judgment、feedback 與 verification evidence。課程以任務成果與安全邊界為主，不把 Phase 編號、工具清單或一次生成結果當成能力證明。
 
 ## Success looks like
-- 能依任務性質選擇 Claude、Cowork、Claude Design、Claude Code 或本地 skill。
-- 能在陌生 repo 中用唯讀探索、plan mode、測試與 review 控制風險。
-- 完成 Phase 3 後，能用 skills 把需求、bug 與維護工作變成有 spec、驗證證據與 handoff 的可交付成果。
-- 選修 Phase 4 後，能用 Claude Design 建立 design brief、套用 design system、比較方向、驗證原型，再把 design intent 交給 Claude Code 實作。
-- 能分清楚模型 review、真實使用者回饋與 browser／test evidence，不把好看的 prototype 當成 production-ready 成果。
-- 完成 Phase 5 後，能把真實工作素材整理成簡報故事線，在 Claude Design 產生並精修 deck，驗證內容與可及性，再輸出 PPTX／PDF／HTML 或改作 one-pager 與社群素材；需要 Git 版控、React 客製或互動時，也能用 open-slide 做出並驗證 3 頁 vertical slice。
+
+- 能先完成 `common-foundation`，留下 route choice 與 readiness evidence，再進入符合任務的 route。
+- 能在 route 的 entry、readiness、stop、exit evidence 與 legal stop 之間工作；缺少能力時只做 targeted remediation，完成後回到原 route。
+- 能區分 `Lesson practiced`、`Route artifact produced`、learner judgment、feedback 與 review evidence，不把 checklist 或模型自評當成完成權威。
+- 能保留可用的 Evidence carryover，並以 Return notebook 記錄 current route anchor、next tangible win 與 legal stop。
+- 能在 repo diff、browser claim、agent execution、workflow package、evaluation、rollout 或 governance 工作中，產出各 route 承諾的可重跑證據。
+
+## Canonical route contract
+
+`docs/migration/course-migration-manifest.json` 是 route graph 的唯一 authority。以下只列 durable route identity 與對應的 Source anchor；entry、stop、edge、continuation 與 remediation 都以 manifest 當下內容為準。
+
+| Route ID | Durable promise anchor |
+|---|---|
+| `common-foundation` | `course-orient-readiness-contract` |
+| `cowork-starter` | `claude-cowork-starter-surface` |
+| `code-readiness` | `claude-code-cli-session-start` |
+| `toolbox` | `course-equip-toolbox-contract` |
+| `knowledge-delivery` | `course-knowledge-delivery-contract` |
+| `design-delivery` | `course-design-delivery-contract` |
+| `presentation-delivery` | `course-presentation-delivery-contract` |
+| `engineering-delivery` | `course-engineering-delivery-contract` |
+| `browser-evidence` | `browser-evidence-addendum-contract` |
+| `agent-operations` | `agent-operations-safety-contract` |
+| `workflow-standardization` | `workflow-standardization-contract` |
+| `workflow-evaluation` | `workflow-evaluation-contract` |
+| `scenario-rollout` | `scenario-rollout-contract` |
+| `governance-lifecycle` | `governance-lifecycle-contract` |
+
+`source-anchors.json` 是上述 claim scope、eligible sources、drift status、verified environment 與 recertification evidence 的唯一 Source registry。這份 Mission 不複製產品 availability、命令、版本、export format 或操作位置。
 
 ## Constraints
-- 課程使用繁體中文與台灣用語；命令、檔名、API 名稱保留英文。
-- 每課要短、可實作、可回到真實 repo 使用。
-- Claude Design 仍是 beta；課程教耐用的 design-to-code 判斷，不依賴單一按鈕位置或未保證的功能。
-- Phase 4 是選修設計路線；沒有視覺介面的工作不需要為了結業而使用 Claude Design。
-- Phase 5 使用真實來源與受眾，不以模型生成內容取代事實查核、授權確認或人工彩排。
-- Phase 5 以簡報作為主線，但學到的 source pack、story spine、brand、review 與 export 判斷要能轉用到其他日常視覺交付物。
-- Phase 5 的 Claude Design 01–08 是主線；open-slide 是 code-first 選修，只在可接受 repo／Node 工作流與 HTML／PDF 交付時使用，不把它當成 PPTX 交接工具。
-- 勾完實作清單只代表完成操作，不等於掌握；能交出課堂要求的 artifact、說明判斷並通過回饋，才算具備該課的 exit evidence。
-- 封閉系統與遺產系統只作為高風險範例，不是課程唯一場景。
+
+- 課程使用繁體中文與台灣用語；命令、檔名、API 名稱與 canonical identity 保留原文。
+- 每課要短、可實作，並產生一個能帶回 active mission 的 tangible win。
+- 本課程是純自學；learner judgment 不由模型取代，也不宣稱外部認證、組織採用、production authorization、legal approval 或 compliance approval。
+- 真實來源、provenance、permission、side effect、review 與 stop condition 必須跟著 route artifact；生成內容不能取代事實查核或授權確認。
+- Phase 只是穩定 catalog grouping，不是所有人都必須完成的線性等級。Task route 才定義 progression、readiness 與 exit evidence。
+- repo deliverable 一旦跨過 Repo delivery boundary，就必須遵守 Code readiness 與 Review contract。
 
 ## Out of scope
-- 抽象 AI 趨勢介紹。
-- 把生成畫面、Claude 自評或一次 demo 當成 usability、accessibility 或 production readiness 的證明。
-- 把一次漂亮的生成結果當成可直接對外發布的成品。
-- 未經驗證的職能案例堆疊。
+
+- 抽象 AI 趨勢介紹或以功能數量為主的 product tour。
+- 把勾選、模型自評、一次 demo、prototype、browser trace 或 benchmark 分數單獨當成 route completion。
+- 把 self-study artifact 說成 production readiness、真實採用、法務、合規或組織授權。
+- 在 durable guidance 內重述會漂移的產品、版本、命令或 availability claim；這些內容必須由 stable Source anchor 管理。
