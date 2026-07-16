@@ -26,6 +26,7 @@ Observation time：`2026-07-16T08:26:14Z`
 | Exact production identity | [Deployment 5455233611](https://github.com/jmyhsieh/lessons/deployments/Production) 與 commit status 均記錄 SHA `3d2f3dd437be6ceb06092bd276533b0b0c84cbac`、state `success`。 |
 | Public bytes match candidate | Production `index.html` SHA-256 為 `cae763f33a866da38b0ff4d8b7a06907a4715a38c6f6cd76432470d40f0a9de5`，與 frozen Git blob byte-for-byte 相同；online verifier擴大到全部 73 paths。 |
 | Preview risk exists | GitHub deployments 同時存在 Vercel `Preview` records for non-production refs，因此 dedicated branch 必須 local-only。 |
+| Dedicated branch is isolated | Current checkout 為 `codex/course-migration`；remote 無同名 branch，current checkpoint 無 Vercel `Preview` deployment。 |
 | GitHub Pages is not production | Public Pages URL 回傳 `404`，且最後 Pages deployment SHA 不等於 frozen commit。 |
 
 ## Authority boundaries
@@ -290,7 +291,7 @@ Online publication evidence（需要 GitHub authentication 與 network）：
 python3 scripts/verify-migration-freeze.py --online
 ```
 
-Online mode 會重新確認 repository homepage、remote `main`、latest Vercel Production deployment、deployment status、secondary GitHub Pages boundary，並把全部 73 production URLs 與 frozen Git blobs 做 byte-level comparison。
+Online mode 會重新確認 current checkout、remote Migration branch absence、current checkpoint 無 Vercel Preview、repository homepage、remote `main`、latest Vercel Production deployment、deployment status、secondary GitHub Pages boundary，並把全部 73 production URLs 與 frozen Git blobs 做 byte-level comparison。
 
 ## T01 stop line
 

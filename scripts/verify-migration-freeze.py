@@ -97,6 +97,39 @@ def validate_path_list(paths: Any, name: str, expected_count: int) -> list[str]:
     return errors
 
 
+def validate_isolation(
+    freeze: dict[str, Any],
+    *,
+    current_branch: str,
+    remote_branch_exists: bool | None = None,
+    preview_deployment_exists: bool | None = None,
+) -> list[str]:
+    errors: list[str] = []
+    migration_branch = freeze["migration"].get("branch")
+    if current_branch != migration_branch:
+        errors.append(
+            failure(
+                "migration-checkout",
+                f"current branch is {current_branch!r}; expected {migration_branch!r}",
+            )
+        )
+    if remote_branch_exists is True:
+        errors.append(
+            failure(
+                "remote-migration-branch",
+                f"remote branch {migration_branch!r} exists and can trigger Preview",
+            )
+        )
+    if preview_deployment_exists is True:
+        errors.append(
+            failure(
+                "migration-preview",
+                "current Migration checkpoint already has a Vercel Preview deployment",
+            )
+        )
+    return errors
+
+
 def validate_freeze(
     freeze: dict[str, Any], repo_root: Path, *, verify_git_tree: bool
 ) -> list[str]:
@@ -152,6 +185,22 @@ def validate_freeze(
             failure(
                 "preview-publication",
                 "migration remotePolicy must prevent Vercel Preview publication",
+            )
+        )
+
+    current_branch = run_command(["git", "branch", "--show-current"], repo_root)
+    if current_branch.returncode != 0 or not current_branch.stdout.strip():
+        errors.append(
+            failure(
+                "migration-checkout-evidence",
+                current_branch.stderr.strip() or "cannot determine current branch",
+            )
+        )
+    else:
+        errors.extend(
+            validate_isolation(
+                freeze,
+                current_branch=current_branch.stdout.strip(),
             )
         )
 
@@ -238,6 +287,46 @@ def verify_online(freeze: dict[str, Any], repo_root: Path) -> list[str]:
     production = freeze["production"]
     commit = freeze["preMigrationCommit"]
     repository = production["repository"]
+
+    current_branch = run_command(["git", "branch", "--show-current"], repo_root)
+    current_head = run_command(["git", "rev-parse", "HEAD"], repo_root)
+    remote_branch = run_command(
+        [
+            "git",
+            "ls-remote",
+            "--heads",
+            "origin",
+            f"refs/heads/{freeze['migration']['branch']}",
+        ],
+        repo_root,
+    )
+    if (
+        current_branch.returncode != 0
+        or current_head.returncode != 0
+        or remote_branch.returncode != 0
+    ):
+        errors.append(
+            failure(
+                "isolation-evidence",
+                "cannot determine current branch, HEAD, or remote branch absence",
+            )
+        )
+    else:
+        try:
+            preview_deployments = gh_json(
+                repo_root,
+                f"repos/{repository}/deployments?environment=Preview&sha={current_head.stdout.strip()}&per_page=1",
+            )
+            errors.extend(
+                validate_isolation(
+                    freeze,
+                    current_branch=current_branch.stdout.strip(),
+                    remote_branch_exists=bool(remote_branch.stdout.strip()),
+                    preview_deployment_exists=bool(preview_deployments),
+                )
+            )
+        except (RuntimeError, json.JSONDecodeError) as error:
+            errors.append(failure("preview-evidence", str(error)))
 
     try:
         metadata = gh_json(repo_root, f"repos/{repository}")
@@ -344,6 +433,10 @@ def run_self_test(freeze: dict[str, Any], repo_root: Path) -> list[str]:
     ]
     cases.append(("publishing branch", publishing_branch, "publishing-branch"))
 
+    wrong_checkout = copy.deepcopy(freeze)
+    wrong_checkout["migration"]["branch"] = "codex/different-migration"
+    cases.append(("wrong checkout", wrong_checkout, "migration-checkout"))
+
     self_referential_cutover = copy.deepcopy(freeze)
     self_referential_cutover["cutoverEvidence"]["storage"] = "inside-reviewed-candidate"
     cases.append(
@@ -363,6 +456,23 @@ def run_self_test(freeze: dict[str, Any], repo_root: Path) -> list[str]:
                 failure(
                     "negative-fixture",
                     f"{name} did not fail with [{expected_code}]; got {sorted(codes)}",
+                )
+            )
+    remote_publication = validate_isolation(
+        freeze,
+        current_branch=freeze["migration"]["branch"],
+        remote_branch_exists=True,
+        preview_deployment_exists=True,
+    )
+    remote_codes = {
+        item.split("]", 1)[0].lstrip("[") for item in remote_publication
+    }
+    for expected_code in ("remote-migration-branch", "migration-preview"):
+        if expected_code not in remote_codes:
+            errors.append(
+                failure(
+                    "negative-fixture",
+                    f"remote publication did not fail with [{expected_code}]",
                 )
             )
     return errors
