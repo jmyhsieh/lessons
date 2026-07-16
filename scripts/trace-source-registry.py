@@ -17,10 +17,28 @@ EXPECTED_AUTHORITY = {
     "pageMappings": "docs/migration/course-migration-manifest.json",
 }
 EXPECTED_DRIFT_WINDOWS = {"high": 30, "medium": 90, "lower": 365}
-EXPECTED_PROFILES = {
-    "executable-recipe": "command-reproduction",
-    "surface-procedure": "surface-observation",
-    "principle-only": "contract-inspection",
+PROFILE_CONTRACTS = {
+    "executable-recipe": {
+        "evidenceMethod": "command-reproduction",
+        "requiredMetadata": [
+            "versionAnchor",
+            "declaredEnvironment",
+            "steps",
+            "expectedEvidence",
+        ],
+    },
+    "surface-procedure": {
+        "evidenceMethod": "surface-observation",
+        "requiredMetadata": [
+            "surfacePath",
+            "availabilityAssumptions",
+            "expectedEvidence",
+        ],
+    },
+    "principle-only": {
+        "evidenceMethod": "contract-inspection",
+        "requiredMetadata": ["principleStatement", "sources"],
+    },
 }
 EXPECTED_STATE_MODEL = {
     "publication": ["draft", "active", "inactive"],
@@ -58,6 +76,14 @@ def nonempty_string_list(value: Any) -> bool:
         isinstance(value, list)
         and bool(value)
         and all(nonempty_string(item) for item in value)
+    )
+
+
+def nonempty_string_mapping(value: Any) -> bool:
+    return (
+        isinstance(value, dict)
+        and bool(value)
+        and all(nonempty_string(key) and nonempty_string(item) for key, item in value.items())
     )
 
 
@@ -137,30 +163,30 @@ def validate_top_level(registry: dict[str, Any], errors: list[dict[str, str]]) -
         )
 
     profiles = registry.get("profiles")
-    if not isinstance(profiles, dict) or set(profiles) != set(EXPECTED_PROFILES):
+    if not isinstance(profiles, dict) or set(profiles) != set(PROFILE_CONTRACTS):
         errors.append(
             blocker("source-profiles", "all three approved Source profiles are required")
         )
         return
-    for profile, method in EXPECTED_PROFILES.items():
+    for profile, contract in PROFILE_CONTRACTS.items():
         definition = profiles.get(profile)
         if not isinstance(definition, dict):
             errors.append(
                 blocker("source-profiles", f"{profile} definition must be an object")
             )
             continue
-        if definition.get("evidenceMethod") != method:
+        if definition.get("evidenceMethod") != contract["evidenceMethod"]:
             errors.append(
                 blocker(
                     "source-profiles",
-                    f"{profile} evidenceMethod must be {method}",
+                    f"{profile} evidenceMethod must be {contract['evidenceMethod']}",
                 )
             )
-        if not nonempty_string_list(definition.get("requiredMetadata")):
+        if definition.get("requiredMetadata") != contract["requiredMetadata"]:
             errors.append(
                 blocker(
                     "source-profiles",
-                    f"{profile} requiredMetadata must be a non-empty string list",
+                    f"{profile} requiredMetadata differs from the approved contract",
                 )
             )
 
@@ -219,9 +245,9 @@ def validate_conflicts(
             add_required_string_blocker(errors, conflict, key, "conflict-metadata", subject)
         status = conflict.get("status")
         scope = conflict.get("scope")
-        if status not in {"resolved", "unresolved"}:
+        if not isinstance(status, str) or status not in ("resolved", "unresolved"):
             errors.append(blocker("conflict-metadata", "invalid conflict status", subject))
-        if scope not in {"required-path", "optional-path"}:
+        if not isinstance(scope, str) or scope not in ("required-path", "optional-path"):
             errors.append(blocker("conflict-metadata", "invalid conflict scope", subject))
         if status == "unresolved" and scope == "required-path":
             required_unresolved = True
@@ -265,7 +291,7 @@ def validate_profile(
                     blocker("version-anchor", "resolvedAt must use YYYY-MM-DD", anchor_id)
                 )
                 unresolved_version = True
-        if not isinstance(anchor.get("declaredEnvironment"), dict):
+        if not nonempty_string_mapping(anchor.get("declaredEnvironment")):
             errors.append(
                 blocker("profile-metadata", "Executable recipe requires declaredEnvironment", anchor_id)
             )
@@ -275,7 +301,7 @@ def validate_profile(
                     blocker("profile-metadata", f"Executable recipe requires {key}", anchor_id)
                 )
         if evidence is not None:
-            if not isinstance(evidence.get("environment"), dict):
+            if not nonempty_string_mapping(evidence.get("environment")):
                 errors.append(
                     blocker("recertification-evidence", "command evidence requires environment", anchor_id)
                 )
@@ -404,7 +430,7 @@ def trace_anchor(
 
     profile_value = anchor.get("profile")
     profile = profile_value if isinstance(profile_value, str) else None
-    if profile not in EXPECTED_PROFILES:
+    if profile not in PROFILE_CONTRACTS:
         errors.append(blocker("source-profile", "invalid Source profile", anchor_id))
 
     drift_value = anchor.get("driftClass")
@@ -435,9 +461,10 @@ def trace_anchor(
                 open_trigger = True
                 continue
             add_required_string_blocker(errors, event, "trigger", "change-triggers", subject)
-            if event.get("status") not in {"open", "resolved"}:
+            event_status = event.get("status")
+            if not isinstance(event_status, str) or event_status not in ("open", "resolved"):
                 errors.append(blocker("change-triggers", "invalid trigger event status", subject))
-            if event.get("status") == "open":
+            if event_status == "open":
                 open_trigger = True
 
     required_unresolved_conflict = validate_conflicts(anchor, anchor_id, errors)
@@ -463,7 +490,8 @@ def trace_anchor(
         add_required_string_blocker(
             errors, evidence, "actor", "recertification-evidence", anchor_id
         )
-        expected_method = EXPECTED_PROFILES.get(profile or "")
+        contract = PROFILE_CONTRACTS.get(profile or "")
+        expected_method = contract["evidenceMethod"] if contract else None
         if evidence.get("verificationMethod") != expected_method:
             errors.append(
                 blocker(
@@ -481,7 +509,10 @@ def trace_anchor(
                     anchor_id,
                 )
             )
-        elif set(evidence_source_ids) != source_ids:
+        elif (
+            len(evidence_source_ids) != len(set(evidence_source_ids))
+            or set(evidence_source_ids) != source_ids
+        ):
             errors.append(
                 blocker(
                     "recertification-evidence",
@@ -512,7 +543,7 @@ def trace_anchor(
 
     if evidence_result == "fail":
         freshness = "stale"
-    elif checked_at is None or due_at is None or as_of > due_at or open_trigger:
+    elif checked_at is None or due_at is None or as_of >= due_at or open_trigger:
         freshness = "due"
     else:
         freshness = "current"
@@ -613,7 +644,12 @@ def trace_pages(
                     blocker("page-mapping", "registered page requires anchorIds", path)
                 )
                 page_reasons.append("missing-anchor-id")
-            if page.get("pageKind") not in {"canonical-lesson", "canonical-reference", "navigation"}:
+            page_kind = page.get("pageKind")
+            if not isinstance(page_kind, str) or page_kind not in (
+                "canonical-lesson",
+                "canonical-reference",
+                "navigation",
+            ):
                 errors.append(
                     blocker(
                         "page-mapping",
@@ -712,7 +748,7 @@ def trace_registry(
     coverage_complete = isinstance(coverage, dict) and coverage.get("complete") is True
     report["coverage"] = coverage.get("mode") if isinstance(coverage, dict) else "unknown"
     drift_windows = registry.get("driftWindowsDays")
-    if not isinstance(drift_windows, dict):
+    if drift_windows != EXPECTED_DRIFT_WINDOWS:
         drift_windows = EXPECTED_DRIFT_WINDOWS
 
     anchors_value = registry.get("anchors")
@@ -756,29 +792,7 @@ def trace_registry(
 
 
 def profile_definitions() -> dict[str, dict[str, Any]]:
-    return {
-        "executable-recipe": {
-            "evidenceMethod": "command-reproduction",
-            "requiredMetadata": [
-                "versionAnchor",
-                "declaredEnvironment",
-                "steps",
-                "expectedEvidence",
-            ],
-        },
-        "surface-procedure": {
-            "evidenceMethod": "surface-observation",
-            "requiredMetadata": [
-                "surfacePath",
-                "availabilityAssumptions",
-                "expectedEvidence",
-            ],
-        },
-        "principle-only": {
-            "evidenceMethod": "contract-inspection",
-            "requiredMetadata": ["principleStatement", "sources"],
-        },
-    }
+    return copy.deepcopy(PROFILE_CONTRACTS)
 
 
 def common_fixture_anchor(anchor_id: str, profile: str) -> dict[str, Any]:
@@ -804,7 +818,7 @@ def common_fixture_anchor(anchor_id: str, profile: str) -> dict[str, Any]:
             "checkedAt": "2026-07-16",
             "actor": "fixture",
             "sourceIds": [source_id],
-            "verificationMethod": EXPECTED_PROFILES[profile],
+            "verificationMethod": PROFILE_CONTRACTS[profile]["evidenceMethod"],
             "result": "pass",
             "observations": ["expected fixture evidence observed"],
         },
@@ -892,14 +906,37 @@ def run_self_test() -> None:
     registry, manifest = positive_fixture()
     report = trace_registry(registry, manifest, as_of=as_of)
     assert report["blockers"] == [], report["blockers"]
-    assert {item["profile"] for item in report["anchors"]} == set(EXPECTED_PROFILES)
+    assert {item["profile"] for item in report["anchors"]} == set(PROFILE_CONTRACTS)
     assert all(item["freshnessState"] == "current" for item in report["anchors"])
     assert all(item["gateState"] == "pass" for item in report["anchors"])
     assert all(item["gateState"] == "pass" for item in report["pages"])
 
     due_registry = copy.deepcopy(registry)
-    due_report = trace_registry(due_registry, manifest, as_of=date(2026, 8, 16))
+    due_report = trace_registry(due_registry, manifest, as_of=date(2026, 8, 15))
     assert_has_code(due_report, "freshness-due")
+
+    empty_environment = copy.deepcopy(registry)
+    empty_environment["anchors"][0]["declaredEnvironment"] = {}
+    empty_environment["anchors"][0]["recertificationEvidence"]["environment"] = {}
+    environment_report = trace_registry(empty_environment, manifest, as_of=as_of)
+    assert_has_code(environment_report, "profile-metadata")
+    assert_has_code(environment_report, "recertification-evidence")
+
+    duplicate_evidence_source = copy.deepcopy(registry)
+    duplicate_evidence_source["anchors"][0]["recertificationEvidence"][
+        "sourceIds"
+    ].append("fixture-executable-source")
+    duplicate_source_report = trace_registry(
+        duplicate_evidence_source, manifest, as_of=as_of
+    )
+    assert_has_code(duplicate_source_report, "recertification-evidence")
+
+    contradictory_profile = copy.deepcopy(registry)
+    contradictory_profile["profiles"]["executable-recipe"]["requiredMetadata"] = [
+        "fabricated"
+    ]
+    profile_report = trace_registry(contradictory_profile, manifest, as_of=as_of)
+    assert_has_code(profile_report, "source-profiles")
 
     stale_registry = copy.deepcopy(registry)
     stale_registry["anchors"][0]["recertificationEvidence"]["result"] = "fail"
@@ -965,6 +1002,36 @@ def run_self_test() -> None:
     bad_mode["gateMode"] = "enforced"
     mode_report = trace_registry(bad_mode, manifest, as_of=as_of)
     assert_has_code(mode_report, "gate-mode")
+
+    malformed_drift = copy.deepcopy(registry)
+    malformed_drift["driftWindowsDays"]["high"] = []
+    drift_report = trace_registry(malformed_drift, manifest, as_of=as_of)
+    assert_has_code(drift_report, "drift-windows")
+
+    malformed_conflict = copy.deepcopy(registry)
+    malformed_conflict["anchors"][0]["conflicts"].append(
+        {
+            "id": "malformed",
+            "summary": "Malformed enum fixture.",
+            "status": [],
+            "scope": {},
+            "disposition": "fixture",
+        }
+    )
+    conflict_schema_report = trace_registry(malformed_conflict, manifest, as_of=as_of)
+    assert_has_code(conflict_schema_report, "conflict-metadata")
+
+    malformed_trigger = copy.deepcopy(registry)
+    malformed_trigger["anchors"][0]["triggerEvents"] = [
+        {"trigger": "fixture", "status": []}
+    ]
+    trigger_report = trace_registry(malformed_trigger, manifest, as_of=as_of)
+    assert_has_code(trigger_report, "change-triggers")
+
+    malformed_page_kind = copy.deepcopy(manifest)
+    malformed_page_kind["pages"][0]["pageKind"] = []
+    page_kind_report = trace_registry(registry, malformed_page_kind, as_of=as_of)
+    assert_has_code(page_kind_report, "page-mapping")
 
     assert report_only_exit_code(stale_report) == 0
 
