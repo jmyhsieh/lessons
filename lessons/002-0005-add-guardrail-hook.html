@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="002-0005">
+<meta name="course:page-kind" content="canonical-lesson">
+<meta name="course:route-roles" content="toolbox:conditional,toolbox:feedback,toolbox:tangible-win">
+<meta name="course:source-ids" content="claude-code-hook-safety-contract">
+<title>002-0005：加入 guardrail hook</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
+  h1 { font-size: 1.8rem; line-height: 1.35; } h2 { color: #a94716; margin-top: 2rem; }
+  .kicker { color: #a94716; font-size: .86rem; letter-spacing: .08em; }
+  .mission, .stop { border-left: 4px solid #c2571a; background: #fff7f0; padding: .8rem 1rem; }
+  .card, .win, .quiz { border: 1px solid #ded6cf; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .win { background: #f2f8f3; border-color: #a9c9ae; }
+  table { width: 100%; border-collapse: collapse; font-size: .94rem; } th, td { border: 1px solid #d9d2cc; padding: .65rem; text-align: left; vertical-align: top; } th { background: #fff4eb; }
+  .table-wrap { max-width: 100%; overflow-x: auto; } code, pre { background: #f3efeb; border-radius: 3px; } code { padding: .1rem .3rem; overflow-wrap: anywhere; } pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  button { display: block; width: 100%; margin: .45rem 0; padding: .65rem; text-align: left; background: white; border: 1px solid #bbb; border-radius: 6px; font: inherit; cursor: pointer; }
+  button.correct { background: #e5f4e7; border-color: #2e7d32; } button.wrong { background: #fbe8e8; border-color: #b3261e; }
+  .why { display: none; background: #fff7f0; padding: .7rem; margin-top: .7rem; }
+  footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; }
+  a { color: #99400f; } @media (max-width: 620px) { body { margin-top: 1.2rem; } }
+</style>
+</head>
+<body>
+<p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../toc.html">回課目表</a></p>
+<header>
+  <p class="kicker">Phase 2 · Equip · 002-0005 · Conditional toolbox lesson</p>
+  <h1>用一組正反例證明 guardrail</h1>
+  <p class="mission"><strong>任務：</strong>在 recoverable fixture 建立一個 PreToolUse guardrail，以明確 path predicate 阻擋 protected fixture file，同時放行相鄰 safe file。</p>
+</header>
+
+<h2>只自動化 deterministic policy</h2>
+<p>適合 hook 的規則能從 structured input 直接判斷，例如「Edit／Write 不得碰這個明確路徑」。命名品質、架構好壞或「看起來危險」需要 judgment，不應包成會自動阻擋的 predicate。</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>Case</th><th>Expected</th><th>Evidence</th></tr></thead>
+  <tbody>
+    <tr><td>Protected fixture path</td><td>PreToolUse 在 Edit／Write 前 block</td><td>Tool 未執行；exit 2；stderr 提供可行理由。</td></tr>
+    <tr><td>Adjacent safe fixture path</td><td>Allow</td><td>Tool 正常執行；沒有 false positive。</td></tr>
+    <tr><td>Malformed／unknown input</td><td>依事先 policy 停止或安全處置</td><td>不把 parse failure 當成成功放行。</td></tr>
+  </tbody>
+</table></div>
+
+<h2>建立 guardrail test card</h2>
+<div class="card"><pre>Active route / return point:
+Fixture and rollback:
+Protected fixture path:
+Adjacent safe path:
+Event / matcher: PreToolUse / Edit|Write
+Exact deterministic predicate:
+Block reason shown to Claude:
+Authority and side effects:
+Stop condition:</pre></div>
+<ol>
+  <li>若還不能說明 hook event、matcher 與 command，先到<a href="002-0004-smoke-test-hook.html">hook smoke-test lesson</a>練習，之後回 selector；不要直接裝 guardrail。</li>
+  <li>在 fixture 建立一個 protected file 與相鄰 safe file；兩者都不得是真實 secrets、deployment 或 production 設定。</li>
+  <li>逐字 review hook script。它只解析必要欄位、比較明確 path、以 exit 2 阻擋並把理由寫到 stderr。</li>
+  <li>先跑 should-block：確認 protected file 完全沒變；再跑 should-allow：確認 safe file 得到唯一預期變更。</li>
+  <li>保存兩個結果、stderr、exact diff、rollback 與 learner judgment。任一 false negative／false positive 都算失敗。</li>
+</ol>
+<div class="win"><strong>Tangible win：</strong>一張 guardrail test card 與 should-block／should-allow evidence pair。<br><strong>Observable feedback：</strong>Protected file 無 diff 且理由清楚；safe file 有唯一預期 diff；rollback 可重現。</div>
+
+<div class="quiz" data-answer="1">
+  <p>Guardrail 成功擋住 protected file 後，為什麼仍要測 safe file？</p>
+  <button type="button">只是讓 evidence 看起來比較完整</button>
+  <button type="button">要證明 predicate 沒有誤擋相鄰的合法工作</button>
+  <button type="button">Safe file 測試會自動取得更多權限</button>
+  <div class="why">只測阻擋會漏掉 false positive；guardrail 必須同時保護禁區並保留合法工作能力。</div>
+</div>
+
+<p class="stop"><strong>Return boundary：</strong>Guardrail 不是 security sandbox，也不擴張 session permissions。回復 fixture，把 evidence 與剩餘風險寫回 Return notebook，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>；未經真實 repo review 不安裝到 production workflow。</p>
+<footer>Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>claude-code-hook-safety-contract</code></footer>
+<script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
+</body>
+</html>

@@ -50,7 +50,11 @@
   <tbody>
     <tr><td>不確定本次 session 可讀、可寫或可造成哪些 side effects</td><td><a href="002-0002-set-permission-boundaries.html">設定 permission boundaries</a></td><td>在 safe fixture 證明 read 可行，未核准 write 會停止或詢問。</td></tr>
     <tr><td>任務能力、延遲或推理深度與目前設定不匹配</td><td><a href="002-0003-select-model-and-effort.html">選 model 與 effort</a></td><td>用低風險 prompt 檢查選擇是否滿足事先寫好的 feedback rubric。</td></tr>
-    <tr><td>缺口是 hook、Skill、MCP、subagent、worktree、headless 或 CI</td><td>記錄 gap，現在合法停止</td><td>後續 coherent authoring slice 提供對應 lesson 前，不自行拼裝未驗證流程。</td></tr>
+    <tr><td>需要在明確 lifecycle event 後執行 deterministic callback</td><td><a href="002-0004-smoke-test-hook.html">Smoke-test 一個 hook</a></td><td>在 recoverable fixture 觀察一次 matched trigger 與一次 non-match。</td></tr>
+    <tr><td>需要在工具執行前阻擋一個能以 deterministic predicate 判斷的危險操作</td><td><a href="002-0005-add-guardrail-hook.html">加入 guardrail hook</a></td><td>在 fixture 證明 should-block 與 should-allow，不碰真實禁區。</td></tr>
+    <tr><td>已有可信 Skill 能直接處理 active-route gap</td><td><a href="002-0006-use-existing-skill.html">使用既有 Skill</a></td><td>讀完 instruction package，在 bounded task 觀察是否遵守 scope 與 stop。</td></tr>
+    <tr><td>Active route 需要從可信外部系統讀取一項資料</td><td><a href="002-0007-connect-trusted-mcp.html">連接 trusted MCP</a></td><td>以最小 scope 連接，inspect tools，只執行一個 read-only query。</td></tr>
+    <tr><td>缺口是 subagent、worktree、headless 或 CI</td><td>記錄 gap，現在合法停止</td><td>對應 lesson 尚未 authored 前，不自行拼裝未驗證流程。</td></tr>
   </tbody>
 </table></div>
 

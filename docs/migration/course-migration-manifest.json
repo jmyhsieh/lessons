@@ -2428,7 +2428,7 @@
           "claude-code-hook-safety-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0005-add-guardrail-hook.html",
@@ -2462,7 +2462,7 @@
           "claude-code-hook-safety-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0005-subagents-context.html",
@@ -2575,7 +2575,7 @@
           "claude-code-existing-skill-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0007-connect-trusted-mcp.html",
@@ -2610,7 +2610,7 @@
           "claude-code-trusted-mcp-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0007-worktrees.html",
