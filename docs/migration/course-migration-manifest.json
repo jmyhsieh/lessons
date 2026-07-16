@@ -4254,7 +4254,7 @@
           "open-slide-cli-build-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/005-0002-build-source-pack.html",
@@ -4289,7 +4289,7 @@
           "presentation-source-claim-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/005-0003-storyboard-presentation.html",
@@ -4323,7 +4323,7 @@
           "presentation-storyboard-audience-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/005-0004-create-deck-in-claude-design.html",
@@ -4359,7 +4359,7 @@
           "presentation-storyboard-audience-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/005-0005-refine-deck-for-audience.html",
@@ -4394,7 +4394,7 @@
           "presentation-storyboard-audience-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/005-0006-verify-claims-and-accessibility.html",
@@ -4428,7 +4428,7 @@
           "presentation-source-claim-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/005-0007-export-and-rehearse.html",
@@ -4467,7 +4467,7 @@
           "presentation-source-claim-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/005-0008-repurpose-one-pager-social.html",
@@ -6958,7 +6958,7 @@
           "presentation-storyboard-audience-contract"
         ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/claude-design-to-code-workflow.html",
