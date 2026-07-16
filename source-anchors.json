@@ -2999,6 +2999,44 @@
           "The route preserves authority, rerun evidence, ownership, Review re-entry, and a legal stop instead of treating a package or agent judgment as completion proof."
         ]
       }
+    },
+    {
+      "id": "workflow-evaluation-contract",
+      "ownerPath": "reference/workflow-maturity-workbook.html",
+      "claimScope": "Workflow evaluation fixes one bounded claim, comparator, frame, and decision threshold before observing representative success and deliberate failure cases; it preserves raw and conflicting evidence, then leaves the keep, change, or retire judgment to the learner.",
+      "profile": "principle-only",
+      "driftClass": "lower",
+      "publicationState": "active",
+      "sources": [
+        {
+          "id": "course-migration-spec-workflow-evaluation",
+          "url": "https://github.com/jmyhsieh/lessons/issues/13",
+          "kind": "first-party-project-spec",
+          "checkedAt": "2026-07-17"
+        }
+      ],
+      "principleStatement": "Evaluate one exact workflow package against a claim and comparison frame chosen before the runs, keep success and failure evidence separate, record raw observations before rubric scores, preserve disagreements and limitations, and require a learner disposition instead of model self-approval or automatic promotion.",
+      "commandMetadata": "not-applicable",
+      "changeTriggers": [
+        "The approved Workflow evidence dossier, comparison frame, case separation, conflict-disposition, or learner-judgment contract changes",
+        "The Workflow maturity workbook becomes a route, scorecard, promotion gate, or duplicate source of truth"
+      ],
+      "triggerEvents": [],
+      "conflicts": [],
+      "recertificationEvidence": {
+        "checkedAt": "2026-07-17",
+        "actor": "Codex implementation session for Issue #46",
+        "sourceIds": [
+          "course-migration-spec-workflow-evaluation"
+        ],
+        "verificationMethod": "contract-inspection",
+        "result": "pass",
+        "observations": [
+          "Issue #13 defines Workflow evaluation as a bounded evidence dossier rather than a Harness, benchmark platform, or organizational-impact claim.",
+          "The approved route separates representative success cases from deliberate failure cases and requires limitations plus learner keep, change, or retire judgment.",
+          "The maturity workbook preserves lineage across selected advanced routes without creating an automatic score, promotion, route, or completion state."
+        ]
+      }
     }
   ]
 }

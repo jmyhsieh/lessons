@@ -5911,10 +5911,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "workflow-evaluation-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/010-0002-define-comparison-frame.html",
@@ -5942,10 +5944,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "workflow-evaluation-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/010-0003-build-success-case-set.html",
@@ -5973,10 +5977,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "workflow-evaluation-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/010-0004-build-failure-case-set.html",
@@ -6004,10 +6010,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "workflow-evaluation-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/010-0005-record-comparative-evidence.html",
@@ -6035,10 +6043,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "workflow-evaluation-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/010-0006-dispose-evidence-conflicts.html",
@@ -6066,10 +6076,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "workflow-evaluation-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/010-0007-complete-workflow-evidence-dossier.html",
@@ -6099,10 +6111,12 @@
       "deprecation": null,
       "evidenceCarryover": "current-route-contract",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "workflow-evaluation-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/010-0008-add-local-usage-cost-evidence.html",
@@ -7329,10 +7343,12 @@
       "deprecation": null,
       "evidenceCarryover": "not-applicable",
       "sourceDependencies": {
-        "state": "pending-t03",
-        "anchorIds": []
+        "state": "registered",
+        "anchorIds": [
+          "workflow-evaluation-contract"
+        ]
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "reference/workflow-package-selector.html",
