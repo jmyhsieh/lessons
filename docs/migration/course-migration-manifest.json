@@ -1579,7 +1579,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0003-complete-cowork-starter.html",
@@ -1654,7 +1654,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0004-permission-plan-mode.html",
@@ -1692,7 +1692,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0004-prepare-claude-code-session.html",
@@ -1763,7 +1763,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0005-map-repo-read-only.html",
@@ -1833,7 +1833,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0006-plan-readiness-fixture.html",
@@ -1904,7 +1904,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0007-prove-code-readiness.html",
@@ -1976,7 +1976,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0009-model-effort.html",
@@ -2013,7 +2013,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0010-cowork-hands-on.html",
@@ -2051,7 +2051,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0011-explore-plan-implement-commit.html",
@@ -2103,7 +2103,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/001-0012-verification-context.html",
@@ -2139,7 +2139,7 @@
         "state": "not-applicable",
         "anchorIds": []
       },
-      "migrationStatus": "planned"
+      "migrationStatus": "authored"
     },
     {
       "path": "lessons/002-0001-choose-toolbox-lesson.html",

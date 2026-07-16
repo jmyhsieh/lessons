@@ -1,171 +1,24 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>02：安裝 Claude Code，開第一個 session</title>
-<style>
-  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
-         max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
-  .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
-  h1 { font-size: 1.7rem; margin: .3rem 0; }
-  .mission { font-style: italic; color: #555; border-left: 3px solid #c2571a; padding-left: 1rem; }
-  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #c2571a; }
-  code, pre { background: #f4f0ec; border-radius: 4px; font-size: .9em; }
-  code { padding: .12rem .35rem; }
-  pre { padding: .8rem 1rem; overflow-x: auto; }
-  a { color: #b04a12; }
-  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
-  .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
-  .step h3 { margin: 0 0 .4rem; font-size: 1rem; }
-  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
-  .safety { background: #fbeaea; border-left: 4px solid #c62828; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
-  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
-  .quiz p { margin-top: 0; font-weight: 600; }
-  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
-    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
-  .quiz button:hover { border-color: #c2571a; }
-  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
-  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
-  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #f4f0ec; padding: .6rem .9rem; border-radius: 6px; }
-  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
-  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
-</style>
+<link rel="icon" href="data:,">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="course:canonical-coordinate" content="not-applicable">
+<meta name="course:page-kind" content="compatibility">
+<meta name="course:route-roles" content="not-applicable">
+<meta name="course:source-ids" content="not-applicable">
+<meta name="course:legacy-identity" content="lessons/001-0002-first-session-read-only">
+<meta name="course:transition-reason" content="Move/rename/conditional">
+<meta name="course:evidence-carryover" content="lesson-practiced-unless-current-route-stop-is-revalidated">
+<meta name="course:transition-mode" content="direct">
+<title>原課程 001-0002 已轉接</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:720px;margin:3rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}main{border:1px solid #ded6cf;border-radius:12px;padding:1.4rem;background:#fffdfb}h1{font-size:1.7rem;line-height:1.35}h2{font-size:1.1rem;color:#a94716;margin-top:1.7rem}.kicker{color:#a94716;font-weight:700}.identity,.carryover{background:#f5f1ed;padding:.8rem 1rem;border-radius:7px}.action{display:inline-block;background:#a94716;color:#fff;padding:.7rem 1rem;border-radius:7px;text-decoration:none;font-weight:700}code{overflow-wrap:anywhere}@media(max-width:620px){body{margin:1.25rem auto}main{padding:1rem}}</style>
 </head>
-<body>
-<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 1 · 第 02 課 · 約 15 分鐘 · 實作課</div>
-<h1>安裝 Claude Code，開第一個 session</h1>
-<p class="mission">任務目標：把 Claude Code 裝好、登入，並開出第一個 session。這一課只確認工具與權限介面，不進行 repo 導覽或改檔。</p>
-<div class="scope"><strong>本課只做：</strong>安裝、登入，並確認第一個 session 與權限介面。<br><strong>先不要做：</strong>打開正式 repo 後直接批准修改檔案。</div>
-
-
-<div class="safety">
-<strong>正式專案安全規則（本課唯一要背的東西）：</strong><br>
-Claude Code 在工作目錄內讀檔、Grep，以及執行內建認得的唯讀指令時，通常<strong>不會</strong>跳出詢問；預設模式會在<strong>修改檔案或執行其他 shell 指令前</strong>徵求同意。既有 allow / ask / deny 規則與你曾批准的選項也會改變結果，所以正式 repo 先用 Desktop 的 <strong>Manual</strong>（舊版稱 Ask permissions）或 CLI 的 <strong>default</strong>，並逐項看懂有出現的提示。
-（出處：<a href="https://code.claude.com/docs/en/permissions">官方 Permissions</a>）
-</div>
-
-<h2>先備檢查：Git 可用嗎？</h2>
-<p>Claude Code 可以用自然語言幫你操作 git，但電腦本身仍要先有 Git。進工作 repo 前，先在終端機跑：</p>
-<pre>git --version</pre>
-<p>看得到版本號就可以繼續；如果顯示找不到指令，先到 <a href="https://git-scm.com/downloads">Git 官方下載頁</a>安裝 Git，安裝後重開終端機或 Claude 桌面 App 再檢查一次。</p>
-
-<h2>實作步驟（做完打勾）</h2>
-
-<div class="step">
-  <label><input type="checkbox"> 1. 安裝（建議路徑：桌面 App）</label>
-  <p><strong>建議路徑：</strong>從 <a href="https://claude.com/download">claude.com/download</a> 下載 <strong>Claude 桌面 App</strong>，安裝後登入，點上方的 <strong>Code</strong> 分頁 — 這就是 Claude Code 的圖形介面，有視覺化 diff 與權限模式選單。裝好就可跳到步驟 2。</p>
-  <details><summary>替代路徑：CLI 安裝（之後想在終端機用再回來看）</summary>
-  <p><strong>Windows PowerShell</strong>（提示字元開頭是 <code>PS C:\</code>）：</p>
-  <pre>irm https://claude.ai/install.ps1 | iex</pre>
-  <p><strong>Windows CMD</strong>（開頭只有 <code>C:\</code>）：</p>
-  <pre>curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd</pre>
-  <p><strong>macOS / Linux / WSL</strong>：</p>
-  <pre>curl -fsSL https://claude.ai/install.sh | bash</pre>
-  <p>也可用 <code>winget install Anthropic.ClaudeCode</code> 或 macOS 的 <code>brew install --cask claude-code</code>，但這兩種不會自動更新；原生安裝會自動更新，<a href="https://code.claude.com/docs/en/quickstart">官方建議</a>優先使用。</p>
-  </details>
-</div>
-
-<div class="step">
-  <label><input type="checkbox"> 2. 登入並進入 Code 分頁</label>
-  <p><strong>桌面 App：</strong>啟動 Claude，以有 Code 使用權的 Claude.ai Pro、Max、Team 或 Enterprise 帳號登入，再點 <strong>Code</strong> 分頁。Desktop 與 cloud session 使用 OAuth，不會讀取你 shell 裡的 <code>ANTHROPIC_API_KEY</code> 或 <code>apiKeyHelper</code>；組織部署的第三方推理設定是例外。</p>
-  <p><strong>CLI：</strong><code>cd</code> 到 repo 目錄後執行 <code>claude</code>。Claude.ai 訂閱帳號與受邀的 Console 帳號可依瀏覽器提示登入；使用 Bedrock、Google Cloud Agent Platform 或 Microsoft Foundry 時，則先依組織文件設定 provider credentials。登入後憑證會保存，失效或換帳號時再用 <code>/login</code>。</p>
-</div>
-
-<div class="step">
-  <label><input type="checkbox"> 3. 確認權限模式</label>
-  <p><strong>桌面 App：</strong>在輸入框附近找到權限模式選單，最後停在 <strong>Manual</strong>（舊版稱 Ask permissions）。<strong>CLI：</strong>按 <code>Shift+Tab</code> 循環切換，最後停在 <strong>default</strong>。這兩種基準模式都允許工作目錄內讀檔與內建唯讀指令直接執行，但會在編輯與其他指令前詢問。</p>
-</div>
-
-<div class="step">
-  <label><input type="checkbox"> 4. 開一個空白 session</label>
-  <p><strong>桌面 App：</strong>選一個低風險資料夾或測試 repo，直接送出一句不會改檔的確認：</p>
-  <pre>Before reading many files, tell me what you can do in this session without changing files.</pre>
-  <p><strong>桌面 App：</strong>也可以在 prompt box 輸入 <code>/</code> 查看目前可用的 slash commands；本課先以 UI 與低風險提問確認 session。<strong>CLI：</strong>可用 <code>/help</code> 看 command 清單。</p>
-</div>
-
-<div class="step">
-  <label><input type="checkbox"> 5. 問一個不需要 repo 的問題</label>
-  <p>例如：</p>
-  <pre>Tell me what Claude Code can do in this session without changing files.</pre>
-  <p>重點是確認工具能正常對話、你也看得懂權限提示。</p>
-</div>
-
-<div class="step">
-  <label><input type="checkbox"> 6. 結束 session</label>
-  <p><strong>桌面 App：</strong>直接關閉或切換 session 即可，歷史會保留，隨時可回來續聊。<strong>CLI：</strong>輸入 <code>/exit</code>（或 Ctrl+D），之後用 <code>claude -c</code> 接續同目錄最近一次對話。</p>
-</div>
-
-<div class="done-banner" id="done">
-  🎉 <strong>全部完成！</strong>回到對話視窗告訴老師：你用桌面 App 還是 CLI？權限模式選單找到了嗎？
-</div>
-
-<h2>本課速記</h2>
-<ul>
-  <li>桌面 App：Code 分頁開 session、正式 repo 先用 Manual、用 session sidebar 續聊</li>
-  <li>桌面 App：prompt box 輸入 <code>/</code> 看可用 slash commands；快捷鍵清單則看 App 顯示</li>
-  <li>CLI：<code>claude</code> 啟動 / <code>claude -c</code> 續聊 / <code>/help</code> 看 commands / <code>/exit</code> 離開</li>
-  <li><code>Shift+Tab</code> 是 CLI 互動模式快捷鍵；桌面 App 用畫面上的權限模式選單</li>
-  <li>先確認 session 可用，再進正式 repo 做任務</li>
-</ul>
-<p>（已併入<a href="../reference/claude-product-picker.html">產品選用速查表</a>與<a href="../reference/claude-code-command-surface.html">Claude Code 操作速查表</a>；上一課：<a href="001-0001-four-claude-surfaces.html">四個 Claude 工作表面，四種交付路線</a>）</p>
-
-
-<h2>觀念檢查（憑記憶作答）</h2>
-
-<div class="quiz" data-answer="2">
-  <p>1. 正式 repo 第一堂課應停在哪種權限習慣？</p>
-  <button>使用自動批准模式</button>
-  <button>使用跳過權限模式</button>
-  <button>使用基準詢問模式</button>
-  <div class="why">正式 repo 先用 Manual/default：讀檔與內建唯讀指令通常直接執行，編輯與其他指令則停下詢問。</div>
-</div>
-
-<div class="quiz" data-answer="1">
-  <p>2. 這一課開 session 後先做什麼？</p>
-  <button>讀取現有專案</button>
-  <button>確認目前環境</button>
-  <button>直接修改檔案</button>
-  <div class="why">本課只用低風險問題確認 session 可用；桌面 App 可輸入 <code>/</code> 看 slash commands，但不進 repo 導覽或修改。</div>
-</div>
-
-<div class="quiz" data-answer="0">
-  <p>3. 不應在本課完成的事情？</p>
-  <button>修改檔案</button>
-  <button>確認登入</button>
-  <button>找到權限</button>
-  <div class="why">安裝與第一個 session 只確認工具、登入與權限介面；修改檔案留到後續安全流程。</div>
-</div>
-
-<h2>下一步</h2>
-<p>下一課：<a href="001-0003-read-only-repo-tour.html">Phase 1 第 03 課 — 先讓 Claude Code 讀 repo，不改檔案</a>。接著才讓它讀真實工作 repo，但仍不修改任何檔案。</p>
-
-<h2>主要閱讀資源</h2>
-<p><a href="https://code.claude.com/docs/en/quickstart">Claude Code Quickstart（官方）</a> — 本課即以此為底。下一課前可加讀 <a href="https://code.claude.com/docs/en/how-claude-code-works">How Claude Code works</a>。</p>
-
-<footer>
-  卡在任何一步（安裝錯誤、登入問題、權限看不懂），直接回對話視窗問你的 AI 老師。<br>
-  社群資源：<a href="https://www.anthropic.com/discord">Anthropic Discord</a>（官方）。
-</footer>
-
-<script>
-const boxes = document.querySelectorAll('input[type=checkbox]');
-boxes.forEach(b => b.addEventListener('change', () => {
-  document.getElementById('done').style.display =
-    [...boxes].every(x => x.checked) ? 'block' : 'none';
-}));
-document.querySelectorAll('.quiz').forEach(q => {
-  const ans = +q.dataset.answer;
-  q.querySelectorAll('button').forEach((b, i) => {
-    b.addEventListener('click', () => {
-      q.querySelectorAll('button').forEach(x => x.disabled = true);
-      q.querySelectorAll('button')[ans].classList.add('correct');
-      if (i !== ans) b.classList.add('wrong');
-      q.querySelector('.why').style.display = 'block';
-    });
-  });
-});
-</script>
-</body>
-</html>
+<body><main>
+<p class="kicker">Compatibility entry · 原 Phase 1 第 02 課</p>
+<h1>「安裝 Claude Code，開第一個 session」已移到 Code readiness</h1>
+<p class="identity"><strong>Stable public URL identity：</strong><code>lessons/001-0002-first-session-read-only</code></p>
+<h2>轉接原因</h2><p>這項能力已搬移並改名，而且只在選擇 technical route、需要 Code readiness 時練習；它不再是所有學習者的共同必修順序。</p>
+<h2>Evidence carryover</h2><p class="carryover">若你已完成舊課並保存 session smoke record，可保留為 <code>Lesson practiced</code>；只有 readiness check 確認它仍滿足目前 route stop 時，才可作為 current route input。它不會自動成為 Route artifact 或 completion。</p>
+<p><a class="action" href="001-0004-prepare-claude-code-session.html">前往最終課程：準備 Claude Code session</a></p>
+</main></body></html>

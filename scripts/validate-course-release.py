@@ -37,6 +37,8 @@ class CourseHTMLParser(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.hrefs: list[str] = []
         self.ids: list[str] = []
+        self.text_parts: list[str] = []
+        self.tag_counts: dict[str, int] = {}
         self.lang: str | None = None
         self.metadata: dict[str, list[str | None]] = {}
         self.quizzes: list[dict[str, Any]] = []
@@ -46,6 +48,7 @@ class CourseHTMLParser(HTMLParser):
         self, tag: str, attrs: list[tuple[str, str | None]]
     ) -> None:
         attributes = dict(attrs)
+        self.tag_counts[tag] = self.tag_counts.get(tag, 0) + 1
         if tag == "html":
             self.lang = attributes.get("lang")
         elif tag == "meta":
@@ -77,6 +80,10 @@ class CourseHTMLParser(HTMLParser):
                 )
         elif tag == "button" and self._quiz_stack:
             self._quiz_stack[-1]["buttons"] += 1
+
+    def handle_data(self, data: str) -> None:
+        if data.strip():
+            self.text_parts.append(data)
 
     def handle_endtag(self, tag: str) -> None:
         if tag != "div":
@@ -277,13 +284,29 @@ def authored_metadata(page: dict[str, Any]) -> dict[str, str]:
         and isinstance(dependencies.get("anchorIds"), list)
         else []
     )
-    return {
+    metadata = {
         "course:canonical-coordinate": page.get("canonicalCoordinate")
         or "not-applicable",
         "course:page-kind": page.get("pageKind", ""),
         "course:route-roles": ",".join(route_roles) or "not-applicable",
         "course:source-ids": ",".join(anchor_ids) or "not-applicable",
     }
+    if page.get("pageKind") == "compatibility":
+        disposition = page.get("contentDisposition")
+        compatibility = page.get("compatibility")
+        metadata.update(
+            {
+                "course:legacy-identity": page.get("expectedIdentity", ""),
+                "course:transition-reason": disposition.get("blueprint", "")
+                if isinstance(disposition, dict)
+                else "",
+                "course:evidence-carryover": page.get("evidenceCarryover", ""),
+                "course:transition-mode": compatibility.get("mode", "")
+                if isinstance(compatibility, dict)
+                else "",
+            }
+        )
+    return metadata
 
 
 def validate_authored_pages(
@@ -376,6 +399,59 @@ def validate_compatibility_graph(
         if not isinstance(targets, list):
             errors.append(blocker(code, "target list is missing", path))
             continue
+        if kind == "compatibility" and page.get("migrationStatus") == "authored":
+            visible_text = " ".join(documents[path].text_parts)
+            expected_identity = page.get("expectedIdentity")
+            if (
+                not isinstance(expected_identity, str)
+                or expected_identity not in visible_text
+            ):
+                errors.append(
+                    blocker(
+                        "compatibility-identity",
+                        "authored transition must show its stable legacy identity",
+                        path,
+                    )
+                )
+            if "轉接原因" not in visible_text:
+                errors.append(
+                    blocker(
+                        "compatibility-reason",
+                        "authored transition must show a learner-visible transition reason",
+                        path,
+                    )
+                )
+            if (
+                "Evidence carryover" not in visible_text
+                or "Lesson practiced" not in visible_text
+            ):
+                errors.append(
+                    blocker(
+                        "evidence-carryover",
+                        "authored transition must explain conservative Evidence carryover",
+                        path,
+                    )
+                )
+            if (
+                isinstance(contract, dict)
+                and contract.get("mode") == "transition"
+                and "何時選" not in visible_text
+            ):
+                errors.append(
+                    blocker(
+                        "compatibility-guidance",
+                        "split transition must explain when to choose each final target",
+                        path,
+                    )
+                )
+            if documents[path].tag_counts.get("footer", 0):
+                errors.append(
+                    blocker(
+                        "compatibility-exclusion",
+                        "Compatibility entry must not render a lesson footer",
+                        path,
+                    )
+                )
         actual_links = document_link_identities(path, documents[path])
         for target in targets:
             if not isinstance(target, dict):
@@ -533,15 +609,33 @@ def build_authored_slice_report(
         for error in validate_links_and_quizzes(repo_root, documents)
         if error_matches_paths(error, required_paths)
     ]
+    compatibility_errors = [
+        error
+        for error in validate_compatibility_graph(manifest, documents)
+        if error_matches_paths(error, required_paths)
+    ]
     errors.extend(metadata_errors)
     errors.extend(link_quiz_errors)
+    errors.extend(compatibility_errors)
 
     source_report = source_module["trace_registry"](
         registry, manifest, as_of=as_of
     )
-    source_module["trace_required_path_scope"](
-        source_report, manifest, paths=sorted(required_paths)
+    manifest_pages = {
+        page.get("path"): page
+        for page in manifest.get("pages", [])
+        if isinstance(page, dict) and isinstance(page.get("path"), str)
+    }
+    canonical_required_paths = sorted(
+        path
+        for path in required_paths
+        if manifest_pages.get(path, {}).get("pageKind")
+        in {"canonical-lesson", "canonical-reference", "navigation"}
     )
+    if canonical_required_paths:
+        source_module["trace_required_path_scope"](
+            source_report, manifest, paths=canonical_required_paths
+        )
     errors.extend(
         blocker(
             f"source-{error['code']}",
@@ -556,6 +650,7 @@ def build_authored_slice_report(
         "presentPaths": sum(path in documents for path in required_paths),
         "metadataBlockers": len(metadata_errors),
         "linkOrQuizBlockers": len(link_quiz_errors),
+        "compatibilityBlockers": len(compatibility_errors),
         "sourceTrace": source_report.get("summary", {}),
     }
     report["releaseReady"] = not errors
@@ -675,10 +770,26 @@ def fixture_manifest() -> dict[str, Any]:
         }
     )
     pages[3]["compatibility"] = {
+        "mode": "direct",
         "finalTargets": [
             {"path": "lessons/001-0001-target.html", "fragment": "target", "role": "successor"}
-        ]
+        ],
+        "allowChain": False,
+        "catalogExcluded": True,
+        "navigationExcluded": True,
+        "completionExcluded": True,
     }
+    pages[3].update(
+        {
+            "expectedIdentity": "lessons/001-0002-old",
+            "canonicalCoordinate": None,
+            "migrationStatus": "authored",
+            "routeMemberships": [],
+            "contentDisposition": {"blueprint": "Move"},
+            "evidenceCarryover": "lesson-practiced-unless-current-route-stop-is-revalidated",
+            "sourceDependencies": {"state": "not-applicable", "anchorIds": []},
+        }
+    )
     pages[4]["deprecation"] = {
         "successorTargets": [
             {"path": "lessons/001-0001-target.html", "fragment": None, "role": "successor"}
@@ -710,7 +821,21 @@ def write_fixture_site(root: Path) -> None:
         encoding="utf-8",
     )
     (root / "lessons" / "001-0002-old.html").write_text(
-        '<a href="001-0001-target.html#target">Continue</a>', encoding="utf-8"
+        '<!doctype html><html lang="zh-Hant"><head>'
+        '<meta name="course:canonical-coordinate" content="not-applicable">'
+        '<meta name="course:page-kind" content="compatibility">'
+        '<meta name="course:route-roles" content="not-applicable">'
+        '<meta name="course:source-ids" content="not-applicable">'
+        '<meta name="course:legacy-identity" content="lessons/001-0002-old">'
+        '<meta name="course:transition-reason" content="Move">'
+        '<meta name="course:evidence-carryover" '
+        'content="lesson-practiced-unless-current-route-stop-is-revalidated">'
+        '<meta name="course:transition-mode" content="direct">'
+        '</head><body><h1>lessons/001-0002-old</h1>'
+        '<p>轉接原因：內容已搬移。</p>'
+        '<p>Evidence carryover：保留 Lesson practiced；current route stop 仍須重新驗證。</p>'
+        '<a href="001-0001-target.html#target">Continue</a></body></html>',
+        encoding="utf-8",
     )
     (root / "reference" / "retired.html").write_text(
         '<a href="../lessons/001-0001-target.html">Successor</a>', encoding="utf-8"
@@ -740,6 +865,27 @@ def run_site_self_test() -> None:
             required_paths={"lessons/001-0001-target.html"},
         )
         assert authored_errors == [], authored_errors
+
+        missing_transition_contract = copy.deepcopy(manifest)
+        missing_transition_contract["pages"][3]["compatibility"]["mode"] = "transition"
+        invalid_transition = CourseHTMLParser()
+        invalid_transition.feed(
+            '<html lang="zh-Hant"><body><a href="001-0001-target.html#target">'
+            "Continue</a><footer>Legacy lesson navigation</footer></body></html>"
+        )
+        invalid_transition.close()
+        transition_errors = validate_compatibility_graph(
+            missing_transition_contract,
+            {"lessons/001-0002-old.html": invalid_transition},
+        )
+        assert_codes(
+            transition_errors,
+            "compatibility-identity",
+            "compatibility-reason",
+            "evidence-carryover",
+            "compatibility-guidance",
+            "compatibility-exclusion",
+        )
 
         invalid_document = CourseHTMLParser()
         invalid_document.feed(
@@ -864,7 +1010,8 @@ def print_text_report(report: dict[str, Any]) -> None:
             f"required-paths={checks.get('requiredPaths', 0)} "
             f"present-paths={checks.get('presentPaths', 0)} "
             f"metadata-blockers={checks.get('metadataBlockers', 0)} "
-            f"link-or-quiz-blockers={checks.get('linkOrQuizBlockers', 0)}"
+            f"link-or-quiz-blockers={checks.get('linkOrQuizBlockers', 0)} "
+            f"compatibility-blockers={checks.get('compatibilityBlockers', 0)}"
         )
     for error in report["blockers"]:
         subject = f" {error['subject']}" if error.get("subject") else ""
