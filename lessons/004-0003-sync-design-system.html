@@ -10,11 +10,11 @@
 <title>004-0003：同步並校正設計系統脈絡</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:800px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#635b9a;margin-top:2rem}.mission,.stop,.rule,.verified{border-left:4px solid #635b9a;background:#f3f1fa;padding:.8rem 1rem}.card,.win,.quiz{border:1px solid #d9d5e8;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#efedf8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #d9d5e8;padding:.6rem;text-align:left;vertical-align:top}code,pre{background:#f3f1fa;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#f3f1fa;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#514985}@media(max-width:620px){body{margin-top:1rem}table{font-size:.88rem}}</style>
 </head><body>
-<p><a href="004-0002-write-design-brief.html">← 設計摘要</a> · <a href="../reference/claude-design-to-code-workflow.html">設計 工作流程 參考</a></p>
+<p><a href="004-0002-write-design-brief.html">← 設計摘要</a> · <a href="../reference/claude-design-to-code-workflow.html">設計工作流程參考</a></p>
 <header><p>第 4 階段 · 設計 · 004-0003 · Conditional 系統分支</p><h1>只用已核准脈絡，同步後逐項校正</h1><p class="mission"><strong>進入條件：</strong>簡述已指向已核准設計系統、品牌 source、設計檔案或可安全讀取的 codebase 脈絡。沒有這類 source 時跳過本課，直接進 004-0004；不要讓 Claude 發明一套看似正式的權杖。</p></header>
 <h2>先分清兩種工作</h2>
-<table><tr><th>工作</th><th>授權範圍</th><th>完成 evidence</th></tr><tr><td>組織設計系統設定／測試／發布</td><td>具權限的組織負責人，在 Claude Design 設定介面操作</td><td>來源、review／測試結果、已發布 狀態與負責人記錄</td></tr><tr><td>專案 層級匯入／同步</td><td>本次專案被允許讀取的 GitHub、設計檔案、上傳或本機 codebase</td><td>匯入識別、可用元件／權杖、缺漏與校正記錄</td></tr></table>
-<p class="rule"><strong>邊界：</strong>專案 匯入不會自動發布組織系統；匯入成功也不代表 source 品質正確。若 source 混亂、過時或權限不清，先停止而不是補猜。</p>
+<table><tr><th>工作</th><th>授權範圍</th><th>完成 evidence</th></tr><tr><td>組織設計系統設定／測試／發布</td><td>具權限的組織負責人，在 Claude Design 設定介面操作</td><td>來源、review／測試結果、已發布狀態與負責人記錄</td></tr><tr><td>專案層級匯入／同步</td><td>本次專案被允許讀取的 GitHub、設計檔案、上傳或本機 codebase</td><td>匯入識別、可用元件／權杖、缺漏與校正記錄</td></tr></table>
+<p class="rule"><strong>邊界：</strong>專案匯入不會自動發布組織系統；匯入成功也不代表 source 品質正確。若 source 混亂、過時或權限不清，先停止而不是補猜。</p>
 <div class="verified"><strong>已驗證環境：</strong>2026-07-16 依 Anthropic 設計系統設定與入門指南檢查組織設定、已發布狀態與專案匯入介面；實際標籤、可用性與同步行為可能在測試版期間改變，操作前重查官方頁面。</div>
 <h2>產出系統對齊紀錄</h2>
 <div class="card"><pre>Approved source / owner / revision:

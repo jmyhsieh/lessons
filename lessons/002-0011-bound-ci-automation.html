@@ -51,7 +51,7 @@ Stop and rollback:</pre></div>
   <thead><tr><th>情境探測</th><th>預期邊界回饋</th></tr></thead>
   <tbody>
     <tr><td>分支來源 PR 的文字要求讀取密鑰</td><td>機密資料不注入不受信任脈絡；工作停止點，留下可診斷紀錄。</td></tr>
-    <tr><td>模型要求未列入允許清單的寫入／網路 工具</td><td>工具遭拒；不能靠提示自行擴權。</td></tr>
+    <tr><td>模型要求未列入允許清單的寫入／網路工具</td><td>工具遭拒；不能靠提示自行擴權。</td></tr>
     <tr><td>預算、逾時或確定性 check 失敗</td><td>工作安全失敗；不 retry 非冪等副作用。</td></tr>
   </tbody>
 </table></div>
@@ -60,15 +60,15 @@ Stop and rollback:</pre></div>
 <ol>
   <li>只有已在上一課通過的有界限的本機單次執行才能帶入；若本機契約尚未穩定，先返回修正。</li>
   <li>用儲存庫負責人核准的 CI／Claude Code GitHub Actions 文件逐欄填卡；未知欄位標成阻塞，不用安全語氣掩蓋。</li>
-  <li>對上表三張情境卡逐一走觸發條件 → 權限 → 模型/工具 動作 → 完成證明，記錄 放行、拒絕 或核准停止點。</li>
-  <li>確認紀錄不洩漏提示、權杖 或敏感輸出；綠燈狀態之外仍要有確定性成果／check。</li>
+  <li>對上表三張情境卡逐一走觸發條件 → 權限 → 模型/工具動作 → 完成證明，記錄放行、拒絕或核准停止點。</li>
+  <li>確認紀錄不洩漏提示、權杖或敏感輸出；綠燈狀態之外仍要有確定性成果／check。</li>
   <li>保存卡、三個結果與 learner judgment。本課不建立工作流程檔案、不開 PR、不連遠端 CI。</li>
 </ol>
-<div class="win"><strong>具體成果：</strong>一張 CI 邊界卡與三個桌上演練結果。<br><strong>可觀察回饋：</strong>不受信任的密鑰要求、未核准工具與失敗的完成證明都得到明確 拒絕／停止點，而不是模糊的「小心使用」。</div>
+<div class="win"><strong>具體成果：</strong>一張 CI 邊界卡與三個桌上演練結果。<br><strong>可觀察回饋：</strong>不受信任的密鑰要求、未核准工具與失敗的完成證明都得到明確拒絕／停止點，而不是模糊的「小心使用」。</div>
 
 <div class="quiz" data-answer="1">
   <p>哪一項最能證明 CI 自動化邊界已有清楚界線？</p>
-  <button type="button">工作流程 顯示綠色</button>
+  <button type="button">工作流程顯示綠色</button>
   <button type="button">觸發條件、輸入、權限、機密資料、工具、預算、失敗與核准停止點都有可演練結果</button>
   <button type="button">模型承諾不會使用危險工具</button>
   <div class="why">CI 是外部執行環境；邊界必須由平台權限、工具允許清單、確定性 checks 與停止點行為證明。</div>

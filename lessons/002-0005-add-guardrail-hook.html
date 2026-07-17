@@ -35,7 +35,7 @@
 </header>
 
 <h2>只自動化確定性政策</h2>
-<p>適合 hook 的規則能從結構化輸入直接判斷，例如「編輯／寫入 不得碰這個明確路徑」。命名品質、架構好壞或「看起來危險」需要 判斷，不應包成會自動阻擋的判斷式。</p>
+<p>適合 hook 的規則能從結構化輸入直接判斷，例如「編輯／寫入不得碰這個明確路徑」。命名品質、架構好壞或「看起來危險」需要判斷，不應包成會自動阻擋的判斷式。</p>
 <div class="table-wrap"><table>
   <thead><tr><th>案例</th><th>預期結果</th><th>證據</th></tr></thead>
   <tbody>
@@ -57,12 +57,12 @@ Authority and side effects:
 Stop condition:</pre></div>
 <ol>
   <li>若還不能說明 hook 事件、matcher 與命令，先到<a href="002-0004-smoke-test-hook.html">hook 冒煙測試課程</a>練習，之後回選擇器；不要直接裝防護。</li>
-  <li>在練習環境建立一個 受保護的 檔案與相鄰安全檔案；兩者都不得是真實 機密資料、部署 或正式環境設定。</li>
+  <li>在練習環境建立一個受保護的檔案與相鄰安全檔案；兩者都不得是真實機密資料、部署或正式環境設定。</li>
   <li>逐字審查 hook 指令碼。它只解析必要欄位、比較明確路徑、以結束 2 阻擋並把理由寫到 stderr。</li>
-  <li>先跑 應阻擋：確認 受保護的 檔案完全沒變；再跑 應放行：確認安全檔案得到唯一預期變更。</li>
+  <li>先跑應阻擋：確認受保護的檔案完全沒變；再跑應放行：確認安全檔案得到唯一預期變更。</li>
   <li>保存兩個結果、stderr、精確 diff、回復與 learner judgment。任一偽陰性／偽陽性都算失敗。</li>
 </ol>
-<div class="win"><strong>具體成果：</strong>一張防護測試卡與 應阻擋／應允許證據組。<br><strong>可觀察回饋：</strong>受保護檔案無 diff 且理由清楚；安全檔案有唯一預期 diff；回復可重現。</div>
+<div class="win"><strong>具體成果：</strong>一張防護測試卡與應阻擋／應允許證據組。<br><strong>可觀察回饋：</strong>受保護檔案無 diff 且理由清楚；安全檔案有唯一預期 diff；回復可重現。</div>
 
 <div class="quiz" data-answer="1">
   <p>防護規則成功擋住受保護的檔案後，為什麼仍要測安全檔案？</p>
@@ -72,7 +72,7 @@ Stop condition:</pre></div>
   <div class="why">只測阻擋會漏掉偽陽性；防護必須同時保護禁區並保留合法工作能力。</div>
 </div>
 
-<p class="stop"><strong>返回邊界：</strong>防護規則 不是安全沙箱，也不擴張工作階段權限。回復練習環境，把證據與剩餘風險寫回 續作筆記本，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>；未經真實儲存庫審查不安裝到正式環境工作流程。</p>
+<p class="stop"><strong>返回邊界：</strong>防護規則不是安全沙箱，也不擴張工作階段權限。回復練習環境，把證據與剩餘風險寫回續作筆記本，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>；未經真實儲存庫審查不安裝到正式環境工作流程。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">

@@ -32,8 +32,8 @@ Sample-row and aggregate reconciliation:</pre></div>
   <li>抽查至少三個 source 列，並以獨立小計或簡單計算對照彙總結果；將差異保留為限制。</li>
   <li>把發現、查詢、輸出與 source 定位一起帶回主張台帳；查詢結果不會自動成為詮釋。</li>
 </ol>
-<div class="win"><strong>具體成果：</strong>一個帶精確 SQL、schema 假設、輸出與調節紀錄的表格發現。<br><strong>可觀察回饋：</strong>審查者 能重跑查詢得到同一結果，追到抽樣 source 列，並說明 篩選、分母與 限制 如何影響發現。</div>
-<div class="quiz" data-answer="2"><p>彙總看起來合理，但分母的空值列未定義，該怎麼做？</p><button type="button">直接交付，因為 SQL 可重跑</button><button type="button">把空值當 0，不需記錄</button><button type="button">明確定義排除規則／空值規則，重跑並保存差異</button><div class="why">可重跑不代表語意正確；schema、粒度、空值與分母都是主張 邊界。</div></div>
+<div class="win"><strong>具體成果：</strong>一個帶精確 SQL、schema 假設、輸出與調節紀錄的表格發現。<br><strong>可觀察回饋：</strong>審查者能重跑查詢得到同一結果，追到抽樣 source 列，並說明篩選、分母與限制如何影響發現。</div>
+<div class="quiz" data-answer="2"><p>彙總看起來合理，但分母的空值列未定義，該怎麼做？</p><button type="button">直接交付，因為 SQL 可重跑</button><button type="button">把空值當 0，不需記錄</button><button type="button">明確定義排除規則／空值規則，重跑並保存差異</button><div class="why">可重跑不代表語意正確；schema、粒度、空值與分母都是主張邊界。</div></div>
 <p class="stop"><strong>返回／合法停止：</strong>發現通過樣本列與彙總結果調節後，回 <a href="003-0003-build-source-to-claim-outline.html">003-0003</a>；不要把 DuckDB 練習升格為知識完成。若 schema、單位、關聯鍵、權利或差異無法釐清，保存 SQL 與失敗 evidence 後停止，不輸出確定語氣的結論。</p>
 <footer data-course-footer="canonical" data-route-id="knowledge-delivery" data-legal-stop="Stop at Knowledge delivery closeout">
 <p><strong>路線導覽 · 知識工作交付</strong></p>

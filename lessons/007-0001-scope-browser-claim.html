@@ -27,9 +27,9 @@ Why this claim must remain rerunnable:
 Originating ticket / Engineering closeout:</pre></div>
 <h2>不要把觀察寫成推論</h2>
 <table><tr><th>類型</th><th>可以記什麼</th><th>不可偷渡的結論</th></tr><tr><td>觀察</td><td>「點擊後URL成為 <code>/done</code>，頁面出現可存取名稱『訂單完成』。」</td><td>「因此所有瀏覽器、角色與資料都正確。」</td></tr><tr><td>已擷取artifact</td><td>時間標記、快照、主控台摘錄或screenshot的識別。</td><td>Artifact本身不等於斷言，也不證明行為壞掉時會失敗。</td></tr><tr><td>推論</td><td>「可能由過期工作階段導致」並標為待驗證假說。</td><td>不要把代理程式解釋或DOM推測改寫成已觀察事實。</td></tr></table>
-<p class="boundary"><strong>探索邊界：</strong>本課只核准一個主張的證據邊界。不要同時測多個流程、把screenshot當持久的證明，或為了「更完整」把Desktop Browser、Chrome、Playwright CLI、Playwright MCP全走一次。介面選擇是下一課的一次選擇。</p>
+<p class="boundary"><strong>探索邊界：</strong>本課只核准一個主張的證據邊界。不要同時測多個流程、把screenshot當成可持續重跑的證明，或為了「更完整」把Desktop Browser、Chrome、Playwright CLI、Playwright MCP全走一次。介面選擇是下一課的一次選擇。</p>
 <div class="win"><strong>可見成果：</strong>一張含應用程式修訂版、起始狀態、動作、可觀察結果、反證條件與排除項目的瀏覽器主張卡。<br><strong>可觀察回饋：</strong>審查者能只看卡片在不讀實作的情況下重述使用者行為，指出什麼結果會讓主張失敗，並圈出觀察、artifact與推論混寫的位置。</div>
-<div class="quiz" data-answer="1"><p>哪一個主張已經窄到能成為後續持久的test的起點？</p><button type="button">結帳功能應該正常，而且各種瀏覽器都要漂亮</button><button type="button">在修訂版abc123的訪客fixture，375px 檢視區從購物車送出有效訂單後，URL進入 /confirmation且標題顯示「訂單完成」；停留原頁即反證</button><button type="button">Agent截圖看起來成功，所以checkout已通過</button><div class="why">可測主張必須固定識別、起始狀態、動作、可觀察結果與反證條件；截圖與代理程式判斷都不能代替會在行為壞掉時失敗的斷言。</div></div>
+<div class="quiz" data-answer="1"><p>哪一個主張已經窄到能成為後續可持續重跑的test起點？</p><button type="button">結帳功能應該正常，而且各種瀏覽器都要漂亮</button><button type="button">在修訂版abc123的訪客fixture，375px 檢視區從購物車送出有效訂單後，URL進入 /confirmation且標題顯示「訂單完成」；停留原頁即反證</button><button type="button">Agent截圖看起來成功，所以checkout已通過</button><div class="why">可測主張必須固定識別、起始狀態、動作、可觀察結果與反證條件；截圖與代理程式判斷都不能代替會在行為壞掉時失敗的斷言。</div></div>
 <p class="stop"><strong>合法停止／返回／續行：</strong>應用程式修訂版、安全的fixture、權限、起始狀態、可觀察結果或反證條件任一不明，或主張需要未授權的正式環境變更／真實交易時，保存主張草稿並停止；Code 就緒程度缺口回001-0007，產品期待不清則回原始工作票／Engineering收尾。卡片可由審查者重述後，進 <a href="007-0002-choose-browser-surface.html">007-0002</a> 選擇一個探索介面。現在合法停止也只代表主張已界定，不代表瀏覽器證據路線、Phase 7或Migration完成。</p>
 <footer data-course-footer="canonical" data-route-id="browser-evidence" data-legal-stop="Stop after the browser claim is rerunnable in the declared environment">
 <p><strong>路線導覽 · 瀏覽器證據</strong></p>

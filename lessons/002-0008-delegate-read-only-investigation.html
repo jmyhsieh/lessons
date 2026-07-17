@@ -45,17 +45,17 @@ Main-session spot check:</pre></div>
 <div class="table-wrap"><table>
   <thead><tr><th>需要</th><th>正確隔離</th></tr></thead>
   <tbody>
-    <tr><td>大量唯讀探索，不污染主對話 脈絡</td><td>全新探索／計畫 subagent；不給編輯、寫入或外部副作用權限。</td></tr>
+    <tr><td>大量唯讀探索，不污染主對話脈絡</td><td>全新探索／計畫 subagent；不給編輯、寫入或外部副作用權限。</td></tr>
     <tr><td>另一條工作線需要改檔</td><td>本課停止；改選工作樹課程。脈絡隔離不會隔離檔案系統。</td></tr>
   </tbody>
 </table></div>
 
 <h2>執行最小調查</h2>
 <ol>
-  <li>把問題縮成一個能由指定路徑回答的 事實，例如「哪個函式建立工作階段？」；不要委派整個功能。</li>
+  <li>把問題縮成一個能由指定路徑回答的事實，例如「哪個函式建立工作階段？」；不要委派整個功能。</li>
   <li>選目前介面可用的唯讀探索或計畫 subagent，逐字附上允許的路徑、遭拒動作、答案格式與停止點。</li>
   <li>要求每個結論帶 <code>file:line</code>；證據不足時回報不確定性，不猜測、不改檔補證據。</li>
-  <li>主工作階段隨機打開至少一個引用，確認 主張、路徑與行號脈絡相符；不把 subagent 摘要當事實來源。</li>
+  <li>主工作階段隨機打開至少一個引用，確認主張、路徑與行號脈絡相符；不把 subagent 摘要當事實來源。</li>
   <li>保存委派契約、摘要、抽查結果、未回答事項與 learner judgment。</li>
 </ol>
 <div class="win"><strong>具體成果：</strong>一份有界限的唯讀調查紀錄。<br><strong>可觀察回饋：</strong>摘要回答唯一問題、附可開啟的檔案引用，抽查相符，工作樹沒有因調查改變。</div>
@@ -65,7 +65,7 @@ Main-session spot check:</pre></div>
   <button type="button">直接修改，因為它有自己的脈絡</button>
   <button type="button">停止並回報缺口，由主工作流重新選擇權限與隔離</button>
   <button type="button">改用沒有引用的推測完成摘要</button>
-  <div class="why">唯讀 subagent 隔離的是 脈絡，不會因為委派就取得檔案系統寫入權限；需要改檔時必須回到選擇器重新決定。</div>
+  <div class="why">唯讀 subagent 隔離的是脈絡，不會因為委派就取得檔案系統寫入權限；需要改檔時必須回到選擇器重新決定。</div>
 </div>
 
 <p class="stop"><strong>合法停止／返回：</strong>目前介面沒有唯讀 subagent、問題無法縮成有界限的調查、需要外部資料或需要修改檔案時，記錄缺口後停止。把紀錄寫回 Return notebook，狀態記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。</p>

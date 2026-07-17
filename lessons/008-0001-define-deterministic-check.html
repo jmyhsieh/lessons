@@ -28,7 +28,7 @@ Known limits:</pre></div>
 <table><tr><th>工作結果</th><th>確定性判定式</th><th>不夠可靠的替代品</th></tr><tr><td>產生固定格式檔案</td><td>解析器成功、必要欄位等於已知固定值、禁止欄位不存在。</td><td>「檔案已建立」或代理程式摘要。</td></tr><tr><td>轉換一組有界的紀錄</td><td>輸入ID集合與輸出ID集合精確對應，錯誤清單為空。</td><td>只看處理筆數或最後一行通過。</td></tr><tr><td>更新本機 fixture狀態</td><td>由公開的讀取介面查得預期狀態，且fixture外指紋未變。</td><td>查內部暫存值或相信寫入command結束0。</td></tr></table>
 <p class="rule"><strong>判定準則邊界：</strong>能用確定性code計算的路由、數量、schema、hash、狀態與不變條件，就不要交給模型判斷。品質、風險或是否接受殘餘限制仍由學習者判斷，不能偽裝成機械通過。</p>
 <h2>3. 先校準失敗，再保存基準</h2>
-<ol><li>在可丟棄副本對一個已知不完整或刻意錯誤的輸出跑check，確認它以預期判定式失敗；設定錯誤不算關鍵失敗。</li><li>對已知正確的人工結果跑同一check，記錄command／檢查、結束、關鍵輸出、輸入識別與時間。</li><li>保存fixture外的唯讀的指紋或範圍清單，供後續判斷工作流是否越界。</li><li>請另一個人只看契約，指出一個可能誤報成功的情境；補強判定式，而不是加一句代理程式prompt。</li></ol>
+<ol><li>在可丟棄副本對一個已知不完整或刻意錯誤的輸出跑check，確認它以預期判定式失敗；設定錯誤不算關鍵失敗。</li><li>對已知正確的人工結果跑同一check，記錄command／檢查、結束、關鍵輸出、輸入識別與時間。</li><li>保存fixture外的唯讀指紋或範圍清單，供後續判斷工作流是否越界。</li><li>請另一個人只看契約，指出一個可能誤報成功的情境；補強判定式，而不是加一句代理程式prompt。</li></ol>
 <div class="win"><strong>可見成果：</strong>一份綁定真實輸入、反證條件與已校準失敗／成功的確定性完成契約。<br><strong>可觀察回饋：</strong>審查者能在不讀代理程式對話的情況下，讓同一check對錯誤fixture失敗、對已知正確fixture通過，並指出哪些判斷仍需要人。</div>
 <div class="quiz" data-answer="1"><p>哪一項能作為作業工作流的完成oracle？</p><button type="button">Agent回覆「任務已順利完成」</button><button type="button">固定解析器對同一輸出驗證schema、已知欄位與輸入ID集合，錯誤時非零</button><button type="button">儀表板最後一列是綠色，但無法連回本次輸入</button><div class="why">可靠oracle必須針對本次輸入，以可重跑判定式產生可反證結果；代理程式自評與未綁定執行識別的綠燈都不是完成證明。</div></div>
 <p class="stop"><strong>合法停止／返回／續行：</strong>沒有安全的fixture、輸入識別、可反證判定式、已知失敗校準或Code 就緒程度時，保存契約草稿，依缺口回readiness／原始路線；不要啟動任何可寫入的自動化。契約能由別人重跑後，進 <a href="008-0002-choose-agent-execution-surface.html">008-0002</a> 選一個本機優先執行介面。此時只完成oracle，不代表工作流、Phase或Migration完成。</p>

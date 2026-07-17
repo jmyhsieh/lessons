@@ -30,8 +30,8 @@
 <p><a href="002-0001-choose-toolbox-lesson.html">← 回工具箱選擇器</a> · <a href="../toc.html">回課目表</a></p>
 <header>
   <p class="kicker">第 2 階段 · 裝備 · 002-0006 · Conditional 工具箱課程</p>
-  <h1>先使用既有 Skill，不跨過 工作流程 編寫邊界</h1>
-  <p class="mission"><strong>任務：</strong>選一個已安裝、來源可信且 說明 直接符合目前的路線缺口的 Skill，讀完指示套件，再用有界限的任務做一次快速驗證測試。</p>
+  <h1>先使用既有 Skill，不跨過工作流程編寫邊界</h1>
+  <p class="mission"><strong>任務：</strong>選一個已安裝、來源可信且說明直接符合目前的路線缺口的 Skill，讀完指示套件，再用有界限的任務做一次快速驗證測試。</p>
 </header>
 
 <h2>先做信任與適配度檢查</h2>
@@ -39,9 +39,9 @@
   <thead><tr><th>檢查</th><th>可以繼續的證據</th><th>停止訊號</th></tr></thead>
   <tbody>
     <tr><td>來源與範圍</td><td>知道它來自個人層級、專案或已核准外掛，且名稱／說明對應目前缺口。</td><td>來源不明，或只能靠猜測用途。</td></tr>
-    <tr><td>完整 指引</td><td>已讀完整 <code>SKILL.md</code> 及本次需要的直接參考資料。</td><td>只看 說明 就執行。</td></tr>
+    <tr><td>完整指引</td><td>已讀完整 <code>SKILL.md</code> 及本次需要的直接參考資料。</td><td>只看說明就執行。</td></tr>
     <tr><td>權限／副作用</td><td>讀取、寫入、網路、外部動作與停止點條件都在選擇卡內。</td><td>Skill 需要超出目前路線核准範圍的權限。</td></tr>
-    <tr><td>工作流程 編寫邊界</td><td>不修改 Skill，只使用既有套件。</td><td>需要新建、重寫或發布共用 Skill。</td></tr>
+    <tr><td>工作流程編寫邊界</td><td>不修改 Skill，只使用既有套件。</td><td>需要新建、重寫或發布共用 Skill。</td></tr>
   </tbody>
 </table></div>
 
@@ -56,22 +56,22 @@ Expected artifact or observation:
 Stop condition:</pre></div>
 <ol>
   <li>從目前介面實際列出的技能中選一個；沒有適合項目就記錄缺口並停止。</li>
-  <li>開啟該 Skill 的 <code>SKILL.md</code>，完整讀取 指引；只讀本次被直接引用且必要的資源。</li>
+  <li>開啟該 Skill 的 <code>SKILL.md</code>，完整讀取指引；只讀本次被直接引用且必要的資源。</li>
   <li>若介面支援明確呼叫，就用顯示的 <code>/skill-name</code>；不要自行猜測不存在的命令。</li>
   <li>用安全練習環境或唯讀任務執行一次，保存呼叫、Skill 要求的步驟、實際結果與任何權限提示。</li>
   <li>逐項比對使用卡；若 Skill 要求擴權、修改自身或產生未核准外部副作用，立即停止。</li>
 </ol>
-<div class="win"><strong>具體成果：</strong>一張 Skill 使用卡與一次有界限的呼叫紀錄。<br><strong>可觀察回饋：</strong>Skill 按已讀 指引 完成指定小任務，結果符合預期，且沒有超出卡的權限／副作用。</div>
+<div class="win"><strong>具體成果：</strong>一張 Skill 使用卡與一次有界限的呼叫紀錄。<br><strong>可觀察回饋：</strong>Skill 按已讀指引完成指定小任務，結果符合預期，且沒有超出卡的權限／副作用。</div>
 
 <div class="quiz" data-answer="1">
   <p>現有 Skill 很接近需求，但缺一個共享步驟；本課應怎麼做？</p>
   <button type="button">直接修改 Skill，順便發布給團隊</button>
   <button type="button">記錄缺口並返回目前路線；編寫留給標準化</button>
   <button type="button">忽略缺口，宣稱快速驗證測試通過</button>
-  <div class="why">裝備 只選用既有能力；建立或版本化共享工作流程已跨過 工作流程 編寫邊界。</div>
+  <div class="why">裝備只選用既有能力；建立或版本化共享工作流程已跨過工作流程編寫邊界。</div>
 </div>
 
-<p class="stop"><strong>返回邊界：</strong>把 Skill 識別、指示範圍、快速驗證證據與 學習者判斷 寫回 續作筆記本，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。本課不建立、修改或發布 Skill，也不把呼叫當成目前路線成果。</p>
+<p class="stop"><strong>返回邊界：</strong>把 Skill 識別、指示範圍、快速驗證證據與學習者判斷寫回續作筆記本，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。本課不建立、修改或發布 Skill，也不把呼叫當成目前路線成果。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">

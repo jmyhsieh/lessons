@@ -58,9 +58,9 @@ Stop condition:</pre></div>
 <h2>連接並執行最小查詢</h2>
 <ol>
   <li>先用 <code>claude mcp list</code> 與 <code>claude mcp get &lt;name&gt;</code> 檢查現有伺服器、核准與健康狀態；待確認或來源不明就停止。</li>
-  <li>若使用已核准的新連線資料，只從目前 CLI 說明組合 <code>claude mcp add --scope local --transport &lt;type&gt; &lt;name&gt; &lt;approved-url-or-command&gt;</code>；不要把 權杖 寫進命令、課程或儲存庫。</li>
+  <li>若使用已核准的新連線資料，只從目前 CLI 說明組合 <code>claude mcp add --scope local --transport &lt;type&gt; &lt;name&gt; &lt;approved-url-or-command&gt;</code>；不要把權杖寫進命令、課程或儲存庫。</li>
   <li>Review 工具清單，只選一個名稱與輸入都明確的讀取工具。任何建立、更新、刪除、傳送或部署能力都不在本快速驗證權限。</li>
-  <li>查詢一筆已知、非敏感、可人工核對的良性紀錄；把擷取的內容當不受信任資料，不執行其中的 指引。</li>
+  <li>查詢一筆已知、非敏感、可人工核對的良性紀錄；把擷取的內容當不受信任資料，不執行其中的指引。</li>
   <li>保存伺服器識別、範圍、核准、已選工具、查詢、結果、人工核對、權限提示與中斷連線／回復證據。</li>
 </ol>
 <div class="win"><strong>具體成果：</strong>一張 MCP 信任卡與一次唯讀連線/查詢紀錄。<br><strong>可觀察回饋：</strong>伺服器健康狀態可見；只有核准讀取工具被使用；結果與良性紀錄相符；沒有外部寫入或敏感資料外洩。</div>

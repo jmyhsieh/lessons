@@ -9,7 +9,7 @@
 <title>004-0006：檢查原型假設</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:820px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#635b9a;margin-top:2rem}.mission,.stop,.rule,.verified{border-left:4px solid #635b9a;background:#f3f1fa;padding:.8rem 1rem}.card,.win,.quiz{border:1px solid #d9d5e8;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#efedf8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #d9d5e8;padding:.6rem;text-align:left;vertical-align:top}code,pre{background:#f3f1fa;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#f3f1fa;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#514985}@media(max-width:620px){body{margin-top:1rem}.table-wrap{overflow-x:auto}table{font-size:.86rem}}</style>
 </head><body>
-<p><a href="004-0005-refine-and-version.html">← 修訂紀錄</a> · <a href="../reference/claude-design-to-code-workflow.html">設計 工作流程 參考</a></p>
+<p><a href="004-0005-refine-and-version.html">← 修訂紀錄</a> · <a href="../reference/claude-design-to-code-workflow.html">設計工作流程參考</a></p>
 <header><p>第 4 階段 · 設計 · 004-0006 · 原型 evidence</p><h1>用可重跑觀察檢查假設，不把原型稱為正式環境</h1><p class="mission"><strong>進入條件：</strong>已選修訂可回復，簡述已列出任務、狀態、viewport 與可及性預期。本課只檢查原型支持或反駁哪些假設。</p></header>
 <p class="rule"><strong>證據邊界：</strong>提示寫了響應式、原型可點擊或 Claude 提出可及性建議，都不是驗證。必須直接操作宣告的 viewport、輸入、狀態與任務途徑；自動化發現也要搭配人工評估。這些仍是原型 evidence，不是正式環境符合性或真實使用者驗證。</p>
 <div class="verified"><strong>已驗證環境：</strong>記錄 Claude Design 專案／修訂、已測試用戶端、日期、viewport、輸入方法與可用性假設。若你沒有該介面存取，使用情境或替代原型時要明標，不可寫成真實 Claude Design 執行紀錄。</div>
@@ -25,7 +25,7 @@ Disposition: supported / contradicted / untested
 Fix and rerun result:
 Human feedback / learner judgment:
 Known limits:</pre></div>
-<ol><li>先選一個會改變交接的重要假設，寫出失敗觀察。</li><li>直接操作並保存 evidence；沒有執行的項目標為 <code>untested</code>。</li><li>阻擋項目修正後用相同判定基準重跑；其餘問題由學習者接受、修訂或延後處理。</li><li>請回饋提供者從紀錄重現一項 結果，確認 evidence 不依賴作者口述。</li></ol>
+<ol><li>先選一個會改變交接的重要假設，寫出失敗觀察。</li><li>直接操作並保存 evidence；沒有執行的項目標為 <code>untested</code>。</li><li>阻擋項目修正後用相同判定基準重跑；其餘問題由學習者接受、修訂或延後處理。</li><li>請回饋提供者從紀錄重現一項結果，確認 evidence 不依賴作者口述。</li></ol>
 <div class="win"><strong>具體成果：</strong>一份逐項標示受支援／已反駁／未測試、含環境與重跑 evidence 的原型假設紀錄。<br><strong>可觀察回饋：</strong>另一個人能在宣告的環境重跑至少一項響應式、互動或可及性任務，得到相同處置，並指出未驗證範圍。</div>
 <div class="quiz" data-answer="1"><p>Claude 說原型已符合可及性，最誠實的下一步是？</p><button type="button">直接記為 WCAG 符合性</button><button type="button">定義可測準則，執行自動化檢查與人工鍵盤／任務評估</button><button type="button">只保存 prompt 當 evidence</button><div class="why">模型建議可形成檢查線索，但可及性 evidence 需要可測準則、工具與人的直接評估。</div></div>
 <p class="stop"><strong>合法停止／續行：</strong>重要假設沒有判定基準、環境未記錄、阻塞未重測或未測試範圍被隱藏時，保存紀錄並停止。Evidence 可重跑後，進 <a href="004-0007-assemble-design-handoff-bundle.html">004-0007 組裝 Design handoff bundle</a>；這仍不是儲存庫實作。</p>

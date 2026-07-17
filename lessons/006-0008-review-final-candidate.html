@@ -16,16 +16,16 @@
 <div class="card"><pre>git rev-parse &lt;fixed-point&gt;
 git rev-parse &lt;candidate-sha&gt;
 git diff &lt;fixed-point&gt;...&lt;candidate-sha&gt;
-git log &lt;fixed-point&gt;..&lt;candidate-sha&gt; --oneline</pre><p>兩個審查者必須收到相同差異識別，但彼此不共享結論。工具選擇可依環境調整；輸入與 evidence 邊界 不變。</p></div>
+git log &lt;fixed-point&gt;..&lt;candidate-sha&gt; --oneline</pre><p>兩個審查者必須收到相同差異識別，但彼此不共享結論。工具選擇可依環境調整；輸入與 evidence 邊界不變。</p></div>
 <div class="axes"><section class="axis"><h2>標準軸</h2><p>只問差異是否符合儲存庫指引、本機慣例與有文件記錄的標準。逐項引用規則與檔案/區塊；啟發式異味要標成判斷。</p><pre>Standards findings:
 - rule / location / evidence
-- severity / suggested repair</pre></section><section class="axis"><h2>規格軸</h2><p>只問原始 議題／規格是否完整、正確且沒有範圍膨脹。逐項引用 需求，再對照檔案/區塊。</p><pre>Spec findings:
+- severity / suggested repair</pre></section><section class="axis"><h2>規格軸</h2><p>只問原始議題／規格是否完整、正確且沒有範圍膨脹。逐項引用需求，再對照檔案/區塊。</p><pre>Spec findings:
 - requirement / location / gap
 - missing, wrong, or unasked behavior</pre></section></div>
-<p class="rule"><strong>不要合併兩軸：</strong>標準通過不代表做對需求；規格 通過也不代表符合儲存庫規則。保留兩份發現與各自結論，不跨軸重排成單一分數。</p>
-<div class="win"><strong>具體成果：</strong>一份綁定固定點與精確候選版本 SHA 的標準／規格 審查套件。<br><strong>可觀察回饋：</strong>讀者能分別計數兩軸發現，並驗證兩份報告 review 的是同一份不可變差異。</div>
-<div class="quiz" data-answer="1"><p>Review 後修正一項規格發現，下一步是什麼？</p><button type="button">沿用原 Review，補一行「已修」</button><button type="button">回 006-0007 建立新候選版本 SHA，兩軸與檢查全部重跑</button><button type="button">只重跑 規格軸，因標準上次已通過</button><div class="why">任何候選版本變更都使舊審查證據失效；新 SHA 必須重新通過完整 Review contract。</div></div>
-<p class="stop"><strong>發現項返回／合法停止：</strong>任一軸有發現、審查者看見不同候選版本、規格或標準 source 缺失、檢查被跳過，或 Review 期間候選版本改變時，停止並回 <a href="006-0007-implement-and-create-review-checkpoint.html">006-0007</a> 做有界限的修補；建立新 SHA 後從本課開頭重跑兩軸。只有兩軸都對<strong>最終候選版本 SHA</strong>無未解發現，才保存 套件，續到 <a href="006-0009-complete-engineering-closeout.html">006-0009 工程交付收尾</a>；本頁不宣稱路線、Phase 或遷移完成。</p>
+<p class="rule"><strong>不要合併兩軸：</strong>標準通過不代表做對需求；規格通過也不代表符合儲存庫規則。保留兩份發現與各自結論，不跨軸重排成單一分數。</p>
+<div class="win"><strong>具體成果：</strong>一份綁定固定點與精確候選版本 SHA 的標準／規格審查套件。<br><strong>可觀察回饋：</strong>讀者能分別計數兩軸發現，並驗證兩份報告 review 的是同一份不可變差異。</div>
+<div class="quiz" data-answer="1"><p>Review 後修正一項規格發現，下一步是什麼？</p><button type="button">沿用原 Review，補一行「已修」</button><button type="button">回 006-0007 建立新候選版本 SHA，兩軸與檢查全部重跑</button><button type="button">只重跑規格軸，因標準上次已通過</button><div class="why">任何候選版本變更都使舊審查證據失效；新 SHA 必須重新通過完整 Review contract。</div></div>
+<p class="stop"><strong>發現項返回／合法停止：</strong>任一軸有發現、審查者看見不同候選版本、規格或標準 source 缺失、檢查被跳過，或 Review 期間候選版本改變時，停止並回 <a href="006-0007-implement-and-create-review-checkpoint.html">006-0007</a> 做有界限的修補；建立新 SHA 後從本課開頭重跑兩軸。只有兩軸都對<strong>最終候選版本 SHA</strong>無未解發現，才保存套件，續到 <a href="006-0009-complete-engineering-closeout.html">006-0009 工程交付收尾</a>；本頁不宣稱路線、Phase 或遷移完成。</p>
 <footer data-course-footer="canonical" data-route-id="engineering-delivery" data-legal-stop="Stop only after final Review evidence matches the delivered checkpoint">
 <p><strong>路線導覽 · 工程交付</strong></p>
 <ul class="course-route-actions">
