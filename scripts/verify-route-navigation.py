@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify or mechanically align route-aware canonical page footers."""
+"""Verify route-aware canonical navigation or mechanically align its footers."""
 
 from __future__ import annotations
 
@@ -41,6 +41,8 @@ class NavigationParser(HTMLParser):
         self.visible_legal_stops: list[str | None] = []
         self.dynamic_returns: list[tuple[str | None, str | None, str | None]] = []
         self.actions: list[tuple[str | None, str | None, str]] = []
+        self.links: list[str] = []
+        self.previous_links: list[str] = []
         self.completion_ui_count = 0
         self._inside_footer = False
 
@@ -48,6 +50,11 @@ class NavigationParser(HTMLParser):
         self, tag: str, attrs: list[tuple[str, str | None]]
     ) -> None:
         attributes = dict(attrs)
+        if tag == "a" and attributes.get("href"):
+            href = attributes["href"]
+            self.links.append(href)
+            if "prev" in (attributes.get("rel") or "").split():
+                self.previous_links.append(href)
         if tag == "footer":
             self.footer_count += 1
             self._inside_footer = True
@@ -193,6 +200,27 @@ def expected_actions(route: dict[str, Any], path: str) -> set[Action]:
     return actions
 
 
+def route_ancestors(route: dict[str, Any], path: str) -> set[str]:
+    parents: dict[str, set[str]] = {}
+    for edge in route.get("edges", []):
+        source = edge.get("from")
+        if not isinstance(source, str):
+            continue
+        for target in edge.get("to", []):
+            if isinstance(target, str):
+                parents.setdefault(target, set()).add(source)
+
+    ancestors: set[str] = set()
+    pending = list(parents.get(path, set()))
+    while pending:
+        candidate = pending.pop()
+        if candidate in ancestors:
+            continue
+        ancestors.add(candidate)
+        pending.extend(parents.get(candidate, set()))
+    return ancestors
+
+
 def page_route(page: dict[str, Any], routes: dict[str, dict[str, Any]]) -> dict[str, Any] | None:
     memberships = page.get("routeMemberships")
     if not isinstance(memberships, list) or not memberships:
@@ -323,6 +351,19 @@ def verify(root: Path, manifest: dict[str, Any]) -> tuple[Counter[str], list[str
                 counts["action_extra"] += count
                 details.append(f"action_extra {path}: {action}")
 
+            ancestors = route_ancestors(route, path) if route else set()
+            linked_paths = {resolve_href(path, href)[0] for href in document.links}
+            if ancestors and not linked_paths.intersection(ancestors):
+                counts["previous_missing"] += 1
+                details.append(f"previous_missing {path}")
+            for href in document.previous_links:
+                previous_path, _ = resolve_href(path, href)
+                if previous_path not in ancestors:
+                    counts["previous_mismatch"] += 1
+                    details.append(
+                        f"previous_mismatch {path}: {previous_path} not in route ancestors"
+                    )
+
             expects_dynamic = bool(
                 route
                 and route["id"] == "toolbox"
@@ -391,6 +432,87 @@ def align(root: Path, manifest: dict[str, Any]) -> int:
 def self_test(root: Path, manifest: dict[str, Any]) -> int:
     with TemporaryDirectory() as temporary:
         fixture = Path(temporary)
+        incoming_fixture = fixture / "incoming-contract"
+        (incoming_fixture / "lessons").mkdir(parents=True)
+        incoming_manifest = {
+            "routes": [
+                {
+                    "id": "sample-route",
+                    "legalStop": "Stop after target",
+                    "returnPolicy": "caller-provided",
+                    "edges": [
+                        {
+                            "kind": "next",
+                            "from": "lessons/source.html",
+                            "to": ["lessons/target.html"],
+                        }
+                    ],
+                }
+            ],
+            "pages": [
+                {
+                    "path": "lessons/source.html",
+                    "pageKind": "canonical-lesson",
+                    "routeMemberships": [{"routeId": "sample-route"}],
+                },
+                {
+                    "path": "lessons/target.html",
+                    "pageKind": "canonical-lesson",
+                    "routeMemberships": [{"routeId": "sample-route"}],
+                },
+            ],
+        }
+        (incoming_fixture / "lessons/source.html").write_text(
+            '<p><a href="target.html">next</a></p>'
+            '<footer data-course-footer="canonical" data-route-id="sample-route" '
+            'data-legal-stop="Stop after target"><ul>'
+            '<li><a data-route-id="sample-route" data-route-action="next" '
+            'href="target.html">next</a></li></ul>'
+            '<p data-route-legal-stop="Stop after target">stop</p></footer>',
+            encoding="utf-8",
+        )
+        target_path = incoming_fixture / "lessons/target.html"
+        target_clean = (
+            '<p><a rel="prev" href="source.html">previous</a></p>'
+            '<footer data-course-footer="canonical" data-route-id="sample-route" '
+            'data-legal-stop="Stop after target"><ul></ul>'
+            '<p data-route-legal-stop="Stop after target">stop</p></footer>'
+        )
+        target_path.write_text(target_clean, encoding="utf-8")
+        incoming_clean_counts, _ = verify(incoming_fixture, incoming_manifest)
+        if incoming_clean_counts:
+            print(
+                f"SELF-TEST FAIL incoming clean fixture: {dict(incoming_clean_counts)}",
+                file=sys.stderr,
+            )
+            return 1
+        target_path.write_text(
+            target_clean.replace(
+                '<p><a rel="prev" href="source.html">previous</a></p>', "", 1
+            ),
+            encoding="utf-8",
+        )
+        incoming_missing_counts, _ = verify(incoming_fixture, incoming_manifest)
+        if incoming_missing_counts["previous_missing"] != 1:
+            print(
+                "SELF-TEST FAIL incoming previous mutation: "
+                f"{dict(incoming_missing_counts)}",
+                file=sys.stderr,
+            )
+            return 1
+        target_path.write_text(
+            target_clean.replace('href="source.html"', 'href="wrong.html"', 1),
+            encoding="utf-8",
+        )
+        incoming_mismatch_counts, _ = verify(incoming_fixture, incoming_manifest)
+        if incoming_mismatch_counts["previous_mismatch"] != 1:
+            print(
+                "SELF-TEST FAIL incoming previous destination: "
+                f"{dict(incoming_mismatch_counts)}",
+                file=sys.stderr,
+            )
+            return 1
+
         for page in manifest["pages"]:
             destination = fixture / page["path"]
             destination.parent.mkdir(parents=True, exist_ok=True)
@@ -569,7 +691,7 @@ def self_test(root: Path, manifest: dict[str, Any]) -> int:
                 file=sys.stderr,
             )
             return 1
-    print("ROUTE NAVIGATION SELF-TEST PASS cases=10 skipped=0")
+    print("ROUTE NAVIGATION SELF-TEST PASS cases=12 skipped=0")
     return 0
 
 
