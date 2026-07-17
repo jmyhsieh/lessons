@@ -1,1 +1,156 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><link rel="icon" href="data:,"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="course:canonical-coordinate" content="not-applicable"><meta name="course:page-kind" content="compatibility"><meta name="course:route-roles" content="not-applicable"><meta name="course:source-ids" content="not-applicable"><meta name="course:legacy-identity" content="lessons/003-0011-architecture"><meta name="course:transition-reason" content="Move/rename/conditional"><meta name="course:evidence-carryover" content="lesson-practiced-unless-current-route-stop-is-revalidated"><meta name="course:transition-mode" content="direct"><title>原課程 003-0011 已轉接</title><style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:720px;margin:3rem auto;padding:0 1.25rem;line-height:1.8;color:#202020}main{border:1px solid #d8dde3;border-radius:12px;padding:1.4rem;background:#fbfcfd}h1{line-height:1.35}.kicker,h2{color:#315f86}.identity,.carry{background:#edf3f7;padding:.8rem 1rem;border-radius:7px}.action{display:inline-block;background:#315f86;color:#fff;padding:.7rem 1rem;border-radius:7px;text-decoration:none;font-weight:700}code{overflow-wrap:anywhere}@media(max-width:620px){body{margin:1.25rem auto}main{padding:1rem}}</style></head><body><main><p class="kicker">相容性入口 · 原 Phase 3 第 11 課</p><h1>架構工作已改為尋找一個可驗證接縫</h1><p class="identity"><strong>穩定公開網址識別：</strong><code>lessons/003-0011-architecture</code></p><h2>轉接原因</h2><p>新版要求先找出有界限的架構接縫、現有呼叫端與驗證證據，再決定是否進入實作，避免用大型重構取代明確任務。</p><h2>證據沿用</h2><p class="carry">舊架構筆記可保留為 <code>Lesson practiced</code>；候選接縫必須對目前 checkout 與 route 停止點重新核對。</p><p><a class="action" href="006-0012-find-architecture-seam.html">前往最終課程：尋找架構接縫</a></p></main></body></html>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11：用 /improve-codebase-architecture 找維護切入點</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #1a6b5a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #1a6b5a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #1a6b5a; }
+  code, pre { background: #eef4f2; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #15564a; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef4f2; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #f8fbfa; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .tip { background: #eef4f2; border-left: 4px solid #1a6b5a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #1a6b5a; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef4f2; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d3e2dd; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 3 · 第 11 課 · 約 45 分鐘 · 維護入口</div>
+<h1>用 /improve-codebase-architecture 找維護切入點</h1>
+<p class="mission">目標：學會「深模組」的語言，在真實 repo 跑一次架構健檢，得到一份視覺化報告，並對其中一個候選跑 grilling loop。這是四大失敗模式的最後一塊：architectural decay。</p>
+<div class="scope"><strong>本課只做：</strong>找出一個值得整理的架構摩擦。<br><strong>先不要做：</strong>把架構健檢變成大型重構清單。</div>
+
+
+<h2>核心概念：深模組（deep modules）</h2>
+<p>這個 skill 找的是「<strong>深化機會</strong>」— 把淺模組變深的重構。詞彙表現在集中在 shared <code>codebase-design</code>，每個建議都應使用同一套語言：</p>
+<div class="tip"><strong>現行對應：</strong>深模組與介面設計 vocabulary 現在集中在 shared <code>codebase-design</code>；<code>/improve-codebase-architecture</code> 仍是用這套語言掃描架構深化機會的主力。</div>
+<table>
+<tr><th>術語</th><th>意思</th></tr>
+<tr><td><strong>Module</strong></td><td>任何有介面＋實作的東西（函式、類別、套件）</td></tr>
+<tr><td><strong>Interface</strong></td><td>呼叫者必須知道的<strong>一切</strong>：型別、不變量、錯誤模式、順序、設定 — 不只是型別簽名</td></tr>
+<tr><td><strong>Depth 深度</strong></td><td>介面的槓桿：小介面後面藏大量行為 = 深；介面跟實作一樣複雜 = 淺</td></tr>
+<tr><td><strong>Seam 接縫</strong></td><td>介面所在之處；不改內部就能換行為的地方（Phase 3 第 06 課 to-spec 問你的就是這個）</td></tr>
+<tr><td><strong>Adapter</strong></td><td>在 seam 上滿足 interface 的具體角色；名稱描述它填入哪個位置，不描述內部材料或實作大小</td></tr>
+<tr><td><strong>Leverage / Locality</strong></td><td>深度給呼叫者的好處 / 給維護者的好處（改動、bug、知識集中一處）</td></tr>
+</table>
+<div class="tip"><strong>三句口訣：</strong>(1) <strong>刪除測試</strong> — 想像刪掉這個模組：複雜度消失 = 它是過水層；複雜度散落到 N 個呼叫端重新出現 = 它有在賺自己的飯。(2) <strong>介面就是測試面</strong>（接 Phase 3 第 08 課：測行為不測實作）。(3) <strong>一個 adapter = 假想接縫，兩個 adapter = 真接縫</strong>。</div>
+
+<h2>先圈範圍：YAGNI 也是架構原則</h2>
+<p>先用使用者已點名的 module、subsystem 或痛點作為 scope，不自行擴張。若使用者沒有指定，才讀 <code>git log --oneline</code>，從近期反覆被修改的 hot spot 選一個窄範圍；只有摩擦明顯散落在多處時才擴大。目標是找一個值得深化的 seam，不是替整個 repo 建重構 backlog。</p>
+
+<h2>三段流程</h2>
+<ol>
+  <li><strong>Explore</strong> — 先套用上面的 scope gate，再讀 CONTEXT.md 與 ADR，派 Explore subagent（Phase 2 第 05 課的 context 隔離）在範圍內有機地走 codebase 找摩擦：理解一個概念要在很多小模組間跳？淺模組？為了好測而抽出純函式但 bug 都藏在呼叫端？</li>
+  <li><strong>HTML 報告</strong> — 寫到 temp 目錄（不污染 repo）自動打開：每個候選一張卡（檔案、問題、解法、locality/leverage 效益、before/after 圖、建議強度 Strong / Worth exploring / Speculative），結尾給首選建議。<strong>此階段不提介面設計</strong> — 報告完它會問你想深入哪個。</li>
+  <li><strong>Grilling loop</strong> — 你挑一個候選，進入追問對話（Phase 3 第 04 課的肌肉直接重用）。過程中：已釐清的新領域概念進 CONTEXT.md；拒絕候選的 load-bearing reason 只是 ADR 候選，還要同時通過「難以回頭＋缺少背景會令人意外＋真實 tradeoff」三項 gate 才寫。</li>
+</ol>
+<p>兩個對高風險 repo 重要的設計：建議若與既有 ADR 衝突，只在摩擦真的大到值得重開決策時才提出（不重新爭論已決定的事）；領域講 CONTEXT.md 的語言、架構講 <code>codebase-design</code> 的語言。</p>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 圈定範圍再跑健檢</label>
+  <pre>/improve-codebase-architecture [module、subsystem 或具體痛點]</pre>
+  <p>有明確目標就直接用；沒有才先讀 <code>git log --oneline</code>，選近期反覆變動的一個 hot spot。第一次別掃全 repo，等它產出並打開 HTML 報告。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 用刪除測試驗報告</label>
+  <p>逐卡閱讀，對每個「淺模組」指控自己跑一次刪除測試：刪掉它，複雜度是消失還是散落？你同意它的 Strong/Speculative 分級嗎？</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 挑一個候選進 grilling loop</label>
+  <p>建議挑「Strong 且範圍小」的。走完追問：深化後的模組長什麼樣？接縫後面藏什麼？哪些測試存活？</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 至少拒絕一個候選（刻意練習）</label>
+  <p>挑一個你認為不值得做的，給出理由，再跑 ADR gate：是否難以回頭、缺少背景會令人意外，而且存在真實 tradeoff？三項全中才寫 ADR；「現在沒時間」等暫時理由直接跳過。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5. 收割</label>
+  <p>grill 出來的深化計劃依規模分流：同一 context 內已對齊、能一次完成的小改，直接用 <code>/implement</code> 做 bounded slice；需要跨 session 的工作才走 <code>/to-spec → /to-tickets → fresh /implement</code>。CONTEXT.md/ADR 的更新 commit 進版控。</p>
+</div>
+
+<div class="done-banner" id="done">
+  🎉 <strong>四大失敗模式全部配齊對策 — mattpocock/skills 的版圖你走完了主幹。</strong>回對話視窗回報：報告列了幾個候選？首選建議你服氣嗎？
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="0">
+  <p>1. 刪掉某個 wrapper 模組後，它做的事在六個呼叫端各自重新出現。結論是？</p>
+  <button>它是深模組，應該保留</button>
+  <button>它是過水層，應該刪除</button>
+  <button>先看測試覆蓋率再判斷</button>
+  <div class="why">刪除測試的判讀：複雜度「重新散落到 N 個呼叫端」= 它本來把複雜度集中在一處（locality）— 這正是深模組的價值。消失才代表過水層。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>2. 你因為「這季沒有時間」拒絕一個候選，該怎麼記錄？</p>
+  <button>不寫 ADR，這只是暫時原因</button>
+  <button>寫成 ADR，所有拒絕都要保存</button>
+  <button>寫進 CONTEXT，當成領域術語</button>
+  <div class="why">暫時排程不符合 ADR gate，也不能幫未來探索者理解 load-bearing decision。只有三項條件全中才寫 ADR；CONTEXT.md 則只放領域詞彙。</div>
+</div>
+
+<div class="quiz" data-answer="1">
+  <p>3.（複習 Phase 3 第 08 課）「介面就是測試面」和 TDD 哲學的關係是？</p>
+  <button>兩者矛盾：TDD 要求測試深入實作細節</button>
+  <button>同一件事：測公開介面的行為，重構不死</button>
+  <button>無關：一個講架構設計一個講測試流程</button>
+  <div class="why">（間隔複習）深模組的小介面 = 穩定的測試面；TDD 測行為不測實作。架構線和測試線在這裡會合：介面越深，測試越能在重構中存活。</div>
+</div>
+
+<h2>下一步</h2>
+<p>完成後回對話視窗回報。下一課：<a href="003-0012-handoff.html">Phase 3 第 12 課 — 用 /handoff 做跨 session 交接</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/improve-codebase-architecture/SKILL.md">reviewed architecture snapshot（66898f6）</a>；深模組與 Adapter 定義對照同 snapshot 的 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/codebase-design/SKILL.md">codebase-design</a>，使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/improve-codebase-architecture/SKILL.md">current architecture skill</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  上一課：<a href="003-0010-diagnosing-bugs.html">Phase 3 第 10 課 — /diagnosing-bugs</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

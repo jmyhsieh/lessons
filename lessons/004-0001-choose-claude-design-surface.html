@@ -1,55 +1,145 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<link rel="icon" href="data:,">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="course:canonical-coordinate" content="004-0001">
-<meta name="course:page-kind" content="canonical-lesson">
-<meta name="course:route-roles" content="design-delivery:entry,design-delivery:feedback,design-delivery:readiness,design-delivery:tangible-win">
-<meta name="course:source-ids" content="claude-design-availability-surface,claude-design-product-prototype-contract,claude-product-surface-selection,course-design-delivery-contract">
-<title>004-0001：選擇設計介面</title>
+<title>01：判斷 Claude Design 是否是正確工作表面</title>
 <style>
-  * { box-sizing: border-box; }
-  body { font-family: "Source Han Sans TC", "PingFang TC", sans-serif; max-width: 800px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
-  h1 { line-height: 1.35; } h2 { color: #635b9a; margin-top: 2rem; }
-  .mission, .stop, .verified { border-left: 4px solid #635b9a; background: #f3f1fa; padding: .8rem 1rem; }
-  .card, .win, .quiz { border: 1px solid #d9d5e8; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
-  .win { background: #efedf8; } table { border-collapse: collapse; width: 100%; }
-  th, td { border: 1px solid #d9d5e8; padding: .6rem; text-align: left; vertical-align: top; }
-  code, pre { background: #f3f1fa; border-radius: 4px; } code { padding: .1rem .3rem; } pre { padding: .8rem; white-space: pre-wrap; }
-  button { display: block; width: 100%; margin: .4rem 0; padding: .6rem; text-align: left; background: #fff; border: 1px solid #bbb; border-radius: 6px; }
-  .why { display: none; background: #f3f1fa; padding: .6rem; } button.correct { background: #e7f3e7; } button.wrong { background: #fbeaea; }
-  footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; } a { color: #514985; }
-  @media (max-width: 620px) { body { margin-top: 1rem; } table { font-size: .88rem; } }
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #635b9a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #635b9a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #635b9a; }
+  code, pre { background: #f3f1fa; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #514985; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #f3f1fa; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #dcd8ec; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfcff; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .rule { background: #f3f1fa; border-left: 4px solid #635b9a; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #dcd8ec; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #635b9a; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #f3f1fa; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #dcd8ec; padding-top: 1rem; }
 </style>
-</head><body>
-<p><a href="001-0002-define-route-readiness.html">← 回路線 準備度</a> · <a href="../reference/claude-product-picker.html">Claude 產品選擇器</a></p>
-<header><p>第 4 階段 · 設計 · 004-0001 · 路線入口</p><h1>先選對設計介面，再開始生成</h1><p class="mission"><strong>進入條件／準備狀態：</strong>帶入一個真實視覺任務、預期受眾、可接受的資料邊界與能提供回饋的人。本課只決定介面與 route promise，不把生成畫面當成交付。</p></header>
-<h2>先看要降低哪一種不確定性</h2>
-<table><tr><th>工作形狀</th><th>主要介面</th><th>這一輪的停止線</th></tr><tr><td>版面、互動或視覺方向尚未決定</td><td>Claude Design</td><td>可比較、可評論的原型與 Design handoff bundle</td></tr><tr><td>需求已定，要修改版本控制儲存庫</td><td>Claude Code／第 6 階段建置</td><td>通過儲存庫檢查與 Review 的實作檢查點</td></tr><tr><td>報告、文件、資料或本機知識庫</td><td>知識工作路線</td><td>有來源沿革的知識收尾</td></tr><tr><td>需要簡報與交付回饋</td><td>簡報路線</td><td>可重開的簡報與彩排 evidence</td></tr></table>
-<p>Claude Design 適合建立可編輯的視覺草稿與互動原型，用來探索、比較與收集回饋；它不會因為畫面可分享，就自動證明產品正確、可及性合格或正式環境就緒。</p>
-<div class="verified"><strong>已驗證環境：</strong>2026-07-16 依 Anthropic Claude Design 產品／說明中心介面檢查；目前標示測試版，實際存取取決於方案、組織設定、支援用戶端、推出進度與共享使用限制。開始前請重查帳號上的可用性，不把本頁日期當永久承諾。</div>
-<h2>寫一張路線選擇卡</h2>
-<div class="card"><pre>Mission / audience:
-Expected artifact:
-Largest uncertainty:
-Selected surface and why:
-Available context / sensitive-data boundary:
-Feedback giver and observable task:
-Legal stop: Design handoff bundle
-Optional continuation: stop / Phase 6 Build</pre></div>
-<ol><li>若最大未知是視覺或互動，選設計；若交付本身是儲存庫差異，直接走建置。</li><li>確認 Claude Design 在你的方案、用戶端與組織政策下可用；不可用時不要假裝已操作，改用可存取的替代設計介面並記錄 evidence 邊界。</li><li>把 route promise 固定為「簡述、選定方向、原型 evidence、learner judgment、回饋與交接套件」。</li><li>把下一個 tangible win 寫進 Return notebook。</li></ol>
-<div class="win"><strong>具體成果：</strong>一張可重現選擇理由的設計路線選擇卡。<br><strong>可觀察回饋：</strong>另一個人能由 artifact、不確定性、存取與停止點線判斷介面是否選對，並指出任務其實應回知識、簡報或建置的證據。</div>
-<div class="quiz" data-answer="1"><p>已經有核准規格，交付物是既有儲存庫的 React 差異，哪個路線邊界最誠實？</p><button type="button">留在設計，因為原型可以直接算正式環境</button><button type="button">確認 Code readiness 後進 Phase 6 建置</button><button type="button">只輸出螢幕截圖，不做儲存庫驗證</button><div class="why">版本控制實作已跨過儲存庫交付邊界；設計交接是輸入，不取代建置檢查與 Review。</div></div>
-<p class="stop"><strong>合法停止／針對性修正：</strong>任務、受眾、回饋途徑、資料權限或介面存取不明時，保存選擇草稿，回 <a href="001-0002-define-route-readiness.html">001-0002</a> 補最小缺口後再回本課。選擇卡可驗收後進 <a href="004-0002-write-design-brief.html">004-0002 設計摘要</a>。</p>
-<footer data-course-footer="canonical" data-route-id="design-delivery" data-legal-stop="Stop at the Design handoff bundle unless implementation is selected">
-<p><strong>路線導覽 · 設計交付</strong></p>
-<ul class="course-route-actions">
-<li><a data-route-id="design-delivery" data-route-action="next" href="004-0002-write-design-brief.html">下一步：004-0002 課程</a></li>
-</ul>
-<p data-route-legal-stop="Stop at the Design handoff bundle unless implementation is selected"><strong>合法停止點：</strong>完成 Design handoff bundle 後即可停止；除非 mission 選擇 implementation</p>
-<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：entry／feedback／readiness／tangible win · 來源 ID：<code>claude-design-availability-surface</code>、<code>claude-design-product-prototype-contract</code>、<code>claude-product-surface-selection</code>、<code>course-design-delivery-contract</code></div>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 4 · 第 01 課 · 約 15 分鐘 · Surface choice</div>
+<h1>判斷 Claude Design 是否是正確工作表面</h1>
+<p class="mission">目標：看到一個設計任務時，先依預期產物選對工作表面，而不是把 Claude Design、Claude Code 的 <code>frontend-design</code> 與 artifacts 混為一談。</p>
+
+<div class="scope"><strong>本課只做：</strong>替一個真實任務選工作表面並寫出理由。<br><strong>先不要做：</strong>還沒釐清產物就開始畫原型或改 repo。</div>
+
+<h2>核心知識：名稱相近，產物不同</h2>
+<p><a href="https://www.anthropic.com/news/claude-design-anthropic-labs">Claude Design</a> 是 Anthropic Labs 推出的獨立產品，可用來協作建立設計、互動原型、簡報與其他視覺作品。它不是 Claude Code 裡的一個 skill。</p>
+
+<table>
+<tr><th>工作表面</th><th>主要產物</th><th>適合的問題</th></tr>
+<tr>
+  <td><strong>Claude Design</strong></td>
+  <td>可比較、可精修的視覺設計與原型</td>
+  <td>「版面與互動還沒定，我要先看幾個方向。」</td>
+</tr>
+<tr>
+  <td><strong>Claude Code + <code>frontend-design</code></strong></td>
+  <td>repo 裡可執行的前端程式碼</td>
+  <td>「需求與邊界已清楚，請依現有技術棧實作並驗證。」</td>
+</tr>
+<tr>
+  <td><strong>Claude Code artifacts</strong></td>
+  <td>從 repo 與 session context 產生可分享的 live page</td>
+  <td>「我要用真實元件比較 UX 方向，或展示 walkthrough 與執行證據。」</td>
+</tr>
+</table>
+
+<p>官方 Claude Code repo 的 <a href="https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md"><code>frontend-design</code> skill</a> 指導 Claude 產出有明確視覺方向、可實際運作的前端介面；它仍在 Claude Code 的 repo 工作流中。相較之下，<a href="https://claude.com/blog/artifacts-in-claude-code">Claude Code artifacts</a> 把完整 session context 轉成可分享、會隨工作更新的 live page；目前是 Team 與 Enterprise 的 beta 功能，不等於 Claude Design 畫布。</p>
+
+<div class="rule"><strong>最小決策規則：</strong>要在可評論、可直接編輯的 project／canvas 探索設計，就選 Claude Design；要在 repo 裡「實作、測試、提交」就選 Claude Code；要從真實元件與 session context 產生 live page，做 code-grounded UX exploration 或展示執行證據，就考慮 Claude Code artifact。完整流程可以依序使用三者，但不要期待一個表面包辦全部工作。</div>
+
+<h2>Beta 邊界要先看</h2>
+<p>依目前官方說明，Claude Design 仍在 beta，提供 Pro、Max、Team 與 Enterprise 方案使用；Enterprise 預設關閉，由管理員啟用。它目前限 web 與 desktop，且使用量和 Claude chat、Claude Code、Cowork 共用。大型 repo、多人同時編輯與 inline comments 也有已知限制；導入團隊流程前，請先重查 <a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">最新 availability 與 known limitations</a>。</p>
+
+<h2>實作 checklist</h2>
+<div class="step">
+  <label><input type="checkbox"> 1. 寫下唯一預期產物</label>
+  <p>只寫一個名詞：例如「三個 dashboard 方向」、「可合併的 React diff」或「可分享的 PR walkthrough」。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 2. 標記目前最大的不確定性</label>
+  <p>是視覺與互動、程式實作，還是溝通與展示？不確定性的種類比工具名稱更能決定工作表面。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 3. 選一個主要工作表面</label>
+  <p>用一句話完成：<code>我選 [surface]，因為現在要先降低 [uncertainty]，產出 [artifact]。</code></p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 4. 檢查方案與裝置限制</label>
+  <p>若選 Claude Design 或 Claude Code artifacts，先確認帳號方案、管理員設定與可用裝置；不要把 beta availability 當成永久承諾。</p>
+</div>
+
+<div class="done-banner" id="done"><strong>你已選定工作表面。</strong>把決策句貼回對話視窗，請 AI 老師挑戰你是否把「探索設計」與「實作程式碼」混在一起。</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+<div class="quiz" data-answer="0">
+  <p>1. 版面仍未定，想先比較三個視覺方向，應先用哪個表面？</p>
+  <button>Claude Design project</button>
+  <button>Claude Code workspace</button>
+  <button>Claude Code artifact</button>
+  <div class="why">此時最大的未知是視覺與互動方向，Claude Design 最適合先產生並比較原型。</div>
+</div>
+<div class="quiz" data-answer="1">
+  <p>2. <code>frontend-design</code> skill 的主要產物是什麼？</p>
+  <button>在 canvas 產出可評論原型</button>
+  <button>在 repo 產出可運作前端程式</button>
+  <button>將 session 發布成互動頁面</button>
+  <div class="why"><code>frontend-design</code> 是 Claude Code plugin 裡的 skill，目標是建立可運作、具設計品質的前端介面程式碼。</div>
+</div>
+<div class="quiz" data-answer="2">
+  <p>3. 導入 Claude Design 前最誠實的做法是什麼？</p>
+  <button>假設所有方案永久開放</button>
+  <button>假設手機功能完全相同</button>
+  <button>重查 beta 方案與限制</button>
+  <div class="why">Beta 的 availability、限制與使用量規則可能變動；導入前應以最新官方說明為準。</div>
+</div>
+
+<h2>下一步與主要閱讀</h2>
+<p>選定 Claude Design 後，進入 <a href="004-0002-write-design-brief.html">第 02 課：寫出可執行的 design brief</a>。全流程可先看 <a href="../reference/claude-design-to-code-workflow.html">Claude Design → Code workflow 速查表</a>。</p>
+<p><strong>主要官方閱讀：</strong><a href="https://www.anthropic.com/news/claude-design-anthropic-labs">Introducing Claude Design by Anthropic Labs</a>。搭配 <a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Get started with Claude Design</a> 核對最新 beta 邊界。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  相關課程：<a href="004-0002-write-design-brief.html">Phase 4 第 02 課 — design brief</a> · <a href="004-0003-sync-design-system.html">Phase 4 第 03 課 — design system</a> · <a href="../toc.html">課目表</a>
 </footer>
-<script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script>
-</body></html>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

@@ -1,1 +1,130 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><link rel="icon" href="data:,"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="course:canonical-coordinate" content="not-applicable"><meta name="course:page-kind" content="compatibility"><meta name="course:route-roles" content="not-applicable"><meta name="course:source-ids" content="not-applicable"><meta name="course:legacy-identity" content="lessons/003-0006-to-spec"><meta name="course:transition-reason" content="Move/rename"><meta name="course:evidence-carryover" content="lesson-practiced-unless-current-route-stop-is-revalidated"><meta name="course:transition-mode" content="direct"><title>原課程 003-0006 已轉接</title><style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:720px;margin:3rem auto;padding:0 1.25rem;line-height:1.8;color:#202020}main{border:1px solid #d8dde3;border-radius:12px;padding:1.4rem;background:#fbfcfd}h1{line-height:1.35}.kicker,h2{color:#315f86}.identity,.carry{background:#edf3f7;padding:.8rem 1rem;border-radius:7px}.action{display:inline-block;background:#315f86;color:#fff;padding:.7rem 1rem;border-radius:7px;text-decoration:none;font-weight:700}code{overflow-wrap:anywhere}@media(max-width:620px){body{margin:1.25rem auto}main{padding:1rem}}</style></head><body><main><p class="kicker">相容性入口 · 原 Phase 3 第 06 課</p><h1>「用 /to-spec 固化任務」已移到交付規格</h1><p class="identity"><strong>穩定公開網址識別：</strong><code>lessons/003-0006-to-spec</code></p><h2>轉接原因</h2><p>新版以可審查的交付規格 固定範圍、非目標、驗收 與驗證方式，再進行工單切分。</p><h2>證據沿用</h2><p class="carry">舊規格可保留為 <code>Lesson practiced</code>；只有重新核對目前要求與 route 停止點後，才可作為當前交付契約。</p><p><a class="action" href="006-0005-write-delivery-spec.html">前往最終課程：撰寫交付規格</a></p></main></body></html>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06：用 /to-spec 把對話凝結成 spec</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #1a6b5a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #1a6b5a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #1a6b5a; }
+  code, pre { background: #eef4f2; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #15564a; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef4f2; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #f8fbfa; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .tip { background: #eef4f2; border-left: 4px solid #1a6b5a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #1a6b5a; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef4f2; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d3e2dd; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 3 · 第 06 課 · 約 30 分鐘 · 固化任務</div>
+<h1>用 /to-spec 把對話凝結成 spec</h1>
+<p class="mission">目標：把前面 grill 與 prototype 已經釐清的內容，整理成一份可引用、可審查、可切 ticket 的 spec。你也可以把它理解成 PRD；upstream 現在用 <code>/to-spec</code> 作為 canonical 名稱。這一課只做「凝結」，不重新訪談，也不開始實作。</p>
+<div class="scope"><strong>本課只做：</strong>把已對齊的內容整理成 spec。<br><strong>先不要做：</strong>需求還沒問清楚就硬產 spec。</div>
+
+<h2>Pipeline 全景：你在這裡</h2>
+<pre>/grill-with-docs → 可選（/handoff → /prototype → /handoff）→ <strong>/to-spec</strong> → /to-tickets → /implement</pre>
+
+<h2>凝結，不是再訪談</h2>
+<p><code>/to-spec</code> 的關鍵設計是：不要再訪談使用者，直接綜合這個 session 已經知道的內容。若它開始問大量新問題，通常代表前面的 grill 沒做透，應該回去補對齊，而不是把 spec 當補救訪談。</p>
+<div class="tip"><strong>Context hygiene：</strong>從 grill 到本課，再到下一課 <code>/to-tickets</code>，盡量維持同一個未中斷 context；不要中途 clear 或 compact，讓 spec 與 tickets 共用完整的決策脈絡。只有接近 smart zone 上限時才用 <code>/handoff</code> 換 session。</div>
+<table>
+<tr><th>Spec 應該包含</th><th>你要檢查什麼</th></tr>
+<tr><td>問題陳述與範圍邊界</td><td>是否清楚說明要解的問題，以及哪些事不做。</td></tr>
+<tr><td>大量編號 user stories</td><td>是否覆蓋 grill 中談過的場景與邊界案例。</td></tr>
+<tr><td>實作決策與測試接縫</td><td>是否尊重 CONTEXT.md、ADR 與既有 repo 介面；測試 seam 是否在夠高、夠穩的位置。</td></tr>
+<tr><td>發佈位置</td><td>是否寫到第 01 課設定的 GitHub / GitLab / local markdown / Other issue tracker。</td></tr>
+</table>
+<div class="tip"><strong>你的主要工作：</strong>審 spec 的「漏」與「多」。漏掉 user story 會讓後續 ticket 不完整；多寫未同意 scope 會讓 agent 做出不該做的功能。</div>
+
+<h2>實作步驟（做完打勾）</h2>
+<div class="step">
+  <label><input type="checkbox"> 1. 接回對齊脈絡</label>
+  <p>在第 04 課 grill 的同一個 session 繼續；若 prototype 曾分支出去，先讀它帶回來的 handoff。只有原 context 已接近上限時，才用 handoff 開新 session，並引用 grill 結論、prototype 結論、CONTEXT.md 與相關 ADR。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 2. 執行 /to-spec</label>
+  <pre>/to-spec</pre>
+  <p>若它說資訊不足，先回到 <code>/grill-with-docs</code>；不要在 spec 階段臨時補一堆沒有驗證的假設。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 3. 審 user stories</label>
+  <p>逐條對照前面對齊過的需求：有沒有漏掉角色、例外、錯誤狀態、權限或資料邊界？</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 4. 審測試接縫</label>
+  <p>確認它提的 seams 是 repo 裡真實可測的位置。看不懂就追問：為什麼在這個介面驗證？有沒有更高層的接縫？</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 5. 固定 spec 位置</label>
+  <p>確認 spec 被發佈到 issue tracker；local markdown 的 canonical 位置是 <code>.scratch/&lt;feature&gt;/spec.md</code>。下一課會從這份 spec 切成 tickets。</p>
+</div>
+
+<div class="done-banner" id="done">
+  🎉 <strong>你已把對話凝結成 spec。</strong>回對話視窗回報：spec 裡最重要的 user story 是哪一條？
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+<div class="quiz" data-answer="0">
+  <p>1. /to-spec 開始大量追問新需求，這代表？</p>
+  <button>回到 grill 補足前置對齊</button>
+  <button>直接繼續訪談並產出 spec</button>
+  <button>跳過提問直接產出 spec</button>
+  <div class="why"><code>/to-spec</code> 是綜合已知內容，不是重新訪談。大量追問代表上游沒有足夠材料。</div>
+</div>
+<div class="quiz" data-answer="2">
+  <p>2. spec 裡的 user stories 最重要的作用是？</p>
+  <button>補滿 spec 的所有背景材料</button>
+  <button>取代後續的行為驗證流程</button>
+  <button>提供 tickets 切片依據</button>
+  <div class="why">下一課 <code>/to-tickets</code> 會依 spec 切成可認領的工作；user stories 是切片的主要材料。</div>
+</div>
+
+<h2>下一步</h2>
+<p>完成後回對話視窗回報。下一課：<a href="003-0007-to-tickets.html">Phase 3 第 07 課 — 用 /to-tickets 切成可認領工作</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/to-spec/SKILL.md">reviewed to-spec snapshot（66898f6）</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/to-spec/SKILL.md">current to-spec</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  上一課：<a href="003-0005-prototype.html">Phase 3 第 05 課 — /prototype</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

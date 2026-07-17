@@ -1,46 +1,33 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<link rel="icon" href="data:,">
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="course:canonical-coordinate" content="005-0009">
-<meta name="course:page-kind" content="canonical-lesson">
-<meta name="course:route-roles" content="presentation-delivery:conditional,presentation-delivery:feedback,presentation-delivery:tangible-win">
-<meta name="course:source-ids" content="open-slide-agent-deck-contract,open-slide-cli-build-contract,presentation-accessibility-contract,presentation-export-rehearsal-contract,presentation-source-claim-contract">
-<title>005-0009：用 Open-Slide 建立可版本控制的簡報</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>09：用 open-slide 建立可版本控制的簡報</title>
 <style>
   *{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#315f86;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.2rem;margin-top:2.4rem;color:#315f86}h3{font-size:1rem;margin:.1rem 0 .45rem}.mission{font-style:italic;color:#555;border-left:3px solid #315f86;padding-left:1rem}.scope{background:#fff8e8;border-left:4px solid #d08800;padding:.7rem 1rem}.rule{background:#f2f6fa;border-left:4px solid #315f86;padding:.75rem 1rem}.compare{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}.route{border:1px solid #d7e0e8;border-radius:8px;padding:1rem}.route p{margin:.35rem 0}.step,.quiz{border:1px solid #d7e0e8;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}pre,code{background:#f2f6fa;border-radius:4px}pre{padding:.8rem 1rem;white-space:pre-wrap;overflow-wrap:anywhere}code{padding:.1rem .3rem}a{color:#315f86}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #ccd5dc;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why{display:none;background:#f2f6fa;padding:.6rem .9rem}.done-banner{display:none;background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d7e0e8;padding-top:1rem}@media(max-width:620px){.compare{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<p style="margin:0"><a href="005-0007-export-and-rehearse.html" style="font-size:.85rem">← 簡報核心收尾</a> · <a href="../reference/open-slide-agent-deck-workflow.html">Open-Slide 速查表</a></p>
-<div class="kicker">第 5 階段 · 005-0009 · 約 45–60 分鐘 · 條件式程式碼優先選修課</div>
-<h1>用 Open-Slide 建立可版本控制的簡報</h1>
-<p class="mission"><strong>進入條件／Code readiness：</strong>第 07 課的核心收尾已通過；新需求接受靜態 HTML／瀏覽器列印 PDF，且 Git 差異、React 客製或部署價值足以承擔 Node、儲存庫與 Review 成本。重用已驗證的來源包與故事板，只建立 3 頁 React 垂直切片，完成註解 → 編輯 → 建置 → 不可變 Review 的可重現迴圈。</p>
-<div class="scope"><strong>本課只做：</strong>在獨立工作區重建封面、evidence、建議三頁並驗證靜態建置。<br><strong>先不要做：</strong>重做整份簡報、把建置成功當成內容正確，或承諾 open-slide 能交付 PPTX。</div>
-<div class="rule"><strong>完成邊界：</strong>這是選用 continuation；完成、跳過或失敗都不會增加或撤銷第 07 課的簡報完成。3 頁建置或本課 Review 也不能單獨構成簡報交付收尾。</div>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 5 · 第 09 課 · 約 45–60 分鐘 · Code-first elective</div>
+<h1>用 open-slide 建立可版本控制的簡報</h1>
+<p class="mission">目標：重用 Phase 5 已驗證的 source pack 與 storyboard，讓 coding agent 在 open-slide 建立 3 頁 React vertical slice，完成一次 comment → edit → build 的可重現迴圈。</p>
+<div class="scope"><strong>本課只做：</strong>在獨立 workspace 重建 cover、evidence、recommendation 三頁並驗證 static build。<br><strong>先不要做：</strong>重做整份 deck、把 build 成功當成內容正確，或承諾 open-slide 能交付 PPTX。</div>
 
 <h2>先選對產製路線</h2>
 <div class="compare">
-  <div class="route"><h3>Claude Design</h3><p>以對話、畫布與註解精修視覺，可輸出 PPTX、PDF、HTML。</p><p><strong>選它：</strong>需要畫布優先協作、PowerPoint 交接，或不想維護儲存庫。</p></div>
-  <div class="route"><h3>open-slide</h3><p>程式代理編寫固定 1920×1080 畫布的 React 頁面，工作區可進 Git，輸出靜態 HTML 或 PDF；瀏覽器檢查器也能直接調整元素並留下註解。</p><p><strong>選它：</strong>需要版本差異、客製互動、可部署 HTML，而且團隊接受 React／Git 是 source of truth。</p></div>
+  <div class="route"><h3>Claude Design</h3><p>以對話、canvas 與 comments 精修視覺，可輸出 PPTX、PDF、HTML。</p><p><strong>選它：</strong>需要 canvas-first 協作、PowerPoint 交接，或不想維護 repo。</p></div>
+  <div class="route"><h3>open-slide</h3><p>Coding agent 編寫固定 1920×1080 canvas 的 React pages，workspace 可進 Git，輸出 static HTML 或 PDF；browser inspector 也能直接調整元素並留下 comments。</p><p><strong>選它：</strong>需要版本差異、客製互動、可部署 HTML，而且團隊接受 React／Git 是 source of truth。</p></div>
 </div>
-<div class="rule"><strong>這是交錯練習，不是換工具重做內容。</strong>沿用同一份已查核主張，只比較編寫、審查、版本與匯出的差異。open-slide 的投影片是任意 React 元件，不是 PowerPoint 替代品。來源：<a href="https://open-slide.dev/docs">open-slide Introduction</a>。</div>
+<div class="rule"><strong>這是 interleaving 練習，不是換工具重做內容。</strong>沿用同一份已查核主張，只比較 authoring、review、版本與 export 的差異。open-slide 的 slides 是任意 React components，不是 PowerPoint replacement。來源：<a href="https://open-slide.dev/docs">open-slide Introduction</a>。</div>
 
-<h2>在獨立工作區啟動</h2>
-<p>先確認 <code>node --version</code> 與 <code>npm --version</code> 可執行，再到不會形成巢狀儲存庫的父目錄建立工作區：</p>
-<pre># 先驗證本課釘定的 CLI identity
-npx --yes @open-slide/cli@1.3.2 --version
-
-# 請在教材 repo 之外的獨立父目錄執行
-npx --yes @open-slide/cli@1.3.2 init phase5-open-slide --name phase5-open-slide --use-npm --no-git
+<h2>在獨立 workspace 啟動</h2>
+<p>先確認 <code>node --version</code> 與 <code>npm --version</code> 可執行，再到不會形成 nested repo 的父目錄建立 workspace：</p>
+<pre>npx @open-slide/cli init phase5-open-slide --use-npm --locale zh-TW
 cd phase5-open-slide
-npm audit
 npm run dev</pre>
-<p>初始專案產生器會產生 <code>AGENTS.md</code>、<code>CLAUDE.md</code>、<code>slides/</code>、<code>themes/</code> 與框架設定。先讓代理讀儲存庫規則，再使用工作區內技能；不要略過這個契約。來源：<a href="https://open-slide.dev/docs/getting-started">Getting started</a> 與 <a href="https://open-slide.dev/docs/skills/overview">Agent skills overview</a>。</p>
-<p class="scope"><strong>已知安全邊界：</strong>Source 操作配方在 2026-07-16 對初始專案跑 <code>npm audit</code> 時觀察到 2 個中等風險、1 個高風險的 Vite／esbuild 發現，且當時無修正版本。使用時必須重跑稽核、把結果留在 evidence；只在隔離本機做靜態建置，不把開發伺服器暴露給不受信任內容或網路。政策要求乾淨稽核時，停止並改選其他路線。</p>
+<p>Scaffolder 會產生 <code>AGENTS.md</code>、<code>CLAUDE.md</code>、<code>slides/</code>、<code>themes/</code> 與 framework config。先讓 agent 讀 repo rules，再使用 workspace-local skills；不要略過這個 contract。來源：<a href="https://open-slide.dev/docs/getting-started">Getting started</a> 與 <a href="https://open-slide.dev/docs/skills/overview">Agent skills overview</a>。</p>
 
-<h2>交給代理的有界限提示</h2>
+<h2>交給 agent 的 bounded prompt</h2>
 <pre>Read AGENTS.md and use the local create-slide and slide-authoring skills.
 
 Create a deck named phase5-vertical-slice with exactly 3 pages:
@@ -59,30 +46,20 @@ Constraints:
 - Plan the three pages before editing.
 - After editing, run npm run build and report changed files and checks.</pre>
 
-<h2>實作清單</h2>
-<div class="step"><label><input type="checkbox"> 1. 確認 open-slide 工具真的是對的分支</label><p>交付接受 HTML／PDF，而且 Git 差異、React 客製或部署能力帶來實際價值；若必須交可編輯 PPTX，留在 Claude Design 主線。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 建立獨立工作區並讓代理先讀規則</label><p>啟動開發伺服器，確認起始投影片可開啟；不要在目前教材儲存庫裡執行 <code>init</code>。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 產生 v0，留下兩個可驗收註解</label><p>在瀏覽器檢查器指定元素、問題、保留項與成功條件，再請代理使用 <code>apply-comments</code>；不要用「更好看」當回饋。</p></div>
-<div class="step"><label><input type="checkbox"> 4. 建置、審查，再重跑驗證</label><p>執行 <code>npm run build</code> 與 <code>npm run preview</code>，打開 <code>dist/</code> 版本；依<a href="005-0006-verify-claims-and-accessibility.html">第 06 課</a>重查主張、權利與鍵盤導覽，再依<a href="005-0007-export-and-rehearse.html">第 07 課</a>檢查目標螢幕與真實彩排。PDF 要從 Export → PDF 或 <code>?print=1</code> 另行檢查。建置 green 只證明工具能產生輸出。</p></div>
-<div class="step"><label><input type="checkbox"> 5. 固定候選版本，再做兩軸 Review</label><p>commit 成不可變候選版本 SHA，依 <a href="../reference/repo-review-contract.html">Repo Review contract</a>分開做 Standards Review 與 Spec Review。任何發現修正都要建立新 SHA，重跑建置／checks 與兩個 Review；不可把舊 evidence 搬到新候選版本。</p></div>
-<div class="done-banner" id="done"><strong>具體成果：一個精確的 3 頁 Open-Slide 垂直切片、靜態建置、Git 差異與綁定精確候選版本 SHA 的 Review 套件。</strong><br><strong>可觀察回饋：</strong>另一位審查者能由同一 SHA 重建建置、逐一對照三頁與來源 ID，並在目標螢幕只用鍵盤操作；記錄主張不一致、導覽失敗、版面溢出與 Review 發現，而非只評「好不好看」。</div>
+<h2>實作 checklist</h2>
+<div class="step"><label><input type="checkbox"> 1. 確認 open-slide 真的是對的分支</label><p>交付接受 HTML／PDF，而且 Git diff、React 客製或部署能力帶來實際價值；若必須交可編輯 PPTX，留在 Claude Design 主線。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 建立獨立 workspace 並讓 agent 先讀 rules</label><p>啟動 dev server，確認 starter slide 可開啟；不要在目前教材 repo 裡執行 <code>init</code>。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 產生 v0，留下兩個可驗收 comments</label><p>在 browser inspector 指定元素、問題、保留項與成功條件，再請 agent 使用 <code>apply-comments</code>；不要用「更好看」當回饋。</p></div>
+<div class="step"><label><input type="checkbox"> 4. Build、preview，再重跑驗證</label><p>執行 <code>npm run build</code> 與 <code>npm run preview</code>，打開 <code>dist/</code> 版本；依<a href="005-0006-verify-claims-and-accessibility.html">第 06 課</a>重查 claims、rights 與 keyboard navigation，再依<a href="005-0007-export-and-rehearse.html">第 07 課</a>檢查目標螢幕與真實彩排。PDF 要從 Export → PDF 或 <code>?print=1</code> 另行檢查。</p></div>
+<div class="done-banner" id="done"><strong>你已完成一個可比較的 code-first vertical slice。</strong>保存 Git diff、build 結果與驗證紀錄；若要擴成完整 deck，先把 Claude Design 與 open-slide 的實際摩擦貼回對話視窗，請 AI 老師協助選路。</div>
 
 <h2>觀念檢查</h2>
-<div class="quiz" data-answer="1"><p>1. 哪種需求最適合 open-slide？</p><button>需要把可編輯 PPTX 檔交給同事接手修改</button><button>需要將 React 簡報納入 Git 版控</button><button>需要由完全不接觸儲存庫的團隊長期維護簡報</button><div class="why">open-slide 的檢查器也能直接調整元素並留下註解；真正的分界是 React／Git 是否能作為 source of truth，以及交付是否必須是可編輯 PPTX。</div></div>
-<div class="quiz" data-answer="2"><p>2. open-slide 建置成功後，下一步是什麼？</p><button>確認建置成功之後就直接發布完整成品</button><button>接受代理審查後就直接發布</button><button>打開建置結果之後再做完整驗證與彩排</button><div class="why">建置只證明可產生靜態輸出；內容、權利、可及性、目標環境與聽眾理解仍需要獨立證據。</div></div>
+<div class="quiz" data-answer="1"><p>1. 哪種需求最適合 open-slide？</p><button>需要把可編輯 PPTX 檔交給同事接手修改</button><button>需要將 React 簡報納入 Git 版控</button><button>需要由完全不接觸 repo 的團隊長期維護簡報</button><div class="why">open-slide 的 inspector 也能直接調整元素並留下 comments；真正的分界是 React／Git 是否能作為 source of truth，以及交付是否必須是可編輯 PPTX。</div></div>
+<div class="quiz" data-answer="2"><p>2. open-slide build 成功後，下一步是什麼？</p><button>確認 build 成功之後就直接發布完整成品</button><button>接受 agent review 後就直接發布</button><button>打開 build 結果之後再做完整驗證與彩排</button><div class="why">Build 只證明可產生 static output；內容、權利、可及性、目標環境與聽眾理解仍需要獨立證據。</div></div>
 
-<h2>選修收尾、返回與主要閱讀</h2>
-<p>把命令、提示、停止線保存成 <a href="../reference/open-slide-agent-deck-workflow.html">open-slide 代理簡報速查表</a>。靜態 HTML／PDF 的正式邊界見 <a href="https://open-slide.dev/docs/core-feature/export">open-slide Export</a>。</p>
-<p><strong>返回／續行：</strong>Review 套件通過後，直接回 <a href="../toc.html">課目表</a>。只有新的圖表即程式碼需求才另選 Mermaid CLI elective；不要把單頁文件或圖表當成本課的必修下一步。</p>
-<p class="scope"><strong>合法停止點：</strong>CLI 識別不符、稽核不符合政策、儲存庫規則未讀、來源 ID／權利不可追溯、靜態建置未驗證、目標螢幕可及性／彩排未跑、候選版本未固定，或任一 Review 發現未解決時，保留工作區與 evidence 後停止。回本課對應步驟或 <a href="005-0002-build-source-pack.html">005-0002</a>修正；不可擴成完整簡報、發布，也不可改寫核心收尾。</p>
-<footer data-course-footer="canonical" data-route-id="presentation-delivery" data-legal-stop="Stop at Presentation closeout; adaptations and code-first options are elective">
-<p><strong>路線導覽 · 簡報交付</strong></p>
-<ul class="course-route-actions">
-<li><a data-route-id="presentation-delivery" data-route-action="route-return" href="../toc.html#route-presentation">回到路線目錄</a></li>
-</ul>
-<p data-route-legal-stop="Stop at Presentation closeout; adaptations and code-first options are elective"><strong>合法停止點：</strong>完成 Presentation closeout 後即可停止；adaptation 與 code-first 選項皆為選修</p>
-<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>open-slide-agent-deck-contract</code>、<code>open-slide-cli-build-contract</code>、<code>presentation-accessibility-contract</code>、<code>presentation-export-rehearsal-contract</code>、<code>presentation-source-claim-contract</code></div>
-</footer>
+<h2>選修收尾與主要閱讀</h2>
+<p>把命令、prompt、停止線保存成 <a href="../reference/open-slide-agent-deck-workflow.html">open-slide agent deck 速查表</a>。Static HTML／PDF 的正式邊界見 <a href="https://open-slide.dev/docs/core-feature/export">open-slide Export</a>。</p>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="005-0008-repurpose-one-pager-social.html">跨格式改作</a> · <a href="005-0001-choose-daily-visual-output.html">重走 Phase 5</a> · <a href="../toc.html">課目表</a></footer>
 <script>const boxes=[...document.querySelectorAll('input[type=checkbox]')];boxes.forEach(b=>b.addEventListener('change',()=>document.getElementById('done').style.display=boxes.every(x=>x.checked)?'block':'none'));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

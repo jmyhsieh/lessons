@@ -1,1 +1,93 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><link rel="icon" href="data:,"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="course:canonical-coordinate" content="not-applicable"><meta name="course:page-kind" content="compatibility"><meta name="course:route-roles" content="not-applicable"><meta name="course:source-ids" content="not-applicable"><meta name="course:legacy-identity" content="reference/ai-developer-workflow-case-library"><meta name="course:transition-reason" content="Merge into canonical case hub"><meta name="course:evidence-carryover" content="lesson-practiced-unless-current-route-stop-is-revalidated"><meta name="course:transition-mode" content="direct"><title>工程職能案例庫已轉接</title><style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:720px;margin:3rem auto;padding:0 1.25rem;line-height:1.8;color:#202020}main{border:1px solid #d7e0e7;border-radius:12px;padding:1.4rem}h1{line-height:1.35}.identity,.carry{background:#f2f6fa;padding:.8rem 1rem;border-radius:7px}.action{display:inline-block;background:#315f86;color:#fff;padding:.7rem 1rem;border-radius:7px;text-decoration:none;font-weight:700}code{overflow-wrap:anywhere}@media(max-width:620px){body{margin:1.25rem auto}main{padding:1rem}}</style></head><body><main><p><strong>Compatibility entry · 工程職能案例</strong></p><h1>工程案例已合併到責任導向案例中心頁</h1><p class="identity"><strong>穩定公開網址識別：</strong><code>reference/ai-developer-workflow-case-library</code></p><h2>轉接原因</h2><p>舊頁以職稱分頁；新版依這次承擔的責任選 route，並把工程案例保留在單一標準中心頁的穩定片段。</p><h2>證據沿用</h2><p class="carry">舊頁留下的選路紀錄可保留為 <code>Lesson practiced</code>；只有現行的 route stop 重新驗證 artifact、權限與 readiness 後才可沿用，不會自動成為路線 artifact 或完成。</p><p><a class="action" href="ai-functional-workflow-case-library.html#developer">前往工程責任案例</a></p></main></body></html>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 工程職能工作流案例庫：2026/04 起 Claude Code 案例</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 940px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #1a6b5a; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #1a6b5a; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .87rem; margin: 1rem 0; }
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #eef4f2; }
+  code { background: #eef4f2; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; }
+  pre { max-width: 100%; overflow-x: auto; }
+  a { color: #15564a; }
+  .pattern { border-left: 4px solid #1a6b5a; background: #f8fbfa; padding: .75rem 1rem; margin: 1rem 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: .8rem; }
+  .card { border: 1px solid #ddd; border-radius: 8px; padding: .9rem 1rem; background: #fff; }
+  .card strong { color: #1a6b5a; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print {
+    body { margin: 1rem auto; }
+    .table-scroll { overflow: visible; }
+    .card, .pattern, tr { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>AI 工程職能工作流案例庫</h1>
+<p class="sub">2026/04 起公開案例，聚焦 Claude Code 在工程實作、品質、長任務與交付節奏上的實際工作流。</p>
+
+<div class="pattern">
+  <strong>篩選規則：</strong>收錄 2026-04-01 之後發布，且案例本身明確使用 Claude Code 的來源。研究重現、RevOps 與平台治理案例移到各自職能頁。
+</div>
+
+<h2>案例對照表</h2>
+<div class="table-scroll" role="region" aria-label="案例對照表，可左右捲動" tabindex="0">
+<table>
+<tr><th>日期</th><th>案例</th><th>流程片段</th><th>對應槽位</th><th>可學走的模式</th></tr>
+<tr>
+  <td>2026-04-23</td>
+  <td><a href="https://www.anthropic.com/engineering/april-23-postmortem">Anthropic Claude Code 品質事件 postmortem</a></td>
+  <td>Claude Code 品質回報追到三個產品層變更：reasoning effort、cache optimization bug、系統 prompt；修復後加強 dogfooding、code review 與 prompt 變更管控。</td>
+  <td>回報 → 重現 → root cause → eval / rollout gate</td>
+  <td>agent 工具本身也需要工程治理；system prompt、cache 與 reasoning 預設都要像 production code 一樣被審查。</td>
+</tr>
+<tr>
+  <td>2026-05-12</td>
+  <td><a href="https://www.businessinsider.com/coders-keep-laptops-open-in-public-ai-agent-2026-5">open-laptop workflow</a></td>
+  <td>文章記錄 Claude Code power user 與其他 AI coding agent 使用者為了讓長任務不中斷，在機場、辦公室或通勤中保持筆電喚醒；任務可能跨 Wi-Fi、會議與移動場景。</td>
+  <td>長任務 → session survival → checkpoint</td>
+  <td>多小時 agent 工作要有環境策略：`caffeinate`、遠端 session、可重跑指令、進度紀錄與停止條件。</td>
+</tr>
+<tr>
+  <td>2026-05-23</td>
+  <td><a href="https://www.businessinsider.com/inside-startups-claude-has-already-won-the-ai-coding-wars-2026-5">Startup 團隊把 Claude Code 變成預設工具</a></td>
+  <td>Chainguard、VaryAI、Alma、Wordsmith AI、Tenzai 等案例把 Claude Code 用在複雜工程任務、QA pipeline、deployment、incident investigation 與 project management。</td>
+  <td>repo 探索 → multi-step workflow → review / refine</td>
+  <td>Claude Code 適合處理跨檔、跨 repo、需架構判斷的任務；但仍要安排人類 review 與工具分工。</td>
+</tr>
+<tr>
+  <td>2026-05-27</td>
+  <td><a href="https://www.businessinsider.com/claude-code-creator-advice-cs-grads-startup-2026-5">YC 創業團隊以 Claude Code 產生大量 code</a></td>
+  <td>Boris Cherny 轉述 YC 創業者使用狀況：多數團隊讓 Claude Code 寫 50% 到 100% 的 code，少數完全不用。</td>
+  <td>spec → agent implementation → founder review</td>
+  <td>當 agent 產 code 變多，工程師工作重心會轉向 spec、review、debug、使用者訪談與系統設計。</td>
+</tr>
+</table>
+</div>
+
+<h2>重複出現的模式</h2>
+<div class="grid">
+  <div class="card"><strong>驗證要覆蓋產品層</strong><br>system prompt、cache、reasoning effort 與 release rollout 都會影響 coding agent 品質。</div>
+  <div class="card"><strong>人類判斷仍在最後一哩</strong><br>Claude Code 可放大實作速度，但 spec、review、debug 與架構判斷仍是工程責任。</div>
+  <div class="card"><strong>長任務需要工程化</strong><br>agent session 要能保活、重跑、checkpoint、復原，否則工作流會卡在本機狀態。</div>
+  <div class="card"><strong>複雜任務要拆成可 review 的工作</strong><br>startup 案例顯示 Claude Code 能處理多 repo、架構與多步驟任務，但仍要保留 review / refine。</div>
+</div>
+
+<h2>套回可重跑工作流</h2>
+<p>若你要把這套判斷套到工程任務，工作槽位可以改成：</p>
+<pre>Issue / 需求 → Codebase 探索 → Plan / Spec → 小 diff → Test / Build / Lint → Review → PR / handoff</pre>
+<p>2026/04 之後的 Claude Code 案例再加三個 gate：agent session 能否重跑？review 是否能抓到產品層與工具層風險？這個 diff 是否小到能被人類理解與接手？</p>
+
+<footer>
+  相關：<a href="ai-functional-workflow-case-library.html">職能工作流案例總覽</a> · <a href="ai-workflow-case-library.html">產品職能細部案例</a> · <a href="ai-research-data-workflow-case-library.html">研究 / 資料細部案例</a> · <a href="ai-workflow-skill-composer.html">AI 工作流編排速查表</a> · <a href="../RESOURCES.md">RESOURCES.md</a>
+</footer>
+</body>
+</html>

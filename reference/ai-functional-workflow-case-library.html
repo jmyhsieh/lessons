@@ -1,122 +1,92 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<link rel="icon" href="data:,">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="course:canonical-coordinate" content="not-applicable">
-<meta name="course:page-kind" content="canonical-reference">
-<meta name="course:route-roles" content="not-applicable">
-<meta name="course:source-ids" content="functional-workflow-case-hub-contract">
-<title>AI 職能工作流案例與路線選擇器</title>
+<title>AI 職能工作流案例總覽</title>
 <style>
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 960px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.75; }
-  h1 { line-height: 1.35; }
-  h2 { color: #315f86; margin-top: 2.5rem; scroll-margin-top: 1rem; }
-  h3 { margin-bottom: .35rem; }
-  a { color: #315f86; }
-  code { background: #eef3f7; border-radius: 4px; padding: .1rem .3rem; }
-  .rule, .stop, .feedback { border-left: 4px solid #315f86; background: #f2f6fa; padding: .8rem 1rem; margin: 1rem 0; }
-  .stop { border-color: #9a6525; background: #fff8e8; }
-  .feedback { border-color: #3b7a57; background: #f0f8f3; }
-  .jump { display: flex; flex-wrap: wrap; gap: .45rem; padding: 0; list-style: none; }
-  .jump a { display: inline-block; border: 1px solid #b9cbd9; border-radius: 999px; padding: .25rem .65rem; text-decoration: none; }
-  .case { border: 1px solid #ccd9e3; border-radius: 10px; padding: 1rem; margin: 1rem 0; }
-  .case > p:first-of-type { margin-top: 0; }
-  table { border-collapse: collapse; width: 100%; margin: .8rem 0; font-size: .92rem; }
-  th, td { border: 1px solid #ccd9e3; padding: .55rem; text-align: left; vertical-align: top; }
-  th { background: #eef3f7; }
-  .route { white-space: nowrap; }
-  footer { margin-top: 3rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; }
-  @media (max-width: 700px) { body { margin-top: 1rem; } .table-scroll { overflow-x: auto; } table { min-width: 680px; font-size: .82rem; } }
-  @media print { .case, .rule, .stop, tr { break-inside: avoid; } }
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 980px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #4f5d75; }
+  .sub { color: #666; margin-top: 0; }
+  h2 { font-size: 1.08rem; color: #4f5d75; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .86rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #eef1f6; }
+  a { color: #36506f; }
+  code { background: #eef1f6; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; }
+  .rule { border-left: 4px solid #4f5d75; background: #f8fafc; padding: .75rem 1rem; margin: 1rem 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: .8rem; }
+  .card { border: 1px solid #ddd; border-radius: 8px; padding: .9rem 1rem; background: #fff; }
+  .card strong { color: #4f5d75; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print {
+    body { margin: 1rem auto; }
+    .card, .rule, tr { break-inside: avoid; }
+  }
 </style>
 </head>
 <body>
-<p><a href="../toc.html">← 回課程目錄</a></p>
-<header>
-  <p>標準參考 · 責任導向選路</p>
-  <h1>AI 職能工作流案例與路線選擇器</h1>
-  <p class="rule"><strong>先看責任，不看職稱：</strong>同一個人可能同時負責需求、repo 變更、可恢復營運或治理；每次只依「這次要交付什麼、誰能驗收、需要哪些權限」選一條最貼近的 route。案例是選路線的線索，不是職稱對課程的固定分配。</p>
-</header>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>AI 職能工作流案例總覽</h1>
+<p class="sub">把案例按「工作責任」整理，而不是按職稱整理。本頁只收 2026/04/01 起發布，且案例本身明確使用 Claude Code 的來源。</p>
 
-<ul class="jump" aria-label="跳到職能案例">
-  <li><a href="#product">產品</a></li>
-  <li><a href="#developer">工程</a></li>
-  <li><a href="#research-data">研究／資料</a></li>
-  <li><a href="#operations-revops">一般營運／營收營運</a></li>
-  <li><a href="#founder">創辦人</a></li>
-  <li><a href="#platform-governance">平台／治理</a></li>
-</ul>
+<div class="rule">
+  <strong>讀法：</strong>先找你現在負責的職能，再看該職能的下一個可驗收 artifact。不要照抄公司或工具名稱；要抄的是流程槽位、驗證方式與交接證據。未明確使用 Claude Code 的 Claude 生態案例不放進主表。
+</div>
 
-<section id="product" class="case">
-  <h2>產品：把模糊需求變成可驗收決定</h2>
-  <p><strong>代表責任／使用案例：</strong>切小需求、建立原型、收集可追溯 feedback、對齊利害關係人；若交付物最後成為 repo diff，責任就跨入 Engineering，而不是因為職稱是產品經理就留在設計。</p>
-  <div class="table-scroll"><table><tr><th>這次真正要交付</th><th>建議 route</th><th>產生的證據</th></tr><tr><td>可檢查狀態、互動與假設的設計交接</td><td class="route"><a href="../lessons/004-0001-choose-claude-design-surface.html">設計入口</a> → <a href="../lessons/004-0007-assemble-design-handoff-bundle.html">交接收尾</a></td><td>有版本的 Design handoff bundle、原型假設、學習者判斷與 feedback 處置。</td></tr><tr><td>需要實作、checks 與 Review 的儲存庫變更</td><td class="route"><a href="../lessons/006-0001-choose-engineering-route.html">Engineering 入口</a> → <a href="../lessons/006-0009-complete-engineering-closeout.html">Engineering 收尾</a></td><td>精確的候選版本、確定性的 checks、雙軸 Review 與交接。</td></tr></table></div>
-  <p><strong>前置條件／準備度：</strong>知道受眾、要促成的決定、可用輸入、feedback 負責人與資料權限；repo 實作另需 Code readiness。</p>
-  <p class="feedback"><strong>具體成果／可觀察回饋：</strong>得到一張 route 選擇卡；審查者能由 artifact 與權限說明為何走設計或 Engineering，並指出交付物何時跨越 repo 交付邊界。</p>
-  <p class="stop"><strong>合法停止點／主張上限：</strong>需求、feedback 路徑或權限不明就停在 readiness；原型 feedback 不是產品市場契合度，Engineering checks 也不是上線、採用或正式環境核准。</p>
-  <p><strong>案例線索（2026-04-06）：</strong><a href="https://www.businessinsider.com/ai-jobs-product-engineers-managers-2026-4">Anthropic 產品工程師／迷你產品經理報導</a>可用來分析需求切片與責任移動；供應商／媒體案例只支持其所報導情境，不是普遍成效證明。</p>
-</section>
+<h2>職能對照表</h2>
+<table>
+<tr><th>職能</th><th>適用情境</th><th>細部案例</th></tr>
+<tr>
+  <td>產品職能</td>
+  <td>收斂需求、做可驗收原型、對齊 stakeholder 與上線條件。</td>
+  <td><a href="ai-workflow-case-library.html">產品細部案例</a></td>
+</tr>
+<tr>
+  <td>工程職能</td>
+  <td>改 repo、切小 diff、跑 tests / review / PR，或處理長任務 agent session。</td>
+  <td><a href="ai-developer-workflow-case-library.html">工程細部案例</a></td>
+</tr>
+<tr>
+  <td>研究 / 資料職能</td>
+  <td>重現 paper / data、設 oracle tests、做 domain review 與 bias check。</td>
+  <td><a href="ai-research-data-workflow-case-library.html">研究 / 資料細部案例</a></td>
+</tr>
+<tr>
+  <td>營運 / IT / RevOps 職能</td>
+  <td>處理活動資料、CRM 匯入、incident / runbook 或內部工具流程。</td>
+  <td><a href="ai-ops-revops-workflow-case-library.html">營運 / IT / RevOps 細部案例</a></td>
+</tr>
+<tr>
+  <td>創業 / Founder 職能</td>
+  <td>從使用者洞察做產品切片、demo、回饋收集與下一輪假設。</td>
+  <td><a href="ai-founder-workflow-case-library.html">創業 / Founder 細部案例</a></td>
+</tr>
+<tr>
+  <td>平台 / 治理職能</td>
+  <td>管理 access、成本、eval gates、政策、長任務執行與 incident review。</td>
+  <td><a href="ai-platform-governance-workflow-case-library.html">平台 / 治理細部案例</a></td>
+</tr>
+</table>
 
-<section id="developer" class="case">
-  <h2>工程：交付可重建、可 Review 的精確候選版本</h2>
-  <p><strong>代表責任／使用案例：</strong>探索 repo、釐清需求、切工作票 DAG、實作小 diff、診斷難解缺陷、建立不可變的 Review 檢查點；瀏覽器主張或可重複代理程式執行是不同續作，不是每張工程工作票都要走。</p>
-  <div class="table-scroll"><table><tr><th>這次真正要交付</th><th>建議 route</th><th>產生的證據</th></tr><tr><td>符合規格與儲存庫標準的 code 變更</td><td class="route"><a href="../lessons/006-0001-choose-engineering-route.html">Engineering 入口</a> → <a href="../lessons/006-0009-complete-engineering-closeout.html">Engineering 收尾</a></td><td>已實作 diff、聚焦的／完整的 checks、最終檢查點、標準／Spec Review 收尾包。</td></tr><tr><td>只需證明一個可由瀏覽器觀察的主張</td><td class="route"><a href="../lessons/007-0001-scope-browser-claim.html">瀏覽器證據入口</a> → <a href="../lessons/007-0007-complete-browser-evidence-addendum.html">證據收尾</a></td><td>有界的主張、基準、互動證據、反例/邊界案例觀察與附錄。</td></tr></table></div>
-  <p><strong>前置條件／準備度：</strong>Code readiness 已證明；能讀 repo 指示、界定安全的工作區、看 diff、跑相關的 checks，且原始意圖可解析。</p>
-  <p class="feedback"><strong>具體成果／可觀察回饋：</strong>得到一份精確 SHA 的 Engineering 收尾；接手者能重建 diff、重跑 checks、分開檢查兩軸 Review，且瀏覽器續作的必要性可由主張決定。</p>
-  <p class="stop"><strong>合法停止點／主張上限：</strong>工作區、權限、checks 或意圖不清就停；tests PASS 與代理程式審查不等於合併、安全簽核、正式環境可靠性或部署權限。</p>
-  <p><strong>案例線索（2026-04-23）：</strong><a href="https://www.anthropic.com/engineering/april-23-postmortem">Anthropic Claude Code 品質事件事後檢討</a>可用來分析重現、根本原因、評估與導入關卡；這是該事件的第一方敘述，不是所有工程流程的模板。</p>
-</section>
+<div class="rule">
+  <strong>本次排除：</strong>Claude Managed Agents、finance agents、Claude Cowork、Figma Make、Walmart Code Puppy 等仍可作為延伸脈絡，但目前不是「2026/04 起發布且案例本身明確使用 Claude Code」的主案例。
+</div>
 
-<section id="research-data" class="case">
-  <h2>研究／資料：讓來源、計算與限制可重跑、可質疑</h2>
-  <p><strong>代表責任／使用案例：</strong>保存原始來源、建立來源到主張的沿革、重現論文／資料、實作分析程式碼、校準 oracle tests，並把網域審查與偏誤／限制留在證據中。</p>
-  <div class="table-scroll"><table><tr><th>這次真正要交付</th><th>建議 route</th><th>產生的證據</th></tr><tr><td>有來源脈絡的報告、資料切片或本機的知識 artifact</td><td class="route"><a href="../lessons/003-0001-select-knowledge-deliverable.html">知識入口</a> → <a href="../lessons/003-0006-complete-knowledge-delivery-closeout.html">知識收尾</a></td><td>原始來源參照、來源到主張檢查、可審查交付物、判斷與 feedback。</td></tr><tr><td>會改 repo 的重現／分析實作</td><td class="route"><a href="../lessons/006-0001-choose-engineering-route.html">Engineering 入口</a> → <a href="../lessons/006-0009-complete-engineering-closeout.html">Engineering 收尾</a></td><td>有版本的程式碼／資料識別、oracle checks、網域審查的限制與最終候選版本 Review。</td></tr></table></div>
-  <p><strong>前置條件／準備度：</strong>資料使用權、來源識別、預期的比較、可反證條件與網域審查者已知；會執行或修改 code 時另需 Code readiness。</p>
-  <p class="feedback"><strong>具體成果／可觀察回饋：</strong>得到可追到來源與精確的計算的交付包；另一位審查者能重跑、重現差異，並指出 oracle 沒覆蓋的網域假設。</p>
-  <p class="stop"><strong>合法停止點／主張上限：</strong>資料權利、版本、oracle 或審查者不明就停；成功重現一次不等於研究正確、無偏誤、可泛化、同行審查或正式環境資料核准。</p>
-  <p><strong>案例線索（2026-05-28）：</strong><a href="https://arxiv.org/abs/2605.30353">物理學家監督 Claude Code 開發科學軟體</a>可用來分析 oracle 與領域監督；單一研究結果不能替代你自己的資料、方法與審查者。</p>
-</section>
+<h2>如何選案例</h2>
+<div class="grid">
+  <div class="card"><strong>你要收斂需求</strong><br>從產品職能開始，看 artifact 是否能被使用者或 stakeholder 驗收。</div>
+  <div class="card"><strong>你要改 repo</strong><br>從工程職能開始，先定義 test、review、PR 與 rollback。</div>
+  <div class="card"><strong>你要處理資料</strong><br>從研究 / 資料職能開始，把可重跑、oracle tests 與 bias check 寫進流程。</div>
+  <div class="card"><strong>你要導入團隊工具</strong><br>從平台 / 治理職能開始，先定義權限、成本、替換性與審計。</div>
+</div>
 
-<section id="operations-revops" class="case">
-  <h2>一般營運／營收營運：先證明可停、可恢復，再談重複執行</h2>
-  <p><strong>代表責任／使用案例：</strong>先預覽匯入 diff、建立事件/操作手冊交接、處理有界的本機的批次、記錄進度/檢查點，並讓 retry 不會重複寫入；真實客戶關係管理或外部通知不屬於自學 fixture。</p>
-  <div class="table-scroll"><table><tr><th>這次真正要交付</th><th>建議 route</th><th>產生的證據</th></tr><tr><td>一個已由人安全做過、值得重複的可復原的本機工作流</td><td class="route"><a href="../lessons/008-0001-define-deterministic-check.html">Agent 作業入口</a> → <a href="../lessons/008-0007-complete-operating-workflow-closeout.html">作業收尾</a></td><td>確定性完成證明、權限範圍、失敗／復原紀錄與學習者判斷。</td></tr><tr><td>需要分享給他人的已證明工作流</td><td class="route"><a href="../lessons/009-0001-select-proven-workflow.html">標準化入口</a> → <a href="../lessons/009-0008-complete-standardization-closeout.html">套件收尾</a></td><td>單一有版本的套件、全新脈絡正例／反例重跑、負責人與退役條件。</td></tr></table></div>
-  <p><strong>前置條件／準備度：</strong>Code readiness、可復原的本機 fixture、輸入/輸出識別、確定性的 oracle、寫入邊界、還原點與人工核准 stop 已知；標準化還要先有可解析收尾。</p>
-  <p class="feedback"><strong>具體成果／可觀察回饋：</strong>得到一份可由第三方重跑的有界作業收尾；審查者能注入受控失敗，確認安全的 stop／復原，並拒絕越界目標。</p>
-  <p class="stop"><strong>合法停止點／主張上限：</strong>沒有安全的 fixture、還原、冪等性或權限就停；本機的復原不等於正式環境服務水準，套件也不授權客戶關係管理寫入、寄送、付款、採購或真實事件動作。</p>
-  <p><strong>案例線索（2026-05-12）：</strong><a href="https://www.businessinsider.com/coders-keep-laptops-open-in-public-ai-agent-2026-5">Mach 1客戶關係管理匯入與長任務報導</a>可用來分析 preview、檢查點與人工核准；報導不是實際資料權限或正式環境授權。</p>
-</section>
+<h2>延伸細節</h2>
+<p>本頁是嚴格篩選後的主入口。每個職能都有細部案例頁：<a href="ai-workflow-case-library.html">產品</a>、<a href="ai-developer-workflow-case-library.html">工程</a>、<a href="ai-research-data-workflow-case-library.html">研究 / 資料</a>、<a href="ai-ops-revops-workflow-case-library.html">營運 / IT / RevOps</a>、<a href="ai-founder-workflow-case-library.html">創業 / Founder</a>、<a href="ai-platform-governance-workflow-case-library.html">平台 / 治理</a>。</p>
 
-<section id="founder" class="case">
-  <h2>創辦人：縮短回饋迴路，而不是跳過驗證</h2>
-  <p><strong>代表責任／使用案例：</strong>把假設切成可檢查原型、向真實受眾解釋提案、收集 feedback、做下一輪保留/變更/stop 判斷；若需要儲存庫實作，另走 Engineering。</p>
-  <div class="table-scroll"><table><tr><th>這次真正要交付</th><th>建議 route</th><th>產生的證據</th></tr><tr><td>測試核心任務、狀態與假設的原型交接</td><td class="route"><a href="../lessons/004-0001-choose-claude-design-surface.html">設計入口</a> → <a href="../lessons/004-0007-assemble-design-handoff-bundle.html">交接收尾</a></td><td>設計意圖、重大狀態、假設證據、feedback 處置與實作未知事項。</td></tr><tr><td>需要受眾作決定的有來源支持的簡報</td><td class="route"><a href="../lessons/005-0001-choose-presentation-route.html">簡報入口</a> → <a href="../lessons/005-0007-export-and-rehearse.html">簡報收尾</a></td><td>主張台帳、權利紀錄、可及的目標格式簡報、演練與 feedback。</td></tr></table></div>
-  <p><strong>前置條件／準備度：</strong>單一任務、受眾、決策、可用來源、素材權利、feedback 負責人與不做事項已明確；付款、寄送或客戶資料預設不在練習範圍。</p>
-  <p class="feedback"><strong>具體成果／可觀察回饋：</strong>得到可被受眾檢查的原型交接或簡報；另一個人能重述假設、指出證據缺口，並記錄下一輪保留、修改或停止。</p>
-  <p class="stop"><strong>合法停止點／主張上限：</strong>問題、受眾、權利或 feedback 路徑不清就停；示範、掌聲或簡報完成不等於商業驗證、收入、市場契合度、上線 readiness 或投資批准。</p>
-  <p><strong>案例線索（2026-05-25，回顧案例）：</strong><a href="https://www.businessinsider.com/product-manager-san-francisco-used-claude-build-postcard-business-2026-5">Postcard Press 原型報導</a>可用來分析原型→feedback→強化；其後續付款、寄送與上線不能被本課當成已授權練習。</p>
-</section>
-
-<section id="platform-governance" class="case">
-  <h2>平台／治理：把決策權、證據與主張上限放在同一張圖</h2>
-  <p><strong>代表責任／使用案例：</strong>定義存取/資料邊界、比較工作流主張、設計有界的導入情境、處理成本/風險、演練事件/變更/退役；只有既有沿革成立時才往後走。</p>
-  <div class="table-scroll"><table><tr><th>這次真正要交付</th><th>建議 route</th><th>產生的證據</th></tr><tr><td>判斷一個已證明的套件應保留、變更或退役</td><td class="route"><a href="../lessons/010-0001-set-workflow-evaluation-claim.html">驗證入口</a> → <a href="../lessons/010-0007-complete-workflow-evidence-dossier.html">檔案收尾</a></td><td>固定的主張、成功/失敗/比較的證據、衝突處置、限制與學習者判斷。</td></tr><tr><td>對既有導入沿革起草可稽核自學政策</td><td class="route"><a href="../lessons/012-0001-charter-governance-scope.html">治理入口</a> → <a href="../lessons/012-0007-complete-governance-lifecycle-policy.html">政策收尾</a></td><td>負責權、變更/資料生命週期、風險/成本、桌上演練證據、退役條件與處置。</td></tr></table></div>
-  <p><strong>前置條件／準備度：</strong>評估需精確的標準化收尾；治理需可追溯情境導入計畫、檔案、套件識別、限制、負責人與決策權。缺上游證據就回原始的 route。</p>
-  <p class="feedback"><strong>具體成果／可觀察回饋：</strong>得到可重建的證據檔案或政策草稿；獨立審查者能追到每個重大決策，重播桌上演練，並找出任何越過權限的主張。</p>
-  <p class="stop"><strong>合法停止點／主張上限：</strong>沿革、負責人、資料邊界或決策權利不明就停；評估、桌上演練與政策草稿都不是採用證明、法律意見、安全/隱私/合規認證、組織政策或正式環境核准。</p>
-  <p><strong>案例線索（2026-04-23）：</strong><a href="https://www.anthropic.com/engineering/april-23-postmortem">Claude Code 品質事件事後檢討</a>可用來分析變更、評估與導入證據；事件敘述不會替你的組織建立決策權或批准。</p>
-</section>
-
-<h2>路線選擇的共用檢查</h2>
-<ol><li>用一句話寫出這次的 <strong>可審查的 artifact</strong>；只選能產生它的 route。</li><li>確認先決條件、權限、feedback 負責人與法務 stop；缺口回 readiness，不靠代理程式補猜。</li><li>完成後只宣稱該 route 的結束證據；需要另一種交付物時，重新選 route，不把所有 Phase 串成必修階梯。</li></ol>
-<p class="rule"><strong>來源與證據界線：</strong>案例來源依發布資訊與可辨識的第一方／研究敘述保留日期。它們只說明「曾被報導的工作形狀」，不獨立證明普遍效果；route 完成仍以學習者自己的 artifact、確定性的證據、人工判斷與 feedback 為準。</p>
-
-<footer data-course-footer="canonical" data-route-id="not-applicable" data-legal-stop="not-applicable">
-<div class="course-page-identity">路線角色：不適用 · 頁面類型：標準參考頁 · 來源 ID：<code>functional-workflow-case-hub-contract</code> · 來源審查：2026-07-16 · 六個 穩定片段：<code>product</code>、<code>developer</code>、<code>research-data</code>、<code>operations-revops</code>、<code>founder</code>、<code>platform-governance</code></div>
+<footer>
+  相關：<a href="ai-workflow-skill-composer.html">AI 工作流編排速查表</a> · <a href="../RESOURCES.md">RESOURCES.md</a>
 </footer>
 </body>
 </html>

@@ -1,1 +1,158 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><link rel="icon" href="data:,"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="course:canonical-coordinate" content="not-applicable"><meta name="course:page-kind" content="compatibility"><meta name="course:route-roles" content="not-applicable"><meta name="course:source-ids" content="not-applicable"><meta name="course:legacy-identity" content="lessons/003-0005-prototype"><meta name="course:transition-reason" content="Move/rename/conditional"><meta name="course:evidence-carryover" content="lesson-practiced-unless-current-route-stop-is-revalidated"><meta name="course:transition-mode" content="direct"><title>原課程 003-0005 已轉接</title><style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:720px;margin:3rem auto;padding:0 1.25rem;line-height:1.8;color:#202020}main{border:1px solid #d8dde3;border-radius:12px;padding:1.4rem;background:#fbfcfd}h1{line-height:1.35}.kicker,h2{color:#315f86}.identity,.carry{background:#edf3f7;padding:.8rem 1rem;border-radius:7px}.action{display:inline-block;background:#315f86;color:#fff;padding:.7rem 1rem;border-radius:7px;text-decoration:none;font-weight:700}code{overflow-wrap:anywhere}@media(max-width:620px){body{margin:1.25rem auto}main{padding:1rem}}</style></head><body><main><p class="kicker">相容性入口 · 原 Phase 3 第 05 課</p><h1>原型已成為 Engineering conditional 分支</h1><p class="identity"><strong>穩定公開網址識別：</strong><code>lessons/003-0005-prototype</code></p><h2>轉接原因</h2><p>只有要求對齊留下一個需要可執行 evidence 的技術問題時才進入原型；它不再是所有工程任務的必修順序。</p><h2>證據沿用</h2><p class="carry">既有原型答案可保留為 <code>Lesson practiced</code>；必須確認問題、限制與目前 route 停止點仍相同，才可作為 evidence。</p><p><a class="action" href="006-0004-prototype-technical-question.html">前往最終課程：原型技術問題</a></p></main></body></html>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05：用 /prototype 驗證講不清的問題</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #1a6b5a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #1a6b5a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #1a6b5a; }
+  code, pre { background: #eef4f2; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #15564a; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef4f2; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #f8fbfa; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .tip { background: #eef4f2; border-left: 4px solid #1a6b5a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .safety { background: #fbeaea; border-left: 4px solid #c62828; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #1a6b5a; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef4f2; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d3e2dd; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 3 · 第 05 課 · 約 30 分鐘 · 實作課（分支）</div>
+<h1>用 /prototype 驗證講不清的問題</h1>
+<p class="mission">目標：在 grill 後仍有問題必須用可跑成果回答時，用 <code>/handoff</code> 分支到 <code>/prototype</code>，做一個<strong>回答單一問題的拋棄式原型</strong>，再把答案帶回主線。pipeline 多了一道「先玩過再承諾」的保險。</p>
+<div class="scope"><strong>本課只做：</strong>用可丟棄原型驗證一個設計問題。<br><strong>先不要做：</strong>把 prototype 當 production foundation。</div>
+
+
+<h2>它在 pipeline 的位置</h2>
+<pre>/grill-with-docs → /handoff → <strong>/prototype</strong> → /handoff → 回到主線
+   Phase 3 第 04 課              本課                    Phase 3 第 06–08 課</pre>
+<p>不是每個需求都需要 prototype — 但當「這個 state machine 對不對」「這頁該長怎樣」用想的講不清時，原型用<strong>能跑的東西</strong>取代爭論。to-spec / to-tickets 可以把原型敲定的關鍵片段（state machine、schema）收進後續 spec 或 ticket。</p>
+<div class="tip"><strong>先補一個即時前置：</strong>第 12 課不是只能最後收尾；它也是 pipeline 中途換 session 的橋。若你還不熟 <code>/handoff</code>，先讀 <a href="003-0012-handoff.html">Phase 3 第 12 課</a>，再做本課：用第一次 handoff 把「要回答的問題」交給新 session，跑完 <code>/prototype</code> 後，再用第二次 handoff 把答案帶回原 thread。這能保留 grill → spec → tickets 的完整思路，也避免拋棄式探索污染主線 context。</div>
+
+<h2>核心定義（SKILL.md 原文）</h2>
+<p>「<strong>A prototype is throwaway code that answers a question. The question decides the shape.</strong>」— 問題決定形狀，所以第一步是<strong>選分支</strong>：</p>
+<table>
+<tr><th>你的問題</th><th>分支</th><th>產出</th></tr>
+<tr><td>「這個邏輯／狀態模型對嗎？」</td><td><strong>LOGIC</strong></td><td>小型互動<strong>終端機 app</strong>，把狀態機推過紙上難想的案例</td></tr>
+<tr><td>「這東西該長什麼樣？」</td><td><strong>UI</strong></td><td>同一個路由上<strong>數種差異極大的 UI 變體</strong>，用 URL 參數＋浮動列切換</td></tr>
+</table>
+<div class="safety"><strong>選錯分支等於整個原型白做</strong>（skill 原文）。問題若真的模糊且你不在線上，它會依周邊程式碼預設（後端模組→logic，頁面/元件→UI）並在原型開頭註明假設 — 但最好你自己先想清楚要回答哪個問題。</div>
+
+<h2>兩個分支都遵守的鐵律</h2>
+<ol>
+  <li><strong>第一天就是拋棄式，且標明</strong> — 放在它將被使用的程式碼旁（脈絡清楚），但命名要讓人一眼看出是原型不是正式碼。</li>
+  <li><strong>一個指令就能跑</strong> — 用專案既有的 task runner，使用者不用思考怎麼啟動。</li>
+  <li><strong>預設不持久化</strong> — 狀態存記憶體。持久化是原型要<em>檢驗</em>的東西，不是它該依賴的。</li>
+  <li><strong>跳過所有打磨</strong> — 無測試、無錯誤處理（除了能跑起來所需）、無抽象。重點是快速學到東西。</li>
+  <li><strong>把狀態攤開</strong> — 每個動作後（logic）或每次切換變體後（UI），印出/渲染完整相關狀態，讓你看見變化。</li>
+  <li><strong>吸收決策、保存證據</strong> — 把驗證過的決策折進正式碼；完整原型則 commit 到不會 merge 的 throwaway branch，並在 implementation issue 留下 pointer。</li>
+</ol>
+<div class="tip"><strong>完成後留下兩樣東西：</strong>答案是「問題＋結論」，寫進 issue、commit 或 ADR；原型是產生答案的 <strong>primary source</strong>，留在 throwaway branch 供未來重跑。main branch 只保留正式實作，不保留無測試、無錯誤處理的原型殘骸。</div>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 找一個值得原型的設計問題</label>
+  <p>從 grill 出來的計劃裡，挑一個「講不清、用想的會吵架」的點：一個棘手的狀態轉移、一個你拿不定的畫面。明確寫下「我要回答的問題是 X」。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 啟動並確認分支</label>
+  <pre>/prototype 我想搞清楚 [你的問題]</pre>
+  <p>先 <code>/handoff</code> 到新 session，再啟動 prototype。看它選 LOGIC 還是 UI — 對照你的問題，選對了嗎？選錯立刻糾正。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 一個指令跑起來、玩它</label>
+  <p>用它給的單一指令啟動。LOGIC：把狀態機推過邊界案例；UI：切換變體比較。重點是<strong>親手玩</strong>，不是看它描述。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 記下答案</label>
+  <p>玩出結論後，把「問題＋結論」寫進耐久處。只有決策同時難以回頭、缺少背景會令人意外，而且是實際取捨的結果時才寫 ADR；缺一就寫進 implementation issue 或 commit。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 5. 吸收決策、保存 primary source</label>
+  <p>把驗證過的設計折進真正的程式碼；接著把完整原型 commit 到不會 merge 的 throwaway branch，從 main 移除原型，並在 implementation issue 留下 branch pointer。然後用 <code>/handoff</code> 把答案帶回主線，依規模接 <code>/implement</code> 或 <code>/to-spec</code>。</p>
+</div>
+
+<div class="done-banner" id="done">
+  🎉 <strong>你用能跑的東西取代了一場設計爭論。</strong>回對話視窗回報：你回答了什麼問題？原型推翻了你原本的假設嗎？
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="1">
+  <p>1. prototype 預設不做持久化（state 存記憶體）的理由是？</p>
+  <button>因為原型的執行時間很短，不需要存檔</button>
+  <button>持久化是原型要檢驗的對象，不是依賴</button>
+  <button>因為寫資料庫會讓原型跑得比較慢</button>
+  <div class="why">skill 原文：persistence is the thing the prototype is checking。讓原型依賴它要驗證的東西，就失去了快速試錯的意義。</div>
+</div>
+
+<div class="quiz" data-answer="2">
+  <p>2. 原型回答完問題後，正確的保存方式是？</p>
+  <button>只保留口頭結論並刪除全部原型證據</button>
+  <button>把完整原型直接合併到 main branch</button>
+  <button>保存結論以及 throwaway branch</button>
+  <div class="why">答案是耐久結論；原型是產生答案的 primary source。正式決策進 main，完整原型留在不會 merge 的 throwaway branch，issue 再指向它。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>3.「這個取消流程的狀態機對不對」該選哪個原型分支？</p>
+  <button>LOGIC：驗證狀態與轉換</button>
+  <button>UI：比較互動畫面呈現細節</button>
+  <button>兩者：同時實作兩種類型</button>
+  <div class="why">狀態／邏輯問題 → LOGIC 分支。prototype 用可跑的狀態機驗證它在邊界案例下行不行得通；這是本課剛建立的分支判斷，不是假裝成前課的 retrieval。</div>
+</div>
+
+<h2>下一步</h2>
+<p>完成後回對話視窗回報。若是 multi-session build，下一課進入 <a href="003-0006-to-spec.html">Phase 3 第 06 課 — 用 /to-spec 把對話凝結成 spec</a>；若單一 session 足以完成，帶著答案直接回 <code>/implement</code>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/prototype/SKILL.md">reviewed prototype snapshot（66898f6）</a> 與同 snapshot 的 LOGIC.md／UI.md；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/prototype/SKILL.md">current prototype</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  上一課：<a href="003-0004-grill-with-docs.html">Phase 3 第 04 課 — /grill-with-docs</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

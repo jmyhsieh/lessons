@@ -1,153 +1,72 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<link rel="icon" href="data:,">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="course:canonical-coordinate" content="not-applicable">
-<meta name="course:page-kind" content="canonical-reference">
-<meta name="course:route-roles" content="not-applicable">
-<meta name="course:source-ids" content="course-shared-vocabulary-contract">
 <title>課程詞彙表</title>
 <style>
-  * { box-sizing: border-box; }
-  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 960px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
-  h1 { font-size: 1.8rem; margin-bottom: .2rem; color: #9d481b; }
-  h2 { font-size: 1.18rem; color: #9d481b; margin-top: 2.2rem; }
-  h3 { font-size: 1rem; margin-top: 1.4rem; }
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
+  h1 { font-size: 1.7rem; margin-bottom: .2rem; color: #c2571a; }
   .sub { color: #666; margin-top: 0; }
-  table { width: 100%; border-collapse: collapse; font-size: .92rem; margin: 1rem 0; }
-  th, td { border: 1px solid #d8d0ca; padding: .58rem .68rem; vertical-align: top; text-align: left; overflow-wrap: anywhere; }
-  th { background: #faf1ea; }
-  code { background: #f4f0ec; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; overflow-wrap: anywhere; }
-  a { color: #914116; }
-  .rule, .test, .warning { border-left: 4px solid #b4521c; background: #fdf9f6; padding: .85rem 1rem; margin: 1rem 0; }
-  .test { border-color: #34715b; background: #f1f8f5; }
-  .warning { border-color: #9a6525; background: #fff8e8; }
-  footer { margin-top: 2.5rem; font-size: .88rem; color: #666; border-top: 1px solid #ddd; padding-top: .9rem; }
-  @media (max-width: 650px) { body { margin-top: 1rem; padding: 0 1rem; } table { display: block; max-width: 100%; overflow-x: auto; font-size: .82rem; } th, td { min-width: 9rem; padding: .45rem; } }
-  @media print { body { margin: 1rem auto; } .rule, .test, .warning, tr { break-inside: avoid; } }
+  h2 { font-size: 1.08rem; color: #c2571a; margin-top: 2rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; vertical-align: top; text-align: left; }
+  th { background: #faf3ee; }
+  code { background: #f4f0ec; border-radius: 4px; padding: .1rem .35rem; font-size: .9em; }
+  a { color: #b04a12; }
+  .rule { border-left: 4px solid #c2571a; background: #fdfbf9; padding: .8rem 1rem; margin: 1rem 0; }
+  footer { margin-top: 2.5rem; font-size: .85rem; color: #666; border-top: 1px solid #ddd; padding-top: .8rem; }
+  @media print { body { margin: 1rem auto; } .rule, tr { break-inside: avoid; } }
 </style>
 </head>
 <body>
-<p style="margin:0"><a href="../toc.html">← 課程目錄</a></p>
-<header>
-<p>標準參考 · 共用詞彙</p>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <h1>課程詞彙表</h1>
-<p class="sub">本頁是耐久課程語意的單一標準負責人；持續變動的產品、command、模型與可用性主張仍以各自 Source anchor 為準。</p>
-</header>
+<p class="sub">同一個詞在課程中的固定意思；不是完整產品文件。</p>
 
-<div class="rule"><strong>使用成果：</strong>閱讀 route、課程、參考、Migration 或審查記錄時，能把同一個詞解讀成同一種狀態與證據邊界。若局部頁面與本頁衝突，先停止完整的完成主張，記錄衝突，再由課程負責人修正文案或更新共用的詞彙契約。</div>
+<div class="rule"><strong>使用方式：</strong>先用這頁確認課程語意；涉及目前產品功能、模型或介面時，再回官方文件與實際介面查核。</div>
 
-<div class="test"><strong>可觀察解讀測試：</strong>給另一位讀者一張紀錄：「已練習006-0007、候選版本 SHA 已固定、頁面遷移狀態=已撰寫，但尚未完成標準／Spec Review，也尚未取得切換授權。」對方應判斷：學習者有 <code>Lesson practiced</code> 與實作檢查點；課程歷史記為已撰寫；發布仍未發生；不得推論 <code>Route artifact produced</code>、Review 完成、Migration release 或完整課程完成。</div>
-
-<h2>三個不可互換的狀態平面</h2>
+<h2>工作表面與執行環境</h2>
 <table>
-<tr><th>狀態平面</th><th>回答的問題</th><th>本 repo 的例子</th><th>不能推出</th></tr>
-<tr><td><strong>Learner progress</strong></td><td>這位學習者實際練過、產出並判斷了什麼？</td><td><code>Lesson practiced</code>、已證明 readiness、<code>Route artifact produced</code>、學習者判斷、feedback 紀錄</td><td>頁面已撰寫、已發布，或整門課完成</td></tr>
-<tr><td><strong>Course history</strong></td><td>頁面在目錄 Migration 中如何被保留、改寫、搬移或退休？</td><td>標準的／舊版課程座標、Content disposition、Compatibility entry、Deprecation notice、Evidence carryover、清單的 <code>planned</code>／<code>authored</code></td><td>學習者已練習、route 已收尾，或正式環境已更新</td></tr>
-<tr><td><strong>Publication state</strong></td><td>哪一個精確的一致的候選版本已獲授權並可由公開的主機驗證？</td><td>僅限本機的 Migration branch、已審查的檢查點、維護者授權、一致切換、發布後證據</td><td>每位學習者的進度，或未完成頁面可分批上線</td></tr>
-</table>
-<p class="warning"><strong>Migration 狀態詞彙：</strong>目前清單的合法值只有 <code>planned</code> 與 <code>authored</code>。<code>verified</code> 是證據結果，<code>published</code> 是發布事實，兩者不是可自行寫入清單的第三、第四種 <code>migrationStatus</code>。</p>
-
-<h2>路線、Phase 與課程角色</h2>
-<table>
-<tr><th>詞彙</th><th>固定意思</th><th>常見誤讀</th></tr>
-<tr><td>任務路線</td><td>由任務選出的目標導向課程序列；以真實交付物、必要的 Evidence、學習者判斷與 feedback 結束。</td><td>Phase 1→12的通用的線性階梯</td></tr>
-<tr><td>Route promise</td><td>route 承諾保留的成果、artifact、判斷、feedback／驗證證據與安全邊界。</td><td>固定課程數量或導覽順序</td></tr>
-<tr><td>Phase</td><td>相關內容的穩定的目錄分組；route 才決定進程。</td><td>等級、必修關卡或完成狀態</td></tr>
-<tr><td>Canonical course coordinate</td><td>現行目錄中的 Phase、標籤與 Phase 內課程編號；它定位內容，不表示 route 順序或精通。</td><td>學習者進度或可重用的空號</td></tr>
-<tr><td>Entry／readiness</td><td>進入一段 route 工作前必須帶入的任務、輸入、能力或證據；缺口導向最小補強。</td><td>所有人都要重走的先決條件 checklist</td></tr>
-<tr><td>Conditional</td><td>只有現行的任務命中條件才選擇的支線。</td><td>隱藏必修</td></tr>
-<tr><td>Elective</td><td>可依學習目標選擇、但不屬於目前 route 承諾的延伸。</td><td>不做就不能收尾</td></tr>
-<tr><td>Rejoin／return</td><td>支線或補強完成後，帶著有界證據回到已指定的現行的 route 錨點。</td><td>自動跳過主線完成契約</td></tr>
-<tr><td>Legal stop</td><td>權限、輸入、證據、安全或可恢復性不足時，保存已知事實與返回點後停止。</td><td>失敗、放棄或默認核准</td></tr>
-<tr><td>Continuation</td><td>目前 artifact 收尾後，因新任務才選擇的下一段 route。</td><td>原 route 尚未完成的尾巴</td></tr>
-<tr><td>Exit evidence</td><td>滿足 route 或有界的切片 stop 條件的 artifact、判斷、feedback 與驗證證據。</td><td>看完頁面或勾完 checklist</td></tr>
+<tr><th>詞彙</th><th>本課程中的意思</th></tr>
+<tr><td>surface</td><td>完成任務的產品或介面，例如 Claude、Cowork、Claude Design、Claude Code；先依交付物選 surface。</td></tr>
+<tr><td>session</td><td>一段有自己 context 的工作對話；換 session 前要把重要狀態寫進 durable artifact。</td></tr>
+<tr><td>context</td><td>模型目前能使用的對話、檔案與指令脈絡；長不等於乾淨，也不能取代持久文件。</td></tr>
+<tr><td>plan mode</td><td>先探索、提出計畫與風險，不直接修改檔案的工作模式。</td></tr>
+<tr><td>permission rule</td><td>限制工具或命令可否執行的規則；不等於內容正確性驗證。</td></tr>
+<tr><td>hook</td><td>在特定事件自動執行的 deterministic 檢查或動作。</td></tr>
+<tr><td>Skill</td><td>可重用的代理工作說明與資源；要先讀適用條件與停止線。</td></tr>
+<tr><td>MCP</td><td>讓 agent 透過受控工具連接外部系統或資料的協定與整合方式。</td></tr>
+<tr><td>subagent</td><td>負責邊界清楚子任務的獨立 agent；輸出仍需由主工作流整合與驗證。</td></tr>
+<tr><td>worktree</td><td>同一 Git repository 的另一份工作目錄，用來隔離分支與並行改動。</td></tr>
 </table>
 
-<h2>練習、產物與證據</h2>
+<h2>從需求到可驗證交付</h2>
 <table>
-<tr><th>詞彙</th><th>固定意思</th><th>邊界</th></tr>
-<tr><td><code>Lesson practiced</code></td><td>學習者完成該課的操作與可觀察的 feedback。</td><td>不自動成為 <code>Route artifact produced</code>。</td></tr>
-<tr><td><code>Route artifact produced</code></td><td>產物滿足所選任務路線的 artifact 與證據契約。</td><td>不等於 Phase、Migration 或完整課程完成。</td></tr>
-<tr><td>Artifact</td><td>可被檢查、使用、交接或重跑的持久的輸出，例如報告、規格、repo diff、簡報、檔案或政策草稿。</td><td>對話中的聲稱不是持久的 artifact。</td></tr>
-<tr><td>Evidence</td><td>能支持具體主張的觀察、artifact 識別、確定性的結果、來源沿革、學習者判斷或 feedback 紀錄。</td><td>工具成功、模型信心或螢幕看起來合理不夠。</td></tr>
-<tr><td>Tangible win</td><td>一課結束時學習者手上新增的有界的、可保存產物。</td><td>不是抽象的「理解了」。</td></tr>
-<tr><td>Observable feedback</td><td>另一位人或確定性的介面能觀察到、可反駁的結果。</td><td>不是代理程式對自己工作的評分。</td></tr>
-<tr><td>Deterministic check</td><td>相同已宣告的輸入與環境產生可重跑通過／失敗的 oracle；必須對錯誤狀態會失敗。</td><td>不能判斷需求價值、風險接受或負責人核准。</td></tr>
-<tr><td>Learner judgment</td><td>學習者根據證據對取捨、限制與下一步做出的明示處置。</td><td>不由模型、check 或審查者自動代替。</td></tr>
-<tr><td>Evidence carryover</td><td>準備度檢查後，承認既有 artifact、判斷或 feedback 可作為現行的 route 輸入。</td><td>不自動既有沿用完成。</td></tr>
-<tr><td>Full completion claim</td><td>只在明定的整體完成契約全部有證據時才能做出的聲稱。</td><td>單課、單 Phase、單 route artifact 或已發布目錄都不足以單獨推出。</td></tr>
+<tr><th>詞彙</th><th>本課程中的意思</th></tr>
+<tr><td>spec</td><td>把已對齊的問題、範圍、需求、限制與驗收方式寫成可持續使用的文件。</td></tr>
+<tr><td>ticket</td><td>可由單一 owner 認領、具完成條件的工作切片。</td></tr>
+<tr><td>bounded slice</td><td>範圍小到能在目前工作中檢查、驗證與說清楚的一段實作。</td></tr>
+<tr><td>feedback loop</td><td>能穩定重現、觀察改動效果並快速再次執行的診斷迴圈。</td></tr>
+<tr><td>fixed point</td><td>review 或比較的明確起點，例如 commit、tag 或 merge-base。</td></tr>
+<tr><td>handoff</td><td>讓下一個 session 或接手者不用重讀整段對話，也能恢復狀態的持久交接。</td></tr>
+<tr><td>artifact</td><td>可被檢查與使用的產物，例如 spec、程式碼、簡報、ledger 或 handoff。</td></tr>
+<tr><td>exit evidence</td><td>證明學習或工作結果達到完成條件的產物、判斷說明與驗證證據；不是只勾完 checklist。</td></tr>
 </table>
 
-<h2>Review</h2>
+<h2>設計與日常視覺交付</h2>
 <table>
-<tr><th>詞彙</th><th>固定意思</th><th>有效證據</th></tr>
-<tr><td>Review contract</td><td>對有界的 repo 變更固定候選版本識別、原始意圖、專案標準、分離的發現事項、人工處置與修正後 checks 的共同契約。</td><td><a href="repo-review-contract.html">Repo Review contract</a></td></tr>
-<tr><td>Standards Review</td><td>獨立檢查候選版本是否遵守儲存庫內指示、慣例與適用標準。</td><td>引用規則來源與精確的檔案／差異區塊的發現事項。</td></tr>
-<tr><td>Spec Review</td><td>獨立檢查候選版本是否滿足原始的議題、規格與驗收條件。</td><td>逐條要求的證據或發現事項。</td></tr>
-<tr><td>Immutable Review checkpoint</td><td>可解析的固定點與精確的候選版本 commit 的 SHA；候選版本任一位元組改變，舊 Review 證據全部失效。</td><td>新檢查點上完整重跑 checks、標準與 Spec Review。</td></tr>
-<tr><td>Reviewer write boundary</td><td>審查者唯讀的檢查／check／報告；撰寫者才變更、修正與 commit。</td><td>分離報告與發現事項處置，不是審查者自修自批。</td></tr>
+<tr><th>詞彙</th><th>本課程中的意思</th></tr>
+<tr><td>design intent</td><td>畫面背後要保留的受眾、層級、互動與品牌判斷，不只是像素外觀。</td></tr>
+<tr><td>vertical slice</td><td>用少量頁面或功能走完整條工作流，以驗證方向與交付邊界。</td></tr>
+<tr><td>source pack</td><td>帶來源、狀態與 owner 的真實內容集合，是生成視覺產物前的內容地基。</td></tr>
+<tr><td>source of truth</td><td>主張可回查的權威原始位置；模型重述或多份簡報互相引用不算來源。</td></tr>
+<tr><td>story spine</td><td>從受眾現況、證據到下一個決策的敘事順序。</td></tr>
+<tr><td>deck</td><td>由講者控制節奏、用來建立共同理解並推動決策的投影片組合。</td></tr>
+<tr><td>rehearsal</td><td>在目標環境向代表性聽眾實際講一次，記錄迷失點、問題與決策理解。</td></tr>
 </table>
 
-<h2>Source 與權限</h2>
-<table>
-<tr><th>詞彙</th><th>固定意思</th><th>不是</th></tr>
-<tr><td>Source</td><td>支持主張的可歸因資料；現行產品主張優先使用符合資格的第一方來源。</td><td>模型重述或無法回查的摘要。</td></tr>
-<tr><td>Source anchor</td><td>最小、可獨立重新認證的主張群組或可執行操作程序。</td><td>整頁共用一個模糊新鮮度標籤。</td></tr>
-<tr><td>Source registry</td><td>標準且機器可讀的 <code>source-anchors.json</code>，保存錨點中繼資料、版本、狀態與重新認證證據。</td><td>課程頁尾或資源清單的副本。</td></tr>
-<tr><td>Source of truth</td><td>某種狀態／主張的單一權限，例如清單管頁面處置、登錄表管 Source 錨點。</td><td>多份文件互相引用後共同變成權限。</td></tr>
-<tr><td>Source recertification</td><td>依符合資格的現行來源重新評估主張，並在已宣告環境重跑適用操作程序。</td><td>只檢查連結還活著。</td></tr>
-</table>
-
-<h2>相容性、Migration 與發布</h2>
-<table>
-<tr><th>詞彙</th><th>固定意思</th><th>禁止推論</th></tr>
-<tr><td>Stable public URL</td><td>已發布網址永遠解析到現行的標準內容或明確退役通知；不改派給無關內容。</td><td>舊 URL 可因重新編製索引任意消失。</td></tr>
-<tr><td>Compatibility entry</td><td>非標準的 Stable public URL，直接到最終的標準的目標，或在沒有後繼方案時解釋轉接／退役。</td><td>不得形成重新導向鏈；不得算進目錄、課程數量、導覽或完成。</td></tr>
-<tr><td>Deprecation notice</td><td>原 URL 上的公開的退役紀錄，說明理由、生效日期、後繼方案與 Evidence carryover。</td><td>無聲刪除或過期重複課程。</td></tr>
-<tr><td>Migration baseline</td><td>十二 Phase Migration 前公開部署後凍結的 73 HTML 路徑。</td><td>所有歷史 Git 路徑。</td></tr>
-<tr><td>Content disposition</td><td>保留、重寫、移動／改名、條件式、合併、參考轉換或退役的頁面層級決策。</td><td>只因舊座標或主題相似就刪除。</td></tr>
-<tr><td><code>planned</code></td><td>清單已定義頁面契約，但現行的內容尚未被認定滿足已撰寫中繼資料／內容邊界。</td><td>頁面不存在、驗證失敗或發布受阻的同義詞。</td></tr>
-<tr><td><code>authored</code></td><td>頁面已按清單契約撰寫，且應由已撰寫切片驗證器檢查中繼資料、連結、測驗與 Source 範圍。</td><td>已 Review、已獲切換授權或已發布。</td></tr>
-<tr><td>Migration release</td><td>標準目錄、基準網址、相容對照、導覽、退役通知與 Evidence carryover 一致的公開課程狀態。</td><td>逐頁或 branch Preview 的部分發布。</td></tr>
-<tr><td>Report-only</td><td>驗證器可以揭露阻礙，但自身結束行為不會直接發布、批准或修改正式環境。</td><td>阻礙可忽略，或報告已授權切換。</td></tr>
-</table>
-
-<h3>禁止推論</h3>
-<table>
-<tr><th>看到</th><th>不得推論</th><th>還需要</th></tr>
-<tr><td><code>Lesson practiced</code></td><td><code>Route artifact produced</code></td><td>route artifact 契約、判斷、feedback 與結束證據</td></tr>
-<tr><td><code>migrationStatus=authored</code></td><td>頁面已驗證／已發布</td><td>確定性的關卡、瀏覽器證據、Review、授權與公開主機驗證</td></tr>
-<tr><td>相容性 URL 可解析</td><td>它是目錄課程或完成步驟</td><td>沒有；相容性永久排除於這些計數</td></tr>
-<tr><td>Standards Review pass</td><td>Spec Review pass</td><td>同一不可變的檢查點的獨立規格報告</td></tr>
-<tr><td>模型／代理程式說完成</td><td>學習者判斷、負責人核准或外部的權限</td><td>明示人工處置與適用證據</td></tr>
-<tr><td>Phase 10／11／12工作簿區段完成</td><td>組織成熟度分數上升</td><td>本課程不建立此分數，也不聲稱組織的採用</td></tr>
-</table>
-
-<h2>成熟度詞彙</h2>
-<table>
-<tr><th>詞彙</th><th>固定意思</th><th>邊界</th></tr>
-<tr><td>Workflow maturity workbook</td><td>保存工作流證據檔案 → 情境導入計畫 → 治理生命週期政策 artifact 沿革的可重用的學習者參考資料。</td><td>不是獨立 route、必要的總結專題、唯一權威來源或完成狀態。</td></tr>
-<tr><td>Maturity score</td><td>本課程沒有定義的組織排名。</td><td>不得由工作簿欄位、Phase 編號、頁數或代理程式判斷計算。</td></tr>
-<tr><td>Self-study artifact</td><td>在合成的／本機的邊界內建立、可審查的練習產物。</td><td>不是正式環境部署、真實的採用、法務／合規核准或組織權限。</td></tr>
-</table>
-
-<h2>工作介面與一般交付詞彙</h2>
-<table>
-<tr><th>詞彙</th><th>固定意思</th></tr>
-<tr><td>工作表面</td><td>完成任務的產品或介面；依交付物、權限、可用性與證據需求選擇，不假設所有人都有相同功能。</td></tr>
-<tr><td>工作階段／脈絡</td><td>工作階段是有獨立脈絡的工作對話；脈絡是目前可用的對話、檔案與指示。兩者都不能取代持久的 artifact。</td></tr>
-<tr><td>權限規則</td><td>限制工具、路徑或 command 是否可執行；不證明內容正確，也不授權未列外部副作用。</td></tr>
-<tr><td>Skill／MCP／subagent／worktree</td><td>分別是可重用代理程式指示、受控工具整合、有界的委派脈絡、Git 工作目錄隔離；它們改變執行拓撲，不自動增加權限或完成證據。</td></tr>
-<tr><td>Spec／ticket／bounded slice</td><td>規格固定意圖與驗收；工作票是單一負責人可認領的工作切片；有界的切片小到能檢查、驗證與清楚交接。</td></tr>
-<tr><td>回饋迴路</td><td>能穩定重現、觀察變更影響並再次執行的診斷迴圈。</td></tr>
-<tr><td>Handoff／Return notebook</td><td>讓下一個工作階段或接手者恢復任務、route 錨點、證據、判斷、法務 stop 與下一步動作的持久的紀錄。</td></tr>
-</table>
-
-<footer data-course-footer="canonical" data-route-id="not-applicable" data-legal-stop="not-applicable">
-<div class="course-page-identity">頁面類型：標準參考頁 · 標準座標：not-applicable · 路線角色：not-applicable · 來源 ID：<code>course-shared-vocabulary-contract</code><br>相關：<a href="../assets/templates/route-notebook.md">Return notebook 範本</a> · <a href="workflow-maturity-workbook.html">Workflow maturity workbook</a> · <a href="agent-operations-safety.html">代理程式作業安全參考</a> · <a href="../toc.html">課程目錄</a></div>
-</footer>
+<footer>相關：<a href="claude-product-picker.html">產品選用</a> · <a href="claude-code-command-surface.html">Claude Code 操作</a> · <a href="claude-design-presentation-workflow.html">簡報工作流</a></footer>
 </body>
 </html>

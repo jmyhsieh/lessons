@@ -3,127 +3,97 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="course:canonical-coordinate" content="not-applicable">
-<meta name="course:page-kind" content="navigation">
-<meta name="course:route-roles" content="not-applicable">
-<meta name="course:source-ids" content="course-orient-readiness-contract,course-production-index-surface,course-shared-vocabulary-contract">
-<link rel="icon" href="data:,">
-<title>從工作出發 — Claude 工作流程課程</title>
+<title>Claude 設計與交付工作流 — 學習手冊</title>
 <style>
-  :root { color-scheme:light; --ink:#17211b; --muted:#5d6962; --line:#d9e0db; --paper:#fbfcfa; --accent:#176b4d; --accent-dark:#0e5139; --accent-soft:#eaf5ef; --warm:#94551f; --warm-soft:#fff5e9; }
-  * { box-sizing:border-box; }
-  body { margin:0; color:var(--ink); background:var(--paper); font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif; line-height:1.65; }
-  a { color:var(--accent-dark); text-underline-offset:.18em; }
-  .hero { padding:clamp(3.5rem,9vw,7rem) 0 3.25rem; background:linear-gradient(135deg,#eef7f2 0%,#fffaf2 62%,#f4efe8 100%); border-bottom:1px solid var(--line); }
-  .wrap { width:min(1080px,calc(100% - 2rem)); margin-inline:auto; }
-  .eyebrow { margin:0 0 .75rem; color:var(--warm); font:750 .78rem/1.2 ui-monospace,monospace; letter-spacing:.08em; text-transform:uppercase; }
-  h1 { max-width:13ch; margin:0; font-size:clamp(2.6rem,8vw,5.7rem); line-height:1.02; letter-spacing:-.035em; }
-  .lede { max-width:65ch; margin:1.25rem 0 0; color:var(--muted); font-size:clamp(1.02rem,2vw,1.18rem); }
-  .entry-actions { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.65rem; }
-  .button { display:inline-flex; align-items:center; min-height:3rem; padding:.65rem 1rem; border:1px solid var(--accent); border-radius:999px; background:var(--accent); color:white; font-weight:750; text-decoration:none; }
-  .button:hover, .button:focus-visible { background:var(--accent-dark); }
-  .button.secondary { border-color:var(--line); background:white; color:var(--accent-dark); }
-  .button.secondary:hover, .button.secondary:focus-visible { border-color:var(--accent); background:var(--accent-soft); }
-  main { padding-bottom:4rem; }
-  section { padding-top:clamp(3rem,7vw,5rem); scroll-margin-top:1rem; }
-  h2 { margin:0; font-size:clamp(1.65rem,4vw,2.5rem); line-height:1.15; }
-  .section-intro { max-width:70ch; margin:.7rem 0 1.4rem; color:var(--muted); }
-  .mission-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
-  .mission-card { min-width:0; display:flex; flex-direction:column; padding:1.25rem; border:1px solid var(--line); border-radius:16px; background:white; box-shadow:0 8px 26px rgba(31,50,40,.05); }
-  .mission-card h3 { margin:0 0 .35rem; font-size:1.2rem; }
-  .mission-card p { margin:.25rem 0; color:var(--muted); }
-  .mission-card .output { flex:1; }
-  .mission-card a { margin-top:1rem; font-weight:750; }
-  .resume { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr); gap:1rem; align-items:start; padding:clamp(1.25rem,4vw,2rem); border:1px solid #e6cfb3; border-radius:18px; background:var(--warm-soft); }
-  .resume h2 { font-size:clamp(1.5rem,3vw,2.05rem); }
-  .resume p { margin:.65rem 0 0; }
-  .resume ol { margin:0; padding-left:1.35rem; }
-  .resume li + li { margin-top:.5rem; }
-  .secondary-entry { display:flex; justify-content:space-between; gap:1.5rem; align-items:center; padding:1.25rem; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  .secondary-entry h2 { font-size:1.35rem; }
-  .secondary-entry p { margin:.35rem 0 0; color:var(--muted); }
-  .secondary-entry a { flex:none; font-weight:750; }
-  .small-links { margin-top:1.4rem; color:var(--muted); font-size:.92rem; }
-  @media (max-width:700px) {
-    .mission-grid, .resume { grid-template-columns:1fr; }
-    .secondary-entry { align-items:flex-start; flex-direction:column; }
-    .button { width:100%; justify-content:center; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         min-height: 100vh; display: flex; align-items: center; justify-content: center;
+         background: linear-gradient(160deg, #faf6f1 0%, #f3ece4 55%, #e9f0ed 100%); color: #1a1a1a; }
+  .cover { max-width: 980px; padding: 4rem 2.5rem; text-align: center; }
+  .mark { font-size: .8rem; letter-spacing: .32em; text-transform: uppercase; color: #b04a12; margin-bottom: 2rem; }
+  h1 { font-size: 2.65rem; line-height: 1.3; margin: 0 0 1rem; font-weight: 700; }
+  h1 .accent { color: #c2571a; }
+  .subtitle { font-size: 1.08rem; color: #555; line-height: 1.85; margin: 0 auto 1.6rem; max-width: 620px; }
+  .path-note { margin: 1rem 0 2rem; color: #777; font-size: .9rem; }
+  .phases { display: grid; gap: .7rem; max-width: 860px; margin: 0 auto 2.4rem; text-align: left; }
+  .phase { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; align-items: center;
+           border-radius: 8px; padding: .9rem 1.1rem; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,.06); }
+  .phase-index { border-right: 1px solid #eee; padding-right: .9rem; font-weight: 700; line-height: 1.25; }
+  .phase-index span { display: block; margin-top: .35rem; color: #999; font-size: .78rem; font-weight: 500; }
+  .phase h2 { font-size: 1rem; margin: 0 0 .25rem; }
+  .phase.p1 .phase-index, .phase.p1 h2 { color: #c2571a; }
+  .phase.p2 .phase-index, .phase.p2 h2 { color: #9a5a00; }
+  .phase.p3 .phase-index, .phase.p3 h2 { color: #1a6b5a; }
+  .phase.p4 .phase-index, .phase.p4 h2 { color: #6f4dbf; }
+  .phase.p5 .phase-index, .phase.p5 h2 { color: #315f86; }
+  .phase p { font-size: .9rem; color: #666; margin: 0; line-height: 1.65; }
+  a.start { display: inline-block; background: #c2571a; color: #fff; text-decoration: none;
+            padding: .85rem 2.6rem; border-radius: 999px; font-size: 1.05rem; font-weight: 600;
+            box-shadow: 0 3px 10px rgba(194,87,26,.3); transition: transform .15s, box-shadow .15s; }
+  a.start:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(194,87,26,.35); }
+  .meta { margin-top: 2rem; font-size: .82rem; color: #999; line-height: 1.9; }
+  .meta a { color: #b04a12; }
+  @media (max-width: 860px) {
+    .cover { padding: 3rem 1.25rem; }
+    h1 { font-size: 2.15rem; }
+    .phase { grid-template-columns: 1fr; gap: .55rem; }
+    .phase-index { border-right: 0; border-bottom: 1px solid #eee; padding-right: 0; padding-bottom: .5rem; }
   }
-  @media (prefers-reduced-motion:no-preference) {
-    a { transition:background-color .15s,border-color .15s; }
-  }
+  @media print { a.start { display: none; } body { background: #fff; } }
 </style>
 </head>
 <body>
-<header class="hero">
-  <div class="wrap">
-    <p class="eyebrow">Claude 工作流程課程</p>
-    <h1>先選現在要完成的工作</h1>
-    <p class="lede">這是一套從真實任務出發的自學課程。先留下路線選擇與準備度證據，再沿一條任務路線做出可檢查的成果；遇到能力缺口時，只補最小的針對性補強。</p>
-    <nav class="entry-actions" aria-label="課程起點">
-      <a class="button" data-index-role="common-foundation" href="lessons/001-0001-four-claude-surfaces.html">第一次來：完成共同基礎</a>
-      <a class="button secondary" data-index-role="resume" href="toc.html#task-routes">已有 Return notebook：恢復工作</a>
-    </nav>
+<div class="cover">
+  <div class="mark">Beginner Friendly Course · 2026</div>
+  <h1>從 0 開始，用 <span class="accent">Claude</span> 做出可驗證交付</h1>
+  <p class="subtitle">選對工作表面，從需求與視覺探索走到 repo 實作，再把真實工作素材做成可使用、可查核的日常視覺交付物。</p>
+
+  <a class="start" href="toc.html">進入課目表 →</a>
+
+  <p class="path-note">新手從 Phase 1；熟悉 Claude Code 可跳 Phase 3；要做介面原型走 Phase 4；要做簡報、one-pager、社群素材或 code-first deck 走 Phase 5。核心路線約 13 小時；含工具箱與選修約 22 小時，可依真實任務跳讀。</p>
+
+  <div class="phases">
+    <div class="phase p1">
+      <div class="phase-index">Phase 1<span>01–12</span></div>
+      <div>
+        <h2>安全開始</h2>
+        <p>選工具、開 session、唯讀探索、權限、模型/推理強度，到第一次安全改程式碼。</p>
+      </div>
+    </div>
+    <div class="phase p2">
+      <div class="phase-index">Phase 2 工具箱<span>依需求選讀</span></div>
+      <div>
+        <h2>控制進階能力</h2>
+        <p>依任務選用 Skills、Subagents、MCP、hooks、worktrees、headless 與 CI，不必線性讀完。</p>
+      </div>
+    </div>
+    <div class="phase p3">
+      <div class="phase-index">Phase 3<span>主線 01–12 · 選修 13–14</span></div>
+      <div>
+        <h2>從需求到交付</h2>
+        <p>先選對路線，再把需求打磨、固化、切片；巨大模糊 effort 可選 wayfinder，最後回到 implement 完成交付。</p>
+      </div>
+    </div>
+    <div class="phase p4">
+      <div class="phase-index">Phase 4 選修實作<span>01–08</span></div>
+      <div>
+        <h2>Claude Design × Claude Code</h2>
+        <p>從 design brief、設計方向與互動原型，到保留 design intent 的 repo 實作與 browser verification。</p>
+      </div>
+    </div>
+    <div class="phase p5">
+      <div class="phase-index">Phase 5 日常應用<span>01–09</span></div>
+      <div>
+        <h2>從素材到簡報與日常視覺成果</h2>
+        <p>以 Claude Design 簡報為主線，練習 source pack、查核與跨格式改作；再以 open-slide 選修比較 React／Git 路線。</p>
+      </div>
+    </div>
   </div>
-</header>
-<main class="wrap">
-  <section id="choose-mission" aria-labelledby="choose-heading">
-    <h2 id="choose-heading">你這次要交付什麼？</h2>
-    <p class="section-intro">一次選一條符合成果的任務路線。每張卡直接進入該 route 的標準的 entry；若 readiness 尚未齊備，依課內指引回到最小補強點，完成後再返回。</p>
-    <div class="mission-grid">
-      <article class="mission-card">
-        <h3>整理知識與資料</h3>
-        <p class="output">把可歸因的來源整理成報告、文件、資料成果或本機知識庫。</p>
-        <p><strong>成果：</strong>含來源脈絡、判斷與 feedback 的可審查交付物。</p>
-        <a data-mission-route="knowledge-delivery" href="lessons/003-0001-select-knowledge-deliverable.html">進入 Knowledge Work delivery route →</a>
-      </article>
-      <article class="mission-card">
-        <h3>探索與交接設計</h3>
-        <p class="output">從有界簡述比較方向、檢查原型假設，整理可接手的設計意圖。</p>
-        <p><strong>成果：</strong>Design handoff bundle。</p>
-        <a data-mission-route="design-delivery" href="lessons/004-0001-choose-claude-design-surface.html">進入 Design delivery route →</a>
-      </article>
-      <article class="mission-card">
-        <h3>製作與驗證簡報</h3>
-        <p class="output">從來源包、故事板與受眾需求出發，完成目標格式驗證與演練。</p>
-        <p><strong>成果：</strong>可及、可查核並取得 feedback 的簡報。</p>
-        <a data-mission-route="presentation-delivery" href="lessons/005-0001-choose-presentation-route.html">進入 Presentation delivery route →</a>
-      </article>
-      <article class="mission-card">
-        <h3>交付儲存庫變更</h3>
-        <p class="output">把需求對齊成有界的 diff，以確定性的 checks 與固定 Review 檢查點收斂。</p>
-        <p><strong>成果：</strong>含 Review 證據的 Engineering 收尾。</p>
-        <a data-mission-route="engineering-delivery" href="lessons/006-0001-choose-engineering-route.html">進入 Engineering delivery route →</a>
-      </article>
-    </div>
-  </section>
 
-  <section aria-labelledby="resume-heading">
-    <div class="resume">
-      <div>
-        <p class="eyebrow">繼續</p>
-        <h2 id="resume-heading">從學習者自有的 Return notebook 接回原任務</h2>
-        <p>Return notebook 是你自行保管的 Markdown 紀錄，不是瀏覽器進度或自動完成判定。先讀取其中的現行的 route 錨點、下一課具體成果與 Legal stop，再從上方入口或任務路線回到那個位置。</p>
-        <p><a href="assets/templates/route-notebook.md">查看 Return notebook 模板</a></p>
-      </div>
-      <ol aria-label="恢復工作步驟">
-        <li>確認現行任務與所選的 route。</li>
-        <li>保留仍有效的 Evidence carryover。</li>
-        <li>沿續作線回到現行的 route 錨點；不要自行推定完成狀態。</li>
-      </ol>
-    </div>
-  </section>
-
-  <section aria-labelledby="catalog-heading">
-    <div class="secondary-entry">
-      <div>
-        <h2 id="catalog-heading">需要查課名或 Phase 位置？</h2>
-        <p>Phase 是穩定的目錄分組，不是所有學習者共用的必修順序。</p>
-      </div>
-      <a data-index-role="phase-catalog" href="toc.html#phase-catalog">查看完整 Phase 目錄 →</a>
-    </div>
-    <p class="small-links">其他入口：<a href="toc.html#extensions">進階延伸</a> · <a href="toc.html#toolbox">即時工具箱</a> · <a href="toc.html#references">參考資料</a> · <a href="reference/course-glossary.html">課程詞彙表</a></p>
-  </section>
-</main>
+  <div class="meta">
+    常用速查：<a href="reference/claude-product-picker.html">產品選用</a> · <a href="reference/claude-design-to-code-workflow.html">Design-to-Code</a> · <a href="reference/claude-design-presentation-workflow.html">簡報工作流</a> · <a href="reference/claude-code-command-surface.html">Claude Code 操作</a> · <a href="reference/course-glossary.html">課程詞彙表</a><br>
+    每課皆含實作清單與觀念檢查；checklist 完成不等於 mastery，請保留課堂要求的 artifact 與回饋證據
+  </div>
+</div>
 </body>
 </html>

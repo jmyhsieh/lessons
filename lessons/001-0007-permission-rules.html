@@ -1,10 +1,108 @@
 <!DOCTYPE html>
-<html lang="zh-Hant"><head><link rel="icon" href="data:,"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="course:canonical-coordinate" content="not-applicable"><meta name="course:page-kind" content="compatibility"><meta name="course:route-roles" content="not-applicable"><meta name="course:source-ids" content="not-applicable"><meta name="course:legacy-identity" content="lessons/001-0007-permission-rules"><meta name="course:transition-reason" content="Move/conditional"><meta name="course:evidence-carryover" content="lesson-practiced-unless-current-route-stop-is-revalidated"><meta name="course:transition-mode" content="direct"><title>原課程 001-0007 已轉接</title>
-<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:720px;margin:3rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}main{border:1px solid #ded6cf;border-radius:12px;padding:1.4rem;background:#fffdfb}h1{font-size:1.7rem;line-height:1.35}h2{font-size:1.1rem;color:#a94716;margin-top:1.7rem}.kicker{color:#a94716;font-weight:700}.identity,.carryover{background:#f5f1ed;padding:.8rem 1rem;border-radius:7px}.action{display:inline-block;background:#a94716;color:#fff;padding:.7rem 1rem;border-radius:7px;text-decoration:none;font-weight:700}code{overflow-wrap:anywhere}@media(max-width:620px){body{margin:1.25rem auto}main{padding:1rem}}</style></head><body><main>
-<p class="kicker">相容性入口 · 原 Phase 1 第 07 課</p><h1>「控制 Claude Code 能做什麼」已移到權限 工具箱</h1>
-<p class="identity"><strong>穩定公開網址識別：</strong><code>lessons/001-0007-permission-rules</code></p>
-<h2>轉接原因</h2><p>權限規則已搬到 裝備，只有任務暴露對應權限需求時才插入目前路線；它不是每位學習者都要依序完成的課。</p>
-<h2>證據沿用</h2><p class="carryover">若你已保存舊課的權限邊界紀錄，可保留為 <code>Lesson practiced</code>；只有就緒檢查確認它仍滿足目前路線停止點時，才可作為目前路線輸入。它不會自動成為路線成果或 完成證明。</p>
-<p><a class="action" href="../lessons/002-0002-set-permission-boundaries.html">前往最終課程：設定權限邊界</a></p>
-</main></body></html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07：控制 Claude Code 能做什麼（permission rules）</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #c2571a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #c2571a; }
+  code, pre { background: #f4f0ec; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #b04a12; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .safety { background: #fbeaea; border-left: 4px solid #c62828; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #faf3ee; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 1 · 第 07 課 · 約 15 分鐘 · 權限規則</div>
+<h1>控制 Claude Code 能做什麼（permission rules）</h1>
+<p class="mission">任務目標：把「不要 push main」「不要讀 .env」這類口頭提醒，改成 Claude Code 會強制執行的 permission rules。</p>
+<div class="scope"><strong>本課只做：</strong>把 allow / ask / deny 變成清楚的權限規則。<br><strong>先不要做：</strong>用口頭提醒代替必須強制的 deny 規則。</div>
+
+
+<h2>規則比提醒可靠</h2>
+<p>CLAUDE.md 是上下文指引；permission rules 是程式層的硬閘門。評估順序是 <strong>deny → ask → allow</strong>，命中 deny 就不會被 allow 蓋過。</p>
+<pre>{
+  "permissions": {
+    "allow": ["Bash(npm run *)", "Bash(git commit *)"],
+    "deny":  ["Bash(git push *)", "Read(.env)"]
+  }
+}</pre>
+<div class="safety"><strong>注意：</strong>這不是作業系統 sandbox。它能擋 Claude Code 內建工具與常見指令，但不要把它當成保護祕密的唯一防線。</div>
+<div class="safety"><strong>桌面 App 路徑：</strong>權限模式用畫面上的 mode selector；allow / ask / deny 規則則直接寫進 <code>.claude/settings.json</code>。Desktop Code tab 不支援會開 terminal-dialog 的 <code>/permissions</code>。</div>
+
+<h2>實作步驟（做完打勾）</h2>
+<div class="step">
+  <label><input type="checkbox"> 1. 選一條真的要強制的規則</label>
+  <p>建議先用 <code>Bash(git push *)</code>，因為好驗證、風險也明確。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 2. 寫進 <code>.claude/settings.json</code></label>
+  <pre>{ "permissions": { "deny": ["Bash(git push *)"] } }</pre>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 3. 開新 session 驗證</label>
+  <p>請它 push 目前分支，確認動作被擋下。驗證硬規則，比相信文件重要。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 4. 決定是否進版控</label>
+  <p>團隊共用規則放專案設定；個人偏好放 local 設定。</p>
+</div>
+
+<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經把一條安全提醒改成硬閘門。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="0">
+  <p>1. 同一個指令同時命中 allow 和 deny，結果是？</p>
+  <button>被擋下，deny 優先</button>
+  <button>被允許，allow 優先</button>
+  <button>交由 Claude 自行判斷</button>
+  <div class="why">規則順序固定為 deny → ask → allow。</div>
+</div>
+<div class="quiz" data-answer="1">
+  <p>2. 「commit 前要跑 lint」最適合放 permission rules 嗎？</p>
+  <button>適合，用 rules</button>
+  <button>不適合，用 hook</button>
+  <button>不適合，用 README</button>
+  <div class="why">permission 管能不能做；hook 管某時點必須發生什麼。</div>
+</div>
+
+<h2>下一步</h2>
+<p>下一課：<a href="001-0008-session-commands.html">Phase 1 第 08 課 — 整理與切換對話狀態（App 與 CLI）</a>。你會分清楚桌面 App 的可視化控制、可用 slash commands，以及 Desktop 不適用的 commands。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/permissions">Configure permissions（官方）</a>。</p>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0006-claude-md.html">Phase 1 第 06 課 — CLAUDE.md</a></footer>
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display = [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

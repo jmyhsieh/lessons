@@ -1,42 +1,162 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<link rel="icon" href="data:,">
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="course:canonical-coordinate" content="004-0003">
-<meta name="course:page-kind" content="canonical-lesson">
-<meta name="course:route-roles" content="design-delivery:conditional,design-delivery:feedback,design-delivery:tangible-win">
-<meta name="course:source-ids" content="claude-design-system-contract">
-<title>004-0003：同步並校正設計系統脈絡</title>
-<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:800px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#635b9a;margin-top:2rem}.mission,.stop,.rule,.verified{border-left:4px solid #635b9a;background:#f3f1fa;padding:.8rem 1rem}.card,.win,.quiz{border:1px solid #d9d5e8;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#efedf8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #d9d5e8;padding:.6rem;text-align:left;vertical-align:top}code,pre{background:#f3f1fa;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#f3f1fa;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#514985}@media(max-width:620px){body{margin-top:1rem}table{font-size:.88rem}}</style>
-</head><body>
-<p><a href="004-0002-write-design-brief.html">← 設計摘要</a> · <a href="../reference/claude-design-to-code-workflow.html">設計 工作流程 參考</a></p>
-<header><p>第 4 階段 · 設計 · 004-0003 · Conditional 系統分支</p><h1>只用已核准脈絡，同步後逐項校正</h1><p class="mission"><strong>進入條件：</strong>簡述已指向已核准設計系統、品牌 source、設計檔案或可安全讀取的 codebase 脈絡。沒有這類 source 時跳過本課，直接進 004-0004；不要讓 Claude 發明一套看似正式的權杖。</p></header>
-<h2>先分清兩種工作</h2>
-<table><tr><th>工作</th><th>授權範圍</th><th>完成 evidence</th></tr><tr><td>組織設計系統設定／測試／發布</td><td>具權限的組織負責人，在 Claude Design 設定介面操作</td><td>來源、review／測試結果、已發布 狀態與負責人記錄</td></tr><tr><td>專案 層級匯入／同步</td><td>本次專案被允許讀取的 GitHub、設計檔案、上傳或本機 codebase</td><td>匯入識別、可用元件／權杖、缺漏與校正記錄</td></tr></table>
-<p class="rule"><strong>邊界：</strong>專案 匯入不會自動發布組織系統；匯入成功也不代表 source 品質正確。若 source 混亂、過時或權限不清，先停止而不是補猜。</p>
-<div class="verified"><strong>已驗證環境：</strong>2026-07-16 依 Anthropic 設計系統設定與入門指南檢查組織設定、已發布狀態與專案匯入介面；實際標籤、可用性與同步行為可能在測試版期間改變，操作前重查官方頁面。</div>
-<h2>產出系統對齊紀錄</h2>
-<div class="card"><pre>Approved source / owner / revision:
-Access and sensitive-data boundary:
-Import or setup path actually used:
-Components / tokens observed:
-Responsive / state rules observed:
-Mismatch: expected / observed / disposition
-Missing context and safe fallback:
-Evidence link or dated observation:
-Ready for directions? yes / no</pre></div>
-<ol><li>先記下 source 識別、負責人、修訂與允許存取範圍，再匯入。</li><li>用一個代表性元件比對字體排印、色彩、間距、狀態與響應式規則。</li><li>把不一致分成修正脈絡、修正簡述、保留偏差或停止；不得靜默接受。</li><li>請 source 負責人或審查者抽查一個元件對照，確認另一人能重現同一判斷。</li></ol>
-<div class="win"><strong>具體成果：</strong>一份帶 source 識別、不一致處置與 evidence 的系統對齊紀錄。<br><strong>可觀察回饋：</strong>審查者能從已核准 source 抽查一個元件／權杖，重現預期與觀察到的差異，並判斷是否可進方向探索。</div>
-<div class="quiz" data-answer="0"><p>專案匯入完成後，看到間距權杖與已核准系統不同，應怎麼做？</p><button type="button">記錄不一致，回來源／簡述校正或明確保留偏差</button><button type="button">假設生成結果比 source 新，直接接受</button><button type="button">把專案匯入當成組織已發布的 evidence</button><div class="why">匯入只帶入脈絡，不創造權威；差異必須回到已核准 source 與人類處置。</div></div>
-<p class="stop"><strong>合法停止／返回：</strong>Source 負責人、權限、修訂或代表性對照無法確認時，保存對齊草稿並停止；不要用生成權杖填補。對齊結果可抽查，或已誠實記錄「無已核准系統」後，重新加入主線 <a href="004-0004-explore-design-directions.html">004-0004 設計方向探索</a>。</p>
-<footer data-course-footer="canonical" data-route-id="design-delivery" data-legal-stop="Stop at the Design handoff bundle unless implementation is selected">
-<p><strong>路線導覽 · 設計交付</strong></p>
-<ul class="course-route-actions">
-<li><a data-route-id="design-delivery" data-route-action="next" href="004-0004-explore-design-directions.html">下一步：004-0004 課程</a></li>
-</ul>
-<p data-route-legal-stop="Stop at the Design handoff bundle unless implementation is selected"><strong>合法停止點：</strong>完成 Design handoff bundle 後即可停止；除非 mission 選擇 implementation</p>
-<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>claude-design-system-contract</code></div>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03：設定、匯入並校正 design system</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #635b9a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #635b9a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #635b9a; }
+  code, pre { background: #f3f1fa; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #514985; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .55rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #f3f1fa; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #dcd8ec; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfcff; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .rule { background: #f3f1fa; border-left: 4px solid #635b9a; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .warning { background: #fff0f0; border-left: 4px solid #b43d3d; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #dcd8ec; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #635b9a; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #f3f1fa; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #dcd8ec; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 4 · 第 03 課 · 約 20 分鐘 · Design system grounding</div>
+<h1>設定、匯入並校正 design system</h1>
+<p class="mission">目標：分清楚組織 design system 的 setup／publish 與專案的 <code>/design-sync</code> import，完成其中一條符合權限的路徑，再以權威來源校正結果。</p>
+
+<div class="scope"><strong>本課只做：</strong>選定 setup／publish 或 project import 其中一條路徑，並抽查 tokens 與 components。<br><strong>先不要做：</strong>把 <code>/design-sync</code> 當成組織發布開關，或混入過時截圖與實驗分支。</div>
+
+<h2>核心知識：輸出品質受來源品質限制</h2>
+<p>Claude Design 可以從 codebase、prototype、文件與品牌資產抽取 colors、typography、components 與 layout patterns；官方也明確提醒，design system import 的品質取決於來源，混亂或不完整的來源會反映在結果裡。請先讀 <a href="https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design">Set up your design system</a> 與 <a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Get started with Claude Design</a>。</p>
+
+<p>以下是本課採用的<strong>保守優先序</strong>，是校正方法，不是平台自動保證：</p>
+<table>
+<tr><th>優先</th><th>來源</th><th>先檢查</th></tr>
+<tr><td>1</td><td>正式 design-system repo／component library</td><td>目前 release、token 檔、公開 API、deprecated 元件</td></tr>
+<tr><td>2</td><td>已發布的 component docs／產品流程</td><td>狀態、variant、responsive 與 accessibility 行為</td></tr>
+<tr><td>3</td><td>品牌 guidelines 與核准資產</td><td>logo、字體、色票與使用限制是否仍有效</td></tr>
+<tr><td>4</td><td>截圖、簡報與探索稿</td><td>只當參考，不能覆蓋正式 token 與 component contract</td></tr>
+</table>
+
+<div class="rule"><strong>Repo 與 <code>assets/</code> 要扮演什麼角色？</strong>Repo 提供可實作的 component 與 token 事實；<code>assets/</code> 提供經核准的 logo、圖像與字體。兩者若衝突，先找擁有者或版本紀錄，不要讓模型自行裁決。</div>
+
+<h2>兩條工作流，不是同一個動作</h2>
+<p>組織 design system 的建立與發布在 Claude Design onboarding 或 organization settings 完成：上傳來源、review 生成結果、以 test project 驗證，最後切換 <strong>Published</strong>。<code>/design-sync</code> 則從 Claude Code 把 GitHub repo、design files、uploads 或 local codebase 中的一個或多個既有 systems 帶入 Claude Design project；它不會替你建立、發布或設成組織預設。</p>
+
+<table>
+<tr><th>要完成的工作</th><th>正確入口</th><th>完成證據</th></tr>
+<tr><td>建立或更新組織 system</td><td>Claude Design onboarding／organization settings：上傳、review、test、publish</td><td>來源紀錄、test project 結果與 Published 狀態</td></tr>
+<tr><td>把既有 system 帶入 project</td><td>從 Claude Code 執行 <code>/design-sync</code>，再到 project 檢查匯入結果</td><td>匯入來源、project revision 與抽樣差異</td></tr>
+<tr><td>沿用組織已發布 system</td><td>建立 test project；新 project 會繼承組織 system</td><td>tokens、components 與 states 的驗證結果</td></tr>
+<tr><td>沒有 system 或沒有授權</td><td>只附上核准 context，並標示它不是組織 system</td><td>context 清單、擁有者與待確認缺口</td></tr>
+</table>
+
+<p>大型 repo 可從 Claude Code 使用 <code>/design-sync</code> 匯入，避免直接在 browser 處理過多內容。無論來源是 settings upload 或 project import，抽取結果都仍需稽核；功能處於 beta，方案、角色與管理員設定也可能影響可用性。</p>
+
+<pre>同步前紀錄
+Source of truth: [repo / path / release]
+Approved assets: [assets paths]
+Exclude: [experiments / deprecated / generated output]
+Audit sample: [3 tokens + 3 components + 2 responsive states]
+
+若本輪是 project import，才在 Claude Code 執行
+/design-sync
+
+若本輪是組織 setup／publish，改在 Claude Design
+onboarding／organization settings 完成 review、test、Published</pre>
+
+<div class="warning"><strong>不要把 extraction 當真相：</strong>抽取完成只代表 Claude 建立了一個可用模型。你仍要拿結果和 source of truth 對照，修正錯誤後再發布給組織使用。</div>
+
+<h2>實作 checklist</h2>
+<div class="step">
+  <label><input type="checkbox"> 1. 先寫下這次是哪一種操作</label>
+  <p>只能選「組織 setup／publish」、「project import」、「驗證已發布 system」或「僅附 project context」。若不確定，先向管理員或 design-system owner 確認。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 2. 指定唯一 source of truth</label>
+  <p>記下 repo、branch 或 release、核心路徑與擁有者。一般成員記錄已發布系統；沒有系統時則記錄這次附上的 project context。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 3. 只完成所選路徑</label>
+  <p>組織 owner 走 onboarding/settings 的 upload → review → test → publish；project import 才執行 <code>/design-sync</code>；一般成員驗證已發布 system；沒有授權者只附核准 context。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 4. 做小樣本驗證</label>
+  <p>至少比對 3 個 tokens、3 個 components、desktop/mobile 各 1 個狀態，並記錄 source path 與差異；沒有正式系統時，改以 brief 與核准 context 為比較基準。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 5. 記錄本輪可用邊界</label>
+  <p>Setup 路徑記錄發布狀態；import 路徑記錄 project revision，不宣稱已發布；一般成員記錄是否可沿用；沒有 system 者明寫「project context，不是組織 design system」。</p>
+</div>
+
+<div class="done-banner" id="done"><strong>你已建立可追溯的 design-system 路徑。</strong>把權限分支與驗證紀錄貼回對話視窗，請 AI 老師找出「來源」與「抽取結果」被混為一談的地方。</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+<div class="quiz" data-answer="0">
+  <p>1. 哪個入口負責把 system 發布給組織使用？</p>
+  <button>Design 組織設定的 Published</button>
+  <button>Code 專案匯入的 design-sync</button>
+  <button>Design 畫布編輯的 comments</button>
+  <div class="why">組織 system 要在 Claude Design onboarding／organization settings review、test 並開啟 Published；<code>/design-sync</code> 是 project import。</div>
+</div>
+<div class="quiz" data-answer="2">
+  <p>2. 哪個來源最適合當 component 行為的權威依據？</p>
+  <button>舊簡報中的靜態截圖</button>
+  <button>探索分支中的概念稿</button>
+  <button>正式發布的元件程式庫</button>
+  <div class="why">正式 component library 最接近可實作 contract；截圖與概念稿可補視覺 context，但不應覆蓋它。</div>
+</div>
+<div class="quiz" data-answer="0">
+  <p>3. 來源互相衝突時，應該怎麼處理？</p>
+  <button>先釐清版本與擁有者</button>
+  <button>讓模型自行選出答案</button>
+  <button>把所有來源一起上傳</button>
+  <div class="why">衝突代表 source-of-truth 問題。先釐清版本與擁有者，才能避免模型合成第三套規則。</div>
+</div>
+
+<h2>下一步與主要閱讀</h2>
+<p>完成適用你的權限分支與小樣本驗證後，進入 <a href="004-0004-explore-design-directions.html">第 04 課：探索並比較設計方向</a>。需要回補 brief 時，回到 <a href="004-0002-write-design-brief.html">第 02 課</a>。</p>
+<p><strong>主要官方閱讀：</strong><a href="https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design">Set up your design system in Claude Design</a>（組織 setup／publish）與 <a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Get started with Claude Design</a>（project import／<code>/design-sync</code>）。流程可搭配 <a href="../reference/claude-design-to-code-workflow.html">Claude Design → Code workflow 速查表</a>。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  相關課程：<a href="004-0002-write-design-brief.html">Phase 4 第 02 課 — design brief</a> · <a href="004-0004-explore-design-directions.html">Phase 4 第 04 課 — design directions</a> · <a href="004-0005-refine-and-version.html">Phase 4 第 05 課 — refine</a> · <a href="../toc.html">課目表</a>
 </footer>
-<script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script>
-</body></html>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

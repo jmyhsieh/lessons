@@ -1,10 +1,121 @@
 <!DOCTYPE html>
-<html lang="zh-Hant"><head><link rel="icon" href="data:,"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="course:canonical-coordinate" content="not-applicable"><meta name="course:page-kind" content="compatibility"><meta name="course:route-roles" content="not-applicable"><meta name="course:source-ids" content="not-applicable"><meta name="course:legacy-identity" content="lessons/001-0012-verification-context"><meta name="course:transition-reason" content="Merge"><meta name="course:evidence-carryover" content="lesson-practiced-unless-current-route-stop-is-revalidated"><meta name="course:transition-mode" content="direct"><title>原課程 001-0012 已轉接</title>
-<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:720px;margin:3rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}main{border:1px solid #ded6cf;border-radius:12px;padding:1.4rem;background:#fffdfb}h1{font-size:1.7rem;line-height:1.35}h2{font-size:1.1rem;color:#a94716;margin-top:1.7rem}.kicker{color:#a94716;font-weight:700}.identity,.carryover{background:#f5f1ed;padding:.8rem 1rem;border-radius:7px}.action{display:inline-block;background:#a94716;color:#fff;padding:.7rem 1rem;border-radius:7px;text-decoration:none;font-weight:700}code{overflow-wrap:anywhere}@media(max-width:620px){body{margin:1.25rem auto}main{padding:1rem}}</style></head><body><main>
-<p class="kicker">相容性入口 · 原 Phase 1 第 12 課</p><h1>「確認結果並整理 脈絡」已併入 程式碼作業準備度 證明</h1>
-<p class="identity"><strong>穩定公開網址識別：</strong><code>lessons/001-0012-verification-context</code></p>
-<h2>轉接原因</h2><p>驗證、差異認知、脈絡交接與停止條件現在共同構成一份就緒紀錄；合併後可直接判斷是否具備進入儲存庫交付的條件。</p>
-<h2>證據沿用</h2><p class="carryover">若你已保存舊課的 驗證 與脈絡筆記，可保留為 <code>Lesson practiced</code>；只有就緒檢查確認它仍滿足目前路線停止點時，才可作為目前路線輸入。它不會自動成為路線成果或 完成證明。</p>
-<p><a class="action" href="001-0007-prove-code-readiness.html">前往最終課程：證明 Code readiness</a></p>
-</main></body></html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>12：確認結果並整理 context</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #c2571a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #c2571a; }
+  code, pre { background: #f4f0ec; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #b04a12; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfbf9; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .tip { background: #faf3ee; border-left: 4px solid #c2571a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #e2d9d0; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #faf3ee; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #e2d9d0; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 1 · 第 12 課 · 約 15 分鐘 · 驗證與收尾</div>
+<h1>確認結果並整理 context</h1>
+<p class="mission">任務目標：替 Claude Code 任務寫出可跑的成功條件，並在 session 變髒時知道該 compact、handoff 或重開。</p>
+<div class="scope"><strong>本課只做：</strong>把完成條件、驗證結果與 context 收尾說清楚。<br><strong>先不要做：</strong>只接受「我完成了」這類沒有證據的回覆。</div>
+
+
+<h2>可驗證比「完成了」可靠</h2>
+<pre>不夠好：實作 email 驗證函式。
+較好：實作 validateEmail，並加入測試：
+user@example.com → true
+invalid → false
+user@.com → false
+實作後執行測試，失敗就修到通過。</pre>
+<p>要求它出示指令與結果，不只說「已完成」。</p>
+
+<h2>context 收尾三原則</h2>
+<ul>
+  <li>不相關的新任務 → 桌面 App 用 sidebar 開新 session。</li>
+  <li>長對話但方向正確 → 先看 usage ring，必要時切 Summary view 或整理需求；<code>/compact</code> 若可用才當快捷。</li>
+  <li>糾正兩次同一問題仍失敗 → 停止，整理教訓後重開。</li>
+</ul>
+<div class="tip">需要回到前面狀態時，桌面 App 先用 session history、diff pane 與 git 檢查。<code>/rewind</code> 若目前可用，也只當快捷；它不取代 git，重要節點仍要 commit。</div>
+
+<h2>實作步驟（做完打勾）</h2>
+<div class="step">
+  <label><input type="checkbox"> 1. 替剛剛的任務補驗證條件</label>
+  <p>寫成一條 Claude 能自己跑或你能手動檢查的句子。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 2. 要求 evidence</label>
+  <pre>Run the relevant verification and show me the exact command
+and output. If it fails, fix and rerun.</pre>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 3. 做 session 收尾</label>
+  <p>桌面 App 確認是否要開新 session、切 Summary view、或整理目前脈絡。若 <code>/compact</code> 在 <code>/</code> 清單中，可用它提早壓縮；若是可重複的教訓，補回 CLAUDE.md。</p>
+</div>
+
+<div class="done-banner" id="done">🎉 <strong>完成！</strong>你的任務現在有驗證條件與乾淨收尾。</div>
+
+<h2>Phase 1 驗收 rubric</h2>
+<p>勾完 checkbox 只是提醒，不代表通過。把一個真實小任務交給 AI 老師，只有以下五項都能從 artifact 找到，才算完成 Phase 1：</p>
+<ul>
+  <li>任務 scope 與刻意不做的項目。</li>
+  <li>獨立分支上的完整 diff。</li>
+  <li>實際 verification command、exit status 與 output。</li>
+  <li>你親自 review 後的 commit 或明確不 commit 理由。</li>
+  <li>下一個 session 需要知道的風險或 context。</li>
+</ul>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="1">
+  <p>1. Claude 說「測試都過了」，你下一步該？</p>
+  <button>直接相信並合併</button>
+  <button>要求指令與輸出</button>
+  <button>調高 effort 再問</button>
+  <div class="why">交付看 evidence，不看自述。</div>
+</div>
+<div class="quiz" data-answer="2">
+  <p>2. 同一問題糾正兩次仍不對，較好的做法是？</p>
+  <button>繼續補背景再試</button>
+  <button>立刻 commit 現況</button>
+  <button>整理教訓再重開</button>
+  <div class="why">長對話已被失敗嘗試污染，乾淨 session 通常更有效。</div>
+</div>
+
+<h2>下一步</h2>
+<p>下一課：<a href="002-0001-hooks-basics.html">Phase 2 第 01 課 — 控制 Claude Code 工具行為（hooks）</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code（官方）</a>。</p>
+<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0011-explore-plan-implement-commit.html">Phase 1 第 11 課 — 四階段流程</a></footer>
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display = [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

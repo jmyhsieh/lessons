@@ -1,7 +1,143 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><link rel="icon" href="data:,"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="course:canonical-coordinate" content="not-applicable"><meta name="course:page-kind" content="compatibility"><meta name="course:route-roles" content="not-applicable"><meta name="course:source-ids" content="not-applicable"><meta name="course:legacy-identity" content="lessons/003-0001-matt-pocock-skills-foundation"><meta name="course:transition-reason" content="Split"><meta name="course:evidence-carryover" content="lesson-practiced-unless-current-route-stop-is-revalidated"><meta name="course:transition-mode" content="transition"><title>原課程 003-0001 已轉接</title>
-<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:760px;margin:3rem auto;padding:0 1.25rem;line-height:1.8;color:#202020}main{border:1px solid #d8dde3;border-radius:12px;padding:1.4rem;background:#fbfcfd}h1{line-height:1.35}.kicker,h2{color:#315f86}.identity,.carry{background:#edf3f7;padding:.8rem 1rem;border-radius:7px}.choice{border-left:4px solid #315f86;padding:.5rem 1rem;margin:1rem 0}a{color:#245778;font-weight:700}code{overflow-wrap:anywhere}@media(max-width:620px){body{margin:1.25rem auto}main{padding:1rem}}</style></head><body><main>
-<p class="kicker">相容性入口 · 原 Phase 3 第 01 課</p><h1>技能基礎已拆成工具選擇與工程入口</h1><p class="identity"><strong>穩定公開網址識別：</strong><code>lessons/003-0001-matt-pocock-skills-foundation</code></p>
-<h2>轉接原因</h2><p>原課同時涵蓋既有 skill、工程 route 選擇與需求對齊；新版把三種目的拆開，避免把安裝工具誤當成工程完成條件。</p>
-<h2>何時選</h2><div class="choice"><a href="002-0006-use-existing-skill.html">使用既有 skill</a>：你已知道任務，只需要選擇與啟用現成能力。</div><div class="choice"><a href="006-0001-choose-engineering-route.html">選擇工程路線</a>：你需要先判斷該走建置、錯誤、架構或 路徑探索。</div><div class="choice"><a href="006-0003-align-engineering-request.html">對齊工程要求</a>：route 已選定，下一步是固定需求、邊界與驗收證據。</div>
-<h2>證據沿用</h2><p class="carry">舊課留下的設定紀錄只能保留為 <code>Lesson practiced</code>；必須依目前選定 route 的停止點重新驗證，不能自動算作 Route artifact 或完成。</p>
-</main></body></html>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01：完成 mattpocock/skills 的 repo setup</title>
+<style>
+  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
+         max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
+  .kicker { color: #1a6b5a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { font-size: 1.7rem; margin: .3rem 0; }
+  .mission { font-style: italic; color: #555; border-left: 3px solid #1a6b5a; padding-left: 1rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #1a6b5a; }
+  code, pre { background: #eef4f2; border-radius: 4px; font-size: .9em; }
+  code { padding: .12rem .35rem; }
+  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
+  a { color: #15564a; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .45rem .65rem; text-align: left; vertical-align: top; }
+  th { background: #eef4f2; }
+  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
+  .step { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #f8fbfa; }
+  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+  .tip { background: #eef4f2; border-left: 4px solid #1a6b5a; padding: .7rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+  .quiz { border: 1px solid #d3e2dd; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .quiz p { margin-top: 0; font-weight: 600; }
+  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
+    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
+  .quiz button:hover { border-color: #1a6b5a; }
+  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
+  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
+  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #eef4f2; padding: .6rem .9rem; border-radius: 6px; }
+  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
+  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #d3e2dd; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 3 · 第 01 課 · 約 20 分鐘 · 必要設定</div>
+<h1>完成 mattpocock/skills 的 repo setup</h1>
+<p class="mission">Phase 3 任務：用 mattpocock/skills 在<strong>真實 repo</strong> 中處理需求對齊、文件化、開發品質與缺陷分流。本課只有一個成果：選定安裝模式並跑完 <code>/setup-matt-pocock-skills</code>，讓後續 skills 知道 issue tracker、triage label vocabulary 與 domain docs 放在哪裡。</p>
+<div class="scope"><strong>本課只做：</strong>完成安裝與 repo setup。<br><strong>先不要做：</strong>建立 glossary、ADR，或啟動需求流程；它們會在真正釐清術語或決策時才按需產生。</div>
+
+
+<h2>這套 skills 在解什麼問題</h2>
+<p>Matt Pocock 把 AI 輔助開發的翻車原因歸納成<strong>四大失敗模式</strong>（<a href="https://github.com/mattpocock/skills">GitHub README</a>），每種配對應的 skill：</p>
+<table>
+<tr><th>失敗模式</th><th>症狀</th><th>對策 skill</th></tr>
+<tr><td><strong>Misalignment</strong><br>沒對齊需求</td><td>做出來的不是你要的</td><td><code>/grill-me</code>、<code>/grill-with-docs</code> — 動工前被追問到對齊</td></tr>
+<tr><td><strong>Verbosity</strong><br>缺共享語言</td><td>詞彙不一致、溝通成本高</td><td><code>domain-modeling</code>、<strong>CONTEXT.md</strong> — 定義專案的領域語言</td></tr>
+<tr><td><strong>Broken code</strong><br>回饋迴圈不足</td><td>看似完成、實則會壞</td><td><code>/tdd</code>、<code>/diagnosing-bugs</code> — 紅綠燈與系統化除錯</td></tr>
+<tr><td><strong>Architectural decay</strong><br>架構腐化</td><td>越改越難改</td><td><code>/improve-codebase-architecture</code>、<code>codebase-design</code>、<code>/to-spec</code>、<code>/to-tickets</code></td></tr>
+</table>
+<div class="tip"><strong>為什麼這套對真實 repo 有價值：</strong>AI 最容易翻車的地方不是少打一行 code，而是需求沒對齊、詞彙不一致、驗證不足與架構慢慢腐化。CONTEXT.md 與真正需要的 ADR，讓 agent、工程師與 reviewer 共用同一套語言與決策脈絡。封閉或遺產系統只是風險最高的範例，不是唯一場景。</div>
+
+<h2>兩個地基概念</h2>
+<p><strong>CONTEXT.md</strong> — 放在 repo 的純領域 glossary：只記系統術語與業務概念的精確定義，不放模組結構、class 名稱或其他實作細節。人和 AI 共用同一份。它和 Phase 1 第 06 課的 CLAUDE.md 分工：CLAUDE.md 講「怎麼工作」（規範、指令），CONTEXT.md 講「這個領域是什麼」（語言、概念）。</p>
+<p><strong>ADR（Architecture Decision Record）</strong> — 一份決策一個檔案，記「為什麼這樣設計」。只有當決策同時<strong>難以回頭</strong>、<strong>缺少背景會令人意外</strong>，而且是<strong>真實 tradeoff</strong> 的結果時才寫；少一項就跳過。<code>/grill-with-docs</code> 與 <code>domain-modeling</code> 會在術語或決策真正收斂時，才更新這些文件。</p>
+<p><strong>現行 shared skills</strong> — <code>domain-modeling</code> 管共享語言與決策脈絡，<code>codebase-design</code> 管深模組與介面設計語言；它們通常是其他 skill 背後共用的 vocabulary，不需要每次獨立成任務。</p>
+
+<h2>實作步驟（做完打勾）</h2>
+
+<div class="step">
+  <label><input type="checkbox"> 1. 選一種安裝模式</label>
+  <p><strong>Claude Code plugin（managed/current）：</strong>想直接訂閱 upstream、由 marketplace 管理唯讀 skill bundle，就在 Claude Code 裡執行：</p>
+  <pre>/plugin marketplace add mattpocock/skills
+/plugin install mattpocock-skills@mattpocock</pre>
+  <p><strong>Editable project copy（通用／Codex 路徑）：</strong>想把 skills 複製到 project 裡自行調整，或使用 Codex 與其他支援 Agent Skills 的 agent，就在目標 repo 目錄執行：</p>
+  <pre>npx skills@latest add mattpocock/skills</pre>
+  <p>兩條路選一條即可；選好後再進行下一步的 repo setup。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 2. 設定 issue tracker</label>
+  <p>回到剛才選定的 agent session（plugin 路徑是 Claude Code；project copy 可在 Codex 或相容 agent 使用），執行：</p>
+  <pre>/setup-matt-pocock-skills</pre>
+  <p>它會先探索 repo，再依現況提出設定草案：issue tracker 一定會確認；只有安裝了 <code>triage</code> 才會問標籤；一般 repo 直接採 single-context，只有偵測到 monorepo 訊號才會問是否使用 multi-context。可用 GitHub 或 GitLab 就接正式 tracker；沒有 tracker、受限環境或練習 repo 再選 <strong>local markdown</strong>；Linear、Jira 或其他工具走 Other，把實際流程寫進 <code>docs/agents/issue-tracker.md</code>。GitHub／GitLab 的 external PR request surface 預設關閉，setup 不會追問；需要時再直接改 tracker 文件。寫入前先審完整草案，確認後才讓它修改檔案。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 驗收 setup artifacts</label>
+  <p>確認 agent 已回報並讓你審過 <code>docs/agents/issue-tracker.md</code> 與 <code>docs/agents/domain.md</code>；若已安裝 <code>triage</code>，再確認 <code>docs/agents/triage-labels.md</code>。這些檔案只描述後續 skills 的共同設定，不應預先製造 CONTEXT.md 或 ADR。</p>
+</div>
+
+<div class="done-banner" id="done">
+  🎉 <strong>地基完成：安裝路徑與 repo setup 都已確認。</strong>回對話視窗回報：選了哪種安裝模式？setup 寫入了哪些設定檔？
+</div>
+
+<h2>觀念檢查（憑記憶作答）</h2>
+
+<div class="quiz" data-answer="1">
+  <p>1. 「系統裡有個內部術語叫『計費規則』，新功能會用到它」— 這個知識該放哪？</p>
+  <button>CLAUDE.md：記錄專案工作規範</button>
+  <button>CONTEXT.md：定義領域共享語言</button>
+  <button>docs/adr/：解釋重要決策背景</button>
+  <div class="why">術語與概念 = CONTEXT.md。CLAUDE.md 管「怎麼工作」；ADR 記「為什麼這樣設計」— 三份文件三種職責。</div>
+</div>
+
+<div class="quiz" data-answer="2">
+  <p>2. 團隊曾在計費一致性與效能間取捨，最後決定繞過快取；這項選擇日後很難改，沒有背景也會令人意外。最該用哪個機制記錄？</p>
+  <button>CONTEXT.md：定義快取相關術語</button>
+  <button>測試套件：保護快取既有行為</button>
+  <button>ADR：記錄繞過快取的決策原因</button>
+  <div class="why">這個情境同時符合難以回頭、缺少背景會令人意外、真實 tradeoff 三項條件，因此適合 ADR。TDD 保護的是行為不是原因；CONTEXT.md 只定義領域語言。</div>
+</div>
+
+<div class="quiz" data-answer="0">
+  <p>3. 本課的 repo setup 驗收後，哪組 artifacts 最符合邊界？</p>
+  <button>issue-tracker.md、domain.md，按需加 labels</button>
+  <button>CONTEXT.md 與一組 ADR；先預建所有後續知識文件</button>
+  <button>完整 spec 與所有 tickets；直接啟動尚未釐清的需求流程</button>
+  <div class="why">setup 只建立後續 skills 共用的 repo 設定：issue tracker 與 domain 設定一定會有，triage labels 只在安裝 triage 時出現。CONTEXT.md、ADR、spec 與 tickets 都要等真實需求出現後按需建立。</div>
+</div>
+
+<h2>下一步</h2>
+<p>完成後回對話視窗回報。下一課：<a href="003-0002-ask-matt.html">Phase 3 第 02 課 — 用 /ask-matt 判斷該走哪條路</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/setup-matt-pocock-skills/SKILL.md">reviewed setup snapshot（66898f6）</a>；操作前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/setup-matt-pocock-skills/SKILL.md">current setup SKILL.md</a>。背景另見 reviewed <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/README.md">README</a> 與 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/domain-modeling/SKILL.md">domain-modeling</a>；若摘要與 SKILL.md 不一致，以操作時的 current SKILL.md 為準。</p>
+
+<footer>
+  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  前一階段收尾：<a href="002-0010-ci-automation-boundary.html">Phase 2 第 10 課 — CI 自動化邊界</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+</footer>
+
+<script>
+const boxes = document.querySelectorAll('input[type=checkbox]');
+boxes.forEach(b => b.addEventListener('change', () => {
+  document.getElementById('done').style.display =
+    [...boxes].every(x => x.checked) ? 'block' : 'none';
+}));
+document.querySelectorAll('.quiz').forEach(q => {
+  const ans = +q.dataset.answer;
+  q.querySelectorAll('button').forEach((b, i) => {
+    b.addEventListener('click', () => {
+      q.querySelectorAll('button').forEach(x => x.disabled = true);
+      q.querySelectorAll('button')[ans].classList.add('correct');
+      if (i !== ans) b.classList.add('wrong');
+      q.querySelector('.why').style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>
