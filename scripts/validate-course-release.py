@@ -30,6 +30,138 @@ EXPECTED_INVENTORY_COUNTS = {
     "deprecation": 1,
 }
 EXPECTED_CANONICAL_COORDINATES = 105
+LEARNER_UI_LABEL_TAGS = {
+    "button",
+    "caption",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "label",
+    "legend",
+    "summary",
+    "td",
+    "th",
+}
+SUPPRESSED_LEARNER_TEXT_TAGS = {"code", "kbd", "pre", "samp"}
+VOID_HTML_TAGS = {
+    "area",
+    "base",
+    "br",
+    "col",
+    "embed",
+    "hr",
+    "img",
+    "input",
+    "link",
+    "meta",
+    "param",
+    "source",
+    "track",
+    "wbr",
+}
+PROHIBITED_GENERIC_UI_LABELS = {
+    "Active-route gap",
+    "Advanced extensions",
+    "Agent Operations safety reference",
+    "Browser evidence selector",
+    "Canonical continuation",
+    "Canonical page",
+    "Capstone thread record",
+    "Case",
+    "Case role",
+    "Check",
+    "Closeout packet",
+    "Closeout record",
+    "Contract field",
+    "Deterministic preconditions",
+    "Deterministic predicate",
+    "Dimension",
+    "Direction axis",
+    "Disposition",
+    "Engineering delivery skills reference",
+    "Evidence lane",
+    "Evidence package",
+    "Evidence／oracle",
+    "Expected",
+    "Expected observable evidence",
+    "Expected result",
+    "Fail action",
+    "Failure class",
+    "Fault",
+    "Feedback",
+    "Feedback oracle",
+    "First reviewable slice",
+    "Fixture",
+    "Forbidden inferences",
+    "Handoff bundle fields",
+    "Human decisions",
+    "Identity／session boundary",
+    "Immutable Review boundary",
+    "Knowledge delivery evidence checklist",
+    "Layer",
+    "Lineage review",
+    "Maturity vocabulary",
+    "Mission shape",
+    "Observable example",
+    "On-ramp",
+    "Optional stop",
+    "Owner／keeper",
+    "Package branch",
+    "Pass evidence",
+    "Phase catalog",
+    "Playbook source of truth",
+    "Portable Design handoff bundle",
+    "Portable bundle record",
+    "Portable record shape",
+    "Primary surface",
+    "Probe",
+    "Raw source pack",
+    "Rehearsal evidence",
+    "Rejoin",
+    "Resolution evidence",
+    "References",
+    "Return",
+    "Run template",
+    "Safe expectation",
+    "Scenario probe",
+    "Selected branch",
+    "Selection evidence",
+    "Selection record",
+    "Source-to-claim ledger",
+    "State plane",
+    "Stop trigger",
+    "Successor",
+    "Surface",
+    "Target-format validation",
+    "Task routes",
+    "Verification record",
+    "Versioned knowledge deliverable",
+    "Wayfinder return boundary",
+    "Workflow package selector",
+}
+PROHIBITED_GENERIC_UI_LABELS_BY_PATH = {
+    "lessons/002-0005-add-guardrail-hook.html": {"Evidence"},
+    "lessons/002-0007-connect-trusted-mcp.html": {"Scope"},
+    "lessons/004-0003-sync-design-system.html": {"Authority"},
+    "lessons/004-0006-check-prototype-assumptions.html": {"Claim"},
+    "lessons/006-0014-resolve-wayfinder-frontier.html": {"Type"},
+    "lessons/008-0003-bound-write-authority.html": {"Authority"},
+    "lessons/008-0005-prove-workflow-completion.html": {"Identity"},
+    "lessons/008-0007-complete-operating-workflow-closeout.html": {"Gate"},
+    "lessons/008-0008-run-recoverable-llm-wiki-maintenance.html": {"Evidence"},
+    "lessons/011-0003-bound-pilot-access-and-data.html": {"Operator"},
+    "lessons/011-0007-complete-scenario-rollout-plan.html": {"Judgment"},
+    "lessons/012-0002-design-change-control.html": {"Change"},
+    "lessons/012-0005-run-incident-tabletop.html": {"Evidence"},
+    "reference/claude-design-presentation-workflow.html": {"Artifact"},
+    "reference/engineering-delivery-skills-reference.html": {"Evidence"},
+    "reference/knowledge-delivery-evidence-checklist.html": {"Learner judgment"},
+    "reference/repo-review-contract.html": {"Repo Review contract"},
+    "reference/workflow-maturity-workbook.html": {"Workflow maturity workbook"},
+}
 
 
 def blocker(code: str, message: str, subject: str | None = None) -> dict[str, str]:
@@ -55,12 +187,28 @@ class CourseHTMLParser(HTMLParser):
         self.index_links: list[dict[str, str | None]] = []
         self.quizzes: list[dict[str, Any]] = []
         self._quiz_stack: list[dict[str, Any]] = []
+        self.learner_ui_labels: list[str] = []
+        self._learner_ui_label_stack: list[dict[str, Any]] = []
+        self._suppressed_text_depth = 0
+        self._element_suppression_stack: list[tuple[str, bool]] = []
 
     def handle_starttag(
         self, tag: str, attrs: list[tuple[str, str | None]]
     ) -> None:
         attributes = dict(attrs)
         self.tag_counts[tag] = self.tag_counts.get(tag, 0) + 1
+        suppresses_text = (
+            self._suppressed_text_depth > 0
+            or tag in SUPPRESSED_LEARNER_TEXT_TAGS
+            or "hidden" in attributes
+            or (attributes.get("aria-hidden") or "").strip().lower() == "true"
+        )
+        if tag not in VOID_HTML_TAGS:
+            self._element_suppression_stack.append((tag, suppresses_text))
+            if suppresses_text:
+                self._suppressed_text_depth += 1
+        if tag in LEARNER_UI_LABEL_TAGS and not suppresses_text:
+            self._learner_ui_label_stack.append({"tag": tag, "parts": []})
         if tag == "html":
             self.lang = attributes.get("lang")
         elif tag == "meta":
@@ -113,10 +261,28 @@ class CourseHTMLParser(HTMLParser):
             self._quiz_stack[-1]["buttons"] += 1
 
     def handle_data(self, data: str) -> None:
+        if self._suppressed_text_depth == 0:
+            for label in self._learner_ui_label_stack:
+                label["parts"].append(data)
         if data.strip():
             self.text_parts.append(data)
 
     def handle_endtag(self, tag: str) -> None:
+        if (
+            self._learner_ui_label_stack
+            and self._learner_ui_label_stack[-1]["tag"] == tag
+        ):
+            label = self._learner_ui_label_stack.pop()
+            text = " ".join("".join(label["parts"]).split())
+            if text:
+                self.learner_ui_labels.append(text)
+        if (
+            self._element_suppression_stack
+            and self._element_suppression_stack[-1][0] == tag
+        ):
+            _tag, was_suppressed = self._element_suppression_stack.pop()
+            if was_suppressed:
+                self._suppressed_text_depth -= 1
         if tag != "div":
             return
         completed: list[dict[str, Any]] = []
@@ -635,6 +801,28 @@ def validate_links_and_quizzes(
     return errors
 
 
+def validate_generic_learner_ui_labels(
+    documents: dict[str, CourseHTMLParser],
+) -> list[dict[str, str]]:
+    """Reject a bounded set of reviewed generic English UI labels."""
+    errors: list[dict[str, str]] = []
+    for path, document in sorted(documents.items()):
+        prohibited_labels = PROHIBITED_GENERIC_UI_LABELS | (
+            PROHIBITED_GENERIC_UI_LABELS_BY_PATH.get(path, set())
+        )
+        prohibited = sorted(set(document.learner_ui_labels) & prohibited_labels)
+        if prohibited:
+            errors.append(
+                blocker(
+                    "generic-english-ui-label",
+                    "localize generic learner-facing UI labels: "
+                    + ", ".join(repr(label) for label in prohibited),
+                    path,
+                )
+            )
+    return errors
+
+
 def authored_metadata(page: dict[str, Any]) -> dict[str, str]:
     memberships = page.get("routeMemberships")
     route_roles: list[str] = []
@@ -807,7 +995,7 @@ def validate_compatibility_graph(
                     )
                 )
             if (
-                "Evidence carryover" not in visible_text
+                "證據沿用" not in visible_text
                 or "Lesson practiced" not in visible_text
             ):
                 errors.append(
@@ -860,7 +1048,7 @@ def validate_compatibility_graph(
                     )
                 )
             if (
-                "Evidence carryover" not in visible_text
+                "證據沿用" not in visible_text
                 or "Lesson practiced" not in visible_text
                 or "不會自動" not in visible_text
             ):
@@ -931,6 +1119,7 @@ def validate_site_release(
         else []
     )
     link_quiz_errors = validate_links_and_quizzes(repo_root, documents)
+    learner_ui_errors = validate_generic_learner_ui_labels(documents)
     compatibility_errors = validate_compatibility_graph(manifest, documents)
     navigation_errors: list[dict[str, str]] = []
     navigation_counts: dict[str, int] = {}
@@ -997,6 +1186,7 @@ def validate_site_release(
     errors.extend(inventory_errors)
     errors.extend(contract_errors)
     errors.extend(link_quiz_errors)
+    errors.extend(learner_ui_errors)
     errors.extend(compatibility_errors)
     errors.extend(navigation_errors)
     errors.extend(index_errors)
@@ -1013,6 +1203,7 @@ def validate_site_release(
         "inventoryBlockers": len(inventory_errors),
         "inventoryContractBlockers": len(contract_errors),
         "linkOrQuizBlockers": len(link_quiz_errors),
+        "learnerUiBlockers": len(learner_ui_errors),
         "compatibilityBlockers": len(compatibility_errors),
         "routeNavigationBlockers": len(navigation_errors),
         "routeNavigationCounts": navigation_counts,
@@ -1370,7 +1561,7 @@ def write_fixture_site(root: Path) -> None:
         '<meta name="course:transition-mode" content="direct">'
         '</head><body><h1>lessons/001-0002-old</h1>'
         '<p>轉接原因：內容已搬移。</p>'
-        '<p>Evidence carryover：保留 Lesson practiced；current route stop 仍須重新驗證。</p>'
+        '<p>證據沿用：保留 Lesson practiced；current route stop 仍須重新驗證。</p>'
         '<a href="001-0001-target.html#target">Continue</a></body></html>',
         encoding="utf-8",
     )
@@ -1387,7 +1578,7 @@ def write_fixture_site(root: Path) -> None:
         'content="lesson-practiced-unless-current-route-stop-is-revalidated">'
         '</head><body><h1>reference/retired</h1>'
         '<p>退役原因：fixture retired。生效點：fixture-cutover。</p>'
-        '<p>Evidence carryover：保留 Lesson practiced；不會自動成為 current route evidence。</p>'
+        '<p>證據沿用：保留 Lesson practiced；不會自動成為 current route evidence。</p>'
         '<p>此網址不再把這個舊身份指派給其他內容。</p>'
         '<a href="../lessons/001-0001-target.html">Successor</a></body></html>',
         encoding="utf-8",
@@ -1417,6 +1608,38 @@ def run_site_self_test() -> None:
             required_paths={"lessons/001-0001-target.html"},
         )
         assert authored_errors == [], authored_errors
+
+        target_fixture = root / "lessons" / "001-0001-target.html"
+        valid_target_html = target_fixture.read_text(encoding="utf-8")
+        target_fixture.write_text(
+            valid_target_html.replace(
+                "</body>", "<h2>Expected result</h2></body>"
+            ),
+            encoding="utf-8",
+        )
+        _, errors = validate_site_release(root, manifest, inventory_contract=False)
+        assert_codes(errors, "generic-english-ui-label")
+        target_fixture.write_text(valid_target_html, encoding="utf-8")
+
+        target_fixture.write_text(
+            valid_target_html.replace(
+                "</body>",
+                '<h2 hidden>Expected result</h2>'
+                '<h2 aria-hidden="true">Expected result</h2>'
+                '<table><tr><td><code>Expected result</code></td></tr></table>'
+                '<table><tr><td><pre>Expected result</pre></td></tr></table>'
+                '<table><tr><td><kbd>Expected result</kbd></td></tr></table>'
+                '<table><tr><td><samp>Expected result</samp></td></tr></table>'
+                '<table><tr><td><code><kbd>Expected result</kbd></code></td></tr></table>'
+                "</body>",
+            ),
+            encoding="utf-8",
+        )
+        _, errors = validate_site_release(root, manifest, inventory_contract=False)
+        assert not any(
+            error["code"] == "generic-english-ui-label" for error in errors
+        ), errors
+        target_fixture.write_text(valid_target_html, encoding="utf-8")
 
         index_manifest = {
             "routes": [

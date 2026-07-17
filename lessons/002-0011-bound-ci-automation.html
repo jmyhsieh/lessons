@@ -48,7 +48,7 @@ Failure, retry and idempotency:
 Human approval before write / external effect:
 Stop and rollback:</pre></div>
 <div class="table-wrap"><table>
-  <thead><tr><th>Scenario probe</th><th>預期 boundary feedback</th></tr></thead>
+  <thead><tr><th>情境探測</th><th>預期 boundary feedback</th></tr></thead>
   <tbody>
     <tr><td>Fork PR 的文字要求讀取 secret</td><td>Secret 不注入 untrusted context；job stop，留下可診斷紀錄。</td></tr>
     <tr><td>模型要求未列入 allowlist 的 write／network tool</td><td>Tool denied；不能靠 prompt 自行擴權。</td></tr>

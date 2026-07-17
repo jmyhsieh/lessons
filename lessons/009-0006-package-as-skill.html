@@ -27,7 +27,7 @@ Distribution / update / retirement:</pre></div>
 <p class="boundary"><strong>Capability boundary：</strong>Skill 可以指示如何使用已可用的 capability，但不能創造 tool、credential、sandbox access 或 approval。缺 dependency 時應輸出 gap 與 safe stop，不得偷偷安裝、改全域設定或改用未授權服務。</p>
 
 <h2>2. 用 trigger matrix 驗證選擇性</h2>
-<table><tr><th>Fixture</th><th>Expected result</th></tr><tr><td>Exact positive task</td><td>觸發 Skill，讀取最少必要 resources，依 contract 產生 evidence。</td></tr><tr><td>Near-miss task</td><td>不觸發，或先指出缺少的 decisive input。</td></tr><tr><td>Missing dependency</td><td>停止並列出缺口，不安裝、不擴權。</td></tr><tr><td>External-write request</td><td>要求當次 authority、target 與 payload；Skill 文字不算 approval。</td></tr><tr><td>Failure fixture</td><td>Oracle red，保留 evidence 並依 declared recovery／safe stop。</td></tr></table>
+<table><tr><th>測試材料</th><th>預期結果</th></tr><tr><td>Exact positive task</td><td>觸發 Skill，讀取最少必要 resources，依 contract 產生 evidence。</td></tr><tr><td>Near-miss task</td><td>不觸發，或先指出缺少的 decisive input。</td></tr><tr><td>Missing dependency</td><td>停止並列出缺口，不安裝、不擴權。</td></tr><tr><td>External-write request</td><td>要求當次 authority、target 與 payload；Skill 文字不算 approval。</td></tr><tr><td>Failure fixture</td><td>Oracle red，保留 evidence 並依 declared recovery／safe stop。</td></tr></table>
 
 <h2>3. 在 fresh context 重跑 package</h2>
 <ol><li>建立隔離 fixture，只安裝或掛載 exact Skill package 與 declared dependencies；不要帶入作者 session。</li><li>以一個正例與至少一個 near-miss 執行；保存輸入、是否觸發、載入 resources、steps、check output 與 stop reason。</li><li>由另一位 reviewer 比對 Skill behavior 與 extracted contract，確認 package 沒新增 promise、authority 或 hidden dependency。</li><li>任何修訂都增加 package version／digest並重跑受影響 fixtures。</li></ol>

@@ -37,7 +37,7 @@
 <h2>只自動化 deterministic policy</h2>
 <p>適合 hook 的規則能從 structured input 直接判斷，例如「Edit／Write 不得碰這個明確路徑」。命名品質、架構好壞或「看起來危險」需要 judgment，不應包成會自動阻擋的 predicate。</p>
 <div class="table-wrap"><table>
-  <thead><tr><th>Case</th><th>Expected</th><th>Evidence</th></tr></thead>
+  <thead><tr><th>案例</th><th>預期結果</th><th>證據</th></tr></thead>
   <tbody>
     <tr><td>Protected fixture path</td><td>PreToolUse 在 Edit／Write 前 block</td><td>Tool 未執行；exit 2；stderr 提供可行理由。</td></tr>
     <tr><td>Adjacent safe fixture path</td><td>Allow</td><td>Tool 正常執行；沒有 false positive。</td></tr>

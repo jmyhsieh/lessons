@@ -12,7 +12,7 @@
 <p><a href="004-0004-explore-design-directions.html">← direction comparison</a> · <a href="../reference/claude-design-to-code-workflow.html">Design workflow reference</a></p>
 <header><p>Phase 4 · Design · 004-0005 · Refinement</p><h1>一次精修一層，讓每個 revision 都能解釋</h1><p class="mission"><strong>Entry：</strong>已選定一個 direction，並保留 baseline revision 與選擇理由。本課把 feedback 轉成 bounded revisions，不用「再好看一點」覆蓋決策歷史。</p></header>
 <h2>用 feedback 類型控制 revision scope</h2>
-<table><tr><th>Layer</th><th>一次可改</th><th>Feedback oracle</th></tr><tr><td>Content／hierarchy</td><td>標籤、順序、資訊優先級</td><td>使用者能找到並理解關鍵內容</td></tr><tr><td>Interaction／states</td><td>一條 task path 與其 loading／empty／error</td><td>指定 task 可完成，狀態變化可理解</td></tr><tr><td>Responsive</td><td>一個 viewport range 的 reflow／control</td><td>不溢位，核心 action 保持可達</td></tr><tr><td>Visual system</td><td>一組 approved tokens 或 component treatment</td><td>與 system source 一致，層級仍清楚</td></tr></table>
+<table><tr><th>層級</th><th>一次可改</th><th>回饋判準</th></tr><tr><td>Content／hierarchy</td><td>標籤、順序、資訊優先級</td><td>使用者能找到並理解關鍵內容</td></tr><tr><td>Interaction／states</td><td>一條 task path 與其 loading／empty／error</td><td>指定 task 可完成，狀態變化可理解</td></tr><tr><td>Responsive</td><td>一個 viewport range 的 reflow／control</td><td>不溢位，核心 action 保持可達</td></tr><tr><td>Visual system</td><td>一組 approved tokens 或 component treatment</td><td>與 system source 一致，層級仍清楚</td></tr></table>
 <p class="rule"><strong>Change isolation：</strong>先記錄 baseline，選一個 feedback claim，只改一層，重新執行相同 task，再決定 accept／revise／revert。Direct canvas edit、inline comment 與 chat 都可以用；它們不改變 evidence 要求。</p>
 <h2>建立 revision ledger</h2>
 <div class="card"><pre>Selected direction / baseline revision:

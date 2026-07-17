@@ -25,7 +25,7 @@ Human-judgment stop:
 Known limits:</pre></div>
 <p class="boundary"><strong>Precondition：</strong>若 manual success 沒有可識別 inputs、可觀察 output 或 recoverable fixture，先停止並縮小 workflow。不要因為 agent 說「已完成」、沒有 error、status 顯示 green，或檔案存在，就把 completion 當作已證明。</p>
 <h2>2. 選一個獨立於 agent 敘述的 oracle</h2>
-<table><tr><th>工作結果</th><th>Deterministic predicate</th><th>不夠可靠的替代品</th></tr><tr><td>產生固定格式檔案</td><td>Parser 成功、必要欄位等於已知 literal、禁止欄位不存在。</td><td>「檔案已建立」或 agent 摘要。</td></tr><tr><td>轉換一組 bounded records</td><td>輸入 ID 集合與輸出 ID 集合精確對應，錯誤清單為空。</td><td>只看處理筆數或最後一行 green。</td></tr><tr><td>更新 local fixture state</td><td>由 public read interface 查得預期 state，且 fixture 外 fingerprint 未變。</td><td>查內部暫存值或相信 write command exit 0。</td></tr></table>
+<table><tr><th>工作結果</th><th>確定性判定式</th><th>不夠可靠的替代品</th></tr><tr><td>產生固定格式檔案</td><td>Parser 成功、必要欄位等於已知 literal、禁止欄位不存在。</td><td>「檔案已建立」或 agent 摘要。</td></tr><tr><td>轉換一組 bounded records</td><td>輸入 ID 集合與輸出 ID 集合精確對應，錯誤清單為空。</td><td>只看處理筆數或最後一行 green。</td></tr><tr><td>更新 local fixture state</td><td>由 public read interface 查得預期 state，且 fixture 外 fingerprint 未變。</td><td>查內部暫存值或相信 write command exit 0。</td></tr></table>
 <p class="rule"><strong>Oracle boundary：</strong>能用 deterministic code 計算的 routing、count、schema、hash、status 與 invariant，就不要交給模型判斷。品質、風險或是否接受殘餘限制仍由 learner 判斷，不能偽裝成機械 pass。</p>
 <h2>3. 先校準 failure，再保存 baseline</h2>
 <ol><li>在 disposable copy 對一個已知不完整或刻意錯誤的 output 跑 check，確認它以預期 predicate 失敗；setup error 不算 decisive failure。</li><li>對已知正確的 manual result 跑同一 check，記錄 command／inspection、exit、關鍵 output、input identity 與時間。</li><li>保存 fixture 外的 read-only fingerprint 或範圍清單，供後續判斷 workflow 是否越界。</li><li>請另一個人只看 contract，指出一個可能誤報成功的情境；補強 predicate，而不是加一句 agent prompt。</li></ol>

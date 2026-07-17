@@ -27,7 +27,7 @@ Change trigger / retirement / escalation:</pre></div>
 <p class="boundary"><strong>Instruction is not authority：</strong><code>CLAUDE.md</code> 可以縮小行為、要求 ask 或 deny，不能授權 secrets、external writes、production mutation、push、deploy 或 human approval。每次執行仍服從當下 sandbox、tool permissions 與 task authority。</p>
 
 <h2>2. 用 recoverable fixture 與 fresh session 檢查</h2>
-<table><tr><th>Probe</th><th>Expected observable evidence</th></tr><tr><td>In-scope 正例</td><td>全新 session 能指出 exact applicable scope，依規則產生 bounded diff，並跑指定 check。</td></tr><tr><td>Out-of-scope path</td><td>不把 local rule 錯套到 sibling path；若 precedence 不清便停止。</td></tr><tr><td>Disallowed action</td><td>拒絕或要求新 authority，不把文字解讀成 permission。</td></tr><tr><td>Failure fixture</td><td>保留 failing evidence，依 recovery 規則回復或 safe stop，不隱藏 skipped check。</td></tr></table>
+<table><tr><th>探測</th><th>預期的可觀察證據</th></tr><tr><td>In-scope 正例</td><td>全新 session 能指出 exact applicable scope，依規則產生 bounded diff，並跑指定 check。</td></tr><tr><td>Out-of-scope path</td><td>不把 local rule 錯套到 sibling path；若 precedence 不清便停止。</td></tr><tr><td>Disallowed action</td><td>拒絕或要求新 authority，不把文字解讀成 permission。</td></tr><tr><td>Failure fixture</td><td>保留 failing evidence，依 recovery 規則回復或 safe stop，不隱藏 skipped check。</td></tr></table>
 <p class="rule"><strong>Fresh-context rule：</strong>用新 session 或等價隔離 context，只提供 repository、exact candidate ref 與 task；不得貼回作者先前推理。記錄 candidate SHA、fixed point、prompt、applicable instruction path、diff 與 checks。</p>
 
 <h2>3. 回到 immutable Engineering Review</h2>

@@ -13,7 +13,7 @@
 <p><a href="004-0002-write-design-brief.html">← Design brief</a> · <a href="../reference/claude-design-to-code-workflow.html">Design workflow reference</a></p>
 <header><p>Phase 4 · Design · 004-0003 · Conditional system branch</p><h1>只用 approved context，同步後逐項校正</h1><p class="mission"><strong>Entry condition：</strong>brief 已指向 approved design system、brand source、design file 或可安全讀取的 codebase context。沒有這類 source 時跳過本課，直接進 004-0004；不要讓 Claude 發明一套看似正式的 tokens。</p></header>
 <h2>先分清兩種工作</h2>
-<table><tr><th>工作</th><th>Authority</th><th>完成 evidence</th></tr><tr><td>組織 design system setup／test／publish</td><td>具權限的 organization owner，在 Claude Design 設定 surface 操作</td><td>來源、review／test 結果、Published state 與 owner 記錄</td></tr><tr><td>Project-level import／sync</td><td>本次 project 被允許讀取的 GitHub、design file、upload 或 local codebase</td><td>import identity、可用 components／tokens、缺漏與校正記錄</td></tr></table>
+<table><tr><th>工作</th><th>授權範圍</th><th>完成 evidence</th></tr><tr><td>組織 design system setup／test／publish</td><td>具權限的 organization owner，在 Claude Design 設定 surface 操作</td><td>來源、review／test 結果、Published state 與 owner 記錄</td></tr><tr><td>Project-level import／sync</td><td>本次 project 被允許讀取的 GitHub、design file、upload 或 local codebase</td><td>import identity、可用 components／tokens、缺漏與校正記錄</td></tr></table>
 <p class="rule"><strong>邊界：</strong>Project import 不會自動發布 organization system；匯入成功也不代表 source 品質正確。若 source 混亂、過時或權限不清，先停止而不是補猜。</p>
 <div class="verified"><strong>Verified environment：</strong>2026-07-16 依 Anthropic Design system setup 與 Get started guides 檢查 organization setup、Published state 與 project import surfaces；實際 labels、availability 與同步行為可能在 beta 期間改變，操作前重查官方頁面。</div>
 <h2>產出 system alignment record</h2>
