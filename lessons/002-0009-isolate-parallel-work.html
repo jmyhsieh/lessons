@@ -8,7 +8,7 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="toolbox:conditional,toolbox:feedback,toolbox:tangible-win">
 <meta name="course:source-ids" content="claude-code-cli-execution-controls,claude-code-read-only-isolation-contract">
-<title>002-0009：隔離 parallel work</title>
+<title>002-0009：隔離平行工作</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
@@ -27,14 +27,14 @@
 </style>
 </head>
 <body>
-<p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../toc.html">回課目表</a></p>
+<p><a href="002-0001-choose-toolbox-lesson.html">← 回工具箱選擇器</a> · <a href="../toc.html">回課目表</a></p>
 <header>
-  <p class="kicker">第 2 階段 · 裝備 · 002-0009 · Conditional toolbox lesson</p>
-  <h1>用 worktree 隔離一條 parallel edit line</h1>
-  <p class="mission"><strong>任務：</strong>在 disposable Git fixture 開一個 Claude Code worktree，證明兩個工作目錄的檔案改動不互踩，再安全清理。</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0009 · Conditional 工具箱課程</p>
+  <h1>用工作樹隔離一條平行工作線</h1>
+  <p class="mission"><strong>任務：</strong>在可丟棄 Git 練習環境開一個 Claude Code 工作樹，證明兩個工作目錄的檔案改動不互踩，再安全清理。</p>
 </header>
 
-<h2>先寫 isolation card</h2>
+<h2>先寫隔離卡</h2>
 <div class="card"><pre>Active route / return point:
 Disposable fixture and clean baseline:
 Parallel task and unique branch name:
@@ -46,35 +46,35 @@ Stop condition:</pre></div>
 <div class="table-wrap"><table>
   <thead><tr><th>Worktree 隔離</th><th>Worktree 不隔離</th></tr></thead>
   <tbody>
-    <tr><td>工作目錄、branch、tracked／untracked file changes。</td><td>Git object database、remote、credentials、network、database、deploy target 與其他 external side effects。</td></tr>
-    <tr><td>適合兩條可能改檔的獨立 local tasks。</td><td>不是 permission sandbox，也不會自動解決 branch merge conflict。</td></tr>
+    <tr><td>工作目錄、分支、受追蹤／未追蹤檔案變更。</td><td>Git 物件資料庫、遠端、憑證、網路、資料庫、部署目標與其他外部副作用。</td></tr>
+    <tr><td>適合兩條可能改檔的獨立本機任務。</td><td>不是權限沙箱，也不會自動解決分支合併衝突。</td></tr>
   </tbody>
 </table></div>
 
 <h2>建立、觀察、清理</h2>
 <ol>
-  <li>只在 clean、可丟棄的 Git fixture 執行；先保存 <code>git status --short</code> 與 <code>git worktree list</code>。</li>
-  <li>用目前 <code>claude --help</code> 確認 <code>--worktree</code>，再執行 <code>claude --worktree toolbox-isolation</code>。不要重用現有 branch 名稱。</li>
-  <li>在新 session 只建立一個 fixture marker；回原工作目錄確認 marker 不存在，再用 <code>git worktree list</code> 比對兩個 path／branch。</li>
-  <li>記錄新 worktree 是否缺少 gitignored config 或 dependencies；不要為了方便把 secret 改成 tracked file。</li>
-  <li>退出 session。清理前檢查該 worktree 的 status、untracked files 與 commits；只有確認無需保留的工作後才移除，最後再跑 <code>git worktree list</code>。</li>
+  <li>只在乾淨、可丟棄的 Git 練習環境執行；先保存 <code>git status --short</code> 與 <code>git worktree list</code>。</li>
+  <li>用目前 <code>claude --help</code> 確認 <code>--worktree</code>，再執行 <code>claude --worktree toolbox-isolation</code>。不要重用現有分支名稱。</li>
+  <li>在新工作階段只建立一個練習環境標記；回原工作目錄確認標記不存在，再用 <code>git worktree list</code> 比對兩個路徑／分支。</li>
+  <li>記錄新工作樹是否缺少被 gitignore 排除的設定或依賴項目；不要為了方便把密鑰改成受追蹤檔案。</li>
+  <li>退出工作階段。清理前檢查該工作樹的狀態、未追蹤檔案與提交；只有確認無需保留的工作後才移除，最後再跑 <code>git worktree list</code>。</li>
 </ol>
-<div class="win"><strong>具體成果：</strong>一張 worktree isolation record，含 before／during／after inventory。<br><strong>可觀察回饋：</strong>Marker 只出現在新 worktree；兩個 branch/path 可辨識；清理後 inventory 回到 baseline，沒有遺失未保存工作。</div>
+<div class="win"><strong>具體成果：</strong>一張工作樹隔離紀錄，含事前／進行中／事後清單。<br><strong>可觀察回饋：</strong>標記 只出現在新工作樹；兩個分支/路徑可辨識；清理後清單回到 基準，沒有遺失未保存工作。</div>
 
 <div class="quiz" data-answer="2">
-  <p>兩個 worktrees 同時指向同一個 staging database，是否已被安全隔離？</p>
-  <button type="button">是，因為 working directories 不同</button>
-  <button type="button">是，只要 branch 名稱不同</button>
-  <button type="button">否，worktree 不隔離 external resources，必須另設 authority 與資源邊界</button>
-  <div class="why">Worktree 解決 local filesystem／branch collision；external systems、credentials 與 side effects 仍是共享風險。</div>
+  <p>兩個工作樹同時指向同一個預備資料庫，是否已被安全隔離？</p>
+  <button type="button">是，因為工作目錄不同</button>
+  <button type="button">是，只要分支名稱不同</button>
+  <button type="button">否，工作樹不隔離外部資源，必須另設權限與資源邊界</button>
+  <div class="why">Worktree 解決本機檔案系統／分支衝突；外部系統、憑證 與副作用仍是共享風險。</div>
 </div>
 
-<p class="stop"><strong>合法停止／返回：</strong>Fixture 不乾淨、branch/path 已存在、兩條任務會碰同一 external resource、或無法判斷 worktree 是否有未保存工作時，保留現況並停止，不使用 <code>--force</code> 清理。把 isolation evidence 寫回 Return notebook，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。</p>
+<p class="stop"><strong>合法停止／返回：</strong>Fixture 不乾淨、分支/路徑已存在、兩條任務會碰同一外部資源、或無法判斷工作樹是否有未保存工作時，保留現況並停止，不使用 <code>--force</code> 清理。把隔離證據寫回 Return notebook，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄：toc.html</a></li>
-<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的 Targeted-remediation return point；沒有有效 return point 時才使用 catalog fallback。</span></li>
+<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄</a></li>
+<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的指定補強返回點；沒有有效返回點時才使用目錄備援。</span></li>
 </ul>
 <p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>合法停止點：</strong>每個選定課程都返回呼叫端提供的 active route；工具箱本身沒有 Phase completion</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>claude-code-cli-execution-controls</code>、<code>claude-code-read-only-isolation-contract</code></div>

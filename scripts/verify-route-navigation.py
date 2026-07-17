@@ -246,7 +246,11 @@ def action_label(action: Action) -> str:
         "route-return": "回到路線目錄",
         "catalog-fallback": "沒有有效返回點時回工具箱目錄",
     }
-    return f"{labels.get(action.kind, action.kind)}：{action.path}"
+    label = labels.get(action.kind, action.kind)
+    lesson = re.fullmatch(r"lessons/(\d{3}-\d{4})-[^/]+\.html", action.path)
+    if lesson:
+        return f"{label}：{lesson.group(1)} 課程"
+    return label
 
 
 def localized_identity_markup(page: dict[str, Any], identity_markup: str) -> str:
@@ -320,8 +324,8 @@ def render_footer(
                 'data-route-action="return-to-caller" '
                 f'data-target-source="{html.escape(continuation["targetSource"], quote=True)}" '
                 f'data-fallback="{html.escape(continuation["fallback"], quote=True)}">'
-                '完成後回到 Return notebook 的 Targeted-remediation return point；'
-                '沒有有效 return point 時才使用 catalog fallback。</span></li>'
+                '完成後回到 Return notebook 的指定補強返回點；'
+                '沒有有效返回點時才使用目錄備援。</span></li>'
             )
         lines.extend(
             [

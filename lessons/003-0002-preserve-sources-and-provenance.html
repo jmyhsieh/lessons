@@ -8,7 +8,7 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="knowledge-delivery:feedback,knowledge-delivery:tangible-win">
 <meta name="course:source-ids" content="course-knowledge-delivery-contract,knowledge-source-provenance-contract">
-<title>003-0002：保存 sources 與 provenance</title>
+<title>003-0002：保存來源與來源沿革</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
@@ -27,30 +27,30 @@
 </style>
 </head>
 <body>
-<p><a rel="prev" href="003-0001-select-knowledge-deliverable.html">← 上一課：選定 Knowledge deliverable</a> · <a href="003-0003-build-source-to-claim-outline.html">下一課：source-to-claim outline →</a> · <a href="../reference/knowledge-delivery-evidence-checklist.html">證據檢核表</a></p>
+<p><a rel="prev" href="003-0001-select-knowledge-deliverable.html">← 上一課：選定 知識交付成果</a> · <a href="003-0003-build-source-to-claim-outline.html">下一課：來源至主張大綱 →</a> · <a href="../reference/knowledge-delivery-evidence-checklist.html">證據檢核表</a></p>
 <header>
-  <p class="kicker">第 3 階段 · 交付 · 003-0002 · Provenance</p>
-  <h1>先建立 raw source pack，讓生成內容永遠不是 source of truth</h1>
-  <p class="mission"><strong>任務：</strong>替 mission 所需來源建立 stable IDs、原始位置、capture context、rights 與 handling metadata，並將 working notes 分開保存。</p>
+  <p class="kicker">第 3 階段 · 交付 · 003-0002 · 來源沿革</p>
+  <h1>先建立原始來源套件，讓生成內容永遠不是唯一事實來源</h1>
+  <p class="mission"><strong>任務：</strong>替任務所需來源建立穩定識別碼、原始位置、擷取脈絡、權利與處理中繼資料，並將工作筆記分開保存。</p>
 </header>
 
-<h2>Raw source 與衍生內容分層</h2>
+<h2>原始來源與衍生內容分層</h2>
 <div class="table-wrap"><table>
   <thead><tr><th>層級</th><th>包含</th><th>規則</th></tr></thead>
   <tbody>
-    <tr><td>原始來源（Raw source）</td><td>Original file、URL、export、recording 或 approved snapshot。</td><td>不被模型改寫；保留 owner、date、version／range 與原始位置。</td></tr>
-    <tr><td>證據筆記</td><td>帶 source ID／locator 的摘記、短 paraphrase、row／timestamp。</td><td>可追溯，不把 note 冒充原文。</td></tr>
-    <tr><td>生成候選稿</td><td>大綱（outline）、摘要（summary）、claim、draft wording。</td><td>尚未驗證前不是 evidence，也不能回填成 raw source。</td></tr>
+    <tr><td>原始來源</td><td>原始檔案、URL、export、錄音或錄影或已核准快照。</td><td>不被模型改寫；保留負責人、日期、版本／範圍與原始位置。</td></tr>
+    <tr><td>證據筆記</td><td>帶 source 識別碼／定位的摘記、短改寫摘要、列／時間戳記。</td><td>可追溯，不把 筆記 冒充原文。</td></tr>
+    <tr><td>生成候選稿</td><td>大綱、摘要、主張、草稿文字。</td><td>尚未驗證前不是 evidence，也不能回填成原始來源。</td></tr>
   </tbody>
 </table></div>
 
-<h2>建立 provenance ledger</h2>
+<h2>建立來源沿革台帳</h2>
 <ol>
-  <li>只收 mission scope 需要的 sources；先檢查 access、sensitive data、copyright／license、retention 與可分享範圍。</li>
-  <li>為每份來源建立 stable local ID，例如 <code>S-01</code>；保存 title、owner、原始 location、captured at、version／time range 與 content type。</li>
-  <li>能合法保存時保留原檔或 approved snapshot；只能連結時記錄 access assumption 與未來失效風險。</li>
-  <li>記錄 transformation history，例如 OCR、conversion、filter 或 manual cleanup；raw copy 與 normalized copy 不覆蓋彼此。</li>
-  <li>隨機抽一份 source，請另一個人從 ledger 找回原始內容並說出可用／不可用 boundary。</li>
+  <li>只收任務範圍需要的來源；先檢查存取、敏感資料、著作權／授權條款、保留期限與可分享範圍。</li>
+  <li>為每份來源建立穩定本機識別碼，例如 <code>S-01</code>；保存標題、負責人、原始 位置、擷取於、版本／時間範圍與內容類型。</li>
+  <li>能合法保存時保留原檔或已核准快照；只能連結時記錄存取假設與未來失效風險。</li>
+  <li>記錄轉換歷程，例如 OCR、轉換、篩選或人工清理；原始副本與正規化副本不覆蓋彼此。</li>
+  <li>隨機抽一份 source，請另一個人從台帳找回原始內容並說出可用／不可用 邊界。</li>
 </ol>
 <div class="card"><pre>Source ID:
 Title / owner:
@@ -61,24 +61,24 @@ Transformations:
 Access / rights / privacy / retention:
 Allowed use and sharing:
 Known limitation:</pre></div>
-<div class="win"><strong>具體成果：</strong>一份 raw source pack 與 provenance ledger。<br><strong>可觀察回饋：</strong>抽查者能從任一 source ID 找回原始內容、辨識版本與使用限制，且不會把 generated draft 認成來源。</div>
+<div class="win"><strong>具體成果：</strong>一份原始來源套件 與來源沿革台帳。<br><strong>可觀察回饋：</strong>抽查者能從任一 source 識別碼找回原始內容、辨識版本與使用限制，且不會把生成的草稿認成來源。</div>
 
 <div class="quiz" data-answer="1">
   <p>Claude 依三份文件產生一段摘要，這段摘要應放在哪一層？</p>
-  <button type="button">Raw source，因為綜合了三份文件</button>
-  <button type="button">Generated candidate，claims 仍需連回三份 raw sources</button>
-  <button type="button">Rights record，因為它是新文字</button>
-  <div class="why">生成摘要是衍生內容；即使寫得正確，也不能取代原始來源與逐 claim verification。</div>
+  <button type="button">原始來源，因為綜合了三份文件</button>
+  <button type="button">生成的候選，主張仍需連回三份原始來源</button>
+  <button type="button">權利紀錄，因為它是新文字</button>
+  <div class="why">生成摘要是衍生內容；即使寫得正確，也不能取代原始來源與逐主張驗證。</div>
 </div>
 
-<p class="stop"><strong>條件分支／合法停止：</strong>若 PDF／文件需 normalize，走 <a href="003-0008-normalize-local-source.html">MarkItDown／Docling</a>；corpus 需 local search，走 <a href="003-0009-query-local-source-corpus.html">QMD</a>；tabular source 需 query，走 <a href="003-0010-query-local-tabular-data.html">DuckDB</a>。只有 active input 確實命中時才選一支，完成後都返回 <a href="003-0003-build-source-to-claim-outline.html">003-0003</a>，那些工具不是必修。來源無合法 access、rights／privacy 不明、raw copy 無法保存且沒有可接受的 reference boundary 時，記錄 gap 後停止，不開始生成。</p>
+<p class="stop"><strong>條件分支／合法停止：</strong>若 PDF／文件需正規化，走 <a href="003-0008-normalize-local-source.html">MarkItDown／Docling</a>；語料庫需本機搜尋，走 <a href="003-0009-query-local-source-corpus.html">QMD</a>；表格 source 需查詢，走 <a href="003-0010-query-local-tabular-data.html">DuckDB</a>。只有目前輸入確實命中時才選一支，完成後都返回 <a href="003-0003-build-source-to-claim-outline.html">003-0003</a>，那些工具不是必修。來源無合法存取、權利／隱私 不明、原始副本無法保存且沒有可接受的參考 邊界 時，記錄缺口後停止，不開始生成。</p>
 <footer data-course-footer="canonical" data-route-id="knowledge-delivery" data-legal-stop="Stop at Knowledge delivery closeout">
 <p><strong>路線導覽 · 知識工作交付</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="knowledge-delivery" data-route-action="choose-one" href="003-0003-build-source-to-claim-outline.html">選擇一條支線：lessons/003-0003-build-source-to-claim-outline.html</a></li>
-<li><a data-route-id="knowledge-delivery" data-route-action="choose-one" href="003-0008-normalize-local-source.html">選擇一條支線：lessons/003-0008-normalize-local-source.html</a></li>
-<li><a data-route-id="knowledge-delivery" data-route-action="choose-one" href="003-0009-query-local-source-corpus.html">選擇一條支線：lessons/003-0009-query-local-source-corpus.html</a></li>
-<li><a data-route-id="knowledge-delivery" data-route-action="choose-one" href="003-0010-query-local-tabular-data.html">選擇一條支線：lessons/003-0010-query-local-tabular-data.html</a></li>
+<li><a data-route-id="knowledge-delivery" data-route-action="choose-one" href="003-0003-build-source-to-claim-outline.html">選擇一條支線：003-0003 課程</a></li>
+<li><a data-route-id="knowledge-delivery" data-route-action="choose-one" href="003-0008-normalize-local-source.html">選擇一條支線：003-0008 課程</a></li>
+<li><a data-route-id="knowledge-delivery" data-route-action="choose-one" href="003-0009-query-local-source-corpus.html">選擇一條支線：003-0009 課程</a></li>
+<li><a data-route-id="knowledge-delivery" data-route-action="choose-one" href="003-0010-query-local-tabular-data.html">選擇一條支線：003-0010 課程</a></li>
 </ul>
 <p data-route-legal-stop="Stop at Knowledge delivery closeout"><strong>合法停止點：</strong>完成 Knowledge delivery closeout 後即可停止</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible win · 來源 ID：<code>course-knowledge-delivery-contract</code>、<code>knowledge-source-provenance-contract</code></div>

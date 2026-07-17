@@ -7,14 +7,14 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="workflow-standardization:conditional,workflow-standardization:feedback,workflow-standardization:tangible-win">
 <meta name="course:source-ids" content="workflow-standardization-contract">
-<title>009-0006：Package as reusable Skill</title>
+<title>009-0006：封裝成可重用 Skill</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:920px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#315f86;margin-top:2rem}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{border:1px solid #ccd9e3;padding:.55rem;text-align:left;vertical-align:top}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem;overflow-wrap:anywhere}pre{padding:.8rem;white-space:pre-wrap;overflow-wrap:anywhere}label{display:block;margin:.45rem 0}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:690px){body{margin-top:1rem}table{display:block;overflow-x:auto;font-size:.76rem}}</style>
 </head><body>
-<p><a href="009-0003-choose-workflow-package.html">← package 選擇器</a> · <a href="../reference/workflow-package-selector.html">Selector 參考頁</a></p>
-<header><p>Phase 9 · 標準化 · 009-0006 · Conditional branch</p><h1>把跨 workspace 的 bounded instructions 包成 reusable Skill</h1><p class="mission"><strong>進入條件：</strong>009-0003 已選 <code>skill</code>，因為同一 proven workflow 需要跨 workspace 被正確觸發，且 contract、audience、dependencies、owner 與 distribution boundary 都清楚。Skill 是 instruction package，不是 workflow proof、tool installer、permission grant 或 universal policy。</p></header>
+<p><a href="009-0003-choose-workflow-package.html">← 套件選擇器</a> · <a href="../reference/workflow-package-selector.html">Selector參考頁</a></p>
+<header><p>Phase 9 · 標準化 · 009-0006 · 條件式分支</p><h1>把跨工作區的有界指示封裝成可重用 Skill</h1><p class="mission"><strong>進入條件：</strong>009-0003已選 <code>skill</code>，因為同一已證明的工作流需要跨工作區被正確觸發，且契約、受眾、相依項目、負責人與發布邊界都清楚。Skill 是指示套件，不是工作流證明、工具安裝程式、權限授予或通用政策。</p></header>
 
-<h2>1. 先設計 trigger，再配置 disclosure</h2>
-<table><tr><th>層次</th><th>放什麼</th><th>排除</th></tr><tr><td>中繼資料</td><td>可辨識的 task trigger、明確非適用情境、owner 與 version。</td><td>「任何工作都可用」或只列工具名稱。</td></tr><tr><td><code>SKILL.md</code></td><td>進入 contract、循序 workflow、authority、checks、feedback、failure／recovery、legal stop。</td><td>整份百科、secrets、隱含 prerequisite。</td></tr><tr><td>引用資源</td><td>只在 matching branch 載入的 templates、examples、rubrics 或 scripts。</td><td>重複 source of truth、未使用 assets。</td></tr><tr><td>發布紀錄</td><td>Package digest、dependencies、compatible scope、review、change 與 retirement path。</td><td>把安裝數當品質或完成 evidence。</td></tr></table>
+<h2>1. 先設計觸發條件，再配置漸進式揭露</h2>
+<table><tr><th>層次</th><th>放什麼</th><th>排除</th></tr><tr><td>中繼資料</td><td>可辨識的任務觸發條件、明確非適用情境、負責人與版本。</td><td>「任何工作都可用」或只列工具名稱。</td></tr><tr><td><code>SKILL.md</code></td><td>進入契約、循序工作流、權限、檢查、回饋、失敗／復原、法務停止點。</td><td>整份百科、機密資料、隱含前置條件。</td></tr><tr><td>引用資源</td><td>只在符合的分支載入範本、範例、評分規準或指令碼。</td><td>重複唯一權威來源、未使用資產。</td></tr><tr><td>發布紀錄</td><td>套件摘要、相依項目、相容範圍、審查、變更與退役路徑。</td><td>把安裝數當品質或完成證據。</td></tr></table>
 <div class="card"><pre>Skill name / version / owner:
 Use when / do not use when:
 Required inputs / prerequisites / source of truth:
@@ -24,22 +24,22 @@ Deterministic checks / observable feedback:
 Failure / recovery / limitations:
 Resources and exact load conditions:
 Distribution / update / retirement:</pre></div>
-<p class="boundary"><strong>能力邊界：</strong>Skill 可以指示如何使用已可用的 capability，但不能創造 tool、credential、sandbox access 或 approval。缺 dependency 時應輸出 gap 與 safe stop，不得偷偷安裝、改全域設定或改用未授權服務。</p>
+<p class="boundary"><strong>能力邊界：</strong>Skill 可以指示如何使用已可用的能力，但不能創造工具、憑證、沙箱存取或核准。缺相依項目時應輸出缺口與安全停止點，不得偷偷安裝、改全域設定或改用未授權服務。</p>
 
-<h2>2. 用 trigger matrix 驗證選擇性</h2>
-<table><tr><th>測試材料</th><th>預期結果</th></tr><tr><td>精確的正向任務</td><td>觸發 Skill，讀取最少必要 resources，依 contract 產生 evidence。</td></tr><tr><td>近似但不符合的任務</td><td>不觸發，或先指出缺少的 decisive input。</td></tr><tr><td>缺少 dependency</td><td>停止並列出缺口，不安裝、不擴權。</td></tr><tr><td>外部寫入要求</td><td>要求當次 authority、target 與 payload；Skill 文字不算 approval。</td></tr><tr><td>失敗 fixture</td><td>Oracle red，保留 evidence 並依 declared recovery／safe stop。</td></tr></table>
+<h2>2. 用觸發條件矩陣驗證選擇性</h2>
+<table><tr><th>測試材料</th><th>預期結果</th></tr><tr><td>指定的正向任務</td><td>觸發 Skill，讀取最少必要資源，依契約產生證據。</td></tr><tr><td>近似但不符合的任務</td><td>不觸發，或先指出缺少的關鍵輸入。</td></tr><tr><td>缺少相依項目</td><td>停止並列出缺口，不安裝、不擴權。</td></tr><tr><td>外部寫入要求</td><td>要求當次權限、目標與承載內容；Skill 文字不算核准。</td></tr><tr><td>失敗測試資料</td><td>判定依據失敗，保留證據並依已宣告的復原／安全停止點處置。</td></tr></table>
 
-<h2>3. 在 fresh context 重跑 package</h2>
-<ol><li>建立隔離 fixture，只安裝或掛載 exact Skill package 與 declared dependencies；不要帶入作者 session。</li><li>以一個正例與至少一個 near-miss 執行；保存輸入、是否觸發、載入 resources、steps、check output 與 stop reason。</li><li>由另一位 reviewer 比對 Skill behavior 與 extracted contract，確認 package 沒新增 promise、authority 或 hidden dependency。</li><li>任何修訂都增加 package version／digest並重跑受影響 fixtures。</li></ol>
-<div class="card"><strong>Package 證據</strong><label><input type="checkbox"> Trigger 與 negative trigger 都可觀察</label><label><input type="checkbox"> Main instructions 足以執行，resources 只按需載入</label><label><input type="checkbox"> Missing capability 與 external write 都 fail closed</label><label><input type="checkbox"> Fresh context 不依賴舊聊天或全域 personal state</label><label><input type="checkbox"> Exact version、digest、owner 與 fixture results 已保存</label></div>
-<div class="win"><strong>可見成果：</strong>一個有 bounded trigger、progressive resources、version／owner 與 fresh-context fixture evidence 的 reusable Skill package。<br><strong>可觀察回饋：</strong>正例會選中並完成 declared checks；near-miss 不誤觸發，缺 dependency／authority 時安全停止，reviewer 能把 behavior 逐項追到 workflow contract。</div>
+<h2>3. 在全新脈絡重跑套件</h2>
+<ol><li>建立隔離測試資料，只安裝或掛載指定的 Skill 套件與已宣告的相依項目；不要帶入作者工作階段。</li><li>以一個正例與至少一個近似反例執行；保存輸入、是否觸發、載入資源、步驟、檢查輸出與停止原因。</li><li>由另一位審查者比對 Skill 行為與萃取出的契約，確認套件沒新增承諾、權限或隱藏相依項目。</li><li>任何修訂都增加套件版本／摘要並重跑受影響測試資料。</li></ol>
+<div class="card"><strong>套件證據</strong><label><input type="checkbox"> 觸發條件與反向觸發條件都可觀察</label><label><input type="checkbox"> 主要指示足以執行，資源只按需載入</label><label><input type="checkbox"> 缺少能力與外部寫入時都採安全失敗</label><label><input type="checkbox"> 全新脈絡不依賴舊聊天或全域個人狀態</label><label><input type="checkbox"> 指定的版本、摘要、負責人與測試資料結果已保存</label></div>
+<div class="win"><strong>可見成果：</strong>一個具備有界觸發條件、漸進式資源、版本／負責人與全新脈絡測試證據的可重用 Skill 套件。<br><strong>可觀察回饋：</strong>正例會選中並完成已宣告的檢查；近似反例不誤觸發，缺相依項目／權限時安全停止，審查者能把行為逐項追到工作流契約。</div>
 
-<div class="quiz" data-answer="0"><p>Skill 在 fresh context 發現缺少 CLI dependency，contract 未授權安裝。正確行為是？</p><button type="button">列出 dependency gap 並 safe stop，等待新的 setup／authority</button><button type="button">自動安裝，因為 Skill 已被選用</button><button type="button">改用任意外部服務完成結果</button><div class="why">Package 不會擴張 capability 或 authority；missing dependency 是可觀察的 stop，不是繞過邊界的理由。</div></div>
-<p class="stop"><strong>合法停止／返回／續行：</strong>Trigger 無法區分 near-miss、resources 重複 truth、dependency／distribution／owner 不明、fresh context 依賴 personal state，或 Skill 擴張 authority 時，保存 fixture evidence 並回 <a href="009-0003-choose-workflow-package.html">009-0003</a>／009-0002。只有 exact package version 通過正例、near-miss、missing-dependency 與 failure checks，才前往 <code>009-0008-complete-standardization-closeout.html</code>；不要再完成其他 package branch。</p>
+<div class="quiz" data-answer="0"><p>Skill在全新脈絡發現缺少CLI相依項目，契約未授權安裝。正確行為是？</p><button type="button">列出相依缺口並安全停止，等待新的設定／權限</button><button type="button">自動安裝，因為Skill已被選用</button><button type="button">改用任意外部服務完成結果</button><div class="why">套件不會擴張能力或權限；缺少的相依項目是可觀察的stop，不是繞過邊界的理由。</div></div>
+<p class="stop"><strong>合法停止／返回／續行：</strong>觸發條件無法區分近似反例、資源重複真實來源、相依項目／發布方式／負責人不明、全新脈絡依賴個人狀態，或 Skill 擴張權限時，保存測試證據並回 <a href="009-0003-choose-workflow-package.html">009-0003</a>／009-0002。只有精確套件版本通過正例、近似反例、缺少相依項目與失敗檢查，才前往 <code>009-0008-complete-standardization-closeout.html</code>；不要再完成其他套件分支。</p>
 <footer data-course-footer="canonical" data-route-id="workflow-standardization" data-legal-stop="Stop after one fitting package is rerun and reviewed">
 <p><strong>路線導覽 · 工作流程標準化</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="workflow-standardization" data-route-action="next" href="009-0008-complete-standardization-closeout.html">下一步：lessons/009-0008-complete-standardization-closeout.html</a></li>
+<li><a data-route-id="workflow-standardization" data-route-action="next" href="009-0008-complete-standardization-closeout.html">下一步：009-0008 課程</a></li>
 </ul>
 <p data-route-legal-stop="Stop after one fitting package is rerun and reviewed"><strong>合法停止點：</strong>一個合適 package 已重跑並完成 review 後即可停止</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>workflow-standardization-contract</code></div>

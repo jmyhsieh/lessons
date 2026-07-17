@@ -8,7 +8,7 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="toolbox:conditional,toolbox:feedback,toolbox:tangible-win">
 <meta name="course:source-ids" content="claude-code-hook-safety-contract">
-<title>002-0004：Smoke-test 一個 hook</title>
+<title>002-0004：快速驗證一個 hook</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
@@ -27,21 +27,21 @@
 </style>
 </head>
 <body>
-<p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../toc.html">回課目表</a></p>
+<p><a href="002-0001-choose-toolbox-lesson.html">← 回工具箱選擇器</a> · <a href="../toc.html">回課目表</a></p>
 <header>
-  <p class="kicker">第 2 階段 · 裝備 · 002-0004 · Conditional toolbox lesson</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0004 · Conditional 工具箱課程</p>
   <h1>先證明 hook 真的在正確事件觸發</h1>
-  <p class="mission"><strong>任務：</strong>在 recoverable fixture 建立一個只留下 fixture-local marker 的 hook，觀察 matched trigger 與 non-match，再把結果寫回 active route。</p>
+  <p class="mission"><strong>任務：</strong>在可復原練習環境建立一個只留下本機標記的 hook，觀察相符與不相符的觸發條件，再把結果寫回目前路線。</p>
 </header>
 
-<h2>Hook contract 的必要欄位</h2>
+<h2>Hook 契約的必要欄位</h2>
 <div class="table-wrap"><table>
-  <thead><tr><th>欄位</th><th>本次 smoke test 要回答</th></tr></thead>
+  <thead><tr><th>欄位</th><th>本次快速驗證測試要回答</th></tr></thead>
   <tbody>
-    <tr><td>事件／比對條件</td><td>哪個 lifecycle event 會被哪些工具或條件觸發？</td></tr>
-    <tr><td>命令／輸入</td><td>執行哪個 deterministic command？它會收到什麼 structured input？</td></tr>
-    <tr><td>輸出／語意</td><td>哪個 marker 或訊息算成功？exit status 是否會 allow 或 block？</td></tr>
-    <tr><td>權限／副作用</td><td>Command 以你的權限執行；本課只准寫入 fixture-local log。</td></tr>
+    <tr><td>事件／比對條件</td><td>哪個生命週期事件會被哪些工具或條件觸發？</td></tr>
+    <tr><td>命令／輸入</td><td>執行哪個確定性命令？它會收到什麼結構化輸入？</td></tr>
+    <tr><td>輸出／語意</td><td>哪個標記或訊息算成功？結束狀態是否會 放行 或 阻擋？</td></tr>
+    <tr><td>權限／副作用</td><td>Command 以你的權限執行；本課只准寫入練習環境內的本機紀錄。</td></tr>
   </tbody>
 </table></div>
 
@@ -56,28 +56,28 @@ Non-match:
 Expected observations:
 Stop condition:</pre></div>
 <ol>
-  <li>在 disposable 或可回復 fixture 記錄起始設定與 working-tree 狀態。</li>
-  <li>選一個不會 block 的 event／matcher；command 只能在 fixture 內追加固定 marker，不讀 credentials、不連網。</li>
-  <li>逐字 review command 與設定位置。若 command、輸入格式或 side effect 無法解釋，停止，不安裝。</li>
-  <li>觸發一次 matcher，確認 marker 恰好增加一次；再做一次 non-match，確認 marker 沒有增加。</li>
-  <li>保存 event、matcher、command、前後 log、non-match 結果、rollback 與 learner judgment。</li>
+  <li>在可丟棄或可回復練習環境記錄起始設定與工作樹狀態。</li>
+  <li>選一個不會 阻擋 的事件／matcher；命令只能在練習環境內追加固定標記，不讀 憑證、不連網。</li>
+  <li>逐字審查命令與設定位置。若命令、輸入格式或副作用無法解釋，停止，不安裝。</li>
+  <li>觸發一次 matcher，確認標記恰好增加一次；再做一次不相符，確認標記沒有增加。</li>
+  <li>保存事件、matcher、命令、前後紀錄、不相符結果、回復與 learner judgment。</li>
 </ol>
-<div class="win"><strong>具體成果：</strong>一份 bounded hook contract 與 matched／non-match smoke-test record。<br><strong>可觀察回饋：</strong>Matched trigger 只新增預期 marker；non-match 沒有新增；fixture 外沒有 side effect。</div>
+<div class="win"><strong>具體成果：</strong>一份有界限的 hook 契約與相符的／不相符快速驗證測試紀錄。<br><strong>可觀察回饋：</strong>符合比對條件的觸發條件只新增預期標記；不相符沒有新增；練習環境外沒有副作用。</div>
 
 <div class="quiz" data-answer="2">
   <p>設定檔中已經出現 hook，是否足以證明它可用？</p>
-  <button type="button">是，configuration presence 就是完成證據</button>
-  <button type="button">是，只要 Claude 說 event 名稱正確</button>
-  <button type="button">否，必須實際觀察 matched trigger 與 non-match</button>
-  <div class="why">Hook 的 event、matcher、command 與 semantics 只有在 recoverable fixture 實際觸發後才有證據。</div>
+  <button type="button">是，設定存在就是完成證據</button>
+  <button type="button">是，只要 Claude 說事件名稱正確</button>
+  <button type="button">否，必須實際觀察相符的觸發條件與不相符</button>
+  <div class="why">Hook 的事件、matcher、命令與語意只有在可復原練習環境實際觸發後才有證據。</div>
 </div>
 
-<p class="stop"><strong>返回邊界：</strong>回復或保留 fixture 由 selection card 決定；把 smoke-test evidence 寫回 Return notebook，狀態記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。本課不建立 production guardrail，也不授權 fixture 外的 shell side effect。</p>
+<p class="stop"><strong>返回邊界：</strong>回復或保留練習環境由選擇卡決定；把快速驗證證據寫回 Return notebook，狀態記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。本課不建立正式環境防護，也不授權練習環境外的 shell 副作用。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄：toc.html</a></li>
-<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的 Targeted-remediation return point；沒有有效 return point 時才使用 catalog fallback。</span></li>
+<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄</a></li>
+<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的指定補強返回點；沒有有效返回點時才使用目錄備援。</span></li>
 </ul>
 <p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>合法停止點：</strong>每個選定課程都返回呼叫端提供的 active route；工具箱本身沒有 Phase completion</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>claude-code-hook-safety-contract</code></div>

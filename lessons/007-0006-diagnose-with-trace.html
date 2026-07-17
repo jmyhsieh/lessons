@@ -7,13 +7,13 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="browser-evidence:conditional,browser-evidence:feedback,browser-evidence:tangible-win">
 <meta name="course:source-ids" content="playwright-durable-browser-evidence">
-<title>007-0006：只在需要時用 trace 診斷</title>
+<title>007-0006：只在需要時用trace診斷</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:860px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#315f86;margin-top:2rem}.mission,.stop,.verified,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccd9e3;padding:.55rem;vertical-align:top;text-align:left}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap;overflow-wrap:anywhere}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:650px){body{margin-top:1rem}table{display:block;max-width:100%;overflow-x:auto;font-size:.8rem}}</style>
 </head><body>
-<p><a href="007-0005-rerun-in-declared-environment.html">← RED／GREEN 重跑</a> · <a href="../reference/browser-evidence-selector.html">瀏覽器證據選擇器</a> · <a href="../toc.html">回課程 catalog</a></p>
-<header><p>Phase 7 · 驗證 · 007-0006 · Conditional diagnosis</p><h1>只有 failure 還解釋不了，才保留 trace</h1><p class="mission"><strong>條件式進入：</strong>只在 007-0005 的 test 仍失敗／flaky，而且 failure output、direct observation、console／request evidence不足以區分假說時進入。若同一 test 已有 decisive RED 與 corrected GREEN，立刻 bypass 本課，直接準備 007-0007 addendum；trace 不是每次必跑的 evidence tier。</p></header>
-<div class="verified"><strong>操作方式校準：</strong>2026-07-17 以 <code>@playwright/test@1.61.1</code> 將 <code>trace</code> 設為 failure-only conditional：faulty run 在 <code>TRACE_MODE=1</code> 產生非空 <code>trace.zip</code>；corrected rerun 在 <code>TRACE_MODE=0</code> 通過且沒有 trace artifact。這證明設定行為，不代表 trace 內容已診斷你的 app。</div>
-<h2>1. 先寫 trace justification</h2>
+<p><a href="007-0005-rerun-in-declared-environment.html">← RED／GREEN重跑</a> · <a href="../reference/browser-evidence-selector.html">瀏覽器證據選擇器</a> · <a href="../toc.html">回課程目錄</a></p>
+<header><p>Phase 7 · 驗證 · 007-0006 · 條件式診斷</p><h1>只有失敗還解釋不了，才保留trace</h1><p class="mission"><strong>條件式進入：</strong>只在007-0005的test仍失敗／不穩定，而且失敗輸出、直接觀察、主控台／需求證據不足以區分假說時進入。若同一test已有關鍵的RED與修正後的GREEN，立刻略過本課，直接準備007-0007附錄；trace不是每次必跑的證據層級。</p></header>
+<div class="verified"><strong>操作方式校準：</strong>2026-07-17以 <code>@playwright/test@1.61.1</code> 將 <code>trace</code> 設為僅失敗時啟用的條件式設定：有缺陷的執行在 <code>TRACE_MODE=1</code> 產生非空 <code>trace.zip</code>；修正後重跑在 <code>TRACE_MODE=0</code> 通過且沒有trace artifact。這證明設定行為，不代表trace內容已診斷你的應用程式。</div>
+<h2>1. 先寫trace理由</h2>
 <div class="card"><pre>Claim / exact test identity:
 Unresolved failure run ID:
 What direct output already proves:
@@ -23,8 +23,8 @@ Why a smaller artifact is insufficient:
 Sensitive fields / routes / payloads that may be captured:
 Approved local artifact directory / viewer / retention:
 Stop if capture exceeds authority:</pre></div>
-<p class="rule"><strong>進入判定準則：</strong>如果你不能寫出至少兩個可被 trace 區分的假說，先不要 capture。Trace 是用來回答已命名的診斷問題，不是為 addendum 增加一個漂亮附件；screenshot 或 trace 本身也不會讓 assertion 變成 durable。</p>
-<h2>2. 將 capture 限定在 failing run</h2>
+<p class="rule"><strong>進入判定準則：</strong>如果你不能寫出至少兩個可被trace區分的假說，先不要擷取。追蹤是用來回答已命名的診斷問題，不是為附錄增加一個漂亮附件；screenshot或trace本身也不會讓斷言變成持久的。</p>
+<h2>2. 將擷取限定在失敗的執行</h2>
 <div class="card"><pre>// playwright.config.ts — 只示範 conditional shape
 const diagnose = process.env.PW_DIAGNOSE === '1';
 
@@ -39,9 +39,9 @@ PW_DIAGNOSE=1 npx playwright test tests/browser/checkout.spec.ts \
 
 # 在可信本機環境查看，不把 artifact 上傳未知服務
 npx playwright show-trace path/to/trace.zip</pre></div>
-<table><tr><th>檢查面</th><th>只記 direct observation</th><th>另列 inference</th></tr><tr><td>操作／DOM</td><td>Click 前後 locator、visible state、URL 與 timing。</td><td>「可能等待錯誤 element」仍是 hypothesis。</td></tr><tr><td>Console／網路</td><td>Exact message、request URL／method／status、response timing；敏感 payload 不抄入 notes。</td><td>「API壞了」要由具體 response 或另一個 check驗證。</td></tr><tr><td>原始碼／stack</td><td>Trace 能顯示的 call與 failure point。</td><td>Root cause 仍須由修正後同 assertion rerun證明。</td></tr><tr><td>Artifact 檔案</td><td>Local path、SHA／size、capture mode、retention與 cleanup。</td><td>有 trace 不等於找到原因，也不等於 real-user evidence。</td></tr></table>
-<h2>3. 用 trace 導出一個可反證 repair</h2>
-<ol><li>將 trace observation 對回已命名 hypotheses；不符合的明確排除，仍未知的保持 unknown。</li><li>只修最小 root cause 或 controlled fixture；若 app／test candidate 有任何 byte 改變，記錄新 candidate identity，稍後重新套用完整 Review contract。</li><li>以 <code>PW_DIAGNOSE=0</code> 重跑同一 test／assertion；GREEN 才是 repair evidence，trace 不是。</li><li>確認正常路徑沒有新 trace artifact；保留必要 artifact identity與精簡 observation，依 retention plan清理原檔。</li></ol>
+<table><tr><th>檢查面</th><th>只記直接觀察</th><th>另列推論</th></tr><tr><td>操作／DOM</td><td>點擊前後定位資訊、可見的狀態、URL與時間資訊。</td><td>「可能等待錯誤元素」仍是假說。</td></tr><tr><td>主控台／網路</td><td>精確訊息、需求URL／方法／狀態、回應時間；敏感payload不抄入備註。</td><td>「API壞了」要由具體回應或另一個check驗證。</td></tr><tr><td>原始碼／呼叫堆疊</td><td>追蹤能顯示的呼叫與失敗位置。</td><td>根本原因仍須由修正後同斷言重跑證明。</td></tr><tr><td>Artifact檔案</td><td>本機路徑、SHA／大小、擷取模式、保留與清理。</td><td>有trace不等於找到原因，也不等於真實使用者證據。</td></tr></table>
+<h2>3. 用trace導出一個可反證修正</h2>
+<ol><li>將trace觀察對回已命名假說；不符合的明確排除，仍未知的保持未知事項。</li><li>只修最小根本原因或受控的fixture；若應用程式／test候選版本有任何位元組改變，記錄新候選版本識別，稍後重新套用完整Review contract。</li><li>以 <code>PW_DIAGNOSE=0</code> 重跑同一test／斷言；GREEN才是修正證據，trace不是。</li><li>確認正常路徑沒有新trace artifact；保留必要artifact識別與精簡觀察，依保留計畫清理原檔。</li></ol>
 <div class="card"><pre>Trace artifact path / identity / size:
 Capture command / environment / failure run:
 Direct observations:
@@ -51,14 +51,14 @@ Same-test rerun command / GREEN result:
 TRACE_MODE=0 bypass produced no trace: yes / no
 Artifact retained until / cleanup performed:
 Unverified scope:</pre></div>
-<p class="boundary"><strong>隱私／成本邊界：</strong>Trace 可能包含 DOM、URL、request metadata、console、source與 screenshots。只在 safe fixture或已核准資料範圍 capture；不要用真實 secrets、payment、personal data或未授權 logged-in workflow做教材練習。看見超出 authority 的資料就停止、隔離並依 repo policy清理，不要把 trace attach 到 issue、PR或外部服務。</p>
-<div class="win"><strong>可見成果：</strong>一份只為未解 failure建立的 trace diagnosis record，包含 capture justification、artifact identity、direct observations、分離的 hypotheses、bounded repair與 trace-off GREEN rerun。<br><strong>可觀察回饋：</strong>Reviewer 能指出 trace 中哪一項 observation 排除／支持哪個 hypothesis，並確認正常 rerun 沒有依賴 trace；若拿掉 trace 仍沒有可驗證的 repair decision，本課尚未完成。</div>
-<div class="quiz" data-answer="1"><p>007-0005 已有同 identity 的 decisive RED 與 corrected GREEN，沒有未解 failure。下一步是？</p><button type="button">仍然每次設 <code>trace: 'on'</code>，因 artifact 越多 evidence越強</button><button type="button">Bypass 007-0006，記錄 trace 不適用，直接把 test／environment／limits 收入 addendum</button><button type="button">刪掉 RED，只留下 trace與成功 screenshot</button><div class="why">Trace 是 conditional diagnosis artifact。Durable claim 的核心是同 assertion能對故障 RED、修正後 GREEN；沒有診斷問題就不應增加 capture。</div></div>
-<p class="stop"><strong>合法停止／返回／續行：</strong>Trace justification 不成立、capture 可能越過資料／site／artifact authority、artifact viewer不可信、trace無法區分 hypotheses、repair 後同 test不綠、結果仍 flaky、cleanup 未完成，或變更後 candidate 尚未重新 Review 時，保存 non-sensitive facts並停止；回 007-0005重新建立可比較 failure，或回 originating Engineering route 修 candidate。只有 trace observation導出可反證 repair且 trace-off rerun GREEN後，才續到 <a href="007-0007-complete-browser-evidence-addendum.html">007-0007</a>；完成本 conditional lesson 不代表 Browser evidence route、Phase 或 Migration complete。</p>
+<p class="boundary"><strong>隱私／成本邊界：</strong>追蹤可能包含DOM、URL、需求中繼資料、主控台、來源與螢幕截圖。只在安全的fixture或已核准資料範圍擷取；不要用真實機密資料、付款、個人資料或未授權已登入的工作流做教材練習。看見超出權限的資料就停止、隔離並依repo政策清理，不要把trace附加到議題、PR或外部服務。</p>
+<div class="win"><strong>可見成果：</strong>一份只為未解失敗建立的追蹤診斷紀錄，包含擷取理由、artifact識別、直接觀察、分離的假說、有界修正與關閉追蹤後的 GREEN 重跑。<br><strong>可觀察回饋：</strong>審查者能指出trace中哪一項觀察排除／支持哪個假說，並確認正常重跑沒有依賴trace；若拿掉trace仍沒有可驗證的修正決策，本課尚未完成。</div>
+<div class="quiz" data-answer="1"><p>007-0005已有同識別的關鍵 RED與修正後的GREEN，沒有未解失敗。下一步是？</p><button type="button">仍然每次設 <code>trace: 'on'</code>，因artifact越多證據越強</button><button type="button">略過007-0006，記錄trace不適用，直接把test／環境／限制收入附錄</button><button type="button">刪掉RED，只留下trace與成功screenshot</button><div class="why">追蹤是條件式診斷artifact。持久主張的核心是同斷言能對故障RED、修正後GREEN；沒有診斷問題就不應增加擷取。</div></div>
+<p class="stop"><strong>合法停止／返回／續行：</strong>追蹤理由不成立、擷取可能越過資料／網站／artifact權限、artifact檢視器不可信、trace無法區分假說、修正後同test不綠、結果仍不穩定、清理未完成，或變更後候選版本尚未重新審查時，保存非敏感事實並停止；回007-0005重新建立可比較失敗，或回原始的工程路線修候選版本。只有trace觀察導出可反證修正且關閉追蹤後重跑 GREEN，才續到 <a href="007-0007-complete-browser-evidence-addendum.html">007-0007</a>；完成本條件式課程不代表瀏覽器證據route、Phase或Migration完成。</p>
 <footer data-course-footer="canonical" data-route-id="browser-evidence" data-legal-stop="Stop after the browser claim is rerunnable in the declared environment">
 <p><strong>路線導覽 · 瀏覽器證據</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="browser-evidence" data-route-action="next" href="007-0007-complete-browser-evidence-addendum.html">下一步：lessons/007-0007-complete-browser-evidence-addendum.html</a></li>
+<li><a data-route-id="browser-evidence" data-route-action="next" href="007-0007-complete-browser-evidence-addendum.html">下一步：007-0007 課程</a></li>
 </ul>
 <p data-route-legal-stop="Stop after the browser claim is rerunnable in the declared environment"><strong>合法停止點：</strong>browser claim 能在指定環境重跑後即可停止</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>playwright-durable-browser-evidence</code></div>

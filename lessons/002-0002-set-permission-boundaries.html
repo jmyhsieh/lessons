@@ -8,7 +8,7 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="toolbox:conditional,toolbox:feedback,toolbox:tangible-win">
 <meta name="course:source-ids" content="claude-code-cli-execution-controls,claude-code-permission-plan-boundary">
-<title>002-0002：設定 permission boundaries</title>
+<title>002-0002：設定權限邊界</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
@@ -27,25 +27,25 @@
 </style>
 </head>
 <body>
-<p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../toc.html">回課目表</a></p>
+<p><a href="002-0001-choose-toolbox-lesson.html">← 回工具箱選擇器</a> · <a href="../toc.html">回課目表</a></p>
 <header>
-  <p class="kicker">第 2 階段 · 裝備 · 002-0002 · Conditional toolbox lesson</p>
-  <h1>先把 read、write 與 external side effects 分開</h1>
-  <p class="mission"><strong>任務：</strong>替 active route 寫一張 permission boundary card，並在 safe fixture 用 plan mode 證明探索沒有新增 source diff。</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0002 · Conditional 工具箱課程</p>
+  <h1>先把讀取、寫入與外部副作用分開</h1>
+  <p class="mission"><strong>任務：</strong>替目前路線寫一張權限邊界卡，並在安全練習環境用計畫模式證明探索沒有新增來源 diff。</p>
 </header>
 
-<h2>權限不是 prompt 裡的一句話</h2>
-<p>真正的 permission boundary 由 Claude Code 應用程式執行，不由模型自行保證。規則衝突時採 <strong>deny → ask → allow 權限順序</strong> 的優先順序；把敏感或不可逆行為留在 deny／ask，比要求模型「小心一點」可靠。</p>
+<h2>權限不是提示裡的一句話</h2>
+<p>真正的權限邊界由 Claude Code 應用程式執行，不由模型自行保證。規則衝突時採 <strong>拒絕 → 詢問 → 放行權限順序</strong> 的優先順序；把敏感或不可逆行為留在拒絕／詢問，比要求模型「小心一點」可靠。</p>
 <div class="table-wrap"><table>
-  <thead><tr><th>層次</th><th>這次 session 的例子</th><th>判斷</th></tr></thead>
+  <thead><tr><th>層次</th><th>這次工作階段的例子</th><th>判斷</th></tr></thead>
   <tbody>
-    <tr><td>讀取（Read）</td><td>讀取指定 fixture 內的 source、tests 與 instructions</td><td>只開放完成 reconnaissance 所需範圍；credentials 與無關資料不在 scope。</td></tr>
-    <tr><td>寫入（Write）</td><td>修改 source、設定或建立檔案</td><td>本 smoke test 不需要 write；保持 plan mode，任何 source edit 都是停止訊號。</td></tr>
-    <tr><td>外部副作用</td><td>push、deploy、發訊息、修改遠端服務</td><td>本課全部禁止；需要時回 active route 重新核准，不由 toolbox lesson 擴權。</td></tr>
+    <tr><td>讀取</td><td>讀取指定練習環境內的來源、tests 與指引</td><td>只開放完成 偵察 所需範圍；憑證與無關資料不在範圍。</td></tr>
+    <tr><td>寫入</td><td>修改來源、設定或建立檔案</td><td>本快速驗證測試不需要寫入；保持計畫模式，任何來源編輯都是停止訊號。</td></tr>
+    <tr><td>外部副作用</td><td>push、部署、發訊息、修改遠端服務</td><td>本課全部禁止；需要時回目前路線重新核准，不由工具箱課程擴權。</td></tr>
   </tbody>
 </table></div>
 
-<h2>建立 boundary card</h2>
+<h2>建立邊界卡</h2>
 <div class="card"><pre>Active route / return point:
 Safe fixture:
 Allowed reads:
@@ -55,30 +55,30 @@ Denied external side effects:
 Stop condition:
 Expected smoke-test evidence:</pre></div>
 
-<h2>執行零新增 diff 的 smoke test</h2>
+<h2>執行零新增 diff 的快速驗證測試</h2>
 <ol>
-  <li>在 recoverable fixture 記錄起始 <code>git status --short</code> 與目前 branch；不要假設工作樹原本是乾淨的。</li>
-  <li>用介面的 mode selector 切到 plan，或從 CLI 以 <code>claude --permission-mode plan</code> 開始 session。</li>
-  <li>要求 Claude 讀取一個已核准檔案，說明它的目的，並提出一個可能的 source edit plan；不要離開 plan mode。</li>
-  <li>再次記錄 <code>git status --short</code>，比較前後輸出；確認沒有因本次 smoke test 增加或改變任何檔案。</li>
-  <li>保存 mode、prompt、前後狀態、Claude 的 reconnaissance 摘要與你的 learner judgment。</li>
+  <li>在可復原練習環境記錄起始 <code>git status --short</code> 與目前分支；不要假設工作樹原本是乾淨的。</li>
+  <li>用介面的模式選擇器切到計畫，或從 CLI 以 <code>claude --permission-mode plan</code> 開始工作階段。</li>
+  <li>要求 Claude 讀取一個已核准檔案，說明它的目的，並提出一個可能的來源編輯計畫；不要離開計畫模式。</li>
+  <li>再次記錄 <code>git status --short</code>，比較前後輸出；確認沒有因本次快速驗證測試增加或改變任何檔案。</li>
+  <li>保存模式、提示、前後狀態、Claude 的偵察摘要與你的學習者判斷。</li>
 </ol>
-<div class="win"><strong>具體成果：</strong>一張 permission boundary card，加上一份 plan-mode smoke-test record。<br><strong>可觀察回饋：</strong>核准的 read 產生可核對摘要；前後 working-tree 狀態相同；沒有 write 或 external side effect。</div>
+<div class="win"><strong>具體成果：</strong>一張權限邊界卡，加上一份規劃模式快速驗證紀錄。<br><strong>可觀察回饋：</strong>核准的 讀取 產生可核對摘要；前後工作樹狀態相同；沒有寫入或外部副作用。</div>
 
 <div class="quiz" data-answer="2">
-  <p>哪一項最能證明這次 permission smoke test 符合邊界？</p>
+  <p>哪一項最能證明這次權限快速驗證符合邊界？</p>
   <button type="button">Prompt 寫了「請小心，不要改檔」</button>
   <button type="button">Claude 回答它沒有修改任何東西</button>
-  <button type="button">Session 在 plan mode，且前後 working-tree evidence 沒有新增變更</button>
-  <div class="why">模式限制與外部可觀察 evidence 才能證明邊界；模型的自我陳述不是權限控制或驗證結果。</div>
+  <button type="button">工作階段處於計畫模式，且前後工作樹證據沒有新增變更</button>
+  <div class="why">模式限制與外部可觀察證據才能證明邊界；模型的自我陳述不是權限控制或驗證結果。</div>
 </div>
 
-<p class="stop"><strong>返回邊界：</strong>把 card 與 smoke-test evidence 寫回 Return notebook，狀態記為 <code>Lesson practiced</code>，然後回到原本的 <code>Targeted-remediation return point</code>。不要在本課切到 bypass，也不要順便修改真實 route artifact。</p>
+<p class="stop"><strong>返回邊界：</strong>把卡與快速驗證證據寫回 Return notebook，狀態記為 <code>Lesson practiced</code>，然後回到原本的 <code>Targeted-remediation return point</code>。不要在本課切到略過權限檢查，也不要順便修改真實路線成果。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄：toc.html</a></li>
-<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的 Targeted-remediation return point；沒有有效 return point 時才使用 catalog fallback。</span></li>
+<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄</a></li>
+<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的指定補強返回點；沒有有效返回點時才使用目錄備援。</span></li>
 </ul>
 <p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>合法停止點：</strong>每個選定課程都返回呼叫端提供的 active route；工具箱本身沒有 Phase completion</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>claude-code-cli-execution-controls</code>、<code>claude-code-permission-plan-boundary</code></div>

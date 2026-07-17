@@ -7,13 +7,13 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="workflow-standardization:conditional,workflow-standardization:feedback,workflow-standardization:tangible-win">
 <meta name="course:source-ids" content="agent-operations-safety-contract,llm-wiki-local-slice-contract,workflow-standardization-contract">
-<title>009-0009：萃取 LLM Wiki maintenance contract</title>
+<title>009-0009：萃取LLM Wiki維護契約</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:940px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#315f86;margin-top:2rem}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary,.stop{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{border:1px solid #ccd9e3;padding:.55rem;text-align:left;vertical-align:top}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem;overflow-wrap:anywhere}pre{padding:.8rem;white-space:pre-wrap;overflow-wrap:anywhere}label{display:block;margin:.45rem 0}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:700px){body{margin-top:1rem}table{display:block;overflow-x:auto;font-size:.76rem}}</style>
 </head><body>
-<p><a href="009-0001-select-proven-workflow.html">← 選擇已證明的 workflow</a> · <a href="008-0008-run-recoverable-llm-wiki-maintenance.html">維護證據</a> · <a href="../reference/llm-wiki-capstone-thread.html">選用總整線索</a> · <a href="009-0003-choose-workflow-package.html">前往 package selector →</a></p>
-<header><p>Phase 9 · 標準化 · 009-0009 · Conditional contract branch</p><h1>把一次已證明的 LLM Wiki maintenance 萃取成可重跑 contract</h1><p class="mission"><strong>進入條件／選修：</strong>Mission 已選擇 standardize LLM Wiki maintenance，而且能帶入 <a href="008-0008-run-recoverable-llm-wiki-maintenance.html">008-0008</a> 的 exact maintenance evidence，以及後續 008-0005 completion proof 與 008-0007 operating closeout。若只有 raw sources、第一次生成的 wiki slice、未 review 的操作筆記，或只覺得流程「應該可重用」，不進本 branch；回原路補 proof。</p></header>
+<p><a href="009-0001-select-proven-workflow.html">← 選擇已證明的工作流</a> · <a href="008-0008-run-recoverable-llm-wiki-maintenance.html">維護證據</a> · <a href="../reference/llm-wiki-capstone-thread.html">選用總整線索</a> · <a href="009-0003-choose-workflow-package.html">前往套件selector →</a></p>
+<header><p>Phase 9 · 標準化 · 009-0009 · 條件式契約分支</p><h1>把一次已證明的LLM Wiki維護萃取成可重跑契約</h1><p class="mission"><strong>進入條件／選修：</strong>Mission已選擇標準化LLM Wiki維護，而且能帶入 <a href="008-0008-run-recoverable-llm-wiki-maintenance.html">008-0008</a> 的指定維護證據，以及後續008-0005完成證明與008-0007作業收尾。若只有原始來源、第一次生成的知識庫切片、未審查的操作筆記，或只覺得流程「應該可重用」，不進本分支；回原路補證明。</p></header>
 
-<h2>1. 先固定 proof identity，不從記憶重寫流程</h2>
+<h2>1. 先固定證明識別，不從記憶重寫流程</h2>
 <div class="card"><pre>Maintenance run / operating closeout IDs:
 Existing wiki revision / maintained revision:
 Raw source pack / stable source IDs / rights record:
@@ -23,13 +23,13 @@ Exact completion oracle / pass result:
 Failure / recovery / retry evidence:
 Reviewer disposition / unresolved limitations:
 External actions: none | separately approved receipt</pre></div>
-<p class="rule"><strong>證明前置條件：</strong>Contract 只能萃取 evidence 已出現且被 reviewer disposition 的行為。Raw source pack、stable source IDs 與 claim-level provenance 繼續是 source of truth；wiki pages、summary、links、exports、contract 與 package 都是 derived artifacts，不得互相循環背書。</p>
+<p class="rule"><strong>證明前置條件：</strong>契約只能萃取證據已出現且被審查者處置的行為。原始來源包、穩定來源ID與主張層級來源脈絡繼續是來源的唯一權威來源；知識庫頁面、摘要、連結、匯出檔、契約與套件都是衍生的產物，不得互相循環背書。</p>
 
-<h2>2. 分開 invariant 與每次執行的 parameters</h2>
-<table><tr><th>契約欄位</th><th>保留為 invariant</th><th>每次 rerun 明確給 parameter</th></tr><tr><td>輸入</td><td>只接受具 stable IDs、rights 與 locator 的 raw-source set。</td><td>來源版本、change trigger、受影響的 topic cluster、baseline revision。</td></tr><tr><td>輸出</td><td>只修改 bounded local fixture；每個 changed claim 可回到 raw locator。</td><td>輸出路徑、預期 pages／links／exports、run identity。</td></tr><tr><td>權限</td><td>Least read／write scope、preview-first、agent 不自我批准 external action。</td><td>Allowed paths、operator、approval receipt；shared／remote target 預設不允許。</td></tr><tr><td>判定依據</td><td>Source trace、link／export、blank／duplicate、scope equality 與 review-log checks。</td><td>精確的 command／procedure、預期結果、fixture fingerprints。</td></tr><tr><td>恢復</td><td>Failure 可見、partial effects 有 disposition、restore 或 idempotent retry 已實測。</td><td>檢查點、restore identity、retry key、escalation owner。</td></tr><tr><td>判斷</td><td>Unsupported、conflict、omission、rights 與 limitations 留給人 disposition。</td><td>Reviewer 問題、decision record、legal stop。</td></tr></table>
-<p class="boundary"><strong>不得過度概括：</strong>若 evidence 只覆蓋一種 source layout、單一 local fixture 或特定 failure，contract 就明列限制；不得把一次成功改寫成「任何知識庫都可維護」，也不得把 local recovery 推論成 production readiness。</p>
+<h2>2. 分開不變條件與每次執行參數</h2>
+<table><tr><th>契約欄位</th><th>保留為不變條件</th><th>每次重跑明確給定參數</th></tr><tr><td>輸入</td><td>只接受具穩定 ID、權利與定位資訊的原始來源集合。</td><td>來源版本、變更觸發條件、受影響的主題叢集、基準修訂版。</td></tr><tr><td>輸出</td><td>只修改有界的本機測試資料；每個已變更主張可回到原始定位資訊。</td><td>輸出路徑、預期頁面／連結／匯出檔、執行識別。</td></tr><tr><td>權限</td><td>最小讀取／寫入範圍、先預覽、代理程式不自我批准外部動作。</td><td>允許的路徑、操作者、核准收據；共用／遠端目標預設不允許。</td></tr><tr><td>判定依據</td><td>來源追溯、連結／匯出、空白／重複、範圍相等性與審查紀錄檢查。</td><td>指定的命令／程序、預期結果、測試資料指紋。</td></tr><tr><td>恢復</td><td>失敗可見、部分影響有處置、還原或冪等重試已實測。</td><td>檢查點、還原識別、重試鍵、升級處理負責人。</td></tr><tr><td>判斷</td><td>不支援、衝突、遺漏、權利與限制留給人處置。</td><td>審查者問題、決策紀錄、法務停止點。</td></tr></table>
+<p class="boundary"><strong>不得過度概括：</strong>若證據只覆蓋一種來源版面、單一本機測試資料或特定失敗，契約就明列限制；不得把一次成功改寫成「任何知識庫都可維護」，也不得把本機復原推論成正式環境就緒。</p>
 
-<h2>3. 寫出對錯誤輸入會拒絕的 maintenance contract</h2>
+<h2>3. 寫出對錯誤輸入會拒絕的維護契約</h2>
 <div class="card"><pre>Contract ID / version / owner:
 Originating maintenance evidence / exact revisions:
 Promise / audience / explicit non-goals:
@@ -43,17 +43,17 @@ Restore / retry / escalation procedure:
 Human judgments that package must not automate:
 Positive fixture / disconfirming fixture:
 Change / recertification / retirement triggers:</pre></div>
-<ol><li><strong>正例重播：</strong>用已證明 fixture 重跑 contract，結果應對上同一組 raw-source delta、bounded write set 與 oracle。</li><li><strong>反證重播：</strong>移除 locator、改成未授權 path、破壞 baseline 或製造 duplicate retry，確認 contract 在 mutation 或 external effect 前停止。</li><li><strong>恢復重播：</strong>中斷一次 bounded run，確認 checkpoint、partial-effect record 與 restore／retry 能重建預期狀態。</li><li><strong>範圍比較：</strong>若 replay 需要新增 inputs、authority、judgment 或 output，先修 contract 與重新證明，不把 gap 藏進 package instructions。</li></ol>
-<div class="card"><strong>Contract 驗收檢查清單</strong><label><input type="checkbox"> Exact 008-0008 maintenance、completion proof 與 operating closeout identities 可重建</label><label><input type="checkbox"> Raw source pack、stable IDs、rights 與 claim provenance 仍是 source of truth</label><label><input type="checkbox"> Invariants 與每次 rerun parameters 已分開</label><label><input type="checkbox"> Read／write／external authority 未超出 proven run</label><label><input type="checkbox"> Positive、disconfirming 與 recovery replay 使用同一 contract version</label><label><input type="checkbox"> Human judgments、limitations、change 與 retirement triggers 有 owner</label></div>
-<div class="win"><strong>可見成果：</strong>一份由 008-0008 maintenance evidence 萃取，清楚分開 invariant／parameters／authority／oracle／recovery／human judgment 的 versioned maintenance contract。<br><strong>可觀察回饋：</strong>另一位 operator 只依 contract 能在 positive fixture 重現 bounded maintenance，並在缺 provenance、越界 write、錯誤 revision 或 duplicate retry 時於 mutation 前得到可解釋的 safe stop。</div>
+<ol><li><strong>正例重播：</strong>用已證明測試資料重跑契約，結果應對上同一組原始來源差異、有界寫入集合與判定依據。</li><li><strong>反證重播：</strong>移除定位資訊、改成未授權路徑、破壞基準或製造重複重試，確認契約在變更或外部影響前停止。</li><li><strong>恢復重播：</strong>中斷一次有界執行，確認檢查點、部分影響紀錄與還原／重試能重建預期狀態。</li><li><strong>範圍比較：</strong>若重播需要新增輸入、權限、判斷或輸出，先修契約與重新證明，不把缺口藏進套件指示。</li></ol>
+<div class="card"><strong>契約驗收檢查清單</strong><label><input type="checkbox"> 指定的 008-0008維護、完成證明與作業收尾識別資訊可重建</label><label><input type="checkbox"> 原始來源包、穩定 ID、權利與主張來源脈絡仍是唯一權威來源</label><label><input type="checkbox"> 不變條件與每次重跑參數已分開</label><label><input type="checkbox"> 讀取／寫入／外部權限未超出已證明的執行</label><label><input type="checkbox"> 正例、反證與復原重播使用同一契約版本</label><label><input type="checkbox"> 人工判斷、限制、變更與退役觸發條件有負責人</label></div>
+<div class="win"><strong>可見成果：</strong>一份由008-0008維護證據萃取，清楚分開不變條件／參數／權限／判定依據／復原／人工判斷的具版本維護契約。<br><strong>可觀察回饋：</strong>另一位操作者只依契約就能在正向測試資料重現有界維護，並在缺來源脈絡、越界寫入、錯誤修訂版或重複重試時，於變更前得到可解釋的安全停止點。</div>
 
-<div class="quiz" data-answer="1"><p>既有 maintenance 成功過，但新 package 想順便允許同步 remote wiki。Contract 應怎麼處理？</p><button type="button">把 remote sync 寫成預設最後一步，成功經驗已足夠</button><button type="button">維持 external action 不在 contract；另立 authority 與 proof，否則停止</button><button type="button">讓 agent 依內容重要性自行決定是否同步</button><div class="why">Packaging 不授予新 authority；原 proof 只覆蓋 recoverable local maintenance，remote side effect 必須另立 scope、approval、receipt 與 recovery evidence。</div></div>
+<div class="quiz" data-answer="1"><p>既有維護成功過，但新套件想順便允許同步遠端知識庫。契約應怎麼處理？</p><button type="button">把遠端同步寫成預設最後一步，成功經驗已足夠</button><button type="button">維持外部動作不在契約；另立權限與證明，否則停止</button><button type="button">讓代理程式依內容重要性自行決定是否同步</button><div class="why">封裝不授予新權限；原證明只覆蓋可復原的本機維護，遠端副作用必須另立範圍、核准、收據與復原證據。</div></div>
 
-<p class="stop"><strong>返回／合法停止／續行：</strong>Maintenance evidence、raw-source identity、provenance、authority、oracle、failure／recovery 或 reviewer disposition 任一不可重建時，保存 draft，精確回 003-0007／003-0005、008-0008、008-0005 或 008-0007 補缺口。Contract 能在正反例中重跑後，帶著它回 <a href="009-0003-choose-workflow-package.html">009-0003</a>，依 audience 與 execution need <strong>只選一種</strong> package branch，完成後再 rejoin 009-0008；不要補做所有 package。<a href="../reference/llm-wiki-capstone-thread.html">LLM Wiki 總整線索</a> 只供保存跨 route lineage，可選且不是進入、完成或組織採用前提。</p>
+<p class="stop"><strong>返回／合法停止／續行：</strong>維護證據、原始來源識別、來源脈絡、權限、判定依據、失敗／復原或審查者處置任一不可重建時，保存草稿，精確回003-0007／003-0005、008-0008、008-0005或008-0007補缺口。契約能在正反例中重跑後，帶著它回 <a href="009-0003-choose-workflow-package.html">009-0003</a>，依受眾與執行需求 <strong>只選一種</strong> 套件分支，完成後再銜接009-0008；不要補做所有套件。<a href="../reference/llm-wiki-capstone-thread.html">LLM Wiki總整線索</a> 只供保存跨路線沿革，可選且不是進入、完成或組織採用前提。</p>
 <footer data-course-footer="canonical" data-route-id="workflow-standardization" data-legal-stop="Stop after one fitting package is rerun and reviewed">
 <p><strong>路線導覽 · 工作流程標準化</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="workflow-standardization" data-route-action="next" href="009-0003-choose-workflow-package.html">下一步：lessons/009-0003-choose-workflow-package.html</a></li>
+<li><a data-route-id="workflow-standardization" data-route-action="next" href="009-0003-choose-workflow-package.html">下一步：009-0003 課程</a></li>
 </ul>
 <p data-route-legal-stop="Stop after one fitting package is rerun and reviewed"><strong>合法停止點：</strong>一個合適 package 已重跑並完成 review 後即可停止</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>agent-operations-safety-contract</code>、<code>llm-wiki-local-slice-contract</code>、<code>workflow-standardization-contract</code></div>

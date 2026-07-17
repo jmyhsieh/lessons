@@ -8,7 +8,7 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="toolbox:conditional,toolbox:feedback,toolbox:tangible-win">
 <meta name="course:source-ids" content="claude-code-cli-execution-controls,claude-code-read-only-isolation-contract">
-<title>002-0008：委派 read-only investigation</title>
+<title>002-0008：委派唯讀調查</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
@@ -27,14 +27,14 @@
 </style>
 </head>
 <body>
-<p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../toc.html">回課目表</a></p>
+<p><a href="002-0001-choose-toolbox-lesson.html">← 回工具箱選擇器</a> · <a href="../toc.html">回課目表</a></p>
 <header>
-  <p class="kicker">第 2 階段 · 裝備 · 002-0008 · Conditional toolbox lesson</p>
-  <h1>把一個 bounded question 交給 read-only subagent</h1>
-  <p class="mission"><strong>任務：</strong>在可信 local repo 中，把一個只需蒐集檔案證據的問題交給 fresh Explore／Plan subagent，抽查引用後把摘要帶回 active route。</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0008 · Conditional 工具箱課程</p>
+  <h1>把一個有界限的問題交給唯讀 subagent</h1>
+  <p class="mission"><strong>任務：</strong>在可信本機儲存庫中，把一個只需蒐集檔案證據的問題交給全新探索／計畫 subagent，抽查引用後把摘要帶回目前路線。</p>
 </header>
 
-<h2>先寫 delegation contract</h2>
+<h2>先寫委派契約</h2>
 <div class="card"><pre>Active route / return point:
 One bounded question:
 Allowed paths and evidence:
@@ -43,37 +43,37 @@ Expected answer shape: claim + file:line evidence + uncertainty
 Stop condition:
 Main-session spot check:</pre></div>
 <div class="table-wrap"><table>
-  <thead><tr><th>需要</th><th>正確 isolation</th></tr></thead>
+  <thead><tr><th>需要</th><th>正確隔離</th></tr></thead>
   <tbody>
-    <tr><td>大量 read-only 探索，不污染主對話 context</td><td>Fresh Explore／Plan subagent；不給 Edit、Write 或外部 side effect authority。</td></tr>
-    <tr><td>另一條工作線需要改檔</td><td>本課停止；改選 worktree lesson。Context isolation 不會隔離 filesystem。</td></tr>
+    <tr><td>大量唯讀探索，不污染主對話 脈絡</td><td>全新探索／計畫 subagent；不給編輯、寫入或外部副作用權限。</td></tr>
+    <tr><td>另一條工作線需要改檔</td><td>本課停止；改選工作樹課程。脈絡隔離不會隔離檔案系統。</td></tr>
   </tbody>
 </table></div>
 
-<h2>執行最小 investigation</h2>
+<h2>執行最小調查</h2>
 <ol>
-  <li>把問題縮成一個能由指定路徑回答的 fact，例如「哪個函式建立 session？」；不要委派整個 feature。</li>
-  <li>選目前介面可用的 read-only Explore 或 Plan subagent，逐字附上 allowed paths、denied actions、答案格式與 stop。</li>
-  <li>要求每個結論帶 <code>file:line</code>；證據不足時回報 uncertainty，不猜測、不改檔補證據。</li>
-  <li>主 session 隨機打開至少一個引用，確認 claim、path 與 line context 相符；不把 subagent summary 當 source of truth。</li>
-  <li>保存 delegation contract、摘要、抽查結果、未回答事項與 learner judgment。</li>
+  <li>把問題縮成一個能由指定路徑回答的 事實，例如「哪個函式建立工作階段？」；不要委派整個功能。</li>
+  <li>選目前介面可用的唯讀探索或計畫 subagent，逐字附上允許的路徑、遭拒動作、答案格式與停止點。</li>
+  <li>要求每個結論帶 <code>file:line</code>；證據不足時回報不確定性，不猜測、不改檔補證據。</li>
+  <li>主工作階段隨機打開至少一個引用，確認 主張、路徑與行號脈絡相符；不把 subagent 摘要當事實來源。</li>
+  <li>保存委派契約、摘要、抽查結果、未回答事項與 learner judgment。</li>
 </ol>
-<div class="win"><strong>具體成果：</strong>一份 bounded read-only investigation record。<br><strong>可觀察回饋：</strong>摘要回答唯一問題、附可開啟的檔案引用，抽查相符，working tree 沒有因 investigation 改變。</div>
+<div class="win"><strong>具體成果：</strong>一份有界限的唯讀調查紀錄。<br><strong>可觀察回饋：</strong>摘要回答唯一問題、附可開啟的檔案引用，抽查相符，工作樹沒有因調查改變。</div>
 
 <div class="quiz" data-answer="1">
   <p>Subagent 發現需要修改設定檔才能繼續查證，應怎麼做？</p>
-  <button type="button">直接修改，因為它有自己的 context</button>
-  <button type="button">停止並回報缺口，由主工作流重新選擇 authority 與 isolation</button>
+  <button type="button">直接修改，因為它有自己的脈絡</button>
+  <button type="button">停止並回報缺口，由主工作流重新選擇權限與隔離</button>
   <button type="button">改用沒有引用的推測完成摘要</button>
-  <div class="why">Read-only subagent 隔離的是 context，不會因為委派就取得 filesystem write authority；需要改檔時必須回到 selector 重新決定。</div>
+  <div class="why">唯讀 subagent 隔離的是 脈絡，不會因為委派就取得檔案系統寫入權限；需要改檔時必須回到選擇器重新決定。</div>
 </div>
 
-<p class="stop"><strong>合法停止／返回：</strong>目前介面沒有 read-only subagent、問題無法縮成 bounded investigation、需要外部資料或需要修改檔案時，記錄 gap 後停止。把 record 寫回 Return notebook，狀態記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。</p>
+<p class="stop"><strong>合法停止／返回：</strong>目前介面沒有唯讀 subagent、問題無法縮成有界限的調查、需要外部資料或需要修改檔案時，記錄缺口後停止。把紀錄寫回 Return notebook，狀態記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄：toc.html</a></li>
-<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的 Targeted-remediation return point；沒有有效 return point 時才使用 catalog fallback。</span></li>
+<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄</a></li>
+<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的指定補強返回點；沒有有效返回點時才使用目錄備援。</span></li>
 </ul>
 <p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>合法停止點：</strong>每個選定課程都返回呼叫端提供的 active route；工具箱本身沒有 Phase completion</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>claude-code-cli-execution-controls</code>、<code>claude-code-read-only-isolation-contract</code></div>

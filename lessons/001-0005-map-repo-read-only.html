@@ -14,28 +14,28 @@
 </head>
 <body>
 <p><a href="001-0004-prepare-claude-code-session.html">← 上一課</a> · <a href="../toc.html">回課目表</a></p>
-<header><p class="kicker">第 1 階段 · 定向 · 001-0005 · Code readiness</p><h1>先用檔案證據畫出 repo map</h1><p class="mission"><strong>任務：</strong>在可丟棄的練習 repo 或安全副本中，只讀取高層結構、instructions、entry points 與 checks，產出一張有檔案依據的 map。</p></header>
+<header><p class="kicker">第 1 階段 · 定向 · 001-0005 · Code readiness</p><h1>先用檔案證據畫出儲存庫地圖</h1><p class="mission"><strong>任務：</strong>在可丟棄的練習 repo 或安全副本中，只讀取高層結構、指引、進入點與 checks，產出一張有檔案依據的 地圖。</p></header>
 
-<h2>宣告 read-only boundary</h2>
-<div class="card">告訴 Claude Code：「只做 read-only reconnaissance。不要建立、修改、刪除檔案，不要安裝套件，不要執行會改變 state 的命令。請先找 repo instructions，再用具體路徑說明結構、入口與可用 checks。」</div>
+<h2>宣告唯讀邊界</h2>
+<div class="card">告訴 Claude Code：「只做唯讀偵察。不要建立、修改、刪除檔案，不要安裝套件，不要執行會改變狀態的命令。請先找儲存庫指引，再用具體路徑說明結構、入口與可用 checks。」</div>
 <ol>
-  <li>確認它找到的 instructions 路徑，例如 README、AGENTS.md 或 CLAUDE.md。</li>
+  <li>確認它找到的 指引 路徑，例如 README、AGENTS.md 或 CLAUDE.md。</li>
   <li>要求它說明主要目錄、入口、資料流與最相關的 3–5 個檔案。</li>
   <li>每個主張都要附路徑；你抽查至少兩個檔案，確認摘要與內容相符。</li>
-  <li>把 map 複製到 Return notebook；不要為了保存 map 讓它寫入 repo。</li>
+  <li>把 地圖 複製到續作筆記本；不要為了保存 地圖 讓它寫入 repo。</li>
 </ol>
-<div class="win"><strong>具體成果：</strong>一張包含 instructions、entry point、relevant files 與 checks 的 repo map。<br><strong>可觀察回饋：</strong>抽查的檔案支持 map，且 <code>git status --short</code> 沒有因 reconnaissance 產生變更。</div>
+<div class="win"><strong>具體成果：</strong>一張包含 指引、進入點、相關檔案與 checks 的儲存庫地圖。<br><strong>可觀察回饋：</strong>抽查的檔案支持 地圖，且 <code>git status --short</code> 沒有因 偵察 產生變更。</div>
 
-<div class="quiz" data-answer="2"><p>哪一種 repo map 最可 review？</p><button type="button">這是一個標準的 web app，結構看起來清楚</button><button type="button">Claude 已完整理解整個 codebase</button><button type="button">入口是 src/main.py；測試命令記在 README 的 Testing 段落；目前不確定部署路徑</button><div class="why">可 review 的 map 用路徑支持主張，也保留 unknown；模型的信心或一般化描述不是 evidence。</div></div>
+<div class="quiz" data-answer="2"><p>哪一種儲存庫地圖最可 review？</p><button type="button">這是一個標準的網頁應用程式，結構看起來清楚</button><button type="button">Claude 已完整理解整個 codebase</button><button type="button">入口是 src/main.py；測試命令記在 README 的 Testing 段落；目前不確定部署路徑</button><div class="why">可 review 的 地圖 用路徑支持主張，也保留 未知；模型的信心或一般化描述不是 evidence。</div></div>
 
-<p class="stop"><strong>停止線：</strong>若讀檔需要未授權資料或出現意外 write，立即停止並回到 safe scope。完成後前往<a href="001-0006-plan-readiness-fixture.html">測試情境規劃</a>。</p>
+<p class="stop"><strong>停止線：</strong>若讀檔需要未授權資料或出現意外 寫入，立即停止並回到安全範圍。完成後前往<a href="001-0006-plan-readiness-fixture.html">測試情境規劃</a>。</p>
 <footer data-course-footer="canonical" data-route-id="code-readiness" data-legal-stop="Stop after Code readiness is demonstrated; do not treat fixture work as delivery">
 <p><strong>路線導覽 · 程式碼準備度（Code readiness）</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="code-readiness" data-route-action="next" href="001-0006-plan-readiness-fixture.html">下一步：lessons/001-0006-plan-readiness-fixture.html</a></li>
+<li><a data-route-id="code-readiness" data-route-action="next" href="001-0006-plan-readiness-fixture.html">下一步：001-0006 課程</a></li>
 </ul>
 <p data-route-legal-stop="Stop after Code readiness is demonstrated; do not treat fixture work as delivery"><strong>合法停止點：</strong>證明 Code readiness 後即可停止；不要把 fixture 練習視為交付</p>
-<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible-win · Verified environment summary：Claude Code 2.1.211 help surface；Plan mode 是 read-only exploration boundary · 來源 ID：<code>claude-code-cli-execution-controls</code>、<code>claude-code-permission-plan-boundary</code></div>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible-win · 已驗證環境摘要：Claude Code 2.1.211 說明介面；規劃模式是唯讀探索邊界 · 來源 ID：<code>claude-code-cli-execution-controls</code>、<code>claude-code-permission-plan-boundary</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
 </body>

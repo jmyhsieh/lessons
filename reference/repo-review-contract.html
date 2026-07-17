@@ -10,11 +10,11 @@
 <title>Repo Review 契約</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:900px;margin:2.5rem auto;padding:0 1.25rem;line-height:1.75;color:#202020}h2{color:#315f86}.rule,.invalid{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.invalid{border-color:#a33;background:#fff2f2}table{border-collapse:collapse;width:100%;font-size:.94rem}th,td{border:1px solid #ccd9e3;padding:.55rem;vertical-align:top;text-align:left}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:650px){table{font-size:.84rem}th,td{padding:.4rem}}</style>
 </head><body>
-<p><a href="../lessons/006-0007-implement-and-create-review-checkpoint.html">實作 checkpoint</a> · <a href="../lessons/006-0008-review-final-candidate.html">獨立 Review</a></p>
-<header><p>Phase 6 · Build · 標準參考</p><h1>Repo Review 契約</h1><p class="rule"><strong>入口：</strong>implementation checkpoint 已存在，且 learner 要建立或稽核 Review bundle。<br><strong>核心規則：</strong>Review evidence 只對一組固定的 <code>fixed point</code>、exact <code>candidate SHA</code>、originating spec 與 standards sources 有效。candidate 任何 byte 改變，都必須建立新 checkpoint 並完整重跑 checks、Standards Review 與 Spec Review。</p></header>
-<p class="rule"><strong>具體成果：</strong>一份可複製、可抽查的 Review bundle schema。<br><strong>可觀察回饋：</strong>依表格可判斷 evidence 是否仍綁定同一 SHA，以及 finding repair 後是否真的完整重跑。</p>
-<h2>Review bundle 的必要欄位</h2>
-<table><tr><th>欄位</th><th>有效證據</th><th>無效替代</th></tr><tr><td>固定點</td><td>可解析的 commit／tag／merge-base identity</td><td>「開始前」、未記錄的 base</td></tr><tr><td>Candidate（候選版本）</td><td>精確 commit SHA；working tree 乾淨</td><td>branch、PR latest、移動中 <code>HEAD</code></td></tr><tr><td>Diff（差異）</td><td>由固定 identities 重建的 same three-dot diff</td><td>reviewer 各自看到不同 snapshot</td></tr><tr><td>Standards 軸</td><td>規則來源、file/hunk、獨立 findings</td><td>以「需求有做到」代替 standards</td></tr><tr><td>Spec 軸</td><td>requirement 引用、file/hunk、獨立 findings</td><td>以「lint green」代替 spec correctness</td></tr><tr><td>驗證</td><td>focused 與 full relevant checks 的 commands／results</td><td>模型自評、未列出的 skipped check</td></tr></table>
+<p><a href="../lessons/006-0007-implement-and-create-review-checkpoint.html">實作檢查點</a> · <a href="../lessons/006-0008-review-final-candidate.html">獨立 Review</a></p>
+<header><p>Phase 6 · 建置 · 標準參考</p><h1>Repo Review 契約</h1><p class="rule"><strong>入口：</strong>實作檢查點已存在，且學習者要建立或稽核 Review 收尾包。<br><strong>核心規則：</strong>Review 證據只對一組固定的 <code>fixed point</code>、精確的 <code>candidate SHA</code>、原始的規格與標準來源有效。候選版本任何位元組改變，都必須建立新檢查點並完整重跑 checks、Standards Review 與 Spec Review。</p></header>
+<p class="rule"><strong>具體成果：</strong>一份可複製、可抽查的 Review 收尾包 schema。<br><strong>可觀察回饋：</strong>依表格可判斷證據是否仍綁定同一 SHA，以及發現事項修正後是否真的完整重跑。</p>
+<h2>Review 收尾包的必要欄位</h2>
+<table><tr><th>欄位</th><th>有效證據</th><th>無效替代</th></tr><tr><td>固定點</td><td>可解析的 commit／標籤／合併基準識別</td><td>「開始前」、未記錄的基準</td></tr><tr><td>候選版本（候選版本）</td><td>精確 commit 的 SHA；工作目錄乾淨</td><td>branch、PR 最新、移動中 <code>HEAD</code></td></tr><tr><td>差異（差異）</td><td>由固定識別資訊重建的相同三點差異 diff</td><td>審查者各自看到不同快照</td></tr><tr><td>標準軸</td><td>規則來源、檔案/差異區塊、獨立發現事項</td><td>以「需求有做到」代替標準</td></tr><tr><td>規格軸</td><td>要求引用、檔案/差異區塊、獨立發現事項</td><td>以「靜態檢查通過」代替規格正確性</td></tr><tr><td>驗證</td><td>聚焦的與完整的相關的 checks 的命令／結果</td><td>模型自評、未列出的已略過 check</td></tr></table>
 <h2>候選版本狀態轉移</h2>
 <pre>implemented change
   → checks green
@@ -23,7 +23,7 @@
     ├─ no unresolved findings → Review bundle for A
     └─ finding → repair → checks green → checkpoint SHA B
                  → Standards(B) + Spec(B) from the beginning</pre>
-<p class="invalid"><strong>失效規則：</strong>不能把 SHA A 的 Review 搬到 SHA B，也不能只重跑曾經有 finding 的那一軸。修 comment、test、內容或設定都會產生新的 candidate；舊 evidence 保留為歷史，但不證明新 candidate。</p>
+<p class="invalid"><strong>失效規則：</strong>不能把 SHA 版本甲的 Review 搬到 SHA 版本乙，也不能只重跑曾經有發現事項的那一軸。修註解、test、內容或設定都會產生新的候選版本；舊證據保留為歷史，但不證明新候選版本。</p>
 <h2>可複製的紀錄</h2>
 <pre>Fixed point:
 Candidate SHA:
@@ -38,7 +38,7 @@ Spec findings / conclusion:
 Candidate changed after Review? yes / no
 If yes, new SHA and complete rerun evidence:
 Unresolved findings / uncertainty:</pre>
-<p class="rule"><strong>返回／合法停止點／續作：</strong>bundle 有任何空白、candidate identity 會移動、兩軸被合併、relevant checks 未跑，或修正後未重跑完整 contract 時，回到 implementation checkpoint 並停止 closeout。只有 evidence 明確對應最終 SHA 時，才能交給後續 closeout；這份 reference 本身不授權 merge、push、deploy，也不代表 Phase 或 Migration complete。</p>
+<p class="rule"><strong>返回／合法停止點／續作：</strong>收尾包有任何空白、候選版本識別會移動、兩軸被合併、相關的 checks 未跑，或修正後未重跑完整契約時，回到實作檢查點並停止收尾。只有證據明確對應最終 SHA 時，才能交給後續收尾；這份參考本身不授權合併、push、部署，也不代表 Phase 或 Migration 完成。</p>
 <footer data-course-footer="canonical" data-route-id="not-applicable" data-legal-stop="not-applicable">
 <div class="course-page-identity">路線角色：不適用 · 頁面類型：標準參考頁 · 來源 ID：<code>engineering-two-axis-review-contract</code>、<code>immutable-review-checkpoint-contract</code></div>
 </footer>

@@ -7,13 +7,13 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="workflow-standardization:conditional,workflow-standardization:feedback,workflow-standardization:tangible-win">
 <meta name="course:source-ids" content="workflow-standardization-contract">
-<title>009-0007：Package as command or local process</title>
+<title>009-0007：封裝成命令或本機流程</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:920px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#315f86;margin-top:2rem}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{border:1px solid #ccd9e3;padding:.55rem;text-align:left;vertical-align:top}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem;overflow-wrap:anywhere}pre{padding:.8rem;white-space:pre-wrap;overflow-wrap:anywhere}label{display:block;margin:.45rem 0}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:690px){body{margin-top:1rem}table{display:block;overflow-x:auto;font-size:.76rem}}</style>
 </head><body>
-<p><a href="009-0003-choose-workflow-package.html">← package 選擇器</a> · <a href="../reference/workflow-package-selector.html">Selector 參考頁</a> · <a href="006-0008-review-final-candidate.html">Review 重新進入點</a></p>
-<header><p>Phase 9 · 標準化 · 009-0007 · Conditional branch</p><h1>讓 deterministic code 承擔可可靠判定的流程</h1><p class="mission"><strong>進入條件：</strong>009-0003 已選 <code>command-process</code>，因為 contract 的 routing、validation、parsing、formatting 或 transform 有穩定 machine interface。品質取捨、風險接受、exception disposition 與不可逆／external action approval 仍留給人。</p></header>
+<p><a href="009-0003-choose-workflow-package.html">← 套件選擇器</a> · <a href="../reference/workflow-package-selector.html">Selector參考頁</a> · <a href="006-0008-review-final-candidate.html">Review重新進入點</a></p>
+<header><p>Phase 9 · 標準化 · 009-0007 · 條件式分支</p><h1>讓確定性程式碼承擔可可靠判定的流程</h1><p class="mission"><strong>進入條件：</strong>009-0003已選 <code>command-process</code>，因為契約的路由、驗證、解析、格式化或轉換有穩定的機器介面。品質取捨、風險接受、例外處置與不可逆／外部動作核准仍留給人。</p></header>
 
-<h2>1. 先定義 interface 與失敗語意</h2>
+<h2>1. 先定義介面與失敗語意</h2>
 <div class="card"><pre>Command / process version / owner:
 Inputs / schema / identity / size limits:
 Outputs / stable format / evidence location:
@@ -23,11 +23,11 @@ Read / write set / dry-run / idempotency:
 Timeout / retry ceiling / rollback or safe stop:
 Human judgment and approval handoff:
 Dependencies / verified fixture / retirement:</pre></div>
-<table><tr><th>交給 code</th><th>保留給人</th></tr><tr><td>Schema validation、bounded routing、sorting、parsing、formatting、literal threshold 與可重跑 checks。</td><td>來源是否可信、結果是否夠好、風險是否可接受、例外怎麼處理、是否執行 external／production write。</td></tr></table>
-<p class="rule"><strong>明確失敗規則：</strong>Invalid input、partial output、timeout、dependency mismatch 或 skipped record 必須產生可辨識 non-zero／blocked state；不能為了「流程跑完」把未知結果格式化成成功。</p>
+<table><tr><th>交給程式碼</th><th>保留給人</th></tr><tr><td>結構驗證、有界路由、排序、解析、格式化、字面門檻值與可重跑檢查。</td><td>來源是否可信、結果是否夠好、風險是否可接受、例外怎麼處理、是否執行外部／正式環境寫入。</td></tr></table>
+<p class="rule"><strong>明確失敗規則：</strong>無效輸入、部分輸出、逾時、相依項目不符或略過的紀錄必須產生可辨識非零／已阻擋狀態；不能為了「流程跑完」把未知結果格式化成成功。</p>
 
-<h2>2. 建立最小可判別 fixture matrix</h2>
-<ol><li>正例固定 expected stdout／artifact 與 exit 0。</li><li>Invalid schema、missing identity 或越界 input 固定 non-zero 與不產生 final artifact。</li><li>重跑同一 fixture，確認 output 可比較，且不重複 external effect。</li><li>若 command 產生 repo diff，建立 immutable candidate SHA，回 006-0008 做 Standards／Spec Review。</li></ol>
+<h2>2. 建立最小可判別fixture矩陣</h2>
+<ol><li>正例固定預期 stdout／產物與結束碼 0。</li><li>無效綱要、缺少識別資訊或越界輸入固定回傳非零，且不產生最終產物。</li><li>重跑同一測試資料，確認輸出可比較，且不重複外部影響。</li><li>若命令產生 repo diff，建立不可變候選版本 SHA，回006-0008做標準／Spec Review。</li></ol>
 <div class="card"><pre># Fresh-context rerun protocol
 mkdir a-clean-disposable-fixture
 copy exact package version + declared fixture only
@@ -37,18 +37,18 @@ assert: exit 0 + exact expected output
 run: command --input invalid.json
 assert: non-zero + no final artifact
 record: package digest, environment, commands, exits, outputs, diff</pre></div>
-<p class="boundary"><strong>副作用邊界：</strong>Fresh-context test 預設只在 disposable local fixture 寫入。任何 network、recipient、production、billing、publish、push 或 deploy 都在 command 外形成明確 human approval stop；<code>--yes</code> 或 package 文件不能替代 authority。</p>
+<p class="boundary"><strong>副作用邊界：</strong>全新脈絡測試預設只在可丟棄的本機測試資料寫入。任何網路、收件者、正式環境、計費、發布、push 或部署都在命令外形成明確人工核准停止點；<code>--yes</code> 或套件文件不能替代權限。</p>
 
-<h2>3. 保存 fresh-context evidence</h2>
-<div class="card"><strong>重跑紀錄</strong><label><input type="checkbox"> Exact package digest／version 與 fixture identities</label><label><input type="checkbox"> Minimal environment 與完整 command line</label><label><input type="checkbox"> 正例 exit／stdout／artifact 與 expected literal 相符</label><label><input type="checkbox"> 反例 non-zero 且沒有 final artifact</label><label><input type="checkbox"> 第二次正例沒有非預期重複效果</label><label><input type="checkbox"> Human judgment、unverified scope 與 Review disposition 分開記錄</label></div>
-<div class="win"><strong>可見成果：</strong>一個 versioned command／local process contract，附 fresh-context 正反例與 rerun evidence。<br><strong>可觀察回饋：</strong>乾淨 fixture 中正例產生 exact output、反例 fail loud 且不留下 final artifact；重跑結果可比較，judgment／external action 不會被 code 偷做。</div>
+<h2>3. 保存全新脈絡證據</h2>
+<div class="card"><strong>重跑紀錄</strong><label><input type="checkbox"> 指定的套件摘要／版本與測試資料識別資訊</label><label><input type="checkbox"> 最小環境與完整命令列</label><label><input type="checkbox"> 正例結束碼／stdout／產物與預期固定值相符</label><label><input type="checkbox"> 反例非零且沒有最終產物</label><label><input type="checkbox"> 第二次正例沒有非預期重複效果</label><label><input type="checkbox"> 人工判斷、未驗證範圍與 Review 處置分開記錄</label></div>
+<div class="win"><strong>可見成果：</strong>一個具版本的命令／本機流程契約，附全新脈絡正反例與重跑證據。<br><strong>可觀察回饋：</strong>乾淨測試資料中正例產生精確輸出、反例明確失敗且不留下最終產物；重跑結果可比較，判斷／外部動作不會被程式碼偷做。</div>
 
-<div class="quiz" data-answer="2"><p>Command 可穩定計算品質分數，但是否發布需要 owner 判斷。應怎麼包？</p><button type="button">分數達 threshold 就自動發布</button><button type="button">讓 agent 讀分數後自我批准</button><button type="button">Command 輸出分數與 evidence，owner disposition 保持為明確 handoff</button><div class="why">Deterministic calculation 可以自動化；風險與發布判斷不能因為有分數就被悄悄轉成自動批准。</div></div>
-<p class="stop"><strong>合法停止／返回／續行：</strong>若 interface 不穩定、expected result 無獨立 literal、failure 回傳成功、retry 無界、fresh context 依賴隱藏 state、judgment 被寫進 code，或 side effect 無當次 authority，停止並回 <a href="009-0003-choose-workflow-package.html">009-0003</a>／009-0002。Repo diff 先由 <a href="006-0008-review-final-candidate.html">006-0008</a> 完成 immutable Review；其餘 package evidence 齊全後前往 <code>009-0008-complete-standardization-closeout.html</code>，不要再完成其他 branch。</p>
+<div class="quiz" data-answer="2"><p>命令可穩定計算品質分數，但是否發布需要負責人判斷。應怎麼包？</p><button type="button">分數達門檻就自動發布</button><button type="button">讓代理程式讀分數後自我批准</button><button type="button">命令輸出分數與證據，負責人處置保持為明確交接</button><div class="why">確定性計算可以自動化；風險與發布判斷不能因為有分數就被悄悄轉成自動批准。</div></div>
+<p class="stop"><strong>合法停止／返回／續行：</strong>若介面不穩定、預期結果無獨立固定值、失敗回傳成功、重試無界、全新脈絡依賴隱藏狀態、判斷被寫進程式碼，或副作用無當次權限，停止並回 <a href="009-0003-choose-workflow-package.html">009-0003</a>／009-0002。repo diff 先由 <a href="006-0008-review-final-candidate.html">006-0008</a> 完成不可變 Review；其餘套件證據齊全後前往 <code>009-0008-complete-standardization-closeout.html</code>，不要再完成其他分支。</p>
 <footer data-course-footer="canonical" data-route-id="workflow-standardization" data-legal-stop="Stop after one fitting package is rerun and reviewed">
 <p><strong>路線導覽 · 工作流程標準化</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="workflow-standardization" data-route-action="next" href="009-0008-complete-standardization-closeout.html">下一步：lessons/009-0008-complete-standardization-closeout.html</a></li>
+<li><a data-route-id="workflow-standardization" data-route-action="next" href="009-0008-complete-standardization-closeout.html">下一步：009-0008 課程</a></li>
 </ul>
 <p data-route-legal-stop="Stop after one fitting package is rerun and reviewed"><strong>合法停止點：</strong>一個合適 package 已重跑並完成 review 後即可停止</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>workflow-standardization-contract</code></div>

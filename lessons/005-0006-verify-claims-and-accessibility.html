@@ -13,47 +13,47 @@
 </style>
 </head>
 <body>
-<p style="margin:0"><a href="005-0005-refine-deck-for-audience.html" style="font-size:.85rem">← 受眾修訂</a> · <a href="../reference/claude-design-presentation-workflow.html">Workflow 參考</a></p>
-<div class="kicker">第 5 階段 · 第 06 課 · 約 30 分鐘 · Verification</div>
+<p style="margin:0"><a href="005-0005-refine-deck-for-audience.html" style="font-size:.85rem">← 受眾修訂</a> · <a href="../reference/claude-design-presentation-workflow.html">工作流程 參考</a></p>
+<div class="kicker">第 5 階段 · 第 06 課 · 約 30 分鐘 · 驗證</div>
 <h1>查核內容、圖表與可及性</h1>
-<p class="mission">目標：逐頁建立 claim ledger，查核文字、圖表與圖片權利，並完成 accessibility preflight，讓 deck 能安全進入目標格式驗證。</p>
-<div class="scope"><strong>本課只做：</strong>驗證 confirmed claims、圖表表達、圖片權利與 presentation accessibility preflight。<br><strong>先不要做：</strong>請同一個模型看過一遍，就把模型回覆當成獨立查核。</div>
+<p class="mission">目標：逐頁建立主張台帳，查核文字、圖表與圖片權利，並完成可及性預檢，讓簡報能安全進入目標格式驗證。</p>
+<div class="scope"><strong>本課只做：</strong>驗證已確認主張、圖表表達、圖片權利與簡報可及性預檢。<br><strong>先不要做：</strong>請同一個模型看過一遍，就把模型回覆當成獨立查核。</div>
 
-<h2>四道 gate</h2>
+<h2>四道關卡</h2>
 <table>
-<tr><th>關卡（Gate）</th><th>檢查</th><th>Blocker 例子</th></tr>
-<tr><td><strong>主張（Claims）</strong></td><td>每個數字、引言、日期回到 source ID</td><td>來源不存在、數字抄錯、語氣過度推論</td></tr>
-<tr><td><strong>圖表（Charts）</strong></td><td>軸、單位、期間、基準、標籤與資料一致</td><td>截斷軸誤導、類別相反、缺少時間範圍</td></tr>
-<tr><td><strong>權利（Rights）</strong></td><td>logo、照片、字型與引言有使用權</td><td>網路抓圖、未核准客戶引言</td></tr>
-<tr><td><strong>可及性（Accessibility）</strong></td><td>標題、閱讀順序、對比、替代文字、非顏色提示</td><td>只靠紅綠區分，或只看畫面就宣稱輸出檔可及</td></tr>
+<tr><th>關卡</th><th>檢查</th><th>阻擋項目例子</th></tr>
+<tr><td><strong>主張</strong></td><td>每個數字、引言、日期回到來源 ID</td><td>來源不存在、數字抄錯、語氣過度推論</td></tr>
+<tr><td><strong>圖表</strong></td><td>軸、單位、期間、基準、標籤與資料一致</td><td>截斷軸誤導、類別相反、缺少時間範圍</td></tr>
+<tr><td><strong>權利</strong></td><td>標誌、照片、字型與引言有使用權</td><td>網路抓圖、未核准客戶引言</td></tr>
+<tr><td><strong>可及性</strong></td><td>標題、閱讀順序、對比、替代文字、非顏色提示</td><td>只靠紅綠區分，或只看畫面就宣稱輸出檔可及</td></tr>
 </table>
-<div class="rule"><strong>圖表要能被口述。</strong>W3C WAI 建議說出畫面上的文字並描述關鍵圖形；複雜圖表也需要完整的文字等價資訊。把「這張圖要證明什麼」寫入 claim ledger 或 sidecar notes；只有在 speaker notes 可用且輸出後確認保留時，才同步一份副本。</div>
+<div class="rule"><strong>圖表要能被口述。</strong>W3C 的 WAI 建議說出畫面上的文字並描述關鍵圖形；複雜圖表也需要完整的文字等價資訊。把「這張圖要證明什麼」寫入主張台帳或旁附筆記；只有在講者備註可用且輸出後確認保留時，才同步一份副本。</div>
 
-<h2>Claim ledger 主張帳本</h2>
+<h2>主張台帳</h2>
 <pre>Slide | Claim | Source ID | Verified by | Status / fix
 03 | Retention +8% QoQ | S07 | Lin, 2026-07-15 | pass
 04 | "Top customer request" | none | — | BLOCK: remove or source
 05 | Recommendation | S07 + S11 | Mei | pass, label as inference</pre>
 
-<h2>實作 checklist</h2>
-<div class="step"><label><input type="checkbox"> 1. 把所有可驗證主張列入 ledger</label><p>不要只查大數字；日期、排名、引言與因果語句也要列入。</p></div>
+<h2>實作清單</h2>
+<div class="step"><label><input type="checkbox"> 1. 把所有可驗證主張列入台帳</label><p>不要只查大數字；日期、排名、引言與因果語句也要列入。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 由人回到原始來源逐項核對</label><p>將事實、推論與建議分開標記；推論不能偽裝成來源原句。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 用圖表 checklist 檢查每張視覺</label><p>確認單位、範圍、資料點與 headline 一致，並在 claim ledger 或 sidecar notes 留下文字摘要。</p></div>
-<div class="step"><label><input type="checkbox"> 4. 做 rights 與 accessibility preflight</label><p>檢查圖片與字型權利；以投影距離閱讀、灰階檢視、唯一 slide title 與口述圖意測試。閱讀順序、alt text 與 tags 要等第 07 課在目標輸出格式實測。</p></div>
-<div class="done-banner" id="done"><strong>具體成果：deck 已通過 claims、charts、rights 與 authoring accessibility preflight。</strong><br><strong>可觀察回饋：</strong>從 claim ledger、asset-rights record 與三張代表性 slide 逐項抽查，記錄每個 claim 是否可回 source、視覺是否可口述，以及仍須在 target format 驗證的 reading order／alt text／tags；若有不同 reviewer，可選擇性重跑同一抽查，但不是完成條件。這還不是最終 accessibility pass。</div>
+<div class="step"><label><input type="checkbox"> 3. 用圖表清單檢查每張視覺</label><p>確認單位、範圍、資料點與標題句一致，並在主張台帳或旁附筆記留下文字摘要。</p></div>
+<div class="step"><label><input type="checkbox"> 4. 做權利與可及性預檢</label><p>檢查圖片與字型權利；以投影距離閱讀、灰階檢視、唯一投影片標題與口述圖意測試。閱讀順序、替代文字與 標籤 要等第 07 課在目標輸出格式實測。</p></div>
+<div class="done-banner" id="done"><strong>具體成果：簡報已通過主張、圖表、權利與編寫可及性預檢。</strong><br><strong>可觀察回饋：</strong>從主張台帳、素材權利紀錄與三張代表性投影片逐項抽查，記錄每個主張是否可回 source、視覺是否可口述，以及仍須在目標格式驗證的閱讀順序／替代文字／標籤；若有不同審查者，可選擇性重跑同一抽查，但不是完成條件。這還不是最終可及性檢查。</div>
 
 <h2>觀念檢查</h2>
-<div class="quiz" data-answer="2"><p>1. 數字有疑問時先做什麼？</p><button>請同一個模型依前文再次確認</button><button>降低該數字在版面上的視覺權重</button><button>回到原始來源並在 ledger 記錄狀態</button><div class="why">事實查核要回 source of truth；模型自評與視覺弱化都不能證明數字正確。</div></div>
-<div class="quiz" data-answer="0"><p>2. 如何讓關鍵圖表更可及？</p><button>提供文字等價資訊並口述關鍵趨勢</button><button>改用色盲友善配色，但不增加文字提示</button><button>只加入「chart」作為替代文字</button><div class="why">口述趨勢與結論，加上有意義的文字等價資訊，能讓無法看清圖表的人取得同一核心訊息；配色或空泛 alt text 都不足。</div></div>
+<div class="quiz" data-answer="2"><p>1. 數字有疑問時先做什麼？</p><button>請同一個模型依前文再次確認</button><button>降低該數字在版面上的視覺權重</button><button>回到原始來源並在台帳記錄狀態</button><div class="why">事實查核要回 source of truth；模型自評與視覺弱化都不能證明數字正確。</div></div>
+<div class="quiz" data-answer="0"><p>2. 如何讓關鍵圖表更可及？</p><button>提供文字等價資訊並口述關鍵趨勢</button><button>改用色盲友善配色，但不增加文字提示</button><button>只加入「圖表」作為替代文字</button><div class="why">口述趨勢與結論，加上有意義的文字等價資訊，能讓無法看清圖表的人取得同一核心訊息；配色或空泛替代文字都不足。</div></div>
 
 <h2>下一步與主要閱讀</h2>
-<p>所有 blocker 關閉後，進入 <a href="005-0007-export-and-rehearse.html">輸出與真實彩排</a>。</p>
-<p><strong>主要官方閱讀：</strong><a href="https://www.w3.org/WAI/teach-advocate/accessible-presentations/">W3C WAI — Making Events Accessible</a> 的 presentations guidance；圖表補充閱讀 <a href="https://www.w3.org/WAI/tutorials/images/">WAI Images Tutorial</a>。</p>
-<p class="scope"><strong>合法停止／返回：</strong>claim、chart、rights 或 authoring accessibility 任一 gate 有 blocker，就停在本課；事實與 rights 回 <a href="005-0002-build-source-pack.html">005-0002</a>，story 誇大回 <a href="005-0003-storyboard-presentation.html">005-0003</a>，版面問題回 <a href="005-0005-refine-deck-for-audience.html">005-0005</a>。全數可查後才進 <a href="005-0007-export-and-rehearse.html">005-0007</a> 做 target-format validation；本課沒有 elective 分支。</p>
+<p>所有阻塞關閉後，進入 <a href="005-0007-export-and-rehearse.html">輸出與真實彩排</a>。</p>
+<p><strong>主要官方閱讀：</strong><a href="https://www.w3.org/WAI/teach-advocate/accessible-presentations/">W3C WAI — Making Events Accessible</a> 的簡報指南；圖表補充閱讀 <a href="https://www.w3.org/WAI/tutorials/images/">WAI Images Tutorial</a>。</p>
+<p class="scope"><strong>合法停止／返回：</strong>主張、圖表、權利或編寫可及性任一關卡有阻塞，就停在本課；事實與權利回 <a href="005-0002-build-source-pack.html">005-0002</a>，敘事 誇大回 <a href="005-0003-storyboard-presentation.html">005-0003</a>，版面問題回 <a href="005-0005-refine-deck-for-audience.html">005-0005</a>。全數可查後才進 <a href="005-0007-export-and-rehearse.html">005-0007</a> 做目標格式驗證；本課沒有 elective 分支。</p>
 <footer data-course-footer="canonical" data-route-id="presentation-delivery" data-legal-stop="Stop at Presentation closeout; adaptations and code-first options are elective">
 <p><strong>路線導覽 · 簡報交付</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="presentation-delivery" data-route-action="next" href="005-0007-export-and-rehearse.html">下一步：lessons/005-0007-export-and-rehearse.html</a></li>
+<li><a data-route-id="presentation-delivery" data-route-action="next" href="005-0007-export-and-rehearse.html">下一步：005-0007 課程</a></li>
 </ul>
 <p data-route-legal-stop="Stop at Presentation closeout; adaptations and code-first options are elective"><strong>合法停止點：</strong>完成 Presentation closeout 後即可停止；adaptation 與 code-first 選項皆為選修</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible win · 來源 ID：<code>presentation-accessibility-contract</code>、<code>presentation-source-claim-contract</code></div>

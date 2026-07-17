@@ -13,23 +13,23 @@
 </style>
 </head>
 <body>
-<p style="margin:0"><a href="005-0004-create-deck-in-claude-design.html" style="font-size:.85rem">← 簡報 v0</a> · <a href="../reference/claude-design-presentation-workflow.html">Workflow 參考</a></p>
-<div class="kicker">第 5 階段 · 第 05 課 · 約 25 分鐘 · Audience refinement</div>
+<p style="margin:0"><a href="005-0004-create-deck-in-claude-design.html" style="font-size:.85rem">← 簡報 v0</a> · <a href="../reference/claude-design-presentation-workflow.html">工作流程 參考</a></p>
+<div class="kicker">第 5 階段 · 第 05 課 · 約 25 分鐘 · 受眾精修</div>
 <h1>依受眾與品牌精修簡報</h1>
-<p class="mission">目標：用四個分開的 review pass 精修 deck，讓訊息更適合受眾、版面更符合品牌，而不是用一句「再專業一點」反覆重生整份簡報。</p>
-<div class="scope"><strong>本課只做：</strong>修正 audience fit、hierarchy、density 與 brand fit。<br><strong>先不要做：</strong>在每一輪同時更改內容、頁序、風格與動畫，導致無法判斷哪個修改有效。</div>
+<p class="mission">目標：用四個分開的審查檢查精修簡報，讓訊息更適合受眾、版面更符合品牌，而不是用一句「再專業一點」反覆重生整份簡報。</p>
+<div class="scope"><strong>本課只做：</strong>修正受眾適配、層級、密度與品牌適配。<br><strong>先不要做：</strong>在每一輪同時更改內容、頁序、風格與動畫，導致無法判斷哪個修改有效。</div>
 
-<h2>四個 pass，一次只回答一種問題</h2>
+<h2>四個檢查，一次只回答一種問題</h2>
 <table>
 <tr><th>檢查輪次（Pass）</th><th>檢查問題</th><th>典型修正</th></tr>
-<tr><td><strong>受眾（Audience）</strong></td><td>受眾知道這些詞與背景嗎？</td><td>補上下文、刪除內部術語、調整語氣</td></tr>
-<tr><td><strong>層級（Hierarchy）</strong></td><td>三秒內看得出每頁結論嗎？</td><td>強化 headline、降低次要資訊權重</td></tr>
-<tr><td><strong>密度（Density）</strong></td><td>現場能讀完嗎？該移到 delivery notes 嗎？</td><td>縮短句子、拆頁、把細節移到附錄或 sidecar notes</td></tr>
-<tr><td><strong>品牌（Brand）</strong></td><td>字型、色彩、圖片與元件有正式依據嗎？</td><td>套用 approved system，移除臨時風格</td></tr>
+<tr><td><strong>受眾</strong></td><td>受眾知道這些詞與背景嗎？</td><td>補上下文、刪除內部術語、調整語氣</td></tr>
+<tr><td><strong>層級</strong></td><td>三秒內看得出每頁結論嗎？</td><td>強化標題句、降低次要資訊權重</td></tr>
+<tr><td><strong>密度</strong></td><td>現場能讀完嗎？該移到交付備註嗎？</td><td>縮短句子、拆頁、把細節移到附錄或旁附筆記</td></tr>
+<tr><td><strong>品牌</strong></td><td>字型、色彩、圖片與元件有正式依據嗎？</td><td>套用已核准系統，移除臨時風格</td></tr>
 </table>
-<div class="rule"><strong>用局部指令保留已經正確的部分。</strong>Claude Design 支援 chat、inline comments 與直接編輯；只指出「哪一頁、哪個元素、哪個問題、希望保留什麼」。</div>
+<div class="rule"><strong>用局部指令保留已經正確的部分。</strong>Claude Design 支援對話、行內註解與直接編輯；只指出「哪一頁、哪個元素、哪個問題、希望保留什麼」。</div>
 
-<h2>可 review 的精修指令</h2>
+<h2>可審查的精修指令</h2>
 <pre>On slide 4, keep the claim, chart data, and brand colors unchanged.
 The audience cannot scan the comparison in 10 seconds.
 Create two alternatives:
@@ -37,25 +37,25 @@ A. stronger headline + simplified labels
 B. same headline + direct annotation on the decisive data point
 Do not change the source IDs or add new claims.</pre>
 
-<h2>實作 checklist</h2>
+<h2>實作清單</h2>
 <div class="step"><label><input type="checkbox"> 1. 建立受眾問題清單</label><p>至少列三個可能不懂的詞、三個會追問的問題與一個反對點；若有真實受眾，可選擇性補充他的問題，但不是必要條件。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 依序跑 audience 與 hierarchy pass</label><p>先確定訊息能被理解，再處理版面層級；每一輪保存版本。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 跑 density 與 brand pass</label><p>將口頭細節移到 sidecar notes；若使用 speaker notes，輸出後還要驗證是否保留。再對照 approved design system 或 reference deck 校正。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 依序跑受眾與層級檢查</label><p>先確定訊息能被理解，再處理版面層級；每一輪保存版本。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 跑密度與品牌檢查</label><p>將口頭細節移到旁附筆記；若使用講者備註，輸出後還要驗證是否保留。再對照已核准 設計 系統或參考簡報校正。</p></div>
 <div class="step"><label><input type="checkbox"> 4. 自行比較或錄影回放 v0 與 v1</label><p>用同一受眾問題清單與十秒掃讀方式各跑一次，寫下三項改善、一項退步與最難掃讀的一頁；若無法指出差異，不要只因版本較新就保留。</p></div>
-<div class="done-banner" id="done"><strong>具體成果：你已完成可追溯的 audience revision。</strong><br><strong>可觀察回饋：</strong>自行比較或錄影回放 v0／v1，留下每頁十秒 headline、最難掃讀頁、三項改善與一項退步，並把修改標成 evidence-backed improvement 或個人偏好；代表性 audience feedback 若有則是選用加值證據，不是完成條件。</div>
+<div class="done-banner" id="done"><strong>具體成果：你已完成可追溯的受眾修訂。</strong><br><strong>可觀察回饋：</strong>自行比較或錄影回放 v0／v1，留下每頁十秒標題句、最難掃讀頁、三項改善與一項退步，並把修改標成有證據支持的改善或個人偏好；代表性受眾回饋若有則是選用加值證據，不是完成條件。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1"><p>1. 精修時最先處理什麼？</p><button>先統一品牌樣式，避免後面重做</button><button>先修受眾理解與訊息層級</button><button>先測試動畫節奏是否流暢</button><div class="why">受眾理解與訊息層級是交付物的核心；品牌與動畫不能修復不清楚的主張。</div></div>
-<div class="quiz" data-answer="2"><p>2. 哪種 comment 最容易驗收？</p><button>整份簡報要改得更像高階主管會使用的版本</button><button>把第 4 頁文字量機械式減少一半</button><button>保留第 4 頁主張，讓受眾能在十秒內比較選項</button><div class="why">指定頁面、問題、保留項與成功條件，才看得出修改是否解決原來的摩擦；只指定字數仍未說明要改善什麼。</div></div>
+<div class="quiz" data-answer="2"><p>2. 哪種意見最容易驗收？</p><button>整份簡報要改得更像高階主管會使用的版本</button><button>把第 4 頁文字量機械式減少一半</button><button>保留第 4 頁主張，讓受眾能在十秒內比較選項</button><div class="why">指定頁面、問題、保留項與成功條件，才看得出修改是否解決原來的摩擦；只指定字數仍未說明要改善什麼。</div></div>
 
 <h2>下一步與主要閱讀</h2>
 <p>視覺方向穩定後，進入 <a href="005-0006-verify-claims-and-accessibility.html">內容、圖表與可及性查核</a>。</p>
-<p><strong>主要官方閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Get started with Claude Design</a> 的 Refine your design，以及 <a href="https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design">Set up your design system</a>。</p>
-<p class="scope"><strong>合法停止／返回：</strong>若 revision 改動 confirmed claim、source ID 或 rights 狀態，回 <a href="005-0002-build-source-pack.html">005-0002</a> 重新核對；若自行比較／回放無法重述 decision，回 <a href="005-0003-storyboard-presentation.html">005-0003</a>，不要用品牌或動畫掩蓋。真人回饋缺席不構成 blocker。v1 有可觀察改善後續行 <a href="005-0006-verify-claims-and-accessibility.html">005-0006</a>；本課沒有 elective 分支。</p>
+<p><strong>主要官方閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Get started with Claude Design</a> 的精修設計，以及 <a href="https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design">Set up your design system</a>。</p>
+<p class="scope"><strong>合法停止／返回：</strong>若修訂改動已確認主張、來源 ID 或權利狀態，回 <a href="005-0002-build-source-pack.html">005-0002</a> 重新核對；若自行比較／回放無法重述決策，回 <a href="005-0003-storyboard-presentation.html">005-0003</a>，不要用品牌或動畫掩蓋。真人回饋缺席不構成阻塞。v1 有可觀察改善後續行 <a href="005-0006-verify-claims-and-accessibility.html">005-0006</a>；本課沒有 elective 分支。</p>
 <footer data-course-footer="canonical" data-route-id="presentation-delivery" data-legal-stop="Stop at Presentation closeout; adaptations and code-first options are elective">
 <p><strong>路線導覽 · 簡報交付</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="presentation-delivery" data-route-action="next" href="005-0006-verify-claims-and-accessibility.html">下一步：lessons/005-0006-verify-claims-and-accessibility.html</a></li>
+<li><a data-route-id="presentation-delivery" data-route-action="next" href="005-0006-verify-claims-and-accessibility.html">下一步：005-0006 課程</a></li>
 </ul>
 <p data-route-legal-stop="Stop at Presentation closeout; adaptations and code-first options are elective"><strong>合法停止點：</strong>完成 Presentation closeout 後即可停止；adaptation 與 code-first 選項皆為選修</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible win · 來源 ID：<code>claude-design-presentation-surface</code>、<code>presentation-accessibility-contract</code>、<code>presentation-storyboard-audience-contract</code></div>

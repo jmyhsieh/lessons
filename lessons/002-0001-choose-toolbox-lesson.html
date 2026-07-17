@@ -8,7 +8,7 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="toolbox:entry,toolbox:feedback,toolbox:readiness,toolbox:tangible-win">
 <meta name="course:source-ids" content="course-equip-toolbox-contract">
-<title>002-0001：選一個 Just-in-time toolbox lesson</title>
+<title>002-0001：選一個即時工具箱課程</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
@@ -27,71 +27,71 @@
 </style>
 </head>
 <body>
-<p><a href="001-0002-define-route-readiness.html">← 回 readiness contract</a> · <a href="../toc.html">回課目表</a></p>
+<p><a href="001-0002-define-route-readiness.html">← 回就緒契約</a> · <a href="../toc.html">回課目表</a></p>
 <header>
-  <p class="kicker">第 2 階段 · 裝備 · 002-0001 · Toolbox entry</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0001 · 工具箱 入口</p>
   <h1>只補目前任務缺少的一個能力</h1>
-  <p class="mission"><strong>任務：</strong>從 active route 的具體 blocker 選一個 Just-in-time toolbox lesson，先寫好 smoke test 與返回點，再進入練習。</p>
+  <p class="mission"><strong>任務：</strong>從目前路線的具體阻塞選一個即時工具箱課程，先寫好快速驗證測試與返回點，再進入練習。</p>
 </header>
 
-<h2>先帶著 route contract 進來</h2>
+<h2>先帶著路線契約進來</h2>
 <div class="card">
   <ol>
-    <li>從 Return notebook 複製 mission、current anchor 與下一個 tangible win。</li>
-    <li>把阻止下一個 win 的缺口寫成可觀察句，例如「我不知道這次允許哪些 write 與 external side effects」。</li>
-    <li>先填 <code>Targeted-remediation return point</code>；它必須是 active route 的確切 lesson 或工作步驟。</li>
-    <li>只選一課，並定義一個不碰真實交付物的最小 smoke test。</li>
+    <li>從 續作筆記本 複製 任務使命、目前錨點與下一個具體成果。</li>
+    <li>把阻止下一個 成果 的缺口寫成可觀察句，例如「我不知道這次允許哪些寫入與外部副作用」。</li>
+    <li>先填 <code>Targeted-remediation return point</code>；它必須是目前路線的確切課程或工作步驟。</li>
+    <li>只選一課，並定義一個不碰真實交付物的最小快速驗證測試。</li>
   </ol>
 </div>
 
-<h2>目前可操作的 selector</h2>
+<h2>目前可操作的選擇器</h2>
 <div class="table-wrap"><table>
-  <thead><tr><th>目前 route 缺口</th><th>選擇</th><th>最小 smoke test</th></tr></thead>
+  <thead><tr><th>目前路線缺口</th><th>選擇</th><th>最小快速驗證測試</th></tr></thead>
   <tbody>
-    <tr><td>不確定本次 session 可讀、可寫或可造成哪些 side effects</td><td><a href="002-0002-set-permission-boundaries.html">設定 permission boundaries</a></td><td>在 safe fixture 證明 read 可行，未核准 write 會停止或詢問。</td></tr>
-    <tr><td>任務能力、延遲或推理深度與目前設定不匹配</td><td><a href="002-0003-select-model-and-effort.html">選 model 與 effort</a></td><td>用低風險 prompt 檢查選擇是否滿足事先寫好的 feedback rubric。</td></tr>
-    <tr><td>需要在明確 lifecycle event 後執行 deterministic callback</td><td><a href="002-0004-smoke-test-hook.html">Smoke-test 一個 hook</a></td><td>在 recoverable fixture 觀察一次 matched trigger 與一次 non-match。</td></tr>
-    <tr><td>需要在工具執行前阻擋一個能以 deterministic predicate 判斷的危險操作</td><td><a href="002-0005-add-guardrail-hook.html">加入 guardrail hook</a></td><td>在 fixture 證明 should-block 與 should-allow，不碰真實禁區。</td></tr>
-    <tr><td>已有可信 Skill 能直接處理 active-route gap</td><td><a href="002-0006-use-existing-skill.html">使用既有 Skill</a></td><td>讀完 instruction package，在 bounded task 觀察是否遵守 scope 與 stop。</td></tr>
-    <tr><td>Active route 需要從可信外部系統讀取一項資料</td><td><a href="002-0007-connect-trusted-mcp.html">連接 trusted MCP</a></td><td>以最小 scope 連接，inspect tools，只執行一個 read-only query。</td></tr>
-    <tr><td>需要隔離大量 read-only repo investigation</td><td><a href="002-0008-delegate-read-only-investigation.html">委派 read-only investigation</a></td><td>交給 fresh subagent，抽查一個 <code>file:line</code> 引用，確認 working tree 不變。</td></tr>
-    <tr><td>兩條可能改檔的 local tasks 需要平行進行</td><td><a href="002-0009-isolate-parallel-work.html">隔離 parallel work</a></td><td>在 disposable Git fixture 建立 worktree marker，證明只出現在隔離目錄後安全清理。</td></tr>
-    <tr><td>已成功的 bounded task 需要一次性非互動執行</td><td><a href="002-0010-run-headless-one-shot.html">執行 headless one-shot</a></td><td>固定 prompt、Read tools、JSON output、budget 與 deterministic oracle。</td></tr>
-    <tr><td>已驗證的 one-shot 可能進入 remote CI</td><td><a href="002-0011-bound-ci-automation.html">界定 CI automation boundary</a></td><td>以 tabletop 驗證 untrusted input、permissions、secrets、failure 與 approval stop，不建立真實 workflow。</td></tr>
+    <tr><td>不確定本次工作階段可讀、可寫或可造成哪些副作用</td><td><a href="002-0002-set-permission-boundaries.html">設定權限邊界</a></td><td>在安全練習環境證明 讀取 可行，未核准寫入會停止或詢問。</td></tr>
+    <tr><td>任務能力、延遲或推理深度與目前設定不匹配</td><td><a href="002-0003-select-model-and-effort.html">選模型與推理強度</a></td><td>用低風險提示檢查選擇是否滿足事先寫好的回饋評分規準。</td></tr>
+    <tr><td>需要在明確生命週期事件後執行確定性回呼</td><td><a href="002-0004-smoke-test-hook.html">快速驗證一個 hook</a></td><td>在可復原練習環境觀察一次相符的觸發條件與一次不相符。</td></tr>
+    <tr><td>需要在工具執行前阻擋一個能以確定性判斷式判斷的危險操作</td><td><a href="002-0005-add-guardrail-hook.html">加入防護 hook</a></td><td>在練習環境證明 應阻擋 與 應放行，不碰真實禁區。</td></tr>
+    <tr><td>已有可信 Skill 能直接處理目前的路線缺口</td><td><a href="002-0006-use-existing-skill.html">使用既有 Skill</a></td><td>讀完指示套件，在有界限的任務觀察是否遵守範圍與停止點。</td></tr>
+    <tr><td>目前的路線需要從可信外部系統讀取一項資料</td><td><a href="002-0007-connect-trusted-mcp.html">連接受信任 MCP</a></td><td>以最小範圍連接，檢查工具，只執行一個唯讀查詢。</td></tr>
+    <tr><td>需要隔離大量唯讀儲存庫調查</td><td><a href="002-0008-delegate-read-only-investigation.html">委派唯讀調查</a></td><td>交給全新 subagent，抽查一個 <code>file:line</code> 引用，確認工作樹不變。</td></tr>
+    <tr><td>兩條可能改檔的本機任務需要平行進行</td><td><a href="002-0009-isolate-parallel-work.html">隔離平行工作</a></td><td>在可丟棄 Git 練習環境建立工作樹標記，證明只出現在隔離目錄後安全清理。</td></tr>
+    <tr><td>已成功的有界限的任務需要一次性非互動執行</td><td><a href="002-0010-run-headless-one-shot.html">執行無頭單次執行</a></td><td>固定提示、讀取工具、JSON 輸出、預算與確定性判定基準。</td></tr>
+    <tr><td>已驗證的單次執行可能進入遠端 CI</td><td><a href="002-0011-bound-ci-automation.html">界定 CI 自動化邊界</a></td><td>以桌上演練驗證不受信任輸入、權限、機密資料、失敗與核准停止點，不建立真實工作流程。</td></tr>
   </tbody>
 </table></div>
 
-<div class="win"><strong>具體成果：</strong>一張 Toolbox selection card，包含 gap、selected lesson、safe fixture、smoke-test evidence 與 return point。<br><strong>可觀察回饋：</strong>另一個人可以從 card 判斷這一課是否直接移除 active route 的 blocker，且不需要完成整個 Phase 2。</div>
+<div class="win"><strong>具體成果：</strong>一張工具箱選擇卡，包含缺口、已選課程、安全練習環境、快速驗證證據與返回點。<br><strong>可觀察回饋：</strong>另一個人可以從卡判斷這一課是否直接移除目前路線的阻塞，且不需要完成整個第 2 階段。</div>
 
 <h2>完成後如何返回</h2>
 <ol>
-  <li>把 bounded setup、smoke-test command／steps、結果與 permission／side-effect boundary 寫回 Return notebook。</li>
-  <li>狀態只記為 <code>Lesson practiced</code>；Toolbox 沒有 Phase completion。</li>
-  <li>回到事先記錄的 <code>Targeted-remediation return point</code>，重新嘗試 active route 的 tangible win。</li>
+  <li>把有界限的設定、快速驗證測試命令／步驟、結果與權限／副作用邊界寫回 Return notebook。</li>
+  <li>狀態只記為 <code>Lesson practiced</code>；工具箱沒有 Phase 完成證明。</li>
+  <li>回到事先記錄的 <code>Targeted-remediation return point</code>，重新嘗試目前路線的具體成果。</li>
 </ol>
 
 <div class="quiz" data-answer="1">
-  <p>你在 Presentation route 遇到模型推理不足，完成 model／effort smoke test 後，下一步是什麼？</p>
-  <button type="button">繼續依序完成 Phase 2 全部 lesson</button>
-  <button type="button">把 evidence 寫回 notebook，返回原本的 Presentation route anchor</button>
-  <button type="button">把 smoke test 當成 Presentation route artifact</button>
-  <div class="why">Toolbox 是插入 active route 的 targeted remediation；完成一個 bounded lesson 後就回到 caller-provided return point。</div>
+  <p>你在簡報路線遇到模型推理不足，完成模型／推理強度快速驗證測試後，下一步是什麼？</p>
+  <button type="button">繼續依序完成第 2 階段全部課程</button>
+  <button type="button">把證據寫回 筆記本，返回原本的簡報路線錨點</button>
+  <button type="button">把快速驗證測試當成簡報路線成果</button>
+  <div class="why">工具箱是插入目前路線的定向補強；完成一個有界限的課程後就回到呼叫端提供的返回點。</div>
 </div>
 
-<p class="stop"><strong>合法停止點：</strong>若目前缺口沒有對應的已 authored lesson，記錄 gap 與 return point 後停止。不要把 feature tour、未驗證安裝或整個 Phase 2 當成替代路線。</p>
+<p class="stop"><strong>合法停止點：</strong>若目前缺口沒有對應的已編寫的課程，記錄缺口與返回點後停止。不要把功能導覽、未驗證安裝或整個第 2 階段當成替代路線。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0002-set-permission-boundaries.html">選擇一條支線：lessons/002-0002-set-permission-boundaries.html</a></li>
-<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0003-select-model-and-effort.html">選擇一條支線：lessons/002-0003-select-model-and-effort.html</a></li>
-<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0004-smoke-test-hook.html">選擇一條支線：lessons/002-0004-smoke-test-hook.html</a></li>
-<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0005-add-guardrail-hook.html">選擇一條支線：lessons/002-0005-add-guardrail-hook.html</a></li>
-<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0006-use-existing-skill.html">選擇一條支線：lessons/002-0006-use-existing-skill.html</a></li>
-<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0007-connect-trusted-mcp.html">選擇一條支線：lessons/002-0007-connect-trusted-mcp.html</a></li>
-<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0008-delegate-read-only-investigation.html">選擇一條支線：lessons/002-0008-delegate-read-only-investigation.html</a></li>
-<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0009-isolate-parallel-work.html">選擇一條支線：lessons/002-0009-isolate-parallel-work.html</a></li>
-<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0010-run-headless-one-shot.html">選擇一條支線：lessons/002-0010-run-headless-one-shot.html</a></li>
-<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0011-bound-ci-automation.html">選擇一條支線：lessons/002-0011-bound-ci-automation.html</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0002-set-permission-boundaries.html">選擇一條支線：002-0002 課程</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0003-select-model-and-effort.html">選擇一條支線：002-0003 課程</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0004-smoke-test-hook.html">選擇一條支線：002-0004 課程</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0005-add-guardrail-hook.html">選擇一條支線：002-0005 課程</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0006-use-existing-skill.html">選擇一條支線：002-0006 課程</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0007-connect-trusted-mcp.html">選擇一條支線：002-0007 課程</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0008-delegate-read-only-investigation.html">選擇一條支線：002-0008 課程</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0009-isolate-parallel-work.html">選擇一條支線：002-0009 課程</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0010-run-headless-one-shot.html">選擇一條支線：002-0010 課程</a></li>
+<li><a data-route-id="toolbox" data-route-action="choose-one" href="002-0011-bound-ci-automation.html">選擇一條支線：002-0011 課程</a></li>
 </ul>
 <p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>合法停止點：</strong>每個選定課程都返回呼叫端提供的 active route；工具箱本身沒有 Phase completion</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：entry／feedback／readiness／tangible win · 來源 ID：<code>course-equip-toolbox-contract</code></div>

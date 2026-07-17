@@ -24,73 +24,73 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <h1>Claude Code 模型與推理程度速查表</h1>
-<p class="sub">用任務風險選模型，用不確定性選 effort。</p>
+<p class="sub">用任務風險選模型，用不確定性選工作量。</p>
 
 <div class="rule">
-  <strong>核心判斷：</strong>不是一律開最強。先問任務是否需要更深推理，再決定是否提高模型或 effort。
+  <strong>核心判斷：</strong>不是一律開最強。先問任務是否需要更深推理，再決定是否提高模型或工作量。
 </div>
 
-<h2>模型 alias</h2>
+<h2>模型別名</h2>
 <table>
 <tr><th>別名</th><th>適合任務</th><th>注意事項</th></tr>
-<tr><td><code>default</code></td><td>回到帳號或組織建議的預設模型。</td><td>依 account tier、provider 與 organization default 而變；它不是固定模型。</td></tr>
-<tr><td><code>best</code></td><td>使用目前可用的最高能力模型。</td><td>實際模型依帳號、provider 與組織可用性而變。</td></tr>
-<tr><td><code>sonnet</code></td><td>日常 coding、局部修改、測試可驗證的任務。</td><td>多數工作先從這裡開始。</td></tr>
-<tr><td><code>opus</code></td><td>架構判斷、模糊需求、跨模組推理、困難 review。</td><td>成本與延遲通常較高。</td></tr>
-<tr><td><code>opusplan</code></td><td>先深度規劃，再有效率實作。</td><td>plan mode 用 Opus，執行回 Sonnet。</td></tr>
+<tr><td><code>default</code></td><td>回到帳號或組織建議的預設模型。</td><td>依帳號層級、供應者與組織預設值而變；它不是固定模型。</td></tr>
+<tr><td><code>best</code></td><td>使用目前可用的最高能力模型。</td><td>實際模型依帳號、供應者與組織可用性而變。</td></tr>
+<tr><td><code>sonnet</code></td><td>日常程式開發、局部修改、測試可驗證的任務。</td><td>多數工作先從這裡開始。</td></tr>
+<tr><td><code>opus</code></td><td>架構判斷、模糊需求、跨模組推理、困難審查。</td><td>成本與延遲通常較高。</td></tr>
+<tr><td><code>opusplan</code></td><td>先深度規劃，再有效率實作。</td><td>計畫模式用 Opus，執行回 Sonnet。</td></tr>
 <tr><td><code>haiku</code></td><td>簡單整理、格式化、低風險小任務。</td><td>不適合複雜推理。</td></tr>
-<tr><td><code>sonnet[1m]</code>／<code>opus[1m]</code></td><td>真的需要超長 context 的 session。</td><td>不要用長 context 取代乾淨 scope 與 handoff。</td></tr>
+<tr><td><code>sonnet[1m]</code>／<code>opus[1m]</code></td><td>真的需要超長脈絡的工作階段。</td><td>不要用長脈絡取代乾淨範圍與交接。</td></tr>
 </table>
-<p><strong>版本提醒：</strong>alias 會更新，且不同 provider 可能解析到不同版本；先看目前 picker，需要固定版本時才使用完整 model ID。不要把文件未列出的名稱當成可用 alias。</p>
+<p><strong>版本提醒：</strong>別名會更新，且不同供應者可能解析到不同版本；先看目前選擇器，需要固定版本時才使用完整模型 ID。不要把文件未列出的名稱當成可用別名。</p>
 
 <h2>推理程度</h2>
 <table>
 <tr><th>等級</th><th>何時使用</th><th>不要用在</th></tr>
 <tr><td><code>low</code></td><td>短、明確、低風險、重視速度。</td><td>架構或疑難除錯。</td></tr>
 <tr><td><code>medium</code></td><td>想省成本，但仍需要一些判斷。</td><td>高風險改動。</td></tr>
-<tr><td><code>high</code></td><td>多數 coding 任務的基準選擇。</td><td>不需要思考的批次小事。</td></tr>
-<tr><td><code>xhigh</code></td><td>跨檔案推理、設計取捨、困難 bug。</td><td>只有部分模型支援；介面沒有列出時不要自行假設可用。</td></tr>
-<tr><td><code>max</code></td><td>真的困難且有明確 stop condition 的任務。</td><td>長期預設設定。</td></tr>
+<tr><td><code>high</code></td><td>多數程式開發任務的基準選擇。</td><td>不需要思考的批次小事。</td></tr>
+<tr><td><code>xhigh</code></td><td>跨檔案推理、設計取捨、困難缺陷。</td><td>只有部分模型支援；介面沒有列出時不要自行假設可用。</td></tr>
+<tr><td><code>max</code></td><td>真的困難且有明確 stop 條件的任務。</td><td>長期預設值。</td></tr>
 </table>
-<p><strong>模型差異：</strong>目前官方文件列出 Opus 4.7 支援 <code>low</code>、<code>medium</code>、<code>high</code>、<code>xhigh</code>、<code>max</code>；Opus 4.6 與 Sonnet 4.6 支援 <code>low</code>、<code>medium</code>、<code>high</code>、<code>max</code>。模型與組織設定會改變可用範圍，最後仍以介面選項為準。</p>
+<p><strong>模型差異：</strong>目前官方文件列出 Opus 4.7支援 <code>low</code>、<code>medium</code>、<code>high</code>、<code>xhigh</code>、<code>max</code>；Opus 4.6與 Sonnet 4.6支援 <code>low</code>、<code>medium</code>、<code>high</code>、<code>max</code>。模型與組織設定會改變可用範圍，最後仍以介面選項為準。</p>
 
 <h2>操作方式</h2>
 <table>
 <tr><th>介面</th><th>方式</th><th>用途</th></tr>
-<tr><td>桌面 App</td><td>model 下拉選單</td><td>選模型；位置在送出按鈕旁。</td></tr>
-<tr><td>桌面 App</td><td>effort 選單</td><td>調推理程度。</td></tr>
-<tr><td>Slash command（斜線命令）</td><td><code>/model</code></td><td>若 <code>/</code> 清單有，可當作模型選單快捷。</td></tr>
-<tr><td>Slash command（斜線命令）</td><td><code>/model sonnet</code></td><td>若目前環境支援，可切到指定 alias。</td></tr>
-<tr><td>Slash command（斜線命令）</td><td><code>/effort</code></td><td>若 <code>/</code> 清單有，可當作 effort 選單快捷。</td></tr>
-<tr><td>Slash command（斜線命令）</td><td><code>/effort auto</code></td><td>若目前環境支援，可回到模型預設 effort。</td></tr>
-<tr><td>任一介面</td><td><code>ultrathink</code></td><td>單回合要求更深思考，不改 session effort 設定。</td></tr>
+<tr><td>桌面應用程式</td><td>模型下拉選單</td><td>選模型；位置在送出按鈕旁。</td></tr>
+<tr><td>桌面應用程式</td><td>工作量選單</td><td>調推理程度。</td></tr>
+<tr><td>斜線 command（斜線命令）</td><td><code>/model</code></td><td>若 <code>/</code> 清單有，可當作模型選單快捷。</td></tr>
+<tr><td>斜線 command（斜線命令）</td><td><code>/model sonnet</code></td><td>若目前環境支援，可切到指定別名。</td></tr>
+<tr><td>斜線 command（斜線命令）</td><td><code>/effort</code></td><td>若 <code>/</code> 清單有，可當作工作量選單快捷。</td></tr>
+<tr><td>斜線 command（斜線命令）</td><td><code>/effort auto</code></td><td>若目前環境支援，可回到模型預設工作量。</td></tr>
+<tr><td>任一介面</td><td><code>ultrathink</code></td><td>單回合要求更深思考，不改工作階段工作量設定。</td></tr>
 </table>
 
 <h2>決策句</h2>
 <table>
 <tr><th>任務</th><th>建議</th></tr>
-<tr><td>修 README typo。</td><td><code>sonnet</code> + <code>low</code> 或 <code>medium</code>。</td></tr>
+<tr><td>修 README 錯字。</td><td><code>sonnet</code> + <code>low</code> 或 <code>medium</code>。</td></tr>
 <tr><td>新增小功能，有測試可跑。</td><td><code>sonnet</code> + <code>high</code>。</td></tr>
-<tr><td>跨模組改 API。</td><td><code>opusplan</code>，或 <code>opus</code> + picker 支援的較高 effort。</td></tr>
-<tr><td>疑難 bug、根因不明。</td><td>先建立 feedback loop，再視不確定性選 <code>opus</code> 與較高 effort。</td></tr>
-<tr><td>長時間自主任務。</td><td>先確認 success criteria、verification 與 stop condition，再選適合模型與 effort。</td></tr>
+<tr><td>跨模組改 API。</td><td><code>opusplan</code>，或 <code>opus</code> + 選擇器支援的較高工作量。</td></tr>
+<tr><td>疑難缺陷、根因不明。</td><td>先建立 feedback 迴路，再視不確定性選 <code>opus</code> 與較高工作量。</td></tr>
+<tr><td>長時間自主任務。</td><td>先確認成功準則、驗證與 stop 條件，再選適合模型與工作量。</td></tr>
 </table>
 
 <h2>課程路線中的使用位置</h2>
 <table>
 <tr><th>Phase</th><th>重點</th><th>規則</th></tr>
-<tr><td>Phase 1 階段</td><td>模型選擇、effort、<code>opusplan</code> 基本取捨。</td><td>桌面 App 先用選單；slash command 可用時作快捷。</td></tr>
-<tr><td>Phase 2 階段</td><td>hooks、Skills、MCP、Subagents、worktrees、headless、CI 的成本與權限邊界。</td><td>進階能力先明確 scope，再升高 effort。</td></tr>
-<tr><td>Phase 3 階段</td><td>在 repo 地圖整理、<code>/grill-with-docs</code>、<code>/implement</code> 內的 review、或 <code>/diagnosing-bugs</code> 判斷何時升高 effort。</td><td>不確定性高才升級。</td></tr>
-<tr><td>Phase 4–5（選修）</td><td>視覺原型、簡報與日常交付物仍要依內容風險選 effort。</td><td>高 effort 不能取代來源查核、真實回饋或 browser verification。</td></tr>
+<tr><td>Phase 1階段</td><td>模型選擇、工作量、<code>opusplan</code> 基本取捨。</td><td>桌面應用程式先用選單；斜線 command 可用時作快捷。</td></tr>
+<tr><td>Phase 2階段</td><td>掛鉤、技能、MCP、子代理程式、工作目錄、無頭模式、CI 的成本與權限邊界。</td><td>進階能力先明確範圍，再升高工作量。</td></tr>
+<tr><td>Phase 3階段</td><td>在 repo 地圖整理、<code>/grill-with-docs</code>、<code>/implement</code> 內的審查、或 <code>/diagnosing-bugs</code> 判斷何時升高工作量。</td><td>不確定性高才升級。</td></tr>
+<tr><td>Phase 4–5（選修）</td><td>視覺原型、簡報與日常交付物仍要依內容風險選工作量。</td><td>高工作量不能取代來源查核、真實回饋或瀏覽器驗證。</td></tr>
 </table>
 
 <h2>降級規則</h2>
 <table>
 <tr><th>觀察</th><th>下一次設定</th></tr>
-<tr><td><code>xhigh</code> 沒帶來更清楚的 evidence。</td><td>降回 <code>high</code>。</td></tr>
-<tr><td><code>max</code> 只是在重跑同一個失敗。</td><td>停止，修 scope、feedback loop 或驗證方式。</td></tr>
-<tr><td>同類任務連續三次在 <code>high</code> 通過。</td><td>移除高 effort 例外。</td></tr>
+<tr><td><code>xhigh</code> 沒帶來更清楚的證據。</td><td>降回 <code>high</code>。</td></tr>
+<tr><td><code>max</code> 只是在重跑同一個失敗。</td><td>停止，修範圍、feedback 迴路或驗證方式。</td></tr>
+<tr><td>同類任務連續三次在 <code>high</code> 通過。</td><td>移除高工作量例外。</td></tr>
 </table>
 
 <footer data-course-footer="canonical" data-route-id="not-applicable" data-legal-stop="not-applicable">

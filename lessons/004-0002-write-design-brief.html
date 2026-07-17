@@ -7,14 +7,14 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="design-delivery:feedback,design-delivery:tangible-win">
 <meta name="course:source-ids" content="claude-design-brief-context-contract,course-design-delivery-contract">
-<title>004-0002：寫出可驗收的 Design brief</title>
+<title>004-0002：寫出可驗收的設計簡述</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:800px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#635b9a;margin-top:2rem}.mission,.stop,.rule{border-left:4px solid #635b9a;background:#f3f1fa;padding:.8rem 1rem}.card,.win,.quiz{border:1px solid #d9d5e8;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#efedf8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #d9d5e8;padding:.6rem;text-align:left;vertical-align:top}code,pre{background:#f3f1fa;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#f3f1fa;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#514985}@media(max-width:620px){body{margin-top:1rem}table{font-size:.88rem}}</style>
 </head><body>
-<p><a href="004-0001-choose-claude-design-surface.html">← 選擇 surface</a> · <a href="../reference/claude-design-to-code-workflow.html">Design workflow 參考</a></p>
-<header><p>第 4 階段 · 設計 · 004-0002 · Brief</p><h1>把模糊要求收斂成可驗收的 Design brief</h1><p class="mission"><strong>進入條件：</strong>已選定 Design route，並有一個真實 mission。本課先固定問題、內容與 acceptance，不先接受第一個生成結果。</p></header>
+<p><a href="004-0001-choose-claude-design-surface.html">← 選擇介面</a> · <a href="../reference/claude-design-to-code-workflow.html">設計 工作流程 參考</a></p>
+<header><p>第 4 階段 · 設計 · 004-0002 · 簡述</p><h1>把模糊要求收斂成可驗收的設計簡述</h1><p class="mission"><strong>進入條件：</strong>已選定設計路線，並有一個真實任務。本課先固定問題、內容與驗收，不先接受第一個生成結果。</p></header>
 <h2>七欄把「好看」改成可觀察條件</h2>
-<table><tr><th>欄位</th><th>必須回答</th><th>可觀察範例</th></tr><tr><td>目標（Goal）</td><td>誰要完成什麼任務？</td><td>新手能在兩分鐘內比較方案並選一個。</td></tr><tr><td>受眾（Audience）</td><td>角色、情境、裝置與既有知識？</td><td>第一次設定帳號、以手機操作的繁中使用者。</td></tr><tr><td>內容（Content）</td><td>真實文案、資料與 states？</td><td>價格、限制、loading、empty、error、disabled。</td></tr><tr><td>版面（Layout）</td><td>區塊、層級與 responsive 行為？</td><td>桌面雙欄；窄螢幕改單欄且 CTA 不溢位。</td></tr><tr><td>脈絡（Context）</td><td>哪些 approved sources 不可被發明？</td><td>design system、brand assets、repo、policy 等已核准來源。</td></tr><tr><td>非目標（Non-goals）</td><td>本輪明確不做什麼？</td><td>不改 pricing policy、不實作 repo。</td></tr><tr><td>驗收（Acceptance）</td><td>要觀察什麼才進下一步？</td><td>兩個方向都涵蓋 states，reviewer 能完成指定 task。</td></tr></table>
-<h2>建立 brief artifact</h2>
+<table><tr><th>欄位</th><th>必須回答</th><th>可觀察範例</th></tr><tr><td>目標</td><td>誰要完成什麼任務？</td><td>新手能在兩分鐘內比較方案並選一個。</td></tr><tr><td>受眾</td><td>角色、情境、裝置與既有知識？</td><td>第一次設定帳號、以手機操作的繁中使用者。</td></tr><tr><td>內容</td><td>真實文案、資料與狀態？</td><td>價格、限制、載入、空白、錯誤、停用。</td></tr><tr><td>版面</td><td>區塊、層級與響應式行為？</td><td>桌面雙欄；窄螢幕改單欄且 CTA 不溢位。</td></tr><tr><td>脈絡</td><td>哪些已核准來源不可被發明？</td><td>設計系統、品牌素材、儲存庫、政策等已核准來源。</td></tr><tr><td>非目標</td><td>本輪明確不做什麼？</td><td>不改定價政策、不實作儲存庫。</td></tr><tr><td>驗收</td><td>要觀察什麼才進下一步？</td><td>兩個方向都涵蓋狀態，審查者能完成指定任務。</td></tr></table>
+<h2>建立簡述 artifact</h2>
 <div class="card"><pre>Project / revision:
 Goal:
 Audience and use context:
@@ -26,17 +26,17 @@ Non-goals / sensitive-data boundary:
 Acceptance tasks and evidence:
 Feedback giver:
 Open assumptions:</pre></div>
-<ol><li>刪除「現代、直覺、有質感」等無法驗收的形容詞，或替它補上 observable behavior。</li><li>至少加入一個 non-happy-path state 與一個窄 viewport expectation。</li><li>把尚未確認的事實標成 assumption，不要求 Claude 補成看似確定的內容。</li><li>請 feedback giver 只讀 brief，重述 user、task、限制與 success；重述不同就先修 brief。</li></ol>
-<div class="win"><strong>具體成果：</strong>一份可交給另一人執行與驗收、且有 revision identity 的 Design brief。<br><strong>可觀察回饋：</strong>Reviewer 不看作者補充說明，也能指出 user task、真實內容、states、non-goals 與 acceptance evidence；無法重述的欄位回到 brief 修正。</div>
-<h2>只在命中條件時走 design-system branch</h2>
-<p class="rule">若已有 approved design system、brand source 或可安全匯入的 product context，進 <a href="004-0003-sync-design-system.html">004-0003</a> 校正；若沒有，明確記錄「無 approved context／不發明 tokens」，直接進 <a href="004-0004-explore-design-directions.html">004-0004</a>。這是 choose-one branch，不是缺課。</p>
-<div class="quiz" data-answer="2"><p>哪一項最能讓 brief 可驗收？</p><button type="button">要求整體更有質感</button><button type="button">讓 Claude 自己決定所有真實內容</button><button type="button">寫出 user task、required states 與 observable acceptance</button><div class="why">可觀察的 task、states 與 acceptance 能讓生成與 review 共用同一標準；風格形容詞不能獨立驗收。</div></div>
-<p class="stop"><strong>合法停止／續行：</strong>Goal、真實 content、資料權限或 feedback giver 未定時，保存 brief draft 並回 readiness 補缺口。Brief 可重述後，依 approved context 選 <a href="004-0003-sync-design-system.html">條件式設計系統支線</a> 或直接到 <a href="004-0004-explore-design-directions.html">設計方向探索</a>。</p>
+<ol><li>刪除「現代、直覺、有質感」等無法驗收的形容詞，或替它補上可觀察行為。</li><li>至少加入一個非順利路徑狀態與一個窄 viewport 預期。</li><li>把尚未確認的事實標成假設，不要求 Claude 補成看似確定的內容。</li><li>請回饋提供者只讀簡述，重述使用者、任務、限制與 成功；重述不同就先修簡述。</li></ol>
+<div class="win"><strong>具體成果：</strong>一份可交給另一人執行與驗收、且有修訂識別的設計簡述。<br><strong>可觀察回饋：</strong>審查者不看作者補充說明，也能指出使用者任務、真實內容、狀態、非目標與驗收 evidence；無法重述的欄位回到簡述修正。</div>
+<h2>只在命中條件時走設計系統分支</h2>
+<p class="rule">若已有已核准設計系統、品牌 source 或可安全匯入的產品脈絡，進 <a href="004-0003-sync-design-system.html">004-0003</a> 校正；若沒有，明確記錄「無已核准脈絡／不發明 權杖」，直接進 <a href="004-0004-explore-design-directions.html">004-0004</a>。這是單選分支，不是缺課。</p>
+<div class="quiz" data-answer="2"><p>哪一項最能讓簡述可驗收？</p><button type="button">要求整體更有質感</button><button type="button">讓 Claude 自己決定所有真實內容</button><button type="button">寫出使用者任務、必要狀態與可觀察驗收</button><div class="why">可觀察的任務、狀態與驗收能讓生成與 review 共用同一標準；風格形容詞不能獨立驗收。</div></div>
+<p class="stop"><strong>合法停止／續行：</strong>目標、真實內容、資料權限或回饋提供者未定時，保存簡述草稿並回 準備度 補缺口。簡述 可重述後，依已核准脈絡選 <a href="004-0003-sync-design-system.html">條件式設計系統支線</a> 或直接到 <a href="004-0004-explore-design-directions.html">設計方向探索</a>。</p>
 <footer data-course-footer="canonical" data-route-id="design-delivery" data-legal-stop="Stop at the Design handoff bundle unless implementation is selected">
 <p><strong>路線導覽 · 設計交付</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="design-delivery" data-route-action="choose-one" href="004-0003-sync-design-system.html">選擇一條支線：lessons/004-0003-sync-design-system.html</a></li>
-<li><a data-route-id="design-delivery" data-route-action="choose-one" href="004-0004-explore-design-directions.html">選擇一條支線：lessons/004-0004-explore-design-directions.html</a></li>
+<li><a data-route-id="design-delivery" data-route-action="choose-one" href="004-0003-sync-design-system.html">選擇一條支線：004-0003 課程</a></li>
+<li><a data-route-id="design-delivery" data-route-action="choose-one" href="004-0004-explore-design-directions.html">選擇一條支線：004-0004 課程</a></li>
 </ul>
 <p data-route-legal-stop="Stop at the Design handoff bundle unless implementation is selected"><strong>合法停止點：</strong>完成 Design handoff bundle 後即可停止；除非 mission 選擇 implementation</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible win · 來源 ID：<code>claude-design-brief-context-contract</code>、<code>course-design-delivery-contract</code></div>

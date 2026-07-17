@@ -8,7 +8,7 @@
 <meta name="course:page-kind" content="canonical-reference">
 <meta name="course:route-roles" content="not-applicable">
 <meta name="course:source-ids" content="claude-product-surface-selection">
-<title>速查表：Claude 工作表面與 Task route</title>
+<title>速查表：Claude 工作表面與任務路線</title>
 <style>
   * { box-sizing: border-box; } body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 940px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.75; } h1 { font-size: 1.65rem; border-bottom: 2px solid #c2571a; padding-bottom: .45rem; } h2 { color: #a94716; margin-top: 2rem; } .table-wrap { max-width: 100%; overflow-x: auto; } table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: .92rem; } th, td { border: 1px solid #d9d2cc; padding: .6rem .7rem; text-align: left; vertical-align: top; } th { background: #fff4eb; } .rule, .boundary { border-left: 4px solid #c2571a; background: #fff7f0; padding: .75rem 1rem; margin: .7rem 0; } .boundary { border-color: #8c6a00; background: #fff9e8; } code { background: #f3efeb; padding: .1rem .3rem; border-radius: 3px; overflow-wrap: anywhere; } a { color: #99400f; } footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; } @media (max-width: 620px) { body { margin-top: 1.2rem; } } @media print { body { margin: 1rem auto; } }
 </style>
@@ -16,41 +16,41 @@
 <body>
 <p><a href="../lessons/001-0001-four-claude-surfaces.html">← 回工作表面選擇課</a> · <a href="../toc.html">回課目表</a></p>
 <h1>速查表：先選成果環境，再選 Claude 工作表面</h1>
-<p>這張表用來做 route choice，不是產品能力排行榜。實際 availability 可能依方案、組織設定、client 與 rollout 改變；開始前以你看得到的產品 surface 為準。</p>
+<p>這張表用來做 route 選擇，不是產品能力排行榜。實際可用性可能依方案、組織設定、用戶端與導入改變；開始前以你看得到的產品介面為準。</p>
 
 <div class="table-wrap"><table>
   <thead><tr><th>工作表面</th><th>主要工作環境</th><th>典型成果</th><th>開始前先確認</th><th>不要把它誤稱為</th></tr></thead>
   <tbody>
-    <tr><th>Claude</th><td>對話與附件 context</td><td>回答、分析、草稿</td><td>輸入來源與預期讀者</td><td>已驗證的外部事實或自動完成的多檔案工作</td></tr>
-    <tr><th>Cowork</th><td>授權的 task files；部分 surface 可處理本機資料夾</td><td>整理後的文件與檔案</td><td>read／write 範圍、敏感資料與交付 review</td><td>無需檢查的完成品或 repo delivery</td></tr>
-    <tr><th>Claude Design</th><td>視覺 brief、design context 與 prototype</td><td>方向、原型、簡報、design intent</td><td>受眾、feedback criteria 與 handoff boundary</td><td>usability、accessibility 或 production readiness 證明</td></tr>
-    <tr><th>Claude Code</th><td>git repo 與執行環境</td><td>repo map、diff、checks 與 checkpoint 紀錄</td><td>instructions、permissions、safe scope 與 Code readiness</td><td>未經 Review 的 production-ready change</td></tr>
+    <tr><th>Claude</th><td>對話與附件脈絡</td><td>回答、分析、草稿</td><td>輸入來源與預期讀者</td><td>已驗證的外部事實或自動完成的多檔案工作</td></tr>
+    <tr><th>Cowork</th><td>授權的任務檔案；部分介面可處理本機資料夾</td><td>整理後的文件與檔案</td><td>讀取／寫入範圍、敏感資料與交付審查</td><td>無需檢查的完成品或 repo 交付</td></tr>
+    <tr><th>Claude Design</th><td>視覺摘要、設計脈絡與原型</td><td>方向、原型、簡報、設計意圖</td><td>受眾、feedback 準則與交接邊界</td><td>易用性、可及性或正式環境 readiness 證明</td></tr>
+    <tr><th>Claude Code</th><td>git 儲存庫與執行環境</td><td>repo 地圖、diff、checks 與檢查點紀錄</td><td>指示、權限、安全的範圍與 Code readiness</td><td>未經 Review 的可供正式環境使用的變更</td></tr>
   </tbody>
 </table></div>
 
-<h2>一句話 selector</h2>
-<div class="rule">只需思考、回答或草稿，context 由你提供 → <strong>Claude</strong></div>
+<h2>一句話選擇規則</h2>
+<div class="rule">只需思考、回答或草稿，脈絡由你提供 → <strong>Claude</strong></div>
 <div class="rule">需要在授權檔案範圍完成多步驟知識工作 → <strong>Cowork</strong></div>
 <div class="rule">需要先探索視覺方向、原型或簡報 → <strong>Claude Design</strong></div>
-<div class="rule">需要在 repo 中讀、改、執行 checks 與 review diff → <strong>Claude Code</strong></div>
+<div class="rule">需要在 repo 中讀、改、執行 checks 與審查 diff → <strong>Claude Code</strong></div>
 
 <h2>選完後寫入 Return notebook</h2>
-<ol><li>Mission 與成果所在環境</li><li>Selected route 與 current anchor</li><li>允許的 read、write、external side effects</li><li>下一個 tangible win 與 legal stop</li><li>Readiness gap、最小 remediation 與 return point</li></ol>
-<p>可直接複製<a href="../assets/templates/route-notebook.md">Return notebook 模板</a>。它是 learner-owned portable Markdown，不是 completion authority。</p>
+<ol><li>Mission 與成果所在環境</li><li>所選的 route 與現行的錨點</li><li>允許的讀取、寫入、外部副作用</li><li>下一個具體成果與法務 stop</li><li>準備度缺口、最小補強與返回點</li></ol>
+<p>可直接複製<a href="../assets/templates/route-notebook.md">Return notebook 模板</a>。它是學習者負責的可攜式 Markdown，不是完成權限。</p>
 
-<h2>目前可操作的 route 起點</h2>
+<h2>目前可操作的路線起點</h2>
 <ul>
-  <li><a href="../lessons/001-0003-complete-cowork-starter.html">Cowork 起步</a>：低風險檔案副本，完成 readiness evidence 後可停止。</li>
-  <li><a href="../lessons/003-0001-select-knowledge-deliverable.html">知識工作交付路線</a>：依 mission 選一種可追溯的 knowledge deliverable，完成 closeout 後可停止。</li>
-  <li><a href="../lessons/004-0001-choose-claude-design-surface.html">設計交付路線</a>：交付可 review 的 handoff bundle；沒有 repo implementation mission 時可在 bundle 停止。</li>
-  <li><a href="../lessons/005-0001-choose-presentation-route.html">簡報交付路線</a>：依受眾與使用時刻完成可驗證 deck 與 rehearsal closeout。</li>
-  <li><a href="../lessons/001-0004-prepare-claude-code-session.html">程式碼工作就緒條件</a>：從 session smoke test 走到 fixture edit evidence；仍不是 repo deliverable。</li>
-  <li><a href="../lessons/006-0001-choose-engineering-route.html">工程交付路線</a>：要交付 repo change 時使用；進入前先具備 Code readiness。</li>
+  <li><a href="../lessons/001-0003-complete-cowork-starter.html">Cowork 起步</a>：低風險檔案副本，完成 readiness 證據後可停止。</li>
+  <li><a href="../lessons/003-0001-select-knowledge-deliverable.html">知識工作交付路線</a>：依任務選一種可追溯的知識交付物，完成收尾後可停止。</li>
+  <li><a href="../lessons/004-0001-choose-claude-design-surface.html">設計交付路線</a>：交付可審查的交接收尾包；沒有 repo 實作任務時可在收尾包停止。</li>
+  <li><a href="../lessons/005-0001-choose-presentation-route.html">簡報交付路線</a>：依受眾與使用時刻完成可驗證簡報與演練收尾。</li>
+  <li><a href="../lessons/001-0004-prepare-claude-code-session.html">程式碼工作就緒條件</a>：從工作階段 smoke test 走到 fixture 編輯證據；仍不是 repo 交付物。</li>
+  <li><a href="../lessons/006-0001-choose-engineering-route.html">工程交付路線</a>：要交付 repo 變更時使用；進入前先具備 Code readiness。</li>
 </ul>
-<div class="boundary"><strong>路線可用性邊界：</strong>完整 canonical catalog 已可使用；依目前 mission 選一條 route，optional continuation 不是必修。Hosted surface 的實際 availability 仍須以當下方案、組織設定、client 與可見產品 surface 核對。</div>
+<div class="boundary"><strong>路線可用性邊界：</strong>完整的標準目錄已可使用；依目前任務選一條 route，選修續作不是必修。託管介面的實際可用性仍須以當下方案、組織設定、用戶端與可見產品介面核對。</div>
 
 <footer data-course-footer="canonical" data-route-id="not-applicable" data-legal-stop="not-applicable">
-<div class="course-page-identity">路線角色：不適用 · 頁面類型：標準參考頁 · 來源 ID：<code>claude-product-surface-selection</code> · Source evidence checked：2026-07-16</div>
+<div class="course-page-identity">路線角色：不適用 · 頁面類型：標準參考頁 · 來源 ID：<code>claude-product-surface-selection</code> · 已檢查來源證據：2026-07-16</div>
 </footer>
 </body>
 </html>

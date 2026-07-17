@@ -7,7 +7,7 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="presentation-delivery:feedback,presentation-delivery:tangible-win">
 <meta name="course:source-ids" content="course-presentation-delivery-contract,presentation-source-claim-contract">
-<title>005-0002：整理可追溯的 source pack</title>
+<title>005-0002：整理可追溯的來源包</title>
 <style>
   body { font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif; max-width:740px; margin:3rem auto; padding:0 1.5rem; color:#1a1a1a; line-height:1.85; }
   .kicker{color:#315f86;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase} h1{font-size:1.7rem;margin:.3rem 0} h2{font-size:1.2rem;margin-top:2.4rem;color:#315f86}
@@ -17,51 +17,51 @@
 </style>
 </head>
 <body>
-<p style="margin:0"><a href="005-0001-choose-presentation-route.html" style="font-size:.85rem">← Presentation 路線</a> · <a href="../reference/claude-design-presentation-workflow.html">Workflow 參考</a></p>
-<div class="kicker">第 5 階段 · 第 02 課 · 約 20 分鐘 · Source pack</div>
-<h1>整理可追溯的 source pack</h1>
+<p style="margin:0"><a href="005-0001-choose-presentation-route.html" style="font-size:.85rem">← 簡報路線</a> · <a href="../reference/claude-design-presentation-workflow.html">工作流程 參考</a></p>
+<div class="kicker">第 5 階段 · 第 02 課 · 約 20 分鐘 · 來源包</div>
+<h1>整理可追溯的來源包</h1>
 <p class="mission">目標：把散落的文件、數字、圖片與限制整理成一包可追溯素材，讓 Claude Design 不需要猜內容。</p>
-<div class="scope"><strong>本課只做：</strong>建立 source index，區分已確認、待確認與不可使用的素材。<br><strong>先不要做：</strong>讓模型自行補齊缺少的營收、日期、客戶引言或圖片授權。</div>
+<div class="scope"><strong>本課只做：</strong>建立 source 索引，區分已確認、待確認與不可使用的素材。<br><strong>先不要做：</strong>讓模型自行補齊缺少的營收、日期、客戶引言或圖片授權。</div>
 
-<h2>Source pack 不是「把整個資料夾丟進去」</h2>
+<h2>來源包不是「把整個資料夾丟進去」</h2>
 <table>
 <tr><th>區塊</th><th>至少包含</th><th>驗收方式</th></tr>
-<tr><td><strong>事實（Facts）</strong></td><td>數字、日期、名稱、引言、定義</td><td>每項能指回檔名、頁碼或網址</td></tr>
-<tr><td><strong>素材（Assets）</strong></td><td>logo、照片、圖示、既有 deck</td><td>知道來源、版本與使用權</td></tr>
-<tr><td><strong>限制（Constraints）</strong></td><td>受眾、時間、品牌、保密、禁用內容</td><td>能轉成生成與 review 規則</td></tr>
-<tr><td><strong>未知項目（Unknowns）</strong></td><td>尚未核准或資料不足的主張</td><td>明確標記 owner 與截止時間</td></tr>
+<tr><td><strong>事實</strong></td><td>數字、日期、名稱、引言、定義</td><td>每項能指回檔名、頁碼或網址</td></tr>
+<tr><td><strong>素材</strong></td><td>標誌、照片、圖示、既有簡報</td><td>知道來源、版本與使用權</td></tr>
+<tr><td><strong>限制</strong></td><td>受眾、時間、品牌、保密、禁用內容</td><td>能轉成生成與審查規則</td></tr>
+<tr><td><strong>未知項目</strong></td><td>尚未核准或資料不足的主張</td><td>明確標記負責人與截止時間</td></tr>
 </table>
-<div class="rule"><strong>模型能協助整理，不能替來源背書。</strong>要求它只使用 source pack；缺資料時保留 <code>[待確認]</code>，不要產生「看起來合理」的值。</div>
+<div class="rule"><strong>模型能協助整理，不能替來源背書。</strong>要求它只使用來源包；缺資料時保留 <code>[待確認]</code>，不要產生「看起來合理」的值。</div>
 
-<h2>Source index 最小格式</h2>
+<h2>Source 索引最小格式</h2>
 <pre>ID | Claim / asset | Source | Status | Rights / notes
 S01 | Q2 revenue | q2-results.xlsx, Sheet1 B12 | confirmed | internal
 S02 | Customer quote | call-notes.docx, p.3 | pending approval | owner: Mei
 S03 | Product image | media-kit/logo.svg | confirmed | brand use only</pre>
 
-<h2>實作 checklist</h2>
-<div class="step"><label><input type="checkbox"> 1. 收集本次交付需要的最小素材</label><p>只收能支持這份 deck 的檔案與連結，避免無關資料增加錯用風險。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 為每個關鍵主張加 source ID</label><p>數字、引言與時間性主張都要能從 slide 回到 source index。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 標記 unknowns 與授權狀態</label><p>把未核准引言、來路不明圖片與待更新數字放進待辦，不混入 confirmed。</p></div>
+<h2>實作清單</h2>
+<div class="step"><label><input type="checkbox"> 1. 收集本次交付需要的最小素材</label><p>只收能支持這份簡報的檔案與連結，避免無關資料增加錯用風險。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 為每個關鍵主張加來源 ID</label><p>數字、引言與時間性主張都要能從投影片回到 source 索引。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 標記未知項目與授權狀態</label><p>把未核准引言、來路不明圖片與待更新數字放進待辦，不混入已確認。</p></div>
 <div class="step"><label><input type="checkbox"> 4. 寫下生成邊界</label><pre>Use only confirmed items in the source index.
 Keep source IDs in the claim ledger or a sidecar notes document.
 If speaker notes are available, copy them there and verify them after export.
 Mark missing facts as [待確認].
 Do not invent quotes, numbers, dates, logos, or image rights.</pre></div>
-<div class="done-banner" id="done"><strong>具體成果：你的 source pack 與 claim／rights index 已可追溯。</strong><br><strong>可觀察回饋：</strong>隨機抽查三個 slide 候選主張，逐一由 source ID 找回原始位置、辨認 confirmed／unknown，並記錄至少一個已排除或仍存在的授權／引用風險；若有另一位 reviewer，可選擇性重跑同一抽查，但不是完成條件。</div>
+<div class="done-banner" id="done"><strong>具體成果：你的來源包與主張／權利索引已可追溯。</strong><br><strong>可觀察回饋：</strong>隨機抽查三個投影片候選主張，逐一由來源 ID 找回原始位置、辨認已確認／未知，並記錄至少一個已排除或仍存在的授權／引用風險；若有另一位審查者，可選擇性重跑同一抽查，但不是完成條件。</div>
 
 <h2>觀念檢查</h2>
-<div class="quiz" data-answer="1"><p>1. 缺少關鍵數字時該怎麼做？</p><button>填入模型推估的近似值並註明來源待確認</button><button>標為 unknown 並指定確認 owner</button><button>先從版面移除並留待全部完成後處理</button><div class="why">缺資料要顯性化並交給 owner；模型補值或暫時藏起來，都會讓漂亮版面掩蓋事實缺口。</div></div>
-<div class="quiz" data-answer="0"><p>2. 哪個條件代表主張可追溯？</p><button>有 source ID 可回到原始頁</button><button>已請 Claude 再次確認數字</button><button>多份簡報都引用同一個數字</button><div class="why">可追溯指能回到原始檔案、頁碼、儲存格或網址；模型自評與重複引用都不是來源證據。</div></div>
+<div class="quiz" data-answer="1"><p>1. 缺少關鍵數字時該怎麼做？</p><button>填入模型推估的近似值並註明來源待確認</button><button>標為未知並指定確認負責人</button><button>先從版面移除並留待全部完成後處理</button><div class="why">缺資料要顯性化並交給負責人；模型補值或暫時藏起來，都會讓漂亮版面掩蓋事實缺口。</div></div>
+<div class="quiz" data-answer="0"><p>2. 哪個條件代表主張可追溯？</p><button>有來源 ID 可回到原始頁</button><button>已請 Claude 再次確認數字</button><button>多份簡報都引用同一個數字</button><div class="why">可追溯指能回到原始檔案、頁碼、儲存格或網址；模型自評與重複引用都不是來源證據。</div></div>
 
 <h2>下一步與主要閱讀</h2>
-<p>下一課把 confirmed facts 排成 <a href="005-0003-storyboard-presentation.html">簡報故事板</a>。</p>
-<p><strong>主要官方閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Get started with Claude Design</a> 的 Add context 與支援匯入內容。</p>
-<p class="scope"><strong>合法停止／返回：</strong>任一核心 claim 無原始位置、asset rights 不明，或 unknown 沒有 owner 時，保留 source pack，不進入生成；回 <a href="005-0001-choose-presentation-route.html">005-0001</a> 修正 scope／owner。可抽查後續行 <a href="005-0003-storyboard-presentation.html">005-0003</a>；本課沒有 elective 分支。</p>
+<p>下一課把已確認事實排成 <a href="005-0003-storyboard-presentation.html">簡報故事板</a>。</p>
+<p><strong>主要官方閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Get started with Claude Design</a> 的新增脈絡與支援匯入內容。</p>
+<p class="scope"><strong>合法停止／返回：</strong>任一核心主張無原始位置、素材權利不明，或未知項目沒有負責人時，保留來源包，不進入生成；回 <a href="005-0001-choose-presentation-route.html">005-0001</a> 修正 範圍／負責人。可抽查後續行 <a href="005-0003-storyboard-presentation.html">005-0003</a>；本課沒有 elective 分支。</p>
 <footer data-course-footer="canonical" data-route-id="presentation-delivery" data-legal-stop="Stop at Presentation closeout; adaptations and code-first options are elective">
 <p><strong>路線導覽 · 簡報交付</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="presentation-delivery" data-route-action="next" href="005-0003-storyboard-presentation.html">下一步：lessons/005-0003-storyboard-presentation.html</a></li>
+<li><a data-route-id="presentation-delivery" data-route-action="next" href="005-0003-storyboard-presentation.html">下一步：005-0003 課程</a></li>
 </ul>
 <p data-route-legal-stop="Stop at Presentation closeout; adaptations and code-first options are elective"><strong>合法停止點：</strong>完成 Presentation closeout 後即可停止；adaptation 與 code-first 選項皆為選修</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible win · 來源 ID：<code>course-presentation-delivery-contract</code>、<code>presentation-source-claim-contract</code></div>

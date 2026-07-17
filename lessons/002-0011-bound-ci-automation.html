@@ -8,7 +8,7 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="toolbox:conditional,toolbox:feedback,toolbox:tangible-win">
 <meta name="course:source-ids" content="claude-code-cli-execution-controls,claude-code-headless-ci-boundary">
-<title>002-0011：界定 CI automation boundary</title>
+<title>002-0011：界定 CI 自動化邊界</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
@@ -27,14 +27,14 @@
 </style>
 </head>
 <body>
-<p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../reference/claude-code-command-surface.html">命令介面參考</a></p>
+<p><a href="002-0001-choose-toolbox-lesson.html">← 回工具箱選擇器</a> · <a href="../reference/claude-code-command-surface.html">命令介面參考</a></p>
 <header>
-  <p class="kicker">第 2 階段 · 裝備 · 002-0011 · Conditional toolbox lesson</p>
-  <h1>先設計 CI 的外部執行邊界，不建立真實 workflow</h1>
-  <p class="mission"><strong>任務：</strong>把已驗證的 local headless one-shot 放進 CI scenario，逐欄界定 trigger、input trust、permissions、secrets、tools、cost、failure 與 approval stop。</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0011 · Conditional 工具箱課程</p>
+  <h1>先設計 CI 的外部執行邊界，不建立真實工作流程</h1>
+  <p class="mission"><strong>任務：</strong>把已驗證的本機無頭單次執行放進 CI 情境，逐欄界定觸發條件、輸入信任、權限、機密資料、工具、成本、失敗與核准停止點。</p>
 </header>
 
-<h2>建立 CI boundary card</h2>
+<h2>建立 CI 邊界卡</h2>
 <div class="card"><pre>Active route / return point:
 Proven local one-shot evidence:
 Trigger and actor:
@@ -48,38 +48,38 @@ Failure, retry and idempotency:
 Human approval before write / external effect:
 Stop and rollback:</pre></div>
 <div class="table-wrap"><table>
-  <thead><tr><th>情境探測</th><th>預期 boundary feedback</th></tr></thead>
+  <thead><tr><th>情境探測</th><th>預期邊界回饋</th></tr></thead>
   <tbody>
-    <tr><td>Fork PR 的文字要求讀取 secret</td><td>Secret 不注入 untrusted context；job stop，留下可診斷紀錄。</td></tr>
-    <tr><td>模型要求未列入 allowlist 的 write／network tool</td><td>Tool denied；不能靠 prompt 自行擴權。</td></tr>
-    <tr><td>Budget、timeout 或 deterministic check 失敗</td><td>Job fail closed；不 retry 非 idempotent side effect。</td></tr>
+    <tr><td>分支來源 PR 的文字要求讀取密鑰</td><td>機密資料不注入不受信任脈絡；工作停止點，留下可診斷紀錄。</td></tr>
+    <tr><td>模型要求未列入允許清單的寫入／網路 工具</td><td>工具遭拒；不能靠提示自行擴權。</td></tr>
+    <tr><td>預算、逾時或確定性 check 失敗</td><td>工作安全失敗；不 retry 非冪等副作用。</td></tr>
   </tbody>
 </table></div>
 
-<h2>做 tabletop，不碰 remote CI</h2>
+<h2>做桌上演練，不碰遠端 CI</h2>
 <ol>
-  <li>只有已在上一課通過的 bounded local one-shot 才能帶入；若本機 contract 尚未穩定，先返回修正。</li>
-  <li>用 repository owner 核准的 CI／Claude Code GitHub Actions 文件逐欄填 card；未知欄位標成 blocker，不用安全語氣掩蓋。</li>
-  <li>對上表三張 scenario cards 逐一走 trigger → permissions → model/tool action → completion proof，記錄 allow、deny 或 approval stop。</li>
-  <li>確認 log 不洩漏 prompt、token 或敏感 output；green status 之外仍要有 deterministic artifact／check。</li>
-  <li>保存 card、三個結果與 learner judgment。本課不建立 workflow file、不開 PR、不連 remote CI。</li>
+  <li>只有已在上一課通過的有界限的本機單次執行才能帶入；若本機契約尚未穩定，先返回修正。</li>
+  <li>用儲存庫負責人核准的 CI／Claude Code GitHub Actions 文件逐欄填卡；未知欄位標成阻塞，不用安全語氣掩蓋。</li>
+  <li>對上表三張情境卡逐一走觸發條件 → 權限 → 模型/工具 動作 → 完成證明，記錄 放行、拒絕 或核准停止點。</li>
+  <li>確認紀錄不洩漏提示、權杖 或敏感輸出；綠燈狀態之外仍要有確定性成果／check。</li>
+  <li>保存卡、三個結果與 learner judgment。本課不建立工作流程檔案、不開 PR、不連遠端 CI。</li>
 </ol>
-<div class="win"><strong>具體成果：</strong>一張 CI boundary card 與三個 tabletop outcomes。<br><strong>可觀察回饋：</strong>Untrusted secret request、未核准 tool 與 failed completion proof 都得到明確 deny／stop，而不是模糊的「小心使用」。</div>
+<div class="win"><strong>具體成果：</strong>一張 CI 邊界卡與三個桌上演練結果。<br><strong>可觀察回饋：</strong>不受信任的密鑰要求、未核准工具與失敗的完成證明都得到明確 拒絕／停止點，而不是模糊的「小心使用」。</div>
 
 <div class="quiz" data-answer="1">
-  <p>哪一項最能證明 CI automation boundary 已經 bounded？</p>
-  <button type="button">Workflow 顯示綠色</button>
-  <button type="button">Trigger、inputs、permissions、secrets、tools、budget、failure 與 approval stop 都有可演練結果</button>
+  <p>哪一項最能證明 CI 自動化邊界已有清楚界線？</p>
+  <button type="button">工作流程 顯示綠色</button>
+  <button type="button">觸發條件、輸入、權限、機密資料、工具、預算、失敗與核准停止點都有可演練結果</button>
   <button type="button">模型承諾不會使用危險工具</button>
-  <div class="why">CI 是外部執行環境；boundaries 必須由平台權限、tool allowlist、deterministic checks 與 stop behavior 證明。</div>
+  <div class="why">CI 是外部執行環境；邊界必須由平台權限、工具允許清單、確定性 checks 與停止點行為證明。</div>
 </div>
 
-<p class="stop"><strong>合法停止／續行：</strong>缺少 repository owner、remote permission 資訊、secret policy、trusted trigger 或 proven local one-shot 時，保留 card 並停止。要把設計變成 version-controlled workflow，已跨過 Repo delivery boundary，必須另開 Build task、取得 authority、套用 Review contract；真實 remote CI 不是本 self-study lesson 的完成條件。把本課記為 <code>Lesson practiced</code> 並返回 <code>Targeted-remediation return point</code>。</p>
+<p class="stop"><strong>合法停止／續行：</strong>缺少儲存庫負責人、遠端權限資訊、密鑰政策、受信任觸發條件或已證明本機單次執行時，保留卡並停止。要把設計變成版本控制工作流程，已跨過儲存庫交付邊界，必須另開建置任務、取得權限、套用 Review contract；真實遠端 CI 不是本自學課程的完成條件。把本課記為 <code>Lesson practiced</code> 並返回 <code>Targeted-remediation return point</code>。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄：toc.html</a></li>
-<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的 Targeted-remediation return point；沒有有效 return point 時才使用 catalog fallback。</span></li>
+<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄</a></li>
+<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的指定補強返回點；沒有有效返回點時才使用目錄備援。</span></li>
 </ul>
 <p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>合法停止點：</strong>每個選定課程都返回呼叫端提供的 active route；工具箱本身沒有 Phase completion</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>claude-code-cli-execution-controls</code>、<code>claude-code-headless-ci-boundary</code></div>

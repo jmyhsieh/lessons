@@ -8,7 +8,7 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="toolbox:conditional,toolbox:feedback,toolbox:tangible-win">
 <meta name="course:source-ids" content="claude-code-cli-execution-controls,claude-code-headless-ci-boundary">
-<title>002-0010：執行 headless one-shot</title>
+<title>002-0010：執行無頭單次執行</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
@@ -27,14 +27,14 @@
 </style>
 </head>
 <body>
-<p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../reference/claude-code-command-surface.html">命令介面參考</a></p>
+<p><a href="002-0001-choose-toolbox-lesson.html">← 回工具箱選擇器</a> · <a href="../reference/claude-code-command-surface.html">命令介面參考</a></p>
 <header>
-  <p class="kicker">第 2 階段 · 裝備 · 002-0010 · Conditional toolbox lesson</p>
-  <h1>把一次成功的互動改寫成 bounded one-shot</h1>
-  <p class="mission"><strong>任務：</strong>在可信、非敏感 fixture 中，用 <code>claude -p</code> 執行一個 read-only task，固定 prompt、tools、output、budget 與 completion proof。</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0010 · Conditional 工具箱課程</p>
+  <h1>把一次成功的互動改寫成有界限的單次執行</h1>
+  <p class="mission"><strong>任務：</strong>在可信、非敏感練習環境中，用 <code>claude -p</code> 執行一個唯讀任務，固定提示、工具、輸出、預算與完成證明。</p>
 </header>
 
-<h2>先固定 execution contract</h2>
+<h2>先固定執行契約</h2>
 <div class="card"><pre>Active route / return point:
 Trusted fixture and known input:
 Fixed prompt:
@@ -44,12 +44,12 @@ Maximum budget:
 Expected fact and deterministic check:
 Credentials / network side effects:
 Timeout and stop condition:</pre></div>
-<p>Non-interactive mode 會跳過 workspace trust dialog；因此只能從你已確認可信的 directory 執行。它也可能載入 project／user context；需要更小的 context 時，先從目前 <code>claude --help</code> 理解 <code>--bare</code> 的取捨，不能假設 headless 等於無設定。</p>
+<p>非互動模式會跳過工作區信任對話框；因此只能從你已確認可信的目錄執行。它也可能載入專案／使用者脈絡；需要更小的脈絡時，先從目前 <code>claude --help</code> 理解 <code>--bare</code> 的取捨，不能假設無頭等於無設定。</p>
 
-<h2>執行一次，再用 code 判斷</h2>
+<h2>執行一次，再用程式碼判斷</h2>
 <ol>
-  <li>建立只有 <code>fixture.txt</code> 的 recoverable directory，內容放一個可人工核對的非敏感 fact。</li>
-  <li>先用 <code>claude --help</code> 確認本機 flags；依目前 help 組合 bounded command：</li>
+  <li>建立只有 <code>fixture.txt</code> 的可復原目錄，內容放一個可人工核對的非敏感 事實。</li>
+  <li>先用 <code>claude --help</code> 確認本機旗標；依目前說明組合有界限的命令：</li>
 </ol>
 <pre>claude -p \
   --tools "Read" \
@@ -60,26 +60,26 @@ Timeout and stop condition:</pre></div>
   --no-session-persistence \
   "Read fixture.txt and return only the recorded project code."</pre>
 <ol start="3">
-  <li>保存 command、CLI version、exit status、stdout／stderr、cost／duration metadata 與是否觸發 permission error。</li>
-  <li>用 deterministic parser 檢查輸出格式與已知 project code；不要讓另一個模型以「看起來正確」判斷完成。</li>
-  <li>再跑一次相同 input，記錄結果是否穩定；這只證明 bounded fixture，不代表 production automation ready。</li>
+  <li>保存命令、CLI 版本、結束狀態、stdout／stderr、成本／執行時間中繼資料與是否觸發權限錯誤。</li>
+  <li>用確定性解析器檢查輸出格式與已知專案程式碼；不要讓另一個模型以「看起來正確」判斷完成。</li>
+  <li>再跑一次相同輸入，記錄結果是否穩定；這只證明有界限的練習環境，不代表正式環境自動化就緒。</li>
 </ol>
-<div class="win"><strong>具體成果：</strong>一份可重跑的 read-only headless command 與 execution record。<br><strong>可觀察回饋：</strong>Process 在 budget 內結束、輸出可解析且命中已知 fact、沒有 write tool 或 session persistence。</div>
+<div class="win"><strong>具體成果：</strong>一份可重跑的唯讀無頭命令與執行紀錄。<br><strong>可觀察回饋：</strong>程序在預算內結束、輸出可解析且命中已知事實、沒有寫入工具或工作階段持久性。</div>
 
 <div class="quiz" data-answer="0">
   <p><code>claude -p</code> 能輸出 JSON，是否已足以放進 CI？</p>
-  <button type="button">否；還要另行界定 remote permissions、secrets、untrusted input、failure 與 cost boundary</button>
-  <button type="button">是；non-interactive 等於 CI-safe</button>
+  <button type="button">否；還要另行界定遠端權限、機密資料、不受信任輸入、失敗與成本邊界</button>
+  <button type="button">是；非互動式等於 CI 安全</button>
   <button type="button">是；只要模型說輸出正確</button>
-  <div class="why">Local one-shot 只證明本機 execution contract；CI 是另一個外部執行與權限邊界。</div>
+  <div class="why">本機單次執行只證明本機執行契約；CI 是另一個外部執行與權限邊界。</div>
 </div>
 
-<p class="stop"><strong>合法停止／返回：</strong>Directory 不可信、input 含敏感資料、必要 tool 超出 read-only、flag 不在目前 help、無法設定 cost limit 或 deterministic oracle 時停止，不執行 one-shot。把 contract 與 evidence 寫回 Return notebook，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>；不要把本課當成 CI deployment。</p>
+<p class="stop"><strong>合法停止／返回：</strong>目錄不可信、輸入含敏感資料、必要工具超出唯讀、旗標不在目前說明、無法設定成本上限或確定性判定基準時停止，不執行單次執行。把契約與證據寫回續作筆記本，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>；不要把本課當成 CI 部署。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄：toc.html</a></li>
-<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的 Targeted-remediation return point；沒有有效 return point 時才使用 catalog fallback。</span></li>
+<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄</a></li>
+<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的指定補強返回點；沒有有效返回點時才使用目錄備援。</span></li>
 </ul>
 <p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>合法停止點：</strong>每個選定課程都返回呼叫端提供的 active route；工具箱本身沒有 Phase completion</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>claude-code-cli-execution-controls</code>、<code>claude-code-headless-ci-boundary</code></div>

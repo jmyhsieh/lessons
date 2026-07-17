@@ -8,7 +8,7 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="toolbox:conditional,toolbox:feedback,toolbox:tangible-win">
 <meta name="course:source-ids" content="claude-code-cli-execution-controls,claude-code-model-effort-selection">
-<title>002-0003：選擇 model 與 effort</title>
+<title>002-0003：選擇模型與推理強度</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
@@ -27,24 +27,24 @@
 </style>
 </head>
 <body>
-<p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../toc.html">回課目表</a></p>
+<p><a href="002-0001-choose-toolbox-lesson.html">← 回工具箱選擇器</a> · <a href="../toc.html">回課目表</a></p>
 <header>
-  <p class="kicker">第 2 階段 · 裝備 · 002-0003 · Conditional toolbox lesson</p>
-  <h1>用任務需求選 model，用不確定性選 effort</h1>
-  <p class="mission"><strong>任務：</strong>替 active route 寫一張 model／effort selection card，用一個低風險 prompt 驗證選擇是否達到事先定義的 feedback rubric。</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0003 · Conditional 工具箱課程</p>
+  <h1>用任務需求選模型，用不確定性選推理強度</h1>
+  <p class="mission"><strong>任務：</strong>替目前路線寫一張模型／推理強度選擇卡，用一個低風險提示驗證選擇是否達到事先定義的回饋評分規準。</p>
 </header>
 
 <h2>先分清楚兩個旋鈕</h2>
 <div class="table-wrap"><table>
   <thead><tr><th>選項</th><th>主要影響</th><th>何時才調整</th></tr></thead>
   <tbody>
-    <tr><td>模型（Model）</td><td>可用能力、行為特性、速度與成本邊界</td><td>目前能力與任務複雜度、風險或 context 需求不匹配。</td></tr>
-    <tr><td>推理強度（Effort）</td><td>Agent 嘗試投入多少推理與工作</td><td>scope 已清楚，但不確定性或取捨需要更多分析。</td></tr>
+    <tr><td>模型</td><td>可用能力、行為特性、速度與成本邊界</td><td>目前能力與任務複雜度、風險或脈絡需求不匹配。</td></tr>
+    <tr><td>推理強度</td><td>代理嘗試投入多少推理與工作</td><td>範圍已清楚，但不確定性或取捨需要更多分析。</td></tr>
   </tbody>
 </table></div>
-<p>可用 model、alias 與 effort levels 會依 model、帳號、provider、組織設定及版本改變。先看目前 session 的 picker 或 CLI help，只選介面實際提供的值；若需要的選項沒有出現，記錄 gap 並返回 active route，不要自行猜測名稱。</p>
+<p>可用模型、別名與推理強度層級會依模型、帳號、供應者、組織設定及版本改變。先看目前工作階段的選擇器或 CLI 說明，只選介面實際提供的值；若需要的選項沒有出現，記錄缺口並返回目前路線，不要自行猜測名稱。</p>
 
-<h2>寫 selection card</h2>
+<h2>寫選擇卡</h2>
 <div class="card"><pre>Active route / return point:
 Task slice and safe fixture:
 Current visible model / effort:
@@ -56,30 +56,30 @@ Stop or downgrade signal:
 Smoke-test prompt:
 Three observable rubric items:</pre></div>
 
-<h2>執行一次 bounded smoke test</h2>
+<h2>執行一次有界限的快速驗證測試</h2>
 <ol>
-  <li>從 picker 或 <code>claude --help</code> 記錄目前環境實際提供的 model／effort controls；不要從課程硬猜可用名稱。</li>
-  <li>選一個不修改檔案、不呼叫外部服務的小型 prompt，它必須保留 active route 的主要推理形狀。</li>
-  <li>先寫三個可觀察 rubric items，例如「列出兩個風險」「指出未知資訊」「給出 legal stop」。</li>
-  <li>用 selection card 指定的設定執行一次，記錄顯示的 model／effort、輸出、延遲或成本訊號，以及 rubric 結果。</li>
-  <li>若 rubric 通過就停止；若未通過，只依事先寫好的 escalation signal 調整一次。重複失敗時修 scope、context 或 feedback loop，不用更高 effort 硬跑。</li>
+  <li>從選擇器或 <code>claude --help</code> 記錄目前環境實際提供的模型／推理強度控制；不要從課程硬猜可用名稱。</li>
+  <li>選一個不修改檔案、不呼叫外部服務的小型提示，它必須保留目前路線的主要推理形狀。</li>
+  <li>先寫三個可觀察評分規準項目，例如「列出兩個風險」「指出未知資訊」「給出合法停止點」。</li>
+  <li>用選擇卡指定的設定執行一次，記錄顯示的模型／推理強度、輸出、延遲或成本訊號，以及評分規準結果。</li>
+  <li>若評分規準通過就停止；若未通過，只依事先寫好的升級訊號調整一次。重複失敗時修範圍、脈絡 或回饋 迴路，不用更高推理強度硬跑。</li>
 </ol>
-<div class="win"><strong>具體成果：</strong>一張 selection card，加上一筆 bounded model／effort smoke-test record。<br><strong>可觀察回饋：</strong>介面顯示的設定與 card 一致；三個 rubric items 有逐項結果；你能說明保留、升級、降級或停止的理由。</div>
+<div class="win"><strong>具體成果：</strong>一張選擇卡，加上一筆有界限的模型／推理強度快速驗證測試紀錄。<br><strong>可觀察回饋：</strong>介面顯示的設定與卡一致；三個評分規準項目有逐項結果；你能說明保留、升級、降級或停止的理由。</div>
 
 <div class="quiz" data-answer="1">
-  <p>高 effort 的 smoke test 仍無法指出關鍵未知資訊，下一步應該是什麼？</p>
-  <button type="button">永久切到最高 effort，繼續重跑相同 prompt</button>
-  <button type="button">停止並修正 scope、context 或 feedback loop</button>
-  <button type="button">把未通過的 smoke test 當成 route evidence</button>
-  <div class="why">Model 與 effort 是工作設定，不會補回缺少的 context、模糊 scope 或失效的驗證方式。</div>
+  <p>高推理強度的快速驗證測試仍無法指出關鍵未知資訊，下一步應該是什麼？</p>
+  <button type="button">永久切到最高推理強度，繼續重跑相同提示</button>
+  <button type="button">停止並修正範圍、脈絡或回饋迴路</button>
+  <button type="button">把未通過的快速驗證測試當成路線證據</button>
+  <div class="why">模型 與推理強度是工作設定，不會補回缺少的 脈絡、模糊範圍或失效的驗證方式。</div>
 </div>
 
-<p class="stop"><strong>返回邊界：</strong>把 selection card、rubric 結果與 learner judgment 寫回 Return notebook，狀態只記為 <code>Lesson practiced</code>，然後回到原本的 <code>Targeted-remediation return point</code>。本課不產生 active route artifact，也不授權更高權限。</p>
+<p class="stop"><strong>返回邊界：</strong>把選擇卡、評分規準結果與 learner judgment 寫回 Return notebook，狀態只記為 <code>Lesson practiced</code>，然後回到原本的 <code>Targeted-remediation return point</code>。本課不產生目前路線成果，也不授權更高權限。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄：toc.html</a></li>
-<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的 Targeted-remediation return point；沒有有效 return point 時才使用 catalog fallback。</span></li>
+<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄</a></li>
+<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的指定補強返回點；沒有有效返回點時才使用目錄備援。</span></li>
 </ul>
 <p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>合法停止點：</strong>每個選定課程都返回呼叫端提供的 active route；工具箱本身沒有 Phase completion</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>claude-code-cli-execution-controls</code>、<code>claude-code-model-effort-selection</code></div>

@@ -7,32 +7,32 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="code-readiness:feedback,code-readiness:tangible-win">
 <meta name="course:source-ids" content="claude-code-cli-execution-controls,claude-code-permission-plan-boundary">
-<title>001-0006：規劃 readiness fixture</title>
+<title>001-0006：規劃就緒練習環境</title>
 <style>
   * { box-sizing: border-box; } body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 760px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; } h1 { font-size: 1.8rem; line-height: 1.35; } h2 { color: #a94716; margin-top: 2rem; } .kicker { color: #a94716; font-size: .86rem; letter-spacing: .08em; } .mission, .stop { border-left: 4px solid #c2571a; background: #fff7f0; padding: .8rem 1rem; } .card, .win, .quiz { border: 1px solid #ded6cf; border-radius: 8px; padding: 1rem; margin: 1rem 0; } .win { background: #f2f8f3; border-color: #a9c9ae; } pre { background: #24211f; color: #fff; padding: 1rem; border-radius: 7px; overflow-x: auto; } code { overflow-wrap: anywhere; } button { display: block; width: 100%; margin: .45rem 0; padding: .65rem; text-align: left; background: white; border: 1px solid #bbb; border-radius: 6px; font: inherit; cursor: pointer; } button.correct { background: #e5f4e7; border-color: #2e7d32; } button.wrong { background: #fbe8e8; border-color: #b3261e; } .why { display: none; background: #fff7f0; padding: .7rem; margin-top: .7rem; } footer { margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666; font-size: .9rem; } a { color: #99400f; } @media (max-width: 620px) { body { margin-top: 1.2rem; } }
 </style>
 </head>
 <body>
 <p><a href="001-0005-map-repo-read-only.html">← 上一課</a> · <a href="../toc.html">回課目表</a></p>
-<header><p class="kicker">第 1 階段 · 定向 · 001-0006 · Code readiness</p><h1>用 Plan mode 收斂一個 bounded fixture edit</h1><p class="mission"><strong>任務：</strong>在 read-only Plan mode 中，讓 Claude Code提出一個只改一個練習檔案、能用既有 check 驗證、也能安全放棄的計畫。</p></header>
+<header><p class="kicker">第 1 階段 · 定向 · 001-0006 · Code readiness</p><h1>用規劃模式收斂一個有界限的練習編輯</h1><p class="mission"><strong>任務：</strong>在唯讀規劃模式中，讓 Claude Code提出一個只改一個練習檔案、能用既有 check 驗證、也能安全放棄的計畫。</p></header>
 
-<h2>進入 read-only planning</h2>
+<h2>進入唯讀規劃</h2>
 <pre><code>claude --permission-mode plan</code></pre>
-<p>使用 001-0005 的 map，指定一個低風險 fixture，例如修正練習 README 的一個錯字或補上一句已知說明。要求計畫包含：</p>
-<ul><li>目標與不處理事項</li><li>預計修改的唯一檔案與理由</li><li>修改前要讀的 evidence</li><li>預期 diff 與既有 check</li><li>意外擴張時的 stop condition</li></ul>
-<div class="card"><strong>規劃 prompt：</strong>「保持 Plan mode。根據 repo instructions 與剛才的 map，規劃一個只修改 fixture README 的 bounded edit。不要現在動手。列出檔案、預期 diff、驗證命令、停止條件與尚未確認的假設。」</div>
-<div class="win"><strong>具體成果：</strong>一份可逐項驗收的 fixture plan。<br><strong>可觀察回饋：</strong>計畫只列一個預期檔案、引用實際 instructions，並有一個會因錯誤變更而失敗或顯示差異的 check。</div>
+<p>使用 001-0005 的 地圖，指定一個低風險 fixture，例如修正練習 README 的一個錯字或補上一句已知說明。要求計畫包含：</p>
+<ul><li>目標與不處理事項</li><li>預計修改的唯一檔案與理由</li><li>修改前要讀的 evidence</li><li>預期 diff 與既有 check</li><li>意外擴張時的停止條件</li></ul>
+<div class="card"><strong>規劃 prompt：</strong>「保持規劃模式。根據儲存庫指引與剛才的 地圖，規劃一個只修改練習用 README 的有界限的編輯。不要現在動手。列出檔案、預期 diff、驗證命令、停止條件與尚未確認的假設。」</div>
+<div class="win"><strong>具體成果：</strong>一份可逐項驗收的練習計畫。<br><strong>可觀察回饋：</strong>計畫只列一個預期檔案、引用實際 指引，並有一個會因錯誤變更而失敗或顯示差異的 check。</div>
 
-<div class="quiz" data-answer="0"><p>哪個條件代表計畫仍然 bounded？</p><button type="button">只改一個已檢查的 fixture 檔案，若需要新 dependency 就停止</button><button type="button">Claude 判斷必要時可順手整理附近結構</button><button type="button">修改完成後再決定要跑哪些 checks</button><div class="why">Bounded plan 在動手前固定檔案、驗證與停止條件；相鄰清理與事後補 check 都會擴大不確定性。</div></div>
+<div class="quiz" data-answer="0"><p>哪個條件代表計畫仍然有明確界線？</p><button type="button">只改一個已檢查的 fixture 檔案，若需要新增依賴項目就停止</button><button type="button">Claude 判斷必要時可順手整理附近結構</button><button type="button">修改完成後再決定要跑哪些 checks</button><div class="why">有界限的計畫在動手前固定檔案、驗證與停止條件；相鄰清理與事後補 check 都會擴大不確定性。</div></div>
 
-<p class="stop"><strong>停止線：</strong>本課只產生 plan，不修改 source。計畫出現多檔案、外部 write 或未知 command 時，先縮小再前往<a href="001-0007-prove-code-readiness.html">就緒證明</a>。</p>
+<p class="stop"><strong>停止線：</strong>本課只產生計畫，不修改 source。計畫出現多檔案、外部寫入或未知 command 時，先縮小再前往<a href="001-0007-prove-code-readiness.html">就緒證明</a>。</p>
 <footer data-course-footer="canonical" data-route-id="code-readiness" data-legal-stop="Stop after Code readiness is demonstrated; do not treat fixture work as delivery">
 <p><strong>路線導覽 · 程式碼準備度（Code readiness）</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="code-readiness" data-route-action="next" href="001-0007-prove-code-readiness.html">下一步：lessons/001-0007-prove-code-readiness.html</a></li>
+<li><a data-route-id="code-readiness" data-route-action="next" href="001-0007-prove-code-readiness.html">下一步：001-0007 課程</a></li>
 </ul>
 <p data-route-legal-stop="Stop after Code readiness is demonstrated; do not treat fixture work as delivery"><strong>合法停止點：</strong>證明 Code readiness 後即可停止；不要把 fixture 練習視為交付</p>
-<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible-win · Verified environment summary：Claude Code help exposes <code>--permission-mode</code>；Plan mode 是 read-only exploration · 來源 ID：<code>claude-code-cli-execution-controls</code>、<code>claude-code-permission-plan-boundary</code></div>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：回饋／tangible-win · 已驗證環境摘要：Claude Code 說明介面提供 <code>--permission-mode</code>；規劃模式是唯讀探索 · 來源 ID：<code>claude-code-cli-execution-controls</code>、<code>claude-code-permission-plan-boundary</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
 </body>

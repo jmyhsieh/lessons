@@ -8,7 +8,7 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="toolbox:conditional,toolbox:feedback,toolbox:tangible-win">
 <meta name="course:source-ids" content="claude-code-hook-safety-contract">
-<title>002-0005：加入 guardrail hook</title>
+<title>002-0005：加入防護 hook</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 780px; margin: 2.5rem auto; padding: 0 1.25rem; color: #202020; line-height: 1.8; }
@@ -27,25 +27,25 @@
 </style>
 </head>
 <body>
-<p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../toc.html">回課目表</a></p>
+<p><a href="002-0001-choose-toolbox-lesson.html">← 回工具箱選擇器</a> · <a href="../toc.html">回課目表</a></p>
 <header>
-  <p class="kicker">第 2 階段 · 裝備 · 002-0005 · Conditional toolbox lesson</p>
-  <h1>用一組正反例證明 guardrail</h1>
-  <p class="mission"><strong>任務：</strong>在 recoverable fixture 建立一個 PreToolUse guardrail，以明確 path predicate 阻擋 protected fixture file，同時放行相鄰 safe file。</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0005 · Conditional 工具箱課程</p>
+  <h1>用一組正反例證明防護</h1>
+  <p class="mission"><strong>任務：</strong>在可復原練習環境建立一個 PreToolUse 防護，以明確路徑判斷式阻擋受保護的練習環境檔案，同時放行相鄰安全檔案。</p>
 </header>
 
-<h2>只自動化 deterministic policy</h2>
-<p>適合 hook 的規則能從 structured input 直接判斷，例如「Edit／Write 不得碰這個明確路徑」。命名品質、架構好壞或「看起來危險」需要 judgment，不應包成會自動阻擋的 predicate。</p>
+<h2>只自動化確定性政策</h2>
+<p>適合 hook 的規則能從結構化輸入直接判斷，例如「編輯／寫入 不得碰這個明確路徑」。命名品質、架構好壞或「看起來危險」需要 判斷，不應包成會自動阻擋的判斷式。</p>
 <div class="table-wrap"><table>
   <thead><tr><th>案例</th><th>預期結果</th><th>證據</th></tr></thead>
   <tbody>
-    <tr><td>受保護的 fixture 路徑</td><td>PreToolUse 在 Edit／Write 前 block</td><td>Tool 未執行；exit 2；stderr 提供可行理由。</td></tr>
-    <tr><td>相鄰的安全 fixture 路徑</td><td>允許（Allow）</td><td>Tool 正常執行；沒有 false positive。</td></tr>
-    <tr><td>格式錯誤／未知輸入</td><td>依事先 policy 停止或安全處置</td><td>不把 parse failure 當成成功放行。</td></tr>
+    <tr><td>受保護的練習環境路徑</td><td>PreToolUse 在編輯／寫入前阻擋</td><td>工具未執行；結束 2；stderr 提供可行理由。</td></tr>
+    <tr><td>相鄰的安全練習環境路徑</td><td>允許（放行）</td><td>工具正常執行；沒有偽陽性。</td></tr>
+    <tr><td>格式錯誤／未知輸入</td><td>依事先政策停止或安全處置</td><td>不把解析失敗當成成功放行。</td></tr>
   </tbody>
 </table></div>
 
-<h2>建立 guardrail test card</h2>
+<h2>建立防護測試卡</h2>
 <div class="card"><pre>Active route / return point:
 Fixture and rollback:
 Protected fixture path:
@@ -56,28 +56,28 @@ Block reason shown to Claude:
 Authority and side effects:
 Stop condition:</pre></div>
 <ol>
-  <li>若還不能說明 hook event、matcher 與 command，先到<a href="002-0004-smoke-test-hook.html">hook 冒煙測試課程</a>練習，之後回 selector；不要直接裝 guardrail。</li>
-  <li>在 fixture 建立一個 protected file 與相鄰 safe file；兩者都不得是真實 secrets、deployment 或 production 設定。</li>
-  <li>逐字 review hook script。它只解析必要欄位、比較明確 path、以 exit 2 阻擋並把理由寫到 stderr。</li>
-  <li>先跑 should-block：確認 protected file 完全沒變；再跑 should-allow：確認 safe file 得到唯一預期變更。</li>
-  <li>保存兩個結果、stderr、exact diff、rollback 與 learner judgment。任一 false negative／false positive 都算失敗。</li>
+  <li>若還不能說明 hook 事件、matcher 與命令，先到<a href="002-0004-smoke-test-hook.html">hook 冒煙測試課程</a>練習，之後回選擇器；不要直接裝防護。</li>
+  <li>在練習環境建立一個 受保護的 檔案與相鄰安全檔案；兩者都不得是真實 機密資料、部署 或正式環境設定。</li>
+  <li>逐字審查 hook 指令碼。它只解析必要欄位、比較明確路徑、以結束 2 阻擋並把理由寫到 stderr。</li>
+  <li>先跑 應阻擋：確認 受保護的 檔案完全沒變；再跑 應放行：確認安全檔案得到唯一預期變更。</li>
+  <li>保存兩個結果、stderr、精確 diff、回復與 learner judgment。任一偽陰性／偽陽性都算失敗。</li>
 </ol>
-<div class="win"><strong>具體成果：</strong>一張 guardrail test card 與 should-block／should-allow evidence pair。<br><strong>可觀察回饋：</strong>Protected file 無 diff 且理由清楚；safe file 有唯一預期 diff；rollback 可重現。</div>
+<div class="win"><strong>具體成果：</strong>一張防護測試卡與 應阻擋／應允許證據組。<br><strong>可觀察回饋：</strong>受保護檔案無 diff 且理由清楚；安全檔案有唯一預期 diff；回復可重現。</div>
 
 <div class="quiz" data-answer="1">
-  <p>Guardrail 成功擋住 protected file 後，為什麼仍要測 safe file？</p>
-  <button type="button">只是讓 evidence 看起來比較完整</button>
-  <button type="button">要證明 predicate 沒有誤擋相鄰的合法工作</button>
-  <button type="button">Safe file 測試會自動取得更多權限</button>
-  <div class="why">只測阻擋會漏掉 false positive；guardrail 必須同時保護禁區並保留合法工作能力。</div>
+  <p>防護規則成功擋住受保護的檔案後，為什麼仍要測安全檔案？</p>
+  <button type="button">只是讓證據看起來比較完整</button>
+  <button type="button">要證明判斷式沒有誤擋相鄰的合法工作</button>
+  <button type="button">安全檔案測試會自動取得更多權限</button>
+  <div class="why">只測阻擋會漏掉偽陽性；防護必須同時保護禁區並保留合法工作能力。</div>
 </div>
 
-<p class="stop"><strong>返回邊界：</strong>Guardrail 不是 security sandbox，也不擴張 session permissions。回復 fixture，把 evidence 與剩餘風險寫回 Return notebook，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>；未經真實 repo review 不安裝到 production workflow。</p>
+<p class="stop"><strong>返回邊界：</strong>防護規則 不是安全沙箱，也不擴張工作階段權限。回復練習環境，把證據與剩餘風險寫回 續作筆記本，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>；未經真實儲存庫審查不安裝到正式環境工作流程。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄：toc.html</a></li>
-<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的 Targeted-remediation return point；沒有有效 return point 時才使用 catalog fallback。</span></li>
+<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄</a></li>
+<li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的指定補強返回點；沒有有效返回點時才使用目錄備援。</span></li>
 </ul>
 <p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>合法停止點：</strong>每個選定課程都返回呼叫端提供的 active route；工具箱本身沒有 Phase completion</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>claude-code-hook-safety-contract</code></div>

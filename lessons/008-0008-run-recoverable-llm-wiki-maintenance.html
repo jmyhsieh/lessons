@@ -7,13 +7,13 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="agent-operations:conditional,agent-operations:feedback,agent-operations:tangible-win">
 <meta name="course:source-ids" content="agent-operations-safety-contract,llm-wiki-local-slice-contract">
-<title>008-0008：執行可復原的 LLM Wiki maintenance</title>
+<title>008-0008：執行可復原的 LLM Wiki維護</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:900px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#315f86;margin-top:2rem}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{border:1px solid #ccd9e3;padding:.55rem;text-align:left;vertical-align:top}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem;overflow-wrap:anywhere}pre{padding:.8rem;white-space:pre-wrap;overflow-wrap:anywhere}label{display:block;margin:.45rem 0}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:680px){body{margin-top:1rem}table{display:block;overflow-x:auto;font-size:.76rem}}</style>
 </head><body>
-<p><a href="008-0003-bound-write-authority.html">← 權限邊界</a> · <a href="003-0007-produce-first-llm-wiki-slice.html">原始 Knowledge branch</a> · <a href="../reference/llm-wiki-capstone-thread.html">選用總整線索</a> · <a href="008-0005-prove-workflow-completion.html">返回 completion proof →</a></p>
-<header><p>Phase 8 · 操作 · 008-0008 · Conditional maintenance branch</p><h1>在 raw-source boundary 內維護一次既有 LLM Wiki slice</h1><p class="mission"><strong>進入條件：</strong>Mission 明確需要維護 Phase 3 已完成且已 review 的 LLM Wiki slice；raw source pack、stable source IDs、provenance、既有 revision identity，以及 008-0001 deterministic check 和 008-0003 authority envelope 都存在。若要建立第一個 slice，應回 <a href="003-0007-produce-first-llm-wiki-slice.html">003-0007</a>；本課不把維運頁面變成新的 Knowledge source of truth。</p></header>
+<p><a href="008-0003-bound-write-authority.html">← 權限邊界</a> · <a href="003-0007-produce-first-llm-wiki-slice.html">原始知識支線</a> · <a href="../reference/llm-wiki-capstone-thread.html">選用總整線索</a> · <a href="008-0005-prove-workflow-completion.html">返回完成證明 →</a></p>
+<header><p>Phase 8 · 操作 · 008-0008 · 條件式維護分支</p><h1>在原始來源邊界內維護一次既有LLM Wiki切片</h1><p class="mission"><strong>進入條件：</strong>Mission明確需要維護Phase 3已完成且已審查的LLM Wiki切片；原始來源包、穩定來源ID、來源脈絡、既有修訂版識別，以及008-0001確定性檢查和008-0003權限範圍都存在。若要建立第一個切片，應回 <a href="003-0007-produce-first-llm-wiki-slice.html">003-0007</a>；本課不把維運頁面變成新的知識來源的唯一權威來源。</p></header>
 
-<h2>1. 將 maintenance claim 鎖在一個 recoverable change set</h2>
+<h2>1. 將維護主張鎖在一個可復原的變更集合</h2>
 <div class="card"><pre>Maintenance run ID / owner / timestamp:
 Existing wiki revision / output path:
 Raw source IDs / versions / rights:
@@ -25,24 +25,24 @@ Exact maintenance command or procedure:
 Deterministic completion oracle:
 Excluded topics / external actions: none
 Stop / escalation owner:</pre></div>
-<p class="rule"><strong>單一事實來源規則：</strong>Changed wiki page、generated summary、internal link 與 machine-readable export 都是 derived artifacts。只有原始 source pack 與 claim-level locator 能支持 material claim；maintenance 不得用舊 wiki 文字反向證明新 claim，也不得默默替換、刪除或擴大來源集合。</p>
+<p class="rule"><strong>單一事實來源規則：</strong>已變更的知識庫頁面、生成摘要、內部連結與機器可讀的匯出檔都是衍生產物。只有原始來源包與主張層級定位資訊能支持重大主張；維護不得用舊知識庫文字反向證明新主張，也不得默默替換、刪除或擴大來源集合。</p>
 
-<h2>2. 先比較，再更新最小 slice</h2>
-<ol><li>在 recoverable fixture 複製既有 revision，驗證 restore 能重建原始 pages、links、exports 與 review log；不要直接在唯一 working copy 練習。</li><li>以 stable source ID 比對 raw source change，只列出 added、changed、removed、conflict 與 unchanged claims。來源版本或 rights 不明時停止，不讓 agent 猜測差異。</li><li>用相同 input boundary 執行 read-only preview，記錄預測的 page／link／export write set。Preview 超出 topic cluster 或需要讀取未授權資料時回 authority gate。</li><li>建立唯一 run／idempotency identity，只對最小 affected cluster 執行一次 update；保存逐檔 before／after fingerprint、source locator diff、actual write set 與 command output。</li><li>逐頁重跑 title、source references、internal links、duplicate／blank-page、export 與三個 material-claim trace checks；actual scope 必須等於 envelope。</li></ol>
-<div class="card"><strong>維護證據檢查清單</strong><label><input type="checkbox"> Raw source pack 與 stable IDs 保持獨立且可讀</label><label><input type="checkbox"> Baseline revision、fixture 與 restore 已實測</label><label><input type="checkbox"> Source diff 與 affected claim／page mapping 已保存</label><label><input type="checkbox"> Preview 和 actual read／write set 都在 authority 內</label><label><input type="checkbox"> Source references、links、exports 與 material claims 已檢查</label><label><input type="checkbox"> Unsupported／conflict／omission 已寫入 review log</label><label><input type="checkbox"> External／production actions 為 none</label></div>
+<h2>2. 先比較，再更新最小切片</h2>
+<ol><li>在可復原的 fixture複製既有修訂版，驗證還原能重建原始頁面、連結、匯出檔與審查紀錄；不要直接在唯一工作副本練習。</li><li>以穩定的來源ID比對原始來源變更，只列出新增的、已變更、移除的、衝突與未變更的主張。來源版本或權利不明時停止，不讓代理程式猜測差異。</li><li>用相同輸入邊界執行唯讀預覽，記錄預測的頁面／連結／匯出檔寫入集合。預覽超出主題叢集或需要讀取未授權資料時回權限關卡。</li><li>建立唯一執行／冪等性識別，只對最小受影響叢集執行一次更新；保存逐檔變更前／變更後指紋、來源定位資訊diff、實際寫入集合與命令輸出。</li><li>逐頁重跑標題、來源參照、內部的連結、重複／空白頁、export與三個重大主張trace checks；實際範圍必須等於範圍。</li></ol>
+<div class="card"><strong>維護證據檢查清單</strong><label><input type="checkbox"> 原始來源包與穩定ID保持獨立且可讀</label><label><input type="checkbox"> 基準修訂版、fixture與還原已實測</label><label><input type="checkbox"> 來源差異與受影響主張／頁面對照已保存</label><label><input type="checkbox"> 預覽和實際讀取／寫入集合都在權限內</label><label><input type="checkbox"> 來源參照、連結、匯出檔與重大主張已檢查</label><label><input type="checkbox"> 不支援的／衝突／遺漏已寫入審查紀錄</label><label><input type="checkbox"> 外部的／正式環境動作為無</label></div>
 
-<h2>3. 保存可退回的 maintenance evidence</h2>
-<table><tr><th>證據</th><th>另一人必須能觀察</th></tr><tr><td>來源差異</td><td>哪個 raw source identity 觸發哪一個 claim／page change；derived wiki 不是證據來源。</td></tr><tr><td>Artifact 差異</td><td>新增、修改、刪除或保留哪些 pages、links、exports，且沒有 cluster 外 mutation。</td></tr><tr><td>驗證</td><td>同一 oracle 對 baseline／disconfirming copy 失敗或指出 stale state，對 maintained fixture 通過。</td></tr><tr><td>恢復</td><td>Restore 能回原 revision，或 checkpoint 能安全重跑而不產生 duplicate／orphan pages。</td></tr><tr><td>判斷</td><td>Reviewer 對 unsupported、conflict、omission、rights 與 limitations 的 disposition；agent 不批准自己的 maintenance。</td></tr></table>
-<p class="boundary"><strong>維護邊界：</strong>Canonical hands-on 只更新 recoverable local fixture。若真實 wiki 位於 shared／remote system，本課只建立可檢查的 change set 或 payload preview；發布、同步、push、deploy、通知與刪除 remote content 都需要另行 authority、approval、receipt 與 recovery，不是本選修的 completion requirement。</p>
-<div class="win"><strong>可見成果：</strong>一次具 raw-source delta、bounded artifact diff、revision identity、restore／retry evidence 與 review log 的 recoverable LLM Wiki maintenance run。<br><strong>可觀察回饋：</strong>Reviewer 能由每個 changed claim 回到 raw source locator，重建 before／after cluster，確認 cluster 外未變，並在 restore 後得到原 revision；這份 evidence 可回到 Operations completion proof，而不取代 Phase 3 Knowledge evidence。</div>
+<h2>3. 保存可退回的維護證據</h2>
+<table><tr><th>證據</th><th>另一人必須能觀察</th></tr><tr><td>來源差異</td><td>哪個原始來源識別觸發哪一個主張／頁面變更；衍生知識庫不是證據來源。</td></tr><tr><td>Artifact差異</td><td>新增、修改、刪除或保留哪些頁面、連結、匯出檔，且沒有叢集外變更。</td></tr><tr><td>驗證</td><td>同一oracle對基準／反證副本失敗或指出過時狀態，對已維護的fixture通過。</td></tr><tr><td>恢復</td><td>還原能回原修訂版，或檢查點能安全重跑而不產生重複／孤立頁面。</td></tr><tr><td>判斷</td><td>審查者對不支援的、衝突、遺漏、權利與限制的處置；代理程式不批准自己的維護。</td></tr></table>
+<p class="boundary"><strong>維護邊界：</strong>標準實作練習只更新可復原的本機 fixture。若真實知識庫位於共用／遠端系統，本課只建立可檢查的變更集合或承載資料預覽；發布、同步、push、部署、通知與刪除遠端內容都需要另行權限、核准、收據與復原，不是本選修的完成要求。</p>
+<div class="win"><strong>可見成果：</strong>一次具原始來源差異、有界的 artifact diff、修訂版識別、還原／retry證據與審查紀錄的可復原的 LLM Wiki維護執行。<br><strong>可觀察回饋：</strong>審查者能由每個已變更主張回到原始來源定位資訊，重建變更前／變更後叢集，確認叢集外未變，並在還原後得到原修訂版；這份證據可回到作業完成證明，而不取代階段 3 知識證據。</div>
 
-<div class="quiz" data-answer="2"><p>Maintenance 後 wiki summary 新增一個合理結論，但 raw source pack 找不到 locator，該怎麼做？</p><button type="button">保留，因為既有 wiki 已是可信 source</button><button type="button">請同一個 agent 再判斷一次是否正確</button><button type="button">標為 unsupported，移除或補齊 raw source locator，並記入 review log</button><div class="why">Maintenance 只更新 derived artifact；原始 sources 與 claim-level provenance 仍是 Knowledge source of truth，不能由 wiki 或 agent 自我背書取代。</div></div>
+<div class="quiz" data-answer="2"><p>維護後知識庫摘要新增一個合理結論，但原始來源包找不到定位資訊，該怎麼做？</p><button type="button">保留，因為既有知識庫已是可信來源</button><button type="button">請同一個代理程式再判斷一次是否正確</button><button type="button">標為不支援的，移除或補齊原始來源定位資訊，並記入審查紀錄</button><div class="why">維護只更新衍生產物；原始來源與主張層級來源脈絡仍是知識來源的唯一權威來源，不能由知識庫或代理程式自我背書取代。</div></div>
 
-<p class="stop"><strong>合法停止／返回／續行：</strong>Raw source identity／rights 不明、existing revision 不可重建、restore 未實測、preview 或 actual scope 超界、source locator 缺失、link／export／claim check 失敗、partial／duplicate 未 disposition，或 external write 未另行核准時，保存 checkpoint 後停止；source／artifact 問題回 Phase 3 Knowledge verification，authority 問題回 008-0003。Maintenance evidence 完整後立即進 <a href="008-0005-prove-workflow-completion.html">008-0005</a>，用同一 deterministic oracle 建立 completion proof；不要接著擴寫其他 clusters，也不要宣稱 Phase 8 或 Knowledge route 已完成。</p>
+<p class="stop"><strong>合法停止／返回／續行：</strong>原始來源識別／權利不明、既有修訂版不可重建、還原未實測、預覽或實際範圍超界、來源定位資訊缺失、連結／匯出檔／主張檢查失敗、部分／重複未處置，或外部寫入未另行核准時，保存檢查點後停止；來源／產物問題回階段 3 知識驗證，權限問題回008-0003。維護證據完整後立即進 <a href="008-0005-prove-workflow-completion.html">008-0005</a>，用同一確定性判定器建立完成證明；不要接著擴寫其他叢集，也不要宣稱階段 8 或知識路線已完成。</p>
 <footer data-course-footer="canonical" data-route-id="agent-operations" data-legal-stop="Stop after completion proof and recovery evidence are both recorded">
 <p><strong>路線導覽 · Agent 作業</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="agent-operations" data-route-action="next" href="008-0005-prove-workflow-completion.html">下一步：lessons/008-0005-prove-workflow-completion.html</a></li>
+<li><a data-route-id="agent-operations" data-route-action="next" href="008-0005-prove-workflow-completion.html">下一步：008-0005 課程</a></li>
 </ul>
 <p data-route-legal-stop="Stop after completion proof and recovery evidence are both recorded"><strong>合法停止點：</strong>completion proof 與 recovery evidence 都已記錄後才可停止</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>agent-operations-safety-contract</code>、<code>llm-wiki-local-slice-contract</code></div>

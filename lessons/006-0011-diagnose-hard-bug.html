@@ -7,13 +7,13 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="engineering-delivery:conditional,engineering-delivery:feedback,engineering-delivery:tangible-win">
 <meta name="course:source-ids" content="engineering-diagnosis-contract">
-<title>006-0011：診斷難解 bug</title>
+<title>006-0011：診斷難解錯誤</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:820px;margin:2.5rem auto;padding:0 1.25rem;line-height:1.8;color:#202020}h2{color:#315f86}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccd9e3;padding:.55rem;vertical-align:top;text-align:left}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}button{display:block;width:100%;padding:.6rem;margin:.4rem 0;text-align:left;background:white;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:650px){body{margin-top:1rem}table{font-size:.84rem}th,td{padding:.4rem}}</style>
 </head><body>
-<p><a href="006-0001-choose-engineering-route.html">← Engineering 路線</a> · <a href="006-0010-triage-external-report.html">外部回報 triage</a></p>
-<header><p>第 6 階段 · 建置 · 006-0011 · Conditional branch</p><h1>先造出會紅的 feedback loop，再診斷難解 bug</h1><p class="mission"><strong>進入條件／條件分支：</strong>適用於已確認的難解、間歇、回歸 bug 或效能退化；你已掌握 exact symptom、可用的安全 workspace、repo instructions 與可執行 checks。一般範圍清楚的 bug 不必強制走本 branch。</p></header>
-<h2>1. 先交出一個 red-capable command</h2>
-<p>優先順序可從 failing test、HTTP／CLI fixture、headless browser、captured trace、throwaway harness、fuzz／bisection／differential loop 到結構化 HITL。這個 command 必須走過真實 bug path、斷言使用者回報的 exact symptom，且已至少跑過一次；「沒有 crash」不是足夠訊號。</p>
+<p><a href="006-0001-choose-engineering-route.html">← 工程路線</a> · <a href="006-0010-triage-external-report.html">外部回報分流</a></p>
+<header><p>第 6 階段 · 建置 · 006-0011 · Conditional 分支</p><h1>先造出會轉紅的回饋迴路，再診斷難解錯誤</h1><p class="mission"><strong>進入條件／條件分支：</strong>適用於已確認的難解、間歇、回歸錯誤或效能退化；你已掌握精確症狀、可用的安全工作區、儲存庫指引與可執行檢查。一般範圍清楚的錯誤 不必強制走本分支。</p></header>
+<h2>1. 先交出一個可轉紅命令</h2>
+<p>優先順序可從失敗測試、HTTP／CLI 練習環境、無頭瀏覽器、擷取的追蹤、可拋棄測試架、模糊測試／二分定位／差異迴圈到結構化 HITL。這個命令必須走過真實錯誤路徑、斷言使用者回報的精確症狀，且已至少跑過一次；「沒有當機」不是足夠訊號。</p>
 <div class="card"><pre>Exact reported symptom:
 Feedback-loop command:
 First observed output / verdict:
@@ -22,17 +22,17 @@ Why it catches this exact symptom:
 Determinism / reproduction rate:
 Runtime / unattended execution:
 Safe environment / data boundary:</pre></div>
-<p class="rule"><strong>循環品質閘門：</strong>red-capable、deterministic（flaky bug 則固定高重現率）、快速且 agent-runnable，四項缺一就繼續縮緊 loop，不進入原因假說。</p>
+<p class="rule"><strong>循環品質閘門：</strong>可轉紅、確定性（不穩定錯誤則固定高重現率）、快速且代理可執行，四項缺一就繼續縮緊迴圈，不進入原因假說。</p>
 <h2>2. 重現、最小化，再比較假說</h2>
-<ol><li>重跑 original scenario，確認紅的是同一個 symptom。</li><li>一次移除一個 input、caller、config 或 step；留下的每一項都必須 load-bearing。</li><li>列出 3–5 個 ranked、falsifiable hypotheses，每個都寫「若 X 是原因，改變 Y 應觀察到 Z」。</li><li>讓 learner／domain owner 看排序，再一次只改一個變因，以 debugger 或 targeted <code>[DEBUG-…]</code> probe 收集 evidence。</li></ol>
+<ol><li>重跑原始情境，確認紅的是同一個症狀。</li><li>一次移除一個輸入、呼叫端、config 或 步驟；留下的每一項都必須承重。</li><li>列出 3–5 個已排序、可證偽假說，每個都寫「若甲是原因，改變乙應觀察到丙」。</li><li>讓學習者／領域負責人看排序，再一次只改一個變因，以除錯器或定向 <code>[DEBUG-…]</code> 探查 收集 evidence。</li></ol>
 <div class="card"><pre>Minimised repro / remaining load-bearing inputs:
 1. Hypothesis / prediction / probe / result:
 2. Hypothesis / prediction / probe / result:
 3. Hypothesis / prediction / probe / result:
 Supported cause / rejected alternatives:
 Learner feedback that changed the ranking:</pre></div>
-<h2>3. 先鎖 regression，再修正與清理</h2>
-<p>只有能重現真實觸發模式的 seam 才寫 regression test：先看它紅，再做最小 fix、看它綠，最後重跑 original feedback loop。若沒有正確 seam，誠實記錄；不要用過淺的 test 製造假信心。</p>
+<h2>3. 先鎖迴歸，再修正與清理</h2>
+<p>只有能重現真實觸發模式的接縫才寫迴歸測試：先看它紅，再做最小修正、看它綠，最後重跑 原始回饋迴路。若沒有正確接縫，誠實記錄；不要用過淺的測試製造假信心。</p>
 <div class="card"><pre>Regression seam / why it is representative:
 Pre-fix RED command / result:
 Minimal fix / supported cause:
@@ -40,14 +40,14 @@ Post-fix GREEN command / result:
 Original feedback-loop rerun / result:
 Cleanup: DEBUG tags / throwaway artifacts removed
 Architecture follow-through: none / separate evidence-backed concern</pre></div>
-<p class="boundary"><strong>Diagnosis 不是 architecture implementation：</strong>先把 bug 修好並保存 regression evidence，再問「什麼會預防它」。若答案是缺乏 test seam、callers 糾纏或 hidden coupling，只記成 <a href="006-0012-find-architecture-seam.html">006-0012 架構後續作業</a> input；不要在同一 diagnosis diff 偷跑廣泛重構。</p>
-<div class="win"><strong>具體成果：</strong>一份 hard-bug diagnosis packet，包含已執行的 red-capable command、最小 repro、假說 evidence、regression RED／GREEN、original-loop rerun 與 cleanup。<br><strong>可觀察回饋：</strong>Reviewer 能用一個 command 先捕捉 exact symptom，再核對修正後同一 signal 轉綠；原因結論可追到 falsifiable probes，而不是敘事猜測。</div>
-<div class="quiz" data-answer="2"><p>目前只能寫一個單一 caller 的 shallow unit test，但原 bug 需要多個 callers 的 chain 才會發生；應怎麼做？</p><button type="button">用 shallow test 代替真實 regression，先宣稱修好</button><button type="button">先做 architecture refactor，之後再重現 bug</button><button type="button">保留 original red loop，記錄缺少正確 regression seam，最小修正後另開 architecture follow-through</button><div class="why">錯誤 seam 會製造假信心。先以 original loop 保護 diagnosis 與最小 fix，再把缺少 test seam 當作獨立架構 evidence。</div></div>
-<p class="stop"><strong>合法停止／返回／續行：</strong>無法建立 red-capable command、缺少能重現的環境／artifact／權限、紅的是不同 symptom、loop 仍不穩定、fix 後 original loop 未綠、debug artifacts 未清，或 regression／architecture 邊界不清時，保存所有嘗試後停止並向 owner 要 access、HAR／logs／trace 或 instrumentation authority。Evidence 對齊後，把 diagnosis packet 回送 <a href="006-0003-align-engineering-request.html">006-0003</a>，對齊最小交付或 separate architecture request。完成本頁只代表這個 bug 已形成可重現 diagnosis evidence，不代表 Engineering Phase 或 Migration complete。</p>
+<p class="boundary"><strong>診斷不是架構實作：</strong>先把錯誤修好並保存迴歸 evidence，再問「什麼會預防它」。若答案是缺乏測試接縫、呼叫端糾纏或隱藏耦合，只記成 <a href="006-0012-find-architecture-seam.html">006-0012 架構後續作業</a> 輸入；不要在同一診斷差異偷跑廣泛重構。</p>
+<div class="win"><strong>具體成果：</strong>一份困難錯誤診斷套件，包含已執行的可轉紅命令、最小重現案例、假說 evidence、迴歸 RED／GREEN、原始迴圈重跑與清理。<br><strong>可觀察回饋：</strong>審查者能用一個命令先捕捉精確症狀，再核對修正後同一訊號轉綠；原因結論可追到可證偽探針，而不是敘事猜測。</div>
+<div class="quiz" data-answer="2"><p>目前只能寫一個單一呼叫端的淺層單元測試，但原始錯誤需要多個呼叫端組成的呼叫鏈 才會發生；應怎麼做？</p><button type="button">用淺層測試代替真實迴歸，先宣稱修好</button><button type="button">先做架構重構，之後再重現錯誤</button><button type="button">保留原始紅燈迴圈，記錄缺少正確迴歸接縫，最小修正後另開架構後續工作</button><div class="why">錯誤接縫會製造假信心。先以原始迴圈保護診斷與最小修正，再把缺少測試接縫當作獨立架構 evidence。</div></div>
+<p class="stop"><strong>合法停止／返回／續行：</strong>無法建立可轉紅命令、缺少能重現的環境／artifact／權限、紅的是不同症狀、迴圈仍不穩定、修正後原始迴圈未綠、除錯成果未清，或迴歸／架構邊界不清時，保存所有嘗試後停止並向負責人要存取、HAR／紀錄／追蹤或儀器化權限。Evidence 對齊後，把診斷套件回送 <a href="006-0003-align-engineering-request.html">006-0003</a>，對齊最小交付或獨立架構要求。完成本頁只代表這個錯誤已形成可重現診斷 evidence，不代表工程 Phase 或遷移完成。</p>
 <footer data-course-footer="canonical" data-route-id="engineering-delivery" data-legal-stop="Stop only after final Review evidence matches the delivered checkpoint">
 <p><strong>路線導覽 · 工程交付</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="engineering-delivery" data-route-action="next" href="006-0003-align-engineering-request.html">下一步：lessons/006-0003-align-engineering-request.html</a></li>
+<li><a data-route-id="engineering-delivery" data-route-action="next" href="006-0003-align-engineering-request.html">下一步：006-0003 課程</a></li>
 </ul>
 <p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>合法停止點：</strong>只有 final Review evidence 與 delivered checkpoint 一致後才可停止</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>engineering-diagnosis-contract</code></div>

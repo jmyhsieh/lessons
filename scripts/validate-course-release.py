@@ -33,28 +33,6 @@ EXPECTED_INVENTORY_COUNTS = {
     "deprecation": 1,
 }
 EXPECTED_CANONICAL_COORDINATES = 105
-LEARNER_VISIBLE_BLOCK_TAGS = {
-    "a",
-    "button",
-    "caption",
-    "dt",
-    "h1",
-    "h2",
-    "h3",
-    "h4",
-    "h5",
-    "h6",
-    "label",
-    "legend",
-    "li",
-    "p",
-    "small",
-    "span",
-    "summary",
-    "strong",
-    "td",
-    "th",
-}
 SUPPRESSED_LEARNER_TEXT_TAGS = {
     "code",
     "kbd",
@@ -81,9 +59,156 @@ VOID_HTML_TAGS = {
     "track",
     "wbr",
 }
-# Exact learner-visible blocks that are themselves canonical course/product terms.
-# This is deliberately not a vocabulary/shape heuristic: new values need review.
-TECHNICAL_ONLY_LEARNER_BLOCKS = {
+# Exact code and identifier vocabulary reviewed against AGENTS.md and the
+# candidate course glossary. This is deliberately not a token-shape rule.
+TECHNICAL_TOKENS = {
+    "/ask-matt",
+    "/confirmation",
+    "/goal",
+    "/loop",
+    "/to-spec",
+    "/to-tickets",
+    "375px",
+    "abc123",
+    "Acrobat",
+    "AGENTS.md",
+    "AFK",
+    "ADR",
+    "AI",
+    "Agent",
+    "Anthropic",
+    "API",
+    "artifact",
+    "arm64",
+    "bash",
+    "branch",
+    "check",
+    "checklist",
+    "checks",
+    "checkout",
+    "Chrome",
+    "CI",
+    "CLAUDE.md",
+    "CLI",
+    "code",
+    "codebase",
+    "command",
+    "commit",
+    "config",
+    "CSS",
+    "CSV",
+    "CTA",
+    "DAG",
+    "diff",
+    "DOM",
+    "entry",
+    "Engineering",
+    "esbuild",
+    "Evidence",
+    "exit-evidence",
+    "exit status",
+    "feedback",
+    "fixture",
+    "Git",
+    "GitHub",
+    "GitHub Actions",
+    "gitignore",
+    "Google Chrome",
+    "GREEN",
+    "hash",
+    "HAR",
+    "HEAD",
+    "hook",
+    "HTML",
+    "HTTP",
+    "HTTPS",
+    "HITL",
+    "ID",
+    "I/O",
+    "in-memory",
+    "JavaScript",
+    "JSON",
+    "matcher",
+    "Markdown",
+    "MCP",
+    "Mach 1",
+    "Mermaid",
+    "Migration",
+    "Mission",
+    "Node",
+    "not-applicable",
+    "npm",
+    "npx",
+    "OCR",
+    "Office",
+    "Opus",
+    "oracle",
+    "package.json",
+    "Parquet",
+    "PASS",
+    "payload",
+    "Playwright",
+    "Phase",
+    "pnpm",
+    "PR",
+    "PreToolUse",
+    "prompt",
+    "push",
+    "Q2",
+    "React",
+    "readiness",
+    "README",
+    "README.md",
+    "RED",
+    "repo",
+    "route",
+    "retry",
+    "review-reentry",
+    "rollout",
+    "schema",
+    "S07",
+    "screenshot",
+    "selector",
+    "SHA",
+    "shell",
+    "Skill",
+    "smoke",
+    "Sonnet",
+    "Source",
+    "SOP",
+    "src/main.py",
+    "SQL",
+    "stderr",
+    "stdin",
+    "stdout",
+    "stop",
+    "summary.md",
+    "SVG",
+    "test",
+    "tests",
+    "TDD",
+    "tangible-win",
+    "Testing",
+    "trace",
+    "UI",
+    "URL",
+    "v0",
+    "v1",
+    "9603c1c",
+    "viewport",
+    "Vite",
+    "W3C",
+    "WAI",
+    "Wayfinder",
+    "WCAG",
+    "worktree",
+    "YAML",
+    "zsh",
+    "ccusage",
+}
+# Exact learner-visible blocks that are themselves canonical course/product
+# terms or reviewed technical tokens. New values require an explicit source.
+TECHNICAL_ONLY_LEARNER_BLOCKS = TECHNICAL_TOKENS | {
     "Claude",
     "Claude Code",
     "Claude Design",
@@ -93,17 +218,26 @@ TECHNICAL_ONLY_LEARNER_BLOCKS = {
     "Desktop Browser",
     "Docling",
     "DuckDB",
-    "HTML",
     "MarkItDown",
     "MarkItDown／Docling",
     "Mermaid CLI",
+    "LLM Wiki",
     "Open-Slide",
     "PDF",
     "PPTX",
+    "PowerPoint",
     "Playwright CLI",
     "Playwright MCP",
+    "Playwright Test",
+    "Preview",
     "QMD",
+    "Side chat",
+    "Slash commands",
+    "Terminal",
+    "View mode",
+    "macOS",
     "open-slide",
+    "subagent",
 }
 # Exact published documentation titles and immutable source identities. These
 # stay in their published form so learners can match a link to its source.
@@ -125,6 +259,8 @@ SOURCE_TITLE_LEARNER_BLOCKS = {
     "open-slide Export",
     "open-slide Introduction",
     "PowerPoint Reading Order",
+    "Playwright CLI README",
+    "Postcard Press",
     "Set up your design system",
     "Using Claude Design for presentations and slide decks",
     "W3C WAI — Making Events Accessible",
@@ -160,6 +296,7 @@ COURSE_GLOSSARY_TERMS = {
     "Learner judgment",
     "Learner progress",
     "Legal stop",
+    "Lesson practiced",
     "Knowledge Work delivery route",
     "Maturity score",
     "Migration baseline",
@@ -171,10 +308,12 @@ COURSE_GLOSSARY_TERMS = {
     "Rejoin／return",
     "Repo Review contract",
     "Report-only",
+    "Return notebook",
     "Review",
     "Review contract",
     "Reviewer write boundary",
     "Route promise",
+    "Route artifact produced",
     "Scenario rollout extension",
     "Self-study artifact",
     "Skill／MCP／subagent／worktree",
@@ -195,13 +334,55 @@ COURSE_GLOSSARY_TERMS = {
     "Workflow evaluation extension",
     "Workflow standardization extension",
 }
-TECHNICAL_ONLY_LEARNER_BLOCKS_BY_PATH = {
-    "lessons/001-0001-target.html": {"A", "B", "Code readiness", "Target"},
-    "lessons/001-0002-old.html": {"lessons/001-0002-old"},
-    "reference/retired.html": {"reference/retired"},
+# Exact English phrases published as route display, exit-evidence, or legal-stop
+# vocabulary in docs/migration/course-migration-manifest.json. This reviewed
+# list is intentionally phrase-based with capitalization-insensitive exact
+# matching; paths and token shapes are never allowlisted.
+MANIFEST_ROUTE_VOCABULARY = {
+    "Design handoff bundle",
+    "Each selected lesson returns to the caller-provided active route; no Phase completion",
+    "Stop after Code readiness is demonstrated; do not treat fixture work as delivery",
+    "Stop after completion proof and recovery evidence are both recorded",
+    "Stop after one fitting package is rerun and reviewed",
+    "Stop after route choice and readiness evidence are recorded",
+    "Stop after the browser claim is rerunnable in the declared environment",
+    "Stop after the evidence dossier records limitations and learner judgment",
+    "Stop after the low-risk Cowork starter evidence is recorded",
+    "Stop at Knowledge delivery closeout",
+    "Stop at Presentation closeout; adaptations and code-first options are elective",
+    "Stop at the Design handoff bundle unless implementation is selected",
+    "Stop at the policy draft without claiming legal, compliance, or organizational approval",
+    "Stop at the scenario plan without claiming real organizational adoption",
+    "Stop only after final Review evidence matches the delivered checkpoint",
+    "Workflow evidence dossier and learner keep/change/retire judgment",
+    "accessible deck, target-format validation, rehearsal, judgment, and feedback",
+    "auditable self-study Governance lifecycle policy and tabletop evidence",
+    "bounded Cowork file-task readiness evidence",
+    "bounded self-study Scenario rollout plan",
+    "implemented, deterministically checked, reviewed Engineering closeout",
+    "one bounded capability smoke test and boundary record",
+    "recoverable operating workflow closeout with failure and recovery evidence",
+    "rerunnable Playwright Test and Browser evidence addendum",
+    "reviewable knowledge deliverable with provenance, judgment, and feedback",
+    "route choice and readiness evidence",
+    "safe repository reconnaissance and controlled-change evidence",
+    "versioned Standardization closeout with rerun and ownership evidence",
+    "browser claim 能在指定環境重跑後即可停止",
+    "completion proof 與 recovery evidence 都已記錄後才可停止",
+    "一個合適 package 已重跑並完成 review 後即可停止",
+    "只有 final Review evidence 與 delivered checkpoint 一致後才可停止",
+    "完成 Design handoff bundle 後即可停止；除非 mission 選擇 implementation",
+    "完成 Knowledge delivery closeout 後即可停止",
+    "完成 Presentation closeout 後即可停止；adaptation 與 code-first 選項皆為選修",
+    "完成 policy draft 後即可停止；不可宣稱法律、合規或組織核准",
+    "完成 scenario plan 後即可停止；不可宣稱真實組織採用",
+    "完成有明確 decision 與 limitation 的 evidence dossier 後即可停止",
+    "每個選定課程都返回呼叫端提供的 active route；工具箱本身沒有 Phase completion",
+    "記錄低風險 Cowork starter evidence 後即可停止",
+    "記錄路線選擇與 readiness evidence 後即可停止",
+    "證明 Code readiness 後即可停止；不要把 fixture 練習視為交付",
 }
 LATIN_TEXT_RE = re.compile(r"[A-Za-z]")
-CJK_TEXT_RE = re.compile(r"[\u3400-\u9fff]")
 
 
 def blocker(code: str, message: str, subject: str | None = None) -> dict[str, str]:
@@ -228,7 +409,6 @@ class CourseHTMLParser(HTMLParser):
         self.quizzes: list[dict[str, Any]] = []
         self._quiz_stack: list[dict[str, Any]] = []
         self.learner_ui_labels: list[str] = []
-        self._learner_ui_label_stack: list[dict[str, Any]] = []
         self._suppressed_text_depth = 0
         self._element_suppression_stack: list[tuple[str, bool]] = []
 
@@ -247,17 +427,6 @@ class CourseHTMLParser(HTMLParser):
             self._element_suppression_stack.append((tag, suppresses_text))
             if suppresses_text:
                 self._suppressed_text_depth += 1
-        if (
-            tag in LEARNER_VISIBLE_BLOCK_TAGS
-            and not suppresses_text
-        ):
-            self._learner_ui_label_stack.append(
-                {
-                    "tag": tag,
-                    "parts": [],
-                    "elementDepth": len(self._element_suppression_stack),
-                }
-            )
         if tag == "html":
             self.lang = attributes.get("lang")
         elif tag == "meta":
@@ -311,22 +480,13 @@ class CourseHTMLParser(HTMLParser):
 
     def handle_data(self, data: str) -> None:
         if self._suppressed_text_depth == 0:
-            for label in self._learner_ui_label_stack:
-                label["parts"].append(data)
+            text = " ".join(data.split())
+            if text:
+                self.learner_ui_labels.append(text)
         if data.strip():
             self.text_parts.append(data)
 
     def handle_endtag(self, tag: str) -> None:
-        if (
-            self._learner_ui_label_stack
-            and self._learner_ui_label_stack[-1]["tag"] == tag
-            and self._learner_ui_label_stack[-1]["elementDepth"]
-            == len(self._element_suppression_stack)
-        ):
-            label = self._learner_ui_label_stack.pop()
-            text = " ".join("".join(label["parts"]).split())
-            if text:
-                self.learner_ui_labels.append(text)
         if (
             self._element_suppression_stack
             and self._element_suppression_stack[-1][0] == tag
@@ -617,7 +777,7 @@ def validate_mission_first_index(
         )
 
     visible_text = " ".join(document.text_parts)
-    if "Return notebook" not in visible_text or "learner-owned" not in visible_text:
+    if "Return notebook" not in visible_text or "學習者自有" not in visible_text:
         errors.append(
             blocker(
                 "index-resume-guidance",
@@ -852,6 +1012,18 @@ def validate_links_and_quizzes(
     return errors
 
 
+def contains_unreviewed_latin_text(text: str, allowed: set[str]) -> bool:
+    """Return whether a visible text node contains unreviewed Latin prose."""
+    remainder = text
+    for exact_term in sorted(allowed, key=len, reverse=True):
+        boundary_aware_term = re.compile(
+            rf"(?<![A-Za-z0-9]){re.escape(exact_term)}(?![A-Za-z0-9])",
+            re.IGNORECASE,
+        )
+        remainder = boundary_aware_term.sub("、", remainder)
+    return LATIN_TEXT_RE.search(remainder) is not None
+
+
 def validate_generic_learner_ui_labels(
     documents: dict[str, CourseHTMLParser],
 ) -> list[dict[str, str]]:
@@ -862,14 +1034,12 @@ def validate_generic_learner_ui_labels(
             TECHNICAL_ONLY_LEARNER_BLOCKS
             | SOURCE_TITLE_LEARNER_BLOCKS
             | COURSE_GLOSSARY_TERMS
-            | TECHNICAL_ONLY_LEARNER_BLOCKS_BY_PATH.get(path, set())
+            | MANIFEST_ROUTE_VOCABULARY
         )
         prohibited = sorted(
             text
             for text in set(document.learner_ui_labels)
-            if LATIN_TEXT_RE.search(text)
-            and not CJK_TEXT_RE.search(text)
-            and text not in allowed
+            if contains_unreviewed_latin_text(text, allowed)
         )
         if prohibited:
             errors.append(
@@ -1564,7 +1734,7 @@ def fixture_manifest() -> dict[str, Any]:
     }
     pages[3].update(
         {
-            "expectedIdentity": "lessons/001-0002-old",
+            "expectedIdentity": "舊課程身份",
             "canonicalCoordinate": None,
             "migrationStatus": "authored",
             "routeMemberships": [],
@@ -1575,14 +1745,14 @@ def fixture_manifest() -> dict[str, Any]:
     )
     pages[4]["deprecation"] = {
         "reason": "Retired fixture",
-        "effective": "fixture-cutover",
+        "effective": "測試切換點",
         "successorTargets": [
             {"path": "lessons/001-0001-target.html", "fragment": None, "role": "successor"}
         ]
     }
     pages[4].update(
         {
-            "expectedIdentity": "reference/retired",
+            "expectedIdentity": "已退役參考資料",
             "canonicalCoordinate": None,
             "migrationStatus": "authored",
             "routeMemberships": [],
@@ -1610,9 +1780,9 @@ def write_fixture_site(root: Path) -> None:
         'content="common-foundation:entry,common-foundation:feedback,'
         'common-foundation:tangible-win">'
         '<meta name="course:source-ids" content="fixture-source">'
-        '</head><body><h1 id="target">Target</h1>'
+        '</head><body><h1 id="target">目標</h1>'
         '<div class="quiz" data-answer="1">'
-        '<button>A</button><button>B</button></div></body></html>',
+        '<button>甲</button><button>乙</button></div></body></html>',
         encoding="utf-8",
     )
     (root / "lessons" / "001-0002-old.html").write_text(
@@ -1621,14 +1791,14 @@ def write_fixture_site(root: Path) -> None:
         '<meta name="course:page-kind" content="compatibility">'
         '<meta name="course:route-roles" content="not-applicable">'
         '<meta name="course:source-ids" content="not-applicable">'
-        '<meta name="course:legacy-identity" content="lessons/001-0002-old">'
+        '<meta name="course:legacy-identity" content="舊課程身份">'
         '<meta name="course:transition-reason" content="Move">'
         '<meta name="course:evidence-carryover" '
         'content="lesson-practiced-unless-current-route-stop-is-revalidated">'
         '<meta name="course:transition-mode" content="direct">'
-        '</head><body><h1>lessons/001-0002-old</h1>'
+        '</head><body><h1>舊課程身份</h1>'
         '<p>轉接原因：內容已搬移。</p>'
-        '<p>證據沿用：保留 Lesson practiced；current route stop 仍須重新驗證。</p>'
+        '<p>證據沿用：保留 Lesson practiced；目前路線停止點仍須重新驗證。</p>'
         '<a href="001-0001-target.html#target">繼續</a></body></html>',
         encoding="utf-8",
     )
@@ -1638,14 +1808,14 @@ def write_fixture_site(root: Path) -> None:
         '<meta name="course:page-kind" content="deprecation">'
         '<meta name="course:route-roles" content="not-applicable">'
         '<meta name="course:source-ids" content="not-applicable">'
-        '<meta name="course:legacy-identity" content="reference/retired">'
+        '<meta name="course:legacy-identity" content="已退役參考資料">'
         '<meta name="course:retirement-reason" content="Retired fixture">'
-        '<meta name="course:retirement-effective" content="fixture-cutover">'
+        '<meta name="course:retirement-effective" content="測試切換點">'
         '<meta name="course:evidence-carryover" '
         'content="lesson-practiced-unless-current-route-stop-is-revalidated">'
-        '</head><body><h1>reference/retired</h1>'
-        '<p>退役原因：fixture retired。生效點：fixture-cutover。</p>'
-        '<p>證據沿用：保留 Lesson practiced；不會自動成為 current route evidence。</p>'
+        '</head><body><h1>已退役參考資料</h1>'
+        '<p>退役原因：測試內容已退役。生效點：測試切換點。</p>'
+        '<p>證據沿用：保留 Lesson practiced；不會自動成為目前路線證據。</p>'
         '<p>此網址不再把這個舊身份指派給其他內容。</p>'
         '<a href="../lessons/001-0001-target.html">後繼內容</a></body></html>',
         encoding="utf-8",
@@ -1686,6 +1856,108 @@ def run_site_self_test() -> None:
         )
         _, errors = validate_site_release(root, manifest, inventory_contract=False)
         assert_codes(errors, "generic-english-ui-label")
+        target_fixture.write_text(valid_target_html, encoding="utf-8")
+
+        visible_text_node_cases = {
+            "title": (
+                valid_target_html.replace(
+                    "</head>", "<title>Unknown title result</title></head>"
+                ),
+                "Unknown title result",
+            ),
+            "div": (
+                valid_target_html.replace(
+                    "</body>", "<div>Unknown div result</div></body>"
+                ),
+                "Unknown div result",
+            ),
+            "em": (
+                valid_target_html.replace(
+                    "</body>", "<em>Unknown em result</em></body>"
+                ),
+                "Unknown em result",
+            ),
+            "mixed-cjk": (
+                valid_target_html.replace(
+                    "</body>",
+                    "<p>中文 Expected prose result 仍需翻譯</p></body>",
+                ),
+                "中文 Expected prose result 仍需翻譯",
+            ),
+            "mixed-single-token": (
+                valid_target_html.replace(
+                    "</body>",
+                    "<p>中文 Expected 結果</p></body>",
+                ),
+                "中文 Expected 結果",
+            ),
+            "mixed-after-allowed-term": (
+                valid_target_html.replace(
+                    "</body>",
+                    "<p>中文 Claude Code expected</p></body>",
+                ),
+                "中文 Claude Code expected",
+            ),
+            "nested": (
+                valid_target_html.replace(
+                    "</body>",
+                    "<div>中文 <em>Unknown nested em result</em></div></body>",
+                ),
+                "Unknown nested em result",
+            ),
+            "path-shaped": (
+                valid_target_html.replace(
+                    "</body>",
+                    "<div>lessons/unknown-path</div></body>",
+                ),
+                "lessons/unknown-path",
+            ),
+        }
+        for case, (html, expected) in visible_text_node_cases.items():
+            target_fixture.write_text(html, encoding="utf-8")
+            _, errors = validate_site_release(
+                root, manifest, inventory_contract=False
+            )
+            matching_errors = [
+                error
+                for error in errors
+                if error["code"] == "generic-english-ui-label"
+                and repr(expected) in error["message"]
+            ]
+            assert matching_errors, (case, expected, errors)
+        target_fixture.write_text(valid_target_html, encoding="utf-8")
+
+        suppressed_text_node_cases = {
+            "hidden-div": (
+                '<div hidden>Suppressed hidden div result</div>',
+                "Suppressed hidden div result",
+            ),
+            "aria-em": (
+                '<em aria-hidden="true">Suppressed aria em result</em>',
+                "Suppressed aria em result",
+            ),
+            "nested-code": (
+                '<div>中文 <code>Suppressed nested code result</code></div>',
+                "Suppressed nested code result",
+            ),
+            "nested-template": (
+                '<em><template>Suppressed nested template result</template></em>',
+                "Suppressed nested template result",
+            ),
+        }
+        for case, (html, expected) in suppressed_text_node_cases.items():
+            target_fixture.write_text(
+                valid_target_html.replace("</body>", f"{html}</body>"),
+                encoding="utf-8",
+            )
+            _, errors = validate_site_release(
+                root, manifest, inventory_contract=False
+            )
+            assert not any(
+                error["code"] == "generic-english-ui-label"
+                and repr(expected) in error["message"]
+                for error in errors
+            ), (case, expected, errors)
         target_fixture.write_text(valid_target_html, encoding="utf-8")
 
         suppressed_inline_blocks = {
@@ -1871,7 +2143,7 @@ def run_site_self_test() -> None:
             valid_target_html.replace(
                 "</body>",
                 '<h2>Code readiness</h2>'
-                '<p>以 Claude Code 完成 repo check</p>'
+                '<p>使用 Claude Code</p>'
                 "</body>",
             ),
             encoding="utf-8",
@@ -1881,6 +2153,41 @@ def run_site_self_test() -> None:
             error["code"] == "generic-english-ui-label" for error in errors
         ), errors
         target_fixture.write_text(valid_target_html, encoding="utf-8")
+
+        target_fixture.write_text(
+            valid_target_html.replace(
+                "</body>",
+                '<p>中文 code readiness 與 claude code</p>'
+                '<p>中文 Code readinessExtra expected result</p>'
+                "</body>",
+            ),
+            encoding="utf-8",
+        )
+        _, errors = validate_site_release(root, manifest, inventory_contract=False)
+        boundary_errors = [
+            error for error in errors if error["code"] == "generic-english-ui-label"
+        ]
+        assert boundary_errors, errors
+        assert (
+            "'中文 Code readinessExtra expected result'"
+            in boundary_errors[0]["message"]
+        ), errors
+        assert "'中文 code readiness 與 claude code'" not in boundary_errors[0]["message"], errors
+        target_fixture.write_text(valid_target_html, encoding="utf-8")
+
+        reviewed_allowlist = (
+            TECHNICAL_ONLY_LEARNER_BLOCKS
+            | SOURCE_TITLE_LEARNER_BLOCKS
+            | COURSE_GLOSSARY_TERMS
+            | MANIFEST_ROUTE_VOCABULARY
+        )
+        for exact_token in TECHNICAL_TOKENS:
+            assert not contains_unreviewed_latin_text(
+                f"中文 {exact_token}", reviewed_allowlist
+            ), exact_token
+            assert contains_unreviewed_latin_text(
+                f"中文 {exact_token}Extra", reviewed_allowlist
+            ), exact_token
 
         target_fixture.write_text(
             valid_target_html.replace(
@@ -1943,7 +2250,7 @@ def run_site_self_test() -> None:
             '<html lang="zh-Hant"><body>'
             '<a data-index-role="common-foundation" href="lessons/001-0001-four-claude-surfaces.html">Foundation</a>'
             '<a data-index-role="resume" href="toc.html#task-routes">Return notebook</a>'
-            '<p>以 learner-owned Return notebook 恢復工作。</p>'
+            '<p>以學習者自有的 Return notebook 恢復工作。</p>'
             '<a data-mission-route="knowledge-delivery" href="lessons/003-0001-knowledge.html">Knowledge</a>'
             '<a data-mission-route="design-delivery" href="lessons/004-0001-design.html">Design</a>'
             '<a data-mission-route="presentation-delivery" href="lessons/005-0001-presentation.html">Presentation</a>'
@@ -2109,6 +2416,18 @@ def run_self_test(repo_root: Path) -> None:
     freeze_module, manifest_module, source_module = load_modules(repo_root)
     freeze = manifest_module["load_validated_freeze"](repo_root)
     manifest = load_json(repo_root / MANIFEST_PATH, "migration manifest")
+    manifest_route_vocabulary_sources = [
+        route[key]
+        for route in manifest.get("routes", [])
+        if isinstance(route, dict)
+        for key in ("exitEvidence", "legalStop", "legalStopDisplay")
+        if isinstance(route.get(key), str)
+    ]
+    grounded_manifest_values = {
+        source.casefold() for source in manifest_route_vocabulary_sources
+    }
+    for exact_term in MANIFEST_ROUTE_VOCABULARY:
+        assert exact_term.casefold() in grounded_manifest_values, exact_term
     assert freeze_module["run_self_test"](freeze, repo_root) == []
     assert manifest_module["run_self_test"](manifest, freeze) == []
     source_module["run_self_test"]()
@@ -2122,17 +2441,30 @@ def run_self_test(repo_root: Path) -> None:
         os.symlink(repo_root / ".git", slice_root / ".git", target_is_directory=True)
         required_path = "lessons/001-0001-four-claude-surfaces.html"
         required_file = slice_root / required_path
+        required_html = required_file.read_text(encoding="utf-8").replace(
+            "<title>001-0001：選擇 Claude 工作表面</title>",
+            "<title>Required title outcome</title>",
+        )
         required_file.write_text(
-            required_file.read_text(encoding="utf-8").replace(
+            required_html.replace(
                 "</body>",
                 '<a href="#top">Expected outcome</a>'
                 '<p>中文 <a href="#top">Required path outcome</a></p>'
                 '<dl><dt>Required dt outcome</dt><dd>中文</dd></dl>'
                 '<small>Required small outcome</small>'
                 '<span>Required span outcome</span>'
+                '<div>Required div outcome</div>'
+                '<em>Required em outcome</em>'
+                '<p>中文 Required mixed prose outcome 仍需翻譯</p>'
+                '<p>中文 Expected 結果</p>'
+                '<p>中文 Claude Code expected</p>'
                 '<dl><div>中文<dt>Nested required dt outcome</dt><dd>內容</dd></div></dl>'
                 '<p>中文 <small>Nested required small outcome</small></p>'
                 '<p>中文 <span>Nested required span outcome</span></p>'
+                '<div>中文 <em>Nested required em outcome</em></div>'
+                '<div hidden>Suppressed required div outcome</div>'
+                '<em aria-hidden="true">Suppressed required em outcome</em>'
+                '<div><code>Suppressed required code outcome</code></div>'
                 "</body>",
             ),
             encoding="utf-8",
@@ -2152,9 +2484,19 @@ def run_self_test(repo_root: Path) -> None:
             and "'Required dt outcome'" in error["message"]
             and "'Required small outcome'" in error["message"]
             and "'Required span outcome'" in error["message"]
+            and "'Required title outcome'" in error["message"]
+            and "'Required div outcome'" in error["message"]
+            and "'Required em outcome'" in error["message"]
+            and "'中文 Required mixed prose outcome 仍需翻譯'" in error["message"]
+            and "'中文 Expected 結果'" in error["message"]
+            and "'中文 Claude Code expected'" in error["message"]
             and "'Nested required dt outcome'" in error["message"]
             and "'Nested required small outcome'" in error["message"]
             and "'Nested required span outcome'" in error["message"]
+            and "'Nested required em outcome'" in error["message"]
+            and "'Suppressed required div outcome'" not in error["message"]
+            and "'Suppressed required em outcome'" not in error["message"]
+            and "'Suppressed required code outcome'" not in error["message"]
             for error in slice_report["blockers"]
         ), slice_report
 

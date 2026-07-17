@@ -7,13 +7,13 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="engineering-delivery:conditional,engineering-delivery:feedback,engineering-delivery:tangible-win">
 <meta name="course:source-ids" content="engineering-architecture-contract">
-<title>006-0012：找出 architecture seam</title>
+<title>006-0012：找出架構接縫</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:840px;margin:2.5rem auto;padding:0 1.25rem;line-height:1.8;color:#202020}h2{color:#315f86}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccd9e3;padding:.55rem;vertical-align:top;text-align:left}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}button{display:block;width:100%;padding:.6rem;margin:.4rem 0;text-align:left;background:white;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:650px){body{margin-top:1rem}table{font-size:.82rem}th,td{padding:.4rem}}</style>
 </head><body>
-<p><a href="006-0001-choose-engineering-route.html">← Engineering 路線</a> · <a href="006-0011-diagnose-hard-bug.html">難解 bug 診斷</a></p>
-<header><p>第 6 階段 · 建置 · 006-0012 · Conditional branch</p><h1>從 architecture friction 找出一個可交付的 seam</h1><p class="mission"><strong>進入條件／條件分支：</strong>只有維護摩擦已有 evidence，例如同一知識散落在多個 callers、變更反覆碰到相同 hot spot、缺少可代表真實行為的 test seam，或 diagnosis 留下具體 architecture follow-through 時才進入。Code readiness、安全 workspace、repo instructions、domain glossary 與相關 ADR 都必須可讀。</p></header>
-<h2>1. 先圈窄 scope，再做 read-only survey</h2>
-<p>若 learner 已點名 module、subsystem 或痛點，就只看該範圍；否則由近期 commit history 找反覆變動的 hot spot。閱讀 callers、tests 與 dependencies，尋找理解一個概念卻必須來回跳轉、interface 幾乎和 implementation 一樣複雜，或 test 只能穿透內部才能成立的摩擦。</p>
+<p><a href="006-0001-choose-engineering-route.html">← 工程路線</a> · <a href="006-0011-diagnose-hard-bug.html">難解錯誤診斷</a></p>
+<header><p>第 6 階段 · 建置 · 006-0012 · Conditional 分支</p><h1>從架構摩擦找出一個可交付的接縫</h1><p class="mission"><strong>進入條件／條件分支：</strong>只有維護摩擦已有 evidence，例如同一知識散落在多個呼叫端、變更反覆碰到相同熱點區域、缺少可代表真實行為的測試接縫，或診斷留下具體架構後續工作時才進入。程式碼作業準備度、安全工作區、儲存庫指引、領域詞彙表與相關 ADR 都必須可讀。</p></header>
+<h2>1. 先圈窄範圍，再做唯讀調查</h2>
+<p>若學習者已點名 模組、子系統 或痛點，就只看該範圍；否則由近期提交 歷史紀錄 找反覆變動的熱點區域。閱讀呼叫端、測試與依賴，尋找理解一個概念卻必須來回跳轉、介面幾乎和實作一樣複雜，或測試只能穿透內部才能成立的摩擦。</p>
 <div class="card"><pre>Survey scope / why now:
 Domain terms / relevant ADRs:
 Recent-change or diagnosis evidence:
@@ -21,11 +21,11 @@ Modules / callers / tests inspected:
 Observed friction:
 Deletion test result:
 Unknowns / excluded areas:</pre></div>
-<p class="rule"><strong>共同 vocabulary：</strong><code>module</code> 透過一個 <code>interface</code> 提供行為；<code>seam</code> 是 interface 所在位置；<code>adapter</code> 是在 seam 上滿足 interface 的具體角色。深度帶給 caller <code>leverage</code>、帶給 maintainer <code>locality</code>。不要用泛稱掩蓋這些不同決策。</p>
+<p class="rule"><strong>共同 詞彙：</strong><code>module</code> 透過一個 <code>interface</code> 提供行為；<code>seam</code> 是介面所在位置；<code>adapter</code> 是在接縫上滿足介面的具體角色。深度帶給呼叫端 <code>leverage</code>、帶給維護者 <code>locality</code>。不要用泛稱掩蓋這些不同決策。</p>
 <h2>2. 比較候選，但只選一個</h2>
-<p>每個候選以 before／after visual 說明 files、friction、可能的 deepening、test improvement 與 recommendation strength；報告存到 OS temp directory，不把探索 artifact 混進 repo。先讓 learner 選候選，再用 grilling 釐清 constraints、dependencies、seam、interface、背後 implementation 與應存活的 tests。</p>
-<table><tr><th>判斷</th><th>Evidence 問題</th></tr><tr><td>深度（Depth）</td><td>一個更小的 interface 能否隱藏更多 caller 必須重複知道的規則？</td></tr><tr><td>刪除測試</td><td>刪掉 module 後，複雜度會消失，還是重新散落到 N 個 callers？只有後者支持 deepening。</td></tr><tr><td>Seam 真實性</td><td>行為真的需要在此變動嗎？只有一個 adapter 時，先視為 hypothetical seam，不製造無用 indirection。</td></tr><tr><td>測試介面</td><td>caller 與 tests 能否跨同一個 interface 驗證 observable outcome，而不讀內部 state？</td></tr></table>
-<h2>3. 寫 seam discovery brief，不實作</h2>
+<p>每個候選以前後對照視覺說明檔案、摩擦、可能的深化、測試改善與建議強度；報告存到作業系統暫存目錄，不把探索 artifact 混進儲存庫。先讓學習者選候選，再用追問釐清限制、依賴、接縫、介面、背後實作與應存活的測試。</p>
+<table><tr><th>判斷</th><th>Evidence 問題</th></tr><tr><td>深度</td><td>一個更小的介面能否隱藏更多呼叫端必須重複知道的規則？</td></tr><tr><td>刪除測試</td><td>刪掉模組後，複雜度會消失，還是重新散落到多個呼叫端？只有後者支持深化。</td></tr><tr><td>接縫真實性</td><td>行為真的需要在此變動嗎？只有一個轉接器時，先視為假設的接縫，不製造無用間接層。</td></tr><tr><td>測試介面</td><td>呼叫端與測試能否跨同一個介面驗證可觀察成果，而不讀內部狀態？</td></tr></table>
+<h2>3. 寫接縫探索簡述，不實作</h2>
 <div class="card"><pre>Selected candidate / learner reason:
 Current modules and friction evidence:
 Proposed deep module / domain name:
@@ -38,14 +38,14 @@ Locality / leverage gained:
 ADR impact / domain glossary update needed:
 Explicit out of scope:
 Unanswered design choices:</pre></div>
-<p class="boundary"><strong>Discovery 不是 implementation：</strong>本 branch 只證明一個 bounded architecture request 值得進 delivery flow。不要先抽 module、搬 callers、刪 tests 或更新 production interface；也不要把所有報告候選變成 backlog。若 learner 拒絕候選，只有難以回頭、缺少背景會令人意外且存在真實 tradeoff 的 load-bearing reason 才是 ADR 候選。</p>
-<div class="win"><strong>具體成果：</strong>一份 learner 選定的 architecture seam discovery brief，附 survey evidence、visual report 位置、deep-module vocabulary、testable interface 與明確 out-of-scope。<br><strong>可觀察回饋：</strong>Reviewer 能由 inspected modules 與 deletion test 重現摩擦，說明 seam 為何真實，並指出哪些 caller behavior 可透過同一 interface 驗證；repo 尚無 implementation diff。</div>
-<div class="quiz" data-answer="1"><p>Architecture report 列出四個候選，而其中一個只有 production adapter，沒有真實替代行為；下一步最合適的是？</p><button type="button">替四個候選都建 interface 與 adapter，保留未來彈性</button><button type="button">讓 learner 選一個 evidence 最強的候選，先驗證 seam；單一 adapter 不足以證明需要 indirection</button><button type="button">直接實作 top recommendation，之後再問 learner</button><div class="why">Survey 先找 deepening opportunity，learner 再選一個；「one adapter = hypothetical seam」避免以未來想像製造淺層 indirection。</div></div>
-<p class="stop"><strong>合法停止／返回／續行：</strong>摩擦沒有 evidence、scope 無法收窄、domain terms／ADR 衝突未釐清、learner 尚未選候選、seam 只是假設、interface 無法成為 test surface，或開始需要 production mutation 時，保存 survey notes 後停止。Brief 完整且 learner 接受後，帶著它回 <a href="006-0003-align-engineering-request.html">006-0003</a> 對齊 bounded request，再走 spec／tickets／implementation／Review core；不要由本頁直接修改 code。完成本頁只代表一個 architecture seam 已形成可檢查的 delivery input，不代表 Engineering Phase 或 Migration complete。</p>
+<p class="boundary"><strong>探索 不是實作：</strong>本分支只證明一個有界限的架構要求值得進交付流程。不要先抽模組、搬呼叫端、刪測試或更新正式環境介面；也不要把所有報告候選變成待辦。若學習者拒絕候選，只有難以回頭、缺少背景會令人意外且存在真實取捨的承重理由才是 ADR 候選。</p>
+<div class="win"><strong>具體成果：</strong>一份學習者選定的架構接縫探索簡述，附調查 evidence、視覺報告位置、深層模組 詞彙、可測試 介面與明確範圍外。<br><strong>可觀察回饋：</strong>審查者能由已檢查模組與刪除測試重現摩擦，說明接縫為何真實，並指出哪些呼叫端行為可透過同一介面驗證；儲存庫尚無實作差異。</div>
+<div class="quiz" data-answer="1"><p>架構報告列出四個候選，而其中一個只有正式環境轉接器，沒有真實替代行為；下一步最合適的是？</p><button type="button">替四個候選都建介面與轉接器，保留未來彈性</button><button type="button">讓學習者選一個 evidence 最強的候選，先驗證接縫；單一轉接器 不足以證明需要間接層</button><button type="button">直接實作首要建議，之後再問學習者</button><div class="why">調查 先找深化機會，學習者再選一個；「單一轉接器 = 假設的接縫」避免以未來想像製造淺層間接層。</div></div>
+<p class="stop"><strong>合法停止／返回／續行：</strong>摩擦沒有 evidence、範圍無法收窄、領域術語／ADR 衝突未釐清、學習者尚未選候選、接縫只是假設、介面無法成為測試介面，或開始需要正式環境變更時，保存調查筆記後停止。簡述完整且學習者接受後，帶著它回 <a href="006-0003-align-engineering-request.html">006-0003</a> 對齊有界限的要求，再走規格／工單／實作／Review 核心流程；不要由本頁直接修改程式碼。完成本頁只代表一個架構接縫已形成可檢查的交付輸入，不代表工程 Phase 或遷移完成。</p>
 <footer data-course-footer="canonical" data-route-id="engineering-delivery" data-legal-stop="Stop only after final Review evidence matches the delivered checkpoint">
 <p><strong>路線導覽 · 工程交付</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="engineering-delivery" data-route-action="next" href="006-0003-align-engineering-request.html">下一步：lessons/006-0003-align-engineering-request.html</a></li>
+<li><a data-route-id="engineering-delivery" data-route-action="next" href="006-0003-align-engineering-request.html">下一步：006-0003 課程</a></li>
 </ul>
 <p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>合法停止點：</strong>只有 final Review evidence 與 delivered checkpoint 一致後才可停止</p>
 <div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>engineering-architecture-contract</code></div>

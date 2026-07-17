@@ -7,13 +7,13 @@
 <meta name="course:page-kind" content="canonical-lesson">
 <meta name="course:route-roles" content="engineering-delivery:conditional,engineering-delivery:feedback,engineering-delivery:tangible-win">
 <meta name="course:source-ids" content="engineering-wayfinder-contract">
-<title>006-0013：畫出 Wayfinder map</title>
+<title>006-0013：畫出路徑探索地圖</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:840px;margin:2.5rem auto;padding:0 1.25rem;line-height:1.8;color:#202020}h2{color:#315f86}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccd9e3;padding:.55rem;vertical-align:top;text-align:left}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}button{display:block;width:100%;padding:.6rem;margin:.4rem 0;text-align:left;background:white;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:650px){body{margin-top:1rem}table{font-size:.82rem}th,td{padding:.4rem}}</style>
 </head><body>
-<p><a href="006-0001-choose-engineering-route.html">← Engineering 路線</a> · <a href="../reference/wayfinder-map-workflow.html">Wayfinder map 參考</a></p>
-<header><p>第 6 階段 · 建置 · 006-0013 · Conditional branch</p><h1>為巨大且仍在 fog 裡的 effort 畫 shared map</h1><p class="mission"><strong>進入條件／條件分支：</strong>只有 destination 大到超過一個 agent session，而且「抵達前還要決定什麼」仍看不清楚時才進入。先確認 Code readiness、安全 workspace、repo 的 issue tracker 操作與權限；若已能直接寫完整 spec 與 blocking tickets，跳過 Wayfinder，回 <a href="006-0003-align-engineering-request.html">006-0003</a>。</p></header>
-<h2>1. 固定 destination，不把施工混進 map</h2>
-<p>Wayfinder 預設處理 planning：ticket 的輸出是 decision，不是 destination deliverable。先用 grilling 與 domain-modeling 說清楚這張 map 要找到哪份 spec、哪個決策或哪條可規劃路徑，再 breadth-first 掃描整片未知區。</p>
+<p><a href="006-0001-choose-engineering-route.html">← 工程路線</a> · <a href="../reference/wayfinder-map-workflow.html">路徑探索地圖參考</a></p>
+<header><p>第 6 階段 · 建置 · 006-0013 · Conditional 分支</p><h1>為巨大且仍在迷霧裡的工作畫共同地圖</h1><p class="mission"><strong>進入條件／條件分支：</strong>只有目的地大到超過一個 代理 工作階段，而且「抵達前還要決定什麼」仍看不清楚時才進入。先確認 程式碼作業準備度、安全工作區、儲存庫的議題追蹤器操作與權限；若已能直接寫完整規格與阻塞工單，跳過 路徑探索，回 <a href="006-0003-align-engineering-request.html">006-0003</a>。</p></header>
+<h2>1. 固定目的地，不把施工混進地圖</h2>
+<p>路徑探索預設處理規劃：工單的輸出是決策，不是目的地交付成果。先用追問與領域建模說清楚這張地圖要找到哪份規格、哪個決策或哪條可規劃路徑，再廣度優先掃描整片未知區。</p>
 <div class="card"><pre>## Destination
 一至兩句：地圖完成時，哪條通往 delivery spec 的路會變清楚？
 
@@ -28,20 +28,20 @@ repo / domain / 每個 session 必讀 skills / standing constraints
 
 ## Out of scope
 <!-- 即使變清楚也不屬於 destination 的工作 --></pre></div>
-<p class="rule"><strong>單一事實來源：</strong>標記 <code>wayfinder:map</code> 的 issue 是 canonical map，但只當 index。完整答案留在 decision ticket 的 resolution；map 只收 ticket 名稱、連結與一句 gist。人類可見文字用名稱，不用裸 issue number 代替。</p>
-<h2>2. 只把現在問得清楚的問題建成 tickets</h2>
-<table><tr><th>分類</th><th>放哪裡</th><th>判斷</th></tr><tr><td>決策 ticket</td><td>Map 的 child issue</td><td>現在已能精確寫出要回答的問題；不是 implementation slice。</td></tr><tr><td>迷霧（Fog）</td><td><em>尚未具體化（Not yet specified）</em></td><td>確定在 scope 內，但還不能準確提問。</td></tr><tr><td>範圍外（Out of scope）</td><td><em>範圍外（Out of scope）</em></td><td>超出 destination，不會隨 frontier 推進而升級。</td></tr></table>
-<ol><li>建立 map issue，填入 destination、notes、fog 與 out-of-scope boundary。</li><li>建立目前能精確描述的 child decision tickets，依問題選 <code>research</code>、<code>prototype</code>、<code>grilling</code> 或 <code>task</code> type。</li><li>等 tickets 取得 identity 後，再以 tracker 原生 dependency 第二輪 wire blockers。</li><li>查出 open、unblocked、unclaimed 的 frontier；不要由 charting session 順手解一般 ticket。</li><li>只有 research tickets 可由 charting 平行派出 read-only research agents；每個結果仍回自己的 ticket 留 context pointer。</li></ol>
-<div class="boundary"><strong>本課不施工：</strong>不寫 delivery spec、不切 implementation tickets、不改 production code，也不把完成 map 當成 Engineering route completion。若掃描後沒有 fog，代表不需要 Wayfinder；保留 selection evidence，回 request alignment。</div>
-<div class="win"><strong>具體成果：</strong>一張有 destination、decision tickets、native blocking edges、frontier、fog 與 out-of-scope boundary 的 shared map。<br><strong>可觀察回饋：</strong>Reviewer 能由 tracker 重現第一張 frontier ticket，並確認 map 只索引 decisions、沒有 destination deliverable 或 implementation ticket。</div>
-<div class="quiz" data-answer="1"><p>哪一種內容應留在 <em>Not yet specified</em>？</p><button type="button">已能精確提問但尚未回答的 decision</button><button type="button">在 destination scope 內，但目前還無法精確提問的 fog</button><button type="button">已經排除在 destination 外的工作</button><div class="why">能精確提問就建立 ticket；超出 destination 則放 Out of scope。Fog 是仍在 scope 內但還看不清的區域。</div></div>
-<p class="stop"><strong>合法停止／續行：</strong>destination 未固定、tracker 沒有可用的 claim／dependency 表達、問題仍不能精確成票、map 沒有 frontier，或 charting 開始變成 destination 施工時停止。Map 與第一個 frontier 可由 reviewer 重現後，續到 <a href="006-0014-resolve-wayfinder-frontier.html">006-0014</a>；每次只解一張普通 frontier ticket。</p>
+<p class="rule"><strong>單一事實來源：</strong>標記 <code>wayfinder:map</code> 的議題是標準地圖，但只當索引。完整答案留在決策工單的解析；地圖只收工單名稱、連結與一句摘要。人類可見文字用名稱，不用單獨的議題編號代替。</p>
+<h2>2. 只把現在問得清楚的問題建成工單</h2>
+<table><tr><th>分類</th><th>放哪裡</th><th>判斷</th></tr><tr><td>決策工單</td><td>地圖的子議題</td><td>現在已能精確寫出要回答的問題；不是實作切片。</td></tr><tr><td>迷霧</td><td><em>尚未具體化</em></td><td>確定在範圍內，但還不能準確提問。</td></tr><tr><td>範圍外</td><td><em>範圍外</em></td><td>超出目的地，不會隨前沿推進而升級。</td></tr></table>
+<ol><li>建立地圖 議題，填入目的地、筆記、迷霧與範圍外 邊界。</li><li>建立目前能精確描述的子決策工單，依問題選 <code>research</code>、<code>prototype</code>、<code>grilling</code> 或 <code>task</code> 類型。</li><li>等工單取得識別後，再以追蹤器原生 依賴項目 第二輪串接 阻擋項目。</li><li>查出開啟、未受阻擋、未認領 的前沿；不要由 繪圖 工作階段順手解一般工單。</li><li>只有研究工單可由 繪圖 平行派出唯讀研究 代理；每個結果仍回自己的工單留脈絡指標。</li></ol>
+<div class="boundary"><strong>本課不施工：</strong>不寫交付規格、不切實作工單、不改正式環境程式碼，也不把完成地圖當成工程路線完成。若掃描後沒有迷霧，代表不需要 路徑探索；保留選擇 evidence，回要求對齊。</div>
+<div class="win"><strong>具體成果：</strong>一張有目的地、決策工單、原生阻塞邊、前沿、迷霧與範圍外 邊界 的共同地圖。<br><strong>可觀察回饋：</strong>審查者能由追蹤器重現第一張前沿工單，並確認地圖只索引決策、沒有目的地 交付成果 或實作工單。</div>
+<div class="quiz" data-answer="1"><p>哪一種內容應留在 <em>尚未具體化</em>？</p><button type="button">已能精確提問但尚未回答的決策</button><button type="button">在目的地範圍內，但目前還無法精確提問的迷霧</button><button type="button">已經排除在目的地外的工作</button><div class="why">能精確提問就建立工單；超出目的地則放範圍外。迷霧 是仍在範圍內但還看不清的區域。</div></div>
+<p class="stop"><strong>合法停止／續行：</strong>目的地未固定、追蹤器沒有可用的認領／依賴項目 表達、問題仍不能精確成票、地圖沒有前沿，或 繪圖 開始變成目的地施工時停止。地圖 與第一個前沿可由審查者重現後，續到 <a href="006-0014-resolve-wayfinder-frontier.html">006-0014</a>；每次只解一張普通前沿工單。</p>
 <footer data-course-footer="canonical" data-route-id="engineering-delivery" data-legal-stop="Stop only after final Review evidence matches the delivered checkpoint">
 <p><strong>路線導覽 · 工程交付</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="engineering-delivery" data-route-action="next" href="006-0014-resolve-wayfinder-frontier.html">下一步：lessons/006-0014-resolve-wayfinder-frontier.html</a></li>
+<li><a data-route-id="engineering-delivery" data-route-action="next" href="006-0014-resolve-wayfinder-frontier.html">下一步：006-0014 課程</a></li>
 </ul>
 <p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>合法停止點：</strong>只有 final Review evidence 與 delivered checkpoint 一致後才可停止</p>
-<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>engineering-wayfinder-contract</code> · Reviewed contract：<a href="https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/wayfinder/SKILL.md">mattpocock/skills@9603c1c</a></div>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>engineering-wayfinder-contract</code> · 已審查契約：<a href="https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/wayfinder/SKILL.md">mattpocock/skills@9603c1c</a></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>
