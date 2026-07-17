@@ -10,7 +10,7 @@
 <title>Design route 與 handoff 速查表</title>
 <style>:root{--accent:#635b9a;--soft:#f3f1fa;--line:#d9d5e8}*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:920px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.75}h1{line-height:1.35}h2{color:var(--accent);margin-top:2rem}.rule,.stop,.verified{border-left:4px solid var(--accent);background:var(--soft);padding:.8rem 1rem}.flow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.card{border:1px solid var(--line);border-radius:8px;padding:.9rem 1rem}.card strong{color:var(--accent)}table{border-collapse:collapse;width:100%}th,td{border:1px solid var(--line);padding:.6rem;text-align:left;vertical-align:top}code,pre{background:var(--soft);border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap;overflow-x:auto}a{color:#514985}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}@media(max-width:680px){body{margin-top:1rem}.flow{grid-template-columns:1fr}.table-wrap{overflow-x:auto}table{font-size:.86rem}}@media print{body{margin:0;max-width:none}.card,table,pre{break-inside:avoid}}</style>
 </head><body>
-<p><a href="../toc.html">← 回課目表</a> · <a href="claude-product-picker.html">Claude product picker</a></p>
+<p><a href="../toc.html">← 回課目表</a> · <a href="claude-product-picker.html">Claude 產品選擇器</a></p>
 <header><p>Phase 4 · Design · 標準參考</p><h1>Design route 與 handoff 速查表</h1><p class="rule"><strong>核心邊界：</strong>Design 把 bounded brief 轉成 selected direction、prototype evidence 與 reviewable handoff bundle。它可以在 bundle 合法停止；只有 mission 要交付 version-controlled implementation 時，才帶 bundle 進 Phase 6 Build。</p></header>
 <div class="verified"><strong>已驗證環境：</strong>2026-07-16 依 Anthropic Claude Design product、Help Center 與 launch pages 檢查 beta availability、design-system、revision、prototype 與 handoff surfaces。實際 plan、client、organization setting、labels 與連接方式可能變動；操作前以當下 first-party guide 為準。</div>
 <h2>七個 tangible wins</h2>
@@ -46,7 +46,7 @@ Continuation: legal stop / Code readiness / Phase 6 Build</pre>
 - bundle 與 repo 的衝突、缺漏及需人決定事項
 - 最小 vertical slice、non-goals 與可能修改檔案
 - deterministic repo checks、browser evidence 與 Review 計畫</pre>
-<p class="stop"><strong>不要跨越：</strong>Handoff、export、MCP connection、design sync、可分享 prototype 或 read-only repo mapping都不授權 repository writes，也不證明 implementation fidelity。進 <a href="../lessons/006-0001-choose-engineering-route.html">Phase 6 Build</a> 後，仍須依 repo instructions 完成 bounded spec／tickets、implementation、checks、immutable Review 與 closeout。</p>
+<p class="stop"><strong>不要跨越：</strong>Handoff、export、MCP connection、design sync、可分享 prototype 或 read-only repo mapping都不授權 repository writes，也不證明 implementation fidelity。進 <a href="../lessons/006-0001-choose-engineering-route.html">Phase 6 建構</a> 後，仍須依 repo instructions 完成 bounded spec／tickets、implementation、checks、immutable Review 與 closeout。</p>
 <h2>Evidence 判斷</h2>
 <table><tr><th>可以聲明</th><th>不能只靠這項聲明</th></tr><tr><td>「在所列 revision／environment，這項 prototype assumption 被直接觀察支持。」</td><td>「Production implementation 正確。」</td></tr><tr><td>「另一人能由 bundle 重述 intent 並抽查 evidence。」</td><td>「Handoff 已自動實作或核准。」</td></tr><tr><td>「Automated check 提出或排除特定 accessibility finding。」</td><td>「符合完整 accessibility conformance。」</td></tr><tr><td>「學習者已完成 feedback disposition，選擇合法停止。」</td><td>「整門課或所有 Phase complete。」</td></tr></table>
 <footer data-course-footer="canonical" data-route-id="not-applicable" data-legal-stop="not-applicable">

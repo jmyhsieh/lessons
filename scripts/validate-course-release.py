@@ -34,6 +34,7 @@ EXPECTED_INVENTORY_COUNTS = {
 }
 EXPECTED_CANONICAL_COORDINATES = 105
 LEARNER_VISIBLE_BLOCK_TAGS = {
+    "a",
     "button",
     "caption",
     "h1",
@@ -88,43 +89,81 @@ TECHNICAL_ONLY_LEARNER_BLOCKS = {
     "Desktop App",
     "Desktop Browser",
     "Docling",
+    "DuckDB",
     "HTML",
     "MarkItDown",
+    "MarkItDown／Docling",
     "Mermaid CLI",
     "Open-Slide",
     "PDF",
     "PPTX",
     "Playwright CLI",
     "Playwright MCP",
+    "QMD",
     "open-slide",
 }
+# Exact published documentation titles and immutable source identities. These
+# stay in their published form so learners can match a link to its source.
+SOURCE_TITLE_LEARNER_BLOCKS = {
+    "Acrobat Reading Order",
+    "Agent skills overview",
+    "Claude Code Commands",
+    "Claude Code Desktop application",
+    "Claude Code Desktop Browser",
+    "Claude Code Model configuration",
+    "Claude Design product page",
+    "CLI reference",
+    "Commands",
+    "Desktop application",
+    "Export",
+    "Get started with Claude Design",
+    "Getting started",
+    "Introduction",
+    "open-slide Export",
+    "open-slide Introduction",
+    "PowerPoint Reading Order",
+    "Set up your design system",
+    "Using Claude Design for presentations and slide decks",
+    "W3C WAI — Making Events Accessible",
+    "WAI Images Tutorial",
+    "mattpocock/skills@9603c1c",
+}
 COURSE_GLOSSARY_TERMS = {
+    "Agent Operations extension",
     "Artifact",
+    "Browser evidence extension",
     "Canonical course coordinate",
+    "Code readiness",
     "Compatibility entry",
     "Conditional",
     "Content disposition",
     "Continuation",
+    "Cowork starter route",
     "Course history",
     "Deprecation notice",
     "Deterministic check",
+    "Design delivery route",
     "Elective",
     "Entry／readiness",
+    "Engineering delivery route",
     "Evidence",
     "Evidence carryover",
     "Exit evidence",
     "Feedback loop",
     "Full completion claim",
+    "Governance lifecycle extension",
     "Handoff／Return notebook",
     "Immutable Review checkpoint",
     "Learner judgment",
     "Learner progress",
     "Legal stop",
+    "Knowledge Work delivery route",
     "Maturity score",
     "Migration baseline",
     "Migration release",
     "Observable feedback",
     "Phase",
+    "Presentation delivery route",
     "Publication state",
     "Rejoin／return",
     "Repo Review contract",
@@ -133,6 +172,7 @@ COURSE_GLOSSARY_TERMS = {
     "Review contract",
     "Reviewer write boundary",
     "Route promise",
+    "Scenario rollout extension",
     "Self-study artifact",
     "Skill／MCP／subagent／worktree",
     "Source",
@@ -149,6 +189,8 @@ COURSE_GLOSSARY_TERMS = {
     "Tangible win",
     "Task route",
     "Workflow maturity workbook",
+    "Workflow evaluation extension",
+    "Workflow standardization extension",
 }
 TECHNICAL_ONLY_LEARNER_BLOCKS_BY_PATH = {
     "lessons/001-0001-target.html": {"A", "B", "Code readiness", "Target"},
@@ -813,8 +855,11 @@ def validate_generic_learner_ui_labels(
     """Reject learner-visible Latin prose outside reviewed exact terms."""
     errors: list[dict[str, str]] = []
     for path, document in sorted(documents.items()):
-        allowed = TECHNICAL_ONLY_LEARNER_BLOCKS | COURSE_GLOSSARY_TERMS | (
-            TECHNICAL_ONLY_LEARNER_BLOCKS_BY_PATH.get(path, set())
+        allowed = (
+            TECHNICAL_ONLY_LEARNER_BLOCKS
+            | SOURCE_TITLE_LEARNER_BLOCKS
+            | COURSE_GLOSSARY_TERMS
+            | TECHNICAL_ONLY_LEARNER_BLOCKS_BY_PATH.get(path, set())
         )
         prohibited = sorted(
             text
@@ -1549,10 +1594,10 @@ def write_fixture_site(root: Path) -> None:
     (root / "lessons").mkdir()
     (root / "reference").mkdir()
     (root / "index.html").write_text(
-        '<a href="toc.html">TOC</a>', encoding="utf-8"
+        '<a href="toc.html">課程目錄</a>', encoding="utf-8"
     )
     (root / "toc.html").write_text(
-        '<a href="lessons/001-0001-target.html#target">Start</a>', encoding="utf-8"
+        '<a href="lessons/001-0001-target.html#target">開始</a>', encoding="utf-8"
     )
     (root / "lessons" / "001-0001-target.html").write_text(
         '<!doctype html><html lang="zh-Hant"><head>'
@@ -1581,7 +1626,7 @@ def write_fixture_site(root: Path) -> None:
         '</head><body><h1>lessons/001-0002-old</h1>'
         '<p>轉接原因：內容已搬移。</p>'
         '<p>證據沿用：保留 Lesson practiced；current route stop 仍須重新驗證。</p>'
-        '<a href="001-0001-target.html#target">Continue</a></body></html>',
+        '<a href="001-0001-target.html#target">繼續</a></body></html>',
         encoding="utf-8",
     )
     (root / "reference" / "retired.html").write_text(
@@ -1599,7 +1644,7 @@ def write_fixture_site(root: Path) -> None:
         '<p>退役原因：fixture retired。生效點：fixture-cutover。</p>'
         '<p>證據沿用：保留 Lesson practiced；不會自動成為 current route evidence。</p>'
         '<p>此網址不再把這個舊身份指派給其他內容。</p>'
-        '<a href="../lessons/001-0001-target.html">Successor</a></body></html>',
+        '<a href="../lessons/001-0001-target.html">後繼內容</a></body></html>',
         encoding="utf-8",
     )
 
@@ -1652,6 +1697,24 @@ def run_site_self_test() -> None:
             error for error in errors if error["code"] == "generic-english-ui-label"
         ]
         assert nested_errors and "'Expected result'" in nested_errors[0]["message"], errors
+        target_fixture.write_text(valid_target_html, encoding="utf-8")
+
+        target_fixture.write_text(
+            valid_target_html.replace(
+                "</body>",
+                '<a href="#target">Expected outcome</a>'
+                '<p>中文 <a href="#target">Nested expected outcome</a></p>'
+                "</body>",
+            ),
+            encoding="utf-8",
+        )
+        _, errors = validate_site_release(root, manifest, inventory_contract=False)
+        anchor_errors = [
+            error for error in errors if error["code"] == "generic-english-ui-label"
+        ]
+        assert anchor_errors, errors
+        assert "'Expected outcome'" in anchor_errors[0]["message"], errors
+        assert "'Nested expected outcome'" in anchor_errors[0]["message"], errors
         target_fixture.write_text(valid_target_html, encoding="utf-8")
 
         isolated_blocks = {
@@ -1723,6 +1786,9 @@ def run_site_self_test() -> None:
                 "</body>",
                 '<h2 hidden>Expected result</h2>'
                 '<h2 aria-hidden="true">Expected result</h2>'
+                '<a hidden href="#target">Expected result</a>'
+                '<a aria-hidden="true" href="#target">Expected result</a>'
+                '<a href="#target"><code>Expected result</code></a>'
                 '<table><tr><td><code>Expected result</code></td></tr></table>'
                 '<table><tr><td><pre>Expected result</pre></td></tr></table>'
                 '<table><tr><td><kbd>Expected result</kbd></td></tr></table>'
@@ -1931,7 +1997,7 @@ def run_site_self_test() -> None:
         chained = copy.deepcopy(manifest)
         chained["pages"][2]["pageKind"] = "compatibility"
         (root / "lessons" / "001-0002-old.html").write_text(
-            '<a href="001-0001-target.html#target">Continue</a>', encoding="utf-8"
+            '<a href="001-0001-target.html#target">繼續</a>', encoding="utf-8"
         )
         _, errors = validate_site_release(root, chained, inventory_contract=False)
         assert_codes(errors, "compatibility-chain")
@@ -1958,7 +2024,9 @@ def run_self_test(repo_root: Path) -> None:
         required_file.write_text(
             required_file.read_text(encoding="utf-8").replace(
                 "</body>",
-                "<p>中文 <strong>Required path result</strong></p></body>",
+                '<a href="#top">Expected outcome</a>'
+                '<p>中文 <a href="#top">Required path outcome</a></p>'
+                "</body>",
             ),
             encoding="utf-8",
         )
@@ -1972,7 +2040,8 @@ def run_self_test(repo_root: Path) -> None:
         assert any(
             error["code"] == "generic-english-ui-label"
             and error.get("subject") == required_path
-            and "'Required path result'" in error["message"]
+            and "'Expected outcome'" in error["message"]
+            and "'Required path outcome'" in error["message"]
             for error in slice_report["blockers"]
         ), slice_report
 

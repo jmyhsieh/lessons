@@ -13,7 +13,7 @@
 </style>
 </head>
 <body>
-<p style="margin:0"><a href="005-0007-export-and-rehearse.html" style="font-size:.85rem">← Presentation core closeout</a> · <a href="../reference/claude-design-presentation-workflow.html">Presentation workflow 參考</a></p>
+<p style="margin:0"><a href="005-0007-export-and-rehearse.html" style="font-size:.85rem">← 簡報核心收尾</a> · <a href="../reference/claude-design-presentation-workflow.html">簡報工作流程參考</a></p>
 <div class="kicker">第 5 階段 · 005-0010 · 約 30–45 分鐘 · Conditional Code-first elective</div>
 <h1>用 Mermaid CLI 建立可審查的 diagram-as-code</h1>
 <p class="mission"><strong>進入條件／Code readiness：</strong>第 07 課的 core closeout 已通過，而且新需求需要可 diff、可重跑的流程圖／關係圖；圖中每個節點與連線都能回到已確認的 source ID。使用 pinned Mermaid CLI 只建立一張 diagram vertical slice，將原始碼、render command 與輸出一起交給 reviewer。</p>
@@ -62,7 +62,7 @@ shasum -a 256 diagram.svg</pre>
 <div class="quiz" data-answer="1"><p>2. 哪一個需求適合進入本 elective？</p><button>想替 deck 增加裝飾圖，但沒有明確問題</button><button>要把已確認的流程保留為可 diff、可重跑的 diagram source</button><button>需要用圖取代第 07 課的 target-format validation 與彩排</button><div class="why">Diagram-as-code 的價值是可追蹤、可重跑的關係表達；它不應創造 claims，也不能替代 core closeout。</div></div>
 
 <h2>返回與停止線</h2>
-<p><strong>返回／續行：</strong>diagram、文字 fallback、target-slide check 與 Review bundle 都通過後，直接回 <a href="../toc.html">課目表</a>。若新需求改為 version-controlled React deck，另選 <a href="005-0009-build-versioned-deck-with-open-slide.html">005-0009 Open-Slide</a>；兩個 electives 沒有先後依賴。</p>
+<p><strong>返回／續行：</strong>diagram、文字 fallback、target-slide check 與 Review bundle 都通過後，直接回 <a href="../toc.html">課目表</a>。若新需求改為 version-controlled React deck，另選 <a href="005-0009-build-versioned-deck-with-open-slide.html">005-0009 Open-Slide 簡報</a>；兩個 electives 沒有先後依賴。</p>
 <p class="scope"><strong>合法停止點：</strong>CLI／browser identity 不符、factual node 或箭頭無 source ID、pending claim 被畫成 confirmed、SVG 為空、文字 fallback 缺少、target slide 不可讀、candidate 未固定，或 Review finding 未解決時，保留 source 與 command evidence 後停止。回 <a href="005-0002-build-source-pack.html">005-0002</a>或本課對應步驟修正；不可發布，也不可改寫 core closeout。</p>
 <footer data-course-footer="canonical" data-route-id="presentation-delivery" data-legal-stop="Stop at Presentation closeout; adaptations and code-first options are elective">
 <p><strong>路線導覽 · 簡報交付</strong></p>

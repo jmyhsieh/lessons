@@ -56,7 +56,7 @@ Block reason shown to Claude:
 Authority and side effects:
 Stop condition:</pre></div>
 <ol>
-  <li>若還不能說明 hook event、matcher 與 command，先到<a href="002-0004-smoke-test-hook.html">hook smoke-test lesson</a>練習，之後回 selector；不要直接裝 guardrail。</li>
+  <li>若還不能說明 hook event、matcher 與 command，先到<a href="002-0004-smoke-test-hook.html">hook 冒煙測試課程</a>練習，之後回 selector；不要直接裝 guardrail。</li>
   <li>在 fixture 建立一個 protected file 與相鄰 safe file；兩者都不得是真實 secrets、deployment 或 production 設定。</li>
   <li>逐字 review hook script。它只解析必要欄位、比較明確 path、以 exit 2 阻擋並把理由寫到 stderr。</li>
   <li>先跑 should-block：確認 protected file 完全沒變；再跑 should-allow：確認 safe file 得到唯一預期變更。</li>

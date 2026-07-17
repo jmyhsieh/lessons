@@ -34,7 +34,7 @@ Explicit out of scope:
 Evidence links / commands:
 Next route: needs-info / 006-0003 request alignment
 Unperformed external actions / required authority:</pre></div>
-<p class="boundary"><strong>Triage 不是 diagnosis：</strong>一般已確認且範圍清楚的 report 可以回 core；遇到難解、間歇或回歸 bug，handoff 應保留 exact symptom 與現有 evidence，再改走 <a href="006-0011-diagnose-hard-bug.html">006-0011 diagnosis branch</a>。不要在沒有 tight feedback loop 時用原因假說取代 triage verification。</p>
+<p class="boundary"><strong>Triage 不是 diagnosis：</strong>一般已確認且範圍清楚的 report 可以回 core；遇到難解、間歇或回歸 bug，handoff 應保留 exact symptom 與現有 evidence，再改走 <a href="006-0011-diagnose-hard-bug.html">006-0011 診斷支線</a>。不要在沒有 tight feedback loop 時用原因假說取代 triage verification。</p>
 <div class="win"><strong>具體成果：</strong>一份 external-report triage handoff，包含 verified claim、恰好一個 category、一個 state、maintainer disposition 與可驗收的下一步。<br><strong>可觀察回饋：</strong>Reviewer 能重跑 verification、看見 redundancy／prior-rejection 搜尋範圍，並確認沒有衝突的 state 或未授權 tracker mutation。</div>
 <div class="quiz" data-answer="1"><p>一張外部 bug report 描述含糊，而且依提供步驟無法重現；現在最合適的 evidence 與 state 是？</p><button type="button">直接寫可能原因，標成 ready-for-agent</button><button type="button">保存重現嘗試與缺少的具體資料，建議 needs-info</button><button type="button">因無法重現，直接 wontfix</button><div class="why">無法驗證且資訊不足是 needs-info 的強訊號；triage 要保存 evidence 與可回答的問題，不能猜原因或越過 maintainer 裁決。</div></div>
 <p class="stop"><strong>合法停止／返回／續行：</strong>state roles 衝突、tracker mapping 不明、claim 無法驗證、需要 reporter 補件、maintainer 尚未裁決，或下一步要求未授權 external mutation時，保存 local handoff 後停止。若 report 已充分 verified 且 maintainer 接受 disposition，帶著 handoff 回 <a href="006-0003-align-engineering-request.html">006-0003</a> 對齊 bounded request；難解 bug 改走 006-0011。完成本頁只代表這一張外部回報已被分流，不代表 Engineering Phase 或 Migration complete。</p>
