@@ -14,7 +14,7 @@
 </style></head>
 <body>
 <p><a href="003-0002-preserve-sources-and-provenance.html">← 回 sources／provenance</a> · <a href="003-0003-build-source-to-claim-outline.html">返回共同 outline →</a></p>
-<header><p class="kicker">Phase 3 · Deliver · 003-0009 · Conditional branch</p><h1>用 QMD 找候選 evidence，再親自打開原文件</h1><p class="mission"><strong>進入條件：</strong>Active sources 是已核准的 local markup corpus，而且人工逐檔查找成本過高。只有少量已知文件時，直接閱讀，不需要建立 search collection。</p></header>
+<header><p class="kicker">第 3 階段 · 交付 · 003-0009 · Conditional branch</p><h1>用 QMD 找候選 evidence，再親自打開原文件</h1><p class="mission"><strong>進入條件：</strong>Active sources 是已核准的 local markup corpus，而且人工逐檔查找成本過高。只有少量已知文件時，直接閱讀，不需要建立 search collection。</p></header>
 
 <h2>把 retrieval 變成可重跑的 evidence</h2>
 <div class="card"><pre>Collection name / included path / mask:
@@ -31,9 +31,9 @@ Misses, ranking uncertainty, next query:</pre></div>
   <li>不要把 snippet 或 ranking 當 evidence。打開命中的原文件，記錄 source ID、section／line range 與它實際支持的 claim。</li>
   <li>用一個已知存在的 phrase 檢查 recall；若找不到，記為 retrieval miss，調整 scope／context 或回 manual search。</li>
 </ol>
-<div class="win"><strong>Tangible win：</strong>一份含 exact queries、result IDs、opened source locators 與 retrieval misses 的 local corpus search log。<br><strong>Observable feedback：</strong>Reviewer 能重跑一個 query、打開同一份原文件，並指出 result ranking 與 claim evidence 之間的差別。</div>
+<div class="win"><strong>具體成果：</strong>一份含 exact queries、result IDs、opened source locators 與 retrieval misses 的 local corpus search log。<br><strong>可觀察回饋：</strong>Reviewer 能重跑一個 query、打開同一份原文件，並指出 result ranking 與 claim evidence 之間的差別。</div>
 <div class="quiz" data-answer="1"><p>QMD 的第一名結果摘要正好回答問題，下一步是？</p><button type="button">直接把摘要貼進 deliverable</button><button type="button">打開原文件並記錄 locator，再判斷它是否支持 claim</button><button type="button">只需保存 ranking score</button><div class="why">Retrieval result 是候選 evidence；只有原文件與 locator 能進入 source-to-claim ledger。</div></div>
-<p class="stop"><strong>Return／legal stop：</strong>取得足夠候選 evidence 或確認 retrieval gap 後，停止搜尋並回 <a href="003-0003-build-source-to-claim-outline.html">003-0003</a>；QMD 不是必修索引層。若 collection scope、privacy、model download、index freshness 或 recall 無法接受，保存 query log 後停止，改用 manual search，不以空結果證明資料不存在。</p>
+<p class="stop"><strong>返回／合法停止：</strong>取得足夠候選 evidence 或確認 retrieval gap 後，停止搜尋並回 <a href="003-0003-build-source-to-claim-outline.html">003-0003</a>；QMD 不是必修索引層。若 collection scope、privacy、model download、index freshness 或 recall 無法接受，保存 query log 後停止，改用 manual search，不以空結果證明資料不存在。</p>
 <footer data-course-footer="canonical" data-route-id="knowledge-delivery" data-legal-stop="Stop at Knowledge delivery closeout">
 <p><strong>路線導覽 · 知識工作交付</strong></p>
 <ul class="course-route-actions">

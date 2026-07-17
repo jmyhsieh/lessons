@@ -6,8 +6,11 @@ from __future__ import annotations
 import argparse
 import copy
 import json
+import os
 import posixpath
+import re
 import runpy
+import shutil
 from collections import Counter
 from datetime import date, datetime
 from html.parser import HTMLParser
@@ -30,7 +33,7 @@ EXPECTED_INVENTORY_COUNTS = {
     "deprecation": 1,
 }
 EXPECTED_CANONICAL_COORDINATES = 105
-LEARNER_UI_LABEL_TAGS = {
+LEARNER_VISIBLE_BLOCK_TAGS = {
     "button",
     "caption",
     "h1",
@@ -41,11 +44,23 @@ LEARNER_UI_LABEL_TAGS = {
     "h6",
     "label",
     "legend",
+    "li",
+    "p",
     "summary",
+    "strong",
     "td",
     "th",
 }
-SUPPRESSED_LEARNER_TEXT_TAGS = {"code", "kbd", "pre", "samp"}
+SUPPRESSED_LEARNER_TEXT_TAGS = {
+    "code",
+    "kbd",
+    "noscript",
+    "pre",
+    "samp",
+    "script",
+    "style",
+    "template",
+}
 VOID_HTML_TAGS = {
     "area",
     "base",
@@ -62,106 +77,86 @@ VOID_HTML_TAGS = {
     "track",
     "wbr",
 }
-PROHIBITED_GENERIC_UI_LABELS = {
-    "Active-route gap",
-    "Advanced extensions",
-    "Agent Operations safety reference",
-    "Browser evidence selector",
-    "Canonical continuation",
-    "Canonical page",
-    "Capstone thread record",
-    "Case",
-    "Case role",
-    "Check",
-    "Closeout packet",
-    "Closeout record",
-    "Contract field",
-    "Deterministic preconditions",
-    "Deterministic predicate",
-    "Dimension",
-    "Direction axis",
-    "Disposition",
-    "Engineering delivery skills reference",
-    "Evidence lane",
-    "Evidence package",
-    "Evidence／oracle",
-    "Expected",
-    "Expected observable evidence",
-    "Expected result",
-    "Fail action",
-    "Failure class",
-    "Fault",
-    "Feedback",
-    "Feedback oracle",
-    "First reviewable slice",
-    "Fixture",
-    "Forbidden inferences",
-    "Handoff bundle fields",
-    "Human decisions",
-    "Identity／session boundary",
-    "Immutable Review boundary",
-    "Knowledge delivery evidence checklist",
-    "Layer",
-    "Lineage review",
-    "Maturity vocabulary",
-    "Mission shape",
-    "Observable example",
-    "On-ramp",
-    "Optional stop",
-    "Owner／keeper",
-    "Package branch",
-    "Pass evidence",
-    "Phase catalog",
-    "Playbook source of truth",
-    "Portable Design handoff bundle",
-    "Portable bundle record",
-    "Portable record shape",
-    "Primary surface",
-    "Probe",
-    "Raw source pack",
-    "Rehearsal evidence",
-    "Rejoin",
-    "Resolution evidence",
-    "References",
-    "Return",
-    "Run template",
-    "Safe expectation",
-    "Scenario probe",
-    "Selected branch",
-    "Selection evidence",
-    "Selection record",
-    "Source-to-claim ledger",
-    "State plane",
-    "Stop trigger",
-    "Successor",
-    "Surface",
-    "Target-format validation",
-    "Task routes",
-    "Verification record",
-    "Versioned knowledge deliverable",
-    "Wayfinder return boundary",
-    "Workflow package selector",
+# Exact learner-visible blocks that are themselves canonical course/product terms.
+# This is deliberately not a vocabulary/shape heuristic: new values need review.
+TECHNICAL_ONLY_LEARNER_BLOCKS = {
+    "Claude",
+    "Claude Code",
+    "Claude Design",
+    "Claude in Chrome",
+    "Cowork",
+    "Desktop App",
+    "Desktop Browser",
+    "Docling",
+    "HTML",
+    "MarkItDown",
+    "Mermaid CLI",
+    "Open-Slide",
+    "PDF",
+    "PPTX",
+    "Playwright CLI",
+    "Playwright MCP",
+    "open-slide",
 }
-PROHIBITED_GENERIC_UI_LABELS_BY_PATH = {
-    "lessons/002-0005-add-guardrail-hook.html": {"Evidence"},
-    "lessons/002-0007-connect-trusted-mcp.html": {"Scope"},
-    "lessons/004-0003-sync-design-system.html": {"Authority"},
-    "lessons/004-0006-check-prototype-assumptions.html": {"Claim"},
-    "lessons/006-0014-resolve-wayfinder-frontier.html": {"Type"},
-    "lessons/008-0003-bound-write-authority.html": {"Authority"},
-    "lessons/008-0005-prove-workflow-completion.html": {"Identity"},
-    "lessons/008-0007-complete-operating-workflow-closeout.html": {"Gate"},
-    "lessons/008-0008-run-recoverable-llm-wiki-maintenance.html": {"Evidence"},
-    "lessons/011-0003-bound-pilot-access-and-data.html": {"Operator"},
-    "lessons/011-0007-complete-scenario-rollout-plan.html": {"Judgment"},
-    "lessons/012-0002-design-change-control.html": {"Change"},
-    "lessons/012-0005-run-incident-tabletop.html": {"Evidence"},
-    "reference/claude-design-presentation-workflow.html": {"Artifact"},
-    "reference/engineering-delivery-skills-reference.html": {"Evidence"},
-    "reference/knowledge-delivery-evidence-checklist.html": {"Learner judgment"},
-    "reference/repo-review-contract.html": {"Repo Review contract"},
-    "reference/workflow-maturity-workbook.html": {"Workflow maturity workbook"},
+COURSE_GLOSSARY_TERMS = {
+    "Artifact",
+    "Canonical course coordinate",
+    "Compatibility entry",
+    "Conditional",
+    "Content disposition",
+    "Continuation",
+    "Course history",
+    "Deprecation notice",
+    "Deterministic check",
+    "Elective",
+    "Entry／readiness",
+    "Evidence",
+    "Evidence carryover",
+    "Exit evidence",
+    "Feedback loop",
+    "Full completion claim",
+    "Handoff／Return notebook",
+    "Immutable Review checkpoint",
+    "Learner judgment",
+    "Learner progress",
+    "Legal stop",
+    "Maturity score",
+    "Migration baseline",
+    "Migration release",
+    "Observable feedback",
+    "Phase",
+    "Publication state",
+    "Rejoin／return",
+    "Repo Review contract",
+    "Report-only",
+    "Review",
+    "Review contract",
+    "Reviewer write boundary",
+    "Route promise",
+    "Self-study artifact",
+    "Skill／MCP／subagent／worktree",
+    "Source",
+    "Source anchor",
+    "Source of truth",
+    "Source recertification",
+    "Source registry",
+    "Spec Review",
+    "Spec Review pass",
+    "Spec／ticket／bounded slice",
+    "Stable public URL",
+    "Standards Review",
+    "Standards Review pass",
+    "Tangible win",
+    "Task route",
+    "Workflow maturity workbook",
 }
+TECHNICAL_ONLY_LEARNER_BLOCKS_BY_PATH = {
+    "lessons/001-0001-target.html": {"A", "B", "Code readiness", "Target"},
+    "lessons/001-0002-old.html": {"lessons/001-0002-old"},
+    "reference/retired.html": {"reference/retired"},
+}
+LATIN_TEXT_RE = re.compile(r"[A-Za-z]")
+CJK_TEXT_RE = re.compile(r"[\u3400-\u9fff]")
 
 
 def blocker(code: str, message: str, subject: str | None = None) -> dict[str, str]:
@@ -207,8 +202,17 @@ class CourseHTMLParser(HTMLParser):
             self._element_suppression_stack.append((tag, suppresses_text))
             if suppresses_text:
                 self._suppressed_text_depth += 1
-        if tag in LEARNER_UI_LABEL_TAGS and not suppresses_text:
-            self._learner_ui_label_stack.append({"tag": tag, "parts": []})
+        if (
+            tag in LEARNER_VISIBLE_BLOCK_TAGS
+            and not suppresses_text
+        ):
+            self._learner_ui_label_stack.append(
+                {
+                    "tag": tag,
+                    "parts": [],
+                    "elementDepth": len(self._element_suppression_stack),
+                }
+            )
         if tag == "html":
             self.lang = attributes.get("lang")
         elif tag == "meta":
@@ -271,6 +275,8 @@ class CourseHTMLParser(HTMLParser):
         if (
             self._learner_ui_label_stack
             and self._learner_ui_label_stack[-1]["tag"] == tag
+            and self._learner_ui_label_stack[-1]["elementDepth"]
+            == len(self._element_suppression_stack)
         ):
             label = self._learner_ui_label_stack.pop()
             text = " ".join("".join(label["parts"]).split())
@@ -804,13 +810,19 @@ def validate_links_and_quizzes(
 def validate_generic_learner_ui_labels(
     documents: dict[str, CourseHTMLParser],
 ) -> list[dict[str, str]]:
-    """Reject a bounded set of reviewed generic English UI labels."""
+    """Reject learner-visible Latin prose outside reviewed exact terms."""
     errors: list[dict[str, str]] = []
     for path, document in sorted(documents.items()):
-        prohibited_labels = PROHIBITED_GENERIC_UI_LABELS | (
-            PROHIBITED_GENERIC_UI_LABELS_BY_PATH.get(path, set())
+        allowed = TECHNICAL_ONLY_LEARNER_BLOCKS | COURSE_GLOSSARY_TERMS | (
+            TECHNICAL_ONLY_LEARNER_BLOCKS_BY_PATH.get(path, set())
         )
-        prohibited = sorted(set(document.learner_ui_labels) & prohibited_labels)
+        prohibited = sorted(
+            text
+            for text in set(document.learner_ui_labels)
+            if LATIN_TEXT_RE.search(text)
+            and not CJK_TEXT_RE.search(text)
+            and text not in allowed
+        )
         if prohibited:
             errors.append(
                 blocker(
@@ -1311,6 +1323,11 @@ def build_authored_slice_report(
         for error in validate_links_and_quizzes(repo_root, documents)
         if error_matches_paths(error, required_paths)
     ]
+    learner_ui_errors = [
+        error
+        for error in validate_generic_learner_ui_labels(documents)
+        if error_matches_paths(error, required_paths)
+    ]
     compatibility_errors = [
         error
         for error in validate_compatibility_graph(manifest, documents)
@@ -1328,6 +1345,7 @@ def build_authored_slice_report(
     )
     errors.extend(metadata_errors)
     errors.extend(link_quiz_errors)
+    errors.extend(learner_ui_errors)
     errors.extend(compatibility_errors)
     errors.extend(index_errors)
     errors.extend(toc_errors)
@@ -1364,6 +1382,7 @@ def build_authored_slice_report(
         "presentPaths": sum(path in documents for path in required_paths),
         "metadataBlockers": len(metadata_errors),
         "linkOrQuizBlockers": len(link_quiz_errors),
+        "learnerUiBlockers": len(learner_ui_errors),
         "compatibilityBlockers": len(compatibility_errors),
         "indexBlockers": len(index_errors),
         "tocBlockers": len(toc_errors),
@@ -1624,6 +1643,84 @@ def run_site_self_test() -> None:
         target_fixture.write_text(
             valid_target_html.replace(
                 "</body>",
+                "<p>中文 <strong>Expected result</strong></p></body>",
+            ),
+            encoding="utf-8",
+        )
+        _, errors = validate_site_release(root, manifest, inventory_contract=False)
+        nested_errors = [
+            error for error in errors if error["code"] == "generic-english-ui-label"
+        ]
+        assert nested_errors and "'Expected result'" in nested_errors[0]["message"], errors
+        target_fixture.write_text(valid_target_html, encoding="utf-8")
+
+        isolated_blocks = {
+            "button": "<button>Unknown button result</button>",
+            "caption": "<table><caption>Unknown caption result</caption></table>",
+            "h1": "<h1>Unknown h1 result</h1>",
+            "h2": "<h2>Unknown h2 result</h2>",
+            "h3": "<h3>Unknown h3 result</h3>",
+            "h4": "<h4>Unknown h4 result</h4>",
+            "h5": "<h5>Unknown h5 result</h5>",
+            "h6": "<h6>Unknown h6 result</h6>",
+            "label": "<label>Unknown label result</label>",
+            "legend": "<fieldset><legend>Unknown legend result</legend></fieldset>",
+            "li": "<ol><li>Unknown li result</li></ol>",
+            "p": "<p>Unknown p result</p>",
+            "strong": "<strong>Unknown strong result</strong>",
+            "summary": "<details><summary>Unknown summary result</summary></details>",
+            "td": "<table><tr><td>Unknown td result</td></tr></table>",
+            "th": "<table><tr><th>Unknown th result</th></tr></table>",
+        }
+        for tag, html in isolated_blocks.items():
+            expected = f"Unknown {tag} result"
+            target_fixture.write_text(
+                valid_target_html.replace("</body>", f"{html}</body>"),
+                encoding="utf-8",
+            )
+            _, errors = validate_site_release(
+                root, manifest, inventory_contract=False
+            )
+            matching_errors = [
+                error
+                for error in errors
+                if error["code"] == "generic-english-ui-label"
+                and repr(expected) in error["message"]
+            ]
+            assert matching_errors, (tag, errors)
+        target_fixture.write_text(valid_target_html, encoding="utf-8")
+
+        target_fixture.write_text(
+            valid_target_html.replace(
+                "</body>",
+                '<p><strong>Exit evidence:</strong> route choice and readiness evidence</p>'
+                '<h2>Expected outcome</h2>'
+                "</body>",
+            ),
+            encoding="utf-8",
+        )
+        _, errors = validate_site_release(root, manifest, inventory_contract=False)
+        assert_codes(errors, "generic-english-ui-label")
+        target_fixture.write_text(valid_target_html, encoding="utf-8")
+
+        target_fixture.write_text(
+            valid_target_html.replace(
+                "</body>",
+                '<h2>Code readiness</h2>'
+                '<p>以 Claude Code 完成 repo check</p>'
+                "</body>",
+            ),
+            encoding="utf-8",
+        )
+        _, errors = validate_site_release(root, manifest, inventory_contract=False)
+        assert not any(
+            error["code"] == "generic-english-ui-label" for error in errors
+        ), errors
+        target_fixture.write_text(valid_target_html, encoding="utf-8")
+
+        target_fixture.write_text(
+            valid_target_html.replace(
+                "</body>",
                 '<h2 hidden>Expected result</h2>'
                 '<h2 aria-hidden="true">Expected result</h2>'
                 '<table><tr><td><code>Expected result</code></td></tr></table>'
@@ -1631,6 +1728,10 @@ def run_site_self_test() -> None:
                 '<table><tr><td><kbd>Expected result</kbd></td></tr></table>'
                 '<table><tr><td><samp>Expected result</samp></td></tr></table>'
                 '<table><tr><td><code><kbd>Expected result</kbd></code></td></tr></table>'
+                '<table><tr><td><script>Expected result</script></td></tr></table>'
+                '<table><tr><td><style>Expected result</style></td></tr></table>'
+                '<table><tr><td><template>Expected result</template></td></tr></table>'
+                '<table><tr><td><noscript>Expected result</noscript></td></tr></table>'
                 "</body>",
             ),
             encoding="utf-8",
@@ -1844,6 +1945,36 @@ def run_self_test(repo_root: Path) -> None:
     assert freeze_module["run_self_test"](freeze, repo_root) == []
     assert manifest_module["run_self_test"](manifest, freeze) == []
     source_module["run_self_test"]()
+
+    with TemporaryDirectory() as directory:
+        slice_root = Path(directory)
+        for source_dir in ("docs", "lessons", "reference", "scripts"):
+            shutil.copytree(repo_root / source_dir, slice_root / source_dir)
+        for source_file in ("index.html", "source-anchors.json", "toc.html"):
+            shutil.copy2(repo_root / source_file, slice_root / source_file)
+        os.symlink(repo_root / ".git", slice_root / ".git", target_is_directory=True)
+        required_path = "lessons/001-0001-four-claude-surfaces.html"
+        required_file = slice_root / required_path
+        required_file.write_text(
+            required_file.read_text(encoding="utf-8").replace(
+                "</body>",
+                "<p>中文 <strong>Required path result</strong></p></body>",
+            ),
+            encoding="utf-8",
+        )
+        slice_report = build_authored_slice_report(
+            slice_root,
+            required_paths={required_path},
+            as_of=date.today(),
+        )
+        assert slice_report["releaseReady"] is False, slice_report
+        assert slice_report["checks"]["learnerUiBlockers"] == 1, slice_report
+        assert any(
+            error["code"] == "generic-english-ui-label"
+            and error.get("subject") == required_path
+            and "'Required path result'" in error["message"]
+            for error in slice_report["blockers"]
+        ), slice_report
 
     actual_paths = collect_site_paths(repo_root)
     assert validate_inventory_contract(manifest, actual_paths) == []

@@ -32,7 +32,7 @@
 
 <h2>模型 alias</h2>
 <table>
-<tr><th>Alias</th><th>適合任務</th><th>注意事項</th></tr>
+<tr><th>別名</th><th>適合任務</th><th>注意事項</th></tr>
 <tr><td><code>default</code></td><td>回到帳號或組織建議的預設模型。</td><td>依 account tier、provider 與 organization default 而變；它不是固定模型。</td></tr>
 <tr><td><code>best</code></td><td>使用目前可用的最高能力模型。</td><td>實際模型依帳號、provider 與組織可用性而變。</td></tr>
 <tr><td><code>sonnet</code></td><td>日常 coding、局部修改、測試可驗證的任務。</td><td>多數工作先從這裡開始。</td></tr>
@@ -43,9 +43,9 @@
 </table>
 <p><strong>版本提醒：</strong>alias 會更新，且不同 provider 可能解析到不同版本；先看目前 picker，需要固定版本時才使用完整 model ID。不要把文件未列出的名稱當成可用 alias。</p>
 
-<h2>Effort levels</h2>
+<h2>推理程度</h2>
 <table>
-<tr><th>Level</th><th>何時使用</th><th>不要用在</th></tr>
+<tr><th>等級</th><th>何時使用</th><th>不要用在</th></tr>
 <tr><td><code>low</code></td><td>短、明確、低風險、重視速度。</td><td>架構或疑難除錯。</td></tr>
 <tr><td><code>medium</code></td><td>想省成本，但仍需要一些判斷。</td><td>高風險改動。</td></tr>
 <tr><td><code>high</code></td><td>多數 coding 任務的基準選擇。</td><td>不需要思考的批次小事。</td></tr>
@@ -57,12 +57,12 @@
 <h2>操作方式</h2>
 <table>
 <tr><th>介面</th><th>方式</th><th>用途</th></tr>
-<tr><td>桌面 App</td><td>model dropdown</td><td>選模型；位置在送出按鈕旁。</td></tr>
-<tr><td>桌面 App</td><td>effort menu</td><td>調推理程度。</td></tr>
-<tr><td>Slash command</td><td><code>/model</code></td><td>若 <code>/</code> 清單有，可當作模型選單快捷。</td></tr>
-<tr><td>Slash command</td><td><code>/model sonnet</code></td><td>若目前環境支援，可切到指定 alias。</td></tr>
-<tr><td>Slash command</td><td><code>/effort</code></td><td>若 <code>/</code> 清單有，可當作 effort 選單快捷。</td></tr>
-<tr><td>Slash command</td><td><code>/effort auto</code></td><td>若目前環境支援，可回到模型預設 effort。</td></tr>
+<tr><td>桌面 App</td><td>model 下拉選單</td><td>選模型；位置在送出按鈕旁。</td></tr>
+<tr><td>桌面 App</td><td>effort 選單</td><td>調推理程度。</td></tr>
+<tr><td>Slash command（斜線命令）</td><td><code>/model</code></td><td>若 <code>/</code> 清單有，可當作模型選單快捷。</td></tr>
+<tr><td>Slash command（斜線命令）</td><td><code>/model sonnet</code></td><td>若目前環境支援，可切到指定 alias。</td></tr>
+<tr><td>Slash command（斜線命令）</td><td><code>/effort</code></td><td>若 <code>/</code> 清單有，可當作 effort 選單快捷。</td></tr>
+<tr><td>Slash command（斜線命令）</td><td><code>/effort auto</code></td><td>若目前環境支援，可回到模型預設 effort。</td></tr>
 <tr><td>任一介面</td><td><code>ultrathink</code></td><td>單回合要求更深思考，不改 session effort 設定。</td></tr>
 </table>
 
@@ -79,9 +79,9 @@
 <h2>課程路線中的使用位置</h2>
 <table>
 <tr><th>Phase</th><th>重點</th><th>規則</th></tr>
-<tr><td>Phase 1</td><td>模型選擇、effort、<code>opusplan</code> 基本取捨。</td><td>桌面 App 先用選單；slash command 可用時作快捷。</td></tr>
-<tr><td>Phase 2</td><td>hooks、Skills、MCP、Subagents、worktrees、headless、CI 的成本與權限邊界。</td><td>進階能力先明確 scope，再升高 effort。</td></tr>
-<tr><td>Phase 3</td><td>在 repo 地圖整理、<code>/grill-with-docs</code>、<code>/implement</code> 內的 review、或 <code>/diagnosing-bugs</code> 判斷何時升高 effort。</td><td>不確定性高才升級。</td></tr>
+<tr><td>Phase 1 階段</td><td>模型選擇、effort、<code>opusplan</code> 基本取捨。</td><td>桌面 App 先用選單；slash command 可用時作快捷。</td></tr>
+<tr><td>Phase 2 階段</td><td>hooks、Skills、MCP、Subagents、worktrees、headless、CI 的成本與權限邊界。</td><td>進階能力先明確 scope，再升高 effort。</td></tr>
+<tr><td>Phase 3 階段</td><td>在 repo 地圖整理、<code>/grill-with-docs</code>、<code>/implement</code> 內的 review、或 <code>/diagnosing-bugs</code> 判斷何時升高 effort。</td><td>不確定性高才升級。</td></tr>
 <tr><td>Phase 4–5（選修）</td><td>視覺原型、簡報與日常交付物仍要依內容風險選 effort。</td><td>高 effort 不能取代來源查核、真實回饋或 browser verification。</td></tr>
 </table>
 

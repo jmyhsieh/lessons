@@ -9,11 +9,11 @@
 <title>004-0005：精修並保留可回頭的 revision</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:800px;margin:2.5rem auto;padding:0 1.25rem;color:#202020;line-height:1.8}h1{line-height:1.35}h2{color:#635b9a;margin-top:2rem}.mission,.stop,.rule{border-left:4px solid #635b9a;background:#f3f1fa;padding:.8rem 1rem}.card,.win,.quiz{border:1px solid #d9d5e8;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#efedf8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #d9d5e8;padding:.6rem;text-align:left;vertical-align:top}code,pre{background:#f3f1fa;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}button{display:block;width:100%;margin:.4rem 0;padding:.6rem;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#f3f1fa;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#514985}@media(max-width:620px){body{margin-top:1rem}table{font-size:.88rem}}</style>
 </head><body>
-<p><a href="004-0004-explore-design-directions.html">← direction comparison</a> · <a href="../reference/claude-design-to-code-workflow.html">Design workflow reference</a></p>
-<header><p>Phase 4 · Design · 004-0005 · Refinement</p><h1>一次精修一層，讓每個 revision 都能解釋</h1><p class="mission"><strong>Entry：</strong>已選定一個 direction，並保留 baseline revision 與選擇理由。本課把 feedback 轉成 bounded revisions，不用「再好看一點」覆蓋決策歷史。</p></header>
+<p><a href="004-0004-explore-design-directions.html">← 比較設計方向</a> · <a href="../reference/claude-design-to-code-workflow.html">Design workflow 參考</a></p>
+<header><p>第 4 階段 · 設計 · 004-0005 · Refinement</p><h1>一次精修一層，讓每個 revision 都能解釋</h1><p class="mission"><strong>進入條件：</strong>已選定一個 direction，並保留 baseline revision 與選擇理由。本課把 feedback 轉成 bounded revisions，不用「再好看一點」覆蓋決策歷史。</p></header>
 <h2>用 feedback 類型控制 revision scope</h2>
-<table><tr><th>層級</th><th>一次可改</th><th>回饋判準</th></tr><tr><td>Content／hierarchy</td><td>標籤、順序、資訊優先級</td><td>使用者能找到並理解關鍵內容</td></tr><tr><td>Interaction／states</td><td>一條 task path 與其 loading／empty／error</td><td>指定 task 可完成，狀態變化可理解</td></tr><tr><td>Responsive</td><td>一個 viewport range 的 reflow／control</td><td>不溢位，核心 action 保持可達</td></tr><tr><td>Visual system</td><td>一組 approved tokens 或 component treatment</td><td>與 system source 一致，層級仍清楚</td></tr></table>
-<p class="rule"><strong>Change isolation：</strong>先記錄 baseline，選一個 feedback claim，只改一層，重新執行相同 task，再決定 accept／revise／revert。Direct canvas edit、inline comment 與 chat 都可以用；它們不改變 evidence 要求。</p>
+<table><tr><th>層級</th><th>一次可改</th><th>回饋判準</th></tr><tr><td>內容／層級</td><td>標籤、順序、資訊優先級</td><td>使用者能找到並理解關鍵內容</td></tr><tr><td>互動／states</td><td>一條 task path 與其 loading／empty／error</td><td>指定 task 可完成，狀態變化可理解</td></tr><tr><td>Responsive 響應式行為</td><td>一個 viewport range 的 reflow／control</td><td>不溢位，核心 action 保持可達</td></tr><tr><td>視覺系統</td><td>一組 approved tokens 或 component treatment</td><td>與 system source 一致，層級仍清楚</td></tr></table>
+<p class="rule"><strong>變更隔離：</strong>先記錄 baseline，選一個 feedback claim，只改一層，重新執行相同 task，再決定 accept／revise／revert。Direct canvas edit、inline comment 與 chat 都可以用；它們不改變 evidence 要求。</p>
 <h2>建立 revision ledger</h2>
 <div class="card"><pre>Selected direction / baseline revision:
 Revision ID:
@@ -25,9 +25,9 @@ Observed result:
 Decision: accept / revise / revert
 Reason / remaining assumption:</pre></div>
 <ol><li>把一則 feedback 轉成具體 expected improvement；無法觀察就先釐清。</li><li>保存 revision identity，再做最小變更；不要順手重畫其他 sections。</li><li>用相同 task 與資料重跑，記錄 improvement 與 regression。</li><li>由學習者 disposition：accept、revise 或 revert，並保留理由。</li></ol>
-<div class="win"><strong>Tangible win：</strong>一份至少含 baseline 與一輪 accept／revise／revert 判斷的 revision ledger。<br><strong>Observable feedback：</strong>Reviewer 能切回 baseline、重跑同一 task，判斷變更是否真的改善 feedback claim，並指出被同時改動而無法歸因的層。</div>
+<div class="win"><strong>具體成果：</strong>一份至少含 baseline 與一輪 accept／revise／revert 判斷的 revision ledger。<br><strong>可觀察回饋：</strong>Reviewer 能切回 baseline、重跑同一 task，判斷變更是否真的改善 feedback claim，並指出被同時改動而無法歸因的層。</div>
 <div class="quiz" data-answer="2"><p>Reviewer 說找不到主要 action，最可驗證的下一輪是？</p><button type="button">同時改文案、layout、色彩與 interaction</button><button type="button">請 Claude 自由精修整頁</button><button type="button">保存 baseline，只調整 action hierarchy，重跑相同 task</button><div class="why">隔離單一 layer 才能把 observable change 歸因到這次 revision，也保留 revert 能力。</div></div>
-<p class="stop"><strong>Legal stop／continuation：</strong>Baseline 不可回復、feedback 沒有來源、單一 revision 混改多層，或 task rerun 未記錄時，保留 ledger 並停止擴大。Selected revision 可重現且主要 feedback 已 disposition 後，進 <a href="004-0006-check-prototype-assumptions.html">004-0006 prototype assumptions</a>。</p>
+<p class="stop"><strong>合法停止／續行：</strong>Baseline 不可回復、feedback 沒有來源、單一 revision 混改多層，或 task rerun 未記錄時，保留 ledger 並停止擴大。Selected revision 可重現且主要 feedback 已 disposition 後，進 <a href="004-0006-check-prototype-assumptions.html">004-0006 prototype assumptions</a>。</p>
 <footer data-course-footer="canonical" data-route-id="design-delivery" data-legal-stop="Stop at the Design handoff bundle unless implementation is selected">
 <p><strong>路線導覽 · 設計交付</strong></p>
 <ul class="course-route-actions">

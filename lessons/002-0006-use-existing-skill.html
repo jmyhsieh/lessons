@@ -29,7 +29,7 @@
 <body>
 <p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../toc.html">回課目表</a></p>
 <header>
-  <p class="kicker">Phase 2 · Equip · 002-0006 · Conditional toolbox lesson</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0006 · Conditional toolbox lesson</p>
   <h1>先使用既有 Skill，不跨過 Workflow authoring boundary</h1>
   <p class="mission"><strong>任務：</strong>選一個已安裝、來源可信且 description 直接符合 active-route gap 的 Skill，讀完 instruction package，再用 bounded task 做一次 smoke test。</p>
 </header>
@@ -40,8 +40,8 @@
   <tbody>
     <tr><td>來源與 scope</td><td>知道它來自 personal、project 或 approved plugin，且名稱／description 對應目前 gap。</td><td>來源不明，或只能靠猜測用途。</td></tr>
     <tr><td>完整 instructions</td><td>已讀完整 <code>SKILL.md</code> 及本次需要的直接 references。</td><td>只看 description 就執行。</td></tr>
-    <tr><td>Authority／side effects</td><td>Read、write、network、external actions 與 stop condition 都在 selection card 內。</td><td>Skill 需要超出 active route 核准範圍的權限。</td></tr>
-    <tr><td>Workflow authoring boundary</td><td>不修改 Skill，只使用既有 package。</td><td>需要新建、重寫或發布 shared Skill。</td></tr>
+    <tr><td>權限／副作用</td><td>Read、write、network、external actions 與 stop condition 都在 selection card 內。</td><td>Skill 需要超出 active route 核准範圍的權限。</td></tr>
+    <tr><td>Workflow 編寫邊界</td><td>不修改 Skill，只使用既有 package。</td><td>需要新建、重寫或發布 shared Skill。</td></tr>
   </tbody>
 </table></div>
 
@@ -61,7 +61,7 @@ Stop condition:</pre></div>
   <li>用 safe fixture 或 read-only task 執行一次，保存 invocation、Skill 要求的步驟、實際結果與任何 permission prompt。</li>
   <li>逐項比對 use card；若 Skill 要求擴權、修改自身或產生未核准 external side effect，立即停止。</li>
 </ol>
-<div class="win"><strong>Tangible win：</strong>一張 Skill use card 與一次 bounded invocation record。<br><strong>Observable feedback：</strong>Skill 按已讀 instructions 完成指定小任務，結果符合預期，且沒有超出 card 的 authority／side effects。</div>
+<div class="win"><strong>具體成果：</strong>一張 Skill use card 與一次 bounded invocation record。<br><strong>可觀察回饋：</strong>Skill 按已讀 instructions 完成指定小任務，結果符合預期，且沒有超出 card 的 authority／side effects。</div>
 
 <div class="quiz" data-answer="1">
   <p>現有 Skill 很接近需求，但缺一個共享步驟；本課應怎麼做？</p>
@@ -71,7 +71,7 @@ Stop condition:</pre></div>
   <div class="why">Equip 只選用既有 capability；建立或版本化共享 workflow 已跨過 Workflow authoring boundary。</div>
 </div>
 
-<p class="stop"><strong>Return boundary：</strong>把 Skill identity、instruction scope、smoke-test evidence 與 learner judgment 寫回 Return notebook，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。本課不建立、修改或發布 Skill，也不把 invocation 當成 active route artifact。</p>
+<p class="stop"><strong>返回邊界：</strong>把 Skill identity、instruction scope、smoke-test evidence 與 learner judgment 寫回 Return notebook，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。本課不建立、修改或發布 Skill，也不把 invocation 當成 active route artifact。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">

@@ -29,7 +29,7 @@
 <body>
 <p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../toc.html">回課目表</a></p>
 <header>
-  <p class="kicker">Phase 2 · Equip · 002-0005 · Conditional toolbox lesson</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0005 · Conditional toolbox lesson</p>
   <h1>用一組正反例證明 guardrail</h1>
   <p class="mission"><strong>任務：</strong>在 recoverable fixture 建立一個 PreToolUse guardrail，以明確 path predicate 阻擋 protected fixture file，同時放行相鄰 safe file。</p>
 </header>
@@ -39,9 +39,9 @@
 <div class="table-wrap"><table>
   <thead><tr><th>案例</th><th>預期結果</th><th>證據</th></tr></thead>
   <tbody>
-    <tr><td>Protected fixture path</td><td>PreToolUse 在 Edit／Write 前 block</td><td>Tool 未執行；exit 2；stderr 提供可行理由。</td></tr>
-    <tr><td>Adjacent safe fixture path</td><td>Allow</td><td>Tool 正常執行；沒有 false positive。</td></tr>
-    <tr><td>Malformed／unknown input</td><td>依事先 policy 停止或安全處置</td><td>不把 parse failure 當成成功放行。</td></tr>
+    <tr><td>受保護的 fixture 路徑</td><td>PreToolUse 在 Edit／Write 前 block</td><td>Tool 未執行；exit 2；stderr 提供可行理由。</td></tr>
+    <tr><td>相鄰的安全 fixture 路徑</td><td>允許（Allow）</td><td>Tool 正常執行；沒有 false positive。</td></tr>
+    <tr><td>格式錯誤／未知輸入</td><td>依事先 policy 停止或安全處置</td><td>不把 parse failure 當成成功放行。</td></tr>
   </tbody>
 </table></div>
 
@@ -62,7 +62,7 @@ Stop condition:</pre></div>
   <li>先跑 should-block：確認 protected file 完全沒變；再跑 should-allow：確認 safe file 得到唯一預期變更。</li>
   <li>保存兩個結果、stderr、exact diff、rollback 與 learner judgment。任一 false negative／false positive 都算失敗。</li>
 </ol>
-<div class="win"><strong>Tangible win：</strong>一張 guardrail test card 與 should-block／should-allow evidence pair。<br><strong>Observable feedback：</strong>Protected file 無 diff 且理由清楚；safe file 有唯一預期 diff；rollback 可重現。</div>
+<div class="win"><strong>具體成果：</strong>一張 guardrail test card 與 should-block／should-allow evidence pair。<br><strong>可觀察回饋：</strong>Protected file 無 diff 且理由清楚；safe file 有唯一預期 diff；rollback 可重現。</div>
 
 <div class="quiz" data-answer="1">
   <p>Guardrail 成功擋住 protected file 後，為什麼仍要測 safe file？</p>
@@ -72,7 +72,7 @@ Stop condition:</pre></div>
   <div class="why">只測阻擋會漏掉 false positive；guardrail 必須同時保護禁區並保留合法工作能力。</div>
 </div>
 
-<p class="stop"><strong>Return boundary：</strong>Guardrail 不是 security sandbox，也不擴張 session permissions。回復 fixture，把 evidence 與剩餘風險寫回 Return notebook，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>；未經真實 repo review 不安裝到 production workflow。</p>
+<p class="stop"><strong>返回邊界：</strong>Guardrail 不是 security sandbox，也不擴張 session permissions。回復 fixture，把 evidence 與剩餘風險寫回 Return notebook，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>；未經真實 repo review 不安裝到 production workflow。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">

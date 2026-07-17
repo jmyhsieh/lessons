@@ -29,7 +29,7 @@
 <body>
 <p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../toc.html">回課目表</a></p>
 <header>
-  <p class="kicker">Phase 2 · Equip · 002-0004 · Conditional toolbox lesson</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0004 · Conditional toolbox lesson</p>
   <h1>先證明 hook 真的在正確事件觸發</h1>
   <p class="mission"><strong>任務：</strong>在 recoverable fixture 建立一個只留下 fixture-local marker 的 hook，觀察 matched trigger 與 non-match，再把結果寫回 active route。</p>
 </header>
@@ -38,10 +38,10 @@
 <div class="table-wrap"><table>
   <thead><tr><th>欄位</th><th>本次 smoke test 要回答</th></tr></thead>
   <tbody>
-    <tr><td>Event／matcher</td><td>哪個 lifecycle event 會被哪些工具或條件觸發？</td></tr>
-    <tr><td>Command／input</td><td>執行哪個 deterministic command？它會收到什麼 structured input？</td></tr>
-    <tr><td>Output／semantics</td><td>哪個 marker 或訊息算成功？exit status 是否會 allow 或 block？</td></tr>
-    <tr><td>Authority／side effect</td><td>Command 以你的權限執行；本課只准寫入 fixture-local log。</td></tr>
+    <tr><td>事件／比對條件</td><td>哪個 lifecycle event 會被哪些工具或條件觸發？</td></tr>
+    <tr><td>命令／輸入</td><td>執行哪個 deterministic command？它會收到什麼 structured input？</td></tr>
+    <tr><td>輸出／語意</td><td>哪個 marker 或訊息算成功？exit status 是否會 allow 或 block？</td></tr>
+    <tr><td>權限／副作用</td><td>Command 以你的權限執行；本課只准寫入 fixture-local log。</td></tr>
   </tbody>
 </table></div>
 
@@ -62,7 +62,7 @@ Stop condition:</pre></div>
   <li>觸發一次 matcher，確認 marker 恰好增加一次；再做一次 non-match，確認 marker 沒有增加。</li>
   <li>保存 event、matcher、command、前後 log、non-match 結果、rollback 與 learner judgment。</li>
 </ol>
-<div class="win"><strong>Tangible win：</strong>一份 bounded hook contract 與 matched／non-match smoke-test record。<br><strong>Observable feedback：</strong>Matched trigger 只新增預期 marker；non-match 沒有新增；fixture 外沒有 side effect。</div>
+<div class="win"><strong>具體成果：</strong>一份 bounded hook contract 與 matched／non-match smoke-test record。<br><strong>可觀察回饋：</strong>Matched trigger 只新增預期 marker；non-match 沒有新增；fixture 外沒有 side effect。</div>
 
 <div class="quiz" data-answer="2">
   <p>設定檔中已經出現 hook，是否足以證明它可用？</p>
@@ -72,7 +72,7 @@ Stop condition:</pre></div>
   <div class="why">Hook 的 event、matcher、command 與 semantics 只有在 recoverable fixture 實際觸發後才有證據。</div>
 </div>
 
-<p class="stop"><strong>Return boundary：</strong>回復或保留 fixture 由 selection card 決定；把 smoke-test evidence 寫回 Return notebook，狀態記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。本課不建立 production guardrail，也不授權 fixture 外的 shell side effect。</p>
+<p class="stop"><strong>返回邊界：</strong>回復或保留 fixture 由 selection card 決定；把 smoke-test evidence 寫回 Return notebook，狀態記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。本課不建立 production guardrail，也不授權 fixture 外的 shell side effect。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">

@@ -29,7 +29,7 @@
 <body>
 <p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../reference/claude-code-command-surface.html">Command surface reference</a></p>
 <header>
-  <p class="kicker">Phase 2 · Equip · 002-0010 · Conditional toolbox lesson</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0010 · Conditional toolbox lesson</p>
   <h1>把一次成功的互動改寫成 bounded one-shot</h1>
   <p class="mission"><strong>任務：</strong>在可信、非敏感 fixture 中，用 <code>claude -p</code> 執行一個 read-only task，固定 prompt、tools、output、budget 與 completion proof。</p>
 </header>
@@ -64,7 +64,7 @@ Timeout and stop condition:</pre></div>
   <li>用 deterministic parser 檢查輸出格式與已知 project code；不要讓另一個模型以「看起來正確」判斷完成。</li>
   <li>再跑一次相同 input，記錄結果是否穩定；這只證明 bounded fixture，不代表 production automation ready。</li>
 </ol>
-<div class="win"><strong>Tangible win：</strong>一份可重跑的 read-only headless command 與 execution record。<br><strong>Observable feedback：</strong>Process 在 budget 內結束、輸出可解析且命中已知 fact、沒有 write tool 或 session persistence。</div>
+<div class="win"><strong>具體成果：</strong>一份可重跑的 read-only headless command 與 execution record。<br><strong>可觀察回饋：</strong>Process 在 budget 內結束、輸出可解析且命中已知 fact、沒有 write tool 或 session persistence。</div>
 
 <div class="quiz" data-answer="0">
   <p><code>claude -p</code> 能輸出 JSON，是否已足以放進 CI？</p>
@@ -74,7 +74,7 @@ Timeout and stop condition:</pre></div>
   <div class="why">Local one-shot 只證明本機 execution contract；CI 是另一個外部執行與權限邊界。</div>
 </div>
 
-<p class="stop"><strong>Legal stop／return：</strong>Directory 不可信、input 含敏感資料、必要 tool 超出 read-only、flag 不在目前 help、無法設定 cost limit 或 deterministic oracle 時停止，不執行 one-shot。把 contract 與 evidence 寫回 Return notebook，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>；不要把本課當成 CI deployment。</p>
+<p class="stop"><strong>合法停止／返回：</strong>Directory 不可信、input 含敏感資料、必要 tool 超出 read-only、flag 不在目前 help、無法設定 cost limit 或 deterministic oracle 時停止，不執行 one-shot。把 contract 與 evidence 寫回 Return notebook，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>；不要把本課當成 CI deployment。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">

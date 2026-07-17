@@ -29,7 +29,7 @@
 <body>
 <p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../reference/claude-code-command-surface.html">Command surface reference</a></p>
 <header>
-  <p class="kicker">Phase 2 · Equip · 002-0011 · Conditional toolbox lesson</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0011 · Conditional toolbox lesson</p>
   <h1>先設計 CI 的外部執行邊界，不建立真實 workflow</h1>
   <p class="mission"><strong>任務：</strong>把已驗證的 local headless one-shot 放進 CI scenario，逐欄界定 trigger、input trust、permissions、secrets、tools、cost、failure 與 approval stop。</p>
 </header>
@@ -64,7 +64,7 @@ Stop and rollback:</pre></div>
   <li>確認 log 不洩漏 prompt、token 或敏感 output；green status 之外仍要有 deterministic artifact／check。</li>
   <li>保存 card、三個結果與 learner judgment。本課不建立 workflow file、不開 PR、不連 remote CI。</li>
 </ol>
-<div class="win"><strong>Tangible win：</strong>一張 CI boundary card 與三個 tabletop outcomes。<br><strong>Observable feedback：</strong>Untrusted secret request、未核准 tool 與 failed completion proof 都得到明確 deny／stop，而不是模糊的「小心使用」。</div>
+<div class="win"><strong>具體成果：</strong>一張 CI boundary card 與三個 tabletop outcomes。<br><strong>可觀察回饋：</strong>Untrusted secret request、未核准 tool 與 failed completion proof 都得到明確 deny／stop，而不是模糊的「小心使用」。</div>
 
 <div class="quiz" data-answer="1">
   <p>哪一項最能證明 CI automation boundary 已經 bounded？</p>
@@ -74,7 +74,7 @@ Stop and rollback:</pre></div>
   <div class="why">CI 是外部執行環境；boundaries 必須由平台權限、tool allowlist、deterministic checks 與 stop behavior 證明。</div>
 </div>
 
-<p class="stop"><strong>Legal stop／continuation：</strong>缺少 repository owner、remote permission 資訊、secret policy、trusted trigger 或 proven local one-shot 時，保留 card 並停止。要把設計變成 version-controlled workflow，已跨過 Repo delivery boundary，必須另開 Build task、取得 authority、套用 Review contract；真實 remote CI 不是本 self-study lesson 的完成條件。把本課記為 <code>Lesson practiced</code> 並返回 <code>Targeted-remediation return point</code>。</p>
+<p class="stop"><strong>合法停止／續行：</strong>缺少 repository owner、remote permission 資訊、secret policy、trusted trigger 或 proven local one-shot 時，保留 card 並停止。要把設計變成 version-controlled workflow，已跨過 Repo delivery boundary，必須另開 Build task、取得 authority、套用 Review contract；真實 remote CI 不是本 self-study lesson 的完成條件。把本課記為 <code>Lesson practiced</code> 並返回 <code>Targeted-remediation return point</code>。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">

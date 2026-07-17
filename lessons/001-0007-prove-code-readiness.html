@@ -14,7 +14,7 @@
 </head>
 <body>
 <p><a href="001-0006-plan-readiness-fixture.html">← 上一課</a> · <a href="../toc.html">回課目表</a></p>
-<header><p class="kicker">Phase 1 · Orient · 001-0007 · Code readiness stop</p><h1>把 bounded edit、diff 與 checks 組成 readiness evidence</h1><p class="mission"><strong>任務：</strong>只在 recoverable fixture 中執行 001-0006 的計畫，review exact diff、跑既有 checks，並建立一個可辨識的 local checkpoint。</p></header>
+<header><p class="kicker">第 1 階段 · 定向 · 001-0007 · Code readiness stop</p><h1>把 bounded edit、diff 與 checks 組成 readiness evidence</h1><p class="mission"><strong>任務：</strong>只在 recoverable fixture 中執行 001-0006 的計畫，review exact diff、跑既有 checks，並建立一個可辨識的 local checkpoint。</p></header>
 
 <h2>執行與驗證</h2>
 <ol>
@@ -24,12 +24,12 @@
   <li>執行 plan 中的 repo-specific check，再執行 <code>git diff --check</code>。</li>
   <li>只在 checks 通過且 diff 正確時建立 local commit；記下 commit、commands 與結果。</li>
 </ol>
-<div class="card"><strong>Evidence bundle：</strong>fixture identity、起始狀態、approved plan、exact diff、check commands／results、local checkpoint、learner judgment、尚未驗證事項。</div>
-<div class="win"><strong>Tangible win：</strong>一份 Code readiness evidence bundle。<br><strong>Observable feedback：</strong>checkpoint 只包含預期檔案；既有 check 與 <code>git diff --check</code> 通過；Return notebook 能指出這是 fixture practice。</div>
+<div class="card"><strong>證據 bundle：</strong>fixture identity、起始狀態、approved plan、exact diff、check commands／results、local checkpoint、learner judgment、尚未驗證事項。</div>
+<div class="win"><strong>具體成果：</strong>一份 Code readiness evidence bundle。<br><strong>可觀察回饋：</strong>checkpoint 只包含預期檔案；既有 check 與 <code>git diff --check</code> 通過；Return notebook 能指出這是 fixture practice。</div>
 
 <div class="quiz" data-answer="2"><p>哪一個 closeout claim 符合本課證據？</p><button type="button">我已能安全交付任何 production repo 變更</button><button type="button">Claude 完成 edit 且 tests 顯示 green，所以不需要 human review</button><button type="button">我在指定 fixture 完成 bounded edit、diff review、checks 與 local checkpoint；真實 repo delivery 尚未進行</button><div class="why">Readiness evidence 有明確環境與範圍；它不會自動升級成真實 repo deliverable 或 production authorization。</div></div>
 
-<p class="stop"><strong>Code readiness legal stop：</strong>把 bundle、learner judgment 與 feedback 寫進 Return notebook 後即可停止。狀態是 <code>Lesson practiced</code> 與 <strong>Code readiness demonstrated</strong>，不是 <code>Route artifact produced</code>。若新 mission 要交付 repo change，沿下方 continuation 進入 canonical Engineering route。</p>
+<p class="stop"><strong>Code readiness 合法停止點：</strong>把 bundle、learner judgment 與 feedback 寫進 Return notebook 後即可停止。狀態是 <code>Lesson practiced</code> 與 <strong>已證明 Code readiness</strong>，不是 <code>Route artifact produced</code>。若新 mission 要交付 repo change，沿下方 continuation 進入 canonical Engineering route。</p>
 <footer data-course-footer="canonical" data-route-id="code-readiness" data-legal-stop="Stop after Code readiness is demonstrated; do not treat fixture work as delivery">
 <p><strong>路線導覽 · 程式碼準備度（Code readiness）</strong></p>
 <ul class="course-route-actions">

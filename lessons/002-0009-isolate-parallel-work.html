@@ -29,7 +29,7 @@
 <body>
 <p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../toc.html">回課目表</a></p>
 <header>
-  <p class="kicker">Phase 2 · Equip · 002-0009 · Conditional toolbox lesson</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0009 · Conditional toolbox lesson</p>
   <h1>用 worktree 隔離一條 parallel edit line</h1>
   <p class="mission"><strong>任務：</strong>在 disposable Git fixture 開一個 Claude Code worktree，證明兩個工作目錄的檔案改動不互踩，再安全清理。</p>
 </header>
@@ -46,7 +46,7 @@ Stop condition:</pre></div>
 <div class="table-wrap"><table>
   <thead><tr><th>Worktree 隔離</th><th>Worktree 不隔離</th></tr></thead>
   <tbody>
-    <tr><td>Working directory、branch、tracked／untracked file changes。</td><td>Git object database、remote、credentials、network、database、deploy target 與其他 external side effects。</td></tr>
+    <tr><td>工作目錄、branch、tracked／untracked file changes。</td><td>Git object database、remote、credentials、network、database、deploy target 與其他 external side effects。</td></tr>
     <tr><td>適合兩條可能改檔的獨立 local tasks。</td><td>不是 permission sandbox，也不會自動解決 branch merge conflict。</td></tr>
   </tbody>
 </table></div>
@@ -59,7 +59,7 @@ Stop condition:</pre></div>
   <li>記錄新 worktree 是否缺少 gitignored config 或 dependencies；不要為了方便把 secret 改成 tracked file。</li>
   <li>退出 session。清理前檢查該 worktree 的 status、untracked files 與 commits；只有確認無需保留的工作後才移除，最後再跑 <code>git worktree list</code>。</li>
 </ol>
-<div class="win"><strong>Tangible win：</strong>一張 worktree isolation record，含 before／during／after inventory。<br><strong>Observable feedback：</strong>Marker 只出現在新 worktree；兩個 branch/path 可辨識；清理後 inventory 回到 baseline，沒有遺失未保存工作。</div>
+<div class="win"><strong>具體成果：</strong>一張 worktree isolation record，含 before／during／after inventory。<br><strong>可觀察回饋：</strong>Marker 只出現在新 worktree；兩個 branch/path 可辨識；清理後 inventory 回到 baseline，沒有遺失未保存工作。</div>
 
 <div class="quiz" data-answer="2">
   <p>兩個 worktrees 同時指向同一個 staging database，是否已被安全隔離？</p>
@@ -69,7 +69,7 @@ Stop condition:</pre></div>
   <div class="why">Worktree 解決 local filesystem／branch collision；external systems、credentials 與 side effects 仍是共享風險。</div>
 </div>
 
-<p class="stop"><strong>Legal stop／return：</strong>Fixture 不乾淨、branch/path 已存在、兩條任務會碰同一 external resource、或無法判斷 worktree 是否有未保存工作時，保留現況並停止，不使用 <code>--force</code> 清理。把 isolation evidence 寫回 Return notebook，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。</p>
+<p class="stop"><strong>合法停止／返回：</strong>Fixture 不乾淨、branch/path 已存在、兩條任務會碰同一 external resource、或無法判斷 worktree 是否有未保存工作時，保留現況並停止，不使用 <code>--force</code> 清理。把 isolation evidence 寫回 Return notebook，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">

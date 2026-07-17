@@ -25,7 +25,7 @@
 </div>
 <div class="block"><strong>輸出／completion 邊界：</strong>Open-Slide 官方流程提供 static HTML 與 browser-print PDF，不要把它寫成 PPTX 產製工具。這份 elective 的 build 與 Review 都不會單獨構成 Presentation closeout。</div>
 
-<h2>Init → dev → build</h2>
+<h2>初始化 → 開發 → 建置</h2>
 <pre>node --version
 npm --version
 npx --yes @open-slide/cli@1.3.2 --version
@@ -42,10 +42,10 @@ npm run preview</pre>
 
 <h2>只重建三頁</h2>
 <table>
-<tr><th>Page</th><th>Job</th><th>只允許使用</th></tr>
-<tr><td>Cover</td><td>受眾與今天的 decision</td><td>已核准標題、brand</td></tr>
+<tr><th>頁面</th><th>工作</th><th>只允許使用</th></tr>
+<tr><td>封面</td><td>受眾與今天的 decision</td><td>已核准標題、brand</td></tr>
 <tr><td>Evidence</td><td>一個 confirmed chart／comparison</td><td>claim ledger 通過項目</td></tr>
-<tr><td>Recommendation</td><td>取捨、owner、next action</td><td>已標示的 inference／decision</td></tr>
+<tr><td>建議</td><td>取捨、owner、next action</td><td>已標示的 inference／decision</td></tr>
 </table>
 
 <h2>Agent prompt 骨架</h2>
@@ -60,10 +60,10 @@ Plan first. Then edit. Run npm run build and report evidence.</pre>
 
 <h2>Feedback loop</h2>
 <div class="grid">
-  <div class="card"><strong>1 · Inspect</strong>在 browser 選定具體元素，不用「整份更好看」。</div>
-  <div class="card"><strong>2 · Comment</strong>寫清問題、保留項、成功條件，再 Save。</div>
-  <div class="card"><strong>3 · Apply</strong>請 agent 使用 <code>apply-comments</code>，review 實際 Git diff。</div>
-  <div class="card"><strong>4 · Verify</strong>開啟 <code>dist/</code>，重跑 claims、rights、keyboard、目標螢幕與彩排。</div>
+  <div class="card"><strong>1 · 檢查</strong>在 browser 選定具體元素，不用「整份更好看」。</div>
+  <div class="card"><strong>2 · 評論</strong>寫清問題、保留項、成功條件，再 Save。</div>
+  <div class="card"><strong>3 · 套用</strong>請 agent 使用 <code>apply-comments</code>，review 實際 Git diff。</div>
+  <div class="card"><strong>4 · 驗證</strong>開啟 <code>dist/</code>，重跑 claims、rights、keyboard、目標螢幕與彩排。</div>
 </div>
 
 <h2>不可跨越的停止線</h2>

@@ -29,7 +29,7 @@
 <body>
 <p><a href="002-0001-choose-toolbox-lesson.html">← 回 Toolbox selector</a> · <a href="../toc.html">回課目表</a></p>
 <header>
-  <p class="kicker">Phase 2 · Equip · 002-0003 · Conditional toolbox lesson</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0003 · Conditional toolbox lesson</p>
   <h1>用任務需求選 model，用不確定性選 effort</h1>
   <p class="mission"><strong>任務：</strong>替 active route 寫一張 model／effort selection card，用一個低風險 prompt 驗證選擇是否達到事先定義的 feedback rubric。</p>
 </header>
@@ -38,8 +38,8 @@
 <div class="table-wrap"><table>
   <thead><tr><th>選項</th><th>主要影響</th><th>何時才調整</th></tr></thead>
   <tbody>
-    <tr><td>Model</td><td>可用能力、行為特性、速度與成本邊界</td><td>目前能力與任務複雜度、風險或 context 需求不匹配。</td></tr>
-    <tr><td>Effort</td><td>Agent 嘗試投入多少推理與工作</td><td>scope 已清楚，但不確定性或取捨需要更多分析。</td></tr>
+    <tr><td>模型（Model）</td><td>可用能力、行為特性、速度與成本邊界</td><td>目前能力與任務複雜度、風險或 context 需求不匹配。</td></tr>
+    <tr><td>推理強度（Effort）</td><td>Agent 嘗試投入多少推理與工作</td><td>scope 已清楚，但不確定性或取捨需要更多分析。</td></tr>
   </tbody>
 </table></div>
 <p>可用 model、alias 與 effort levels 會依 model、帳號、provider、組織設定及版本改變。先看目前 session 的 picker 或 CLI help，只選介面實際提供的值；若需要的選項沒有出現，記錄 gap 並返回 active route，不要自行猜測名稱。</p>
@@ -64,7 +64,7 @@ Three observable rubric items:</pre></div>
   <li>用 selection card 指定的設定執行一次，記錄顯示的 model／effort、輸出、延遲或成本訊號，以及 rubric 結果。</li>
   <li>若 rubric 通過就停止；若未通過，只依事先寫好的 escalation signal 調整一次。重複失敗時修 scope、context 或 feedback loop，不用更高 effort 硬跑。</li>
 </ol>
-<div class="win"><strong>Tangible win：</strong>一張 selection card，加上一筆 bounded model／effort smoke-test record。<br><strong>Observable feedback：</strong>介面顯示的設定與 card 一致；三個 rubric items 有逐項結果；你能說明保留、升級、降級或停止的理由。</div>
+<div class="win"><strong>具體成果：</strong>一張 selection card，加上一筆 bounded model／effort smoke-test record。<br><strong>可觀察回饋：</strong>介面顯示的設定與 card 一致；三個 rubric items 有逐項結果；你能說明保留、升級、降級或停止的理由。</div>
 
 <div class="quiz" data-answer="1">
   <p>高 effort 的 smoke test 仍無法指出關鍵未知資訊，下一步應該是什麼？</p>
@@ -74,7 +74,7 @@ Three observable rubric items:</pre></div>
   <div class="why">Model 與 effort 是工作設定，不會補回缺少的 context、模糊 scope 或失效的驗證方式。</div>
 </div>
 
-<p class="stop"><strong>Return boundary：</strong>把 selection card、rubric 結果與 learner judgment 寫回 Return notebook，狀態只記為 <code>Lesson practiced</code>，然後回到原本的 <code>Targeted-remediation return point</code>。本課不產生 active route artifact，也不授權更高權限。</p>
+<p class="stop"><strong>返回邊界：</strong>把 selection card、rubric 結果與 learner judgment 寫回 Return notebook，狀態只記為 <code>Lesson practiced</code>，然後回到原本的 <code>Targeted-remediation return point</code>。本課不產生 active route artifact，也不授權更高權限。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
 <p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">

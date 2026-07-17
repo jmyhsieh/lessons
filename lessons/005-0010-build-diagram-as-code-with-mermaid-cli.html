@@ -13,20 +13,20 @@
 </style>
 </head>
 <body>
-<p style="margin:0"><a href="005-0007-export-and-rehearse.html" style="font-size:.85rem">← Presentation core closeout</a> · <a href="../reference/claude-design-presentation-workflow.html">Presentation workflow</a></p>
-<div class="kicker">Phase 5 · 005-0010 · 約 30–45 分鐘 · Conditional Code-first elective</div>
+<p style="margin:0"><a href="005-0007-export-and-rehearse.html" style="font-size:.85rem">← Presentation core closeout</a> · <a href="../reference/claude-design-presentation-workflow.html">Presentation workflow 參考</a></p>
+<div class="kicker">第 5 階段 · 005-0010 · 約 30–45 分鐘 · Conditional Code-first elective</div>
 <h1>用 Mermaid CLI 建立可審查的 diagram-as-code</h1>
-<p class="mission"><strong>Entry／Code readiness：</strong>第 07 課的 core closeout 已通過，而且新需求需要可 diff、可重跑的流程圖／關係圖；圖中每個節點與連線都能回到已確認的 source ID。使用 pinned Mermaid CLI 只建立一張 diagram vertical slice，將原始碼、render command 與輸出一起交給 reviewer。</p>
+<p class="mission"><strong>進入條件／Code readiness：</strong>第 07 課的 core closeout 已通過，而且新需求需要可 diff、可重跑的流程圖／關係圖；圖中每個節點與連線都能回到已確認的 source ID。使用 pinned Mermaid CLI 只建立一張 diagram vertical slice，將原始碼、render command 與輸出一起交給 reviewer。</p>
 <div class="scope"><strong>本課只做：</strong>一個 bounded <code>.mmd</code> source、一次 SVG render、一次事實／可及性／slide-fit review。<br><strong>先不要做：</strong>把整份 deck 圖表化、把 render 成功當成內容正確，或用圖中的箭頭自行創造因果關係。</div>
-<div class="rule"><strong>Completion boundary：</strong>這是 optional continuation。完成、跳過或失敗都不會增加或撤銷第 07 課的 Presentation completion；單張 diagram 與成功 render 也不能單獨構成 Presentation closeout。</div>
+<div class="rule"><strong>完成邊界：</strong>這是 optional continuation。完成、跳過或失敗都不會增加或撤銷第 07 課的 Presentation completion；單張 diagram 與成功 render 也不能單獨構成 Presentation closeout。</div>
 
 <h2>先把圖的 claim 寫成一句話</h2>
 <table>
 <tr><th>欄位</th><th>例子</th><th>阻擋條件</th></tr>
-<tr><td>Audience question</td><td>哪三個 evidence gates 才能進入 delivery？</td><td>只想讓 slide「更豐富」</td></tr>
-<tr><td>Diagram claim</td><td>Source → Claim → Slide 是 traceability 流程，不是時間估算</td><td>箭頭語意不明或暗示未證實因果</td></tr>
-<tr><td>Source IDs</td><td>每個 factual node 對應 ledger ID</td><td>節點文字由模型補齊且無來源</td></tr>
-<tr><td>Fallback</td><td>同內容的文字清單／表格</td><td>只能靠顏色、位置或視覺連線理解</td></tr>
+<tr><td>受眾問題</td><td>哪三個 evidence gates 才能進入 delivery？</td><td>只想讓 slide「更豐富」</td></tr>
+<tr><td>圖表主張</td><td>Source → Claim → Slide 是 traceability 流程，不是時間估算</td><td>箭頭語意不明或暗示未證實因果</td></tr>
+<tr><td>來源 IDs</td><td>每個 factual node 對應 ledger ID</td><td>節點文字由模型補齊且無來源</td></tr>
+<tr><td>備援（Fallback）</td><td>同內容的文字清單／表格</td><td>只能靠顏色、位置或視覺連線理解</td></tr>
 </table>
 
 <h2>用 pinned CLI render 最小 slice</h2>
@@ -47,7 +47,7 @@ PUPPETEER_SKIP_DOWNLOAD=true npx --yes @mermaid-js/mermaid-cli@11.16.0 \
   -p puppeteer-config.json -i diagram.mmd -o diagram.svg
 test -s diagram.svg
 shasum -a 256 diagram.svg</pre>
-<p class="rule"><strong>Command evidence boundary：</strong>本課釘定 <code>@mermaid-js/mermaid-cli@11.16.0</code>，並假設本機 Google Chrome 路徑存在。版本、browser 或輸出 hash 與紀錄不符時先停下來查明；不要無聲改用 <code>latest</code>。Hash 只能辨識輸出 bytes，不能證明圖中 claims。</p>
+<p class="rule"><strong>命令證據邊界：</strong>本課釘定 <code>@mermaid-js/mermaid-cli@11.16.0</code>，並假設本機 Google Chrome 路徑存在。版本、browser 或輸出 hash 與紀錄不符時先停下來查明；不要無聲改用 <code>latest</code>。Hash 只能辨識輸出 bytes，不能證明圖中 claims。</p>
 
 <h2>實作 checklist</h2>
 <div class="step"><label><input type="checkbox"> 1. 選一個 diagram question</label><p>從已通過的 storyboard／claim ledger 取一個流程或關係；列出 source IDs、箭頭語意、需要揭露的 unknown 與文字 fallback。</p></div>
@@ -55,14 +55,14 @@ shasum -a 256 diagram.svg</pre>
 <div class="step"><label><input type="checkbox"> 3. Render 並檢查 SVG</label><p>保存 exact version、command、exit status、non-empty output 與 hash；用 browser 打開 SVG，檢查 clipping、font fallback、contrast 與 200% zoom。</p></div>
 <div class="step"><label><input type="checkbox"> 4. 放回 target slide 驗證</label><p>在實際尺寸檢查 label 可讀性、投影距離與周邊內容；同時提供等價文字說明。依 <a href="005-0006-verify-claims-and-accessibility.html">005-0006</a>重查 claims／accessibility。</p></div>
 <div class="step"><label><input type="checkbox"> 5. 固定 repo candidate 並完成 Review</label><p>若 <code>.mmd</code>、config 或 SVG 進 repo，建立 immutable candidate SHA，再依 <a href="../reference/repo-review-contract.html">Repo Review contract</a>分開做 Standards Review 與 Spec Review。任何修正都建立新 SHA，重跑 render、checks 與兩軸 Review。</p></div>
-<div class="done-banner" id="done"><strong>Tangible win：一組可由別人重跑的 <code>.mmd</code>、pinned render command、non-empty SVG、hash、文字 fallback 與 exact-SHA Review evidence。</strong><br><strong>Observable feedback：</strong>請 reviewer 從 source IDs 逐一核對節點與箭頭，再於 target slide 只看圖重述其 claim；記錄錯誤關係、無法理解的連線、被截斷文字與缺少的 fallback，修正後重新 render／review。</div>
+<div class="done-banner" id="done"><strong>具體成果：一組可由別人重跑的 <code>.mmd</code>、pinned render command、non-empty SVG、hash、文字 fallback 與 exact-SHA Review evidence。</strong><br><strong>可觀察回饋：</strong>請 reviewer 從 source IDs 逐一核對節點與箭頭，再於 target slide 只看圖重述其 claim；記錄錯誤關係、無法理解的連線、被截斷文字與缺少的 fallback，修正後重新 render／review。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="2"><p>1. Mermaid CLI render 成功後，哪個結論成立？</p><button>圖中的關係已由來源證實</button><button>SVG 在所有 slide 與輔助科技中都可及</button><button>語法與轉換成功；claims、accessibility 與 slide fit 仍需獨立驗證</button><div class="why">Renderer 只能證明這次輸入可轉成輸出；它不知道箭頭是否符合來源，也不會替你完成 target-context review。</div></div>
 <div class="quiz" data-answer="1"><p>2. 哪一個需求適合進入本 elective？</p><button>想替 deck 增加裝飾圖，但沒有明確問題</button><button>要把已確認的流程保留為可 diff、可重跑的 diagram source</button><button>需要用圖取代第 07 課的 target-format validation 與彩排</button><div class="why">Diagram-as-code 的價值是可追蹤、可重跑的關係表達；它不應創造 claims，也不能替代 core closeout。</div></div>
 
 <h2>返回與停止線</h2>
-<p><strong>Return／continuation：</strong>diagram、文字 fallback、target-slide check 與 Review bundle 都通過後，直接回 <a href="../toc.html">課目表</a>。若新需求改為 version-controlled React deck，另選 <a href="005-0009-build-versioned-deck-with-open-slide.html">005-0009 Open-Slide</a>；兩個 electives 沒有先後依賴。</p>
+<p><strong>返回／續行：</strong>diagram、文字 fallback、target-slide check 與 Review bundle 都通過後，直接回 <a href="../toc.html">課目表</a>。若新需求改為 version-controlled React deck，另選 <a href="005-0009-build-versioned-deck-with-open-slide.html">005-0009 Open-Slide</a>；兩個 electives 沒有先後依賴。</p>
 <p class="scope"><strong>合法停止點：</strong>CLI／browser identity 不符、factual node 或箭頭無 source ID、pending claim 被畫成 confirmed、SVG 為空、文字 fallback 缺少、target slide 不可讀、candidate 未固定，或 Review finding 未解決時，保留 source 與 command evidence 後停止。回 <a href="005-0002-build-source-pack.html">005-0002</a>或本課對應步驟修正；不可發布，也不可改寫 core closeout。</p>
 <footer data-course-footer="canonical" data-route-id="presentation-delivery" data-legal-stop="Stop at Presentation closeout; adaptations and code-first options are elective">
 <p><strong>路線導覽 · 簡報交付</strong></p>

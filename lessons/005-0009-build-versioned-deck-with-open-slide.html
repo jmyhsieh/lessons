@@ -14,11 +14,11 @@
 </head>
 <body>
 <p style="margin:0"><a href="005-0007-export-and-rehearse.html" style="font-size:.85rem">← Presentation core closeout</a> · <a href="../reference/open-slide-agent-deck-workflow.html">Open-Slide 速查表</a></p>
-<div class="kicker">Phase 5 · 005-0009 · 約 45–60 分鐘 · Conditional Code-first elective</div>
+<div class="kicker">第 5 階段 · 005-0009 · 約 45–60 分鐘 · Conditional Code-first elective</div>
 <h1>用 Open-Slide 建立可版本控制的 deck</h1>
-<p class="mission"><strong>Entry／Code readiness：</strong>第 07 課的 core closeout 已通過；新需求接受 static HTML／browser-print PDF，且 Git diff、React 客製或部署價值足以承擔 Node、repo 與 Review 成本。重用已驗證的 source pack 與 storyboard，只建立 3 頁 React vertical slice，完成 comment → edit → build → immutable Review 的可重現迴圈。</p>
+<p class="mission"><strong>進入條件／Code readiness：</strong>第 07 課的 core closeout 已通過；新需求接受 static HTML／browser-print PDF，且 Git diff、React 客製或部署價值足以承擔 Node、repo 與 Review 成本。重用已驗證的 source pack 與 storyboard，只建立 3 頁 React vertical slice，完成 comment → edit → build → immutable Review 的可重現迴圈。</p>
 <div class="scope"><strong>本課只做：</strong>在獨立 workspace 重建 cover、evidence、recommendation 三頁並驗證 static build。<br><strong>先不要做：</strong>重做整份 deck、把 build 成功當成內容正確，或承諾 open-slide 能交付 PPTX。</div>
-<div class="rule"><strong>Completion boundary：</strong>這是 optional continuation；完成、跳過或失敗都不會增加或撤銷第 07 課的 Presentation completion。3 頁 build 或本課 Review 也不能單獨構成 Presentation closeout。</div>
+<div class="rule"><strong>完成邊界：</strong>這是 optional continuation；完成、跳過或失敗都不會增加或撤銷第 07 課的 Presentation completion。3 頁 build 或本課 Review 也不能單獨構成 Presentation closeout。</div>
 
 <h2>先選對產製路線</h2>
 <div class="compare">
@@ -60,12 +60,12 @@ Constraints:
 - After editing, run npm run build and report changed files and checks.</pre>
 
 <h2>實作 checklist</h2>
-<div class="step"><label><input type="checkbox"> 1. 確認 open-slide 真的是對的分支</label><p>交付接受 HTML／PDF，而且 Git diff、React 客製或部署能力帶來實際價值；若必須交可編輯 PPTX，留在 Claude Design 主線。</p></div>
+<div class="step"><label><input type="checkbox"> 1. 確認 open-slide 工具真的是對的分支</label><p>交付接受 HTML／PDF，而且 Git diff、React 客製或部署能力帶來實際價值；若必須交可編輯 PPTX，留在 Claude Design 主線。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 建立獨立 workspace 並讓 agent 先讀 rules</label><p>啟動 dev server，確認 starter slide 可開啟；不要在目前教材 repo 裡執行 <code>init</code>。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 產生 v0，留下兩個可驗收 comments</label><p>在 browser inspector 指定元素、問題、保留項與成功條件，再請 agent 使用 <code>apply-comments</code>；不要用「更好看」當回饋。</p></div>
 <div class="step"><label><input type="checkbox"> 4. Build、preview，再重跑驗證</label><p>執行 <code>npm run build</code> 與 <code>npm run preview</code>，打開 <code>dist/</code> 版本；依<a href="005-0006-verify-claims-and-accessibility.html">第 06 課</a>重查 claims、rights 與 keyboard navigation，再依<a href="005-0007-export-and-rehearse.html">第 07 課</a>檢查目標螢幕與真實彩排。PDF 要從 Export → PDF 或 <code>?print=1</code> 另行檢查。Build green 只證明工具能產生輸出。</p></div>
 <div class="step"><label><input type="checkbox"> 5. 固定 candidate，再做兩軸 Review</label><p>commit 成 immutable candidate SHA，依 <a href="../reference/repo-review-contract.html">Repo Review contract</a>分開做 Standards Review 與 Spec Review。任何 finding 修正都要建立新 SHA，重跑 build／checks 與兩個 Review；不可把舊 evidence 搬到新 candidate。</p></div>
-<div class="done-banner" id="done"><strong>Tangible win：一個 exact 3-page Open-Slide vertical slice、static build、Git diff 與綁定 exact candidate SHA 的 Review bundle。</strong><br><strong>Observable feedback：</strong>另一位 reviewer 能由同一 SHA 重建 build、逐一對照三頁與 source IDs，並在 target screen 只用鍵盤操作；記錄 claim mismatch、navigation failure、layout overflow 與 Review findings，而非只評「好不好看」。</div>
+<div class="done-banner" id="done"><strong>具體成果：一個 exact 3-page Open-Slide vertical slice、static build、Git diff 與綁定 exact candidate SHA 的 Review bundle。</strong><br><strong>可觀察回饋：</strong>另一位 reviewer 能由同一 SHA 重建 build、逐一對照三頁與 source IDs，並在 target screen 只用鍵盤操作；記錄 claim mismatch、navigation failure、layout overflow 與 Review findings，而非只評「好不好看」。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1"><p>1. 哪種需求最適合 open-slide？</p><button>需要把可編輯 PPTX 檔交給同事接手修改</button><button>需要將 React 簡報納入 Git 版控</button><button>需要由完全不接觸 repo 的團隊長期維護簡報</button><div class="why">open-slide 的 inspector 也能直接調整元素並留下 comments；真正的分界是 React／Git 是否能作為 source of truth，以及交付是否必須是可編輯 PPTX。</div></div>
@@ -73,7 +73,7 @@ Constraints:
 
 <h2>選修收尾、返回與主要閱讀</h2>
 <p>把命令、prompt、停止線保存成 <a href="../reference/open-slide-agent-deck-workflow.html">open-slide agent deck 速查表</a>。Static HTML／PDF 的正式邊界見 <a href="https://open-slide.dev/docs/core-feature/export">open-slide Export</a>。</p>
-<p><strong>Return／continuation：</strong>Review bundle 通過後，直接回 <a href="../toc.html">課目表</a>。只有新的 diagram-as-code 需求才另選 Mermaid CLI elective；不要把 one-pager 或 diagram 當成本課的必修下一步。</p>
+<p><strong>返回／續行：</strong>Review bundle 通過後，直接回 <a href="../toc.html">課目表</a>。只有新的 diagram-as-code 需求才另選 Mermaid CLI elective；不要把 one-pager 或 diagram 當成本課的必修下一步。</p>
 <p class="scope"><strong>合法停止點：</strong>CLI identity 不符、audit 不符合政策、repo rules 未讀、source ID／rights 不可追溯、static build 未驗證、target-screen accessibility／rehearsal 未跑、candidate 未固定，或任一 Review finding 未解決時，保留 workspace 與 evidence 後停止。回本課對應步驟或 <a href="005-0002-build-source-pack.html">005-0002</a>修正；不可擴成完整 deck、發布，也不可改寫 core closeout。</p>
 <footer data-course-footer="canonical" data-route-id="presentation-delivery" data-legal-stop="Stop at Presentation closeout; adaptations and code-first options are elective">
 <p><strong>路線導覽 · 簡報交付</strong></p>

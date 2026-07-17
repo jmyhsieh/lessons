@@ -14,7 +14,7 @@
 </head>
 <body>
 <p><a href="001-0002-define-route-readiness.html">← 回 readiness 選擇</a> · <a href="../toc.html">回課目表</a></p>
-<header><p class="kicker">Phase 1 · Orient · 001-0004 · Code readiness entry</p><h1>先證明 CLI 與 session 可用</h1><p class="mission"><strong>任務：</strong>在不修改任何 repo 的情況下，記錄 Claude Code binary、help surface 與一次互動 session 的 smoke evidence。</p></header>
+<header><p class="kicker">第 1 階段 · 定向 · 001-0004 · Code readiness entry</p><h1>先證明 CLI 與 session 可用</h1><p class="mission"><strong>任務：</strong>在不修改任何 repo 的情況下，記錄 Claude Code binary、help surface 與一次互動 session 的 smoke evidence。</p></header>
 
 <h2>先做 non-mutating checks</h2>
 <pre><code>claude --version
@@ -28,7 +28,7 @@ claude --help</code></pre>
   <li>請它只回答目前工作目錄與可看到的檔案，不建立或修改檔案。</li>
   <li>離開 session，記錄成功輸出、版本、平台與任何登入阻塞。</li>
 </ol>
-<div class="win"><strong>Tangible win：</strong>一筆 session smoke record。<br><strong>Observable feedback：</strong><code>--version</code>、<code>--help</code> 與互動 session 都有可辨識輸出，且 fixture 內容未改變。</div>
+<div class="win"><strong>具體成果：</strong>一筆 session smoke record。<br><strong>可觀察回饋：</strong><code>--version</code>、<code>--help</code> 與互動 session 都有可辨識輸出，且 fixture 內容未改變。</div>
 
 <div class="quiz" data-answer="1"><p>若登入或 session 啟動失敗，正確的 route 動作是什麼？</p><button type="button">改到真實 repo 再試，取得更多 context</button><button type="button">把阻塞寫進 Return notebook，停在本課並修復最小 readiness gap</button><button type="button">略過 smoke test，直接練 bounded edit</button><div class="why">本課是 Code readiness entry；session 尚不可用時，後續 repo 探索與 edit evidence 都不可信。</div></div>
 
