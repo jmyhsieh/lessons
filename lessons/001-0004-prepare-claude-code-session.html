@@ -13,24 +13,24 @@
 </style>
 </head>
 <body>
-<p><a href="001-0002-define-route-readiness.html">← 回準備度選擇</a> · <a href="../toc.html">回課目表</a></p>
-<header><p class="kicker">第 1 階段 · 定向 · 001-0004 · 程式碼作業準備度入口</p><h1>先證明 CLI 與工作階段可用</h1><p class="mission"><strong>任務：</strong>在不修改任何 repo 的情況下，記錄 Claude Code 執行檔、說明介面與一次互動工作階段的快速驗證證據。</p></header>
+<p><a href="001-0002-define-route-readiness.html">← 回 準備度 選擇</a> · <a href="../toc.html">回課目表</a></p>
+<header><p class="kicker">第 1 階段 · 定向 · 001-0004 · 程式碼作業準備度 入口</p><h1>先證明 CLI 與工作階段可用</h1><p class="mission"><strong>任務：</strong>在不修改任何 repo 的情況下，記錄 Claude Code 執行檔、說明介面與一次互動工作階段的快速驗證證據。</p></header>
 
 <h2>先做不產生變更的檢查</h2>
 <pre><code>claude --version
 claude --help</code></pre>
-<p>記下實際版本與說明中的互動入口。課程在 2026-07-16 的已驗證環境是 macOS arm64／zsh、<code>claude-code@2.1.211</code>；你的版本可以不同，必須記錄而不能假裝相同。</p>
+<p>記下實際版本與 說明 中的互動入口。課程在 2026-07-16 的已驗證環境是 macOS arm64／zsh、<code>claude-code@2.1.211</code>；你的版本可以不同，必須記錄而不能假裝相同。</p>
 
 <h2>在空白練習資料夾開啟工作階段</h2>
 <ol>
   <li>建立或選擇一個不含專案資料的空白練習資料夾。</li>
   <li>在該資料夾執行 <code>claude</code>，依產品流程完成登入。</li>
   <li>請它只回答目前工作目錄與可看到的檔案，不建立或修改檔案。</li>
-  <li>離開工作階段，記錄成功輸出、版本、平台與任何登入阻塞。</li>
+  <li>離開 工作階段，記錄成功輸出、版本、平台與任何登入阻塞。</li>
 </ol>
 <div class="win"><strong>具體成果：</strong>一筆工作階段快速驗證紀錄。<br><strong>可觀察回饋：</strong><code>--version</code>、<code>--help</code> 與互動工作階段都有可辨識輸出，且 fixture 內容未改變。</div>
 
-<div class="quiz" data-answer="1"><p>若登入或工作階段啟動失敗，正確的 route 動作是什麼？</p><button type="button">改到真實 repo 再試，取得更多脈絡</button><button type="button">把阻塞寫進 Return notebook，停在本課並修復最小就緒缺口</button><button type="button">略過快速驗證，直接練有界限的編輯</button><div class="why">本課是程式碼作業準備度入口；工作階段尚不可用時，後續 repo 探索與編輯證據都不可信。</div></div>
+<div class="quiz" data-answer="1"><p>若登入或工作階段啟動失敗，正確的 route 動作是什麼？</p><button type="button">改到真實 repo 再試，取得更多脈絡</button><button type="button">把阻塞寫進 Return notebook，停在本課並修復最小就緒缺口</button><button type="button">略過快速驗證，直接練有界限的編輯</button><div class="why">本課是 程式碼作業準備度 入口；工作階段 尚不可用時，後續 repo 探索與編輯證據都不可信。</div></div>
 
 <p class="stop"><strong>停止線：</strong>本課不授權儲存庫寫入。沒有快速驗證證據就不要前進；成功後進入<a href="001-0005-map-repo-read-only.html">唯讀勘查</a>。</p>
 <footer data-course-footer="canonical" data-route-id="code-readiness" data-legal-stop="Stop after Code readiness is demonstrated; do not treat fixture work as delivery">

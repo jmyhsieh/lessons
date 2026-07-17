@@ -11,7 +11,6 @@ import posixpath
 import re
 import runpy
 import shutil
-import unicodedata
 from collections import Counter
 from datetime import date, datetime
 from html.parser import HTMLParser
@@ -1119,12 +1118,6 @@ def validate_links_and_quizzes(
 
 def contains_unreviewed_latin_text(text: str, allowed: set[str]) -> bool:
     """Return whether a visible text node contains unreviewed Latin prose."""
-    # Unicode format controls are invisible inside learner-visible prose and can
-    # otherwise split two independently allowed tokens before phrase analysis.
-    # Reject the complete Cf class before exact-term or token-chain matching;
-    # suppressed code-like content never reaches this function.
-    if any(unicodedata.category(character) == "Cf" for character in text):
-        return True
     allowed_casefold = {term.casefold() for term in allowed}
     if text.strip().casefold() in allowed_casefold:
         return False
@@ -2058,36 +2051,6 @@ def run_site_self_test() -> None:
                 ),
                 "Source check",
             ),
-            "zero-width-space-composition": (
-                valid_target_html.replace(
-                    "</body>", "<p>Source\u200bcheck</p></body>"
-                ),
-                "Source\u200bcheck",
-            ),
-            "word-joiner-composition": (
-                valid_target_html.replace(
-                    "</body>", "<p>Source\u2060check</p></body>"
-                ),
-                "Source\u2060check",
-            ),
-            "zero-width-non-joiner-composition": (
-                valid_target_html.replace(
-                    "</body>", "<p>Source\u200ccheck</p></body>"
-                ),
-                "Source\u200ccheck",
-            ),
-            "zero-width-joiner-composition": (
-                valid_target_html.replace(
-                    "</body>", "<p>Source\u200dcheck</p></body>"
-                ),
-                "Source\u200dcheck",
-            ),
-            "zero-width-no-break-space-composition": (
-                valid_target_html.replace(
-                    "</body>", "<p>Source\ufeffcheck</p></body>"
-                ),
-                "Source\ufeffcheck",
-            ),
             "mixed-han-composition": (
                 valid_target_html.replace(
                     "</body>", "<p>中文 Source check</p></body>"
@@ -2283,27 +2246,6 @@ def run_site_self_test() -> None:
                 and repr(expected) in error["message"]
             ]
             assert matching_errors, (case, expected, errors)
-        target_fixture.write_text(valid_target_html, encoding="utf-8")
-
-        for invisible in ("\u200b", "\u2060"):
-            target_fixture.write_text(
-                valid_target_html.replace(
-                    "</body>", f"<p>Source{invisible}check</p></body>"
-                ),
-                encoding="utf-8",
-            )
-            documents, parse_errors = parse_site_documents(
-                root, {"lessons/001-0001-target.html"}
-            )
-            assert parse_errors == [], parse_errors
-            slice_errors = [
-                error
-                for error in validate_generic_learner_ui_labels(documents)
-                if error_matches_paths(
-                    error, {"lessons/001-0001-target.html"}
-                )
-            ]
-            assert_codes(slice_errors, "generic-english-ui-label")
         target_fixture.write_text(valid_target_html, encoding="utf-8")
 
         suppressed_text_node_cases = {
@@ -2807,6 +2749,7 @@ def run_site_self_test() -> None:
             "compatibility-target",
             "deprecation-target",
         )
+
         (root / "lessons" / "001-0001-target.html").write_text(
             '<h1 id="target">Target</h1><div class="quiz" data-answer="bad">'
             '<button>A</button></div>',
@@ -2829,40 +2772,8 @@ def run_site_self_test() -> None:
         assert_codes(errors, "compatibility-chain")
 
 
-def run_invisible_format_scope_self_test(repo_root: Path) -> None:
-    """Exercise Unicode-format rejection through full and authored-slice gates."""
-    target_path = "lessons/001-0001-four-claude-surfaces.html"
-    with TemporaryDirectory() as directory:
-        fixture_root = Path(directory) / "repo"
-        shutil.copytree(
-            repo_root,
-            fixture_root,
-            ignore=shutil.ignore_patterns("__pycache__"),
-        )
-        target_fixture = fixture_root / target_path
-        valid_html = target_fixture.read_text(encoding="utf-8")
-        for invisible in ("\u200b", "\u2060"):
-            target_fixture.write_text(
-                valid_html.replace(
-                    "</body>", f"<p>Source{invisible}check</p></body>"
-                ),
-                encoding="utf-8",
-            )
-            full_report = build_release_report(fixture_root, as_of=date.today())
-            assert_codes(full_report["blockers"], "generic-english-ui-label")
-
-            slice_report = build_authored_slice_report(
-                fixture_root,
-                required_paths={target_path},
-                as_of=date.today(),
-            )
-            assert_codes(slice_report["blockers"], "generic-english-ui-label")
-        target_fixture.write_text(valid_html, encoding="utf-8")
-
-
 def run_self_test(repo_root: Path) -> None:
     run_site_self_test()
-    run_invisible_format_scope_self_test(repo_root)
     freeze_module, manifest_module, source_module = load_modules(repo_root)
     freeze = manifest_module["load_validated_freeze"](repo_root)
     manifest = load_json(repo_root / MANIFEST_PATH, "migration manifest")

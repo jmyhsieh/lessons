@@ -32,7 +32,7 @@ Learner disposition: proceed to recovery exercise / return / stop</pre></div>
 <p class="rule"><strong>完成不等於驗收：</strong>確定性判定器可以回答「是否符合明定判定式」。若artifact品質、敏感資料、費用、權利、不可逆風險或例外是否可接受仍需判斷，就保留核准stop，讓學習者／負責人處置；模型不因check通過取得批准權。</p>
 <p class="boundary"><strong>外部證據：</strong>本標準的執行預期 <code>external actions: none</code>。若真實任務另有核准副作用，完成證明還須對上目標／payload、冪等鍵、服務收據與事後條件；缺收據不可用本機檢查通過猜測遠端成功。沒有外部動作不影響自學證明。</p>
 <div class="win"><strong>可見成果：</strong>一份綁定執行／輸入／工作流／fixture識別，含關鍵的oracle結果、反向校準、範圍check與誠實的限制的完成證明。<br><strong>可觀察回饋：</strong>另一人能重新執行同一oracle，讓反證副本失敗、讓本次輸出通過，並把確定性觀察與代理程式推論／人工驗收分開。</div>
-<div class="quiz" data-answer="1"><p>驗證器以0結束，但檢查的是未標示執行ID的共用輸出目錄，該怎麼處置？</p><button type="button">接受，結束0就是確定性證明</button><button type="button">停止；先把證據綁定本次輸入、執行與fixture，再用同一oracle重跑</button><button type="button">請代理程式判斷目錄內容是否像本次產物</button><div class="why">確定性不只指命令可重跑；證明必須識別本次主張。未綁識別的通過可能只是舊輸出，不能由代理程式目測補足。</div></div>
+<div class="quiz" data-answer="1"><p>驗證器結束0，但檢查的是未標執行ID的共用的輸出目錄，該怎麼處置？</p><button type="button">接受，結束0就是確定性證明</button><button type="button">停止；先把證據綁定本次輸入、執行與fixture，再用同一oracle重跑</button><button type="button">請代理程式判斷目錄內容是否像本次產物</button><div class="why">確定性不只指命令可重跑；證明必須識別本次主張。未綁識別的通過可能只是舊輸出，不能由代理程式目測補足。</div></div>
 <p class="stop"><strong>合法停止／返回／續行：</strong>Oracle變更輸出、識別對不上、反向校準不再失敗、輸入涵蓋範圍／範圍指紋不完整、部分的／略過未處置，或判斷被偽裝成確定性通過時，保存證明草稿並回008-0001或相應執行分支。證明完整後，進 <a href="008-0006-exercise-failure-and-recovery.html">008-0006</a> 做受控失敗／復原演練；現在仍不能收尾。</p>
 <footer data-course-footer="canonical" data-route-id="agent-operations" data-legal-stop="Stop after completion proof and recovery evidence are both recorded">
 <p><strong>路線導覽 · Agent 作業</strong></p>

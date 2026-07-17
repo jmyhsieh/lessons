@@ -11,7 +11,7 @@
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:820px;margin:2.5rem auto;padding:0 1.25rem;line-height:1.8;color:#202020}h2{color:#315f86}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccd9e3;padding:.55rem;vertical-align:top;text-align:left}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}button{display:block;width:100%;padding:.6rem;margin:.4rem 0;text-align:left;background:white;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:650px){body{margin-top:1rem}table{font-size:.84rem}th,td{padding:.4rem}}</style>
 </head><body>
 <p><a href="006-0001-choose-engineering-route.html">← 工程路線</a> · <a href="006-0010-triage-external-report.html">外部回報分流</a></p>
-<header><p>第 6 階段 · 建置 · 006-0011 · Conditional 分支</p><h1>先造出會轉紅的回饋迴路，再診斷難解錯誤</h1><p class="mission"><strong>進入條件／條件分支：</strong>適用於已確認的難解、間歇、回歸錯誤或效能退化；你已掌握精確症狀、可用的安全工作區、儲存庫指引與可執行檢查。一般範圍清楚的錯誤不必強制走本分支。</p></header>
+<header><p>第 6 階段 · 建置 · 006-0011 · Conditional 分支</p><h1>先造出會轉紅的回饋迴路，再診斷難解錯誤</h1><p class="mission"><strong>進入條件／條件分支：</strong>適用於已確認的難解、間歇、回歸錯誤或效能退化；你已掌握精確症狀、可用的安全工作區、儲存庫指引與可執行檢查。一般範圍清楚的錯誤 不必強制走本分支。</p></header>
 <h2>1. 先交出一個可轉紅命令</h2>
 <p>優先順序可從失敗測試、HTTP／CLI 練習環境、無頭瀏覽器、擷取的追蹤、可拋棄測試架、模糊測試／二分定位／差異迴圈到結構化 HITL。這個命令必須走過真實錯誤路徑、斷言使用者回報的精確症狀，且已至少跑過一次；「沒有當機」不是足夠訊號。</p>
 <div class="card"><pre>Exact reported symptom:
@@ -24,7 +24,7 @@ Runtime / unattended execution:
 Safe environment / data boundary:</pre></div>
 <p class="rule"><strong>循環品質閘門：</strong>可轉紅、確定性（不穩定錯誤則固定高重現率）、快速且代理可執行，四項缺一就繼續縮緊迴圈，不進入原因假說。</p>
 <h2>2. 重現、最小化，再比較假說</h2>
-<ol><li>重跑原始情境，確認紅的是同一個症狀。</li><li>一次移除一個輸入、呼叫端、config 或步驟；留下的每一項都必須承重。</li><li>列出 3–5 個已排序、可證偽假說，每個都寫「若甲是原因，改變乙應觀察到丙」。</li><li>讓學習者／領域負責人看排序，再一次只改一個變因，以除錯器或定向 <code>[DEBUG-…]</code> 探查收集 evidence。</li></ol>
+<ol><li>重跑原始情境，確認紅的是同一個症狀。</li><li>一次移除一個輸入、呼叫端、config 或 步驟；留下的每一項都必須承重。</li><li>列出 3–5 個已排序、可證偽假說，每個都寫「若甲是原因，改變乙應觀察到丙」。</li><li>讓學習者／領域負責人看排序，再一次只改一個變因，以除錯器或定向 <code>[DEBUG-…]</code> 探查 收集 evidence。</li></ol>
 <div class="card"><pre>Minimised repro / remaining load-bearing inputs:
 1. Hypothesis / prediction / probe / result:
 2. Hypothesis / prediction / probe / result:
@@ -32,7 +32,7 @@ Safe environment / data boundary:</pre></div>
 Supported cause / rejected alternatives:
 Learner feedback that changed the ranking:</pre></div>
 <h2>3. 先鎖迴歸，再修正與清理</h2>
-<p>只有能重現真實觸發模式的接縫才寫迴歸測試：先看它紅，再做最小修正、看它綠，最後重跑原始回饋迴路。若沒有正確接縫，誠實記錄；不要用過淺的測試製造假信心。</p>
+<p>只有能重現真實觸發模式的接縫才寫迴歸測試：先看它紅，再做最小修正、看它綠，最後重跑 原始回饋迴路。若沒有正確接縫，誠實記錄；不要用過淺的測試製造假信心。</p>
 <div class="card"><pre>Regression seam / why it is representative:
 Pre-fix RED command / result:
 Minimal fix / supported cause:
@@ -42,7 +42,7 @@ Cleanup: DEBUG tags / throwaway artifacts removed
 Architecture follow-through: none / separate evidence-backed concern</pre></div>
 <p class="boundary"><strong>診斷不是架構實作：</strong>先把錯誤修好並保存迴歸 evidence，再問「什麼會預防它」。若答案是缺乏測試接縫、呼叫端糾纏或隱藏耦合，只記成 <a href="006-0012-find-architecture-seam.html">006-0012 架構後續作業</a> 輸入；不要在同一診斷差異偷跑廣泛重構。</p>
 <div class="win"><strong>具體成果：</strong>一份困難錯誤診斷套件，包含已執行的可轉紅命令、最小重現案例、假說 evidence、迴歸 RED／GREEN、原始迴圈重跑與清理。<br><strong>可觀察回饋：</strong>審查者能用一個命令先捕捉精確症狀，再核對修正後同一訊號轉綠；原因結論可追到可證偽探針，而不是敘事猜測。</div>
-<div class="quiz" data-answer="2"><p>目前只能寫一個單一呼叫端的淺層單元測試，但原始錯誤需要多個呼叫端組成的呼叫鏈才會發生；應怎麼做？</p><button type="button">用淺層測試代替真實迴歸，先宣稱修好</button><button type="button">先做架構重構，之後再重現錯誤</button><button type="button">保留原始紅燈迴圈，記錄缺少正確迴歸接縫，最小修正後另開架構後續工作</button><div class="why">錯誤接縫會製造假信心。先以原始迴圈保護診斷與最小修正，再把缺少測試接縫當作獨立架構 evidence。</div></div>
+<div class="quiz" data-answer="2"><p>目前只能寫一個單一呼叫端的淺層單元測試，但原始錯誤需要多個呼叫端組成的呼叫鏈 才會發生；應怎麼做？</p><button type="button">用淺層測試代替真實迴歸，先宣稱修好</button><button type="button">先做架構重構，之後再重現錯誤</button><button type="button">保留原始紅燈迴圈，記錄缺少正確迴歸接縫，最小修正後另開架構後續工作</button><div class="why">錯誤接縫會製造假信心。先以原始迴圈保護診斷與最小修正，再把缺少測試接縫當作獨立架構 evidence。</div></div>
 <p class="stop"><strong>合法停止／返回／續行：</strong>無法建立可轉紅命令、缺少能重現的環境／artifact／權限、紅的是不同症狀、迴圈仍不穩定、修正後原始迴圈未綠、除錯成果未清，或迴歸／架構邊界不清時，保存所有嘗試後停止並向負責人要存取、HAR／紀錄／追蹤或儀器化權限。Evidence 對齊後，把診斷套件回送 <a href="006-0003-align-engineering-request.html">006-0003</a>，對齊最小交付或獨立架構要求。完成本頁只代表這個錯誤已形成可重現診斷 evidence，不代表工程 Phase 或遷移完成。</p>
 <footer data-course-footer="canonical" data-route-id="engineering-delivery" data-legal-stop="Stop only after final Review evidence matches the delivered checkpoint">
 <p><strong>路線導覽 · 工程交付</strong></p>

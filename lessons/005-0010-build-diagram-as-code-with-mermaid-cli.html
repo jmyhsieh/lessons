@@ -23,8 +23,8 @@
 <h2>先把圖的主張寫成一句話</h2>
 <table>
 <tr><th>欄位</th><th>例子</th><th>阻擋條件</th></tr>
-<tr><td>受眾問題</td><td>哪三個 evidence 關卡才能進入交付？</td><td>只想讓投影片「更豐富」</td></tr>
-<tr><td>圖表主張</td><td>來源 → 主張 → 投影片是可追溯性流程，不是時間估算</td><td>箭頭語意不明或暗示未證實因果</td></tr>
+<tr><td>受眾問題</td><td>哪三個 evidence 關卡 才能進入 交付？</td><td>只想讓投影片「更豐富」</td></tr>
+<tr><td>圖表主張</td><td>來源 → 主張 → 投影片 是 可追溯性 流程，不是時間估算</td><td>箭頭語意不明或暗示未證實因果</td></tr>
 <tr><td>來源 ID</td><td>每個事實 node 對應台帳 ID</td><td>節點文字由模型補齊且無來源</td></tr>
 <tr><td>備援</td><td>同內容的文字清單／表格</td><td>只能靠顏色、位置或視覺連線理解</td></tr>
 </table>
@@ -52,7 +52,7 @@ shasum -a 256 diagram.svg</pre>
 <h2>實作清單</h2>
 <div class="step"><label><input type="checkbox"> 1. 選一個圖表問題</label><p>從已通過的故事板／主張台帳取一個流程或關係；列出來源 ID、箭頭語意、需要揭露的未知項目與文字備援。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 只寫最小 <code>.mmd</code></label><p>限制在能回答問題的節點與邊；待確認主張保留 <code>[待確認]</code>，不要為了對稱補資料。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 轉譯並檢查 SVG</label><p>保存精確版本、命令、結束狀態、非空白輸出與雜湊；用瀏覽器打開 SVG，檢查裁切、字型備援、對比與 200% 縮放。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 轉譯 並檢查 SVG</label><p>保存精確版本、命令、結束狀態、非空白輸出與雜湊；用瀏覽器打開 SVG，檢查裁切、字型備援、對比與 200% 縮放。</p></div>
 <div class="step"><label><input type="checkbox"> 4. 放回目標投影片驗證</label><p>在實際尺寸檢查標籤文字的可讀性、投影距離與周邊內容；同時提供等價文字說明。依 <a href="005-0006-verify-claims-and-accessibility.html">005-0006</a>重查主張／可及性。</p></div>
 <div class="step"><label><input type="checkbox"> 5. 固定儲存庫候選版本並完成 Review</label><p>若 <code>.mmd</code>、config 或 SVG 進儲存庫，建立不可變候選版本 SHA，再依 <a href="../reference/repo-review-contract.html">Repo Review contract</a>分開做 Standards Review 與 Spec Review。任何修正都建立新 SHA，重跑轉譯、checks 與兩軸 Review。</p></div>
 <div class="done-banner" id="done"><strong>具體成果：一組可由別人重跑的 <code>.mmd</code>、固定版本轉譯命令、非空白 SVG、雜湊、文字備援與精確 SHA 審查證據。</strong><br><strong>可觀察回饋：</strong>請審查者從來源 ID 逐一核對節點與箭頭，再於目標投影片只看圖重述其主張；記錄錯誤關係、無法理解的連線、被截斷文字與缺少的備援，修正後重新轉譯／審查。</div>

@@ -31,7 +31,7 @@ Stop and escalation owner:</pre></div>
 <table><tr><th>紀錄</th><th>必須能回答</th></tr><tr><td>執行紀錄</td><td>每個輸入處理一次、跳過、失敗或未處理？重試是否重複？</td></tr><tr><td>範圍差異</td><td>實際讀取／寫入是否精確落在範圍？測試資料外基準是否未變？</td></tr><tr><td>檢查點</td><td>最後成功批次、最後證據、安全續作點與還原點是什麼？</td></tr><tr><td>Agent聲明</td><td>哪些只是摘要／推論，尚未由下一課的oracle觀察？</td></tr></table>
 <p class="boundary"><strong>外部操作邊界：</strong>即使真實工作流最後會寄送、push、部署或更新遠端系統，本課也停在可檢查的本機產物／承載資料預覽。若另有具體權限，外部動作仍須逐次核准、冪等性／去重、收據與復原；它不是自學完成要求。</p>
 <div class="win"><strong>可見成果：</strong>一次具有執行 ID、還原點、有界台帳、範圍diff與安全續作／stop的可復原的本機執行。<br><strong>可觀察回饋：</strong>觀察者能從台帳重建每個項目的處置，核對fixture外未變，並在不依賴代理程式摘要的情況下指出最後檢查點與任何部分失敗。</div>
-<div class="quiz" data-answer="2"><p>第一批成功後，代理程式發現輸入目錄外還有一個「應該一起修」的檔案，該怎麼做？</p><button type="button">既然還原點存在就直接修改</button><button type="button">把檔案加入執行台帳，完成後再告知負責人</button><button type="button">安全停止，保存檢查點與範圍漂移，回演練／權限關卡</button><div class="why">還原能力不等於授權；實際範圍超出授權範圍時必須預設拒絕並安全停止，重新界定範圍後另開執行。</div></div>
+<div class="quiz" data-answer="2"><p>第一批成功後，代理程式發現輸入目錄外還有一個「應該一起修」的檔案，該怎麼做？</p><button type="button">既然還原點存在就直接修改</button><button type="button">把檔案加入執行台帳，完成後再告知負責人</button><button type="button">安全停止，保存檢查點與範圍漂移，回演練／權限關卡</button><div class="why">還原能力不等於授權；實際範圍超出範圍時必須以關閉方式失敗，重新界定範圍後另開執行。</div></div>
 <p class="stop"><strong>合法停止／返回／續行：</strong>還原未實測、前置條件漂移、重疊未排除、實際範圍超界、台帳有不明部分、外部動作被要求但未另行核准，或上限已達時，保存檢查點後停止；範圍／權限問題回008-0003。有界執行結束後，進 <a href="008-0005-prove-workflow-completion.html">008-0005</a>，用確定性判定器建完成證明；本課的通過狀態或代理程式摘要都不算完成。</p>
 <footer data-course-footer="canonical" data-route-id="agent-operations" data-legal-stop="Stop after completion proof and recovery evidence are both recorded">
 <p><strong>路線導覽 · Agent 作業</strong></p>

@@ -59,14 +59,14 @@ Stop condition:</pre></div>
   <li>記錄新工作樹是否缺少被 gitignore 排除的設定或依賴項目；不要為了方便把密鑰改成受追蹤檔案。</li>
   <li>退出工作階段。清理前檢查該工作樹的狀態、未追蹤檔案與提交；只有確認無需保留的工作後才移除，最後再跑 <code>git worktree list</code>。</li>
 </ol>
-<div class="win"><strong>具體成果：</strong>一張工作樹隔離紀錄，含事前／進行中／事後清單。<br><strong>可觀察回饋：</strong>標記只出現在新工作樹；兩個分支/路徑可辨識；清理後清單回到基準，沒有遺失未保存工作。</div>
+<div class="win"><strong>具體成果：</strong>一張工作樹隔離紀錄，含事前／進行中／事後清單。<br><strong>可觀察回饋：</strong>標記 只出現在新工作樹；兩個分支/路徑可辨識；清理後清單回到 基準，沒有遺失未保存工作。</div>
 
 <div class="quiz" data-answer="2">
   <p>兩個工作樹同時指向同一個預備資料庫，是否已被安全隔離？</p>
   <button type="button">是，因為工作目錄不同</button>
   <button type="button">是，只要分支名稱不同</button>
   <button type="button">否，工作樹不隔離外部資源，必須另設權限與資源邊界</button>
-  <div class="why">Worktree 解決本機檔案系統／分支衝突；外部系統、憑證與副作用仍是共享風險。</div>
+  <div class="why">Worktree 解決本機檔案系統／分支衝突；外部系統、憑證 與副作用仍是共享風險。</div>
 </div>
 
 <p class="stop"><strong>合法停止／返回：</strong>Fixture 不乾淨、分支/路徑已存在、兩條任務會碰同一外部資源、或無法判斷工作樹是否有未保存工作時，保留現況並停止，不使用 <code>--force</code> 清理。把隔離證據寫回 Return notebook，記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。</p>

@@ -18,10 +18,10 @@
 
 <h2>進入唯讀規劃</h2>
 <pre><code>claude --permission-mode plan</code></pre>
-<p>使用 001-0005 的地圖，指定一個低風險 fixture，例如修正練習 README 的一個錯字或補上一句已知說明。要求計畫包含：</p>
+<p>使用 001-0005 的 地圖，指定一個低風險 fixture，例如修正練習 README 的一個錯字或補上一句已知說明。要求計畫包含：</p>
 <ul><li>目標與不處理事項</li><li>預計修改的唯一檔案與理由</li><li>修改前要讀的 evidence</li><li>預期 diff 與既有 check</li><li>意外擴張時的停止條件</li></ul>
-<div class="card"><strong>規劃 prompt：</strong>「保持規劃模式。根據儲存庫指引與剛才的地圖，規劃一個只修改練習用 README 的有界限的編輯。不要現在動手。列出檔案、預期 diff、驗證命令、停止條件與尚未確認的假設。」</div>
-<div class="win"><strong>具體成果：</strong>一份可逐項驗收的練習計畫。<br><strong>可觀察回饋：</strong>計畫只列一個預期檔案、引用實際指引，並有一個會因錯誤變更而失敗或顯示差異的 check。</div>
+<div class="card"><strong>規劃 prompt：</strong>「保持規劃模式。根據儲存庫指引與剛才的 地圖，規劃一個只修改練習用 README 的有界限的編輯。不要現在動手。列出檔案、預期 diff、驗證命令、停止條件與尚未確認的假設。」</div>
+<div class="win"><strong>具體成果：</strong>一份可逐項驗收的練習計畫。<br><strong>可觀察回饋：</strong>計畫只列一個預期檔案、引用實際 指引，並有一個會因錯誤變更而失敗或顯示差異的 check。</div>
 
 <div class="quiz" data-answer="0"><p>哪個條件代表計畫仍然有明確界線？</p><button type="button">只改一個已檢查的 fixture 檔案，若需要新增依賴項目就停止</button><button type="button">Claude 判斷必要時可順手整理附近結構</button><button type="button">修改完成後再決定要跑哪些 checks</button><div class="why">有界限的計畫在動手前固定檔案、驗證與停止條件；相鄰清理與事後補 check 都會擴大不確定性。</div></div>
 

@@ -29,7 +29,7 @@
 <body>
 <p><a href="001-0002-define-route-readiness.html">← 回就緒契約</a> · <a href="../toc.html">回課目表</a></p>
 <header>
-  <p class="kicker">第 2 階段 · 裝備 · 002-0001 · 工具箱入口</p>
+  <p class="kicker">第 2 階段 · 裝備 · 002-0001 · 工具箱 入口</p>
   <h1>只補目前任務缺少的一個能力</h1>
   <p class="mission"><strong>任務：</strong>從目前路線的具體阻塞選一個即時工具箱課程，先寫好快速驗證測試與返回點，再進入練習。</p>
 </header>
@@ -37,8 +37,8 @@
 <h2>先帶著路線契約進來</h2>
 <div class="card">
   <ol>
-    <li>從續作筆記本複製任務使命、目前錨點與下一個具體成果。</li>
-    <li>把阻止下一個成果的缺口寫成可觀察句，例如「我不知道這次允許哪些寫入與外部副作用」。</li>
+    <li>從 續作筆記本 複製 任務使命、目前錨點與下一個具體成果。</li>
+    <li>把阻止下一個 成果 的缺口寫成可觀察句，例如「我不知道這次允許哪些寫入與外部副作用」。</li>
     <li>先填 <code>Targeted-remediation return point</code>；它必須是目前路線的確切課程或工作步驟。</li>
     <li>只選一課，並定義一個不碰真實交付物的最小快速驗證測試。</li>
   </ol>
@@ -48,10 +48,10 @@
 <div class="table-wrap"><table>
   <thead><tr><th>目前路線缺口</th><th>選擇</th><th>最小快速驗證測試</th></tr></thead>
   <tbody>
-    <tr><td>不確定本次工作階段可讀、可寫或可造成哪些副作用</td><td><a href="002-0002-set-permission-boundaries.html">設定權限邊界</a></td><td>在安全練習環境證明讀取可行，未核准寫入會停止或詢問。</td></tr>
+    <tr><td>不確定本次工作階段可讀、可寫或可造成哪些副作用</td><td><a href="002-0002-set-permission-boundaries.html">設定權限邊界</a></td><td>在安全練習環境證明 讀取 可行，未核准寫入會停止或詢問。</td></tr>
     <tr><td>任務能力、延遲或推理深度與目前設定不匹配</td><td><a href="002-0003-select-model-and-effort.html">選模型與推理強度</a></td><td>用低風險提示檢查選擇是否滿足事先寫好的回饋評分規準。</td></tr>
     <tr><td>需要在明確生命週期事件後執行確定性回呼</td><td><a href="002-0004-smoke-test-hook.html">快速驗證一個 hook</a></td><td>在可復原練習環境觀察一次相符的觸發條件與一次不相符。</td></tr>
-    <tr><td>需要在工具執行前阻擋一個能以確定性判斷式判斷的危險操作</td><td><a href="002-0005-add-guardrail-hook.html">加入防護 hook</a></td><td>在練習環境證明應阻擋與應放行，不碰真實禁區。</td></tr>
+    <tr><td>需要在工具執行前阻擋一個能以確定性判斷式判斷的危險操作</td><td><a href="002-0005-add-guardrail-hook.html">加入防護 hook</a></td><td>在練習環境證明 應阻擋 與 應放行，不碰真實禁區。</td></tr>
     <tr><td>已有可信 Skill 能直接處理目前的路線缺口</td><td><a href="002-0006-use-existing-skill.html">使用既有 Skill</a></td><td>讀完指示套件，在有界限的任務觀察是否遵守範圍與停止點。</td></tr>
     <tr><td>目前的路線需要從可信外部系統讀取一項資料</td><td><a href="002-0007-connect-trusted-mcp.html">連接受信任 MCP</a></td><td>以最小範圍連接，檢查工具，只執行一個唯讀查詢。</td></tr>
     <tr><td>需要隔離大量唯讀儲存庫調查</td><td><a href="002-0008-delegate-read-only-investigation.html">委派唯讀調查</a></td><td>交給全新 subagent，抽查一個 <code>file:line</code> 引用，確認工作樹不變。</td></tr>
@@ -73,7 +73,7 @@
 <div class="quiz" data-answer="1">
   <p>你在簡報路線遇到模型推理不足，完成模型／推理強度快速驗證測試後，下一步是什麼？</p>
   <button type="button">繼續依序完成第 2 階段全部課程</button>
-  <button type="button">把證據寫回筆記本，返回原本的簡報路線錨點</button>
+  <button type="button">把證據寫回 筆記本，返回原本的簡報路線錨點</button>
   <button type="button">把快速驗證測試當成簡報路線成果</button>
   <div class="why">工具箱是插入目前路線的定向補強；完成一個有界限的課程後就回到呼叫端提供的返回點。</div>
 </div>

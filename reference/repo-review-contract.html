@@ -14,7 +14,7 @@
 <header><p>第 6 階段 · 建置 · 標準參考</p><h1>儲存庫審查契約</h1><p class="rule"><strong>入口：</strong>實作檢查點已存在，且學習者要建立或稽核審查收尾包。<br><strong>核心規則：</strong>審查證據只對一組固定的 <code>fixed point</code>、精確的 <code>candidate SHA</code>、原始規格與標準來源有效。候選版本任何位元組改變，都必須建立新檢查點並完整重跑檢查、標準審查與規格審查。</p></header>
 <p class="rule"><strong>具體成果：</strong>一份可複製、可抽查的 Review 收尾包 schema。<br><strong>可觀察回饋：</strong>依表格可判斷證據是否仍綁定同一 SHA，以及發現事項修正後是否真的完整重跑。</p>
 <h2>Review 收尾包的必要欄位</h2>
-<table><tr><th>欄位</th><th>有效證據</th><th>無效替代</th></tr><tr><td>固定點</td><td>可解析的 commit／標籤／合併基準識別</td><td>「開始前」、未記錄的基準</td></tr><tr><td>候選版本</td><td>精確 commit 的 SHA；工作目錄乾淨</td><td>branch、PR 最新、移動中 <code>HEAD</code></td></tr><tr><td>差異</td><td>由固定識別資訊重建的相同三點差異 diff</td><td>審查者各自看到不同快照</td></tr><tr><td>標準軸</td><td>規則來源、檔案/差異區塊、獨立發現事項</td><td>以「需求有做到」代替標準</td></tr><tr><td>規格軸</td><td>要求引用、檔案/差異區塊、獨立發現事項</td><td>以「靜態檢查通過」代替規格正確性</td></tr><tr><td>驗證</td><td>聚焦檢查與完整相關檢查的命令／結果</td><td>模型自評、未列出的已略過 check</td></tr></table>
+<table><tr><th>欄位</th><th>有效證據</th><th>無效替代</th></tr><tr><td>固定點</td><td>可解析的 commit／標籤／合併基準識別</td><td>「開始前」、未記錄的基準</td></tr><tr><td>候選版本（候選版本）</td><td>精確 commit 的 SHA；工作目錄乾淨</td><td>branch、PR 最新、移動中 <code>HEAD</code></td></tr><tr><td>差異（差異）</td><td>由固定識別資訊重建的相同三點差異 diff</td><td>審查者各自看到不同快照</td></tr><tr><td>標準軸</td><td>規則來源、檔案/差異區塊、獨立發現事項</td><td>以「需求有做到」代替標準</td></tr><tr><td>規格軸</td><td>要求引用、檔案/差異區塊、獨立發現事項</td><td>以「靜態檢查通過」代替規格正確性</td></tr><tr><td>驗證</td><td>聚焦的與完整的相關的 checks 的命令／結果</td><td>模型自評、未列出的已略過 check</td></tr></table>
 <h2>候選版本狀態轉移</h2>
 <pre>implemented change
   → checks green

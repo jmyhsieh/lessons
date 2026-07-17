@@ -11,7 +11,7 @@
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:820px;margin:2.5rem auto;padding:0 1.25rem;line-height:1.8;color:#202020}h2{color:#315f86}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccd9e3;padding:.55rem;vertical-align:top;text-align:left}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}button{display:block;width:100%;padding:.6rem;margin:.4rem 0;text-align:left;background:white;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:650px){body{margin-top:1rem}table{font-size:.84rem}th,td{padding:.4rem}}</style>
 </head><body>
 <p><a href="006-0008-review-final-candidate.html">← 最終候選版本 Review</a> · <a href="../reference/repo-review-contract.html">Repo 審查契約</a></p>
-<header><p>第 6 階段 · 建置 · 006-0009 · 工程交付收尾</p><h1>把最終候選版本、Review 與判斷收成可接手的收尾</h1><p class="mission"><strong>進入條件：</strong>006-0008 已對同一組 <code>fixed point</code> 與精確 <code>final candidate SHA</code> 完成標準／規格審查，兩軸沒有未解發現；最後一次相關檢查也對該候選版本通過。若 Review 後任何位元組改變，先回 006-0007 建立新檢查點，再完整重跑 Review。</p></header>
+<header><p>第 6 階段 · 建置 · 006-0009 · 工程交付收尾</p><h1>把最終候選版本、Review 與判斷收成可接手的收尾</h1><p class="mission"><strong>進入條件：</strong>006-0008 已對同一組 <code>fixed point</code> 與精確 <code>final candidate SHA</code> 完成標準／規格審查，兩軸沒有未解發現；最後一次相關檢查也對該候選版本通過。若 Review 後任何 位元組 改變，先回 006-0007 建立新檢查點，再完整重跑 Review。</p></header>
 <h2>1. 鎖定交付候選與可重跑檢查</h2>
 <div class="card"><pre>Originating ticket / spec revision:
 Fixed point:
@@ -25,7 +25,7 @@ Declared environment / versions:
 Skipped, partial, or uncertain evidence: none / explain and stop</pre></div>
 <p class="rule"><strong>可觀察檢查：</strong>另一位接手者能解析兩個版本識別、重建同一份差異，並在宣告的環境重跑列出的 commands。只寫「測試通過」或指向會移動的分支，不構成收尾 evidence。</p>
 <h2>2. 保存兩軸審查證據</h2>
-<table><tr><th>欄位</th><th>必須回答</th></tr><tr><td>標準報告</td><td>使用哪些儲存庫指引／標準？最終候選版本有沒有未解發現？</td></tr><tr><td>規格報告</td><td>對照哪一版原始意圖？每條驗收準則如何被滿足？</td></tr><tr><td>發現處置</td><td>每個發現是固定、退回並附證據退回，還是未解？只有前兩者可收尾。</td></tr><tr><td>最終識別</td><td>兩份報告、修正後檢查與交接是否都指向同一個精確 SHA？</td></tr></table>
+<table><tr><th>欄位</th><th>必須回答</th></tr><tr><td>標準報告</td><td>使用哪些儲存庫指引／標準？最終候選版本有沒有未解發現？</td></tr><tr><td>規格 報告</td><td>對照哪一版原始意圖？每條驗收準則如何被滿足？</td></tr><tr><td>發現 處置</td><td>每個發現是固定、退回 並附證據退回，還是未解？只有前兩者可 收尾。</td></tr><tr><td>最終識別</td><td>兩份報告、修正後檢查與交接是否都指向同一個精確 SHA？</td></tr></table>
 <h2>3. 做學習者風險／判斷</h2>
 <div class="card"><pre>Residual risk / limitation:
 Evidence and likely impact:
@@ -33,7 +33,7 @@ Learner disposition: accept / mitigate before use / stop
 Why this disposition is proportionate:
 Owner or authority needed for any follow-up:
 Trigger that would reopen the ticket:</pre></div>
-<p>Review 報告提供發現；最後是否接受剩餘風險是學習者判斷，不能交給模型用「已核准」代答。若風險涉及安全、隱私、法務、成本或正式環境權限，明確記為需要對應負責人決定。</p>
+<p>Review 報告提供發現；最後是否接受剩餘風險是 學習者判斷，不能交給模型用「已核准」代答。若風險涉及安全、隱私、法務、成本或正式環境權限，明確記為需要對應負責人決定。</p>
 <h2>4. 留下交接</h2>
 <div class="card"><pre>Outcome and bounded scope:
 What changed / why:
@@ -43,9 +43,9 @@ Residual risks and learner disposition:
 External actions not performed:
 Next safe action / required authority:
 Return point if evidence fails:</pre></div>
-<p class="boundary"><strong>外部權限邊界：</strong>自學完成條件是本機可解析的精確候選版本、可重跑檢查、對同一候選版本的標準／規格 evidence、學習者判斷與交接。它<strong>不要求</strong>建立實際 PR、等待遠端 CI、推送、合併、部署或修改正式環境。若真實交付需要這些動作，把它們列為「尚未執行的外部動作」、指定負責人／權限與前置證據；未經授權不得把操作當成練習。</p>
-<div class="win"><strong>具體成果：</strong>一份綁定最終候選版本 SHA 的工程交付收尾套件，包含候選版本、檢查、兩軸 Review、風險判斷與交接。<br><strong>可觀察回饋：</strong>接手者能由套件重建精確差異、重跑 commands、分別核對兩份 Review 結論，並清楚看出哪些外部動作沒有被授權或執行。</div>
-<div class="quiz" data-answer="1"><p>哪一份紀錄足以完成這個自學收尾？</p><button type="button">已推送分支，遠端 CI 還在跑，但沒有固定點或 Review 報告</button><button type="button">精確的本機候選版本、可重跑檢查、同 SHA 的兩軸 Review、風險判斷與交接；推送／部署明列為未授權外部動作</button><button type="button">模型說「已核准」，因此可以省略學習者處置</button><div class="why">收尾由可重現 evidence 與學習者判斷成立；外部變更需要另外的權限，不能成為自學必做條件。</div></div>
+<p class="boundary"><strong>外部權限邊界：</strong>自學完成條件是本機可解析的精確候選版本、可重跑檢查、對同一候選版本的標準／規格 evidence、學習者判斷 與交接。它<strong>不要求</strong>建立實際 PR、等待遠端 CI、推送、合併、部署或修改正式環境。若真實交付需要這些動作，把它們列為「尚未執行的外部動作」、指定負責人／權限與前置證據；未經授權不得把操作當成練習。</p>
+<div class="win"><strong>具體成果：</strong>一份綁定最終候選版本 SHA 的 工程交付收尾 套件，包含候選版本、檢查、兩軸 Review、風險判斷與交接。<br><strong>可觀察回饋：</strong>接手者能由套件重建精確差異、重跑 commands、分別核對兩份 Review 結論，並清楚看出哪些外部動作沒有被授權或執行。</div>
+<div class="quiz" data-answer="1"><p>哪一份紀錄足以完成這個自學收尾？</p><button type="button">已推送分支，遠端 CI 還在跑，但沒有固定點或 Review 報告</button><button type="button">精確的本機候選版本、可重跑檢查、同 SHA 的兩軸 Review、風險判斷與交接；推送／部署明列為未授權外部動作</button><button type="button">模型說「已核准」，因此可以省略學習者處置</button><div class="why">收尾 由可重現 evidence 與 學習者判斷 成立；外部變更需要另外的權限，不能成為自學必做條件。</div></div>
 <p class="stop"><strong>合法停止／返回／續行：</strong>候選版本無法解析、Review 後有修改、任一相關 check 未跑或不綠、任一軸仍有發現、風險處置或交接缺漏，或下一步要求未授權的外部變更時，保存筆記並停止：候選版本問題回 006-0007，Review 問題回 006-0008，權限問題交給負責人。Evidence 全部對齊後，回 <a href="../toc.html">課程目錄</a>；只有任務需要時，才另外選擇瀏覽器 evidence、代理操作或工作流程標準化 continuation。完成本頁只代表這一份工程路線 artifact 收尾，不代表 Phase 或遷移完成。</p>
 <footer data-course-footer="canonical" data-route-id="engineering-delivery" data-legal-stop="Stop only after final Review evidence matches the delivered checkpoint">
 <p><strong>路線導覽 · 工程交付</strong></p>
