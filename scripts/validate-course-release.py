@@ -37,6 +37,7 @@ LEARNER_VISIBLE_BLOCK_TAGS = {
     "a",
     "button",
     "caption",
+    "dt",
     "h1",
     "h2",
     "h3",
@@ -47,6 +48,8 @@ LEARNER_VISIBLE_BLOCK_TAGS = {
     "legend",
     "li",
     "p",
+    "small",
+    "span",
     "summary",
     "strong",
     "td",
@@ -1685,6 +1688,78 @@ def run_site_self_test() -> None:
         assert_codes(errors, "generic-english-ui-label")
         target_fixture.write_text(valid_target_html, encoding="utf-8")
 
+        suppressed_inline_blocks = {
+            "dt": {
+                "hidden": (
+                    '<dl><dt hidden>Suppressed hidden dt result</dt><dd>中文</dd></dl>',
+                    "Suppressed hidden dt result",
+                ),
+                "aria-hidden": (
+                    '<dl><dt aria-hidden="true">Suppressed aria dt result</dt><dd>中文</dd></dl>',
+                    "Suppressed aria dt result",
+                ),
+                "code": (
+                    '<dl><dt><code>Suppressed code dt result</code></dt><dd>中文</dd></dl>',
+                    "Suppressed code dt result",
+                ),
+                "script": (
+                    '<dl><dt><script>Suppressed script dt result</script></dt><dd>中文</dd></dl>',
+                    "Suppressed script dt result",
+                ),
+            },
+            "small": {
+                "hidden": (
+                    '<small hidden>Suppressed hidden small result</small>',
+                    "Suppressed hidden small result",
+                ),
+                "aria-hidden": (
+                    '<small aria-hidden="true">Suppressed aria small result</small>',
+                    "Suppressed aria small result",
+                ),
+                "code": (
+                    '<small><code>Suppressed code small result</code></small>',
+                    "Suppressed code small result",
+                ),
+                "script": (
+                    '<small><script>Suppressed script small result</script></small>',
+                    "Suppressed script small result",
+                ),
+            },
+            "span": {
+                "hidden": (
+                    '<span hidden>Suppressed hidden span result</span>',
+                    "Suppressed hidden span result",
+                ),
+                "aria-hidden": (
+                    '<span aria-hidden="true">Suppressed aria span result</span>',
+                    "Suppressed aria span result",
+                ),
+                "code": (
+                    '<span><code>Suppressed code span result</code></span>',
+                    "Suppressed code span result",
+                ),
+                "script": (
+                    '<span><script>Suppressed script span result</script></span>',
+                    "Suppressed script span result",
+                ),
+            },
+        }
+        for tag, cases in suppressed_inline_blocks.items():
+            for suppression, (html, expected) in cases.items():
+                target_fixture.write_text(
+                    valid_target_html.replace("</body>", f"{html}</body>"),
+                    encoding="utf-8",
+                )
+                _, errors = validate_site_release(
+                    root, manifest, inventory_contract=False
+                )
+                assert not any(
+                    error["code"] == "generic-english-ui-label"
+                    and repr(expected) in error["message"]
+                    for error in errors
+                ), (tag, suppression, expected, errors)
+        target_fixture.write_text(valid_target_html, encoding="utf-8")
+
         target_fixture.write_text(
             valid_target_html.replace(
                 "</body>",
@@ -1720,6 +1795,7 @@ def run_site_self_test() -> None:
         isolated_blocks = {
             "button": "<button>Unknown button result</button>",
             "caption": "<table><caption>Unknown caption result</caption></table>",
+            "dt": "<dl><dt>Unknown dt result</dt><dd>中文</dd></dl>",
             "h1": "<h1>Unknown h1 result</h1>",
             "h2": "<h2>Unknown h2 result</h2>",
             "h3": "<h3>Unknown h3 result</h3>",
@@ -1730,6 +1806,8 @@ def run_site_self_test() -> None:
             "legend": "<fieldset><legend>Unknown legend result</legend></fieldset>",
             "li": "<ol><li>Unknown li result</li></ol>",
             "p": "<p>Unknown p result</p>",
+            "small": "<small>Unknown small result</small>",
+            "span": "<span>Unknown span result</span>",
             "strong": "<strong>Unknown strong result</strong>",
             "summary": "<details><summary>Unknown summary result</summary></details>",
             "td": "<table><tr><td>Unknown td result</td></tr></table>",
@@ -1737,6 +1815,29 @@ def run_site_self_test() -> None:
         }
         for tag, html in isolated_blocks.items():
             expected = f"Unknown {tag} result"
+            target_fixture.write_text(
+                valid_target_html.replace("</body>", f"{html}</body>"),
+                encoding="utf-8",
+            )
+            _, errors = validate_site_release(
+                root, manifest, inventory_contract=False
+            )
+            matching_errors = [
+                error
+                for error in errors
+                if error["code"] == "generic-english-ui-label"
+                and repr(expected) in error["message"]
+            ]
+            assert matching_errors, (tag, errors)
+        target_fixture.write_text(valid_target_html, encoding="utf-8")
+
+        nested_inline_blocks = {
+            "dt": "<dl><div>中文<dt>Unknown nested dt result</dt><dd>內容</dd></div></dl>",
+            "small": "<p>中文 <small>Unknown nested small result</small></p>",
+            "span": "<p>中文 <span>Unknown nested span result</span></p>",
+        }
+        for tag, html in nested_inline_blocks.items():
+            expected = f"Unknown nested {tag} result"
             target_fixture.write_text(
                 valid_target_html.replace("</body>", f"{html}</body>"),
                 encoding="utf-8",
@@ -2026,6 +2127,12 @@ def run_self_test(repo_root: Path) -> None:
                 "</body>",
                 '<a href="#top">Expected outcome</a>'
                 '<p>中文 <a href="#top">Required path outcome</a></p>'
+                '<dl><dt>Required dt outcome</dt><dd>中文</dd></dl>'
+                '<small>Required small outcome</small>'
+                '<span>Required span outcome</span>'
+                '<dl><div>中文<dt>Nested required dt outcome</dt><dd>內容</dd></div></dl>'
+                '<p>中文 <small>Nested required small outcome</small></p>'
+                '<p>中文 <span>Nested required span outcome</span></p>'
                 "</body>",
             ),
             encoding="utf-8",
@@ -2042,6 +2149,12 @@ def run_self_test(repo_root: Path) -> None:
             and error.get("subject") == required_path
             and "'Expected outcome'" in error["message"]
             and "'Required path outcome'" in error["message"]
+            and "'Required dt outcome'" in error["message"]
+            and "'Required small outcome'" in error["message"]
+            and "'Required span outcome'" in error["message"]
+            and "'Nested required dt outcome'" in error["message"]
+            and "'Nested required small outcome'" in error["message"]
+            and "'Nested required span outcome'" in error["message"]
             for error in slice_report["blockers"]
         ), slice_report
 
