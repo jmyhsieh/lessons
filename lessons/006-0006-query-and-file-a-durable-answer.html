@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06：Query 並留下可重用答案</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#8a3f5d;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#8a3f5d}.mission{font-style:italic;color:#555;border-left:3px solid #8a3f5d;padding-left:1rem}.rule{background:#fcf7f9;border-left:4px solid #8a3f5d;padding:.75rem 1rem}.step,.quiz{border:1px solid #dfccd4;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}pre,code{background:#f8f0f3;border-radius:4px}pre{padding:.8rem 1rem;white-space:pre-wrap;overflow-wrap:anywhere}code{padding:.1rem .3rem}a{color:#7a3551}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d8c4cd;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fcf7f9;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #dfccd4;padding-top:1rem}
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 6 · 進階第 06 課 · 約 10–15 分鐘</div>
+<h1>Query 並留下可重用答案</h1>
+<p class="mission">今天只做一件事：問一個需要跨頁整理的問題，再判斷答案值不值得寫回 Wiki。</p>
+
+<div class="rule"><strong>Query 會讓探索繼續累積：</strong>Claude Code 先從索引找到相關頁面，再帶著來源回答；只有未來還會再用的結果才寫回 Wiki。</div>
+
+<h2>讓答案不只留在聊天裡</h2>
+<div class="step"><label><input type="checkbox"> 1. 選一個需要連結兩頁以上的問題</label>
+<p>例如比較兩個方案、找出一段時間的變化，或整理不同來源共同支持與互相衝突的地方。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 貼上這段話</label>
+<pre>請 query 目前的 LLM Wiki 來回答：
+[寫下一個需要跨頁整理的問題]
+
+若有 index.md，先用它定位相關頁面。
+答案請列出使用的 Wiki 頁面與 raw source；資料不足時說明缺口。
+先不要寫入檔案。回答後再建議這份結果是否值得寫回，以及最適合放在哪裡。</pre></div>
+<div class="step"><label><input type="checkbox"> 3. 決定這次答案要不要寫回</label>
+<p>若答案形成新的比較、連結或可重用結論，再同意寫回並更新 index／log；臨時答案就留在對話，不增加維護負擔。</p></div>
+
+<div class="done" id="done"><strong>完成：</strong>你已完成一次有引用的 query，並對寫回 Wiki 做出明確判斷。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="0">
+<p>Query 得到答案後，哪個做法最好？</p>
+<button>有價值才寫回庫</button>
+<button>每個回答都保存</button>
+<button>只留在聊天紀錄</button>
+<div class="why">值得重用的新連結與分析才寫回；全存會製造雜訊，全不存則失去累積效果。</div>
+</div>
+
+<h2>帶走這個就好</h2>
+<p><strong>Query 不只取出答案，也能產生新知識頁。</strong>判斷標準不是答案漂不漂亮，而是它未來是否值得重用。</p>
+<p><strong>主要閱讀：</strong><a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki：Query</a>。</p>
+<footer>上一課：<a href="006-0005-ingest-one-source-with-a-review-loop.html">Ingest 一份來源</a> · 下一課：<a href="006-0007-lint-and-fix-one-wiki-problem.html">Lint 並修一個問題</a><br>有不清楚的，回對話視窗問你的 AI 老師。</footer>
+<script>
+const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>09：同步並校正真實 design system</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#6a4c93;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#6a4c93}.mission{font-style:italic;color:#555;border-left:3px solid #6a4c93;padding-left:1rem}.rule{background:#f8f5fc;border-left:4px solid #6a4c93;padding:.75rem 1rem}.step,.quiz{border:1px solid #d8cce7;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f3eef8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#593c82}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d8cce7;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f8f5fc;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d8cce7;padding-top:1rem}</style></head>
+<body><p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 4 · 進階第 09 課 · 約 15 分鐘</div>
+<h1>同步並校正真實 design system</h1>
+<p class="mission">今天只做一件事：讓 Claude Code 從正式來源執行 <code>/design-sync</code>，再抽查同步結果。</p>
+<div class="rule"><strong>同步不是發布：</strong>組織 system 的 setup／publish 與 project 的 <code>/design-sync</code> 是不同工作。只走符合你權限與需求的一條。</div>
+<h2>建立可追溯的同步結果</h2>
+<div class="step"><label><input type="checkbox"> 1. 指定唯一 source of truth</label><p>把正式 repo、release 或品牌文件交給 Claude Code；明確排除實驗分支、舊簡報與生成結果。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 核准正確同步路徑</label><p>組織 owner 才在 Claude Design 設定中 publish；project 匯入由 Claude Code 使用 <code>/design-sync</code>。先看來源與預計變更，沒有權限就只附 context。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 要求 3＋2＋1 抽查</label><p>請 Claude Code 列出 3 個 tokens、2 個 components 與 1 條禁止規則，再由你回到 source path 比對同步結果與差異。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已留下同步路徑、權威來源與抽查差異，不會把模型抽取結果當成真相。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Design system 同步後，第一個檢查是什麼？</p><button>回到權威來源比對</button><button>直接接受生成結果</button><button>立刻加入更多參考</button><div class="why">同步結果仍可能遺漏或誤讀；先回到正式來源做小樣本校正。</div></div>
+<h2>帶走這個就好</h2><p>Design system 能減少漂移，但只有來源、權限路徑與抽查結果都清楚時才可信。</p>
+<p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design">Anthropic — Set up your design system</a>。</p>
+<footer>上一課：<a href="004-0008-implement-and-verify.html">完成小畫面</a> · 下一課：<a href="004-0010-specify-states-and-responsive-rules.html">補齊狀態與尺寸矩陣</a><br>把同步摘要與一項差異貼回對話，請 AI 老師檢查 source of truth。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

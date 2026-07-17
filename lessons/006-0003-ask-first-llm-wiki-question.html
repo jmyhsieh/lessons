@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03：問第一個問題並檢查來源</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#8a3f5d;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#8a3f5d}.mission{font-style:italic;color:#555;border-left:3px solid #8a3f5d;padding-left:1rem}.rule{background:#fcf7f9;border-left:4px solid #8a3f5d;padding:.75rem 1rem}.step,.quiz{border:1px solid #dfccd4;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}pre,code{background:#f8f0f3;border-radius:4px}pre{padding:.8rem 1rem;white-space:pre-wrap}code{padding:.1rem .3rem}a{color:#7a3551}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d8c4cd;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fcf7f9;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #dfccd4;padding-top:1rem}
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 6 · 第 03 課 · 約 10 分鐘</div>
+<h1>問第一個問題並檢查來源</h1>
+<p class="mission">今天只做一件事：問一個 Wiki 應該答得出的問題，確認答案能回到來源。</p>
+
+<div class="rule"><strong>好答案有邊界：</strong>Wiki 有資料就指出來源；資料不夠就明說不知道。不要為了看起來完整而補猜測。</div>
+
+<h2>第一次使用</h2>
+<div class="step"><label><input type="checkbox"> 1. 問一個小問題</label>
+<pre>請只根據這個 LLM Wiki 回答：
+[寫下一個具體問題]
+
+請指出答案使用的來源位置；如果 Wiki 資料不足，直接告訴我缺什麼。</pre></div>
+<div class="step"><label><input type="checkbox"> 2. 打開來源確認答案</label>
+<p>沿著答案提供的位置回到原始資料。確認答案有根據，而且沒有把 Wiki 之外的常識混進來。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 決定要不要留下這次結果</label>
+<p>如果答案整理出可重用的新重點，再請 Claude Code 寫回 Wiki；只是臨時問答就不必留下。</p></div>
+
+<div class="done" id="done"><strong>Phase 6 完成：</strong>你已會啟動最小 Wiki、加入來源並提出一個能回查原文的問題。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="0">
+<p>Wiki 資料不足時應怎麼回答？</p>
+<button>明說目前資料少</button>
+<button>用常識補齊答案</button>
+<button>搜尋後直接混入</button>
+<div class="why">誠實標出資料不足，才能分清楚 Wiki 已知內容與模型猜測。</div>
+</div>
+
+<h2>帶走這個就好</h2>
+<p>你現在已經會使用 LLM Wiki。<code>schema</code>、<code>ingest</code>、<code>query</code>、<code>lint</code> 與自動化，等 Wiki 真的變大、問題真的出現時再學。</p>
+<p><strong>主要閱讀：</strong><a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki raw idea file</a>。</p>
+<footer>上一課：<a href="006-0002-add-first-llm-wiki-source.html">加入第一份來源</a> · 進階下一課：<a href="006-0004-evolve-llm-wiki-schema.html">把實際規則寫進 schema</a> · <a href="../reference/llm-wiki-workflow.html">LLM Wiki 速查卡</a><br>把 Wiki 與第一次回答貼回對話，請 AI 老師幫你檢查來源邊界。</footer>
+<script>
+const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});
+</script>
+</body>
+</html>

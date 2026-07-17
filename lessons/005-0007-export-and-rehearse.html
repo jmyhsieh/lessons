@@ -1,49 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>07：輸出並完成一次真實彩排</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07：輸出並講一次</title>
 <style>
-  body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#315f86;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.2rem;margin-top:2.4rem;color:#315f86}.mission{font-style:italic;color:#555;border-left:3px solid #315f86;padding-left:1rem}.scope{background:#fff8e8;border-left:4px solid #d08800;padding:.7rem 1rem}.rule{background:#f2f6fa;border-left:4px solid #315f86;padding:.75rem 1rem}.step,.quiz{border:1px solid #d7e0e8;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{border:1px solid #d7e0e8;padding:.55rem .65rem;text-align:left;vertical-align:top}th{background:#f2f6fa}pre,code{background:#f2f6fa;border-radius:4px}pre{padding:.8rem 1rem;white-space:pre-wrap}code{padding:.1rem .3rem}a{color:#315f86}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #ccd5dc;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why{display:none;background:#f2f6fa;padding:.6rem .9rem}.done-banner{display:none;background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d7e0e8;padding-top:1rem}
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#a84f18;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#a84f18}.mission{font-style:italic;color:#555;border-left:3px solid #a84f18;padding-left:1rem}.rule{background:#fff8f2;border-left:4px solid #a84f18;padding:.75rem 1rem}.step,.quiz{border:1px solid #ead1bf;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#fff3ea;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#984412}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #ead1bf;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fff8f2;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #ead1bf;padding-top:1rem}
 </style>
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 5 · 第 07 課 · 約 25 分鐘 · Export & rehearsal</div>
-<h1>輸出並完成一次真實彩排</h1>
-<p class="mission">目標：依實際使用環境選擇 PPTX、PDF 或 HTML，打開輸出檔逐頁檢查，並在真實時間限制下完成一次有人回饋的彩排。</p>
-<div class="scope"><strong>本課只做：</strong>驗證一個主要輸出格式與一場彩排。<br><strong>先不要做：</strong>看到 export 成功就宣稱交付完成，或只在 Claude Design canvas 內檢查。</div>
-
-<h2>格式要服從交付環境</h2>
-<table>
-<tr><th>格式</th><th>適合</th><th>必查風險</th></tr>
-<tr><td><strong>PPTX</strong></td><td>還要在 PowerPoint 編輯、交給同事接手</td><td>字型、位移、動畫；若使用 speaker notes，要確認匯出後保留</td></tr>
-<tr><td><strong>PDF</strong></td><td>版面固定、寄送或列印</td><td>連結、tags、閱讀順序、可選文字、頁面比例</td></tr>
-<tr><td><strong>HTML</strong></td><td>保留互動、動畫或線上分享</td><td>網路、語意結構、鍵盤操作、zoom、離線備援</td></tr>
-</table>
-<div class="rule"><strong>Export 是一次格式轉換，不是驗證。</strong>一定要用目標 app 或裝置重開輸出檔；同一頁在 canvas 正常，不代表在 PowerPoint、PDF viewer 或投影設備正常。</div>
-
-<h2>彩排回饋只收可行動訊號</h2>
-<pre>Time: [實際總長／目標總長]
-Lost moment: [聽眾在哪一頁開始跟不上]
-Question: [聽眾自然提出的問題]
-Decision clarity: [聽完能否重述要決定什麼]
-Fix: [刪頁／改 headline／補 evidence／移到 appendix]</pre>
-
-<h2>實作 checklist</h2>
-<div class="step"><label><input type="checkbox"> 1. 選一個主要 export 格式</label><p>依會議設備、接手者與後續編輯需求選擇；再準備一個必要的備援格式。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 在目標 app 跑格式專屬檢查</label><p>PPTX：PowerPoint <code>Review &gt; Check Accessibility</code>、Reading Order pane、alt text，並確認 speaker notes（若使用）。PDF：Acrobat Pro Accessibility Checker、Tags／Reading Order；若無法驗證，就不要宣稱 PDF accessible。HTML：只用鍵盤走完整份、檢查 headings／alt text、200% zoom 與離線行為。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 找一位接近受眾的人完整聽一次</label><p>照正式時間與設備講完，不在過程中解釋設計意圖或跳過困難頁。</p></div>
-<div class="step"><label><input type="checkbox"> 4. 只修最高影響的三個卡點並重跑</label><p>優先修聽不懂、時間超過與決策不清；重開輸出檔再確認。</p></div>
-<div class="done-banner" id="done"><strong>你已完成真實交付閉環。</strong>把彩排紀錄貼回對話視窗，請 AI 老師協助判斷哪些回饋要修、哪些只是個人偏好。</div>
-
+<div class="kicker">Phase 5 · 第 07 課 · 約 15–20 分鐘</div>
+<h1>輸出並講一次</h1>
+<p class="mission">今天只做一件事：讓 Claude Code 準備一種目標格式，再由你打開輸出檔並向真人講一次。</p>
+<div class="rule"><strong>不要只看 Claude Design 畫布：</strong>真正交付的是輸出檔與聽眾理解，不是編輯畫面裡的版本。</div>
+<h2>完成第一次彩排</h2>
+<div class="step"><label><input type="checkbox"> 1. 告訴 Claude Code 目標格式</label><p>別人要繼續編輯選 PPTX；只閱讀或列印選 PDF；需要互動才選 HTML。請它只準備這一種 export。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 親自打開輸出檔逐頁看</label><p>確認字型、圖片、換行與三頁順序沒有在 export 後跑掉；Claude Code 說輸出成功不能取代這一步。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 向一個人講一次</label><p>照正式時間講完，最後只問：「你覺得我要你做什麼？」記下答案。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已在真正輸出格式完成一次彩排，也知道下一步是否被聽懂。</div>
 <h2>觀念檢查</h2>
-<div class="quiz" data-answer="0"><p>1. Export 格式應怎麼選？</p><button>依目標 app、環境與交接需求選</button><button>預設選 PPTX，因為之後還能編輯</button><button>輸出全部格式，再把它們視為等價備援</button><div class="why">目標 app、設備、接手方式與互動需求決定格式；可編輯或多輸出都不代表該格式已驗證。</div></div>
-<div class="quiz" data-answer="1"><p>2. 哪一種彩排回饋最可行動？</p><button>請熟悉設計的人替整份簡報打分並寫總評</button><button>記錄代表性聽眾在哪頁迷失、追問什麼、能否重述決策</button><button>由講者自行默讀並列出覺得不順的頁面</button><div class="why">時間、代表性聽眾的迷失點、自然問題與決策清晰度都能轉成具體修正；評分或自評不能取代真實彩排。</div></div>
-
-<h2>下一步與主要閱讀</h2>
-<p>Deck 可用後，進入 <a href="005-0008-repurpose-one-pager-social.html">跨格式改作</a>，重用內容地基而不是重做一切。</p>
-<p><strong>主要官方閱讀：</strong><a href="https://claude.com/resources/tutorials/using-claude-design-for-presentations-and-slide-decks">Using Claude Design for presentations and slide decks</a> 的 Export & download options；格式驗證另讀 <a href="https://support.microsoft.com/en-us/office/make-slides-easier-to-read-by-using-the-reading-order-pane-863b5c1c-4f19-45ec-96e6-93a6457f5e1c">PowerPoint Reading Order</a> 與 <a href="https://helpx.adobe.com/acrobat/using/touch-reading-order-tool-pdfs.html">Acrobat Reading Order</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="005-0006-verify-claims-and-accessibility.html">查核</a> · 下一課：<a href="005-0008-repurpose-one-pager-social.html">跨格式改作</a> · <a href="../toc.html">課目表</a></footer>
-<script>const boxes=[...document.querySelectorAll('input[type=checkbox]')];boxes.forEach(b=>b.addEventListener('change',()=>document.getElementById('done').style.display=boxes.every(x=>x.checked)?'block':'none'));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
+<div class="quiz" data-answer="1"><p>輸出簡報後，第一個動作是什麼？</p><button>直接寄給所有人</button><button>打開輸出檔檢查</button><button>刪除編輯用版本</button><div class="why">Export 可能改變字型、換行或互動；必須檢查真正要交付的檔案。</div></div>
+<h2>帶走這個就好</h2><p>一份三頁簡報只有在輸出檔能開、你講得完、聽眾知道下一步時才完成入門主線。</p>
+<p><strong>主要閱讀：</strong><a href="https://claude.com/resources/tutorials/using-claude-design-for-presentations-and-slide-decks#export--download-options">Anthropic — Export &amp; download options</a>。</p>
+<footer>上一課：<a href="005-0006-verify-claims-and-accessibility.html">查內容與閱讀性</a> · 下一課：<a href="005-0008-repurpose-one-pager-social.html">改成一頁摘要</a><br>把 export 結果與真人回答貼回對話，請 AI 老師檢查交付完成線。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04：把實際規則寫進 schema</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#8a3f5d;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#8a3f5d}.mission{font-style:italic;color:#555;border-left:3px solid #8a3f5d;padding-left:1rem}.rule{background:#fcf7f9;border-left:4px solid #8a3f5d;padding:.75rem 1rem}.step,.quiz{border:1px solid #dfccd4;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}pre,code{background:#f8f0f3;border-radius:4px}pre{padding:.8rem 1rem;white-space:pre-wrap;overflow-wrap:anywhere}code{padding:.1rem .3rem}a{color:#7a3551}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d8c4cd;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fcf7f9;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #dfccd4;padding-top:1rem}
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 6 · 進階第 04 課 · 約 10–15 分鐘</div>
+<h1>把實際規則寫進 schema</h1>
+<p class="mission">今天只做一件事：把前三課已經驗證過的維護規則，寫進 Claude Code 每次都會讀的 schema。</p>
+
+<div class="rule"><strong>Schema 不是先寫完的規格書：</strong>它是 Wiki 的維護約定。先用 Wiki，再把證明有用的規則補進現有 <code>CLAUDE.md</code> 或其他指引檔。</div>
+
+<h2>留下第一版規則</h2>
+<div class="step"><label><input type="checkbox"> 1. 請 Claude Code 找到現有規則檔</label>
+<p>不要先指定一定要新增哪個檔案。讓它檢查目前 Wiki 的結構與既有指引，避免出現兩套 schema。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 貼上這段話</label>
+<pre>請檢查目前 LLM Wiki，指出維護規則放在哪個檔案。
+若已有 CLAUDE.md 或其他 schema，請沿用，不要建立第二套規則。
+
+只補上我們已驗證過的三條：
+1. raw source 不得改寫。
+2. Wiki 的重要說法要保留來源位置。
+3. 資料不足時要明說，不可自行補猜測。
+
+先顯示準備修改的內容，等我確認再寫入。</pre></div>
+<div class="step"><label><input type="checkbox"> 3. 檢查 diff 是否只留下真規則</label>
+<p>刪掉尚未實際需要的格式、工具與自動化規定。這份 schema 之後可以隨使用經驗一起演進。</p></div>
+
+<div class="done" id="done"><strong>完成：</strong>Wiki 已有一份 Claude Code 能重複遵守、且來自真實使用經驗的 schema。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="0">
+<p>Schema 最適合在什麼時候更新？</p>
+<button>遇到實際規則時</button>
+<button>開始前全部寫完</button>
+<button>每次問答都重寫</button>
+<div class="why">Schema 應跟著實際流程共同演進；先記錄已證明有用的規則，最不容易過度設計。</div>
+</div>
+
+<h2>帶走這個就好</h2>
+<p><strong>Schema 是給 agent 的維護手冊。</strong>它約定結構、慣例與工作流，但只需要寫下目前真的用得到的部分。</p>
+<p><strong>主要閱讀：</strong><a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki：Architecture</a>。</p>
+<footer>上一課：<a href="006-0003-ask-first-llm-wiki-question.html">問第一個問題</a> · 下一課：<a href="006-0005-ingest-one-source-with-a-review-loop.html">用 review loop ingest 一份來源</a><br>有不清楚的，回對話視窗問你的 AI 老師。</footer>
+<script>
+const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});
+</script>
+</body>
+</html>

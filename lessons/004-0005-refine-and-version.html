@@ -1,129 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>05：精修設計並保留可回頭的版本</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05：一次只改一件事</title>
 <style>
-  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
-         max-width: 740px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
-  .kicker { color: #635b9a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
-  h1 { font-size: 1.7rem; margin: .3rem 0; }
-  .mission { font-style: italic; color: #555; border-left: 3px solid #635b9a; padding-left: 1rem; }
-  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #635b9a; }
-  code, pre { background: #f3f1fa; border-radius: 4px; font-size: .9em; }
-  code { padding: .12rem .35rem; }
-  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
-  a { color: #4c467b; }
-  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
-  th, td { border: 1px solid #ddd; padding: .5rem .65rem; text-align: left; vertical-align: top; }
-  th { background: #f3f1fa; }
-  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
-  .rule { background: #f3f1fa; border-left: 4px solid #635b9a; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
-  .step { border: 1px solid #ddd8ee; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fcfbff; }
-  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
-  .quiz { border: 1px solid #ddd8ee; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
-  .quiz p { margin-top: 0; font-weight: 600; }
-  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
-    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
-  .quiz button:hover { border-color: #635b9a; }
-  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
-  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
-  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #f3f1fa; padding: .6rem .9rem; border-radius: 6px; }
-  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
-  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #ddd8ee; padding-top: 1rem; }
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#6a4c93;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#6a4c93}.mission{font-style:italic;color:#555;border-left:3px solid #6a4c93;padding-left:1rem}.rule{background:#f8f5fc;border-left:4px solid #6a4c93;padding:.75rem 1rem}.step,.quiz{border:1px solid #d8cce7;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f3eef8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#593c82}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d8cce7;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f8f5fc;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d8cce7;padding-top:1rem}
 </style>
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 4 · 第 05 課 · 約 20 分鐘 · 精修練習</div>
-<h1>精修設計並保留可回頭的版本</h1>
-<p class="mission">目標：依改動範圍選對 chat、inline comments 或 canvas，並以「一次改一層」的節奏留下可比較的 revision，而不是把第一稿一路改到無法解釋。</p>
-<div class="scope"><strong>本課只做：</strong>選一個設計方向，完成一輪有界精修與版本紀錄。<br><strong>先不要做：</strong>同時改結構、內容、互動與視覺，或直接進 repo 寫 production code。</div>
-
-<h2>知識：先判斷變更半徑</h2>
-<table>
-<tr><th>方式</th><th>適合的改動</th><th>例子</th></tr>
-<tr><td><strong>Chat</strong></td><td>跨區塊、需要脈絡的結構性改動</td><td>「把指標移到首列，圖表改到下一列。」</td></tr>
-<tr><td><strong>Inline comments</strong></td><td>指向單一元件的局部需求</td><td>「這顆按鈕改用 Primary Button。」</td></tr>
-<tr><td><strong>Canvas edit</strong></td><td>快速的視覺與排版微調</td><td>拖曳、縮放、對齊一個元素。</td></tr>
-</table>
-<p>Inline comment 偶爾可能在 Claude 讀取前消失；若沒有被處理，把同一則回饋貼進 chat。這是官方目前列出的已知 workaround。</p>
-
-<h2>知識：一次只改一層</h2>
-<pre>內容 → 結構 → 互動 → 視覺細節
-一次選一層 → 觀察結果 → 記下決定 → 再進下一層</pre>
-<p>如果一次把四層全改了，你只會知道「新版不一樣」，卻不知道是哪個改動讓它變好或變差。精修不是 prompt 次數競賽；每輪都要能說出假設、改動與觀察。</p>
-<div class="rule"><strong>要大幅改方向時先存版本：</strong>可以直接告訴 Claude：<code>Save what we have and try a completely different approach.</code> Claude 會保存目前專案並告訴你存放位置，方便回看早期 revision。</div>
-
-<h2>實作 checklist（做完打勾）</h2>
-<div class="step">
-  <label><input type="checkbox"> 1. 命名目前的 baseline</label>
-  <p>記下版本名稱、要解決的使用者問題，以及目前最重要的一個優點。沒有 baseline，就沒有比較。</p>
-</div>
-<div class="step">
-  <label><input type="checkbox"> 2. 選一層與一種介面</label>
-  <p>例：本輪只改「結構」，所以用 chat；或本輪只修一個元件，所以用 inline comment。先寫下選擇理由。</p>
-</div>
-<div class="step">
-  <label><input type="checkbox"> 3. 提一個可觀察的要求</label>
-  <p>把「看起來不對」改成具體要求，例如「將表單欄距收斂為 8px，其他版面不變」。生成後只判斷本輪那一層。</p>
-</div>
-<div class="step">
-  <label><input type="checkbox"> 4. 保存 revision 與決定</label>
-  <p>記錄：<code>版本 / 假設 / 改動 / 觀察 / 保留或退回</code>。若要探索另一條路，先明確要求保存目前版本。</p>
-</div>
-<div class="done-banner" id="done"><strong>你完成了一輪可解釋的精修。</strong>把 revision 紀錄貼回對話視窗，請 AI 老師檢查改動是否真的只有一層。</div>
-
-<h2>觀念檢查（憑記憶作答）</h2>
-<div class="quiz" data-answer="0">
-  <p>1. 要重新排列整頁資訊結構，最適合先用哪一種方式？</p>
-  <button>使用左側聊天</button>
-  <button>使用行內留言</button>
-  <button>使用畫布拖曳</button>
-  <div class="why">結構性改動需要跨區塊脈絡，適合用 chat。Inline comments 適合局部元件；canvas 適合快速視覺微調。</div>
-</div>
-<div class="quiz" data-answer="1">
-  <p>2. 為什麼每輪只改內容、結構、互動或視覺其中一層？</p>
-  <button>減少每次使用額度</button>
-  <button>辨認改動造成影響</button>
-  <button>縮短每次畫布載入</button>
-  <div class="why">隔離變因後，才能把結果連回本輪改動，知道該保留、修正或退回。</div>
-</div>
-<div class="quiz" data-answer="2">
-  <p>3. 想嘗試完全不同方向，又不想失去目前成果，應先做什麼？</p>
-  <button>匯出目前靜態圖片</button>
-  <button>複製目前所有文字</button>
-  <button>要求保存目前版本</button>
-  <div class="why">先要求 Claude 保存目前專案，再探索另一種 approach，才能回看與比較 revision。</div>
-</div>
-
-<h2>下一步與相關內容</h2>
-<p>帶著一個已命名的 revision，進入 <a href="004-0006-prototype-and-validate.html">Phase 4 第 06 課 — 原型與驗證</a>，把「我喜歡」轉成可觀察的使用證據。</p>
-<p><strong>主要官方閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Get started with Claude Design</a> 的「Refine your design」與「Manage versions and revisions」。搭配：<a href="../reference/claude-design-to-code-workflow.html">Claude Design → Claude Code 速查表</a>。</p>
-
-<footer>
-  有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="004-0004-explore-design-directions.html">Phase 4 第 04 課 — 探索設計方向</a> · 下一課：<a href="004-0006-prototype-and-validate.html">Phase 4 第 06 課 — 原型與驗證</a> · <a href="../toc.html">課目表</a>
-</footer>
-
-<script>
-const boxes = document.querySelectorAll('input[type=checkbox]');
-boxes.forEach(b => b.addEventListener('change', () => {
-  document.getElementById('done').style.display =
-    [...boxes].every(x => x.checked) ? 'block' : 'none';
-}));
-document.querySelectorAll('.quiz').forEach(q => {
-  const ans = +q.dataset.answer;
-  q.querySelectorAll('button').forEach((b, i) => {
-    b.addEventListener('click', () => {
-      q.querySelectorAll('button').forEach(x => x.disabled = true);
-      q.querySelectorAll('button')[ans].classList.add('correct');
-      if (i !== ans) b.classList.add('wrong');
-      q.querySelector('.why').style.display = 'block';
-    });
-  });
-});
-</script>
+<div class="kicker">Phase 4 · 第 05 課 · 約 10–15 分鐘</div>
+<h1>一次只改一件事</h1>
+<p class="mission">今天只做一件事：請 Claude Code 透過 Design MCP 套用一則具體修改，再比較前後版本。</p>
+<div class="rule"><strong>避免「更好看」：</strong>請說明要改哪裡、改成什麼、其他部分保持不變。</div>
+<h2>完成一輪修改</h2>
+<div class="step"><label><input type="checkbox"> 1. 請 Claude Code 保存目前版本</label><p>透過 Design MCP 取一個簡單名稱，例如「A－第一版」，並確認之後能回到這個版本。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 只交一則具體回饋</label><p>例如：「把主要按鈕移到表單下方，其他內容不變。」要求 Claude Code 先重述修改範圍。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 比較是否真的改善</label><p>用上一課的標準回答：變好、變差，還是沒有差別？</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已完成一次可解釋、可回頭的設計修改。</div>
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="1"><p>哪一則回饋最容易執行？</p><button>整體再專業一點</button><button>把標題移到上方</button><button>畫面再有感一點</button><div class="why">具體指出元素與變化，Claude 才能精準修改，你也能判斷是否完成。</div></div>
+<h2>帶走這個就好</h2><p>一次只改一件事，才能知道哪個改動造成差異。</p>
+<p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design#using-inline-comments">Anthropic — Using inline comments</a>。</p>
+<footer>上一課：<a href="004-0004-explore-design-directions.html">比較兩個方向</a> · 下一課：<a href="004-0006-prototype-and-validate.html">請一個人完成一個任務</a><br>把修改 prompt 與前後版本貼回對話，請 AI 老師檢查是否只改一件事。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

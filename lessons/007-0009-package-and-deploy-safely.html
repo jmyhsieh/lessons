@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>09：安全封裝與部署</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#2f6f63;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#2f6f63}.mission{font-style:italic;color:#555;border-left:3px solid #2f6f63;padding-left:1rem}.rule{background:#f4faf8;border-left:4px solid #2f6f63;padding:.75rem 1rem}.step,.quiz{border:1px solid #c9ddd8;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#eaf5f2;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#255c52}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #c9ddd8;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f4faf8;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #c9ddd8;padding-top:1rem}
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 7 · 進階第 09 課 · 約 20 分鐘</div>
+<h1>安全封裝與部署</h1>
+<p class="mission">今天只做一件事：讓 Claude Code 準備已驗證 <code>dist/</code> 的交付包；部署仍由有權 owner 決定。</p>
+<div class="rule"><strong>部署是外部狀態變更：</strong>先確認 owner、受眾、敏感資料、公開期限與回復方法；本課不要求把任何內容直接公開。</div>
+<h2>準備 deployment-ready package</h2>
+<div class="step"><label><input type="checkbox"> 1. 告訴 Claude Code 目標格式</label><p>需要互動與瀏覽器分享選 HTML；固定版面與離線閱讀選 PDF。記下選擇、接收者與不公開項目。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 請它重建，你檢查交付包</label><pre><code>npm run build
+npm run preview</code></pre><p>從 <code>dist/</code> 打開三頁，檢查來源、外部連結與不該公開的 inspector／UI surface。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 請它草擬部署與回復卡</label><p>列 host、owner、權限、網址、版本、驗證與 rollback；你核對後，只有取得授權的 owner 才部署。</p></div>
+<div class="done" id="done"><strong>進階完成：</strong>你已準備一個可驗證、可交接、也知道如何停止或回復的 open-slide 交付包。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>準備部署前，第一個可靠動作是什麼？</p><button>先驗證目標輸出檔</button><button>先把原始專案公開</button><button>先略過權限與連結</button><div class="why">先驗證目標格式與內容，再確認權限、owner 與 rollback，才能避免把錯誤或敏感內容公開。</div></div>
+<h2>帶走這個就好</h2><p>Phase 7 的完成線是可信交付包，不是「有一個公開網址」。</p>
+<p><strong>主要閱讀：</strong><a href="https://open-slide.dev/docs/core-feature/export">open-slide — Export</a>。</p>
+<footer>上一課：<a href="007-0008-close-comment-edit-review-loop.html">完成 feedback loop</a> · 下一個 Phase：<a href="008-0001-choose-live-check-or-test.html">判斷即時查核或持久測試</a> · <a href="../reference/open-slide-agent-deck-workflow.html">Phase 7 路線卡</a><br>把 Claude Code 草擬的部署與回復卡貼回對話，請 AI 老師檢查外部風險。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
+</body>
+</html>

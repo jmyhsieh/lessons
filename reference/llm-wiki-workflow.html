@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM Wiki × Claude Code 路線速查卡</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:900px;margin:2.5rem auto;padding:0 1.5rem;color:#1c1c1c;line-height:1.65}h1{font-size:2rem;margin-bottom:.2rem;color:#8a3f5d}h2{font-size:1.15rem;margin-top:2rem;color:#8a3f5d;border-bottom:2px solid #e4cdd6;padding-bottom:.35rem}.sub{color:#666;margin-top:0}.card{background:#fcf7f9;border-left:5px solid #8a3f5d;padding:.9rem 1.1rem;margin:1rem 0}table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{padding:.55rem .65rem;border-bottom:1px solid #ead8df;text-align:left;vertical-align:top}th{background:#f8f0f3}pre{background:#f8f0f3;padding:.8rem 1rem;border-radius:6px;white-space:pre-wrap;overflow-wrap:anywhere}code{background:#f8f0f3;padding:.1rem .3rem}a{color:#7a3551}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.85rem}@media print{body{margin:.5cm auto;font-size:10pt}a{color:#111;text-decoration:none}}
+</style>
+</head>
+<body>
+<h1>LLM Wiki × Claude Code 路線速查卡</h1>
+<p class="sub">前三課用一個 raw 連結開始；實際使用後，再走 schema、ingest、query、lint 與自動化。</p>
+<div class="card"><strong>入門完成線：</strong>Claude Code 建好最小版本 · 加入一份真實來源 · 回答一個能回查來源的問題。</div>
+
+<h2>直接貼給 Claude Code</h2>
+<pre>請讀這份 LLM Wiki idea file：
+https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md
+
+請在目前資料夾幫我建立最小可用版本。
+先問我這個 Wiki 要整理的主題，再建立需要的最少檔案。
+不要先安裝額外工具，也不要一次加入大量來源。</pre>
+
+<h2>接下來只做三件事</h2>
+<table>
+<tr><th>課</th><th>你要做的動作</th><th>完成證據</th></tr>
+<tr><td>01</td><td>把 raw idea file 與需求交給 Claude Code</td><td>資料夾中出現最小 Wiki</td></tr>
+<tr><td>02</td><td>加入第一份真實來源，抽查一個說法</td><td>說法能回到原始資料</td></tr>
+<tr><td>03</td><td>問一個小問題，要求指出使用來源</td><td>答案有來源或誠實說不足</td></tr>
+</table>
+
+<h2>進階 04–08：Wiki 開始成長後再學</h2>
+<table>
+<tr><th>課</th><th>解決的真實需求</th><th>完成證據</th></tr>
+<tr><td>04 · schema</td><td>讓 agent 下次仍遵守已驗證的規則</td><td>現有指引只加入真實規則</td></tr>
+<tr><td>05 · ingest</td><td>讓一份新來源更新既有知識</td><td>看過計畫、diff 與來源回查</td></tr>
+<tr><td>06 · query</td><td>把跨頁探索變成可重用結果</td><td>有引用，並判斷是否寫回</td></tr>
+<tr><td>07 · lint</td><td>找出矛盾、過期、孤兒頁與缺口</td><td>修一項並重跑同一檢查</td></tr>
+<tr><td>08 · 自動化</td><td>省下重複、可確定檢查的工作</td><td>命令有成功與失敗輸出</td></tr>
+</table>
+
+<h2>前三課先由 Claude Code 處理</h2>
+<p>檔案結構、<code>schema</code>、<code>ingest</code>、<code>query</code>、<code>lint</code>、log 與自動化都不是開始前的必修。完成第 03 課、Wiki 有了真實資料與問題後，再用 04–08 一次解決一個維護需求。</p>
+
+<h2>只守住兩條線</h2>
+<table>
+<tr><th>要守住</th><th>原因</th></tr>
+<tr><td>原始資料保留，不讓 Wiki 取代來源</td><td>模型整理可能誤讀，重要說法要能回查</td></tr>
+<tr><td>資料不足時明說不知道</td><td>避免把模型常識或猜測混成 Wiki 已知內容</td></tr>
+</table>
+
+<footer>開始：<a href="../lessons/006-0001-start-llm-wiki-with-claude-code.html">入門第 01 課</a> · 進階：<a href="../lessons/006-0004-evolve-llm-wiki-schema.html">第 04 課 schema</a> · 主要來源：<a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki raw idea file</a> · <a href="../toc.html">課目表</a></footer>
+</body>
+</html>

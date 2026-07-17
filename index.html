@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Claude 設計與交付工作流 — 學習手冊</title>
+<title>Claude 工作流與可驗證交付 — 學習手冊</title>
 <style>
   * { box-sizing: border-box; }
   body { margin: 0; font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
@@ -26,6 +26,9 @@
   .phase.p3 .phase-index, .phase.p3 h2 { color: #1a6b5a; }
   .phase.p4 .phase-index, .phase.p4 h2 { color: #6f4dbf; }
   .phase.p5 .phase-index, .phase.p5 h2 { color: #315f86; }
+  .phase.p6 .phase-index, .phase.p6 h2 { color: #8a3f5d; }
+  .phase.p7 .phase-index, .phase.p7 h2 { color: #2f6f63; }
+  .phase.p8 .phase-index, .phase.p8 h2 { color: #4c5f9e; }
   .phase p { font-size: .9rem; color: #666; margin: 0; line-height: 1.65; }
   a.start { display: inline-block; background: #c2571a; color: #fff; text-decoration: none;
             padding: .85rem 2.6rem; border-radius: 999px; font-size: 1.05rem; font-weight: 600;
@@ -46,11 +49,11 @@
 <div class="cover">
   <div class="mark">Beginner Friendly Course · 2026</div>
   <h1>從 0 開始，用 <span class="accent">Claude</span> 做出可驗證交付</h1>
-  <p class="subtitle">選對工作表面，從需求與視覺探索走到 repo 實作，再把真實工作素材做成可使用、可查核的日常視覺交付物。</p>
+  <p class="subtitle">選對工作表面，從需求與視覺探索走到 repo 實作，把真實素材做成可查核交付物，並讓重要知識跨 session 持續累積。</p>
 
   <a class="start" href="toc.html">進入課目表 →</a>
 
-  <p class="path-note">新手從 Phase 1；熟悉 Claude Code 可跳 Phase 3；要做介面原型走 Phase 4；要做簡報、one-pager、社群素材或 code-first deck 走 Phase 5。核心路線約 13 小時；含工具箱與選修約 22 小時，可依真實任務跳讀。</p>
+  <p class="path-note">新手從 Phase 1；熟悉 Claude Code 可跳 Phase 3；想做第一個小介面走 Phase 4；想做第一份三頁簡報走 Phase 5；想把 idea file 交給 Claude Code 建第一個知識庫走 Phase 6；需要 React、Git 與 HTML／PDF 簡報再走 Phase 7；想讓 Claude Code 用真實瀏覽器查核並留下可重跑 tests 再走 Phase 8。Phase 4–8 都先完成入門線，遇到真實需求再接進階課。</p>
 
   <div class="phases">
     <div class="phase p1">
@@ -75,23 +78,44 @@
       </div>
     </div>
     <div class="phase p4">
-      <div class="phase-index">Phase 4 選修實作<span>01–08</span></div>
+      <div class="phase-index">Phase 4 Claude Code × Claude Design<span>入門 01–08 · 進階 09–13</span></div>
       <div>
-        <h2>Claude Design × Claude Code</h2>
-        <p>從 design brief、設計方向與互動原型，到保留 design intent 的 repo 實作與 browser verification。</p>
+        <h2>從 Claude Code 進入視覺探索，再回到 repo</h2>
+        <p>入門用 Design MCP 完成小畫面、選版與真人試用；進階再同步 design system、審查規則、handoff 與 browser evidence。</p>
       </div>
     </div>
     <div class="phase p5">
-      <div class="phase-index">Phase 5 日常應用<span>01–09</span></div>
+      <div class="phase-index">Phase 5 Claude Code × Claude Design 簡報<span>入門 01–08 · 進階 09–12</span></div>
       <div>
-        <h2>從素材到簡報與日常視覺成果</h2>
-        <p>以 Claude Design 簡報為主線，練習 source pack、查核與跨格式改作；再以 open-slide 選修比較 React／Git 路線。</p>
+        <h2>讓 Claude Code 管理內容與 Design MCP</h2>
+        <p>入門由 Claude Code 整理來源與三頁故事、真人查核輸出；進階再審查 claim ledger、deck system 與受控彩排。</p>
+      </div>
+    </div>
+    <div class="phase p6">
+      <div class="phase-index">Phase 6 Claude Code × LLM Wiki<span>入門 01–03 · 進階 04–08</span></div>
+      <div>
+        <h2>LLM Wiki：從來源到持久知識</h2>
+        <p>前三課用 raw idea file 快速開始；進階再練 schema、ingest、query、lint 與低風險自動化。</p>
+      </div>
+    </div>
+    <div class="phase p7">
+      <div class="phase-index">Phase 7 Claude Code × open-slide<span>入門 01–04 · 進階 05–09</span></div>
+      <div>
+        <h2>讓 Claude Code 使用 workspace skills 做簡報</h2>
+        <p>入門核准 scaffold、審查三頁 diff 並親自開啟；進階再讀 contract、使用專用 skills、稽核與準備部署。</p>
+      </div>
+    </div>
+    <div class="phase p8">
+      <div class="phase-index">Phase 8 Claude Code × Playwright<span>入門 01–04 · 進階 05–09</span></div>
+      <div>
+        <h2>讓 Claude Code 查核 browser，再留下可信 tests</h2>
+        <p>入門先分清 MCP live check 與 durable test，觀看真實 browser 並審查第一份紅綠證據；進階再用 planner、generator、healer 與 CI 放大已核准路徑。</p>
       </div>
     </div>
   </div>
 
   <div class="meta">
-    常用速查：<a href="reference/claude-product-picker.html">產品選用</a> · <a href="reference/claude-design-to-code-workflow.html">Design-to-Code</a> · <a href="reference/claude-design-presentation-workflow.html">簡報工作流</a> · <a href="reference/claude-code-command-surface.html">Claude Code 操作</a> · <a href="reference/course-glossary.html">課程詞彙表</a><br>
+    常用速查：<a href="reference/claude-product-picker.html">產品選用</a> · <a href="reference/claude-design-to-code-workflow.html">第一個小畫面</a> · <a href="reference/claude-design-presentation-workflow.html">三頁簡報</a> · <a href="reference/open-slide-agent-deck-workflow.html">open-slide</a> · <a href="reference/playwright-browser-verification-workflow.html">Playwright</a> · <a href="reference/claude-code-command-surface.html">Claude Code 操作</a> · <a href="reference/llm-wiki-workflow.html">迷你 LLM Wiki</a> · <a href="reference/course-glossary.html">課程詞彙表</a><br>
     每課皆含實作清單與觀念檢查；checklist 完成不等於 mastery，請保留課堂要求的 artifact 與回饋證據
   </div>
 </div>

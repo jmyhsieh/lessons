@@ -1,149 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>04：探索並比較設計方向</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04：比較兩個不同方向</title>
 <style>
-  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
-         max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
-  .kicker { color: #635b9a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
-  h1 { font-size: 1.7rem; margin: .3rem 0; }
-  .mission { font-style: italic; color: #555; border-left: 3px solid #635b9a; padding-left: 1rem; }
-  h2 { font-size: 1.2rem; margin-top: 2.5rem; color: #635b9a; }
-  code, pre { background: #f3f1fa; border-radius: 4px; font-size: .9em; }
-  code { padding: .12rem .35rem; }
-  pre { padding: .8rem 1rem; overflow-x: auto; white-space: pre-wrap; }
-  a { color: #514985; }
-  table { border-collapse: collapse; width: 100%; font-size: .9rem; margin: 1rem 0; }
-  th, td { border: 1px solid #ddd; padding: .55rem .65rem; text-align: left; vertical-align: top; }
-  th { background: #f3f1fa; }
-  .scope { background: #fff8e8; border-left: 4px solid #d08800; padding: .7rem 1rem; margin: 1rem 0 1.2rem; border-radius: 0 6px 6px 0; }
-  .step { border: 1px solid #dcd8ec; border-radius: 8px; padding: 1rem 1.3rem; margin: 1rem 0; background: #fdfcff; }
-  .step label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; font-weight: 600; }
-  .rule { background: #f3f1fa; border-left: 4px solid #635b9a; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
-  .quiz { border: 1px solid #dcd8ec; border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
-  .quiz p { margin-top: 0; font-weight: 600; }
-  .quiz button { display: block; width: 100%; text-align: left; margin: .4rem 0; padding: .55rem .9rem;
-    border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: .95rem; cursor: pointer; font-family: inherit; }
-  .quiz button:hover { border-color: #635b9a; }
-  .quiz button.correct { background: #e7f3e7; border-color: #2e7d32; }
-  .quiz button.wrong { background: #fbeaea; border-color: #c62828; }
-  .quiz .why { display: none; margin-top: .7rem; font-size: .92rem; color: #444; background: #f3f1fa; padding: .6rem .9rem; border-radius: 6px; }
-  .done-banner { display: none; background: #e7f3e7; border: 1px solid #2e7d32; border-radius: 8px; padding: 1rem 1.3rem; margin-top: 1.5rem; }
-  footer { margin-top: 3rem; font-size: .88rem; color: #666; border-top: 1px solid #dcd8ec; padding-top: 1rem; }
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#6a4c93;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#6a4c93}.mission{font-style:italic;color:#555;border-left:3px solid #6a4c93;padding-left:1rem}.rule{background:#f8f5fc;border-left:4px solid #6a4c93;padding:.75rem 1rem}.step,.quiz{border:1px solid #d8cce7;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f3eef8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#593c82}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d8cce7;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f8f5fc;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d8cce7;padding-top:1rem}
 </style>
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 4 · 第 04 課 · 約 25 分鐘 · Direction exploration</div>
-<h1>探索並比較設計方向</h1>
-<p class="mission">目標：先定比較 criteria，再請 Claude Design 產生 2–3 個真正不同的方向，最後用證據選擇，而不是挑「第一眼最漂亮」的版本。</p>
-
-<div class="scope"><strong>本課只做：</strong>產生 2–3 個方向、保存各版、完成一張比較表。<br><strong>先不要做：</strong>把三個方向拆零件拼成沒有清楚取捨的混合版。</div>
-
-<h2>核心知識：先寫尺，再看答案</h2>
-<p>官方 <a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Claude Design 入門指南</a>把第一版視為起點，並建議在方向未定時要求 2–3 個 alternatives。要讓比較有意義，criteria 必須先於生成；否則你很容易在看到成品後改規則，讓偏好偽裝成判斷。</p>
-
-<table>
-<tr><th>Criterion</th><th>要找的 evidence</th><th>不要只寫</th></tr>
-<tr><td>Task fit</td><td>主要任務幾步完成？CTA 是否出現在決策點？</td><td>「感覺更順」</td></tr>
-<tr><td>Hierarchy</td><td>第一、第二、第三注意點是否符合 brief？</td><td>「看起來漂亮」</td></tr>
-<tr><td>Content resilience</td><td>長文案、空狀態、錯誤狀態是否仍可用？</td><td>「範例沒壞」</td></tr>
-<tr><td>Responsive fit</td><td>mobile 與 desktop 的資訊順序是否仍合理？</td><td>「應該能縮」</td></tr>
-<tr><td>System fit</td><td>使用哪些正式 tokens、components、variants？</td><td>「大致同風格」</td></tr>
-<tr><td>Build risk</td><td>哪些互動或元件需要新增 production contract？</td><td>「之後再處理」</td></tr>
-</table>
-
-<div class="rule"><strong>真正不同的方向要改變策略，而不只是顏色。</strong>例如 A 用 guided steps 降低新手負擔；B 用 comparison table 提高資訊密度；C 用 progressive disclosure 平衡兩者。每個方向仍要遵守相同 brief 與 design-system 邊界。</div>
-
-<h2>探索 prompt</h2>
-<pre>根據同一份 brief 產生 3 個方向：
-A — [策略一，例如 guided steps]
-B — [策略二，例如 dense comparison]
-C — [策略三，例如 progressive disclosure]
-
-所有方向都必須：
-- 使用已同步的 design system
-- 包含 mobile 與 desktop
-- 使用同一組真實 content 與 states
-- 說明主要 trade-off
-
-先不要替我選。完成後依 [criteria] 逐項比較。</pre>
-
-<h2>實作 checklist</h2>
-<div class="step">
-  <label><input type="checkbox"> 1. 凍結 brief 與 4–6 個 criteria</label>
-  <p>把 <a href="004-0002-write-design-brief.html">第 02 課</a>的 brief 存成比較基準，並在看到任何方向前排好 criteria 優先序。</p>
-</div>
-<div class="step">
-  <label><input type="checkbox"> 2. 生成 2–3 個策略不同的方向</label>
-  <p>每個方向使用相同 content 與 constraints；要求 Claude 說明差異與 trade-off，而不是只換配色。</p>
-</div>
-<div class="step">
-  <label><input type="checkbox"> 3. 保存 A／B／C 的版本與 prompt</label>
-  <p>先保存或命名每個候選版本，再開始精修。另留一份比較紀錄，至少包含版本名稱、prompt 與檢查日期。</p>
-</div>
-<div class="step">
-  <label><input type="checkbox"> 4. 逐項記 evidence 與風險</label>
-  <p>每格寫可觀察事實：步數、資訊順序、使用的 component、會失敗的狀態；不要只打總分。</p>
-</div>
-<div class="step">
-  <label><input type="checkbox"> 5. 選一個方向並寫決策句</label>
-  <p><code>選 [A/B/C]，因為 [evidence] 最符合 [top criterion]；接受 [trade-off]，下一輪驗證 [risk]。</code></p>
-</div>
-
-<div class="done-banner" id="done"><strong>你已做出 evidence-based choice。</strong>把比較表貼回對話視窗，請 AI 老師找一個「偏好被寫成證據」的欄位。</div>
-
-<h2>觀念檢查（憑記憶作答）</h2>
-<div class="quiz" data-answer="0">
-  <p>1. 為什麼 criteria 要在生成方向前寫好？</p>
-  <button>避免看完才改比較規則</button>
-  <button>避免沿用正式元件規則</button>
-  <button>避免產生不同裝置版本</button>
-  <div class="why">先固定尺能降低事後合理化；看到答案才改 criteria，容易讓個人偏好冒充需求證據。</div>
-</div>
-<div class="quiz" data-answer="2">
-  <p>2. 哪一組最接近「三個不同方向」？</p>
-  <button>藍色版、紫色版、綠色版</button>
-  <button>圓角版、直角版、陰影版</button>
-  <button>引導版、比較版、漸進版</button>
-  <div class="why">引導、比較與 progressive disclosure 改變了解題策略；只換顏色或裝飾，不足以探索結構性取捨。</div>
-</div>
-<div class="quiz" data-answer="1">
-  <p>3. 最好的決策紀錄包含什麼？</p>
-  <button>最喜歡哪一版與投票數</button>
-  <button>選擇證據、取捨與待驗風險</button>
-  <button>所有版本混合後的新稿件</button>
-  <div class="why">Evidence、trade-off 與 unresolved risk 讓下一輪精修與日後 handoff 都有可追溯的設計意圖。</div>
-</div>
-
-<h2>下一步與主要閱讀</h2>
-<p>選定方向後，進入 <a href="004-0005-refine-and-version.html">第 05 課：用 chat、inline comments 與 canvas 精修</a>。若候選方向一直偏離品牌，回到 <a href="004-0003-sync-design-system.html">第 03 課</a>重查來源與抽取結果。</p>
-<p><strong>主要官方閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Get started with Claude Design</a> 的「Refine your design」與「Ask for variations」。比較紀錄可搭配 <a href="../reference/claude-design-to-code-workflow.html">Claude Design → Code workflow 速查表</a>。</p>
-
-<footer>
-  有不清楚的，回對話視窗問你的 AI 老師。<br>
-  相關課程：<a href="004-0002-write-design-brief.html">Phase 4 第 02 課 — design brief</a> · <a href="004-0003-sync-design-system.html">Phase 4 第 03 課 — design system</a> · <a href="004-0005-refine-and-version.html">Phase 4 第 05 課 — refine</a> · <a href="../toc.html">課目表</a>
-</footer>
-
-<script>
-const boxes = document.querySelectorAll('input[type=checkbox]');
-boxes.forEach(b => b.addEventListener('change', () => {
-  document.getElementById('done').style.display =
-    [...boxes].every(x => x.checked) ? 'block' : 'none';
-}));
-document.querySelectorAll('.quiz').forEach(q => {
-  const ans = +q.dataset.answer;
-  q.querySelectorAll('button').forEach((b, i) => {
-    b.addEventListener('click', () => {
-      q.querySelectorAll('button').forEach(x => x.disabled = true);
-      q.querySelectorAll('button')[ans].classList.add('correct');
-      if (i !== ans) b.classList.add('wrong');
-      q.querySelector('.why').style.display = 'block';
-    });
-  });
-});
-</script>
+<div class="kicker">Phase 4 · 第 04 課 · 約 15 分鐘</div>
+<h1>比較兩個不同方向</h1>
+<p class="mission">今天只做一件事：請 Claude Code 透過 Design MCP 產生兩個方向，再依事先寫好的標準選擇。</p>
+<div class="rule"><strong>先寫標準再生成：</strong>例如「最容易找到主要按鈕」。這能避免只選第一眼最好看的版本。</div>
+<h2>做一次簡單比較</h2>
+<div class="step"><label><input type="checkbox"> 1. 寫一個選擇標準</label><p>只選一個：容易理解、容易操作或更符合品牌。不要一次做完整評分表。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 請 Claude Code 產生兩個方向</label><p>透過 Design MCP 要求內容相同、版面安排不同，並回傳兩個可查看版本；只換顏色不算真正不同。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 選一個並寫一句理由</label><p>格式：「我選 B，因為主要按鈕更容易找到。」</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已用一個可說明的標準選出方向，而不是只說「我比較喜歡」。</div>
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="0"><p>什麼時候應該先寫選擇標準？</p><button>看見版本之前</button><button>選定版本之後</button><button>交付程式之後</button><div class="why">先寫標準能讓比較聚焦在任務，而不是事後替個人偏好找理由。</div></div>
+<h2>帶走這個就好</h2><p>初學者只比較兩版、使用一個標準即可。複雜比較矩陣留到高風險設計決策再用。</p>
+<p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design#refine-your-design">Anthropic — Refine your design</a>。</p>
+<footer>上一課：<a href="004-0003-sync-design-system.html">給視覺參考</a> · 下一課：<a href="004-0005-refine-and-version.html">一次只改一件事</a><br>把兩個版本與選擇理由貼回對話，請 AI 老師檢查標準是否一致。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

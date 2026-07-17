@@ -1,49 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>06：查核內容、圖表與可及性</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06：查一個重要數字，確認字看得清楚</title>
 <style>
-  body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#315f86;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.2rem;margin-top:2.4rem;color:#315f86}.mission{font-style:italic;color:#555;border-left:3px solid #315f86;padding-left:1rem}.scope{background:#fff8e8;border-left:4px solid #d08800;padding:.7rem 1rem}.rule{background:#f2f6fa;border-left:4px solid #315f86;padding:.75rem 1rem}.step,.quiz{border:1px solid #d7e0e8;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{border:1px solid #d7e0e8;padding:.55rem .65rem;text-align:left;vertical-align:top}th{background:#f2f6fa}pre,code{background:#f2f6fa;border-radius:4px}pre{padding:.8rem 1rem;white-space:pre-wrap}code{padding:.1rem .3rem}a{color:#315f86}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #ccd5dc;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why{display:none;background:#f2f6fa;padding:.6rem .9rem}.done-banner{display:none;background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d7e0e8;padding-top:1rem}
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#a84f18;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#a84f18}.mission{font-style:italic;color:#555;border-left:3px solid #a84f18;padding-left:1rem}.rule{background:#fff8f2;border-left:4px solid #a84f18;padding:.75rem 1rem}.step,.quiz{border:1px solid #ead1bf;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#fff3ea;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#984412}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #ead1bf;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fff8f2;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #ead1bf;padding-top:1rem}
 </style>
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 5 · 第 06 課 · 約 30 分鐘 · Verification</div>
-<h1>查核內容、圖表與可及性</h1>
-<p class="mission">目標：逐頁建立 claim ledger，查核文字、圖表與圖片權利，並完成 accessibility preflight，讓 deck 能安全進入目標格式驗證。</p>
-<div class="scope"><strong>本課只做：</strong>驗證 confirmed claims、圖表表達、圖片權利與 presentation accessibility preflight。<br><strong>先不要做：</strong>請同一個模型看過一遍，就把模型回覆當成獨立查核。</div>
-
-<h2>四道 gate</h2>
-<table>
-<tr><th>Gate</th><th>檢查</th><th>Blocker 例子</th></tr>
-<tr><td><strong>Claims</strong></td><td>每個數字、引言、日期回到 source ID</td><td>來源不存在、數字抄錯、語氣過度推論</td></tr>
-<tr><td><strong>Charts</strong></td><td>軸、單位、期間、基準、標籤與資料一致</td><td>截斷軸誤導、類別相反、缺少時間範圍</td></tr>
-<tr><td><strong>Rights</strong></td><td>logo、照片、字型與引言有使用權</td><td>網路抓圖、未核准客戶引言</td></tr>
-<tr><td><strong>Accessibility</strong></td><td>標題、閱讀順序、對比、替代文字、非顏色提示</td><td>只靠紅綠區分，或只看畫面就宣稱輸出檔可及</td></tr>
-</table>
-<div class="rule"><strong>圖表要能被口述。</strong>W3C WAI 建議說出畫面上的文字並描述關鍵圖形；複雜圖表也需要完整的文字等價資訊。把「這張圖要證明什麼」寫入 claim ledger 或 sidecar notes；只有在 speaker notes 可用且輸出後確認保留時，才同步一份副本。</div>
-
-<h2>Claim ledger</h2>
-<pre>Slide | Claim | Source ID | Verified by | Status / fix
-03 | Retention +8% QoQ | S07 | Lin, 2026-07-15 | pass
-04 | "Top customer request" | none | — | BLOCK: remove or source
-05 | Recommendation | S07 + S11 | Mei | pass, label as inference</pre>
-
-<h2>實作 checklist</h2>
-<div class="step"><label><input type="checkbox"> 1. 把所有可驗證主張列入 ledger</label><p>不要只查大數字；日期、排名、引言與因果語句也要列入。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 由人回到原始來源逐項核對</label><p>將事實、推論與建議分開標記；推論不能偽裝成來源原句。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 用圖表 checklist 檢查每張視覺</label><p>確認單位、範圍、資料點與 headline 一致，並在 claim ledger 或 sidecar notes 留下文字摘要。</p></div>
-<div class="step"><label><input type="checkbox"> 4. 做 rights 與 accessibility preflight</label><p>檢查圖片與字型權利；以投影距離閱讀、灰階檢視、唯一 slide title 與口述圖意測試。閱讀順序、alt text 與 tags 要等第 07 課在目標輸出格式實測。</p></div>
-<div class="done-banner" id="done"><strong>Deck 已通過內容查核與可及性 preflight。</strong>這還不是最終 accessibility pass；第 07 課必須在目標格式用對應工具驗證。若仍有 blocker，不要輸出成品。</div>
-
+<div class="kicker">Phase 5 · 第 06 課 · 約 15 分鐘</div>
+<h1>查一個重要數字，確認字看得清楚</h1>
+<p class="mission">今天只做一輪小型檢查：讓 Claude Code 找出最高風險主張，再由你回查來源與實際閱讀距離。</p>
+<div class="rule"><strong>先擋住兩種常見錯誤：</strong>內容看起來很可信卻沒有依據；畫面在電腦上漂亮，投影後卻讀不到。</div>
+<h2>做一次小型 preflight</h2>
+<div class="step"><label><input type="checkbox"> 1. 請 Claude Code 指出最高風險主張</label><p>讓它列出該頁原句與 source pack 位置；你要打開原始資料，確認數值、日期、單位與意思一致。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 全螢幕看三頁</label><p>坐到實際觀看距離，確認標題與主要文字不需要瞇眼才能讀。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 不只靠顏色傳達重點</label><p>如果紅綠代表好壞，再加文字、符號或標籤，讓看不到顏色差異的人也能理解。</p></div>
+<div class="done" id="done"><strong>完成：</strong>最重要的主張有原始依據，三頁在目標環境可閱讀，關鍵意思也不只靠顏色。</div>
 <h2>觀念檢查</h2>
-<div class="quiz" data-answer="2"><p>1. 數字有疑問時先做什麼？</p><button>請同一個模型依前文再次確認</button><button>降低該數字在版面上的視覺權重</button><button>回到原始來源並在 ledger 記錄狀態</button><div class="why">事實查核要回 source of truth；模型自評與視覺弱化都不能證明數字正確。</div></div>
-<div class="quiz" data-answer="0"><p>2. 如何讓關鍵圖表更可及？</p><button>提供文字等價資訊並口述關鍵趨勢</button><button>改用色盲友善配色，但不增加文字提示</button><button>只加入「chart」作為替代文字</button><div class="why">口述趨勢與結論，加上有意義的文字等價資訊，能讓無法看清圖表的人取得同一核心訊息；配色或空泛 alt text 都不足。</div></div>
-
-<h2>下一步與主要閱讀</h2>
-<p>所有 blocker 關閉後，進入 <a href="005-0007-export-and-rehearse.html">輸出與真實彩排</a>。</p>
-<p><strong>主要官方閱讀：</strong><a href="https://www.w3.org/WAI/teach-advocate/accessible-presentations/">W3C WAI — Making Events Accessible</a> 的 presentations guidance；圖表補充閱讀 <a href="https://www.w3.org/WAI/tutorials/images/">WAI Images Tutorial</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="005-0005-refine-deck-for-audience.html">精修 deck</a> · 下一課：<a href="005-0007-export-and-rehearse.html">輸出彩排</a> · <a href="../toc.html">課目表</a></footer>
-<script>const boxes=[...document.querySelectorAll('input[type=checkbox]')];boxes.forEach(b=>b.addEventListener('change',()=>document.getElementById('done').style.display=boxes.every(x=>x.checked)?'block':'none'));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
+<div class="quiz" data-answer="0"><p>重要數字找不到來源時，應該怎麼做？</p><button>移除或標待確認</button><button>保留並補上美化</button><button>改成約略的數字</button><div class="why">沒有來源的數字不能因為版面需要而保留；先移除或清楚標成待確認。</div></div>
+<h2>帶走這個就好</h2><p>完整 claim ledger、reading order、alt text 與格式稽核是進階檢查；入門先建立「回來源、在真實距離看」的習慣。</p>
+<p><strong>主要閱讀：</strong><a href="https://www.w3.org/WAI/teach-advocate/accessible-presentations/">W3C WAI — Making Events Accessible</a>。</p>
+<footer>上一課：<a href="005-0005-refine-deck-for-audience.html">為受眾改寫</a> · 下一課：<a href="005-0007-export-and-rehearse.html">輸出並講一次</a><br>把 Claude Code 的 claim 指向與你的來源回查結果貼回對話，請 AI 老師檢查。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06：先審查 planner 產生的 spec</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#4c5f9e;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#4c5f9e}.mission{font-style:italic;color:#555;border-left:3px solid #4c5f9e;padding-left:1rem}.rule{background:#f5f6fc;border-left:4px solid #4c5f9e;padding:.75rem 1rem}.step,.quiz{border:1px solid #d5d9ec;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#eef0f8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#3f4f84}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d5d9ec;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f5f6fc;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d5d9ec;padding-top:1rem}
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 8 · 進階第 06 課 · 約 15 分鐘</div>
+<h1>先審查 planner 產生的 spec</h1>
+<p class="mission">今天只做一件事：讓 planner 把一條需求整理成可讀 spec，先核准範圍，再允許產生 test code。</p>
+<div class="rule"><strong>Spec 是審查關卡：</strong>planner 應輸出人在寫 code 前就能評估的步驟與預期結果；如果需求仍模糊，先修 spec，不要把模糊放大成很多 tests。</div>
+<h2>產生一份 bounded spec</h2>
+<div class="step"><label><input type="checkbox"> 1. 給一條清楚需求與 seed</label><p>提供使用者目標、開始狀態、必要動作、預期結果、停止線，以及上一課的 seed test；有 PRD 時只附相關段落。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 只要求 planner 寫一份 spec</label><pre>Use the Playwright planner for only this path: ＿＿。
+Use the existing seed test and relevant requirement: ＿＿。
+Write one Markdown spec under specs/. Do not generate tests or edit product code.</pre></div>
+<div class="step"><label><input type="checkbox"> 3. 人工核准再往下</label><p>逐項檢查範圍、前置條件、步驟、預期結果與未涵蓋項目；刪除模型自行加的情境，留下 approved spec 與 review note。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已有一份已核准、可逐項轉成 test 的 <code>specs/*.md</code>。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>使用 planner 與 generator 時，哪個順序最可靠？</p><button>先審核計畫再生成測試</button><button>先生成全部再檢查範圍</button><button>先略過計畫直接修頁面</button><div class="why">先核准人可讀 spec，能在低成本階段攔下錯誤範圍與錯誤預期，再交給 generator。</div></div>
+<h2>帶走這個就好</h2><p>不要用 agent 一次把模糊需求變成很多 code；先把一條路徑變成你同意的 spec。</p>
+<p><strong>主要閱讀：</strong><a href="https://playwright.dev/docs/test-agents">Playwright — Test Agents</a>。</p>
+<footer>上一課：<a href="008-0005-initialize-playwright-test-agents.html">初始化 Test Agents</a> · 下一課：<a href="008-0007-review-generator-test.html">審查 generator test</a><br>把 spec 與原始需求貼回對話，請 AI 老師檢查是否一對一對應。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
+</body>
+</html>

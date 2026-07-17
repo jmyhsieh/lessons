@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phase 8 路線卡：Claude Code × Playwright</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:900px;margin:2.5rem auto;padding:0 1.5rem;color:#1d1d1d;line-height:1.7}h1{color:#4c5f9e}h2{font-size:1.15rem;color:#4c5f9e;margin-top:2rem;border-bottom:2px solid #d5d9ec;padding-bottom:.35rem}.decision{border:1px solid #d5d9ec;border-left:5px solid #4c5f9e;border-radius:8px;padding:1rem 1.2rem;margin:1rem 0}.yes{background:#f5f6fc}.no{background:#faf8f4}table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{padding:.55rem .65rem;border-bottom:1px solid #e1e3ef;text-align:left;vertical-align:top}th{background:#eef0f8}code,pre{background:#eef0f8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}.prompt{border:1px solid #d5d9ec;border-radius:8px;padding:.2rem 1rem;margin:1rem 0}a{color:#3f4f84}.rule{border-left:4px solid #4c5f9e;background:#f5f6fc;padding:.8rem 1rem;margin:1rem 0}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.85rem}@media print{body{margin:.5cm auto}}
+</style>
+</head>
+<body>
+<h1>Phase 8：Claude Code × Playwright</h1>
+<p>這個 Phase 不要求你手動背 Playwright API。你先把任務講清楚，讓 Claude Code 操作或產生變更；你負責觀看真實 browser、審查 spec／diff／output，並判斷證據是否足夠。</p>
+
+<h2>先選三層中的一層</h2>
+<table>
+<tr><th>層級</th><th>用來回答</th><th>工具與留下的證據</th></tr>
+<tr><td>Live check</td><td>這條路徑現在正常嗎？</td><td>Playwright MCP（或 Claude in Chrome）操作可見 browser，留一份 evidence note；不會自動變成 repo test。</td></tr>
+<tr><td>Durable test</td><td>以後壞掉時會被發現嗎？</td><td>Claude Code 產生並執行 Playwright Test，留下 committed test 與可解釋的 fail → pass。</td></tr>
+<tr><td>Agent workflow</td><td>需求變多時，如何保留人工 review？</td><td>planner → approved spec → generator → reviewed test → healer；每一層都有可審查 artifact。</td></tr>
+</table>
+
+<h2>最小指令</h2>
+<pre>node --version
+claude mcp add --transport stdio --scope local playwright -- npx @playwright/mcp@latest
+claude mcp get playwright
+
+# 已有 Playwright Test 地基後，才初始化 Claude Code agents
+npx playwright init-agents --loop=claude</pre>
+<p>Playwright MCP README 也示範較短的 <code>claude mcp add playwright npx @playwright/mcp@latest</code>。本課以 Claude Code 現行 MCP 文件的 option ordering 與 <code>--</code> 分隔寫法為準，因為目標使用者是 Claude Code 使用者。</p>
+
+<h2>三個可直接貼給 Claude Code 的 prompts</h2>
+<div class="prompt"><p><strong>Live check</strong></p><pre>只做 browser verification，不要修改 repo files。
+使用 Playwright 打開＿＿URL，完成＿＿動作，確認＿＿結果。
+每次 navigation 或 action 後重新讀取頁面狀態。
+回報實際步驟、觀察結果、console errors 與未知項目。</pre></div>
+<div class="prompt"><p><strong>Planner</strong></p><pre>Use the Playwright planner for only this path: ＿＿。
+Use the existing seed test and relevant requirement: ＿＿。
+Write one Markdown spec under specs/. Do not generate tests or edit product code.</pre></div>
+<div class="prompt"><p><strong>Healer</strong></p><pre>Use the Playwright healer for only this failing test: ＿＿。
+Read the approved spec and trace. First classify the cause as app, test, or environment.
+Do not skip, delete, weaken assertions, or change product behavior just to pass.
+Show the proposed patch and evidence before applying it.</pre></div>
+
+<h2>入門 01–04</h2>
+<table>
+<tr><th>課</th><th>只做這件事</th><th>留下什麼</th></tr>
+<tr><td>01</td><td>請 Claude Code 讀 repo，判斷 live check 或 durable test</td><td>route decision card</td></tr>
+<tr><td>02</td><td>用 local scope 連接並核對 Playwright MCP</td><td>setup evidence</td></tr>
+<tr><td>03</td><td>觀看 Claude Code 走完一條可見 browser path</td><td>live browser evidence note</td></tr>
+<tr><td>04</td><td>審查第一個 committed test，證明會紅會綠</td><td>test diff＋fail/pass output</td></tr>
+</table>
+
+<h2>進階 05–09</h2>
+<table>
+<tr><th>課</th><th>只做這件事</th><th>人工關卡</th></tr>
+<tr><td>05</td><td>以 <code>--loop=claude</code> 產生 Test Agents</td><td>審查 definitions 與 seed test</td></tr>
+<tr><td>06</td><td>讓 planner 寫一份 bounded spec</td><td>核准 scope、steps 與 expected result</td></tr>
+<tr><td>07</td><td>讓 generator 依 approved spec 產生一個 test</td><td>比對 spec、diff、locator 與 test output</td></tr>
+<tr><td>08</td><td>讓 healer 用 trace 診斷一個 failure</td><td>禁止 skip／弱化 assertion；product bug 就停</td></tr>
+<tr><td>09</td><td>把 reviewed tests 接到最小 CI gate</td><td>核對 projects、artifacts、run 與限制</td></tr>
+</table>
+
+<h2>安全與停止線</h2>
+<div class="rule"><strong>MCP scope：</strong>先用 local scope。Project-scoped <code>.mcp.json</code> 會成為團隊設定，必須先共同審查 server command、來源與權限。</div>
+<div class="rule"><strong>外部內容：</strong>瀏覽器讀到的網頁可能含 prompt injection；不要讓未信任內容擴大操作範圍，也不要隨意啟用 workspace 以外的 file access。</div>
+<div class="rule"><strong>Artifacts：</strong>Report、trace 與 screenshot 可能包含 token、資料或原始碼；限制存取與保留期限，分享前先脫敏。</div>
+<div class="rule"><strong>人類責任：</strong>Agent 顯示成功不等於需求正確。每次都審查 prompt、spec、diff 與真實 output；healer 的綠燈也不能取代 product judgment。</div>
+<p>第 04 課是獨立入門完成線。只有一條路徑時，不必初始化 Test Agents 或建立完整 browser matrix；第 09 課也只能聲稱指定 tests 與 projects 有證據，不能說「所有 UI 都已自動驗證」。</p>
+
+<footer>入門開始：<a href="../lessons/008-0001-choose-live-check-or-test.html">第 01 課</a> · 進階開始：<a href="../lessons/008-0005-initialize-playwright-test-agents.html">第 05 課</a> · 主要來源：<a href="https://code.claude.com/docs/en/mcp">Claude Code MCP</a> · <a href="https://playwright.dev/mcp/installation">Playwright MCP</a> · <a href="https://playwright.dev/docs/test-agents">Playwright Test Agents</a> · <a href="../toc.html">課目表</a></footer>
+</body>
+</html>

@@ -1,178 +1,60 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>速查表：Claude Design → Claude Code 工作流</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phase 4 路線卡：Claude Code × Claude Design</title>
 <style>
-  :root { --ink: #252334; --accent: #635b9a; --soft: #f3f1fa; --line: #d9d5e8; --warn: #fff7e4; }
-  * { box-sizing: border-box; }
-  body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
-         max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: var(--ink); line-height: 1.65; }
-  h1 { font-size: 1.65rem; border-bottom: 2px solid var(--accent); padding-bottom: .45rem; margin-bottom: .4rem; }
-  h2 { font-size: 1.15rem; margin-top: 2rem; color: var(--accent); }
-  h3 { font-size: 1rem; margin: 1.2rem 0 .3rem; }
-  a { color: #4c467b; }
-  code, pre { background: var(--soft); border-radius: 4px; font-size: .88em; }
-  code { padding: .1rem .3rem; }
-  pre { padding: .7rem .9rem; overflow-x: auto; white-space: pre-wrap; }
-  table { border-collapse: collapse; width: 100%; font-size: .88rem; margin: .7rem 0 1rem; }
-  th, td { border: 1px solid var(--line); padding: .45rem .6rem; text-align: left; vertical-align: top; }
-  th { background: var(--soft); }
-  ul, ol { padding-left: 1.35rem; }
-  li { margin: .28rem 0; }
-  .meta { margin-top: 0; color: #666; font-size: .88rem; }
-  .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: .55rem; margin: 1rem 0; }
-  .flow div { border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 6px; padding: .6rem; background: #fff; font-size: .83rem; }
-  .flow strong { display: block; color: var(--accent); margin-bottom: .2rem; }
-  .rule { background: var(--soft); border-left: 4px solid var(--accent); padding: .65rem .9rem; margin: .7rem 0; }
-  .warn { background: var(--warn); border-left: 4px solid #c78600; padding: .65rem .9rem; margin: .7rem 0; }
-  .checklist { columns: 2; column-gap: 2rem; }
-  .checklist li { break-inside: avoid; list-style: "□  "; }
-  .sources { font-size: .86rem; color: #555; border-top: 1px solid var(--line); margin-top: 2rem; padding-top: .8rem; }
-  @media (max-width: 720px) {
-    .flow { grid-template-columns: 1fr 1fr; }
-    .checklist { columns: 1; }
-  }
-  @page { size: A4; margin: 12mm; }
-  @media print {
-    body { max-width: none; margin: 0; padding: 0; font-size: 9.2pt; line-height: 1.45; color: #000; }
-    h1 { font-size: 16pt; } h2 { font-size: 11.5pt; margin-top: 12pt; }
-    a { color: #000; text-decoration: none; }
-    table { font-size: 8.1pt; }
-    th, td { padding: 3.5pt 5pt; }
-    pre { white-space: pre-wrap; }
-    .flow { grid-template-columns: repeat(5, 1fr); gap: 4pt; }
-    .flow div { font-size: 7.7pt; padding: 4pt; break-inside: avoid; }
-    h2, h3 { break-after: avoid; }
-    table, pre, .rule, .warn, .sources { break-inside: avoid; }
-  }
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:900px;margin:2.5rem auto;padding:0 1.5rem;color:#1c1c1c;line-height:1.65}h1{font-size:2rem;margin-bottom:.2rem;color:#5b3f8c}h2{font-size:1.15rem;margin-top:2rem;color:#5b3f8c;border-bottom:2px solid #d9ccec;padding-bottom:.35rem}.sub{color:#666;margin-top:0}.card{background:#f8f5fc;border-left:5px solid #6a4c93;padding:.9rem 1.1rem;margin:1rem 0}table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{padding:.55rem .65rem;border-bottom:1px solid #e5dced;text-align:left;vertical-align:top}th{background:#f3eef8}pre{background:#f3eef8;padding:.8rem 1rem;border-radius:6px;white-space:pre-wrap}a{color:#593c82}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.85rem}@media print{body{margin:.5cm auto;font-size:10pt}a{color:#111;text-decoration:none}}
 </style>
 </head>
 <body>
-<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<h1>Claude Design → Claude Code 工作流</h1>
-<p class="meta">從設計探索到 repo 實作的一頁式速查表 · 更新：2026-07-14</p>
-<div class="rule"><strong>核心規則：</strong>Claude Design 用來探索、精修與形成可測的 prototype；Claude Code 用來在既有 repo 做最小實作。中間必須交付 design intent 與 evidence，不只交一張 screenshot。</div>
+<h1>Phase 4：Claude Code × Claude Design</h1>
+<p class="sub">Claude Code 是主要工作介面；Claude Design MCP 提供視覺探索能力。01–08 先完成入門，成果真的要進產品，再接 09–13。</p>
 
-<h2>Design-to-code flow</h2>
-<div class="flow">
-  <div><strong>1 · Frame</strong>選 surface，寫 goal、layout、content、audience。</div>
-  <div><strong>2 · Ground</strong>沿用已發布 system，或匯入 project context。</div>
-  <div><strong>3 · Explore</strong>比較 2–3 個真正不同的方向，記錄取捨。</div>
-  <div><strong>4 · Refine</strong>一次改一層，保存 revision 與決定。</div>
-  <div><strong>5 · Validate</strong>驗 responsive、interaction、a11y 與使用者任務。</div>
-  <div><strong>6 · Bundle</strong>封裝 source、intent、states、rules、evidence、scope。</div>
-  <div><strong>7 · Inspect</strong>Claude Code read-only mapping；先不改 repo。</div>
-  <div><strong>8 · Implement</strong>沿既有慣例完成最小垂直切片。</div>
-  <div><strong>9 · Verify</strong>跑 repo checks；真實 browser 對照 intent。</div>
-  <div><strong>10 · Close</strong>Review diff，記錄 deviations、未驗項與下一步。</div>
-</div>
+<div class="card"><strong>入門完成線：</strong>你能在 Claude Code 說清楚任務、審查兩個方向與一則修改，取得一筆真人試用觀察，再核准一個可打開的小畫面。</div>
 
-<h2>Surface decision</h2>
+<h2>只需設定一次</h2>
+<pre>claude mcp add --scope user --transport http claude-design https://api.anthropic.com/v1/design/mcp</pre>
+<p>在 Claude Code 執行 <code>/design-login</code>，再用 <code>/mcp</code> 確認連線。這是 user-scoped 外部工具；連上不等於授權它修改任何 repo 或公開內容。</p>
+
+<h2>八步路徑</h2>
 <table>
-<tr><th>現在要做什麼</th><th>使用 surface</th><th>判斷規則</th></tr>
-<tr><td>產生或重排整體方向</td><td>Claude Design chat</td><td>跨區塊、需脈絡、需要解釋與 alternatives。</td></tr>
-<tr><td>修正單一元件</td><td>Inline comment</td><td>指向具體元素；若 comment 未被讀取，改貼到 chat。</td></tr>
-<tr><td>拖曳、縮放、對齊</td><td>Direct canvas edit</td><td>快速視覺或排版微調，不承擔結構性需求。</td></tr>
-<tr><td>建立／發布組織 system</td><td>Claude Design onboarding／settings</td><td>上傳來源、review、test，最後開啟 Published。</td></tr>
-<tr><td>把既有 system 帶入 project</td><td>Claude Code <code>/design-sync</code></td><td>Attach／import project context；不會發布組織 system。</td></tr>
-<tr><td>從 terminal 讀寫 design</td><td>Claude Design MCP</td><td>依官方指令連線並執行 <code>/design-login</code>。</td></tr>
-<tr><td>在既有 repo 實作</td><td>Claude Code</td><td>先 read-only inspect mapping，再同意最小範圍寫入。</td></tr>
-<tr><td>判斷是否真的可用</td><td>Browser＋真實使用者</td><td>Claude review 只產生檢查線索，不是驗證本身。</td></tr>
+<tr><th>課</th><th>只做這件事</th><th>留下什麼</th></tr>
+<tr><td>01</td><td>從 Claude Code 連接 Design MCP</td><td><code>/mcp</code> 連線結果</td></tr>
+<tr><td>02</td><td>請 Claude Code 整理四句 brief</td><td>人工核准的 design brief</td></tr>
+<tr><td>03</td><td>交一份參考並說清楚 include／exclude</td><td>參考＋使用邊界</td></tr>
+<tr><td>04</td><td>請 Design MCP 產生兩個方向</td><td>人工選擇＋一句理由</td></tr>
+<tr><td>05</td><td>只核准一則具體修改</td><td>修改前後版本</td></tr>
+<tr><td>06</td><td>真人完成一個任務，再回報觀察</td><td>一則真實觀察</td></tr>
+<tr><td>07</td><td>把 design intent 與範圍帶回 repo</td><td>bounded handoff</td></tr>
+<tr><td>08</td><td>審查實作並親自打開</td><td>桌面／手機各一次結果</td></tr>
 </table>
 
-<h2>Artifact 與 evidence</h2>
+<h2>給 Claude Code 的入門 prompt</h2>
+<pre>先不要產生設計。請把下面內容整理成四句 design brief，缺資料就標記，不要猜：
+我要做：
+使用者是：
+畫面必須包含：
+最重要的是：
+
+等我核准 brief 後，再透過 Claude Design MCP 產生兩個明顯不同的方向。</pre>
+
+<h2>帶回 repo 的四件事</h2>
+<p>選定版本 · 使用者要完成的任務 · 必須保留的 design intent · 這次只實作的範圍。Claude Code 先做唯讀檢查，等人核准 plan 才修改。</p>
+
+<h2>進階 09–13</h2>
 <table>
-<tr><th>階段</th><th>Durable artifact</th><th>最低完成證據</th></tr>
-<tr><td>Brief</td><td>Goal、layout、content、audience、constraints、non-goals</td><td>另一個人能說出要替誰解決什麼問題。</td></tr>
-<tr><td>Direction</td><td>比較表與選定 revision</td><td>每個方向有不同假設；選擇有理由。</td></tr>
-<tr><td>Refinement</td><td><code>版本 / 假設 / 改動 / 觀察 / 決定</code></td><td>每輪只改一層，能回到 baseline。</td></tr>
-<tr><td>Validation</td><td>任務、尺寸、操作、a11y、使用者觀察</td><td>Blocker 已修正與重測；其餘有決定。</td></tr>
-<tr><td>Handoff</td><td>Source、intent、states、rules、evidence、scope</td><td>Claude Code 說得出 mapping、衝突、檔案與 gates。</td></tr>
-<tr><td>Implementation</td><td>Focused diff 與測試</td><td>切片端到端可用；repo checks 有完整結果。</td></tr>
-<tr><td>Verification</td><td>Browser check log、截圖、自動工具輸出</td><td>Intent、responsive、interaction、a11y 逐項有結論。</td></tr>
-<tr><td>Closeout</td><td>Changed、checks、deviations、not verified、next</td><td>接手者不必猜完成邊界。</td></tr>
+<tr><th>課</th><th>解決的產品化問題</th><th>留下什麼證據</th></tr>
+<tr><td>09</td><td>Claude Code 以 <code>/design-sync</code> 讀到的規則正確嗎？</td><td>人工校正紀錄＋一個修正樣本</td></tr>
+<tr><td>10</td><td>Claude Code 能否從真實 UI 草擬非理想狀態與尺寸規則？</td><td>人工核准的 state × responsive matrix</td></tr>
+<tr><td>11</td><td>檢查清單能否轉成真人鍵盤、焦點、zoom 與對比 evidence？</td><td>一輪真人 accessibility audit</td></tr>
+<tr><td>12</td><td>Claude Code 是否拿到可實作且有停止線的交接？</td><td>唯讀檢查＋implementation-ready handoff</td></tr>
+<tr><td>13</td><td>測試與真實瀏覽器是否都支持完成宣稱？</td><td>test output＋browser evidence＋已知限制</td></tr>
 </table>
 
-<h2>Handoff bundle checklist</h2>
-<ul class="checklist">
-  <li>Claude Design project 與 revision</li>
-  <li>Design system／repo source</li>
-  <li>使用者目標與資訊優先級</li>
-  <li>關鍵 interaction 與狀態轉移</li>
-  <li>Loading、empty、error、disabled</li>
-  <li>Responsive breakpoint 行為</li>
-  <li>Keyboard、focus、name、contrast</li>
-  <li>驗證結果與 open questions</li>
-  <li>可接受 deviation 與理由</li>
-  <li>最小切片與 non-goals</li>
-  <li>預計 repo checks 與 browser checks</li>
-  <li>預計修改檔案，經 dry inspect 確認</li>
-</ul>
+<h2>停止線</h2>
+<p>只想驗證概念，完成第 08 課即可；只有確定要進真實產品，才開始第 09 課。Claude Code 或 Claude Design 的自評不能代替真人試用、accessibility 操作與 browser evidence。</p>
 
-<h2>官方同步與 Design MCP</h2>
-<div class="rule"><strong>先分流：</strong>組織 design system 的 setup／publish 在 Claude Design onboarding 或 organization settings；<code>/design-sync</code> 只負責把既有 systems 或 codebase context attach／import 到 project。兩者都要人工校正，但完成證據不同。</div>
-<pre># 在 Claude Code 依官方 get-started 加入 Claude Design MCP
-claude mcp add --scope user --transport http claude-design https://api.anthropic.com/v1/design/mcp
-
-# 接著在 Claude Code 登入
-/design-login
-
-# 將既有 design system 帶入 Claude Design project
-/design-sync</pre>
-<div class="warn"><strong>Beta 指令可能變動：</strong>上列內容於 2026-07-14 對照官方 get-started。實際執行前重新核對官方頁面。MCP 連線或 sync 不等於授權 agent 改動整個 repo。</div>
-
-<h2>Read-only dry inspect prompt</h2>
-<pre>先以 read-only 方式檢查 handoff bundle 與目前 repo，不要改檔，
-也不要執行會產生副作用的命令。請列出：
-- design 元件／token 對應的既有檔案
-- 缺漏、衝突與需要人決定的問題
-- 最小可實作切片及預計 diff
-- repo checks 與 browser verification 計畫</pre>
-
-<h2>Browser verification 最小矩陣</h2>
-<table>
-<tr><th>面向</th><th>至少檢查</th><th>不能只靠</th></tr>
-<tr><td>Intent</td><td>層級、內容、元件、狀態與關鍵取捨</td><td>視覺相似度</td></tr>
-<tr><td>Responsive</td><td>窄／中／寬 viewport、溢位、重排、觸控目標</td><td>單張桌面截圖</td></tr>
-<tr><td>Interaction</td><td>滑鼠、鍵盤、成功、失敗、loading、empty</td><td>Happy-path unit test</td></tr>
-<tr><td>Accessibility</td><td>語意、名稱、焦點、鍵盤、對比、狀態訊息</td><td>Claude 自我 review</td></tr>
-<tr><td>Closeout</td><td>命令、結果、deviation、未驗項與原因</td><td>「看起來完成」</td></tr>
-</table>
-
-<h2>Beta、availability 與 known limits</h2>
-<ul>
-  <li><strong>狀態：</strong>Claude Design 目前為 beta；功能、介面與指令可能調整。</li>
-  <li><strong>方案：</strong>官方現列 Pro、Max、Team、Enterprise；Enterprise 預設關閉，需管理員啟用。</li>
-  <li><strong>平台：</strong>目前只在 web（<code>claude.ai/design</code>）與 Claude Desktop 提供。</li>
-  <li><strong>Usage：</strong>Design activity 與 Claude chat、Claude Code、Cowork 共用方案 usage limits。</li>
-  <li><strong>Comments：</strong>Inline comments 偶爾不顯示；可開 comments view，未被讀取時貼回 chat。</li>
-  <li><strong>大型 repo：</strong>可能造成 lag／browser 問題；官方建議從 Claude Code 連結並使用 <code>/design-sync</code>。</li>
-  <li><strong>Chat error：</strong>遇到 <code>chat upstream error</code>，官方 workaround 是在同一 project 開新 chat tab。</li>
-  <li><strong>多人編輯：</strong>同步多人編輯仍屬基礎能力，可能不可靠。</li>
-  <li><strong>輸入品質：</strong>不完整 design system 或混亂 codebase 會直接反映在輸出。</li>
-</ul>
-
-<h2>課程路徑</h2>
-<p>
-  <a href="../lessons/004-0001-choose-claude-design-surface.html">01 Surface</a> →
-  <a href="../lessons/004-0002-write-design-brief.html">02 Brief</a> →
-  <a href="../lessons/004-0003-sync-design-system.html">03 Design system</a> →
-  <a href="../lessons/004-0004-explore-design-directions.html">04 Directions</a> →
-  <a href="../lessons/004-0005-refine-and-version.html">05 Refine</a> →
-  <a href="../lessons/004-0006-prototype-and-validate.html">06 Validate</a> →
-  <a href="../lessons/004-0007-handoff-to-claude-code.html">07 Handoff</a> →
-  <a href="../lessons/004-0008-implement-and-verify.html">08 Implement</a>
-</p>
-
-<div class="sources">
-  <strong>官方來源：</strong>
-  <a href="https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design">Set up your design system</a>（組織 setup、test、publish）、
-  <a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Get started with Claude Design</a>（project import、sync、MCP、export、availability、known limits）、
-  <a href="https://www.anthropic.com/news/claude-design-anthropic-labs">Introducing Claude Design by Anthropic Labs</a>（產品定位與 handoff intent）、
-  <a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a>（repo 實作與驗證原則）。
-  Availability 與 beta 行為可能變動，使用前請重新核對官方頁面。
-</div>
+<footer>入門開始：<a href="../lessons/004-0001-choose-claude-design-surface.html">第 01 課</a> · 進階開始：<a href="../lessons/004-0009-sync-real-design-system.html">第 09 課</a> · 主要來源：<a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Anthropic — Get started with Claude Design</a> · <a href="../toc.html">課目表</a></footer>
 </body>
 </html>

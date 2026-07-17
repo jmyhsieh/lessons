@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>09：讓 reviewed tests 在 CI 執行</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#4c5f9e;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#4c5f9e}.mission{font-style:italic;color:#555;border-left:3px solid #4c5f9e;padding-left:1rem}.rule{background:#f5f6fc;border-left:4px solid #4c5f9e;padding:.75rem 1rem}.step,.quiz{border:1px solid #d5d9ec;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#eef0f8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#3f4f84}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d5d9ec;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f5f6fc;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d5d9ec;padding-top:1rem}
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 8 · 進階第 09 課 · 約 20 分鐘</div>
+<h1>讓 reviewed tests 在 CI 執行</h1>
+<p class="mission">今天只做一件事：請 Claude Code 依現有政策提出最小 CI 變更，讓已審查的 tests 成為可信 gate。</p>
+<div class="rule"><strong>不要宣稱全部 UI 都被保護：</strong>CI 只證明設定的 projects、環境與 tests 在該次 run 的結果；人工 usability、完整 accessibility 與視覺品質仍需其他證據。</div>
+<h2>建立一張 CI proof card</h2>
+<div class="step"><label><input type="checkbox"> 1. 先只讀現有 delivery contract</label><p>請 Claude Code 檢查 CI workflows、支援 browsers、secrets、artifact policy 與既有 test commands，先回報最小方案，不要直接編輯。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 核准必要 projects 與 CI diff</label><p>只加入產品明確支援的 browser projects；安裝依賴、啟動 app、執行 tests 與失敗行為都要可見。Reports、traces 與 screenshots 可能含 token 或資料，需限制存取與保留期限。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 以真實 run 關閉證據</label><p>先在本機用同一 command 通過，再確認 CI run 結果與 artifacts。Proof card 寫下 scope、command、projects、結果、artifact policy 與已知限制。</p></div>
+<div class="done" id="done"><strong>進階完成：</strong>你已有一張把 reviewed tests、真實 CI run 與限制連在一起的 CI proof card。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>對外說明 Playwright CI 結果時，可靠的做法是什麼？</p><button>附上範圍證據與限制</button><button>聲稱全部瀏覽器都好</button><button>公開全部報告與密碼</button><div class="why">可信說法要列出實際 tests、projects、run 與限制，並把可能含敏感資料的 artifacts 放在受控位置。</div></div>
+<h2>帶走這個就好</h2><p>Claude Code 可以接線，Test Agents 可以擴充 tests；真正的交付完成線仍是被人審查過的 scope、run evidence 與誠實限制。</p>
+<p><strong>主要閱讀：</strong><a href="https://playwright.dev/docs/ci">Playwright — Continuous Integration</a> 與 <a href="https://playwright.dev/docs/test-projects">Projects</a>。</p>
+<footer>上一課：<a href="008-0008-supervise-healer-with-trace.html">監督 healer</a> · <a href="../reference/playwright-browser-verification-workflow.html">Phase 8 路線卡</a> · <a href="../toc.html">回課目表</a><br>把 CI proof card 貼回對話，請 Claude Code 或 AI 老師檢查宣稱是否超過 evidence。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
+</body>
+</html>

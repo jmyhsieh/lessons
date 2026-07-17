@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>13：完成 production vertical slice closeout</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#6a4c93;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#6a4c93}.mission{font-style:italic;color:#555;border-left:3px solid #6a4c93;padding-left:1rem}.rule{background:#f8f5fc;border-left:4px solid #6a4c93;padding:.75rem 1rem}.step,.quiz{border:1px solid #d8cce7;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f3eef8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#593c82}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d8cce7;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f8f5fc;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d8cce7;padding-top:1rem}</style></head>
+<body><p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p><div class="kicker">Phase 4 · 進階第 13 課 · 約 20 分鐘</div>
+<h1>完成 production vertical slice closeout</h1><p class="mission">今天只做一件事：讓 Claude Code 執行並彙整一條路徑的 checks、browser evidence 與 deviations，再由人核准 closeout。</p>
+<div class="rule"><strong>第 08 課證明小畫面可用；本課證明進階 bundle 被完整落地。</strong>範圍仍只是一條 vertical slice，不順手擴成整個產品。</div>
+<h2>完成三道 gate</h2>
+<div class="step"><label><input type="checkbox"> 1. 請 Claude Code 跑 repo 原有 checks</label><p>執行適用的 test、lint、typecheck、build，保留完整命令、結果與任何未執行項目；不能用摘要隱藏 failure。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 要求真實 browser evidence</label><p>讓 Claude Code 依 Phase 8 方式走窄／寬主路徑、鍵盤與 error；你要觀看或重做高風險項，標成 pass、deviation 或 blocker。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 請它草擬 closeout，再獨立 review</label><pre>Changed：切片與必要檔案
+Checks：命令與結果
+Browser：尺寸、互動、a11y
+Deviations：差異、原因、決定
+Not verified：項目與原因</pre></div>
+<div class="done" id="done"><strong>Phase 4 進階完成：</strong>你已留下能被接手者重跑與挑戰的 production closeout。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Production-ready 證據至少需要什麼？</p><button>測試加真實瀏覽器</button><button>模型說看起來很好</button><button>只看一次成功建置</button><div class="why">程式 checks 與真實 browser evidence 回答不同問題，缺一就不能支持完整完成宣稱。</div></div>
+<h2>帶走這個就好</h2><p>Closeout 要讓下一個人知道哪些已證明、哪些偏離、哪些仍未驗證，而不是只寫「完成」。</p>
+<p><strong>主要閱讀：</strong><a href="https://code.claude.com/docs/en/best-practices">Anthropic — Claude Code best practices</a>。</p>
+<footer>上一課：<a href="004-0012-build-implementation-ready-handoff.html">進階 handoff</a> · <a href="../reference/claude-design-to-code-workflow.html">Phase 4 路線速查表</a> · <a href="../toc.html">回課目表</a><br>把 Claude Code 的 closeout 與你的 review 貼回對話，請 AI 老師檢查是否有超出證據的宣稱。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

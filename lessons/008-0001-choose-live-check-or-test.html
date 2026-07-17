@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01：判斷即時查核或持久測試</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#4c5f9e;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#4c5f9e}.mission{font-style:italic;color:#555;border-left:3px solid #4c5f9e;padding-left:1rem}.rule{background:#f5f6fc;border-left:4px solid #4c5f9e;padding:.75rem 1rem}.step,.quiz{border:1px solid #d5d9ec;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#eef0f8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#3f4f84}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d5d9ec;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f5f6fc;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d5d9ec;padding-top:1rem}
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 8 · 入門第 01 課 · 約 10 分鐘</div>
+<h1>判斷即時查核或持久測試</h1>
+<p class="mission">今天只做一件事：請 Claude Code 讀 repo，再選出一條值得用瀏覽器查核的路徑與正確證據。</p>
+<div class="rule"><strong>先分兩種結果：</strong>Playwright MCP 適合讓 Claude Code 當下操作真實瀏覽器；Playwright Test 才是能提交、重跑與放進 CI 的持久測試。即時查核成功，不等於 repo 已有測試。</div>
+<h2>做一張 route decision card</h2>
+<div class="step"><label><input type="checkbox"> 1. 先請 Claude Code 只讀檢查</label><p>在 plan mode 請它讀 <code>AGENTS.md</code>、README、啟動命令與既有 tests，不要改檔；列出一條使用者最在意的 browser path。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 指定開始、動作與結果</label><p>寫下 URL、使用者動作與可觀察結果，例如「從課目表點入 Phase 8，應看見第 01 課標題」。避免只寫「網站正常」。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 選擇這次要留的證據</label><p>只想現在確認就選 MCP live check；要防止回歸就選 committed Playwright Test。若已使用 Claude in Chrome，也可做 live check，但仍不能取代 test。</p></div>
+<pre>請先只讀檢查這個 repo 的操作規範、啟動方式與既有 tests。
+提出一條高價值 browser path，寫出開始 URL、使用者動作、可觀察結果，
+並建議這次應做 Playwright MCP live check 或 committed Playwright Test。不要改檔。</pre>
+<div class="done" id="done"><strong>完成：</strong>你已有一張寫清楚路徑、證據種類與停止線的 route decision card。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Claude Code 用 MCP 成功操作一次頁面，代表什麼？</p><button>即時查核不等於持久測試</button><button>模型看過就等於測試完成</button><button>所有瀏覽器任務都要自動</button><div class="why">Live check 是當下觀察；只有把可重跑 test 寫進 repo、執行並審查，才形成持久回歸證據。</div></div>
+<h2>帶走這個就好</h2><p>先決定要回答「現在正常嗎」或「以後壞了會知道嗎」，再請 Claude Code 選工具。</p>
+<p><strong>主要閱讀：</strong><a href="https://playwright.dev/mcp/installation">Playwright MCP — Installation</a>；替代 live surface 可看 <a href="https://code.claude.com/docs/en/chrome">Claude Code — Chrome</a>。</p>
+<footer>來自 Phase 7：<a href="007-0009-package-and-deploy-safely.html">可信 web output</a> · 下一課：<a href="008-0002-connect-playwright-mcp-to-claude-code.html">把 Playwright MCP 接到 Claude Code</a><br>把 route decision card 貼回對話，請 Claude Code 或 AI 老師檢查證據種類是否選對。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
+</body>
+</html>

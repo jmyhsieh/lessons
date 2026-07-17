@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10：補齊狀態與 responsive 規則</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#6a4c93;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#6a4c93}.mission{font-style:italic;color:#555;border-left:3px solid #6a4c93;padding-left:1rem}.rule{background:#f8f5fc;border-left:4px solid #6a4c93;padding:.75rem 1rem}.step,.quiz{border:1px solid #d8cce7;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f3eef8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#593c82}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d8cce7;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f8f5fc;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d8cce7;padding-top:1rem}</style></head>
+<body><p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p><div class="kicker">Phase 4 · 進階第 10 課 · 約 15 分鐘</div>
+<h1>補齊狀態與 responsive 規則</h1><p class="mission">今天只做一件事：請 Claude Code 從真實任務與 repo 狀態草擬 state × viewport matrix，再由人核准。</p>
+<div class="rule"><strong>矩陣不是列出所有可能：</strong>只涵蓋這條任務真正會遇到的 default、loading、empty、error、success，以及窄／寬兩種代表尺寸。</div>
+<h2>完成一張小矩陣</h2>
+<div class="step"><label><input type="checkbox"> 1. 請 Claude Code 固定一條任務</label><p>讓它只讀現有 UI 與資料流，寫出進入點、主要動作與完成結果；不要把整個產品放進同一張矩陣。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 請它草擬狀態與尺寸</label><pre>狀態：default / loading / empty / error / success
+尺寸：窄版 / 寬版
+每格：看見什麼、能做什麼、下一步是什麼</pre></div>
+<div class="step"><label><input type="checkbox"> 3. 只核准兩個高風險格</label><p>請 Claude Code 透過 Design MCP 生成窄版 error 與 empty；確認文字、主要動作與復原方式沒有消失，再決定是否擴大。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已把設計從單張理想畫面，擴成能交給實作者與測試者的狀態規則。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>State matrix 主要補上哪個缺口？</p><button>補齊非理想狀態</button><button>增加更多裝飾圖</button><button>換成另一套品牌</button><div class="why">矩陣讓 loading、empty、error 等真實狀態在不同尺寸都有明確行為。</div></div>
+<h2>帶走這個就好</h2><p>Responsive 不只是縮放；狀態、內容優先序與復原動作都可能隨尺寸改變。</p>
+<p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Anthropic — Get started with Claude Design</a>。</p>
+<footer>上一課：<a href="004-0009-sync-real-design-system.html">同步 design system</a> · 下一課：<a href="004-0011-run-accessibility-audit.html">跑一輪 accessibility audit</a><br>把 matrix 與兩個高風險格貼回對話，請 AI 老師檢查是否發明不存在的狀態。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

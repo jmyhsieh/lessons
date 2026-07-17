@@ -2,67 +2,58 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>open-slide agent deck 速查表</title>
+<title>Phase 7 路線卡：Claude Code × open-slide</title>
 <style>
-  *{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:960px;margin:2.5rem auto;padding:0 1.5rem;color:#18232d;line-height:1.68;background:#f5f8fb}.sheet{background:#fff;border:1px solid #d7e0e8;border-radius:14px;padding:2rem 2.2rem;box-shadow:0 8px 28px rgba(49,95,134,.08)}.kicker{color:#315f86;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}h1{font-size:1.8rem;margin:.3rem 0}h2{font-size:1.08rem;color:#315f86;margin-top:2rem;border-bottom:1px solid #d7e0e8;padding-bottom:.35rem}.lead{color:#596775;margin-top:.4rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.card{border:1px solid #d7e0e8;border-radius:9px;padding:.85rem 1rem;font-size:.9rem}.card strong{display:block;margin-bottom:.25rem}.rule{background:#edf4f8;border-left:4px solid #315f86;padding:.8rem 1rem}.block{background:#fff0f0;border-left:4px solid #b33a3a;padding:.8rem 1rem}table{border-collapse:collapse;width:100%;font-size:.86rem}th,td{border:1px solid #d7e0e8;padding:.5rem .6rem;text-align:left;vertical-align:top}th{background:#edf4f8}pre,code{background:#edf4f8;border-radius:6px}pre{padding:.8rem 1rem;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.85rem}code{padding:.1rem .3rem}a{color:#315f86}footer{margin-top:2rem;font-size:.84rem;color:#667;border-top:1px solid #d7e0e8;padding-top:.8rem}@media(max-width:640px){.grid{grid-template-columns:1fr}.sheet{padding:1.3rem}table{font-size:.78rem}}@media print{body{background:#fff;margin:0}.sheet{box-shadow:none;border:0;padding:0}.grid{grid-template-columns:repeat(2,1fr)}a{color:#000;text-decoration:none}}
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:900px;margin:2.5rem auto;padding:0 1.5rem;color:#1d1d1d;line-height:1.7}h1{color:#2f6f63}h2{font-size:1.15rem;color:#2f6f63;margin-top:2rem;border-bottom:2px solid #c9ddd8;padding-bottom:.35rem}.decision{border:1px solid #c9ddd8;border-left:5px solid #2f6f63;border-radius:8px;padding:1rem 1.2rem;margin:1rem 0}.yes{background:#f2faf2}.no{background:#faf8f4}table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{padding:.55rem .65rem;border-bottom:1px solid #dce9e6;text-align:left;vertical-align:top}th{background:#eaf5f2}code,pre{background:#eaf5f2;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#255c52}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.85rem}@media print{body{margin:.5cm auto}}
 </style>
 </head>
 <body>
-<main class="sheet">
-<div class="kicker">Quick Reference · Phase 5 elective</div>
-<h1>open-slide agent deck 速查表</h1>
-<p class="lead">同一份已驗證內容，改走 React／Git／static HTML 路線；先做 3 頁 vertical slice，再決定是否擴充。</p>
+<h1>Phase 7：Claude Code × open-slide</h1>
+<p>Claude Code 讀取 scaffold 產生的 <code>CLAUDE.md</code> 與 workspace skills；你核准命令、審查 diff 並親自看 browser。01–04 完成第一個三頁切片，遇到重用、稽核或部署需求再接 05–09。</p>
 
-<h2>30 秒選路</h2>
-<div class="grid">
-  <div class="card"><strong>選 Claude Design</strong>需要 visual canvas、非工程協作、PPTX 交接，或不想維護 Node／repo。</div>
-  <div class="card"><strong>選 open-slide</strong>需要 Git diff、React 客製、互動、static hosting，而且 HTML／PDF 是可接受的交付格式。</div>
-</div>
-<div class="block"><strong>輸出邊界：</strong>open-slide 官方流程提供 static HTML 與 browser-print PDF，不要把它寫成 PPTX 產製工具。</div>
+<div class="decision no"><strong>留在 Claude Design，如果：</strong><br>需要 PPTX 交接、想用 canvas 快速修改，或團隊不想維護 React／Git。</div>
+<div class="decision yes"><strong>讓 Claude Code 使用 open-slide，如果：</strong><br>交付接受 HTML／PDF，而且 Git diff、客製互動、React 元件或部署能力真的重要。</div>
 
-<h2>Init → dev → build</h2>
-<pre>node --version
-npm --version
-npx @open-slide/cli init phase5-open-slide --use-npm --locale zh-TW
-cd phase5-open-slide
-npm run dev
+<h2>一句話做決定</h2>
+<p>「我選 Claude Design／open-slide，因為交付格式需要＿＿，團隊也願意／不願意維護 React 與 Git。」</p>
 
-# 驗收 static output
-npm run build
-npm run preview</pre>
-<div class="rule">在獨立父目錄執行 <code>init</code>，避免 nested repo。先讀生成的 <code>AGENTS.md</code>；workspace-local skills 與 rules 要和 deck 一起進版本控制。</div>
-
-<h2>只重建三頁</h2>
+<h2>入門 01–04</h2>
 <table>
-<tr><th>Page</th><th>Job</th><th>只允許使用</th></tr>
-<tr><td>Cover</td><td>受眾與今天的 decision</td><td>已核准標題、brand</td></tr>
-<tr><td>Evidence</td><td>一個 confirmed chart／comparison</td><td>claim ledger 通過項目</td></tr>
-<tr><td>Recommendation</td><td>取捨、owner、next action</td><td>已標示的 inference／decision</td></tr>
+<tr><th>課</th><th>只做這件事</th><th>留下什麼</th></tr>
+<tr><td>01</td><td>請 Claude Code 唯讀比較 Claude Design 與 open-slide</td><td>人工核准的選路理由</td></tr>
+<tr><td>02</td><td>核對目標與命令，再讓 Claude Code 建立隔離 workspace</td><td>dev server browser evidence</td></tr>
+<tr><td>03</td><td>讓 Claude Code 讀 <code>CLAUDE.md</code>、使用 <code>/create-slide</code></td><td>人工審查過的三頁 diff</td></tr>
+<tr><td>04</td><td>請 Claude Code build／preview，真人打開正式輸出</td><td><code>dist/</code>＋檢查紀錄</td></tr>
 </table>
 
-<h2>Agent prompt 骨架</h2>
-<pre>Read AGENTS.md and use the local create-slide and slide-authoring skills.
-Create phase5-vertical-slice with exactly 3 pages:
-cover, evidence, recommendation.
+<h2>讓 Claude Code 提議的最小命令</h2>
+<pre>npx @open-slide/cli init phase7-open-slide --use-npm --locale zh-TW
+cd phase7-open-slide
+npm run dev
+npm run build
+npm run preview</pre>
+<p>學員不必背 React 或 open-slide API；先核對 target directory 與命令，再授權執行。建立後，Claude Code 應先讀 workspace 的 <code>CLAUDE.md</code>，再選用對應 skill。</p>
 
-Inputs: [storyboard cards + confirmed source IDs + approved brand]
-Keep source IDs and caveats in the sidecar claim ledger.
-Do not add claims, quotes, logos, dependencies, or asset rights.
-Plan first. Then edit. Run npm run build and report evidence.</pre>
+<h2>Claude Code 工作迴圈</h2>
+<pre>讀 CLAUDE.md 與 relevant skill
+→ 說明這次只改什麼
+→ 等人核准後執行
+→ 顯示 diff 與 build output
+→ 真人在 browser 檢查</pre>
 
-<h2>Feedback loop</h2>
-<div class="grid">
-  <div class="card"><strong>1 · Inspect</strong>在 browser 選定具體元素，不用「整份更好看」。</div>
-  <div class="card"><strong>2 · Comment</strong>寫清問題、保留項、成功條件，再 Save。</div>
-  <div class="card"><strong>3 · Apply</strong>請 agent 使用 <code>apply-comments</code>，review 實際 Git diff。</div>
-  <div class="card"><strong>4 · Verify</strong>開啟 <code>dist/</code>，重跑 claims、rights、keyboard、目標螢幕與彩排。</div>
-</div>
+<h2>進階 05–09</h2>
+<table>
+<tr><th>課</th><th>解決的真實需求</th><th>留下什麼</th></tr>
+<tr><td>05</td><td>Claude Code 先讀 <code>CLAUDE.md</code> 與 relevant skills</td><td>contract-aware bounded diff</td></tr>
+<tr><td>06</td><td>Claude Code 以 <code>/create-theme</code> 收斂重複規則</td><td>theme＋一個重用 pattern</td></tr>
+<tr><td>07</td><td>Claude Code 列查核點，真人檢查來源與畫面</td><td>來源＋accessibility evidence</td></tr>
+<tr><td>08</td><td>Claude Code 以 <code>/apply-comments</code> 處理具體回饋</td><td>comment＋diff＋重新驗證</td></tr>
+<tr><td>09</td><td>Claude Code 準備 package；owner 決定是否部署</td><td>deployment-ready package</td></tr>
+</table>
 
-<h2>不可跨越的停止線</h2>
-<div class="block">沒有讀 repo rules、source ID 不可追溯、comments 偷改主張、asset rights 不明、只看 dev server、沒有檢查 static build、沒有在目標環境彩排：任何一項存在，就不要擴成完整 deck 或對外發布。</div>
+<h2>停止線</h2>
+<p>必須交可編輯 PPTX 就回 Phase 5。第 04 課是獨立入門完成線；不需要重用、稽核或部署，就不必繼續第 05–09 課。Build 成功仍要打開目標輸出；Claude Code 不能代替 owner 授權公開部署。</p>
 
-<p><strong>主要來源：</strong><a href="https://open-slide.dev/docs">Introduction</a>、<a href="https://open-slide.dev/docs/getting-started">Getting started</a>、<a href="https://open-slide.dev/docs/skills/overview">Agent skills overview</a>、<a href="https://open-slide.dev/docs/core-feature/export">Export</a>。</p>
-<footer>對應課程：<a href="../lessons/005-0009-build-versioned-deck-with-open-slide.html">Phase 5 第 09 課</a> · <a href="claude-design-presentation-workflow.html">Claude Design 簡報工作流</a> · <a href="../toc.html">課目表</a></footer>
-</main>
+<footer>入門開始：<a href="../lessons/007-0001-decide-if-open-slide-fits.html">第 01 課</a> · 進階開始：<a href="../lessons/007-0005-use-agent-contract.html">第 05 課</a> · 下一個 Phase：<a href="../lessons/008-0001-choose-live-check-or-test.html">Claude Code × Playwright</a> · 主要來源：<a href="https://open-slide.dev/docs/getting-started">Getting Started</a> · <a href="https://open-slide.dev/docs/skills/overview">Agent Skills</a> · <a href="../toc.html">課目表</a></footer>
 </body>
 </html>

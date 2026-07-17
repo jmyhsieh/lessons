@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02：加入第一份真實來源</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#8a3f5d;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#8a3f5d}.mission{font-style:italic;color:#555;border-left:3px solid #8a3f5d;padding-left:1rem}.rule{background:#fcf7f9;border-left:4px solid #8a3f5d;padding:.75rem 1rem}.step,.quiz{border:1px solid #dfccd4;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}pre,code{background:#f8f0f3;border-radius:4px}pre{padding:.8rem 1rem;white-space:pre-wrap}code{padding:.1rem .3rem}a{color:#7a3551}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d8c4cd;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fcf7f9;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #dfccd4;padding-top:1rem}
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 6 · 第 02 課 · 約 10 分鐘</div>
+<h1>加入第一份真實來源</h1>
+<p class="mission">今天只做一件事：把一份你信任的資料交給 Claude Code，讓它更新剛建立的 Wiki。</p>
+
+<div class="rule"><strong>第一份來源要小：</strong>選一份你看得完、知道作者或出處、之後能重新開啟的資料。先證明流程可用，再慢慢增加。</div>
+
+<h2>第一次更新</h2>
+<div class="step"><label><input type="checkbox"> 1. 選一份真實來源</label>
+<p>可以是一份專案筆記、一篇官方文件或一段會議紀錄。把檔案放進資料夾，或準備可直接讀取的連結。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 請 Claude Code 加入 Wiki</label>
+<pre>請把這份來源加入剛建立的 LLM Wiki：
+[貼上檔名或連結]
+
+保留來源位置；資料沒有說的內容不要自行補上。
+完成後告訴我改了哪些檔案。</pre></div>
+<div class="step"><label><input type="checkbox"> 3. 回查一個重點</label>
+<p>從更新後的 Wiki 選一個說法，回到原始資料確認它沒有被寫反、誇大或斷章取義。</p></div>
+
+<div class="done" id="done"><strong>完成：</strong>你的 Wiki 已加入第一份真實來源，而且至少有一個說法可以回到原文確認。</div>
+
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="0">
+<p>加入第一份來源後，最重要的檢查是什麼？</p>
+<button>找一點回查原文</button>
+<button>立刻批次加資料</button>
+<button>直接相信整理頁</button>
+<div class="why">Wiki 是整理層，不是新的權威來源。先抽查一點，就能提早發現誤讀。</div>
+</div>
+
+<h2>帶走這個就好</h2>
+<p><strong>先加一份，先查一點。</strong>你不需要先懂 <code>ingest</code>；現在做的「把新資料交給 Claude Code 更新 Wiki」，就是最小版本。</p>
+<p><strong>主要閱讀：</strong><a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki raw idea file</a>。</p>
+<footer>上一課：<a href="006-0001-start-llm-wiki-with-claude-code.html">交給 Claude Code</a> · 下一課：<a href="006-0003-ask-first-llm-wiki-question.html">問第一個問題</a><br>有不清楚的，回對話視窗問你的 AI 老師。</footer>
+<script>
+const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});
+</script>
+</body>
+</html>

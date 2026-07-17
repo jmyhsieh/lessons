@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05：讓 Claude Code 讀 workspace contract</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#2f6f63;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#2f6f63}.mission{font-style:italic;color:#555;border-left:3px solid #2f6f63;padding-left:1rem}.rule{background:#f4faf8;border-left:4px solid #2f6f63;padding:.75rem 1rem}.step,.quiz{border:1px solid #c9ddd8;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#eaf5f2;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#255c52}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #c9ddd8;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f4faf8;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #c9ddd8;padding-top:1rem}
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 7 · 進階第 05 課 · 約 15 分鐘</div>
+<h1>讓 Claude Code 讀 workspace contract</h1>
+<p class="mission">今天只做一件事：讓 Claude Code 先讀 starter 產生的 <code>CLAUDE.md</code> 與 skills，再修改投影片。</p>
+<div class="rule"><strong>不要只丟一句「幫我改」：</strong><code>AGENTS.md</code>、<code>CLAUDE.md</code> 與 workspace skills 定義了檔案結構、可用流程與完成方式。</div>
+<h2>完成一次 contract-aware 任務</h2>
+<div class="step"><label><input type="checkbox"> 1. 讀取 repo contract</label><p>請 Claude Code 先唯讀列出 <code>CLAUDE.md</code>、同步的 <code>AGENTS.md</code> 與相關 skills 重點，不修改檔案。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 選一個對應 skill</label><p>新增頁面用 <code>/create-slide</code>，修改現有頁面依 <code>/slide-authoring</code>；不要把所有 skill 一次載入。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 限定一個可驗證改動</label><p>只改一頁的一個問題，要求 Claude Code 說明檔案、規則與驗證命令，再 review diff。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已讓 Claude Code 依 workspace contract 完成 bounded change，而不是自由猜測專案規則。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>請 Claude Code 修改 open-slide 前，第一步是什麼？</p><button>先讀 workspace contract</button><button>先刪除所有說明檔</button><button>先讓模型自由猜測</button><div class="why">先讀 repo contract 才知道應遵守的檔案結構、skills 與驗證方式。</div></div>
+<h2>帶走這個就好</h2><p>Claude Code skill 是任務路徑，不是免除 review 與實際驗證的保證。</p>
+<p><strong>主要閱讀：</strong><a href="https://open-slide.dev/docs/skills/overview">open-slide — Agent skills overview</a>。</p>
+<footer>上一課：<a href="007-0004-build-and-open-output.html">完成入門驗收</a> · 下一課：<a href="007-0006-build-reusable-slide-system.html">建立可重用 slide system</a><br>把 Claude Code 的規則摘要與 diff 貼回對話，請 AI 老師檢查是否遵守 contract。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
+</body>
+</html>

@@ -59,14 +59,62 @@
 <table>
 <tr><th>詞彙</th><th>本課程中的意思</th></tr>
 <tr><td>design intent</td><td>畫面背後要保留的受眾、層級、互動與品牌判斷，不只是像素外觀。</td></tr>
+<tr><td>Claude Design MCP</td><td>讓 Claude Code 透過官方 MCP 連接 Claude Design、產生或修改視覺成果的工具能力；連線不等於授權修改 repo、公開內容或代替真人回饋。</td></tr>
+<tr><td>design handoff</td><td>把選定方向、design intent、使用者任務與 bounded scope 從 Claude Design 帶回 Claude Code／repo，而不是只丟一張截圖。</td></tr>
+<tr><td>design system calibration</td><td>把生成結果與正式元件、token 或品牌資產逐項比對，修正同步後的誤讀與遺漏。</td></tr>
+<tr><td>state matrix</td><td>把 default、loading、empty、error 等狀態，對照不同裝置尺寸的行為規則。</td></tr>
 <tr><td>vertical slice</td><td>用少量頁面或功能走完整條工作流，以驗證方向與交付邊界。</td></tr>
 <tr><td>source pack</td><td>帶來源、狀態與 owner 的真實內容集合，是生成視覺產物前的內容地基。</td></tr>
 <tr><td>source of truth</td><td>主張可回查的權威原始位置；模型重述或多份簡報互相引用不算來源。</td></tr>
 <tr><td>story spine</td><td>從受眾現況、證據到下一個決策的敘事順序。</td></tr>
 <tr><td>deck</td><td>由講者控制節奏、用來建立共同理解並推動決策的投影片組合。</td></tr>
+<tr><td>claim ledger</td><td>把投影片中的高影響主張逐一連到精確來源位置、查核狀態與限制條件的紀錄。</td></tr>
+<tr><td>deck system</td><td>經實際重用的字級、色彩、間距與版型規則，用來讓多頁和多版本維持一致。</td></tr>
 <tr><td>rehearsal</td><td>在目標環境向代表性聽眾實際講一次，記錄迷失點、問題與決策理解。</td></tr>
+<tr><td>production closeout</td><td>用 tests、真實 browser evidence 與已知限制，收斂一個準備進產品的 bounded slice。</td></tr>
+<tr><td>code-first deck</td><td>把投影片當成程式碼與靜態網站維護，使用 React、Git、build 與 browser verification；不等於 PPTX 交接。</td></tr>
+<tr><td>workspace skill contract</td><td>open-slide scaffold 留給 Claude Code 的 <code>CLAUDE.md</code> 與本地 skills，說明 repo 規則與 <code>/create-slide</code>、<code>/create-theme</code>、<code>/apply-comments</code> 等受控工作流。</td></tr>
+<tr><td>inspector comment</td><td>在 open-slide 瀏覽器 inspector 對元素留下的具體回饋，會成為可由 agent 處理的程式 marker。</td></tr>
+<tr><td>deployment-ready package</td><td>已驗證目標輸出，並寫清楚 owner、權限、版本、發布方式與 rollback 的交付包；不代表已經公開。</td></tr>
 </table>
 
-<footer>相關：<a href="claude-product-picker.html">產品選用</a> · <a href="claude-code-command-surface.html">Claude Code 操作</a> · <a href="claude-design-presentation-workflow.html">簡報工作流</a></footer>
+<h2>Claude Code × Playwright</h2>
+<table>
+<tr><th>詞彙</th><th>本課程中的意思</th></tr>
+<tr><td>critical path</td><td>一條風險高、價值明確，且能用開始、使用者動作與可觀察結果描述的 browser 路徑。</td></tr>
+<tr><td>Playwright MCP</td><td>讓 Claude Code 以 MCP 工具操作真實 browser 的 server；適合 live check，但互動紀錄不會自動成為 committed test。</td></tr>
+<tr><td>live browser check</td><td>Agent 在當下走過一條路徑並重新讀取頁面狀態的觀察證據；回答「現在如何」，不保證未來回歸會被攔下。</td></tr>
+<tr><td>Playwright Test Agent</td><td>由 Playwright 產生、供 Claude Code 使用的角色定義與 MCP 工具組合；產出仍需要人工審查。</td></tr>
+<tr><td>planner／generator／healer</td><td>分別產生可讀 spec、依核准 spec 產生 test，以及診斷並修復 failing test 的三個 agent 角色。</td></tr>
+<tr><td>seed test</td><td>已在 repo 真實通過的最小 test，讓 agents 沿用正確 config、fixtures、locator 與 app 起點。</td></tr>
+<tr><td>locator</td><td>Playwright 在每次操作時重新尋找元素的方式；優先使用 role、label、text 等使用者語意或明確 test contract。</td></tr>
+<tr><td>web-first assertion</td><td>會重複查找並等待 UI 達到預期狀態的 async assertion，例如 <code>await expect(locator).toBeVisible()</code>。</td></tr>
+<tr><td>trace</td><td>可回看 actions、DOM snapshots、network 與 assertions 的 execution artifact，用來區分 app、test 與 environment failure。</td></tr>
+<tr><td>project</td><td>一組 Playwright test configuration，可代表特定 browser、device、environment 或 test group；不是越多越好。</td></tr>
+<tr><td>CI gate</td><td>在合併或交付前自動執行 tests，失敗時阻擋流程並提供受控 evidence 的檢查點。</td></tr>
+</table>
+
+<h2>LLM Wiki 與知識累積</h2>
+<table>
+<tr><th>詞彙</th><th>本課程中的意思</th></tr>
+<tr><td>LLM Wiki</td><td>由 AI agent 協助建立與更新的持久 Markdown 知識庫；可先把 raw idea file 直接交給 Claude Code，重要內容仍要能回到原始資料。</td></tr>
+<tr><td>原始資料</td><td>你選來支持 Wiki 的文件、筆記或網頁；保留原文，不讓 AI 覆寫。</td></tr>
+<tr><td>待確認</td><td>來源不同、資料不足或仍需人決定的內容；先誠實標記，不讓 AI 猜成答案。</td></tr>
+</table>
+
+<h3>進階詞（完成第 03 課後再學）</h3>
+<table>
+<tr><th>詞彙</th><th>Phase 6 進階路線中的意思</th></tr>
+<tr><td>raw source</td><td>原始資料的正式稱呼。</td></tr>
+<tr><td>schema</td><td>讓 agent 重複遵守 Wiki 結構、慣例與工作流的指引文件，例如 <code>CLAUDE.md</code>。</td></tr>
+<tr><td>ingest</td><td>讀取一份新 raw source，整合進既有 Wiki，並維護需要的索引與紀錄。</td></tr>
+<tr><td>query</td><td>從索引定位相關 Wiki 頁面，附來源回答問題，必要時把可重用結果寫回。</td></tr>
+<tr><td>reconcile</td><td>整合新舊說法，保留矛盾與不確定性。</td></tr>
+<tr><td>wiki lint</td><td>檢查矛盾、過期說法、孤兒頁、缺少連結與資料缺口。</td></tr>
+<tr><td>automation</td><td>把重複、可用確定規則檢查、低破壞性的步驟做成可重跑命令。</td></tr>
+<tr><td>proof pack</td><td>進階專案用來證明 Wiki 可重跑、可查核的一組證據。</td></tr>
+</table>
+
+<footer>相關：<a href="claude-product-picker.html">產品選用</a> · <a href="claude-code-command-surface.html">Claude Code 操作</a> · <a href="claude-design-presentation-workflow.html">簡報工作流</a> · <a href="playwright-browser-verification-workflow.html">Playwright</a> · <a href="llm-wiki-workflow.html">LLM Wiki</a></footer>
 </body>
 </html>

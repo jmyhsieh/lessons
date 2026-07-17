@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02：把 Playwright MCP 接到 Claude Code</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#4c5f9e;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#4c5f9e}.mission{font-style:italic;color:#555;border-left:3px solid #4c5f9e;padding-left:1rem}.rule{background:#f5f6fc;border-left:4px solid #4c5f9e;padding:.75rem 1rem}.step,.quiz{border:1px solid #d5d9ec;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#eef0f8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#3f4f84}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d5d9ec;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f5f6fc;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d5d9ec;padding-top:1rem}
+</style>
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 8 · 入門第 02 課 · 約 10 分鐘</div>
+<h1>把 Playwright MCP 接到 Claude Code</h1>
+<p class="mission">今天只做一件事：在個人本機範圍連接 Playwright MCP，並讓 Claude Code 顯示它真的可用。</p>
+<div class="rule"><strong>先用 local scope：</strong>local 設定只供你在這個 project 使用，不會新增可提交的團隊設定。只有團隊審查 command、來源與權限後，才考慮 project scope。</div>
+<h2>連接並核對</h2>
+<div class="step"><label><input type="checkbox"> 1. 檢查執行環境</label><p>執行 <code>node --version</code>，確認是 Node.js 20 以上；也先確認目前位於正確 repo。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 新增 local MCP server</label><p>使用目前 Claude Code 文件的參數順序；<code>--</code> 後面才是 stdio server command。</p><pre>claude mcp add --transport stdio --scope local playwright -- npx @playwright/mcp@latest</pre></div>
+<div class="step"><label><input type="checkbox"> 3. 確認名稱、命令與連線</label><p>執行 <code>claude mcp get playwright</code>；進入 Claude Code 後再用 <code>/mcp</code> 查看狀態。若來源或 command 與預期不同，先移除，不要授權。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已留下 Node 版本、MCP command 與連線狀態三項 setup evidence。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>第一次把 Playwright MCP 接到 Claude Code，建議怎麼做？</p><button>先在本機範圍中試用</button><button>先提交團隊共用設定</button><button>先允許任意外部主機</button><div class="why">Local scope 讓你先驗證 command 與權限，不會先把未審查的 MCP 設定推給團隊。</div></div>
+<h2>帶走這個就好</h2><p>MCP 是 Claude Code 可以呼叫的外部能力；先核對來源、scope 與 command，再開始瀏覽。</p>
+<p><strong>主要閱讀：</strong><a href="https://code.claude.com/docs/en/mcp">Claude Code — Connect Claude Code to tools via MCP</a>；Playwright 需求見 <a href="https://playwright.dev/mcp/installation">Playwright MCP — Installation</a>。</p>
+<footer>上一課：<a href="008-0001-choose-live-check-or-test.html">選證據</a> · 下一課：<a href="008-0003-run-first-browser-check-with-claude-code.html">讓 Claude Code 走第一條 browser path</a><br>把 <code>claude mcp get playwright</code> 的非敏感輸出貼回對話，請 AI 老師一起核對。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
+</body>
+</html>

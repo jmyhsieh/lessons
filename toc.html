@@ -15,6 +15,9 @@
   h2.p3 { color: #1a6b5a; border-bottom: 2px solid #1a6b5a; }
   h2.p4 { color: #6f4dbf; border-bottom: 2px solid #6f4dbf; }
   h2.p5 { color: #315f86; border-bottom: 2px solid #315f86; }
+  h2.p6 { color: #8a3f5d; border-bottom: 2px solid #8a3f5d; }
+  h2.p7 { color: #2f6f63; border-bottom: 2px solid #2f6f63; }
+  h2.p8 { color: #4c5f9e; border-bottom: 2px solid #4c5f9e; }
   table { border-collapse: collapse; width: 100%; font-size: .92rem; }
   td { border-bottom: 1px solid #eee; padding: .5rem .6rem; vertical-align: top; }
   td.no { width: 2.8rem; color: #999; font-variant-numeric: tabular-nums; }
@@ -24,12 +27,18 @@
   .p3sec a { color: #15564a; }
   .p4sec a { color: #5a3ba8; }
   .p5sec a { color: #315f86; }
+  .p6sec a { color: #7a3551; }
+  .p7sec a { color: #255c52; }
+  .p8sec a { color: #3f4f84; }
   a:hover { text-decoration: underline; }
   .flow { border: 1px solid #e8e0d8; border-left-width: 4px; border-radius: 8px; padding: .75rem .9rem; margin: .8rem 0 1.4rem; background: #fffdfa; font-size: .86rem; line-height: 1.65; }
   .p2sec .flow { border-left-color: #9a5a00; background: #fffaf1; }
   .p3sec .flow { border-left-color: #1a6b5a; background: #f8fcfa; }
   .p4sec .flow { border-left-color: #6f4dbf; background: #faf8ff; }
   .p5sec .flow { border-left-color: #315f86; background: #f6f9fc; }
+  .p6sec .flow { border-left-color: #8a3f5d; background: #fcf7f9; }
+  .p7sec .flow { border-left-color: #2f6f63; background: #f4faf8; }
+  .p8sec .flow { border-left-color: #4c5f9e; background: #f5f6fc; }
   .flow-title { font-weight: 700; margin-bottom: .35rem; color: #333; }
   .flow-note { margin: 0 0 .45rem; color: #666; }
   .flow-row { display: grid; grid-template-columns: 4.8rem 1fr; gap: .35rem .65rem; align-items: start; margin-top: .35rem; }
@@ -45,10 +54,10 @@
 <body>
 <p style="margin:0"><a href="index.html" style="font-size:.85rem">← 封面</a></p>
 <h1>課目表</h1>
-<p class="sub">Claude 工作表面 → 安全開始 → 進階工具箱 → 從需求到交付 → Design-to-Code → 日常視覺應用 · 共 53 課 · 核心約 13 小時，完整選修約 22 小時</p>
+<p class="sub">Claude 工作表面 → 安全開始 → 進階工具箱 → 從需求到交付 → 第一個小畫面 → 第一份三頁簡報 → 第一個迷你 Wiki → 第一個 code-first deck → Claude Code 的 browser 查核與可重跑 tests · 共 87 課 · Phase 4–8 每課約 10–20 分鐘</p>
 
 <div class="ref">
-<strong>常用速查</strong>：<a href="reference/claude-product-picker.html">產品選用</a>、<a href="reference/claude-design-to-code-workflow.html">Design-to-Code</a>、<a href="reference/claude-design-daily-output-picker.html">日常視覺交付物</a>、<a href="reference/claude-design-presentation-workflow.html">簡報工作流</a>、<a href="reference/open-slide-agent-deck-workflow.html">open-slide</a>、<a href="reference/claude-code-command-surface.html">Claude Code 操作</a>、<a href="reference/claude-code-model-effort.html">模型與推理程度</a>、<a href="reference/wayfinder-map-workflow.html">Wayfinder map</a>、<a href="reference/course-glossary.html">課程詞彙表</a><br>
+<strong>常用速查</strong>：<a href="reference/claude-product-picker.html">產品選用</a>、<a href="reference/claude-design-to-code-workflow.html">第一個小畫面</a>、<a href="reference/claude-design-daily-output-picker.html">視覺交付選路</a>、<a href="reference/claude-design-presentation-workflow.html">三頁簡報</a>、<a href="reference/open-slide-agent-deck-workflow.html">Phase 7 open-slide</a>、<a href="reference/playwright-browser-verification-workflow.html">Phase 8 Playwright</a>、<a href="reference/claude-code-command-surface.html">Claude Code 操作</a>、<a href="reference/claude-code-model-effort.html">模型與推理程度</a>、<a href="reference/wayfinder-map-workflow.html">Wayfinder map</a>、<a href="reference/llm-wiki-workflow.html">迷你 LLM Wiki</a>、<a href="reference/course-glossary.html">課程詞彙表</a><br>
 <strong>完成原則：</strong>勾完 checklist 代表操作完成；能交出 artifact、說明判斷並通過回饋，才是該課的 exit evidence。
 </div>
 
@@ -255,104 +264,283 @@
 </div>
 
 <div class="p4sec">
-<h2 class="p4">Phase 4（選修實作）— Claude Design × Claude Code：從視覺探索到可驗證交付（01–08）</h2>
+<h2 class="p4">Phase 4（Claude Code × Claude Design）— 入門 01–08；進階 09–13</h2>
 <table>
-<tr><td class="no">01</td><td><a href="lessons/004-0001-choose-claude-design-surface.html">判斷 Claude Design 是否是正確工作表面</a></td><td class="track">邊界</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/004-0002-write-design-brief.html">把想法寫成可比較的 design brief</a></td><td class="track">Brief</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/004-0003-sync-design-system.html">同步 design system 與真實元件</a></td><td class="track">Design system</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/004-0004-explore-design-directions.html">先比較多個設計方向，再選一條</a></td><td class="track">探索</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/004-0005-refine-and-version.html">用 chat、comments 與 canvas 精修並保留版本</a></td><td class="track">精修</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/004-0006-prototype-and-validate.html">驗證 responsive、interaction 與 accessibility</a></td><td class="track">原型驗證</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/004-0007-handoff-to-claude-code.html">把 design intent 交給 Claude Code</a></td><td class="track">Handoff</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/004-0008-implement-and-verify.html">在 repo 實作並完成 browser verification</a></td><td class="track">交付</td></tr>
+<tr><td class="no">01</td><td><a href="lessons/004-0001-choose-claude-design-surface.html">從 Claude Code 連接 Claude Design</a></td><td class="track">連接能力</td></tr>
+<tr><td class="no">02</td><td><a href="lessons/004-0002-write-design-brief.html">請 Claude Code 整理四句 design brief</a></td><td class="track">Prompt</td></tr>
+<tr><td class="no">03</td><td><a href="lessons/004-0003-sync-design-system.html">把一份正確參考交給 Claude Code</a></td><td class="track">Context</td></tr>
+<tr><td class="no">04</td><td><a href="lessons/004-0004-explore-design-directions.html">透過 Design MCP 比較兩個方向</a></td><td class="track">比較</td></tr>
+<tr><td class="no">05</td><td><a href="lessons/004-0005-refine-and-version.html">審查一次單一修改</a></td><td class="track">修改</td></tr>
+<tr><td class="no">06</td><td><a href="lessons/004-0006-prototype-and-validate.html">真人試用，再把觀察交回 Claude Code</a></td><td class="track">試用</td></tr>
+<tr><td class="no">07</td><td><a href="lessons/004-0007-handoff-to-claude-code.html">把 Claude Design 工作帶回 repo</a></td><td class="track">交接</td></tr>
+<tr><td class="no">08</td><td><a href="lessons/004-0008-implement-and-verify.html">核准實作並親自打開小畫面</a></td><td class="track">完成</td></tr>
+<tr><td class="no">09</td><td><a href="lessons/004-0009-sync-real-design-system.html">讓 Claude Code 同步並校正 design system</a></td><td class="track">進階校正</td></tr>
+<tr><td class="no">10</td><td><a href="lessons/004-0010-specify-states-and-responsive-rules.html">補齊狀態與 responsive 規則</a></td><td class="track">進階規則</td></tr>
+<tr><td class="no">11</td><td><a href="lessons/004-0011-run-accessibility-audit.html">跑一輪 accessibility audit</a></td><td class="track">進階稽核</td></tr>
+<tr><td class="no">12</td><td><a href="lessons/004-0012-build-implementation-ready-handoff.html">建立 implementation-ready handoff</a></td><td class="track">進階交接</td></tr>
+<tr><td class="no">13</td><td><a href="lessons/004-0013-close-production-vertical-slice.html">完成 production vertical-slice closeout</a></td><td class="track">進階收尾</td></tr>
 </table>
 <div class="flow">
-  <div class="flow-title">Design-to-Code 走法</div>
-  <p class="flow-note">Claude Design 仍是 beta，現階段使用 web 或 Claude Desktop。這條路只給需要視覺探索與互動原型的工作；完整停止線見 <a href="reference/claude-design-to-code-workflow.html">Design-to-Code 速查表</a>。</p>
+  <div class="flow-title">第一個小畫面</div>
+  <p class="flow-note">01–08 以 Claude Code 為主介面：連接 Design MCP、審查生成方向、收集真人回饋，再回到 repo。小畫面真的要進產品，才接 09–13；完整路線見 <a href="reference/claude-design-to-code-workflow.html">Phase 4 路線卡</a>。</p>
   <div class="flow-row">
     <div class="flow-label">選路與地基</div>
     <div class="flow-steps">
-      <a href="lessons/004-0001-choose-claude-design-surface.html">01 選 surface</a>
-      <a href="lessons/004-0002-write-design-brief.html">02 寫 brief</a>
-      <a href="lessons/004-0003-sync-design-system.html">03 同步系統</a>
+      <a href="lessons/004-0001-choose-claude-design-surface.html">01 選工具</a>
+      <a href="lessons/004-0002-write-design-brief.html">02 四句 prompt</a>
+      <a href="lessons/004-0003-sync-design-system.html">03 一份參考</a>
     </div>
   </div>
   <div class="flow-row">
     <div class="flow-label">探索與精修</div>
     <div class="flow-steps">
       <a href="lessons/004-0004-explore-design-directions.html">04 比較方向</a>
-      <a href="lessons/004-0005-refine-and-version.html">05 精修版本</a>
+      <a href="lessons/004-0005-refine-and-version.html">05 改一件事</a>
     </div>
   </div>
   <div class="flow-row">
     <div class="flow-label">驗證與交接</div>
     <div class="flow-steps">
-      <a href="lessons/004-0006-prototype-and-validate.html">06 驗證原型</a>
-      <a href="lessons/004-0007-handoff-to-claude-code.html">07 保留 intent</a>
+      <a href="lessons/004-0006-prototype-and-validate.html">06 一人試用</a>
+      <a href="lessons/004-0007-handoff-to-claude-code.html">07 四件事交接</a>
     </div>
   </div>
   <div class="flow-row">
     <div class="flow-label">Repo 交付</div>
     <div class="flow-steps">
-      <a href="lessons/004-0008-implement-and-verify.html">08 實作並驗證</a>
+      <a href="lessons/004-0008-implement-and-verify.html">08 小畫面完成</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">進階規則與稽核</div>
+    <div class="flow-steps">
+      <a href="lessons/004-0009-sync-real-design-system.html">09 design system</a>
+      <a href="lessons/004-0010-specify-states-and-responsive-rules.html">10 state matrix</a>
+      <a href="lessons/004-0011-run-accessibility-audit.html">11 accessibility</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">進階交接與收尾</div>
+    <div class="flow-steps">
+      <a href="lessons/004-0012-build-implementation-ready-handoff.html">12 handoff</a>
+      <a href="lessons/004-0013-close-production-vertical-slice.html">13 production closeout</a>
     </div>
   </div>
 </div>
 </div>
 
 <div class="p5sec">
-<h2 class="p5">Phase 5（日常應用）— Claude Design 主線＋open-slide 選修：從真實素材到視覺交付（01–09）</h2>
+<h2 class="p5">Phase 5（Claude Code × Claude Design 簡報）— 入門 01–08；進階 09–12</h2>
 <table>
-<tr><td class="no">01</td><td><a href="lessons/005-0001-choose-daily-visual-output.html">先選對日常視覺交付物</a></td><td class="track">選路</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/005-0002-build-source-pack.html">整理可追溯的 source pack</a></td><td class="track">內容地基</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/005-0003-storyboard-presentation.html">把素材排成簡報故事板</a></td><td class="track">敘事</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/005-0004-create-deck-in-claude-design.html">在 Claude Design 產生第一版 deck</a></td><td class="track">生成</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/005-0005-refine-deck-for-audience.html">依受眾與品牌精修簡報</a></td><td class="track">精修</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/005-0006-verify-claims-and-accessibility.html">查核內容、圖表與可及性</a></td><td class="track">驗證</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/005-0007-export-and-rehearse.html">輸出並完成一次真實彩排</a></td><td class="track">交付</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/005-0008-repurpose-one-pager-social.html">把同一故事改作 one-pager 與社群素材</a></td><td class="track">改作</td></tr>
-<tr><td class="no">09</td><td><a href="lessons/005-0009-build-versioned-deck-with-open-slide.html">用 open-slide 建立可版本控制的簡報</a></td><td class="track">選修 · Code-first</td></tr>
+<tr><td class="no">01</td><td><a href="lessons/005-0001-choose-daily-visual-output.html">請 Claude Code 定義真實簡報任務</a></td><td class="track">題目</td></tr>
+<tr><td class="no">02</td><td><a href="lessons/005-0002-build-source-pack.html">讓 Claude Code 整理三份可信資料</a></td><td class="track">資料</td></tr>
+<tr><td class="no">03</td><td><a href="lessons/005-0003-storyboard-presentation.html">請 Claude Code 先寫三頁故事</a></td><td class="track">順序</td></tr>
+<tr><td class="no">04</td><td><a href="lessons/005-0004-create-deck-in-claude-design.html">讓 Claude Code 產生三頁初稿</a></td><td class="track">初稿</td></tr>
+<tr><td class="no">05</td><td><a href="lessons/005-0005-refine-deck-for-audience.html">用真實回饋核准一次受眾改寫</a></td><td class="track">受眾</td></tr>
+<tr><td class="no">06</td><td><a href="lessons/005-0006-verify-claims-and-accessibility.html">真人查數字與實際閱讀距離</a></td><td class="track">檢查</td></tr>
+<tr><td class="no">07</td><td><a href="lessons/005-0007-export-and-rehearse.html">請 Claude Code 輸出，真人講一次</a></td><td class="track">彩排</td></tr>
+<tr><td class="no">08</td><td><a href="lessons/005-0008-repurpose-one-pager-social.html">用已核准內容產生一頁摘要</a></td><td class="track">改作</td></tr>
+<tr><td class="no">09</td><td><a href="lessons/005-0009-build-claim-ledger.html">讓 Claude Code 建立 claim ledger</a></td><td class="track">進階查核</td></tr>
+<tr><td class="no">10</td><td><a href="lessons/005-0010-build-reusable-deck-system.html">讓 Claude Code 建立 deck system</a></td><td class="track">進階系統</td></tr>
+<tr><td class="no">11</td><td><a href="lessons/005-0011-audit-deck-accessibility-and-formats.html">稽核 accessibility 與輸出格式</a></td><td class="track">進階稽核</td></tr>
+<tr><td class="no">12</td><td><a href="lessons/005-0012-run-structured-rehearsal-and-version.html">結構化彩排並封存版本</a></td><td class="track">進階版本</td></tr>
 </table>
 <div class="flow">
-  <div class="flow-title">日常應用走法</div>
-  <p class="flow-note">主線 01–08 用一份真實素材完成 5–7 頁決策簡報並跨格式改作；選修 09 再用同一組 source pack 與 story spine 建立 3 頁 open-slide vertical slice，比較 code-first 路線。速查：<a href="reference/claude-design-presentation-workflow.html">Claude Design</a>、<a href="reference/open-slide-agent-deck-workflow.html">open-slide</a>。</p>
+  <div class="flow-title">第一份三頁簡報</div>
+  <p class="flow-note">01–08 由 Claude Code 管理來源、故事與 Design MCP，真人負責來源、輸出與彩排證據；真的要對外交付，再接 09–12。需要 React、Git 與 HTML／PDF code-first 簡報，改走 Phase 7。速查：<a href="reference/claude-design-presentation-workflow.html">Phase 5 路線卡</a>。</p>
   <div class="flow-row">
     <div class="flow-label">選路與地基</div>
     <div class="flow-steps">
-      <a href="lessons/005-0001-choose-daily-visual-output.html">01 選交付物</a>
-      <a href="lessons/005-0002-build-source-pack.html">02 整理來源</a>
+      <a href="lessons/005-0001-choose-daily-visual-output.html">01 選題目</a>
+      <a href="lessons/005-0002-build-source-pack.html">02 三份資料</a>
     </div>
   </div>
   <div class="flow-row">
     <div class="flow-label">故事與生成</div>
     <div class="flow-steps">
-      <a href="lessons/005-0003-storyboard-presentation.html">03 排故事板</a>
-      <a href="lessons/005-0004-create-deck-in-claude-design.html">04 產生 deck</a>
+      <a href="lessons/005-0003-storyboard-presentation.html">03 三頁故事</a>
+      <a href="lessons/005-0004-create-deck-in-claude-design.html">04 三頁初稿</a>
     </div>
   </div>
   <div class="flow-row">
     <div class="flow-label">精修與驗證</div>
     <div class="flow-steps">
-      <a href="lessons/005-0005-refine-deck-for-audience.html">05 精修品牌</a>
-      <a href="lessons/005-0006-verify-claims-and-accessibility.html">06 查核內容</a>
+      <a href="lessons/005-0005-refine-deck-for-audience.html">05 受眾改寫</a>
+      <a href="lessons/005-0006-verify-claims-and-accessibility.html">06 最小檢查</a>
     </div>
   </div>
   <div class="flow-row">
     <div class="flow-label">交付與改作</div>
     <div class="flow-steps">
-      <a href="lessons/005-0007-export-and-rehearse.html">07 輸出彩排</a>
-      <a href="lessons/005-0008-repurpose-one-pager-social.html">08 跨格式改作</a>
+      <a href="lessons/005-0007-export-and-rehearse.html">07 講一次</a>
+      <a href="lessons/005-0008-repurpose-one-pager-social.html">08 一頁摘要</a>
     </div>
   </div>
   <div class="flow-row">
-    <div class="flow-label">Code-first 選修</div>
+    <div class="flow-label">進階可信交付</div>
     <div class="flow-steps">
-      <a href="lessons/005-0009-build-versioned-deck-with-open-slide.html">09 open-slide vertical slice</a>
+      <a href="lessons/005-0009-build-claim-ledger.html">09 claim ledger</a>
+      <a href="lessons/005-0010-build-reusable-deck-system.html">10 deck system</a>
+      <a href="lessons/005-0011-audit-deck-accessibility-and-formats.html">11 格式稽核</a>
+      <a href="lessons/005-0012-run-structured-rehearsal-and-version.html">12 受控版本</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">Code-first</div>
+    <div class="flow-steps">
+      <a href="lessons/007-0001-decide-if-open-slide-fits.html">前往 Phase 7 選路</a>
     </div>
   </div>
 </div>
 </div>
 
-<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-07-15</footer>
+<div class="p6sec">
+<h2 class="p6">Phase 6（Claude Code × LLM Wiki）— 入門 01–03；進階 04–08</h2>
+<table>
+<tr><td class="no">01</td><td><a href="lessons/006-0001-start-llm-wiki-with-claude-code.html">把 LLM Wiki idea file 交給 Claude Code</a></td><td class="track">快速開始</td></tr>
+<tr><td class="no">02</td><td><a href="lessons/006-0002-add-first-llm-wiki-source.html">加入第一份真實來源</a></td><td class="track">第一次更新</td></tr>
+<tr><td class="no">03</td><td><a href="lessons/006-0003-ask-first-llm-wiki-question.html">問第一個問題並檢查來源</a></td><td class="track">第一次使用</td></tr>
+<tr><td class="no">04</td><td><a href="lessons/006-0004-evolve-llm-wiki-schema.html">把實際規則寫進 schema</a></td><td class="track">進階規則</td></tr>
+<tr><td class="no">05</td><td><a href="lessons/006-0005-ingest-one-source-with-a-review-loop.html">用 review loop ingest 一份來源</a></td><td class="track">進階更新</td></tr>
+<tr><td class="no">06</td><td><a href="lessons/006-0006-query-and-file-a-durable-answer.html">Query 並留下可重用答案</a></td><td class="track">進階探索</td></tr>
+<tr><td class="no">07</td><td><a href="lessons/006-0007-lint-and-fix-one-wiki-problem.html">Lint 並修一個 Wiki 問題</a></td><td class="track">進階維護</td></tr>
+<tr><td class="no">08</td><td><a href="lessons/006-0008-automate-one-safe-wiki-check.html">讓 Claude Code 自動化一個安全檢查</a></td><td class="track">進階自動化</td></tr>
+</table>
+<div class="flow">
+  <div class="flow-title">前三課開始使用，後五課處理成長</div>
+  <p class="flow-note">01–03 是獨立完成線：把 raw idea file 交給 Claude Code、加入一份來源、問一題。Wiki 實際使用後，再依序學 04–08；完整提示詞見 <a href="reference/llm-wiki-workflow.html">LLM Wiki 路線速查卡</a>。</p>
+  <div class="flow-row">
+    <div class="flow-label">建立最小版本</div>
+    <div class="flow-steps">
+      <a href="lessons/006-0001-start-llm-wiki-with-claude-code.html">01 交給 Claude Code</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">第一次更新</div>
+    <div class="flow-steps">
+      <a href="lessons/006-0002-add-first-llm-wiki-source.html">02 加一份來源</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">第一次使用</div>
+    <div class="flow-steps">
+      <a href="lessons/006-0003-ask-first-llm-wiki-question.html">03 問一題並回查</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">進階規則與操作</div>
+    <div class="flow-steps">
+      <a href="lessons/006-0004-evolve-llm-wiki-schema.html">04 schema</a>
+      <a href="lessons/006-0005-ingest-one-source-with-a-review-loop.html">05 ingest</a>
+      <a href="lessons/006-0006-query-and-file-a-durable-answer.html">06 query</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">進階維護</div>
+    <div class="flow-steps">
+      <a href="lessons/006-0007-lint-and-fix-one-wiki-problem.html">07 lint</a>
+      <a href="lessons/006-0008-automate-one-safe-wiki-check.html">08 自動化</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="p7sec">
+<h2 class="p7">Phase 7（Claude Code × open-slide）— 入門 01–04；進階 05–09</h2>
+<table>
+<tr><td class="no">01</td><td><a href="lessons/007-0001-decide-if-open-slide-fits.html">讓 Claude Code 判斷 open-slide 是否適合</a></td><td class="track">入門選路</td></tr>
+<tr><td class="no">02</td><td><a href="lessons/007-0002-create-isolated-workspace.html">請 Claude Code 建立隔離 workspace</a></td><td class="track">入門環境</td></tr>
+<tr><td class="no">03</td><td><a href="lessons/007-0003-build-three-slide-slice.html">讓 Claude Code 完成三頁簡報切片</a></td><td class="track">入門實作</td></tr>
+<tr><td class="no">04</td><td><a href="lessons/007-0004-build-and-open-output.html">請 Claude Code build，再親自開啟</a></td><td class="track">入門完成</td></tr>
+<tr><td class="no">05</td><td><a href="lessons/007-0005-use-agent-contract.html">讓 Claude Code 讀 workspace contract</a></td><td class="track">進階規則</td></tr>
+<tr><td class="no">06</td><td><a href="lessons/007-0006-build-reusable-slide-system.html">用 /create-theme 建立可重用系統</a></td><td class="track">進階重用</td></tr>
+<tr><td class="no">07</td><td><a href="lessons/007-0007-audit-sources-and-accessibility.html">讓 Claude Code 列檢查，真人完成稽核</a></td><td class="track">進階稽核</td></tr>
+<tr><td class="no">08</td><td><a href="lessons/007-0008-close-comment-edit-review-loop.html">用 /apply-comments 關閉回饋迴圈</a></td><td class="track">進階回饋</td></tr>
+<tr><td class="no">09</td><td><a href="lessons/007-0009-package-and-deploy-safely.html">讓 Claude Code 準備受控交付包</a></td><td class="track">進階交付</td></tr>
+</table>
+<div class="flow">
+  <div class="flow-title">先完成三頁，再處理 code-first 成長</div>
+  <p class="flow-note">01–04 讓 Claude Code 判斷、scaffold、使用 <code>/create-slide</code> 與 build；學員核准命令、審查 diff、親自打開輸出。遇到重用、可信查核或部署需求才接 05–09；完整路線見 <a href="reference/open-slide-agent-deck-workflow.html">Phase 7 路線卡</a>。</p>
+  <div class="flow-row">
+    <div class="flow-label">入門選路</div>
+    <div class="flow-steps">
+      <a href="lessons/007-0001-decide-if-open-slide-fits.html">01 判斷適用</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">入門切片</div>
+    <div class="flow-steps">
+      <a href="lessons/007-0002-create-isolated-workspace.html">02 workspace</a>
+      <a href="lessons/007-0003-build-three-slide-slice.html">03 三頁切片</a>
+      <a href="lessons/007-0004-build-and-open-output.html">04 正式輸出</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">進階系統</div>
+    <div class="flow-steps">
+      <a href="lessons/007-0005-use-agent-contract.html">05 agent contract</a>
+      <a href="lessons/007-0006-build-reusable-slide-system.html">06 slide system</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">進階交付</div>
+    <div class="flow-steps">
+      <a href="lessons/007-0007-audit-sources-and-accessibility.html">07 稽核</a>
+      <a href="lessons/007-0008-close-comment-edit-review-loop.html">08 feedback loop</a>
+      <a href="lessons/007-0009-package-and-deploy-safely.html">09 部署準備</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="p8sec">
+<h2 class="p8">Phase 8（Claude Code × Playwright）— 入門 01–04；進階 05–09</h2>
+<table>
+<tr><td class="no">01</td><td><a href="lessons/008-0001-choose-live-check-or-test.html">判斷即時查核或持久測試</a></td><td class="track">入門選證據</td></tr>
+<tr><td class="no">02</td><td><a href="lessons/008-0002-connect-playwright-mcp-to-claude-code.html">把 Playwright MCP 接到 Claude Code</a></td><td class="track">入門連接</td></tr>
+<tr><td class="no">03</td><td><a href="lessons/008-0003-run-first-browser-check-with-claude-code.html">讓 Claude Code 走第一條 browser path</a></td><td class="track">入門查核</td></tr>
+<tr><td class="no">04</td><td><a href="lessons/008-0004-create-first-durable-test-with-claude-code.html">讓 Claude Code 留下第一個持久 test</a></td><td class="track">入門完成</td></tr>
+<tr><td class="no">05</td><td><a href="lessons/008-0005-initialize-playwright-test-agents.html">初始化 Playwright Test Agents</a></td><td class="track">進階起點</td></tr>
+<tr><td class="no">06</td><td><a href="lessons/008-0006-review-planner-spec.html">先審查 planner 產生的 spec</a></td><td class="track">進階規劃</td></tr>
+<tr><td class="no">07</td><td><a href="lessons/008-0007-review-generator-test.html">審查 generator 產生的 test</a></td><td class="track">進階生成</td></tr>
+<tr><td class="no">08</td><td><a href="lessons/008-0008-supervise-healer-with-trace.html">用 trace 監督 healer</a></td><td class="track">進階修復</td></tr>
+<tr><td class="no">09</td><td><a href="lessons/008-0009-run-reviewed-tests-in-ci.html">讓 reviewed tests 在 CI 執行</a></td><td class="track">進階交付</td></tr>
+</table>
+<div class="flow">
+  <div class="flow-title">先讓 Claude Code 查核一條 path，再把已核准 tests 放大</div>
+  <p class="flow-note">01–04 是獨立入門完成線：先判斷 live check 或 durable test，以 local scope 連接 MCP，觀看 Claude Code 操作真實 browser，再審查一個會紅會綠的 committed test。只有要擴大已驗證路徑、診斷 failure 或接 CI 時，才進入 05–09 的 planner → generator → healer 流程；完整停止線見 <a href="reference/playwright-browser-verification-workflow.html">Phase 8 路線卡</a>。</p>
+  <div class="flow-row">
+    <div class="flow-label">入門選證據</div>
+    <div class="flow-steps">
+      <a href="lessons/008-0001-choose-live-check-or-test.html">01 live 或 test</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">入門查核</div>
+    <div class="flow-steps">
+      <a href="lessons/008-0002-connect-playwright-mcp-to-claude-code.html">02 MCP</a>
+      <a href="lessons/008-0003-run-first-browser-check-with-claude-code.html">03 live check</a>
+      <a href="lessons/008-0004-create-first-durable-test-with-claude-code.html">04 durable test</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">進階生成</div>
+    <div class="flow-steps">
+      <a href="lessons/008-0005-initialize-playwright-test-agents.html">05 agents</a>
+      <a href="lessons/008-0006-review-planner-spec.html">06 planner</a>
+      <a href="lessons/008-0007-review-generator-test.html">07 generator</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">修復交付</div>
+    <div class="flow-steps">
+      <a href="lessons/008-0008-supervise-healer-with-trace.html">08 healer</a>
+      <a href="lessons/008-0009-run-reviewed-tests-in-ci.html">09 CI</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-07-17</footer>
 </body>
 </html>
