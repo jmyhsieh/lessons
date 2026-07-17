@@ -551,9 +551,9 @@ def validate_manifest(manifest: Any, freeze: dict[str, Any]) -> list[str]:
         errors.append(failure("manifest-schema", "schemaVersion must be integer 1"))
     if manifest.get("authority") != EXPECTED_AUTHORITY:
         errors.append(failure("manifest-authority", "authority boundary differs from T02"))
-    if manifest.get("publicationGateMode") != "report-only":
+    if manifest.get("publicationGateMode") != "enforced":
         errors.append(
-            failure("publication-mode", "T02 publicationGateMode must be report-only")
+            failure("publication-mode", "publicationGateMode must be enforced")
         )
     if "baselinePaths" in manifest or "newCanonicalPaths" in manifest:
         errors.append(
@@ -1653,9 +1653,9 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
     route_with_edge["edges"][0]["to"][0] = "lessons/999-9999-missing.html"
     cases.append(("unknown route target", unknown_route_target, "route-target"))
 
-    enforced_mode = copy.deepcopy(manifest)
-    enforced_mode["publicationGateMode"] = "enforced"
-    cases.append(("premature enforcement", enforced_mode, "publication-mode"))
+    report_only_mode = copy.deepcopy(manifest)
+    report_only_mode["publicationGateMode"] = "report-only"
+    cases.append(("report-only downgrade", report_only_mode, "publication-mode"))
 
     invalid_deprecation = copy.deepcopy(manifest)
     deprecation = next(

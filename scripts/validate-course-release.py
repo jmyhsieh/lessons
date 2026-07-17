@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Trace course release readiness without enforcing publication."""
+"""Enforce course Source publication readiness without authorizing release."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ from typing import Any
 from urllib.parse import unquote, urlsplit
 
 
-REPORT_MODE = "report-only"
+GATE_MODE = "enforced"
 MANIFEST_PATH = "docs/migration/course-migration-manifest.json"
 REGISTRY_PATH = "source-anchors.json"
 SITE_ROOT_PATHS = ("index.html", "toc.html")
@@ -1042,25 +1042,32 @@ def load_json(path: Path, label: str) -> dict[str, Any]:
     return value
 
 
-def validate_report_only_modes(manifest: Any, registry: Any) -> list[dict[str, str]]:
+def validate_gate_modes(manifest: Any, registry: Any) -> list[dict[str, str]]:
     modes = {
         "manifest": manifest.get("publicationGateMode")
         if isinstance(manifest, dict)
         else None,
         "registry": registry.get("gateMode") if isinstance(registry, dict) else None,
     }
-    if all(mode == REPORT_MODE for mode in modes.values()):
+    if all(mode == GATE_MODE for mode in modes.values()):
         return []
     return [
         blocker(
             "enforcement-mode",
-            f"release inputs must remain report-only: {modes}",
+            f"release inputs must both be {GATE_MODE}: {modes}",
         )
     ]
 
 
-def report_only_exit_code(_report: dict[str, Any]) -> int:
-    return 0
+def gate_exit_code(report: dict[str, Any]) -> int:
+    blockers = report.get("blockers")
+    return (
+        0
+        if report.get("releaseReady") is True
+        and isinstance(blockers, list)
+        and not blockers
+        else 1
+    )
 
 
 def error_matches_paths(error: dict[str, str], paths: set[str]) -> bool:
@@ -1075,7 +1082,7 @@ def build_authored_slice_report(
     as_of: date,
 ) -> dict[str, Any]:
     report: dict[str, Any] = {
-        "mode": REPORT_MODE,
+        "mode": GATE_MODE,
         "scope": "authored-slice",
         "asOf": as_of.isoformat(),
         "releaseReady": False,
@@ -1160,7 +1167,7 @@ def build_authored_slice_report(
         )
         for error in source_report["blockers"]
     )
-    errors.extend(validate_report_only_modes(manifest, registry))
+    errors.extend(validate_gate_modes(manifest, registry))
     report["checks"] = {
         "requiredPaths": len(required_paths),
         "presentPaths": sum(path in documents for path in required_paths),
@@ -1181,7 +1188,7 @@ def build_authored_slice_report(
 
 def build_release_report(repo_root: Path, *, as_of: date) -> dict[str, Any]:
     report: dict[str, Any] = {
-        "mode": REPORT_MODE,
+        "mode": GATE_MODE,
         "asOf": as_of.isoformat(),
         "releaseReady": False,
         "checks": {},
@@ -1249,7 +1256,7 @@ def build_release_report(repo_root: Path, *, as_of: date) -> dict[str, Any]:
         "manifest": manifest.get("publicationGateMode"),
         "registry": registry.get("gateMode"),
     }
-    errors.extend(validate_report_only_modes(manifest, registry))
+    errors.extend(validate_gate_modes(manifest, registry))
     report["checks"]["publicationGate"] = gate_modes
     report["releaseReady"] = not errors
     report["summary"] = {
@@ -1325,7 +1332,7 @@ def fixture_manifest() -> dict[str, Any]:
             "sourceDependencies": {"state": "not-applicable", "anchorIds": []},
         }
     )
-    return {"publicationGateMode": REPORT_MODE, "pages": pages}
+    return {"publicationGateMode": GATE_MODE, "pages": pages}
 
 
 def write_fixture_site(root: Path) -> None:
@@ -1746,6 +1753,7 @@ def run_self_test(repo_root: Path) -> None:
     )
 
     registry, source_manifest = source_module["positive_fixture"]()
+    source_manifest["publicationGateMode"] = GATE_MODE
     missing_anchor = copy.deepcopy(source_manifest)
     missing_anchor["pages"][0]["sourceDependencies"]["anchorIds"] = ["missing-anchor"]
     source_report = source_module["trace_registry"](
@@ -1760,9 +1768,24 @@ def run_self_test(repo_root: Path) -> None:
     enforced_report = source_module["trace_registry"](
         enforced, source_manifest, as_of=date(2026, 7, 16)
     )
-    assert any(error["code"] == "gate-mode" for error in enforced_report["blockers"])
-    assert_codes(validate_report_only_modes(source_manifest, enforced), "enforcement-mode")
-    assert report_only_exit_code({"releaseReady": False}) == 0
+    assert not any(error["code"] == "gate-mode" for error in enforced_report["blockers"])
+    assert validate_gate_modes(source_manifest, enforced) == []
+    report_only_manifest = copy.deepcopy(source_manifest)
+    report_only_manifest["publicationGateMode"] = "report-only"
+    assert_codes(
+        validate_gate_modes(report_only_manifest, enforced),
+        "enforcement-mode",
+    )
+    assert gate_exit_code(
+        {"releaseReady": False, "blockers": [blocker("fixture", "blocked")]}
+    ) != 0
+    assert gate_exit_code(
+        {
+            "releaseReady": False,
+            "blockers": [blocker("release-runtime", "fixture runtime failure")],
+        }
+    ) != 0
+    assert gate_exit_code({"releaseReady": True, "blockers": []}) == 0
 
 
 def parse_as_of(value: str) -> date:
@@ -1805,12 +1828,13 @@ def print_text_report(report: dict[str, Any]) -> None:
     for error in report["blockers"]:
         subject = f" {error['subject']}" if error.get("subject") else ""
         print(f"BLOCKER [{error['code']}]{subject}: {error['message']}")
-    print("PUBLICATION UNAFFECTED (report-only)")
+    status = "PASS" if report["releaseReady"] and not report["blockers"] else "BLOCKED"
+    print(f"SOURCE PUBLICATION GATE {status} ({report['mode']})")
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Trace all course release contracts without blocking publication"
+        description="Enforce all course Source publication contracts"
     )
     parser.add_argument("--as-of", type=parse_as_of, default=date.today())
     parser.add_argument("--json", action="store_true", dest="json_output")
@@ -1830,12 +1854,12 @@ def main() -> int:
             run_self_test(repo_root)
         except Exception as error:
             print(f"RELEASE VALIDATOR SELF-TEST FAIL: {type(error).__name__}: {error}")
-            print("PUBLICATION UNAFFECTED (report-only)")
+            print("SOURCE PUBLICATION GATE BLOCKED (enforced)")
             return 1
         print("RELEASE VALIDATOR SELF-TEST PASS")
         print("POSITIVE THIN SLICE PASS")
         print("NEGATIVE STATE FIXTURES PASS")
-        print("PUBLICATION UNAFFECTED (report-only)")
+        print("ENFORCED FAIL-CLOSED CONTRACT PASS")
         return 0
 
     try:
@@ -1847,9 +1871,9 @@ def main() -> int:
             )
         else:
             report = build_release_report(repo_root, as_of=args.as_of)
-    except Exception as error:  # A report-only tracer must surface, not enforce, failures.
+    except Exception as error:  # Runtime failures must fail closed.
         report = {
-            "mode": REPORT_MODE,
+            "mode": GATE_MODE,
             "asOf": args.as_of.isoformat(),
             "releaseReady": False,
             "checks": {},
@@ -1860,7 +1884,7 @@ def main() -> int:
         print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
     else:
         print_text_report(report)
-    return report_only_exit_code(report)
+    return gate_exit_code(report)
 
 
 if __name__ == "__main__":

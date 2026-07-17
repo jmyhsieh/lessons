@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Trace Source registry state without enforcing the publication gate."""
+"""Enforce the Source registry publication gate."""
 
 from __future__ import annotations
 
@@ -23,6 +23,7 @@ EXPECTED_AUTHORITY = {
 EXPECTED_DRIFT_WINDOWS = {"high": 30, "medium": 90, "lower": 365}
 EXPECTED_COVERAGE_MODE = "migration-release-candidate"
 EXPECTED_NEXT_WAVE = "maintainer-sign-off"
+EXPECTED_GATE_MODE = "enforced"
 PROFILE_CONTRACTS = {
     "executable-recipe": {
         "evidenceMethod": "command-reproduction",
@@ -139,9 +140,9 @@ def validate_top_level(registry: dict[str, Any], errors: list[dict[str, str]]) -
                     )
                 )
 
-    if registry.get("gateMode") != "report-only":
+    if registry.get("gateMode") != EXPECTED_GATE_MODE:
         errors.append(
-            blocker("gate-mode", "T03 gateMode must remain report-only")
+            blocker("gate-mode", f"gateMode must be {EXPECTED_GATE_MODE}")
         )
 
     coverage = registry.get("coverage")
@@ -872,7 +873,11 @@ def trace_registry(
 ) -> dict[str, Any]:
     errors: list[dict[str, str]] = []
     report: dict[str, Any] = {
-        "mode": "report-only",
+        "mode": (
+            registry.get("gateMode")
+            if isinstance(registry, dict)
+            else EXPECTED_GATE_MODE
+        ),
         "asOf": as_of.isoformat(),
         "coverage": "unknown",
         "anchors": [],
@@ -1330,7 +1335,7 @@ def positive_fixture() -> tuple[dict[str, Any], dict[str, Any]]:
     registry = {
         "schemaVersion": 1,
         "authority": EXPECTED_AUTHORITY,
-        "gateMode": "report-only",
+        "gateMode": EXPECTED_GATE_MODE,
         "coverage": {
             "mode": EXPECTED_COVERAGE_MODE,
             "complete": True,
@@ -1632,7 +1637,7 @@ def run_self_test() -> None:
     assert_has_code(surface_report, "profile-metadata")
 
     bad_mode = copy.deepcopy(registry)
-    bad_mode["gateMode"] = "enforced"
+    bad_mode["gateMode"] = "report-only"
     mode_report = trace_registry(bad_mode, manifest, as_of=as_of)
     assert_has_code(mode_report, "gate-mode")
 
@@ -1709,11 +1714,14 @@ def run_self_test() -> None:
     page_kind_report = trace_registry(registry, malformed_page_kind, as_of=as_of)
     assert_has_code(page_kind_report, "page-mapping")
 
-    assert report_only_exit_code(stale_report) == 0
+    assert gate_exit_code(stale_report) != 0
+    assert gate_exit_code(report) == 0
+    assert gate_exit_code(runtime_report("fixture failure", as_of=as_of)) != 0
 
 
-def report_only_exit_code(_report: dict[str, Any]) -> int:
-    return 0
+def gate_exit_code(report: dict[str, Any]) -> int:
+    blockers = report.get("blockers")
+    return 0 if isinstance(blockers, list) and not blockers else 1
 
 
 def load_json(path: Path) -> Any:
@@ -1724,7 +1732,7 @@ def load_json(path: Path) -> Any:
 def runtime_report(message: str, *, as_of: date) -> dict[str, Any]:
     error = blocker("tracer-runtime", message)
     return {
-        "mode": "report-only",
+        "mode": EXPECTED_GATE_MODE,
         "asOf": as_of.isoformat(),
         "coverage": "unknown",
         "anchors": [],
@@ -1744,7 +1752,7 @@ def runtime_report(message: str, *, as_of: date) -> dict[str, Any]:
 
 def print_text_report(report: dict[str, Any]) -> None:
     summary = report["summary"]
-    print("SOURCE REGISTRY TRACE (report-only)")
+    print(f"SOURCE REGISTRY TRACE ({report['mode']})")
     print(f"AS OF {report['asOf']}")
     print(f"COVERAGE {report['coverage']}")
     print(
@@ -1776,12 +1784,13 @@ def print_text_report(report: dict[str, Any]) -> None:
             f"urls={online_sources.get('urls', 0)} "
             f"passing={online_sources.get('passing', 0)}"
         )
-    print("PUBLICATION UNAFFECTED (report-only)")
+    status = "PASS" if not report["blockers"] else "BLOCKED"
+    print(f"SOURCE PUBLICATION GATE {status} ({report['mode']})")
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Trace Source registry state without enforcing publication"
+        description="Enforce Source registry publication eligibility"
     )
     parser.add_argument("--registry", default="source-anchors.json")
     parser.add_argument(
@@ -1793,7 +1802,7 @@ def main() -> int:
     parser.add_argument(
         "--online",
         action="store_true",
-        help="check every declared Source URL while keeping the gate report-only",
+        help="check every declared Source URL as enforced publication evidence",
     )
     parser.add_argument(
         "--require-coordinate-prefix",
@@ -1826,7 +1835,7 @@ def main() -> int:
         run_self_test()
         print("SOURCE REGISTRY SELF-TEST PASS")
         print("NEGATIVE STATE FIXTURES PASS")
-        print("PUBLICATION UNAFFECTED (report-only)")
+        print("ENFORCED FAIL-CLOSED CONTRACT PASS")
         return 0
 
     try:
@@ -1884,14 +1893,14 @@ def main() -> int:
             refresh_blocker_summary(report)
     except (OSError, json.JSONDecodeError) as error:
         report = runtime_report(str(error), as_of=as_of)
-    except Exception as error:  # Keep unexpected tracer failures observable but non-blocking.
+    except Exception as error:  # Unexpected tracer failures must fail closed.
         report = runtime_report(f"unexpected tracer failure: {error}", as_of=as_of)
 
     if args.json_output:
         print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
     else:
         print_text_report(report)
-    return report_only_exit_code(report)
+    return gate_exit_code(report)
 
 
 if __name__ == "__main__":

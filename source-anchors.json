@@ -7,7 +7,7 @@
     "specIssue": 13,
     "ticketIssue": 16
   },
-  "gateMode": "report-only",
+  "gateMode": "enforced",
   "coverage": {
     "mode": "migration-release-candidate",
     "complete": true,

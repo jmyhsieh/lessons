@@ -7,7 +7,7 @@
     "specIssue": 13,
     "ticketIssue": 15
   },
-  "publicationGateMode": "report-only",
+  "publicationGateMode": "enforced",
   "phaseCatalog": [
     {
       "phase": 1,
