@@ -21,8 +21,8 @@ EXPECTED_AUTHORITY = {
     "pageMappings": "docs/migration/course-migration-manifest.json",
 }
 EXPECTED_DRIFT_WINDOWS = {"high": 30, "medium": 90, "lower": 365}
-EXPECTED_COVERAGE_MODE = "pre-authoring-baseline"
-EXPECTED_NEXT_WAVE = "author-canonical-pages"
+EXPECTED_COVERAGE_MODE = "migration-release-candidate"
+EXPECTED_NEXT_WAVE = "maintainer-sign-off"
 PROFILE_CONTRACTS = {
     "executable-recipe": {
         "evidenceMethod": "command-reproduction",
@@ -155,11 +155,11 @@ def validate_top_level(registry: dict[str, Any], errors: list[dict[str, str]]) -
                     f"coverage mode must be {EXPECTED_COVERAGE_MODE}",
                 )
             )
-        if coverage.get("complete") is not False:
+        if coverage.get("complete") is not True:
             errors.append(
                 blocker(
                     "coverage",
-                    "full page coverage must remain incomplete while authoring pages are pending",
+                    "full candidate coverage must be complete before Maintainer sign-off",
                 )
             )
         if coverage.get("nextWave") != EXPECTED_NEXT_WAVE:
@@ -1333,7 +1333,7 @@ def positive_fixture() -> tuple[dict[str, Any], dict[str, Any]]:
         "gateMode": "report-only",
         "coverage": {
             "mode": EXPECTED_COVERAGE_MODE,
-            "complete": False,
+            "complete": True,
             "nextWave": EXPECTED_NEXT_WAVE,
         },
         "driftWindowsDays": EXPECTED_DRIFT_WINDOWS,
@@ -1640,6 +1640,44 @@ def run_self_test() -> None:
     bad_next_wave["coverage"]["nextWave"] = "skip-authoring"
     next_wave_report = trace_registry(bad_next_wave, manifest, as_of=as_of)
     assert_has_code(next_wave_report, "coverage")
+
+    complete_candidate = copy.deepcopy(registry)
+    complete_candidate["coverage"] = {
+        "mode": "migration-release-candidate",
+        "complete": True,
+        "nextWave": "maintainer-sign-off",
+    }
+    complete_candidate_report = trace_registry(
+        complete_candidate, manifest, as_of=as_of
+    )
+    assert not any(
+        item["code"] in {"coverage", "page-coverage"}
+        for item in complete_candidate_report["blockers"]
+    ), complete_candidate_report["blockers"]
+
+    incomplete_coverage = copy.deepcopy(registry)
+    incomplete_coverage["coverage"]["complete"] = False
+    incomplete_coverage_report = trace_registry(
+        incomplete_coverage, manifest, as_of=as_of
+    )
+    assert_has_code(incomplete_coverage_report, "coverage")
+
+    pre_authoring_coverage = copy.deepcopy(registry)
+    pre_authoring_coverage["coverage"]["mode"] = "pre-authoring-baseline"
+    pre_authoring_coverage_report = trace_registry(
+        pre_authoring_coverage, manifest, as_of=as_of
+    )
+    assert_has_code(pre_authoring_coverage_report, "coverage")
+
+    pending_page_manifest = copy.deepcopy(manifest)
+    pending_page_manifest["pages"][0]["sourceDependencies"] = {
+        "state": "pending-t03",
+        "anchorIds": [],
+    }
+    pending_page_report = trace_registry(
+        registry, pending_page_manifest, as_of=as_of
+    )
+    assert_has_code(pending_page_report, "page-coverage")
 
     malformed_drift = copy.deepcopy(registry)
     malformed_drift["driftWindowsDays"]["high"] = []

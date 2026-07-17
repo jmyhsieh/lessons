@@ -9,9 +9,9 @@
   },
   "gateMode": "report-only",
   "coverage": {
-    "mode": "pre-authoring-baseline",
-    "complete": false,
-    "nextWave": "author-canonical-pages"
+    "mode": "migration-release-candidate",
+    "complete": true,
+    "nextWave": "maintainer-sign-off"
   },
   "driftWindowsDays": {
     "high": 30,
