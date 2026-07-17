@@ -27,7 +27,7 @@ Dependencies / verified fixture / retirement:</pre></div>
 <p class="rule"><strong>明確失敗規則：</strong>無效輸入、部分輸出、逾時、相依項目不符或略過的紀錄必須產生可辨識非零／已阻擋狀態；不能為了「流程跑完」把未知結果格式化成成功。</p>
 
 <h2>2. 建立最小可判別fixture矩陣</h2>
-<ol><li>正例固定預期 stdout／產物與結束碼 0。</li><li>無效綱要、缺少識別資訊或越界輸入固定回傳非零，且不產生最終產物。</li><li>重跑同一測試資料，確認輸出可比較，且不重複外部影響。</li><li>若命令產生儲存庫差異，建立不可變候選版本 SHA，回006-0008做標準／規格審查。</li></ol>
+<ol><li>正例固定預期 stdout／產物與結束碼 0。</li><li>無效綱要、缺少識別資訊或越界輸入固定回傳非零，且不產生最終產物。</li><li>重跑同一測試資料，確認輸出可比較，且不重複外部影響。</li><li>若命令產生 repo diff，建立不可變候選版本 SHA，回006-0008做標準／Spec Review。</li></ol>
 <div class="card"><pre># Fresh-context rerun protocol
 mkdir a-clean-disposable-fixture
 copy exact package version + declared fixture only
@@ -44,7 +44,7 @@ record: package digest, environment, commands, exits, outputs, diff</pre></div>
 <div class="win"><strong>可見成果：</strong>一個具版本的命令／本機流程契約，附全新脈絡正反例與重跑證據。<br><strong>可觀察回饋：</strong>乾淨測試資料中正例產生精確輸出、反例明確失敗且不留下最終產物；重跑結果可比較，判斷／外部動作不會被程式碼偷做。</div>
 
 <div class="quiz" data-answer="2"><p>命令可穩定計算品質分數，但是否發布需要負責人判斷。應怎麼包？</p><button type="button">分數達門檻就自動發布</button><button type="button">讓代理程式讀分數後自我批准</button><button type="button">命令輸出分數與證據，負責人處置保持為明確交接</button><div class="why">確定性計算可以自動化；風險與發布判斷不能因為有分數就被悄悄轉成自動批准。</div></div>
-<p class="stop"><strong>合法停止／返回／續行：</strong>若介面不穩定、預期結果無獨立固定值、失敗回傳成功、重試無界、全新脈絡依賴隱藏狀態、判斷被寫進程式碼，或副作用無當次權限，停止並回 <a href="009-0003-choose-workflow-package.html">009-0003</a>／009-0002。儲存庫差異先由 <a href="006-0008-review-final-candidate.html">006-0008</a> 完成不可變審查；其餘套件證據齊全後前往 <code>009-0008-complete-standardization-closeout.html</code>，不要再完成其他分支。</p>
+<p class="stop"><strong>合法停止／返回／續行：</strong>若介面不穩定、預期結果無獨立固定值、失敗回傳成功、重試無界、全新脈絡依賴隱藏狀態、判斷被寫進程式碼，或副作用無當次權限，停止並回 <a href="009-0003-choose-workflow-package.html">009-0003</a>／009-0002。repo diff 先由 <a href="006-0008-review-final-candidate.html">006-0008</a> 完成不可變 Review；其餘套件證據齊全後前往 <code>009-0008-complete-standardization-closeout.html</code>，不要再完成其他分支。</p>
 <footer data-course-footer="canonical" data-route-id="workflow-standardization" data-legal-stop="Stop after one fitting package is rerun and reviewed">
 <p><strong>路線導覽 · 工作流程標準化</strong></p>
 <ul class="course-route-actions">

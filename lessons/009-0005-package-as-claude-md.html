@@ -30,7 +30,7 @@ Change trigger / retirement / escalation:</pre></div>
 <table><tr><th>探測</th><th>預期可觀察證據</th></tr><tr><td>範圍內正例</td><td>全新工作階段能指出精確適用範圍，依規則產生有界diff，並跑指定檢查。</td></tr><tr><td>範圍外路徑</td><td>不把本機規則錯套到同層路徑；若優先順序不清便停止。</td></tr><tr><td>禁止操作</td><td>拒絕或要求新權限，不把文字解讀成權限。</td></tr><tr><td>失敗 fixture</td><td>保留失敗證據，依復原規則回復或安全停止，不隱藏略過的檢查。</td></tr></table>
 <p class="rule"><strong>全新脈絡規則：</strong>用新工作階段或等價隔離脈絡，只提供儲存庫、精確候選版本參照與任務；不得貼回作者先前推理。記錄候選版本SHA、固定點、提示詞、適用指示路徑、diff與檢查。</p>
 
-<h2>3. 回到不可變的工程審查</h2>
+<h2>3. 回到不可變的Engineering Review</h2>
 <div class="card"><strong>候選版本檢查清單</strong><label><input type="checkbox"> 差異只改最窄指示範圍</label><label><input type="checkbox"> 正例、範圍外、禁止動作與失敗探測有證據</label><label><input type="checkbox"> 不得包含機密資料、隱含核准或外部操作授權</label><label><input type="checkbox"> 指定的固定點與候選版本SHA已固定</label><label><input type="checkbox"> 標準／規格審查者看同一不可變的diff</label></div>
 <div class="win"><strong>可見成果：</strong>一個有界儲存庫 <code>CLAUDE.md</code> 候選版本，附全新脈絡探測與不可變審查檢查點。<br><strong>可觀察回饋：</strong>新工作階段能正確辨識範圍、遵守必要檢查、對範圍外／禁止的 fixture 停止；兩軸審查能將發現事項綁到同一候選版本SHA。</div>
 

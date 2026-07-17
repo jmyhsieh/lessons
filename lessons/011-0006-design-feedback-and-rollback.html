@@ -9,7 +9,7 @@ Observation / raw evidence / limitation:
 Triage: clarify | revise | pause | out-of-scope
 Owner disposition / response / due point:
 Retention / deletion / no-person-ranking check:</pre></div>
-<h2>2. 注入失敗，演練暫停與回復</h2><ol><li>在可丟棄副本先保存已知良好的測試資料雜湊與空輸出清冊。</li><li>注入一張標記 <code>suspected-real-data</code> 的假事件卡；操作者必須在讀取內容前暫停、記錄觸發條件、通知停止權限。</li><li>回復：刪除本次輸出、還原已知良好的測試資料副本、重跑清冊／雜湊／零機密資料檢查；保留最小事件紀錄，不保留注入內容。</li><li>只有檢查再次通過且負責人明確記錄 <code>resume-tabletop</code> 才可繼續；否則維持已停止。</li></ol>
+<h2>2. 注入失敗，演練暫停與回復</h2><ol><li>在可丟棄副本先保存已知良好fixture hash與空輸出清冊。</li><li>注入一張標記 <code>suspected-real-data</code> 的假事件卡；操作者必須在讀取內容前暫停、記錄觸發條件、通知停止權限。</li><li>回復：刪除本次輸出、還原已知良好fixture副本、重跑清冊／hash／零機密資料檢查；保留最小事件紀錄，不保留注入內容。</li><li>只有checks再次PASS且負責人明確記錄 <code>resume-tabletop</code> 才可繼續；否則維持已停止。</li></ol>
 <p class="rule"><strong>桌上演練證據格式：</strong>記錄演練ID、開始狀態、注入事件、已觀察stop、回復步驟、已還原checks、人工續作／stop決策、限制。不要寫成真實事件、使用者影響或正式環境復原。</p>
 <p class="boundary"><strong>回復上限：</strong>本次只證明本機 fixture的規劃步驟可被演練。它不證明正式環境回復、災難復原、資料刪除合規、服務水準或任何外部系統可恢復。</p>
 <div class="win"><strong>可見成果：</strong>一份非監控式回饋登錄表，加上一筆在可丟棄的fixture可追溯的暫停／回復桌上演練紀錄。<br><strong>可觀察回饋：</strong>審查者能確認注入事件先觸發暫停、已知良好狀態被恢復、續作由人決定，且沒有個人監控或正式環境主張。</div>

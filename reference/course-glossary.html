@@ -46,7 +46,7 @@
 <tr><th>狀態平面</th><th>回答的問題</th><th>本 repo 的例子</th><th>不能推出</th></tr>
 <tr><td><strong>Learner progress</strong></td><td>這位學習者實際練過、產出並判斷了什麼？</td><td><code>Lesson practiced</code>、已證明 readiness、<code>Route artifact produced</code>、學習者判斷、feedback 紀錄</td><td>頁面已撰寫、已發布，或整門課完成</td></tr>
 <tr><td><strong>Course history</strong></td><td>頁面在目錄 Migration 中如何被保留、改寫、搬移或退休？</td><td>標準的／舊版課程座標、Content disposition、Compatibility entry、Deprecation notice、Evidence carryover、清單的 <code>planned</code>／<code>authored</code></td><td>學習者已練習、route 已收尾，或正式環境已更新</td></tr>
-<tr><td><strong>發布狀態</strong></td><td>哪一個精確且一致的候選版本已獲授權，並可由公開主機驗證？</td><td>僅限本機的遷移分支、已審查的檢查點、維護者授權、一致切換、發布後證據</td><td>每位學習者的進度，或未完成頁面可分批上線</td></tr>
+<tr><td><strong>Publication state</strong></td><td>哪一個精確的一致的候選版本已獲授權並可由公開的主機驗證？</td><td>僅限本機的 Migration branch、已審查的檢查點、維護者授權、一致切換、發布後證據</td><td>每位學習者的進度，或未完成頁面可分批上線</td></tr>
 </table>
 <p class="warning"><strong>Migration 狀態詞彙：</strong>目前清單的合法值只有 <code>planned</code> 與 <code>authored</code>。<code>verified</code> 是證據結果，<code>published</code> 是發布事實，兩者不是可自行寫入清單的第三、第四種 <code>migrationStatus</code>。</p>
 
@@ -71,14 +71,14 @@
 <tr><th>詞彙</th><th>固定意思</th><th>邊界</th></tr>
 <tr><td><code>Lesson practiced</code></td><td>學習者完成該課的操作與可觀察的 feedback。</td><td>不自動成為 <code>Route artifact produced</code>。</td></tr>
 <tr><td><code>Route artifact produced</code></td><td>產物滿足所選任務路線的 artifact 與證據契約。</td><td>不等於 Phase、Migration 或完整課程完成。</td></tr>
-<tr><td>產物</td><td>可被檢查、使用、交接或重跑的持久輸出，例如報告、規格、儲存庫差異、簡報、檔案或政策草稿。</td><td>對話中的聲稱不是持久產物。</td></tr>
+<tr><td>Artifact</td><td>可被檢查、使用、交接或重跑的持久的輸出，例如報告、規格、repo diff、簡報、檔案或政策草稿。</td><td>對話中的聲稱不是持久的 artifact。</td></tr>
 <tr><td>Evidence</td><td>能支持具體主張的觀察、artifact 識別、確定性的結果、來源沿革、學習者判斷或 feedback 紀錄。</td><td>工具成功、模型信心或螢幕看起來合理不夠。</td></tr>
 <tr><td>Tangible win</td><td>一課結束時學習者手上新增的有界的、可保存產物。</td><td>不是抽象的「理解了」。</td></tr>
 <tr><td>Observable feedback</td><td>另一位人或確定性的介面能觀察到、可反駁的結果。</td><td>不是代理程式對自己工作的評分。</td></tr>
 <tr><td>Deterministic check</td><td>相同已宣告的輸入與環境產生可重跑通過／失敗的 oracle；必須對錯誤狀態會失敗。</td><td>不能判斷需求價值、風險接受或負責人核准。</td></tr>
 <tr><td>Learner judgment</td><td>學習者根據證據對取捨、限制與下一步做出的明示處置。</td><td>不由模型、check 或審查者自動代替。</td></tr>
 <tr><td>Evidence carryover</td><td>準備度檢查後，承認既有 artifact、判斷或 feedback 可作為現行的 route 輸入。</td><td>不自動既有沿用完成。</td></tr>
-<tr><td>整體完成聲稱</td><td>只在明定的整體完成契約全部有證據時才能做出的聲稱。</td><td>單課、單一階段、單一路線產物或已發布目錄，都不足以單獨提出這項聲稱。</td></tr>
+<tr><td>Full completion claim</td><td>只在明定的整體完成契約全部有證據時才能做出的聲稱。</td><td>單課、單 Phase、單 route artifact 或已發布目錄都不足以單獨推出。</td></tr>
 </table>
 
 <h2>Review</h2>
@@ -107,18 +107,18 @@
 <tr><td>Stable public URL</td><td>已發布網址永遠解析到現行的標準內容或明確退役通知；不改派給無關內容。</td><td>舊 URL 可因重新編製索引任意消失。</td></tr>
 <tr><td>Compatibility entry</td><td>非標準的 Stable public URL，直接到最終的標準的目標，或在沒有後繼方案時解釋轉接／退役。</td><td>不得形成重新導向鏈；不得算進目錄、課程數量、導覽或完成。</td></tr>
 <tr><td>Deprecation notice</td><td>原 URL 上的公開的退役紀錄，說明理由、生效日期、後繼方案與 Evidence carryover。</td><td>無聲刪除或過期重複課程。</td></tr>
-<tr><td>遷移基準</td><td>十二階段遷移前，公開部署後凍結的 73 個 HTML 路徑。</td><td>所有歷史 Git 路徑。</td></tr>
+<tr><td>Migration baseline</td><td>十二 Phase Migration 前公開部署後凍結的 73 HTML 路徑。</td><td>所有歷史 Git 路徑。</td></tr>
 <tr><td>Content disposition</td><td>保留、重寫、移動／改名、條件式、合併、參考轉換或退役的頁面層級決策。</td><td>只因舊座標或主題相似就刪除。</td></tr>
 <tr><td><code>planned</code></td><td>清單已定義頁面契約，但現行的內容尚未被認定滿足已撰寫中繼資料／內容邊界。</td><td>頁面不存在、驗證失敗或發布受阻的同義詞。</td></tr>
 <tr><td><code>authored</code></td><td>頁面已按清單契約撰寫，且應由已撰寫切片驗證器檢查中繼資料、連結、測驗與 Source 範圍。</td><td>已 Review、已獲切換授權或已發布。</td></tr>
-<tr><td>遷移發布</td><td>標準目錄、基準網址、相容對照、導覽、退役通知與證據沿用一致的公開課程狀態。</td><td>逐頁或分支預覽的部分發布。</td></tr>
+<tr><td>Migration release</td><td>標準目錄、基準網址、相容對照、導覽、退役通知與 Evidence carryover 一致的公開課程狀態。</td><td>逐頁或 branch Preview 的部分發布。</td></tr>
 <tr><td>Report-only</td><td>驗證器可以揭露阻礙，但自身結束行為不會直接發布、批准或修改正式環境。</td><td>阻礙可忽略，或報告已授權切換。</td></tr>
 </table>
 
 <h3>禁止推論</h3>
 <table>
 <tr><th>看到</th><th>不得推論</th><th>還需要</th></tr>
-<tr><td><code>Lesson practiced</code></td><td><code>Route artifact produced</code></td><td>路線產物契約、判斷、回饋與結束證據</td></tr>
+<tr><td><code>Lesson practiced</code></td><td><code>Route artifact produced</code></td><td>route artifact 契約、判斷、feedback 與結束證據</td></tr>
 <tr><td><code>migrationStatus=authored</code></td><td>頁面已驗證／已發布</td><td>確定性的關卡、瀏覽器證據、Review、授權與公開主機驗證</td></tr>
 <tr><td>相容性 URL 可解析</td><td>它是目錄課程或完成步驟</td><td>沒有；相容性永久排除於這些計數</td></tr>
 <tr><td>Standards Review pass</td><td>Spec Review pass</td><td>同一不可變的檢查點的獨立規格報告</td></tr>

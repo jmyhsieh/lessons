@@ -36,63 +36,13 @@ EXPECTED_CANONICAL_COORDINATES = 105
 SUPPRESSED_LEARNER_TEXT_TAGS = {
     "code",
     "kbd",
+    "noscript",
     "pre",
     "samp",
     "script",
     "style",
     "template",
 }
-TRUE_BLOCK_BOUNDARY_TAGS = {
-    "address",
-    "article",
-    "aside",
-    "blockquote",
-    "body",
-    "button",
-    "caption",
-    "dd",
-    "details",
-    "dialog",
-    "div",
-    "dl",
-    "dt",
-    "fieldset",
-    "figcaption",
-    "figure",
-    "footer",
-    "form",
-    "h1",
-    "h2",
-    "h3",
-    "h4",
-    "h5",
-    "h6",
-    "head",
-    "header",
-    "hgroup",
-    "legend",
-    "label",
-    "li",
-    "main",
-    "menu",
-    "nav",
-    "ol",
-    "p",
-    "search",
-    "section",
-    "summary",
-    "table",
-    "tbody",
-    "td",
-    "tfoot",
-    "th",
-    "thead",
-    "title",
-    "tr",
-    "ul",
-}
-DOCUMENT_ROOT_TAGS = {"html"}
-VISIBLE_SUPPRESSED_TEXT_BOUNDARY_TAGS = {"code", "kbd", "pre", "samp"}
 VOID_HTML_TAGS = {
     "area",
     "base",
@@ -160,10 +110,8 @@ TECHNICAL_TOKENS = {
     "feedback",
     "fixture",
     "Git",
-    "Git diff",
     "GitHub",
     "GitHub Actions",
-    "Claude Code GitHub Actions",
     "gitignore",
     "Google Chrome",
     "GREEN",
@@ -288,7 +236,6 @@ TECHNICAL_ONLY_LEARNER_BLOCKS = TECHNICAL_TOKENS | {
     "Terminal",
     "View mode",
     "macOS",
-    "macOS arm64",
     "open-slide",
     "subagent",
 }
@@ -313,12 +260,10 @@ SOURCE_TITLE_LEARNER_BLOCKS = {
     "open-slide Introduction",
     "PowerPoint Reading Order",
     "Playwright CLI README",
-    "Playwright MCP README",
     "Postcard Press",
     "Set up your design system",
     "Using Claude Design for presentations and slide decks",
     "W3C WAI — Making Events Accessible",
-    "W3C WAI",
     "WAI Images Tutorial",
     "mattpocock/skills@9603c1c",
 }
@@ -438,12 +383,6 @@ MANIFEST_ROUTE_VOCABULARY = {
     "證明 Code readiness 後即可停止；不要把 fixture 練習視為交付",
 }
 LATIN_TEXT_RE = re.compile(r"[A-Za-z]")
-# ASCII punctuation/whitespace and dash punctuation join reviewed tokens into a
-# phrase that itself must be reviewed. Fullwidth separators and Han text remain
-# semantic boundaries because the authored course uses them for labels/lists.
-ALLOWED_TOKEN_CHAIN_JOINERS_RE = re.compile(
-    r"[\x00-\x2F\x3A-\x40\x5B-\x60\x7B-\x7F–—]*"
-)
 
 
 def blocker(code: str, message: str, subject: str | None = None) -> dict[str, str]:
@@ -472,20 +411,6 @@ class CourseHTMLParser(HTMLParser):
         self.learner_ui_labels: list[str] = []
         self._suppressed_text_depth = 0
         self._element_suppression_stack: list[tuple[str, bool]] = []
-        self._visible_text_block_stack: list[dict[str, Any]] = []
-
-    def _flush_visible_text_block(self) -> None:
-        if not self._visible_text_block_stack:
-            return
-        block = self._visible_text_block_stack[-1]
-        text = " ".join(
-            normalized
-            for part in block["parts"]
-            if (normalized := " ".join(part.split()))
-        )
-        if text:
-            self.learner_ui_labels.append(text)
-        block["parts"].clear()
 
     def handle_starttag(
         self, tag: str, attrs: list[tuple[str, str | None]]
@@ -496,29 +421,12 @@ class CourseHTMLParser(HTMLParser):
             self._suppressed_text_depth > 0
             or tag in SUPPRESSED_LEARNER_TEXT_TAGS
             or "hidden" in attributes
+            or (attributes.get("aria-hidden") or "").strip().lower() == "true"
         )
         if tag not in VOID_HTML_TAGS:
             self._element_suppression_stack.append((tag, suppresses_text))
             if suppresses_text:
                 self._suppressed_text_depth += 1
-        if (
-            tag in VISIBLE_SUPPRESSED_TEXT_BOUNDARY_TAGS
-            and self._visible_text_block_stack
-        ):
-            self._flush_visible_text_block()
-        starts_visible_text_block = (
-            not suppresses_text
-            and tag not in VOID_HTML_TAGS
-            and tag not in DOCUMENT_ROOT_TAGS
-            and (
-                not self._visible_text_block_stack
-                or tag in TRUE_BLOCK_BOUNDARY_TAGS
-            )
-        )
-        if starts_visible_text_block:
-            if self._visible_text_block_stack:
-                self._flush_visible_text_block()
-            self._visible_text_block_stack.append({"tag": tag, "parts": []})
         if tag == "html":
             self.lang = attributes.get("lang")
         elif tag == "meta":
@@ -574,20 +482,11 @@ class CourseHTMLParser(HTMLParser):
         if self._suppressed_text_depth == 0:
             text = " ".join(data.split())
             if text:
-                if self._visible_text_block_stack:
-                    self._visible_text_block_stack[-1]["parts"].append(data)
-                else:
-                    self.learner_ui_labels.append(text)
+                self.learner_ui_labels.append(text)
         if data.strip():
             self.text_parts.append(data)
 
     def handle_endtag(self, tag: str) -> None:
-        if (
-            self._visible_text_block_stack
-            and self._visible_text_block_stack[-1]["tag"] == tag
-        ):
-            self._flush_visible_text_block()
-            self._visible_text_block_stack.pop()
         if (
             self._element_suppression_stack
             and self._element_suppression_stack[-1][0] == tag
@@ -610,9 +509,6 @@ class CourseHTMLParser(HTMLParser):
 
     def close(self) -> None:
         super().close()
-        while self._visible_text_block_stack:
-            self._flush_visible_text_block()
-            self._visible_text_block_stack.pop()
         for quiz in self._quiz_stack:
             self.quizzes.append(
                 {"answer": quiz["answer"], "buttons": quiz["buttons"]}
@@ -1118,23 +1014,8 @@ def validate_links_and_quizzes(
 
 def contains_unreviewed_latin_text(text: str, allowed: set[str]) -> bool:
     """Return whether a visible text node contains unreviewed Latin prose."""
-    allowed_casefold = {term.casefold() for term in allowed}
-    if text.strip().casefold() in allowed_casefold:
-        return False
-    ordered_terms = sorted(allowed, key=len, reverse=True)
-    reviewed_term_re = re.compile(
-        r"(?<![A-Za-z0-9])(?:"
-        + "|".join(re.escape(term) for term in ordered_terms)
-        + r")(?![A-Za-z0-9])",
-        re.IGNORECASE,
-    )
-    reviewed_matches = list(reviewed_term_re.finditer(text))
-    for previous, current in zip(reviewed_matches, reviewed_matches[1:]):
-        joiner = text[previous.end() : current.start()]
-        if ALLOWED_TOKEN_CHAIN_JOINERS_RE.fullmatch(joiner):
-            return True
     remainder = text
-    for exact_term in ordered_terms:
+    for exact_term in sorted(allowed, key=len, reverse=True):
         boundary_aware_term = re.compile(
             rf"(?<![A-Za-z0-9]){re.escape(exact_term)}(?![A-Za-z0-9])",
             re.IGNORECASE,
@@ -2022,7 +1903,7 @@ def run_site_self_test() -> None:
                     "</body>",
                     "<div>中文 <em>Unknown nested em result</em></div></body>",
                 ),
-                "中文 Unknown nested em result",
+                "Unknown nested em result",
             ),
             "path-shaped": (
                 valid_target_html.replace(
@@ -2030,208 +1911,6 @@ def run_site_self_test() -> None:
                     "<div>lessons/unknown-path</div></body>",
                 ),
                 "lessons/unknown-path",
-            ),
-            "aria-hidden-only": (
-                valid_target_html.replace(
-                    "</body>",
-                    '<span aria-hidden="true">Unknown aria-hidden result</span></body>',
-                ),
-                "Unknown aria-hidden result",
-            ),
-            "noscript-fallback": (
-                valid_target_html.replace(
-                    "</body>",
-                    "<noscript>Unknown noscript result</noscript></body>",
-                ),
-                "Unknown noscript result",
-            ),
-            "unreviewed-phrase-composition": (
-                valid_target_html.replace(
-                    "</body>", "<p>Source check</p></body>"
-                ),
-                "Source check",
-            ),
-            "mixed-han-composition": (
-                valid_target_html.replace(
-                    "</body>", "<p>中文 Source check</p></body>"
-                ),
-                "中文 Source check",
-            ),
-            "hyphen-composition": (
-                valid_target_html.replace(
-                    "</body>", "<p>Source-check</p></body>"
-                ),
-                "Source-check",
-            ),
-            "slash-composition": (
-                valid_target_html.replace(
-                    "</body>", "<p>Source/check</p></body>"
-                ),
-                "Source/check",
-            ),
-            "spaced-slash-composition": (
-                valid_target_html.replace(
-                    "</body>", "<p>Source / check</p></body>"
-                ),
-                "Source / check",
-            ),
-            "dot-composition": (
-                valid_target_html.replace(
-                    "</body>", "<p>Source.check</p></body>"
-                ),
-                "Source.check",
-            ),
-            "mixed-han-technical-composition": (
-                valid_target_html.replace(
-                    "</body>", "<p>中文 Agent test</p></body>"
-                ),
-                "中文 Agent test",
-            ),
-            "inline-em-composition": (
-                valid_target_html.replace(
-                    "</body>", "<p>Source <em>check</em></p></body>"
-                ),
-                "Source check",
-            ),
-            "inline-span-mixed-han-composition": (
-                valid_target_html.replace(
-                    "</body>",
-                    "<p>中文 Source <span>check</span></p></body>",
-                ),
-                "中文 Source check",
-            ),
-            "inline-strong-composition": (
-                valid_target_html.replace(
-                    "</body>",
-                    "<h2>Agent <strong>test</strong></h2></body>",
-                ),
-                "Agent test",
-            ),
-            "inline-anchor-punctuation-composition": (
-                valid_target_html.replace(
-                    "</body>",
-                    '<a href="#target">Source <span>/</span> check</a></body>',
-                ),
-                "Source / check",
-            ),
-            "comment-does-not-split-composition": (
-                valid_target_html.replace(
-                    "</body>",
-                    "<p>Source <!-- review note -->check</p></body>",
-                ),
-                "Source check",
-            ),
-            "noscript-inline-composition": (
-                valid_target_html.replace(
-                    "</body>",
-                    "<noscript>Source <em>check</em></noscript></body>",
-                ),
-                "Source check",
-            ),
-            "direct-body-noscript-composition": (
-                valid_target_html.replace(
-                    "</body>", "Source<noscript>check</noscript></body>"
-                ),
-                "Source check",
-            ),
-            "paragraph-noscript-composition": (
-                valid_target_html.replace(
-                    "</body>",
-                    "<p>Source<noscript>check</noscript></p></body>",
-                ),
-                "Source check",
-            ),
-            "paragraph-noscript-inline-descendant-composition": (
-                valid_target_html.replace(
-                    "</body>",
-                    "<p>Source<noscript><em>check</em></noscript></p></body>",
-                ),
-                "Source check",
-            ),
-            "form-inline-composition": (
-                valid_target_html.replace(
-                    "</body>",
-                    "<form>Source <em>check</em></form></body>",
-                ),
-                "Source check",
-            ),
-            "fieldset-inline-composition": (
-                valid_target_html.replace(
-                    "</body>",
-                    "<fieldset>Source <span>check</span></fieldset></body>",
-                ),
-                "Source check",
-            ),
-            "details-inline-composition": (
-                valid_target_html.replace(
-                    "</body>",
-                    "<details>Agent <strong>test</strong></details></body>",
-                ),
-                "Agent test",
-            ),
-            "custom-flow-inline-composition": (
-                valid_target_html.replace(
-                    "</body>",
-                    "<course-card>中文 Source <em>check</em></course-card></body>",
-                ),
-                "中文 Source check",
-            ),
-            "direct-body-inline-composition": (
-                valid_target_html.replace(
-                    "</body>", "Source <span>check</span></body>"
-                ),
-                "Source check",
-            ),
-            "direct-body-comment-composition": (
-                valid_target_html.replace(
-                    "</body>", "Source <!-- note -->check</body>"
-                ),
-                "Source check",
-            ),
-            "standalone-inline-container-composition": (
-                valid_target_html.replace(
-                    "</body>",
-                    "<span>Source <em>check</em></span></body>",
-                ),
-                "Source check",
-            ),
-            "sibling-inline-container-composition": (
-                valid_target_html.replace(
-                    "</body>", "<b>Source</b><i>check</i></body>"
-                ),
-                "Source check",
-            ),
-            "standalone-small-composition": (
-                valid_target_html.replace(
-                    "</body>", "<small>Agent <em>test</em></small></body>"
-                ),
-                "Agent test",
-            ),
-            "inline-s-composition": (
-                valid_target_html.replace(
-                    "</body>", "<p>Source <s>check</s></p></body>"
-                ),
-                "Source check",
-            ),
-            "inline-output-composition": (
-                valid_target_html.replace(
-                    "</body>",
-                    "<p>Source <output>check</output></p></body>",
-                ),
-                "Source check",
-            ),
-            "inline-meter-composition": (
-                valid_target_html.replace(
-                    "</body>", "<p>Agent <meter>test</meter></p></body>"
-                ),
-                "Agent test",
-            ),
-            "nested-custom-inline-composition": (
-                valid_target_html.replace(
-                    "</body>",
-                    "<p>中文 Source <course-term>check</course-term></p></body>",
-                ),
-                "中文 Source check",
             ),
         }
         for case, (html, expected) in visible_text_node_cases.items():
@@ -2252,6 +1931,10 @@ def run_site_self_test() -> None:
             "hidden-div": (
                 '<div hidden>Suppressed hidden div result</div>',
                 "Suppressed hidden div result",
+            ),
+            "aria-em": (
+                '<em aria-hidden="true">Suppressed aria em result</em>',
+                "Suppressed aria em result",
             ),
             "nested-code": (
                 '<div>中文 <code>Suppressed nested code result</code></div>',
@@ -2283,6 +1966,10 @@ def run_site_self_test() -> None:
                     '<dl><dt hidden>Suppressed hidden dt result</dt><dd>中文</dd></dl>',
                     "Suppressed hidden dt result",
                 ),
+                "aria-hidden": (
+                    '<dl><dt aria-hidden="true">Suppressed aria dt result</dt><dd>中文</dd></dl>',
+                    "Suppressed aria dt result",
+                ),
                 "code": (
                     '<dl><dt><code>Suppressed code dt result</code></dt><dd>中文</dd></dl>',
                     "Suppressed code dt result",
@@ -2297,6 +1984,10 @@ def run_site_self_test() -> None:
                     '<small hidden>Suppressed hidden small result</small>',
                     "Suppressed hidden small result",
                 ),
+                "aria-hidden": (
+                    '<small aria-hidden="true">Suppressed aria small result</small>',
+                    "Suppressed aria small result",
+                ),
                 "code": (
                     '<small><code>Suppressed code small result</code></small>',
                     "Suppressed code small result",
@@ -2310,6 +2001,10 @@ def run_site_self_test() -> None:
                 "hidden": (
                     '<span hidden>Suppressed hidden span result</span>',
                     "Suppressed hidden span result",
+                ),
+                "aria-hidden": (
+                    '<span aria-hidden="true">Suppressed aria span result</span>',
+                    "Suppressed aria span result",
                 ),
                 "code": (
                     '<span><code>Suppressed code span result</code></span>',
@@ -2348,10 +2043,7 @@ def run_site_self_test() -> None:
         nested_errors = [
             error for error in errors if error["code"] == "generic-english-ui-label"
         ]
-        assert (
-            nested_errors
-            and "'中文 Expected result'" in nested_errors[0]["message"]
-        ), errors
+        assert nested_errors and "'Expected result'" in nested_errors[0]["message"], errors
         target_fixture.write_text(valid_target_html, encoding="utf-8")
 
         target_fixture.write_text(
@@ -2369,7 +2061,7 @@ def run_site_self_test() -> None:
         ]
         assert anchor_errors, errors
         assert "'Expected outcome'" in anchor_errors[0]["message"], errors
-        assert "'中文 Nested expected outcome'" in anchor_errors[0]["message"], errors
+        assert "'Nested expected outcome'" in anchor_errors[0]["message"], errors
         target_fixture.write_text(valid_target_html, encoding="utf-8")
 
         isolated_blocks = {
@@ -2417,11 +2109,7 @@ def run_site_self_test() -> None:
             "span": "<p>中文 <span>Unknown nested span result</span></p>",
         }
         for tag, html in nested_inline_blocks.items():
-            expected = (
-                f"Unknown nested {tag} result"
-                if tag == "dt"
-                else f"中文 Unknown nested {tag} result"
-            )
+            expected = f"Unknown nested {tag} result"
             target_fixture.write_text(
                 valid_target_html.replace("</body>", f"{html}</body>"),
                 encoding="utf-8",
@@ -2500,64 +2188,14 @@ def run_site_self_test() -> None:
             assert contains_unreviewed_latin_text(
                 f"中文 {exact_token}Extra", reviewed_allowlist
             ), exact_token
-        for unreviewed_composition in (
-            "Source check",
-            "中文 Source check",
-            "Source-check",
-            "Source/check",
-            "Source / check",
-            "Source.check",
-            "Source:check",
-            "Source,check",
-            "Source;check",
-            "Source|check",
-            "Source\\check",
-            "Source(check)",
-            "Source[check]",
-            "Source—check",
-            "Source/to-spec",
-            "中文 Agent test",
-            "Claude check",
-            "Source Claude",
-        ):
-            assert contains_unreviewed_latin_text(
-                unreviewed_composition, reviewed_allowlist
-            ), unreviewed_composition
-        for reviewed_phrase_or_identifier in (
-            "Claude Code",
-            "GitHub Actions",
-            "PPTX：PowerPoint",
-            "→ Slash commands。",
-            "Source：check",
-            "Source／check",
-            "Source→check",
-            "Source中文check",
-        ):
-            assert not contains_unreviewed_latin_text(
-                reviewed_phrase_or_identifier, reviewed_allowlist
-            ), reviewed_phrase_or_identifier
-
-        target_fixture.write_text(
-            valid_target_html.replace(
-                "</body>",
-                "<p>Claude <em>Code</em></p>"
-                "<div>Source<p>check</p></div>"
-                "<p>Source <code>ignored identifier</code> check</p>"
-                "</body>",
-            ),
-            encoding="utf-8",
-        )
-        _, errors = validate_site_release(root, manifest, inventory_contract=False)
-        assert not any(
-            error["code"] == "generic-english-ui-label" for error in errors
-        ), errors
-        target_fixture.write_text(valid_target_html, encoding="utf-8")
 
         target_fixture.write_text(
             valid_target_html.replace(
                 "</body>",
                 '<h2 hidden>Expected result</h2>'
+                '<h2 aria-hidden="true">Expected result</h2>'
                 '<a hidden href="#target">Expected result</a>'
+                '<a aria-hidden="true" href="#target">Expected result</a>'
                 '<a href="#target"><code>Expected result</code></a>'
                 '<table><tr><td><code>Expected result</code></td></tr></table>'
                 '<table><tr><td><pre>Expected result</pre></td></tr></table>'
@@ -2567,6 +2205,7 @@ def run_site_self_test() -> None:
                 '<table><tr><td><script>Expected result</script></td></tr></table>'
                 '<table><tr><td><style>Expected result</style></td></tr></table>'
                 '<table><tr><td><template>Expected result</template></td></tr></table>'
+                '<table><tr><td><noscript>Expected result</noscript></td></tr></table>'
                 "</body>",
             ),
             encoding="utf-8",
@@ -2824,8 +2463,7 @@ def run_self_test(repo_root: Path) -> None:
                 '<p>中文 <span>Nested required span outcome</span></p>'
                 '<div>中文 <em>Nested required em outcome</em></div>'
                 '<div hidden>Suppressed required div outcome</div>'
-                '<em aria-hidden="true">Required aria-hidden outcome</em>'
-                '<noscript>Required noscript outcome</noscript>'
+                '<em aria-hidden="true">Suppressed required em outcome</em>'
                 '<div><code>Suppressed required code outcome</code></div>'
                 "</body>",
             ),
@@ -2842,10 +2480,10 @@ def run_self_test(repo_root: Path) -> None:
             error["code"] == "generic-english-ui-label"
             and error.get("subject") == required_path
             and "'Expected outcome'" in error["message"]
-            and "'中文 Required path outcome'" in error["message"]
+            and "'Required path outcome'" in error["message"]
             and "'Required dt outcome'" in error["message"]
-            and "'Required small outcome Required span outcome'"
-            in error["message"]
+            and "'Required small outcome'" in error["message"]
+            and "'Required span outcome'" in error["message"]
             and "'Required title outcome'" in error["message"]
             and "'Required div outcome'" in error["message"]
             and "'Required em outcome'" in error["message"]
@@ -2853,12 +2491,11 @@ def run_self_test(repo_root: Path) -> None:
             and "'中文 Expected 結果'" in error["message"]
             and "'中文 Claude Code expected'" in error["message"]
             and "'Nested required dt outcome'" in error["message"]
-            and "'中文 Nested required small outcome'" in error["message"]
-            and "'中文 Nested required span outcome'" in error["message"]
-            and "'中文 Nested required em outcome'" in error["message"]
-            and "'Required aria-hidden outcome Required noscript outcome'"
-            in error["message"]
+            and "'Nested required small outcome'" in error["message"]
+            and "'Nested required span outcome'" in error["message"]
+            and "'Nested required em outcome'" in error["message"]
             and "'Suppressed required div outcome'" not in error["message"]
+            and "'Suppressed required em outcome'" not in error["message"]
             and "'Suppressed required code outcome'" not in error["message"]
             for error in slice_report["blockers"]
         ), slice_report

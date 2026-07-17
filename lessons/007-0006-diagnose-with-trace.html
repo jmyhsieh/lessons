@@ -12,7 +12,7 @@
 </head><body>
 <p><a href="007-0005-rerun-in-declared-environment.html">← RED／GREEN重跑</a> · <a href="../reference/browser-evidence-selector.html">瀏覽器證據選擇器</a> · <a href="../toc.html">回課程目錄</a></p>
 <header><p>Phase 7 · 驗證 · 007-0006 · 條件式診斷</p><h1>只有失敗還解釋不了，才保留trace</h1><p class="mission"><strong>條件式進入：</strong>只在007-0005的test仍失敗／不穩定，而且失敗輸出、直接觀察、主控台／需求證據不足以區分假說時進入。若同一test已有關鍵的RED與修正後的GREEN，立刻略過本課，直接準備007-0007附錄；trace不是每次必跑的證據層級。</p></header>
-<div class="verified"><strong>操作方式校準：</strong>2026-07-17以 <code>@playwright/test@1.61.1</code> 將 <code>trace</code> 設為僅失敗時啟用的條件式設定：有缺陷的執行在 <code>TRACE_MODE=1</code> 產生非空 <code>trace.zip</code>；修正後重跑在 <code>TRACE_MODE=0</code> 通過且沒有 trace 成果。這證明設定行為，不代表trace內容已診斷你的應用程式。</div>
+<div class="verified"><strong>操作方式校準：</strong>2026-07-17以 <code>@playwright/test@1.61.1</code> 將 <code>trace</code> 設為僅失敗時啟用的條件式設定：有缺陷的執行在 <code>TRACE_MODE=1</code> 產生非空 <code>trace.zip</code>；修正後重跑在 <code>TRACE_MODE=0</code> 通過且沒有trace artifact。這證明設定行為，不代表trace內容已診斷你的應用程式。</div>
 <h2>1. 先寫trace理由</h2>
 <div class="card"><pre>Claim / exact test identity:
 Unresolved failure run ID:
@@ -41,7 +41,7 @@ PW_DIAGNOSE=1 npx playwright test tests/browser/checkout.spec.ts \
 npx playwright show-trace path/to/trace.zip</pre></div>
 <table><tr><th>檢查面</th><th>只記直接觀察</th><th>另列推論</th></tr><tr><td>操作／DOM</td><td>點擊前後定位資訊、可見的狀態、URL與時間資訊。</td><td>「可能等待錯誤元素」仍是假說。</td></tr><tr><td>主控台／網路</td><td>精確訊息、需求URL／方法／狀態、回應時間；敏感payload不抄入備註。</td><td>「API壞了」要由具體回應或另一個check驗證。</td></tr><tr><td>原始碼／呼叫堆疊</td><td>追蹤能顯示的呼叫與失敗位置。</td><td>根本原因仍須由修正後同斷言重跑證明。</td></tr><tr><td>Artifact檔案</td><td>本機路徑、SHA／大小、擷取模式、保留與清理。</td><td>有trace不等於找到原因，也不等於真實使用者證據。</td></tr></table>
 <h2>3. 用trace導出一個可反證修正</h2>
-<ol><li>將trace觀察對回已命名假說；不符合的明確排除，仍未知的保持未知事項。</li><li>只修最小根本原因或受控的fixture；若應用程式／test候選版本有任何位元組改變，記錄新候選版本識別，稍後重新套用完整Review contract。</li><li>以 <code>PW_DIAGNOSE=0</code> 重跑同一test／斷言；GREEN才是修正證據，trace不是。</li><li>確認正常路徑沒有新的 trace 成果；保留必要artifact識別與精簡觀察，依保留計畫清理原檔。</li></ol>
+<ol><li>將trace觀察對回已命名假說；不符合的明確排除，仍未知的保持未知事項。</li><li>只修最小根本原因或受控的fixture；若應用程式／test候選版本有任何位元組改變，記錄新候選版本識別，稍後重新套用完整Review contract。</li><li>以 <code>PW_DIAGNOSE=0</code> 重跑同一test／斷言；GREEN才是修正證據，trace不是。</li><li>確認正常路徑沒有新trace artifact；保留必要artifact識別與精簡觀察，依保留計畫清理原檔。</li></ol>
 <div class="card"><pre>Trace artifact path / identity / size:
 Capture command / environment / failure run:
 Direct observations:
