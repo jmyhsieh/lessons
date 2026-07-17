@@ -41,7 +41,7 @@ Cleanup performed:
 Unverified scope:</pre></div>
 <p class="boundary"><strong>不修正邊界：</strong>基準執行發現缺陷時先保留原始觀察，不在同一紀錄中改code、換fixture或重新登入後只留下成功結果。修正屬原始 Engineering交付；後續持久的test必須對可控制的有缺陷的 fixture顯示失敗，再在修正後通過。這一課不撰寫test，也不建立trace／CI／PR證據。</p>
 <div class="win"><strong>可見成果：</strong>一份把精確基準識別、逐步直接觀察、artifact識別資訊、推論、主張處置與清理分開保存的可觀察基準紀錄。<br><strong>可觀察回饋：</strong>審查者能指出每一個通過／失敗判斷所依據的觀察，辨識任一無法重現的識別缺口，並確認換瀏覽器、角色、fixture或修訂版後不能冒充同一基準。</div>
-<div class="quiz" data-answer="1"><p>哪一份基準最適合作為後續持久的test的比較起點？</p><button type="button">Claude說流程正常，附一張成功screenshot</button><button type="button">記錄修訂版、fixture ID、375px、訪客工作階段、瀏覽器版本、步驟與URL／標題觀察；將「可能是快取」另標假說</button><button type="button">先在四種介面各跑一次，刪掉失敗產物，只留最漂亮結果</button><div class="why">基準要固定對象識別並區分觀察、artifact與推論；介面數量和成功截圖都不能補足缺失的比較條件。</div></div>
+<div class="quiz" data-answer="1"><p>哪一份基準最適合作為後續持久的test的比較起點？</p><button type="button">Claude說流程正常，附一張成功screenshot</button><button type="button">記錄修訂版、fixture 識別碼、375px、訪客工作階段、瀏覽器版本、步驟與URL／標題觀察；將「可能是快取」另標假說</button><button type="button">先在四種介面各跑一次，刪掉失敗產物，只留最漂亮結果</button><div class="why">基準要固定對象識別並區分觀察、artifact與推論；介面數量和成功截圖都不能補足缺失的比較條件。</div></div>
 <p class="stop"><strong>合法停止／返回／續行：</strong>修訂版、fixture、設定檔／身分驗證、viewport或起始狀態在執行中改變，所選的介面需要額外未授權權限，artifact含不應保存的敏感資料，或結果無法分成觀察與推論時，保存已知事實、清理工作階段並停止；主張錯誤回007-0001，介面／識別不適合回007-0002，應用程式缺陷回原始 Engineering 路線。基準可由審查者重現且處置有直接觀察支持後，才進 <a href="007-0004-promote-claim-to-playwright-test.html">007-0004</a> 將同一主張提升為最小Playwright Test。完成本頁不等於持久證據、瀏覽器證據附錄、Phase或Migration完成。</p>
 <footer data-course-footer="canonical" data-route-id="browser-evidence" data-legal-stop="Stop after the browser claim is rerunnable in the declared environment">
 <p><strong>路線導覽 · 瀏覽器證據</strong></p>

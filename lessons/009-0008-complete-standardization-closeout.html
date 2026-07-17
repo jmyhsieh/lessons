@@ -14,7 +14,7 @@
 <header><p>Phase 9 · 標準化 · 009-0008 · 路線收尾</p><h1>把一個通過重跑的套件收斂成可維護收尾</h1><p class="mission"><strong>進入條件：</strong>帶入009-0003的選擇紀錄，以及 <strong>009-0004、009-0005、009-0006、009-0007其中恰好一條</strong> 條件式分支的精確套件、全新脈絡證據與負責人處置。收尾保留被選中的套件識別、範圍、權限、驗證與重用判斷；它不要求補做其他三種套件，也不把選擇器變成套件階梯。</p></header>
 
 <h2>1. 驗證是單選分支，而不是拼裝清單</h2>
-<table><tr><th>選定分支</th><th>收尾必須帶入</th><th>不得推論</th></tr><tr><td>操作手冊／範本</td><td>新讀者執行紀錄、正例判定依據、反例停止點、內容負責人。</td><td>文件本身能確定性執行。</td></tr><tr><td>儲存庫 <code>CLAUDE.md</code></td><td>指定的候選版本 SHA、範圍探查、檢查、最終不可變的標準／Spec Review。</td><td>指示授予 repo、外部或正式環境寫入。</td></tr><tr><td>可重用 Skill</td><td>套件摘要、正向／近似但不符合／缺少相依項目的結果、發布負責人。</td><td>安裝、觸發或使用量證明工作流品質。</td></tr><tr><td>命令／本機流程</td><td>介面版本、正反例結束／產物、重跑／復原證據；有 repo diff 時附 Review。</td><td>結束碼 0 或分數可取代品質、風險與發布判斷。</td></tr></table>
+<table><tr><th>選定分支</th><th>收尾必須帶入</th><th>不得推論</th></tr><tr><td>操作手冊／範本</td><td>新讀者執行紀錄、正例判定依據、反例停止點、內容負責人。</td><td>文件本身能確定性執行。</td></tr><tr><td>儲存庫 <code>CLAUDE.md</code></td><td>指定的候選版本 SHA、範圍探查、檢查、最終不可變的標準／規格審查。</td><td>指示授予儲存庫、外部或正式環境寫入。</td></tr><tr><td>可重用 Skill</td><td>套件摘要、正向／近似但不符合／缺少相依項目的結果、發布負責人。</td><td>安裝、觸發或使用量證明工作流品質。</td></tr><tr><td>命令／本機流程</td><td>介面版本、正反例結束／產物、重跑／復原證據；有儲存庫差異時附審查紀錄。</td><td>結束碼 0 或分數可取代品質、風險與發布判斷。</td></tr></table>
 <p class="rule"><strong>單一分支驗收規則：</strong>選擇紀錄的 <code>selected package</code> 必須與唯一分支證據的套件識別／摘要完全一致。若收尾收到零條或多於一條分支、唯一權威來源分裂，或另一種格式有獨立使用者需求，停止並回009-0003；不要在本頁新撰寫第二個套件。</p>
 
 <h2>2. 固定可解析的標準化收尾</h2>
@@ -38,18 +38,18 @@ Evidence retention / next review owner and date:</pre></div>
 <p class="boundary"><strong>識別資訊與權限邊界：</strong>套件識別同時固定版本與不可變摘要；浮動路徑、分支或「最新版」不能單獨識別收尾候選版本。套件只保存原契約的讀取／寫入範圍，不新增機密資料、網路、收件者、發布、push、部署、計費或正式環境權限。每次外部動作仍需當次目標、承載內容與人工核准。</p>
 
 <h2>3. 讓證據對錯誤套件會失敗</h2>
-<ol><li><strong>正例：</strong>在全新脈絡只提供精確套件與已宣告的測試資料，確認承諾的輸出、執行紀錄或檢查與預期證據一致。</li><li><strong>反例：</strong>使用近似反例、缺前置條件、越界範圍或無權限測試資料，確認套件依分支契約拒絕、回傳非零或安全停止。</li><li><strong>恢復：</strong>保留失敗識別、部分影響與復原結果；重跑不得掩蓋略過的紀錄、擴大重試或產生未批准外部影響。</li><li><strong>repo Review 檢查：</strong>若所選套件產生任何儲存庫差異，記錄固定點與最終候選版本 SHA，附 <a href="006-0008-review-final-candidate.html">006-0008</a> 的兩軸 Review；發現事項修正後必須以新 SHA 全部重跑。</li></ol>
-<div class="card"><strong>驗收檢查清單</strong><label><input type="checkbox"> 選擇紀錄與恰好一個分支證據指向同一套件</label><label><input type="checkbox"> 版本、不可變摘要、唯一權威來源、負責人與受眾可解析</label><label><input type="checkbox"> 範圍、權限與明確排除目標未擴張</label><label><input type="checkbox"> 全新脈絡正例、反例與復原證據綁定同一套件</label><label><input type="checkbox"> repo diff 已對最終 SHA 完成不可變的標準／Spec Review，或明記不適用</label><label><input type="checkbox"> 學習者已做重用／修訂／退役判斷，並記錄回饋處置</label><label><input type="checkbox"> 重新開啟、變更、重新認證與退役觸發條件有負責人</label></div>
+<ol><li><strong>正例：</strong>在全新脈絡只提供精確套件與已宣告的測試資料，確認承諾的輸出、執行紀錄或檢查與預期證據一致。</li><li><strong>反例：</strong>使用近似反例、缺前置條件、越界範圍或無權限測試資料，確認套件依分支契約拒絕、回傳非零或安全停止。</li><li><strong>恢復：</strong>保留失敗識別、部分影響與復原結果；重跑不得掩蓋略過的紀錄、擴大重試或產生未批准外部影響。</li><li><strong>儲存庫審查檢查：</strong>若所選套件產生任何儲存庫差異，記錄固定點與最終候選版本 SHA，附 <a href="006-0008-review-final-candidate.html">006-0008</a> 的兩軸審查；發現事項修正後必須以新 SHA 全部重跑。</li></ol>
+<div class="card"><strong>驗收檢查清單</strong><label><input type="checkbox"> 選擇紀錄與恰好一個分支證據指向同一套件</label><label><input type="checkbox"> 版本、不可變摘要、唯一權威來源、負責人與受眾可解析</label><label><input type="checkbox"> 範圍、權限與明確排除目標未擴張</label><label><input type="checkbox"> 全新脈絡正例、反例與復原證據綁定同一套件</label><label><input type="checkbox"> 儲存庫差異已對最終 SHA 完成不可變的標準／規格審查，或明記不適用</label><label><input type="checkbox"> 學習者已做重用／修訂／退役判斷，並記錄回饋處置</label><label><input type="checkbox"> 重新開啟、變更、重新認證與退役觸發條件有負責人</label></div>
 
 <h2>4. 做學習者重用判斷</h2>
-<table><tr><th>處置</th><th>何時成立</th><th>收尾後動作</th></tr><tr><td><code>reuse</code></td><td>同一摘要的正反例與復原都符合契約，限制可接受。</td><td>保存收尾；未來任務仍重新確認輸入、權限與環境。</td></tr><tr><td><code>revise</code></td><td>全新脈絡暴露指示、觸發條件、範圍、介面或復原缺口。</td><td>回契約／所選分支修訂，產生新版本／摘要，重跑受影響證據；repo diff 重新 Review。</td></tr><tr><td><code>retire</code></td><td>來源、相依項目、風險、負責人或工作流承諾已無法安全維持。</td><td>保留退役原因與後繼方案／無後繼方案，不讓舊套件繼續被選用。</td></tr></table>
+<table><tr><th>處置</th><th>何時成立</th><th>收尾後動作</th></tr><tr><td><code>reuse</code></td><td>同一摘要的正反例與復原都符合契約，限制可接受。</td><td>保存收尾；未來任務仍重新確認輸入、權限與環境。</td></tr><tr><td><code>revise</code></td><td>全新脈絡暴露指示、觸發條件、範圍、介面或復原缺口。</td><td>回契約／所選分支修訂，產生新版本／摘要，重跑受影響證據；儲存庫差異重新審查。</td></tr><tr><td><code>retire</code></td><td>來源、相依項目、風險、負責人或工作流承諾已無法安全維持。</td><td>保留退役原因與後繼方案／無後繼方案，不讓舊套件繼續被選用。</td></tr></table>
 <p class="rule"><strong>重新開啟條件：</strong>契約承諾、受眾、範圍、負責人、相依項目、權限、唯一權威來源、套件位元組、完成判定依據、失敗語意或 Review 候選版本任一改變，都使既有收尾不足以覆蓋新版本。新使用者或新組織情境也必須重新選擇，不可用採用假設延伸證明。</p>
 
 <div class="win"><strong>可見成果：</strong>一份綁定單一所選套件版本／摘要、負責人、權限、全新脈絡正反例、復原、必要 Review 與學習者處置的標準化收尾。<br><strong>可觀察回饋：</strong>另一位審查者能只靠收尾找到精確套件與證據，對錯誤摘要、超範圍需求、缺權限、負向測試資料或過期 Review 明確拒絕，並重現學習者為何重用、修訂或退役。</div>
 
-<div class="quiz" data-answer="1"><p>可重用 Skill 的正例、近似反例與復原都通過，但套件改了一行指示，摘要已不同。可以沿用原收尾嗎？</p><button type="button">可以，因為套件種類和名稱沒變</button><button type="button">不行；建立新版本／摘要，重跑受影響證據，若有 repo diff 也重新 Review</button><button type="button">先補做其餘三種套件分支，就能沿用</button><div class="why">收尾綁定精確套件識別；任何套件變更都觸發重新開啟。補做其他分支不會恢復失效證據。</div></div>
+<div class="quiz" data-answer="1"><p>可重用 Skill 的正例、近似反例與復原都通過，但套件改了一行指示，摘要已不同。可以沿用原收尾嗎？</p><button type="button">可以，因為套件種類和名稱沒變</button><button type="button">不行；建立新版本／摘要，重跑受影響證據，若有儲存庫差異也重新審查</button><button type="button">先補做其餘三種套件分支，就能沿用</button><div class="why">收尾綁定精確套件識別；任何套件變更都觸發重新開啟。補做其他分支不會恢復失效證據。</div></div>
 <p class="boundary"><strong>宣稱上限：</strong>收尾證明的是一個有界套件在已宣告測試資料中忠實承載已證明工作流。它不證明工作流本身、授予權限、宣稱正式環境就緒、代表組織採用，或要求四種分支全部完成；後續評估也必須另立主張與證據。</p>
-<p class="stop"><strong>合法停止／返回／續行：</strong>若套件識別／負責人／範圍／權限不完整、分支證據不等於一條、正例與反例不是同一摘要、失敗無復原、學習者未做處置，或 repo diff 缺最終不可變 Review，保存草稿並回009-0001、009-0002、009-0003、唯一所選分支，或006-0008的精確缺口。只有檢查清單全部可重建且處置已記錄，才在本頁合法停止並回目錄；需要比較品質或決定是否繼續投資時，可另從 <code>010-0001-set-workflow-evaluation-claim.html</code> 開始，這不是自動續作，也不代表 Phase 9、Phase 10、正式環境或課程完成。</p>
+<p class="stop"><strong>合法停止／返回／續行：</strong>若套件識別／負責人／範圍／權限不完整、分支證據不等於一條、正例與反例不是同一摘要、失敗無復原、學習者未做處置，或儲存庫差異缺少最終不可變審查，保存草稿並回009-0001、009-0002、009-0003、唯一所選分支，或006-0008的精確缺口。只有檢查清單全部可重建且處置已記錄，才在本頁合法停止並回目錄；需要比較品質或決定是否繼續投資時，可另從 <code>010-0001-set-workflow-evaluation-claim.html</code> 開始，這不是自動續作，也不代表第 9 階段、第 10 階段、正式環境或課程完成。</p>
 <footer data-course-footer="canonical" data-route-id="workflow-standardization" data-legal-stop="Stop after one fitting package is rerun and reviewed">
 <p><strong>路線導覽 · 工作流程標準化</strong></p>
 <ul class="course-route-actions">

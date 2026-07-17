@@ -7,11 +7,11 @@
 <meta name="course:page-kind" content="canonical-reference">
 <meta name="course:route-roles" content="not-applicable">
 <meta name="course:source-ids" content="engineering-two-axis-review-contract,immutable-review-checkpoint-contract">
-<title>Repo Review 契約</title>
+<title>儲存庫審查契約</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:900px;margin:2.5rem auto;padding:0 1.25rem;line-height:1.75;color:#202020}h2{color:#315f86}.rule,.invalid{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.invalid{border-color:#a33;background:#fff2f2}table{border-collapse:collapse;width:100%;font-size:.94rem}th,td{border:1px solid #ccd9e3;padding:.55rem;vertical-align:top;text-align:left}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:650px){table{font-size:.84rem}th,td{padding:.4rem}}</style>
 </head><body>
 <p><a href="../lessons/006-0007-implement-and-create-review-checkpoint.html">實作檢查點</a> · <a href="../lessons/006-0008-review-final-candidate.html">獨立 Review</a></p>
-<header><p>Phase 6 · 建置 · 標準參考</p><h1>Repo Review 契約</h1><p class="rule"><strong>入口：</strong>實作檢查點已存在，且學習者要建立或稽核 Review 收尾包。<br><strong>核心規則：</strong>Review 證據只對一組固定的 <code>fixed point</code>、精確的 <code>candidate SHA</code>、原始的規格與標準來源有效。候選版本任何位元組改變，都必須建立新檢查點並完整重跑 checks、Standards Review 與 Spec Review。</p></header>
+<header><p>第 6 階段 · 建置 · 標準參考</p><h1>儲存庫審查契約</h1><p class="rule"><strong>入口：</strong>實作檢查點已存在，且學習者要建立或稽核審查收尾包。<br><strong>核心規則：</strong>審查證據只對一組固定的 <code>fixed point</code>、精確的 <code>candidate SHA</code>、原始規格與標準來源有效。候選版本任何位元組改變，都必須建立新檢查點並完整重跑檢查、標準審查與規格審查。</p></header>
 <p class="rule"><strong>具體成果：</strong>一份可複製、可抽查的 Review 收尾包 schema。<br><strong>可觀察回饋：</strong>依表格可判斷證據是否仍綁定同一 SHA，以及發現事項修正後是否真的完整重跑。</p>
 <h2>Review 收尾包的必要欄位</h2>
 <table><tr><th>欄位</th><th>有效證據</th><th>無效替代</th></tr><tr><td>固定點</td><td>可解析的 commit／標籤／合併基準識別</td><td>「開始前」、未記錄的基準</td></tr><tr><td>候選版本（候選版本）</td><td>精確 commit 的 SHA；工作目錄乾淨</td><td>branch、PR 最新、移動中 <code>HEAD</code></td></tr><tr><td>差異（差異）</td><td>由固定識別資訊重建的相同三點差異 diff</td><td>審查者各自看到不同快照</td></tr><tr><td>標準軸</td><td>規則來源、檔案/差異區塊、獨立發現事項</td><td>以「需求有做到」代替標準</td></tr><tr><td>規格軸</td><td>要求引用、檔案/差異區塊、獨立發現事項</td><td>以「靜態檢查通過」代替規格正確性</td></tr><tr><td>驗證</td><td>聚焦的與完整的相關的 checks 的命令／結果</td><td>模型自評、未列出的已略過 check</td></tr></table>

@@ -53,11 +53,11 @@
 
 <section id="product" class="case">
   <h2>產品：把模糊需求變成可驗收決定</h2>
-  <p><strong>代表責任／使用案例：</strong>切小需求、建立原型、收集可追溯 feedback、對齊利害關係人；若交付物最後成為 repo diff，責任就跨入 Engineering，而不是因為職稱是產品經理就留在設計。</p>
+  <p><strong>代表責任／使用案例：</strong>切小需求、建立原型、收集可追溯回饋、對齊利害關係人；若交付物最後成為儲存庫差異，責任就跨入工程領域，而不是因為職稱是產品經理就留在設計。</p>
   <div class="table-scroll"><table><tr><th>這次真正要交付</th><th>建議 route</th><th>產生的證據</th></tr><tr><td>可檢查狀態、互動與假設的設計交接</td><td class="route"><a href="../lessons/004-0001-choose-claude-design-surface.html">設計入口</a> → <a href="../lessons/004-0007-assemble-design-handoff-bundle.html">交接收尾</a></td><td>有版本的 Design handoff bundle、原型假設、學習者判斷與 feedback 處置。</td></tr><tr><td>需要實作、checks 與 Review 的儲存庫變更</td><td class="route"><a href="../lessons/006-0001-choose-engineering-route.html">Engineering 入口</a> → <a href="../lessons/006-0009-complete-engineering-closeout.html">Engineering 收尾</a></td><td>精確的候選版本、確定性的 checks、雙軸 Review 與交接。</td></tr></table></div>
   <p><strong>前置條件／準備度：</strong>知道受眾、要促成的決定、可用輸入、feedback 負責人與資料權限；repo 實作另需 Code readiness。</p>
   <p class="feedback"><strong>具體成果／可觀察回饋：</strong>得到一張 route 選擇卡；審查者能由 artifact 與權限說明為何走設計或 Engineering，並指出交付物何時跨越 repo 交付邊界。</p>
-  <p class="stop"><strong>合法停止點／主張上限：</strong>需求、feedback 路徑或權限不明就停在 readiness；原型 feedback 不是產品市場契合度，Engineering checks 也不是上線、採用或正式環境核准。</p>
+  <p class="stop"><strong>合法停止點／主張上限：</strong>需求、回饋路徑或權限不明就停在準備度檢查；原型回饋不是產品市場契合度，工程檢查也不是上線、採用或正式環境核准。</p>
   <p><strong>案例線索（2026-04-06）：</strong><a href="https://www.businessinsider.com/ai-jobs-product-engineers-managers-2026-4">Anthropic 產品工程師／迷你產品經理報導</a>可用來分析需求切片與責任移動；供應商／媒體案例只支持其所報導情境，不是普遍成效證明。</p>
 </section>
 
@@ -67,14 +67,14 @@
   <div class="table-scroll"><table><tr><th>這次真正要交付</th><th>建議 route</th><th>產生的證據</th></tr><tr><td>符合規格與儲存庫標準的 code 變更</td><td class="route"><a href="../lessons/006-0001-choose-engineering-route.html">Engineering 入口</a> → <a href="../lessons/006-0009-complete-engineering-closeout.html">Engineering 收尾</a></td><td>已實作 diff、聚焦的／完整的 checks、最終檢查點、標準／Spec Review 收尾包。</td></tr><tr><td>只需證明一個可由瀏覽器觀察的主張</td><td class="route"><a href="../lessons/007-0001-scope-browser-claim.html">瀏覽器證據入口</a> → <a href="../lessons/007-0007-complete-browser-evidence-addendum.html">證據收尾</a></td><td>有界的主張、基準、互動證據、反例/邊界案例觀察與附錄。</td></tr></table></div>
   <p><strong>前置條件／準備度：</strong>Code readiness 已證明；能讀 repo 指示、界定安全的工作區、看 diff、跑相關的 checks，且原始意圖可解析。</p>
   <p class="feedback"><strong>具體成果／可觀察回饋：</strong>得到一份精確 SHA 的 Engineering 收尾；接手者能重建 diff、重跑 checks、分開檢查兩軸 Review，且瀏覽器續作的必要性可由主張決定。</p>
-  <p class="stop"><strong>合法停止點／主張上限：</strong>工作區、權限、checks 或意圖不清就停；tests PASS 與代理程式審查不等於合併、安全簽核、正式環境可靠性或部署權限。</p>
-  <p><strong>案例線索（2026-04-23）：</strong><a href="https://www.anthropic.com/engineering/april-23-postmortem">Anthropic Claude Code 品質事件事後檢討</a>可用來分析重現、根本原因、評估與導入關卡；這是該事件的第一方敘述，不是所有工程流程的模板。</p>
+  <p class="stop"><strong>合法停止點／主張上限：</strong>工作區、權限、檢查或意圖不清就停；測試通過與代理程式審查不等於合併、安全簽核、正式環境可靠性或部署權限。</p>
+  <p><strong>案例線索（2026-04-23）：</strong><a href="https://www.anthropic.com/engineering/april-23-postmortem">Anthropic 的 Claude Code 品質事件事後檢討</a>可用來分析重現、根本原因、評估與導入關卡；這是該事件的第一方敘述，不是所有工程流程的模板。</p>
 </section>
 
 <section id="research-data" class="case">
   <h2>研究／資料：讓來源、計算與限制可重跑、可質疑</h2>
-  <p><strong>代表責任／使用案例：</strong>保存原始來源、建立來源到主張的沿革、重現論文／資料、實作分析程式碼、校準 oracle tests，並把網域審查與偏誤／限制留在證據中。</p>
-  <div class="table-scroll"><table><tr><th>這次真正要交付</th><th>建議 route</th><th>產生的證據</th></tr><tr><td>有來源脈絡的報告、資料切片或本機的知識 artifact</td><td class="route"><a href="../lessons/003-0001-select-knowledge-deliverable.html">知識入口</a> → <a href="../lessons/003-0006-complete-knowledge-delivery-closeout.html">知識收尾</a></td><td>原始來源參照、來源到主張檢查、可審查交付物、判斷與 feedback。</td></tr><tr><td>會改 repo 的重現／分析實作</td><td class="route"><a href="../lessons/006-0001-choose-engineering-route.html">Engineering 入口</a> → <a href="../lessons/006-0009-complete-engineering-closeout.html">Engineering 收尾</a></td><td>有版本的程式碼／資料識別、oracle checks、網域審查的限制與最終候選版本 Review。</td></tr></table></div>
+  <p><strong>代表責任／使用案例：</strong>保存原始來源、建立來源到主張的沿革、重現論文／資料、實作分析程式碼、校準判定基準測試，並把網域審查與偏誤／限制留在證據中。</p>
+  <div class="table-scroll"><table><tr><th>這次真正要交付</th><th>建議路線</th><th>產生的證據</th></tr><tr><td>有來源脈絡的報告、資料切片或本機知識產物</td><td class="route"><a href="../lessons/003-0001-select-knowledge-deliverable.html">知識入口</a> → <a href="../lessons/003-0006-complete-knowledge-delivery-closeout.html">知識收尾</a></td><td>原始來源參照、來源到主張檢查、可審查交付物、判斷與回饋。</td></tr><tr><td>會改儲存庫的重現／分析實作</td><td class="route"><a href="../lessons/006-0001-choose-engineering-route.html">工程入口</a> → <a href="../lessons/006-0009-complete-engineering-closeout.html">工程收尾</a></td><td>有版本的程式碼／資料識別、判定基準檢查、網域審查限制與最終候選版本審查。</td></tr></table></div>
   <p><strong>前置條件／準備度：</strong>資料使用權、來源識別、預期的比較、可反證條件與網域審查者已知；會執行或修改 code 時另需 Code readiness。</p>
   <p class="feedback"><strong>具體成果／可觀察回饋：</strong>得到可追到來源與精確的計算的交付包；另一位審查者能重跑、重現差異，並指出 oracle 沒覆蓋的網域假設。</p>
   <p class="stop"><strong>合法停止點／主張上限：</strong>資料權利、版本、oracle 或審查者不明就停；成功重現一次不等於研究正確、無偏誤、可泛化、同行審查或正式環境資料核准。</p>

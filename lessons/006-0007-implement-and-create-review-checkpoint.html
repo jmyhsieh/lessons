@@ -10,7 +10,7 @@
 <title>006-0007：實作並建立 Review 檢查點</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:800px;margin:2.5rem auto;padding:0 1.25rem;line-height:1.8;color:#202020}h2{color:#315f86}.mission,.stop,.rule{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccd9e3;padding:.55rem;vertical-align:top;text-align:left}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}button{display:block;width:100%;padding:.6rem;margin:.4rem 0;text-align:left;background:white;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:620px){body{margin-top:1rem}table{font-size:.86rem}}</style>
 </head><body>
-<p><a href="006-0006-slice-spec-into-tickets.html">← 工單相依圖</a> · <a href="../reference/repo-review-contract.html">Repo Review 契約</a></p>
+<p><a href="006-0006-slice-spec-into-tickets.html">← 工單相依圖</a> · <a href="../reference/repo-review-contract.html">Repo 審查契約</a></p>
 <header><p>第 6 階段 · 建置 · 006-0007 · 實作檢查點</p><h1>逐張實作工單，固定 Review 候選版本</h1><p class="mission"><strong>進入條件：</strong>交付規格已核准，工單 DAG 沒有未解循環，當前工單位於前沿，且公開測試接縫、權限與檢查已確認。本課用 <code>/implement</code> 推進一張垂直切片；適用處用 <code>/tdd</code>。</p></header>
 <p class="rule"><strong>條件式 TDD 分支：</strong>能先從公開接縫觀察驗收行為時走 RED → GREEN；接縫不存在、未經核准或只有文件判斷時，記錄「不適用」與理由，但仍須保留確定性檢查。</p>
 <h2>一張工單，一個可驗證切片</h2>
@@ -26,7 +26,7 @@ Exact diff reviewed:
 Candidate SHA:
 Uncertainty / skipped evidence:</pre></div>
 <div class="win"><strong>具體成果：</strong>一個綁定精確提交 SHA、可交給審查者的實作檢查點。<br><strong>可觀察回饋：</strong>另一位審查者能 checkout 該 SHA、重跑相同 commands，並由固定點重建同一份差異。</div>
-<div class="quiz" data-answer="2"><p>哪一個可以作為下一課的不可變 Review 候選版本？</p><button type="button">目前工作樹，等等可能還會改</button><button type="button">撰寫者分支的最新版本</button><button type="button">通過已列檢查且記下精確提交 SHA 的檢查點</button><div class="why">Review evidence 只能綁定不會移動的候選版本識別；分支與工作樹不能證明審查者看的是哪一版。</div></div>
+<div class="quiz" data-answer="2"><p>哪一個可以作為下一課的不可變 Review 候選版本？</p><button type="button">目前工作樹，等等可能還會改</button><button type="button">撰寫者分支的最新版本</button><button type="button">通過已列檢查且記下精確提交 SHA 的檢查點</button><div class="why">審查證據只能綁定不會移動的候選版本識別；分支與工作樹不能證明審查者看的是哪一版。</div></div>
 <p class="stop"><strong>合法停止／續行：</strong>RED 不是因驗收行為失敗、相關 check 未跑或不綠、差異混入票外變更、仍有未提交修改，或候選版本沒有精確 SHA 時，保存工單筆記後停止，不得進 Review。檢查點 成立後續到 <a href="006-0008-review-final-candidate.html">006-0008 獨立審查</a>；Review 若產生發現，回本課只修發現，建立<strong>新的</strong> 候選版本 SHA，再從頭 Review。這不是 工程交付收尾。</p>
 <footer data-course-footer="canonical" data-route-id="engineering-delivery" data-legal-stop="Stop only after final Review evidence matches the delivered checkpoint">
 <p><strong>路線導覽 · 工程交付</strong></p>

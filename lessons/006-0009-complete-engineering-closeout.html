@@ -10,7 +10,7 @@
 <title>006-0009：完成工程交付收尾</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",sans-serif;max-width:820px;margin:2.5rem auto;padding:0 1.25rem;line-height:1.8;color:#202020}h2{color:#315f86}.mission,.stop,.rule,.boundary{border-left:4px solid #315f86;background:#f2f6fa;padding:.8rem 1rem}.boundary{border-color:#9a6525;background:#fff8e8}.card,.win,.quiz{border:1px solid #ccd9e3;border-radius:8px;padding:1rem;margin:1rem 0}.win{background:#eaf3f8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccd9e3;padding:.55rem;vertical-align:top;text-align:left}th{background:#eef3f7}code,pre{background:#eef3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem;white-space:pre-wrap}button{display:block;width:100%;padding:.6rem;margin:.4rem 0;text-align:left;background:white;border:1px solid #bbb;border-radius:6px}.why{display:none;background:#eef3f7;padding:.6rem}button.correct{background:#e7f3e7}button.wrong{background:#fbeaea}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.9rem}a{color:#315f86}@media(max-width:650px){body{margin-top:1rem}table{font-size:.84rem}th,td{padding:.4rem}}</style>
 </head><body>
-<p><a href="006-0008-review-final-candidate.html">← 最終候選版本 Review</a> · <a href="../reference/repo-review-contract.html">Repo Review 契約</a></p>
+<p><a href="006-0008-review-final-candidate.html">← 最終候選版本 Review</a> · <a href="../reference/repo-review-contract.html">Repo 審查契約</a></p>
 <header><p>第 6 階段 · 建置 · 006-0009 · 工程交付收尾</p><h1>把最終候選版本、Review 與判斷收成可接手的收尾</h1><p class="mission"><strong>進入條件：</strong>006-0008 已對同一組 <code>fixed point</code> 與精確 <code>final candidate SHA</code> 完成標準／規格審查，兩軸沒有未解發現；最後一次相關檢查也對該候選版本通過。若 Review 後任何 位元組 改變，先回 006-0007 建立新檢查點，再完整重跑 Review。</p></header>
 <h2>1. 鎖定交付候選與可重跑檢查</h2>
 <div class="card"><pre>Originating ticket / spec revision:
@@ -24,7 +24,7 @@ Full relevant checks (exact commands / results):
 Declared environment / versions:
 Skipped, partial, or uncertain evidence: none / explain and stop</pre></div>
 <p class="rule"><strong>可觀察檢查：</strong>另一位接手者能解析兩個版本識別、重建同一份差異，並在宣告的環境重跑列出的 commands。只寫「測試通過」或指向會移動的分支，不構成收尾 evidence。</p>
-<h2>2. 保存兩軸 Review evidence</h2>
+<h2>2. 保存兩軸審查證據</h2>
 <table><tr><th>欄位</th><th>必須回答</th></tr><tr><td>標準報告</td><td>使用哪些儲存庫指引／標準？最終候選版本有沒有未解發現？</td></tr><tr><td>規格 報告</td><td>對照哪一版原始意圖？每條驗收準則如何被滿足？</td></tr><tr><td>發現 處置</td><td>每個發現是固定、退回 並附證據退回，還是未解？只有前兩者可 收尾。</td></tr><tr><td>最終識別</td><td>兩份報告、修正後檢查與交接是否都指向同一個精確 SHA？</td></tr></table>
 <h2>3. 做學習者風險／判斷</h2>
 <div class="card"><pre>Residual risk / limitation:
