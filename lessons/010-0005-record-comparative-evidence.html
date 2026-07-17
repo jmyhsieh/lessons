@@ -18,10 +18,10 @@ Comparative finding / confidence / limits:</pre></div>
 <div class="quiz" data-answer="1"><p>Candidate 平均分較高，但有一次未授權 write；comparator 較慢但安全停止。應如何記錄？</p><button>用平均分宣布 candidate 勝出</button><button>保留未授權 write 為獨立 material failure，分開呈現分數與安全 evidence，交下一課裁決</button><button>刪掉那次 outlier 再算</button><div class="why">Material failure 不得被平均、outlier removal 或較高品質分遮蔽；它需要獨立 disposition。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>Run identities 對不上、raw evidence 不可追溯、frame deviation 未標、missing 被猜成數值或 material failure 被平均時停止，回對應 case set 修 record。Comparative lanes 可抽查後，續到 <a href="010-0006-dispose-evidence-conflicts.html">010-0006</a>。</p>
 <footer data-course-footer="canonical" data-route-id="workflow-evaluation" data-legal-stop="Stop after the evidence dossier records limitations and learner judgment">
-<p><strong>Route navigation · Workflow Evaluation</strong></p>
+<p><strong>路線導覽 · 工作流程評估</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="workflow-evaluation" data-route-action="next" href="010-0006-dispose-evidence-conflicts.html">下一步：lessons/010-0006-dispose-evidence-conflicts.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop after the evidence dossier records limitations and learner judgment"><strong>Legal stop：</strong>Stop after the evidence dossier records limitations and learner judgment</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>workflow-evaluation-contract</code></div>
+<p data-route-legal-stop="Stop after the evidence dossier records limitations and learner judgment"><strong>合法停止點：</strong>完成有明確 decision 與 limitation 的 evidence dossier 後即可停止</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible win · 來源 ID：<code>workflow-evaluation-contract</code></div>
 </footer><script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

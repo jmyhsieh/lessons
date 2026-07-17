@@ -70,13 +70,13 @@ Main-session spot check:</pre></div>
 
 <p class="stop"><strong>Legal stop／return：</strong>目前介面沒有 read-only subagent、問題無法縮成 bounded investigation、需要外部資料或需要修改檔案時，記錄 gap 後停止。把 record 寫回 Return notebook，狀態記為 <code>Lesson practiced</code>，返回 <code>Targeted-remediation return point</code>。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
-<p><strong>Route navigation · Toolbox</strong></p>
+<p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效 return point 時回 Toolbox catalog：toc.html</a></li>
+<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄：toc.html</a></li>
 <li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的 Targeted-remediation return point；沒有有效 return point 時才使用 catalog fallback。</span></li>
 </ul>
-<p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>Legal stop：</strong>Each selected lesson returns to the caller-provided active route; no Phase completion</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>claude-code-cli-execution-controls</code>、<code>claude-code-read-only-isolation-contract</code></div>
+<p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>合法停止點：</strong>每個選定課程都返回呼叫端提供的 active route；工具箱本身沒有 Phase completion</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>claude-code-cli-execution-controls</code>、<code>claude-code-read-only-isolation-contract</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
 </body>

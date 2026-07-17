@@ -7,10 +7,10 @@ Test seam and required evidence:
 Rollout / compatibility boundary:
 Open risks and legal stop:
 Spec location / revision:</pre></div><ol><li>執行 <code>/to-spec</code>，綜合現有 session；若大量新問題出現，回 alignment，不在 spec 偷補假設。</li><li>逐條把 user story 連到 observable behavior 與 test seam。</li><li>核對 CONTEXT、ADR、instructions 與 repo map；衝突要顯示，不發明 hybrid convention。</li><li>請使用者核准 scope 與 acceptance evidence，再固定 spec revision。</li></ol><div class="win"><strong>Tangible win：</strong>一份有 revision identity、可切片的 delivery spec。<br><strong>Observable feedback：</strong>Reviewer 能由每條 story 找到 acceptance evidence、非目標與 repo constraint，且沒有未核准 scope。</div><div class="quiz" data-answer="0"><p><code>/to-spec</code> 開始大量追問新需求，怎麼辦？</p><button>回 request alignment 補 shared understanding</button><button>在 spec 階段臨時決定</button><button>直接進 tickets</button><div class="why">Spec 是凝結已確認內容，不是用來掩蓋 alignment 缺口。</div></div><p class="stop"><strong>Legal stop／continuation：</strong>scope 未核准、stories 無 evidence、test seam 不可信或 spec revision 不固定時停止。Spec 可引用且已核准後，續到 <a href="006-0006-slice-spec-into-tickets.html">006-0006</a>；本 slice 到 ticket plan 為止，不提前進 implementation。</p><footer data-course-footer="canonical" data-route-id="engineering-delivery" data-legal-stop="Stop only after final Review evidence matches the delivered checkpoint">
-<p><strong>Route navigation · Engineering Delivery</strong></p>
+<p><strong>路線導覽 · 工程交付</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="engineering-delivery" data-route-action="next" href="006-0006-slice-spec-into-tickets.html">下一步：lessons/006-0006-slice-spec-into-tickets.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>Legal stop：</strong>Stop only after final Review evidence matches the delivered checkpoint</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>engineering-spec-implementation-contract</code></div>
+<p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>合法停止點：</strong>只有 final Review evidence 與 delivered checkpoint 一致後才可停止</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible win · 來源 ID：<code>engineering-spec-implementation-contract</code></div>
 </footer><script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

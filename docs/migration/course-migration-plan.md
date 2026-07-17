@@ -271,6 +271,18 @@ Cutover comments 必須位於 reviewed candidate 外，引用 exact checkpoint S
 ```
 <!-- migration-freeze-json:end -->
 
+## Durable public contracts
+
+Issue #12 blueprint 的 durable contracts 固定在以下單一 canonical paths；不要把 learner state、course-design history、source maintenance 與 publication evidence 合併成第二個 source of truth：
+
+- Learner-owned Return notebook：[`assets/templates/route-notebook.md`](../../assets/templates/route-notebook.md)
+- Cutover evidence template：[`docs/migration/cutover-report.md`](cutover-report.md)
+- Source recertification procedure：[`docs/maintenance/source-recertification.md`](../maintenance/source-recertification.md)
+- Route-based catalog adoption record：[`learning-records/0004-adopt-route-based-twelve-phase-catalog.md`](../../learning-records/0004-adopt-route-based-twelve-phase-catalog.md)
+- Learning-record index and append-only rules：[`learning-records/README.md`](../../learning-records/README.md)
+
+舊的 `reference/return-notebook-template.md` 與 `learning-records/0004-adopt-route-based-course-migration.md` 不再是有效 contract paths，也不得保留 duplicate copies。Cutover report 只能當空白模板；它必須引用模板以外的 immutable candidate SHA／tree，不得用包含本模板的 self SHA 自我證明。
+
 ## Verification
 
 Offline positive slice：

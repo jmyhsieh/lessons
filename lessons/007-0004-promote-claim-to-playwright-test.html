@@ -39,11 +39,11 @@ test('guest can complete checkout', async ({ page }) =&gt; {
 <div class="quiz" data-answer="1"><p>哪個改動能在下一課證明 test 真正保護 claim？</p><button type="button">Faulty run 時把 expected heading 改成「仍在處理」，讓測試維持 green</button><button type="button">保持 test name、action 與「訂單完成」assertion不變，只讓 controlled fixture 暫時呈現錯誤結果並要求 run 失敗</button><button type="button">開啟 retries，直到 faulty run 偶爾通過</button><div class="why">敏感度證明要讓同一 assertion 與壞掉的 behavior 發生可觀察衝突；改 expected、skip 或 retry 到綠都會抹掉 RED。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>沒有 safe controlled fixture、repo 不允許新增／執行 test、base URL 或 setup 不可重建、locator 只能依賴不穩定 internal detail，或執行會碰 production／真實交易時，保存 test draft 並停止；claim 錯誤回 007-0001，baseline identity 缺口回 007-0003，repo write／fixture 需要另回 originating Engineering route取得 authority。最小 test 可解析後，進 <a href="007-0005-rerun-in-declared-environment.html">007-0005</a> 先證明 controlled faulty fixture RED，再以同一 identity 修正後 GREEN。此頁不代表 durable evidence、Browser evidence addendum、Phase 或 Migration complete。</p>
 <footer data-course-footer="canonical" data-route-id="browser-evidence" data-legal-stop="Stop after the browser claim is rerunnable in the declared environment">
-<p><strong>Route navigation · Browser Evidence</strong></p>
+<p><strong>路線導覽 · 瀏覽器證據</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="browser-evidence" data-route-action="next" href="007-0005-rerun-in-declared-environment.html">下一步：lessons/007-0005-rerun-in-declared-environment.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop after the browser claim is rerunnable in the declared environment"><strong>Legal stop：</strong>Stop after the browser claim is rerunnable in the declared environment</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>browser-claim-observation-contract</code>、<code>playwright-durable-browser-evidence</code></div>
+<p data-route-legal-stop="Stop after the browser claim is rerunnable in the declared environment"><strong>合法停止點：</strong>browser claim 能在指定環境重跑後即可停止</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible win · 來源 ID：<code>browser-claim-observation-contract</code>、<code>playwright-durable-browser-evidence</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

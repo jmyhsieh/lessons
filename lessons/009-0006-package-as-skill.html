@@ -37,11 +37,11 @@ Distribution / update / retirement:</pre></div>
 <div class="quiz" data-answer="0"><p>Skill 在 fresh context 發現缺少 CLI dependency，contract 未授權安裝。正確行為是？</p><button type="button">列出 dependency gap 並 safe stop，等待新的 setup／authority</button><button type="button">自動安裝，因為 Skill 已被選用</button><button type="button">改用任意外部服務完成結果</button><div class="why">Package 不會擴張 capability 或 authority；missing dependency 是可觀察的 stop，不是繞過邊界的理由。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>Trigger 無法區分 near-miss、resources 重複 truth、dependency／distribution／owner 不明、fresh context 依賴 personal state，或 Skill 擴張 authority 時，保存 fixture evidence 並回 <a href="009-0003-choose-workflow-package.html">009-0003</a>／009-0002。只有 exact package version 通過正例、near-miss、missing-dependency 與 failure checks，才前往 <code>009-0008-complete-standardization-closeout.html</code>；不要再完成其他 package branch。</p>
 <footer data-course-footer="canonical" data-route-id="workflow-standardization" data-legal-stop="Stop after one fitting package is rerun and reviewed">
-<p><strong>Route navigation · Workflow Standardization</strong></p>
+<p><strong>路線導覽 · 工作流程標準化</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="workflow-standardization" data-route-action="next" href="009-0008-complete-standardization-closeout.html">下一步：lessons/009-0008-complete-standardization-closeout.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop after one fitting package is rerun and reviewed"><strong>Legal stop：</strong>Stop after one fitting package is rerun and reviewed</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>workflow-standardization-contract</code></div>
+<p data-route-legal-stop="Stop after one fitting package is rerun and reviewed"><strong>合法停止點：</strong>一個合適 package 已重跑並完成 review 後即可停止</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>workflow-standardization-contract</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

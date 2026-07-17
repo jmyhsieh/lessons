@@ -6,11 +6,11 @@ Acceptance evidence:
 Test seam:
 Decision still needing a runnable answer:
 Shared-understanding confirmation:</pre></div><ol><li>逐項對照 repo map、issue、domain docs 與現有 tests，不從一般慣例補猜測。</li><li>把含糊詞改成可觀察行為，並列出非目標。</li><li>選足以保護 intent 的高層 test seam；deterministic code 能判斷的事不交給模型自評。</li><li>只有存在「必須玩過才知道」的 UI／logic 問題，才走 006-0004；否則直接凝結 spec。</li></ol><div class="win"><strong>Tangible win：</strong>一份可由使用者核准的 alignment record。<br><strong>Observable feedback：</strong>使用者能逐項確認 outcome、scope、evidence 與 unknown，並明確選擇 prototype 或直接 spec。</div><div class="quiz" data-answer="1"><p>何時需要 conditional prototype？</p><button>每個 request 都要先做</button><button>有單一 UI／logic 問題必須用可跑 artifact 才能回答</button><button>只是缺少 acceptance criteria</button><div class="why">缺 acceptance criteria 應繼續對齊；prototype 只回答需要 runnable evidence 的單一問題。</div></div><p class="stop"><strong>Legal stop／continuation：</strong>使用者尚未確認 shared understanding、scope 仍會 materially 改變，或沒有可靠 test seam 時停止。需要 runnable answer 才去 <a href="006-0004-prototype-technical-question.html">006-0004</a>；不需要則直接到 <a href="006-0005-write-delivery-spec.html">006-0005</a>。</p><footer data-course-footer="canonical" data-route-id="engineering-delivery" data-legal-stop="Stop only after final Review evidence matches the delivered checkpoint">
-<p><strong>Route navigation · Engineering Delivery</strong></p>
+<p><strong>路線導覽 · 工程交付</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="engineering-delivery" data-route-action="choose-one" href="006-0004-prototype-technical-question.html">選擇一條支線：lessons/006-0004-prototype-technical-question.html</a></li>
 <li><a data-route-id="engineering-delivery" data-route-action="choose-one" href="006-0005-write-delivery-spec.html">選擇一條支線：lessons/006-0005-write-delivery-spec.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>Legal stop：</strong>Stop only after final Review evidence matches the delivered checkpoint</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>engineering-request-shaping-contract</code>、<code>engineering-skill-router-contract</code></div>
+<p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>合法停止點：</strong>只有 final Review evidence 與 delivered checkpoint 一致後才可停止</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible win · 來源 ID：<code>engineering-request-shaping-contract</code>、<code>engineering-skill-router-contract</code></div>
 </footer><script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

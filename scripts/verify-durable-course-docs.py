@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 import tempfile
 
@@ -13,6 +14,18 @@ ROOT = Path(__file__).resolve().parents[1]
 DOC_PATHS = ("MISSION.md", "RESOURCES.md", "NOTES.md")
 MANIFEST_PATH = "docs/migration/course-migration-manifest.json"
 REGISTRY_PATH = "source-anchors.json"
+REQUIRED_DURABLE_PATHS = (
+    "assets/templates/route-notebook.md",
+    "docs/migration/cutover-report.md",
+    "docs/maintenance/source-recertification.md",
+    "learning-records/0004-adopt-route-based-twelve-phase-catalog.md",
+    "learning-records/README.md",
+)
+FORBIDDEN_DURABLE_PATHS = (
+    "reference/return-notebook-template.md",
+    "learning-records/0004-adopt-route-based-course-migration.md",
+)
+FULL_GIT_SHA_PATTERN = re.compile(r"(?<![0-9a-f])[0-9a-f]{40}(?![0-9a-f])")
 
 REQUIRED_ANCHORS = {
     "common-foundation": "course-orient-readiness-contract",
@@ -47,6 +60,19 @@ def load_json(root: Path, path: str) -> dict:
 
 def verify(root: Path) -> list[str]:
     errors: list[str] = []
+    for path in REQUIRED_DURABLE_PATHS:
+        if not (root / path).is_file():
+            errors.append(f"durable-path: missing required public contract {path}")
+    for path in FORBIDDEN_DURABLE_PATHS:
+        if (root / path).exists():
+            errors.append(f"durable-duplicate: legacy contract path still exists {path}")
+    cutover_path = root / "docs/migration/cutover-report.md"
+    if cutover_path.is_file() and FULL_GIT_SHA_PATTERN.search(
+        cutover_path.read_text(encoding="utf-8")
+    ):
+        errors.append(
+            "cutover-self-identity: cutover template must not embed a commit SHA"
+        )
     manifest = load_json(root, MANIFEST_PATH)
     registry = load_json(root, REGISTRY_PATH)
     docs = {path: (root / path).read_text(encoding="utf-8") for path in DOC_PATHS}
@@ -110,9 +136,50 @@ def run_self_test() -> int:
             "Active mission 與 route contract 是 teaching authority。\n",
             encoding="utf-8",
         )
+        fixture_content = {
+            "assets/templates/route-notebook.md": "# Return notebook\n## Mission\n",
+            "docs/migration/cutover-report.md": "# Cutover report template\nCandidate commit SHA：\n",
+            "docs/maintenance/source-recertification.md": "# Source recertification contract\nSource anchor ID：\n",
+            "learning-records/0004-adopt-route-based-twelve-phase-catalog.md": "# Route-based catalog\nStatus: adopted\n",
+            "learning-records/README.md": "# Learning records\n0004-adopt-route-based-twelve-phase-catalog.md\n",
+        }
+        for path in REQUIRED_DURABLE_PATHS:
+            destination = root / path
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_text(fixture_content[path], encoding="utf-8")
         if verify(root):
             print("SELF TEST FAILED: valid fixture was rejected")
             return 1
+        missing_path = root / REQUIRED_DURABLE_PATHS[0]
+        missing_path.unlink()
+        missing_failures = verify(root)
+        if not any("durable-path" in item for item in missing_failures):
+            print("SELF TEST FAILED: missing durable public contract was accepted")
+            return 1
+        missing_path.write_text("restored fixture\n", encoding="utf-8")
+        legacy_path = root / "reference/return-notebook-template.md"
+        legacy_path.parent.mkdir(parents=True, exist_ok=True)
+        legacy_path.write_text("duplicate\n", encoding="utf-8")
+        cutover_path = root / "docs/migration/cutover-report.md"
+        clean_cutover = cutover_path.read_text(encoding="utf-8")
+        cutover_path.write_text(
+            clean_cutover + "0123456789abcdef0123456789abcdef01234567\n",
+            encoding="utf-8",
+        )
+        unsafe_failures = verify(root)
+        missing_codes = [
+            code
+            for code in ("durable-duplicate", "cutover-self-identity")
+            if not any(code in item for item in unsafe_failures)
+        ]
+        if missing_codes:
+            print(
+                "SELF TEST FAILED: unsafe durable contracts were accepted: "
+                + ", ".join(missing_codes)
+            )
+            return 1
+        legacy_path.unlink()
+        cutover_path.write_text(clean_cutover, encoding="utf-8")
         (root / "MISSION.md").write_text("完成 Phase 5 後即可使用 Harness。", encoding="utf-8")
         failures = verify(root)
         if not failures or not any("legacy-claim" in item for item in failures):

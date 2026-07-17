@@ -43,6 +43,7 @@ class NavigationParser(HTMLParser):
         self.actions: list[tuple[str | None, str | None, str]] = []
         self.links: list[str] = []
         self.previous_links: list[str] = []
+        self.footer_text_parts: list[str] = []
         self.completion_ui_count = 0
         self._inside_footer = False
 
@@ -99,6 +100,14 @@ class NavigationParser(HTMLParser):
     def handle_endtag(self, tag: str) -> None:
         if tag == "footer":
             self._inside_footer = False
+
+    def handle_data(self, data: str) -> None:
+        if self._inside_footer:
+            self.footer_text_parts.append(data)
+
+    @property
+    def footer_text(self) -> str:
+        return " ".join(" ".join(self.footer_text_parts).split())
 
 
 def relative_href(source: str, target: str, fragment: str | None) -> str:
@@ -228,20 +237,54 @@ def page_route(page: dict[str, Any], routes: dict[str, dict[str, Any]]) -> dict[
     return routes[memberships[0]["routeId"]]
 
 
-def route_label(route_id: str) -> str:
-    return route_id.replace("-", " ").title()
-
-
 def action_label(action: Action) -> str:
     labels = {
         "next": "下一步",
         "choose-one": "選擇一條支線",
         "optional-continuation": "選用延伸",
-        "continuation": "Route continuation",
-        "route-return": "回到 route catalog",
-        "catalog-fallback": "沒有有效 return point 時回 Toolbox catalog",
+        "continuation": "路線續作",
+        "route-return": "回到路線目錄",
+        "catalog-fallback": "沒有有效返回點時回工具箱目錄",
     }
     return f"{labels.get(action.kind, action.kind)}：{action.path}"
+
+
+def localized_identity_markup(page: dict[str, Any], identity_markup: str) -> str:
+    localized = identity_markup.strip()
+    replacements = (
+        ("Page kind：canonical lesson", "頁面類型：標準課程頁"),
+        ("Page kind：canonical reference", "頁面類型：標準參考頁"),
+        ("Canonical reference", "頁面類型：標準參考頁"),
+        ("Canonical coordinate：", "標準座標："),
+        ("Route roles：", "路線角色："),
+        ("Route role：", "路線角色："),
+        ("Source IDs：", "來源 ID："),
+        ("Source ID：", "來源 ID："),
+    )
+    for old, new in replacements:
+        localized = localized.replace(old, new)
+
+    required: list[str] = []
+    if "頁面類型：" not in localized:
+        page_kind = (
+            "標準課程頁"
+            if page["pageKind"] == "canonical-lesson"
+            else "標準參考頁"
+        )
+        required.append(f"頁面類型：{page_kind}")
+    if "路線角色：" not in localized:
+        memberships = page.get("routeMemberships") or []
+        roles = memberships[0].get("roles", []) if memberships else []
+        required.append("路線角色：" + ("／".join(roles) if roles else "不適用"))
+    if "來源 ID：" not in localized:
+        source_ids = page.get("sourceDependencies", {}).get("anchorIds", [])
+        rendered_ids = (
+            "、".join(f"<code>{html.escape(item)}</code>" for item in source_ids)
+            if source_ids
+            else "不適用"
+        )
+        required.append(f"來源 ID：{rendered_ids}")
+    return " · ".join(required + ([localized] if localized else []))
 
 
 def render_footer(
@@ -257,7 +300,7 @@ def render_footer(
     if route:
         lines.extend(
             [
-                f'<p><strong>Route navigation · {html.escape(route_label(route_id))}</strong></p>',
+                f'<p><strong>路線導覽 · {html.escape(route["displayName"])}</strong></p>',
                 '<ul class="course-route-actions">',
             ]
         )
@@ -285,11 +328,12 @@ def render_footer(
                 "</ul>",
                 '<p '
                 f'data-route-legal-stop="{html.escape(legal_stop, quote=True)}">'
-                f'<strong>Legal stop：</strong>{html.escape(legal_stop)}</p>',
+                f'<strong>合法停止點：</strong>{html.escape(route["legalStopDisplay"])}</p>',
             ]
         )
 
-    lines.append(f'<div class="course-page-identity">{identity_markup.strip()}</div>')
+    identity = localized_identity_markup(page, identity_markup)
+    lines.append(f'<div class="course-page-identity">{identity}</div>')
     lines.append("</footer>")
     return "\n".join(lines)
 
@@ -341,6 +385,31 @@ def verify(root: Path, manifest: dict[str, Any]) -> tuple[Counter[str], list[str
             if document.visible_legal_stops != ([expected_stop] if route else []):
                 counts["legal_stop_visible_mismatch"] += 1
                 details.append(f"legal_stop_visible_mismatch {path}")
+
+            required_display = {"頁面類型：", "路線角色：", "來源 ID："}
+            if route:
+                required_display.update(
+                    {
+                        f"路線導覽 · {route['displayName']}",
+                        "合法停止點：",
+                        route["legalStopDisplay"],
+                    }
+                )
+            forbidden_display = {
+                "Route navigation",
+                "Legal stop：",
+                "Page kind：",
+                "Canonical coordinate：",
+                "Route roles：",
+                "Route role：",
+                "Source IDs：",
+                "Source ID：",
+            }
+            if any(item not in document.footer_text for item in required_display) or any(
+                item in document.footer_text for item in forbidden_display
+            ):
+                counts["footer_display_mismatch"] += 1
+                details.append(f"footer_display_mismatch {path}")
 
             expected = Counter(expected_actions(route, path)) if route else Counter()
             actual = actual_actions(path, document)
@@ -432,13 +501,55 @@ def align(root: Path, manifest: dict[str, Any]) -> int:
 def self_test(root: Path, manifest: dict[str, Any]) -> int:
     with TemporaryDirectory() as temporary:
         fixture = Path(temporary)
+        display_fixture = fixture / "display-contract"
+        (display_fixture / "lessons").mkdir(parents=True)
+        display_manifest = {
+            "routes": [
+                {
+                    "id": "sample-route",
+                    "displayName": "示例路線",
+                    "legalStop": "Stop after target",
+                    "legalStopDisplay": "完成示例成果後即可停止",
+                    "returnPolicy": "caller-provided",
+                    "edges": [],
+                }
+            ],
+            "pages": [
+                {
+                    "path": "lessons/target.html",
+                    "pageKind": "canonical-lesson",
+                    "routeMemberships": [{"routeId": "sample-route"}],
+                }
+            ],
+        }
+        (display_fixture / "lessons/target.html").write_text(
+            '<footer data-course-footer="canonical" data-route-id="sample-route" '
+            'data-legal-stop="Stop after target">'
+            '<p><strong>Route navigation · Sample Route</strong></p><ul></ul>'
+            '<p data-route-legal-stop="Stop after target">'
+            '<strong>Legal stop：</strong>Stop after target</p>'
+            '<div class="course-page-identity">Page kind：canonical lesson · '
+            'Route roles：feedback · Source IDs：sample-contract</div></footer>',
+            encoding="utf-8",
+        )
+        display_counts, _ = verify(display_fixture, display_manifest)
+        if display_counts["footer_display_mismatch"] != 1:
+            print(
+                "SELF-TEST FAIL localized footer contract: "
+                f"{dict(display_counts)}",
+                file=sys.stderr,
+            )
+            return 1
+
         incoming_fixture = fixture / "incoming-contract"
         (incoming_fixture / "lessons").mkdir(parents=True)
         incoming_manifest = {
             "routes": [
                 {
                     "id": "sample-route",
+                    "displayName": "示例路線",
                     "legalStop": "Stop after target",
+                    "legalStopDisplay": "完成示例成果後即可停止",
                     "returnPolicy": "caller-provided",
                     "edges": [
                         {
@@ -465,18 +576,26 @@ def self_test(root: Path, manifest: dict[str, Any]) -> int:
         (incoming_fixture / "lessons/source.html").write_text(
             '<p><a href="target.html">next</a></p>'
             '<footer data-course-footer="canonical" data-route-id="sample-route" '
-            'data-legal-stop="Stop after target"><ul>'
+            'data-legal-stop="Stop after target">'
+            '<p><strong>路線導覽 · 示例路線</strong></p><ul>'
             '<li><a data-route-id="sample-route" data-route-action="next" '
             'href="target.html">next</a></li></ul>'
-            '<p data-route-legal-stop="Stop after target">stop</p></footer>',
+            '<p data-route-legal-stop="Stop after target">'
+            '<strong>合法停止點：</strong>完成示例成果後即可停止</p>'
+            '<div>頁面類型：標準課程頁 · 路線角色：entry · 來源 ID：sample</div>'
+            '</footer>',
             encoding="utf-8",
         )
         target_path = incoming_fixture / "lessons/target.html"
         target_clean = (
             '<p><a rel="prev" href="source.html">previous</a></p>'
             '<footer data-course-footer="canonical" data-route-id="sample-route" '
-            'data-legal-stop="Stop after target"><ul></ul>'
-            '<p data-route-legal-stop="Stop after target">stop</p></footer>'
+            'data-legal-stop="Stop after target">'
+            '<p><strong>路線導覽 · 示例路線</strong></p><ul></ul>'
+            '<p data-route-legal-stop="Stop after target">'
+            '<strong>合法停止點：</strong>完成示例成果後即可停止</p>'
+            '<div>頁面類型：標準課程頁 · 路線角色：feedback · 來源 ID：sample</div>'
+            '</footer>'
         )
         target_path.write_text(target_clean, encoding="utf-8")
         incoming_clean_counts, _ = verify(incoming_fixture, incoming_manifest)
@@ -691,7 +810,7 @@ def self_test(root: Path, manifest: dict[str, Any]) -> int:
                 file=sys.stderr,
             )
             return 1
-    print("ROUTE NAVIGATION SELF-TEST PASS cases=12 skipped=0")
+    print("ROUTE NAVIGATION SELF-TEST PASS cases=13 skipped=0")
     return 0
 
 

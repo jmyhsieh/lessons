@@ -32,11 +32,11 @@ Originating ticket / Engineering closeout:</pre></div>
 <div class="quiz" data-answer="1"><p>哪一個 claim 已經窄到能成為後續 durable test 的起點？</p><button type="button">結帳功能應該正常，而且各種 browser 都要漂亮</button><button type="button">在 revision abc123 的 guest fixture，375px viewport 從購物車送出有效訂單後，URL 進入 /confirmation 且 heading 顯示「訂單完成」；停留原頁即反證</button><button type="button">Agent 截圖看起來成功，所以 checkout 已通過</button><div class="why">可測 claim 必須固定 identity、starting state、action、observable outcome 與反證條件；截圖與 agent 判斷都不能代替會在行為壞掉時失敗的 assertion。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>app revision、safe fixture、authority、starting state、可觀察結果或反證條件任一不明，或 claim 需要未授權的 production mutation／真實交易時，保存 claim draft 並停止；Code readiness 缺口回 001-0007，產品期待不清則回 originating ticket／Engineering closeout。Card 可由 reviewer 重述後，進 <a href="007-0002-choose-browser-surface.html">007-0002</a> 選擇一個 exploration surface。現在合法停止也只代表 claim 已界定，不代表 Browser Evidence route、Phase 7 或 Migration complete。</p>
 <footer data-course-footer="canonical" data-route-id="browser-evidence" data-legal-stop="Stop after the browser claim is rerunnable in the declared environment">
-<p><strong>Route navigation · Browser Evidence</strong></p>
+<p><strong>路線導覽 · 瀏覽器證據</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="browser-evidence" data-route-action="next" href="007-0002-choose-browser-surface.html">下一步：lessons/007-0002-choose-browser-surface.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop after the browser claim is rerunnable in the declared environment"><strong>Legal stop：</strong>Stop after the browser claim is rerunnable in the declared environment</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：entry／feedback／readiness／tangible win · Source IDs：<code>browser-claim-observation-contract</code></div>
+<p data-route-legal-stop="Stop after the browser claim is rerunnable in the declared environment"><strong>合法停止點：</strong>browser claim 能在指定環境重跑後即可停止</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：entry／feedback／readiness／tangible win · 來源 ID：<code>browser-claim-observation-contract</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

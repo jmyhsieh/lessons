@@ -37,11 +37,11 @@ Change trigger / retirement / escalation:</pre></div>
 <div class="quiz" data-answer="1"><p>Fresh session 能遵循 CLAUDE.md，但 Review 後修了一行模糊 authority。可以沿用原 Review 嗎？</p><button type="button">可以，因為只改文字</button><button type="button">不行；建立新 candidate SHA，完整重跑 Standards／Spec Review</button><button type="button">只重跑 fresh session，不必 Review</button><div class="why">任何 repo candidate mutation 都讓舊 immutable Review evidence 失效；需回 006-0008 的完整 contract。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>若 repo scope、instruction precedence、owner、authority、required check 或 Review source 不清，或 fresh context 依賴舊聊天，停止並回 <a href="009-0003-choose-workflow-package.html">009-0003</a>／009-0002。若有 finding，回 implementation 建立新 SHA，再由 <a href="006-0008-review-final-candidate.html">006-0008</a> 重跑兩軸。只有最終 SHA 無未解 finding且 fresh-context evidence 有效，才前往 <code>009-0008-complete-standardization-closeout.html</code>；不要再完成其他 package branch。</p>
 <footer data-course-footer="canonical" data-route-id="workflow-standardization" data-legal-stop="Stop after one fitting package is rerun and reviewed">
-<p><strong>Route navigation · Workflow Standardization</strong></p>
+<p><strong>路線導覽 · 工作流程標準化</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="workflow-standardization" data-route-action="next" href="009-0008-complete-standardization-closeout.html">下一步：lessons/009-0008-complete-standardization-closeout.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop after one fitting package is rerun and reviewed"><strong>Legal stop：</strong>Stop after one fitting package is rerun and reviewed</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>workflow-standardization-contract</code></div>
+<p data-route-legal-stop="Stop after one fitting package is rerun and reviewed"><strong>合法停止點：</strong>一個合適 package 已重跑並完成 review 後即可停止</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>workflow-standardization-contract</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

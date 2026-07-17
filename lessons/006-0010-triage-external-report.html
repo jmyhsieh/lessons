@@ -39,11 +39,11 @@ Unperformed external actions / required authority:</pre></div>
 <div class="quiz" data-answer="1"><p>一張外部 bug report 描述含糊，而且依提供步驟無法重現；現在最合適的 evidence 與 state 是？</p><button type="button">直接寫可能原因，標成 ready-for-agent</button><button type="button">保存重現嘗試與缺少的具體資料，建議 needs-info</button><button type="button">因無法重現，直接 wontfix</button><div class="why">無法驗證且資訊不足是 needs-info 的強訊號；triage 要保存 evidence 與可回答的問題，不能猜原因或越過 maintainer 裁決。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>state roles 衝突、tracker mapping 不明、claim 無法驗證、需要 reporter 補件、maintainer 尚未裁決，或下一步要求未授權 external mutation時，保存 local handoff 後停止。若 report 已充分 verified 且 maintainer 接受 disposition，帶著 handoff 回 <a href="006-0003-align-engineering-request.html">006-0003</a> 對齊 bounded request；難解 bug 改走 006-0011。完成本頁只代表這一張外部回報已被分流，不代表 Engineering Phase 或 Migration complete。</p>
 <footer data-course-footer="canonical" data-route-id="engineering-delivery" data-legal-stop="Stop only after final Review evidence matches the delivered checkpoint">
-<p><strong>Route navigation · Engineering Delivery</strong></p>
+<p><strong>路線導覽 · 工程交付</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="engineering-delivery" data-route-action="next" href="006-0003-align-engineering-request.html">下一步：lessons/006-0003-align-engineering-request.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>Legal stop：</strong>Stop only after final Review evidence matches the delivered checkpoint</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>engineering-triage-contract</code></div>
+<p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>合法停止點：</strong>只有 final Review evidence 與 delivered checkpoint 一致後才可停止</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>engineering-triage-contract</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

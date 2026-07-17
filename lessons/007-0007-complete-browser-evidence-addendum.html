@@ -54,12 +54,12 @@ Return / handoff:</pre></div>
 <div class="quiz" data-answer="1"><p>新增 Playwright Test後 candidate SHA改變，但舊 Engineering closeout已有兩軸 Review。Addendum 怎麼處理？</p><button type="button">沿用舊 Review，因 browser test只是附錄</button><button type="button">建立新 immutable candidate，完整重跑 Standards／Spec與checks，再讓 addendum、Review與delivered SHA對齊</button><button type="button">用 trace.zip取代 Review reports</button><div class="why">任何 repo byte改變都使舊 checkpoint的 Review evidence失效；addendum不能繞過 Review contract，也不能用 artifact替代兩軸 findings。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>Claim／test mapping不一致、沒有 decisive RED、corrected GREEN不可重跑、declared environment不完整、trace或artifact敏感資料未處理、limits／learner judgment缺漏、candidate無法解析、Review後有 mutation、任一 Review finding未解，或 relevant check被跳過／partial／uncertain時，保存 addendum draft並停止：test回 007-0004、rerun回 007-0005、未解 diagnosis才回 007-0006、candidate／Review回 006-0007／006-0008。全部對齊後，將 addendum附回 Engineering closeout並回 <a href="../toc.html">課程 catalog</a>；這是 Browser Evidence route的合法 stop，只表示這一個 claim的 route artifact已產生，不代表整個 Phase、course、Migration、production或real-user impact complete。</p>
 <footer data-course-footer="canonical" data-route-id="browser-evidence" data-legal-stop="Stop after the browser claim is rerunnable in the declared environment">
-<p><strong>Route navigation · Browser Evidence</strong></p>
+<p><strong>路線導覽 · 瀏覽器證據</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="browser-evidence" data-route-action="continuation" href="006-0008-review-final-candidate.html">Route continuation：lessons/006-0008-review-final-candidate.html</a></li>
-<li><a data-route-id="browser-evidence" data-route-action="route-return" href="../toc.html#extensions">回到 route catalog：toc.html</a></li>
+<li><a data-route-id="browser-evidence" data-route-action="continuation" href="006-0008-review-final-candidate.html">路線續作：lessons/006-0008-review-final-candidate.html</a></li>
+<li><a data-route-id="browser-evidence" data-route-action="route-return" href="../toc.html#extensions">回到路線目錄：toc.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop after the browser claim is rerunnable in the declared environment"><strong>Legal stop：</strong>Stop after the browser claim is rerunnable in the declared environment</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：exit-evidence／feedback／stop／tangible win · Source IDs：<code>browser-evidence-addendum-contract</code>、<code>course-engineering-delivery-contract</code>、<code>engineering-two-axis-review-contract</code>、<code>immutable-review-checkpoint-contract</code>、<code>playwright-durable-browser-evidence</code></div>
+<p data-route-legal-stop="Stop after the browser claim is rerunnable in the declared environment"><strong>合法停止點：</strong>browser claim 能在指定環境重跑後即可停止</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：exit-evidence／feedback／stop／tangible win · 來源 ID：<code>browser-evidence-addendum-contract</code>、<code>course-engineering-delivery-contract</code>、<code>engineering-two-axis-review-contract</code>、<code>immutable-review-checkpoint-contract</code>、<code>playwright-durable-browser-evidence</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

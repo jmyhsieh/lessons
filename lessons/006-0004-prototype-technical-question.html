@@ -5,10 +5,10 @@ Evidence to observe:
 Timebox and throwaway location:
 Result: supported / rejected / uncertain
 Spec decision changed:</pre></div><ol><li>用 handoff 把問題、constraints 與 evidence criteria 帶到乾淨 throwaway context。</li><li>只做能暴露答案的最小 states 與 interaction，不補 auth、persistence 或 production polish，除非它們正是問題。</li><li>由真實操作者跑邊界案例；模型自評不算 observable feedback。</li><li>把答案、failed cases 與對 spec 的影響帶回主線；prototype code 不 merge。</li></ol><div class="win"><strong>Tangible win：</strong>一個能回答單一問題的 throwaway prototype 與 decision note。<br><strong>Observable feedback：</strong>操作者能重跑指定 scenario，看到 supported、rejected 或 uncertain 結果，並在 spec 中找到對應決策。</div><div class="quiz" data-answer="2"><p>Prototype 回答完問題後，下一步是？</p><button>把 prototype 當正式 foundation</button><button>繼續擴充到 production ready</button><button>保留答案與 evidence，丟棄 code，回 spec 主線</button><div class="why">Prototype 的產物是答案；production delivery 需要另行 spec、tests 與 review。</div></div><p class="stop"><strong>Return／legal stop／continuation：</strong>問題不是單一可觀察問題、需要真實 production data、或無法隔離權限時停止並回 alignment。答案足夠後，把 decision note 帶回 <a href="006-0005-write-delivery-spec.html">006-0005</a>；不要留在 prototype branch。</p><footer data-course-footer="canonical" data-route-id="engineering-delivery" data-legal-stop="Stop only after final Review evidence matches the delivered checkpoint">
-<p><strong>Route navigation · Engineering Delivery</strong></p>
+<p><strong>路線導覽 · 工程交付</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="engineering-delivery" data-route-action="next" href="006-0005-write-delivery-spec.html">下一步：lessons/006-0005-write-delivery-spec.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>Legal stop：</strong>Stop only after final Review evidence matches the delivered checkpoint</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>engineering-request-shaping-contract</code></div>
+<p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>合法停止點：</strong>只有 final Review evidence 與 delivered checkpoint 一致後才可停止</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>engineering-request-shaping-contract</code></div>
 </footer><script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

@@ -16,10 +16,10 @@ Draft audience and message: tabletop only, do not send:</pre></div>
 <div class="quiz" data-answer="0"><p>偵測到 prohibited marker 後，第一個正確動作是？</p><button>依預先定義範圍暫停 local run，記錄 signal 並保存最小必要 evidence</button><button>先完成輸出，再通知 owner</button><button>把內容貼給外部服務判斷</button><div class="why">Incident exercise 先 fail closed：detect、pause、preserve，再由指定角色決定 recovery。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>Detect、stop authority、evidence、recovery 或 role handoff 失敗時，保持 tabletop FAIL，更新 register／policy 後重跑；不可把演練結果改寫成真實 incident claim。Record 可重現後續到 <a href="012-0006-run-change-retirement-tabletop.html">012-0006</a>。</p>
 <footer data-course-footer="canonical" data-route-id="governance-lifecycle" data-legal-stop="Stop at the policy draft without claiming legal, compliance, or organizational approval">
-<p><strong>Route navigation · Governance Lifecycle</strong></p>
+<p><strong>路線導覽 · 治理生命週期</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="governance-lifecycle" data-route-action="next" href="012-0006-run-change-retirement-tabletop.html">下一步：lessons/012-0006-run-change-retirement-tabletop.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop at the policy draft without claiming legal, compliance, or organizational approval"><strong>Legal stop：</strong>Stop at the policy draft without claiming legal, compliance, or organizational approval</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>governance-lifecycle-contract</code></div>
+<p data-route-legal-stop="Stop at the policy draft without claiming legal, compliance, or organizational approval"><strong>合法停止點：</strong>完成 policy draft 後即可停止；不可宣稱法律、合規或組織核准</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible win · 來源 ID：<code>governance-lifecycle-contract</code></div>
 </footer><script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

@@ -38,15 +38,15 @@ Continuation: legal stop / Code readiness / Phase 6 Build</pre></div>
 <div class="quiz" data-answer="0"><p>Bundle 已完成，但目前 mission 不需要 repo implementation，最正確的狀態是？</p><button type="button">在 Design handoff bundle 合法停止，保留 optional continuation</button><button type="button">強迫進 Claude Code，否則 Phase 4 不算完成</button><button type="button">把 prototype 宣稱為 production-ready</button><div class="why">Design route 的合法 stop 就是 reviewable handoff bundle；implementation 只有 mission 選擇時才跨入 Build。</div></div>
 <p class="stop"><strong>Legal stop／continuations：</strong>Bundle 缺 source identity、material states、evidence、learner judgment 或 feedback disposition 時，保留 <code>Lesson practiced</code> 並回到最小缺口。Bundle 一致後可回 <a href="../toc.html">課目表</a>合法停止。若交付物要包含 repo diff，先確認 <a href="001-0004-prepare-claude-code-session.html">Code readiness</a>，再進 <a href="006-0001-choose-engineering-route.html">Phase 6 Build</a>；implementation、checks、Review 與 closeout 全部留在 Build。</p>
 <footer data-course-footer="canonical" data-route-id="design-delivery" data-legal-stop="Stop at the Design handoff bundle unless implementation is selected">
-<p><strong>Route navigation · Design Delivery</strong></p>
+<p><strong>路線導覽 · 設計交付</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="design-delivery" data-route-action="continuation" href="001-0004-prepare-claude-code-session.html">Route continuation：lessons/001-0004-prepare-claude-code-session.html</a></li>
-<li><a data-route-id="design-delivery" data-route-action="continuation" href="006-0001-choose-engineering-route.html">Route continuation：lessons/006-0001-choose-engineering-route.html</a></li>
-<li><a data-route-id="design-delivery" data-route-action="continuation" href="007-0001-scope-browser-claim.html">Route continuation：lessons/007-0001-scope-browser-claim.html</a></li>
-<li><a data-route-id="design-delivery" data-route-action="route-return" href="../toc.html#route-design">回到 route catalog：toc.html</a></li>
+<li><a data-route-id="design-delivery" data-route-action="continuation" href="001-0004-prepare-claude-code-session.html">路線續作：lessons/001-0004-prepare-claude-code-session.html</a></li>
+<li><a data-route-id="design-delivery" data-route-action="continuation" href="006-0001-choose-engineering-route.html">路線續作：lessons/006-0001-choose-engineering-route.html</a></li>
+<li><a data-route-id="design-delivery" data-route-action="continuation" href="007-0001-scope-browser-claim.html">路線續作：lessons/007-0001-scope-browser-claim.html</a></li>
+<li><a data-route-id="design-delivery" data-route-action="route-return" href="../toc.html#route-design">回到路線目錄：toc.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop at the Design handoff bundle unless implementation is selected"><strong>Legal stop：</strong>Stop at the Design handoff bundle unless implementation is selected</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：exit evidence／feedback／stop／tangible win · Source IDs：<code>claude-design-accessibility-evidence-contract</code>、<code>claude-design-handoff-contract</code>、<code>claude-design-responsive-interaction-evidence-contract</code>、<code>course-design-delivery-contract</code></div>
+<p data-route-legal-stop="Stop at the Design handoff bundle unless implementation is selected"><strong>合法停止點：</strong>完成 Design handoff bundle 後即可停止；除非 mission 選擇 implementation</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：exit evidence／feedback／stop／tangible win · 來源 ID：<code>claude-design-accessibility-evidence-contract</code>、<code>claude-design-handoff-contract</code>、<code>claude-design-responsive-interaction-evidence-contract</code>、<code>course-design-delivery-contract</code></div>
 </footer>
 <script>const boxes=[...document.querySelectorAll('input[type="checkbox"]')];boxes.forEach(b=>b.onchange=()=>{document.getElementById('done').style.display=boxes.every(x=>x.checked)?'block':'none'});document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script>
 </body></html>

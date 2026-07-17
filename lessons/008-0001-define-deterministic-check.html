@@ -33,11 +33,11 @@ Known limits:</pre></div>
 <div class="quiz" data-answer="1"><p>哪一項能作為 operating workflow 的 completion oracle？</p><button type="button">Agent 回覆「任務已順利完成」</button><button type="button">固定 parser 對同一 output 驗證 schema、已知欄位與 input ID 集合，錯誤時 non-zero</button><button type="button">Dashboard 最後一列是綠色，但無法連回本次 inputs</button><div class="why">可靠 oracle 必須針對本次輸入，以可重跑 predicate 產生可反證結果；agent 自評與未綁定 run identity 的綠燈都不是 completion proof。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>沒有 safe fixture、input identity、可反證 predicate、已知 failure 校準或 Code readiness 時，保存 contract draft，依缺口回 readiness／originating route；不要啟動任何 write-capable automation。Contract 能由別人重跑後，進 <a href="008-0002-choose-agent-execution-surface.html">008-0002</a> 選一個 local-first execution surface。此時只完成 oracle，不代表 workflow、Phase 或 Migration complete。</p>
 <footer data-course-footer="canonical" data-route-id="agent-operations" data-legal-stop="Stop after completion proof and recovery evidence are both recorded">
-<p><strong>Route navigation · Agent Operations</strong></p>
+<p><strong>路線導覽 · Agent 作業</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="agent-operations" data-route-action="next" href="008-0002-choose-agent-execution-surface.html">下一步：lessons/008-0002-choose-agent-execution-surface.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop after completion proof and recovery evidence are both recorded"><strong>Legal stop：</strong>Stop after completion proof and recovery evidence are both recorded</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：entry／feedback／readiness／tangible win · Source IDs：<code>agent-operations-safety-contract</code></div>
+<p data-route-legal-stop="Stop after completion proof and recovery evidence are both recorded"><strong>合法停止點：</strong>completion proof 與 recovery evidence 都已記錄後才可停止</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：entry／feedback／readiness／tangible win · 來源 ID：<code>agent-operations-safety-contract</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

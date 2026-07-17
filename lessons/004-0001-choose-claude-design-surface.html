@@ -44,12 +44,12 @@ Optional continuation: stop / Phase 6 Build</pre></div>
 <div class="quiz" data-answer="1"><p>已經有核准 spec，交付物是既有 repo 的 React diff，哪個 route boundary 最誠實？</p><button type="button">留在 Design，因為 prototype 可以直接算 production</button><button type="button">確認 Code readiness 後進 Phase 6 Build</button><button type="button">只輸出 screenshot，不做 repo verification</button><div class="why">Version-controlled implementation 已跨過 Repo delivery boundary；Design handoff 是 input，不取代 Build checks 與 Review。</div></div>
 <p class="stop"><strong>Legal stop／targeted remediation：</strong>Mission、audience、feedback path、資料權限或 surface access 不明時，保存 selection draft，回 <a href="001-0002-define-route-readiness.html">001-0002</a> 補最小缺口後再回本課。Card 可驗收後進 <a href="004-0002-write-design-brief.html">004-0002 Design brief</a>。</p>
 <footer data-course-footer="canonical" data-route-id="design-delivery" data-legal-stop="Stop at the Design handoff bundle unless implementation is selected">
-<p><strong>Route navigation · Design Delivery</strong></p>
+<p><strong>路線導覽 · 設計交付</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="design-delivery" data-route-action="next" href="004-0002-write-design-brief.html">下一步：lessons/004-0002-write-design-brief.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop at the Design handoff bundle unless implementation is selected"><strong>Legal stop：</strong>Stop at the Design handoff bundle unless implementation is selected</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：entry／feedback／readiness／tangible win · Source IDs：<code>claude-design-availability-surface</code>、<code>claude-design-product-prototype-contract</code>、<code>claude-product-surface-selection</code>、<code>course-design-delivery-contract</code></div>
+<p data-route-legal-stop="Stop at the Design handoff bundle unless implementation is selected"><strong>合法停止點：</strong>完成 Design handoff bundle 後即可停止；除非 mission 選擇 implementation</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：entry／feedback／readiness／tangible win · 來源 ID：<code>claude-design-availability-surface</code>、<code>claude-design-product-prototype-contract</code>、<code>claude-product-surface-selection</code>、<code>course-design-delivery-contract</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script>
 </body></html>

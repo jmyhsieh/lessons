@@ -16,10 +16,10 @@ Unexpected behavior / limitation:</pre></div>
 <div class="quiz" data-answer="0"><p>第一個 variation case 失敗，正確做法是？</p><button>保留原始 failure 與 case identity，不替換 fixture；依 frame 記錄後續 disposition</button><button>換成較容易的 case，讓 success set 名稱一致</button><button>移到 failure set 並刪掉原 run</button><div class="why">Case set 在 run 前固定；意外 failure 是 evidence，不能靠重新分類或刪除維持漂亮結果。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>Case 沒有 representation rationale、fixture 可變、candidate／comparator 條件不同、raw evidence 缺失或 scoring 早於 observation 時停止，回 010-0002 修 frame。Success set 可抽查後，續到 <a href="010-0004-build-failure-case-set.html">010-0004</a>；此時尚不能做 keep／change／retire judgment。</p>
 <footer data-course-footer="canonical" data-route-id="workflow-evaluation" data-legal-stop="Stop after the evidence dossier records limitations and learner judgment">
-<p><strong>Route navigation · Workflow Evaluation</strong></p>
+<p><strong>路線導覽 · 工作流程評估</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="workflow-evaluation" data-route-action="next" href="010-0004-build-failure-case-set.html">下一步：lessons/010-0004-build-failure-case-set.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop after the evidence dossier records limitations and learner judgment"><strong>Legal stop：</strong>Stop after the evidence dossier records limitations and learner judgment</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>workflow-evaluation-contract</code></div>
+<p data-route-legal-stop="Stop after the evidence dossier records limitations and learner judgment"><strong>合法停止點：</strong>完成有明確 decision 與 limitation 的 evidence dossier 後即可停止</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible win · 來源 ID：<code>workflow-evaluation-contract</code></div>
 </footer><script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

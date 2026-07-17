@@ -32,11 +32,11 @@ Session stop:</pre></div>
 <div class="quiz" data-answer="2"><p>Map 已沒有 open tickets 與可升級 fog，而且通往 destination 的路已清楚，下一步是？</p><button type="button">直接完成 implementation</button><button type="button">宣告 Engineering route complete</button><button type="button">把 decision evidence 帶回 request alignment，再進 spec 與 tickets</button><div class="why">Wayfinder 清除 planning fog，但不取代 alignment、delivery spec、ticket DAG、implementation 或 Review。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>Ticket 非 frontier、claim 失敗、HITL 缺少真人、evidence 不足、resolution 還沒回 tracker、map 與 ticket 內容重複，或 session 開始實作 destination 時停止。Map 尚未完成就由新 session 留在本課；map 完成後回 <a href="006-0003-align-engineering-request.html">006-0003</a> 對齊 decision evidence，再依序到 <a href="006-0005-write-delivery-spec.html">006-0005</a> 與 <a href="006-0006-slice-spec-into-tickets.html">006-0006</a>，不能跳過已核准 spec 直接施工。</p>
 <footer data-course-footer="canonical" data-route-id="engineering-delivery" data-legal-stop="Stop only after final Review evidence matches the delivered checkpoint">
-<p><strong>Route navigation · Engineering Delivery</strong></p>
+<p><strong>路線導覽 · 工程交付</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="engineering-delivery" data-route-action="next" href="006-0003-align-engineering-request.html">下一步：lessons/006-0003-align-engineering-request.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>Legal stop：</strong>Stop only after final Review evidence matches the delivered checkpoint</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>engineering-wayfinder-contract</code> · Reviewed contract：<a href="https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/wayfinder/SKILL.md">mattpocock/skills@9603c1c</a></div>
+<p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>合法停止點：</strong>只有 final Review evidence 與 delivered checkpoint 一致後才可停止</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>engineering-wayfinder-contract</code> · Reviewed contract：<a href="https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/engineering/wayfinder/SKILL.md">mattpocock/skills@9603c1c</a></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

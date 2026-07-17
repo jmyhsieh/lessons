@@ -45,12 +45,12 @@ Observed omissions or distortions:</pre></div>
 <div class="quiz" data-answer="2"><p>一份可直接閱讀的 Markdown source 已有 stable ID，下一步應該是？</p><button type="button">再跑 MarkItDown</button><button type="button">依序跑 MarkItDown 與 Docling 比較</button><button type="button">跳過 normalization，直接回共同 claim outline</button><div class="why">Normalization 只修正 active source 的可用性缺口；沒有缺口就不增加 derived copies。</div></div>
 <p class="stop"><strong>Return／legal stop：</strong>抽樣 fidelity 可接受且 limitations 已記錄後，回 <a href="003-0003-build-source-to-claim-outline.html">003-0003</a>；工具成功不是 route completion。若 rights、sensitive-data policy、input boundary、remote behavior 或數字／reading order 無法驗證，保存 raw source 與 failure log 後停止，改用 manual extraction 或回 readiness。</p>
 <footer data-course-footer="canonical" data-route-id="knowledge-delivery" data-legal-stop="Stop at Knowledge delivery closeout">
-<p><strong>Route navigation · Knowledge Delivery</strong></p>
+<p><strong>路線導覽 · 知識工作交付</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="knowledge-delivery" data-route-action="next" href="003-0003-build-source-to-claim-outline.html">下一步：lessons/003-0003-build-source-to-claim-outline.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop at Knowledge delivery closeout"><strong>Legal stop：</strong>Stop at Knowledge delivery closeout</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>course-knowledge-delivery-contract</code>、<code>docling-conversion-surface</code>、<code>knowledge-source-provenance-contract</code>、<code>markitdown-conversion-surface</code></div>
+<p data-route-legal-stop="Stop at Knowledge delivery closeout"><strong>合法停止點：</strong>完成 Knowledge delivery closeout 後即可停止</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>course-knowledge-delivery-contract</code>、<code>docling-conversion-surface</code>、<code>knowledge-source-provenance-contract</code>、<code>markitdown-conversion-surface</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
 </body></html>

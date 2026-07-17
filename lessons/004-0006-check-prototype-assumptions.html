@@ -30,12 +30,12 @@ Known limits:</pre></div>
 <div class="quiz" data-answer="1"><p>Claude 說 prototype 已符合 accessibility，最誠實的下一步是？</p><button type="button">直接記為 WCAG conformance</button><button type="button">定義可測 criteria，執行 automated checks 與 human keyboard／task evaluation</button><button type="button">只保存 prompt 當 evidence</button><div class="why">模型建議可形成檢查線索，但 accessibility evidence 需要可測 criteria、工具與人的直接評估。</div></div>
 <p class="stop"><strong>Legal stop／continuation：</strong>Material assumptions 沒有 oracle、環境未記錄、blocker 未重測或 untested scope 被隱藏時，保存 record 並停止。Evidence 可重跑後，進 <a href="004-0007-assemble-design-handoff-bundle.html">004-0007 組裝 Design handoff bundle</a>；這仍不是 repo implementation。</p>
 <footer data-course-footer="canonical" data-route-id="design-delivery" data-legal-stop="Stop at the Design handoff bundle unless implementation is selected">
-<p><strong>Route navigation · Design Delivery</strong></p>
+<p><strong>路線導覽 · 設計交付</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="design-delivery" data-route-action="next" href="004-0007-assemble-design-handoff-bundle.html">下一步：lessons/004-0007-assemble-design-handoff-bundle.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop at the Design handoff bundle unless implementation is selected"><strong>Legal stop：</strong>Stop at the Design handoff bundle unless implementation is selected</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>claude-design-accessibility-evidence-contract</code>、<code>claude-design-product-prototype-contract</code>、<code>claude-design-responsive-interaction-evidence-contract</code></div>
+<p data-route-legal-stop="Stop at the Design handoff bundle unless implementation is selected"><strong>合法停止點：</strong>完成 Design handoff bundle 後即可停止；除非 mission 選擇 implementation</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible win · 來源 ID：<code>claude-design-accessibility-evidence-contract</code>、<code>claude-design-product-prototype-contract</code>、<code>claude-design-responsive-interaction-evidence-contract</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script>
 </body></html>

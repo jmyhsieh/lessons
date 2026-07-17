@@ -125,7 +125,7 @@ EXPECTED_PAGE_MATRIX_SHA256 = (
     "0ef14f7e70ec5d662aad985d9519358e3eea0e1f9068a9ff233a245476b217b9"
 )
 EXPECTED_ROUTE_CONTRACT_SHA256 = (
-    "f412397e52c5cc19a858519238f049ac7b3e1ed7c4048f3120073832d5a56a4e"
+    "a31a9518c4a644c9a3363f3f3001b27744f985a79bab05ce02091baee32fc60e"
 )
 EXPECTED_TOOLBOX_SELECTIONS = [
     "lessons/002-0002-set-permission-boundaries.html",
@@ -157,6 +157,7 @@ LESSON_PATH_PATTERN = re.compile(
 )
 COORDINATE_PATTERN = re.compile(r"^(?P<phase>\d{3})-(?P<lesson>\d{4})$")
 SAFE_FRAGMENT_PATTERN = re.compile(r"^[a-z0-9][a-z0-9-]*$")
+HAN_PATTERN = re.compile(r"[\u3400-\u9fff]")
 PAGE_FIELDS = {
     "path",
     "origin",
@@ -174,6 +175,8 @@ PAGE_FIELDS = {
 }
 ROUTE_FIELDS = {
     "id",
+    "displayName",
+    "legalStopDisplay",
     "kind",
     "tocReturn",
     "entry",
@@ -420,8 +423,22 @@ def validate_route_schema(route: Any, index: int) -> list[str]:
         return [failure("route-schema", f"routes[{index}] must be an object")]
     route_id = route.get("id", f"routes[{index}]")
     errors = []
+    for field in ("displayName", "legalStopDisplay"):
+        value = route.get(field)
+        if (
+            not isinstance(value, str)
+            or not value.strip()
+            or HAN_PATTERN.search(value) is None
+        ):
+            errors.append(
+                failure(
+                    "route-display",
+                    f"{route_id}.{field} must be a non-empty zh-Hant display string",
+                )
+            )
     if set(route) != ROUTE_FIELDS:
-        return [failure("route-schema", f"{route_id} has invalid fields")]
+        errors.append(failure("route-schema", f"{route_id} has invalid fields"))
+        return errors
     if not isinstance(route_id, str) or not route_id:
         errors.append(failure("route-schema", f"routes[{index}].id is invalid"))
     if not isinstance(route.get("kind"), str) or route.get("kind") not in {
@@ -1656,6 +1673,23 @@ def run_self_test(manifest: dict[str, Any], freeze: dict[str, Any]) -> list[str]
     report_only_mode = copy.deepcopy(manifest)
     report_only_mode["publicationGateMode"] = "report-only"
     cases.append(("report-only downgrade", report_only_mode, "publication-mode"))
+
+    missing_route_display = copy.deepcopy(manifest)
+    missing_display_route = missing_route_display["routes"][0]
+    missing_display_route.pop("displayName", None)
+    missing_display_route.pop("legalStopDisplay", None)
+    cases.append(
+        ("missing route display contract", missing_route_display, "route-display")
+    )
+
+    english_route_display = copy.deepcopy(manifest)
+    english_route_display["routes"][0]["displayName"] = "Common Foundation"
+    english_route_display["routes"][0]["legalStopDisplay"] = (
+        "Stop after route choice and readiness evidence are recorded"
+    )
+    cases.append(
+        ("English-only route display contract", english_route_display, "route-display")
+    )
 
     invalid_deprecation = copy.deepcopy(manifest)
     deprecation = next(

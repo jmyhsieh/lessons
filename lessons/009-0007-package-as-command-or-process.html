@@ -46,11 +46,11 @@ record: package digest, environment, commands, exits, outputs, diff</pre></div>
 <div class="quiz" data-answer="2"><p>Command 可穩定計算品質分數，但是否發布需要 owner 判斷。應怎麼包？</p><button type="button">分數達 threshold 就自動發布</button><button type="button">讓 agent 讀分數後自我批准</button><button type="button">Command 輸出分數與 evidence，owner disposition 保持為明確 handoff</button><div class="why">Deterministic calculation 可以自動化；風險與發布判斷不能因為有分數就被悄悄轉成自動批准。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>若 interface 不穩定、expected result 無獨立 literal、failure 回傳成功、retry 無界、fresh context 依賴隱藏 state、judgment 被寫進 code，或 side effect 無當次 authority，停止並回 <a href="009-0003-choose-workflow-package.html">009-0003</a>／009-0002。Repo diff 先由 <a href="006-0008-review-final-candidate.html">006-0008</a> 完成 immutable Review；其餘 package evidence 齊全後前往 <code>009-0008-complete-standardization-closeout.html</code>，不要再完成其他 branch。</p>
 <footer data-course-footer="canonical" data-route-id="workflow-standardization" data-legal-stop="Stop after one fitting package is rerun and reviewed">
-<p><strong>Route navigation · Workflow Standardization</strong></p>
+<p><strong>路線導覽 · 工作流程標準化</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="workflow-standardization" data-route-action="next" href="009-0008-complete-standardization-closeout.html">下一步：lessons/009-0008-complete-standardization-closeout.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop after one fitting package is rerun and reviewed"><strong>Legal stop：</strong>Stop after one fitting package is rerun and reviewed</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>workflow-standardization-contract</code></div>
+<p data-route-legal-stop="Stop after one fitting package is rerun and reviewed"><strong>合法停止點：</strong>一個合適 package 已重跑並完成 review 後即可停止</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>workflow-standardization-contract</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

@@ -76,13 +76,13 @@ Stop and rollback:</pre></div>
 
 <p class="stop"><strong>Legal stop／continuation：</strong>缺少 repository owner、remote permission 資訊、secret policy、trusted trigger 或 proven local one-shot 時，保留 card 並停止。要把設計變成 version-controlled workflow，已跨過 Repo delivery boundary，必須另開 Build task、取得 authority、套用 Review contract；真實 remote CI 不是本 self-study lesson 的完成條件。把本課記為 <code>Lesson practiced</code> 並返回 <code>Targeted-remediation return point</code>。</p>
 <footer data-course-footer="canonical" data-route-id="toolbox" data-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion">
-<p><strong>Route navigation · Toolbox</strong></p>
+<p><strong>路線導覽 · 即時工具箱</strong></p>
 <ul class="course-route-actions">
-<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效 return point 時回 Toolbox catalog：toc.html</a></li>
+<li><a data-route-id="toolbox" data-route-action="catalog-fallback" href="../toc.html#toolbox">沒有有效返回點時回工具箱目錄：toc.html</a></li>
 <li><span data-route-id="toolbox" data-route-action="return-to-caller" data-target-source="route-notebook.targetedRemediationReturnPoint" data-fallback="tocReturn">完成後回到 Return notebook 的 Targeted-remediation return point；沒有有效 return point 時才使用 catalog fallback。</span></li>
 </ul>
-<p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>Legal stop：</strong>Each selected lesson returns to the caller-provided active route; no Phase completion</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>claude-code-cli-execution-controls</code>、<code>claude-code-headless-ci-boundary</code></div>
+<p data-route-legal-stop="Each selected lesson returns to the caller-provided active route; no Phase completion"><strong>合法停止點：</strong>每個選定課程都返回呼叫端提供的 active route；工具箱本身沒有 Phase completion</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>claude-code-cli-execution-controls</code>、<code>claude-code-headless-ci-boundary</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q => { const answer = Number(q.dataset.answer); q.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { q.querySelectorAll('button').forEach(item => item.disabled = true); q.querySelectorAll('button')[answer].classList.add('correct'); if (index !== answer) button.classList.add('wrong'); q.querySelector('.why').style.display = 'block'; })); });</script>
 </body>

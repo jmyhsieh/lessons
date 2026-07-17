@@ -73,6 +73,8 @@
   "routes": [
     {
       "id": "common-foundation",
+      "displayName": "共同基礎",
+      "legalStopDisplay": "記錄路線選擇與 readiness evidence 後即可停止",
       "kind": "foundation",
       "tocReturn": {
         "path": "toc.html",
@@ -157,6 +159,8 @@
     },
     {
       "id": "cowork-starter",
+      "displayName": "Cowork 起步",
+      "legalStopDisplay": "記錄低風險 Cowork starter evidence 後即可停止",
       "kind": "starter",
       "tocReturn": {
         "path": "toc.html",
@@ -196,6 +200,8 @@
     },
     {
       "id": "code-readiness",
+      "displayName": "程式碼準備度（Code readiness）",
+      "legalStopDisplay": "證明 Code readiness 後即可停止；不要把 fixture 練習視為交付",
       "kind": "readiness",
       "tocReturn": {
         "path": "toc.html",
@@ -260,6 +266,8 @@
     },
     {
       "id": "toolbox",
+      "displayName": "即時工具箱",
+      "legalStopDisplay": "每個選定課程都返回呼叫端提供的 active route；工具箱本身沒有 Phase completion",
       "kind": "toolbox",
       "tocReturn": {
         "path": "toc.html",
@@ -329,6 +337,8 @@
     },
     {
       "id": "knowledge-delivery",
+      "displayName": "知識工作交付",
+      "legalStopDisplay": "完成 Knowledge delivery closeout 後即可停止",
       "kind": "task",
       "tocReturn": {
         "path": "toc.html",
@@ -454,6 +464,8 @@
     },
     {
       "id": "design-delivery",
+      "displayName": "設計交付",
+      "legalStopDisplay": "完成 Design handoff bundle 後即可停止；除非 mission 選擇 implementation",
       "kind": "task",
       "tocReturn": {
         "path": "toc.html",
@@ -561,6 +573,8 @@
     },
     {
       "id": "presentation-delivery",
+      "displayName": "簡報交付",
+      "legalStopDisplay": "完成 Presentation closeout 後即可停止；adaptation 與 code-first 選項皆為選修",
       "kind": "task",
       "tocReturn": {
         "path": "toc.html",
@@ -677,6 +691,8 @@
     },
     {
       "id": "engineering-delivery",
+      "displayName": "工程交付",
+      "legalStopDisplay": "只有 final Review evidence 與 delivered checkpoint 一致後才可停止",
       "kind": "task",
       "tocReturn": {
         "path": "toc.html",
@@ -844,6 +860,8 @@
     },
     {
       "id": "browser-evidence",
+      "displayName": "瀏覽器證據",
+      "legalStopDisplay": "browser claim 能在指定環境重跑後即可停止",
       "kind": "extension",
       "tocReturn": {
         "path": "toc.html",
@@ -933,6 +951,8 @@
     },
     {
       "id": "agent-operations",
+      "displayName": "Agent 作業",
+      "legalStopDisplay": "completion proof 與 recovery evidence 都已記錄後才可停止",
       "kind": "extension",
       "tocReturn": {
         "path": "toc.html",
@@ -1039,6 +1059,8 @@
     },
     {
       "id": "workflow-standardization",
+      "displayName": "工作流程標準化",
+      "legalStopDisplay": "一個合適 package 已重跑並完成 review 後即可停止",
       "kind": "extension",
       "tocReturn": {
         "path": "toc.html",
@@ -1174,6 +1196,8 @@
     },
     {
       "id": "workflow-evaluation",
+      "displayName": "工作流程評估",
+      "legalStopDisplay": "完成有明確 decision 與 limitation 的 evidence dossier 後即可停止",
       "kind": "extension",
       "tocReturn": {
         "path": "toc.html",
@@ -1270,6 +1294,8 @@
     },
     {
       "id": "scenario-rollout",
+      "displayName": "情境 rollout",
+      "legalStopDisplay": "完成 scenario plan 後即可停止；不可宣稱真實組織採用",
       "kind": "extension",
       "tocReturn": {
         "path": "toc.html",
@@ -1358,6 +1384,8 @@
     },
     {
       "id": "governance-lifecycle",
+      "displayName": "治理生命週期",
+      "legalStopDisplay": "完成 policy draft 後即可停止；不可宣稱法律、合規或組織核准",
       "kind": "extension",
       "tocReturn": {
         "path": "toc.html",

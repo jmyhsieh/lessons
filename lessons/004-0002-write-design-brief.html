@@ -33,13 +33,13 @@ Open assumptions:</pre></div>
 <div class="quiz" data-answer="2"><p>哪一項最能讓 brief 可驗收？</p><button type="button">要求整體更有質感</button><button type="button">讓 Claude 自己決定所有真實內容</button><button type="button">寫出 user task、required states 與 observable acceptance</button><div class="why">可觀察的 task、states 與 acceptance 能讓生成與 review 共用同一標準；風格形容詞不能獨立驗收。</div></div>
 <p class="stop"><strong>Legal stop／continuation：</strong>Goal、真實 content、資料權限或 feedback giver 未定時，保存 brief draft 並回 readiness 補缺口。Brief 可重述後，依 approved context 選 <a href="004-0003-sync-design-system.html">conditional system branch</a> 或直接到 <a href="004-0004-explore-design-directions.html">direction exploration</a>。</p>
 <footer data-course-footer="canonical" data-route-id="design-delivery" data-legal-stop="Stop at the Design handoff bundle unless implementation is selected">
-<p><strong>Route navigation · Design Delivery</strong></p>
+<p><strong>路線導覽 · 設計交付</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="design-delivery" data-route-action="choose-one" href="004-0003-sync-design-system.html">選擇一條支線：lessons/004-0003-sync-design-system.html</a></li>
 <li><a data-route-id="design-delivery" data-route-action="choose-one" href="004-0004-explore-design-directions.html">選擇一條支線：lessons/004-0004-explore-design-directions.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop at the Design handoff bundle unless implementation is selected"><strong>Legal stop：</strong>Stop at the Design handoff bundle unless implementation is selected</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>claude-design-brief-context-contract</code>、<code>course-design-delivery-contract</code></div>
+<p data-route-legal-stop="Stop at the Design handoff bundle unless implementation is selected"><strong>合法停止點：</strong>完成 Design handoff bundle 後即可停止；除非 mission 選擇 implementation</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible win · 來源 ID：<code>claude-design-brief-context-contract</code>、<code>course-design-delivery-contract</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script>
 </body></html>

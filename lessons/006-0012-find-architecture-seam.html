@@ -43,11 +43,11 @@ Unanswered design choices:</pre></div>
 <div class="quiz" data-answer="1"><p>Architecture report 列出四個候選，而其中一個只有 production adapter，沒有真實替代行為；下一步最合適的是？</p><button type="button">替四個候選都建 interface 與 adapter，保留未來彈性</button><button type="button">讓 learner 選一個 evidence 最強的候選，先驗證 seam；單一 adapter 不足以證明需要 indirection</button><button type="button">直接實作 top recommendation，之後再問 learner</button><div class="why">Survey 先找 deepening opportunity，learner 再選一個；「one adapter = hypothetical seam」避免以未來想像製造淺層 indirection。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>摩擦沒有 evidence、scope 無法收窄、domain terms／ADR 衝突未釐清、learner 尚未選候選、seam 只是假設、interface 無法成為 test surface，或開始需要 production mutation 時，保存 survey notes 後停止。Brief 完整且 learner 接受後，帶著它回 <a href="006-0003-align-engineering-request.html">006-0003</a> 對齊 bounded request，再走 spec／tickets／implementation／Review core；不要由本頁直接修改 code。完成本頁只代表一個 architecture seam 已形成可檢查的 delivery input，不代表 Engineering Phase 或 Migration complete。</p>
 <footer data-course-footer="canonical" data-route-id="engineering-delivery" data-legal-stop="Stop only after final Review evidence matches the delivered checkpoint">
-<p><strong>Route navigation · Engineering Delivery</strong></p>
+<p><strong>路線導覽 · 工程交付</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="engineering-delivery" data-route-action="next" href="006-0003-align-engineering-request.html">下一步：lessons/006-0003-align-engineering-request.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>Legal stop：</strong>Stop only after final Review evidence matches the delivered checkpoint</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：conditional／feedback／tangible win · Source IDs：<code>engineering-architecture-contract</code></div>
+<p data-route-legal-stop="Stop only after final Review evidence matches the delivered checkpoint"><strong>合法停止點：</strong>只有 final Review evidence 與 delivered checkpoint 一致後才可停止</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：conditional／feedback／tangible win · 來源 ID：<code>engineering-architecture-contract</code></div>
 </footer>
 <script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

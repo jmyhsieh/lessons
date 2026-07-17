@@ -16,10 +16,10 @@ Post-change result / open findings / rollback point:</pre></div>
 <div class="quiz" data-answer="2"><p>Package 改了 permission 與資料欄位，正確做法是？</p><button>沿用舊 PASS，因為 workflow 名稱沒變</button><button>Agent review 沒 finding 就自動批准</button><button>建立新 version，記錄 impact，由指定人類決定並重跑受影響 cases</button><div class="why">Material change 需要新 identity、human disposition 與 retest；舊 evidence 不會自動漂移到新候選。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>Version、impact、approver、retest 或 rollback point 缺失時，保持 change proposed，不用 agent 補批准。Contract 可追溯後續到 <a href="012-0003-define-data-lifecycle-controls.html">012-0003</a>。</p>
 <footer data-course-footer="canonical" data-route-id="governance-lifecycle" data-legal-stop="Stop at the policy draft without claiming legal, compliance, or organizational approval">
-<p><strong>Route navigation · Governance Lifecycle</strong></p>
+<p><strong>路線導覽 · 治理生命週期</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="governance-lifecycle" data-route-action="next" href="012-0003-define-data-lifecycle-controls.html">下一步：lessons/012-0003-define-data-lifecycle-controls.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop at the policy draft without claiming legal, compliance, or organizational approval"><strong>Legal stop：</strong>Stop at the policy draft without claiming legal, compliance, or organizational approval</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>governance-lifecycle-contract</code></div>
+<p data-route-legal-stop="Stop at the policy draft without claiming legal, compliance, or organizational approval"><strong>合法停止點：</strong>完成 policy draft 後即可停止；不可宣稱法律、合規或組織核准</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible win · 來源 ID：<code>governance-lifecycle-contract</code></div>
 </footer><script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>

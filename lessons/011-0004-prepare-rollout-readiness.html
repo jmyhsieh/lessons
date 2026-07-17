@@ -17,10 +17,10 @@ Decision role / reason / recorded at:</pre></div>
 <div class="quiz" data-answer="1"><p>所有 fixture 與權限 checks 都 PASS，下一步是？</p><button>自動開始真實 pilot</button><button>保存 PASS evidence，再由 accountable owner 對 local tabletop 做獨立 approve／revise／stop</button><button>讓 operator 代表所有角色批准</button><div class="why">Deterministic evidence 與 human authority 是兩條 lane；前者不能授權後者。</div></div>
 <p class="stop"><strong>Legal stop／return／continuation：</strong>任一 precondition FAIL、evidence 不可重現、support／stop path 不明或 human decision 被自動化時停止。兩條 lane 都有可追溯結果後，續到 <a href="011-0005-design-review-and-escalation.html">011-0005</a>；這仍只是 tabletop readiness design。</p>
 <footer data-course-footer="canonical" data-route-id="scenario-rollout" data-legal-stop="Stop at the scenario plan without claiming real organizational adoption">
-<p><strong>Route navigation · Scenario Rollout</strong></p>
+<p><strong>路線導覽 · 情境 rollout</strong></p>
 <ul class="course-route-actions">
 <li><a data-route-id="scenario-rollout" data-route-action="next" href="011-0005-design-review-and-escalation.html">下一步：lessons/011-0005-design-review-and-escalation.html</a></li>
 </ul>
-<p data-route-legal-stop="Stop at the scenario plan without claiming real organizational adoption"><strong>Legal stop：</strong>Stop at the scenario plan without claiming real organizational adoption</p>
-<div class="course-page-identity">Page kind：canonical lesson · Route roles：feedback／tangible win · Source IDs：<code>scenario-rollout-contract</code></div>
+<p data-route-legal-stop="Stop at the scenario plan without claiming real organizational adoption"><strong>合法停止點：</strong>完成 scenario plan 後即可停止；不可宣稱真實組織採用</p>
+<div class="course-page-identity">頁面類型：標準課程頁 · 路線角色：feedback／tangible win · 來源 ID：<code>scenario-rollout-contract</code></div>
 </footer><script>document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'})});</script></body></html>
