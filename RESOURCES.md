@@ -1,6 +1,6 @@
 # AI Workflow Composition Resources
 
-這份檔案只保留課程可依賴的高信任來源。新聞與職能案例不作為 factual source of truth；需要案例時，從 [職能工作流案例總覽](reference/ai-functional-workflow-case-library.html) 進入，並回查其第一手來源。
+這份檔案只保留課程可依賴的高信任來源。新聞與職能案例不作為 factual source of truth；需要案例時，請回查其第一手來源。
 
 ## Knowledge
 
