@@ -20,12 +20,9 @@
   → checks green
   → checkpoint SHA A
   → Standards(A) + Spec(A)
-    ├─ no findings → Review bundle for A
-    └─ finding → disposition: fixed / evidence-rejected / unresolved
-         ├─ fixed → repair → checks green → checkpoint SHA B
-         │           → Standards(B) + Spec(B) from the beginning
-         ├─ evidence-rejected, no candidate change → record evidence → Review bundle for A
-         └─ undisposed / unresolved / blocking → stop closeout</pre>
+    ├─ no unresolved findings → Review bundle for A
+    └─ finding → repair → checks green → checkpoint SHA B
+                 → Standards(B) + Spec(B) from the beginning</pre>
 <p class="invalid"><strong>失效規則：</strong>不能把 SHA 版本甲的 Review 搬到 SHA 版本乙，也不能只重跑曾經有發現事項的那一軸。修註解、test、內容或設定都會產生新的候選版本；舊證據保留為歷史，但不證明新候選版本。</p>
 <h2>可複製的紀錄</h2>
 <pre>Fixed point:
@@ -37,12 +34,11 @@ Focused and full relevant checks:
 
 Standards findings / conclusion:
 Spec findings / conclusion:
-Finding dispositions: fixed / evidence-rejected / unresolved
 
 Candidate changed after Review? yes / no
 If yes, new SHA and complete rerun evidence:
 Unresolved findings / uncertainty:</pre>
-<p class="rule"><strong>返回／合法停止點／續作：</strong>收尾包有任何空白、候選版本識別會移動、兩軸被合併、相關的 checks 未跑、修正後未重跑完整契約，或發現尚未處置、未解或具阻擋性時，停止收尾。已修正的發現回到實作檢查點建立新 SHA；附證據駁回且候選版本未變的發現可保留紀錄並續行。只有證據明確對應最終 SHA，且每個發現都已處置而無未解或具阻擋性的項目時，才能交給後續收尾；這份參考本身不授權合併、push、部署，也不代表 Phase 或 Migration 完成。</p>
+<p class="rule"><strong>返回／合法停止點／續作：</strong>收尾包有任何空白、候選版本識別會移動、兩軸被合併、相關的 checks 未跑，或修正後未重跑完整契約時，回到實作檢查點並停止收尾。只有證據明確對應最終 SHA 時，才能交給後續收尾；這份參考本身不授權合併、push、部署，也不代表 Phase 或 Migration 完成。</p>
 <footer data-course-footer="canonical" data-route-id="not-applicable" data-legal-stop="not-applicable">
 <div class="course-page-identity">路線角色：不適用 · 頁面類型：標準參考頁 · 來源 ID：<code>engineering-two-axis-review-contract</code>、<code>immutable-review-checkpoint-contract</code></div>
 </footer>

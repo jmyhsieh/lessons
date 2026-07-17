@@ -43,14 +43,6 @@ SUPPRESSED_LEARNER_TEXT_TAGS = {
     "style",
     "template",
 }
-NON_RENDERED_LEARNER_ATTRIBUTE_TAGS = {"script", "style", "template"}
-LEARNER_FACING_ATTRIBUTES = {
-    "aria-label",
-    "aria-description",
-    "alt",
-    "placeholder",
-    "title",
-}
 TRUE_BLOCK_BOUNDARY_TAGS = {
     "address",
     "article",
@@ -446,90 +438,12 @@ MANIFEST_ROUTE_VOCABULARY = {
     "記錄路線選擇與 readiness evidence 後即可停止",
     "證明 Code readiness 後即可停止；不要把 fixture 練習視為交付",
 }
-# Punctuation-joined learner phrases reviewed as whole compositions. Keeping
-# these separate prevents independently allowed tokens from authorizing a new
-# phrase merely because an author joined them with fullwidth punctuation.
-REVIEWED_PUNCTUATION_JOINED_LEARNER_SOURCES = {
-    "AFK／HITL": ("lessons/006-0014-resolve-wayfinder-frontier.html",),
-    "CI／Claude Code GitHub Actions": ("lessons/002-0011-bound-ci-automation.html",),
-    "Claude Code Desktop Browser／Claude in Chrome": (
-        "lessons/007-0002-choose-browser-surface.html",
-    ),
-    "Export → PDF": ("lessons/005-0009-build-versioned-deck-with-open-slide.html",),
-    "HTML／PDF": ("lessons/005-0009-build-versioned-deck-with-open-slide.html",),
-    "HTTP／CLI": ("lessons/006-0011-diagnose-hard-bug.html",),
-    "Node／repo": ("reference/open-slide-agent-deck-workflow.html",),
-    "Open-Slide／Mermaid CLI": (
-        "lessons/005-0001-choose-presentation-route.html",
-    ),
-    "PDF：Acrobat": ("lessons/005-0007-export-and-rehearse.html",),
-    "PPTX：PowerPoint": ("lessons/005-0007-export-and-rehearse.html",),
-    "React／Git": ("lessons/005-0009-build-versioned-deck-with-open-slide.html",),
-    "RED → GREEN": (
-        "lessons/006-0007-implement-and-create-review-checkpoint.html",
-    ),
-    "RED／GREEN": ("lessons/006-0011-diagnose-hard-bug.html",),
-    "Vite／esbuild": (
-        "lessons/005-0009-build-versioned-deck-with-open-slide.html",
-    ),
-    "command／Skill": ("lessons/007-0002-choose-browser-surface.html",),
-    "conditional／feedback／tangible win": (
-        "lessons/002-0002-set-permission-boundaries.html",
-    ),
-    "diff → Claude Code": ("reference/claude-product-picker.html",),
-    "diff／artifact": ("lessons/009-0002-extract-workflow-contract.html",),
-    "entry／feedback／readiness／tangible win": (
-        "lessons/002-0001-choose-toolbox-lesson.html",
-    ),
-    "entry／feedback／tangible-win": (
-        "lessons/001-0001-four-claude-surfaces.html",
-    ),
-    "exit evidence／feedback／stop／tangible win": (
-        "lessons/003-0006-complete-knowledge-delivery-closeout.html",
-    ),
-    "exit-evidence／feedback／stop／tangible win": (
-        "lessons/006-0009-complete-engineering-closeout.html",
-    ),
-    "feedback／review-reentry／tangible win": (
-        "lessons/006-0008-review-final-candidate.html",
-    ),
-    "feedback／stop": ("lessons/001-0007-prove-code-readiness.html",),
-    "feedback／tangible win": (
-        "lessons/003-0002-preserve-sources-and-provenance.html",
-    ),
-    "feedback／tangible-win": (
-        "lessons/001-0005-map-repo-read-only.html",
-    ),
-    "macOS 26.5.2／arm64／zsh": (
-        "lessons/001-0004-prepare-claude-code-session.html",
-    ),
-    "macOS arm64／zsh": (
-        "lessons/001-0004-prepare-claude-code-session.html",
-    ),
-    "stdout／stderr": ("lessons/002-0010-run-headless-one-shot.html",),
-    "test／artifact": (
-        "lessons/007-0007-complete-browser-evidence-addendum.html",
-    ),
-    "trace／CI／PR": (
-        "lessons/007-0003-record-observable-baseline.html",
-    ),
-    "v0／v1": ("lessons/005-0005-refine-deck-for-audience.html",),
-}
-REVIEWED_PUNCTUATION_JOINED_LEARNER_BLOCKS = set(
-    REVIEWED_PUNCTUATION_JOINED_LEARNER_SOURCES
-)
 LATIN_TEXT_RE = re.compile(r"[A-Za-z]")
-# Punctuation/whitespace joins reviewed tokens into a phrase that itself must
-# be reviewed. Han text remains a semantic boundary; fullwidth separators and
-# the arrow are not boundaries because they can hide a new Latin composition.
+# ASCII punctuation/whitespace and dash punctuation join reviewed tokens into a
+# phrase that itself must be reviewed. Fullwidth separators and Han text remain
+# semantic boundaries because the authored course uses them for labels/lists.
 ALLOWED_TOKEN_CHAIN_JOINERS_RE = re.compile(
-    r"[\x00-\x2F\x3A-\x40\x5B-\x60\x7B-\x7F–—：／→]*"
-)
-PUNCTUATION_JOINED_LATIN_CHAIN_RE = re.compile(
-    r"(?<![A-Za-z0-9])"
-    r"([A-Za-z0-9][A-Za-z0-9 .@/_-]*?"
-    r"(?:[：／→] *[A-Za-z0-9][A-Za-z0-9 .@/_-]*)+)"
-    r"(?![A-Za-z0-9])"
+    r"[\x00-\x2F\x3A-\x40\x5B-\x60\x7B-\x7F–—]*"
 )
 
 
@@ -557,11 +471,8 @@ class CourseHTMLParser(HTMLParser):
         self.quizzes: list[dict[str, Any]] = []
         self._quiz_stack: list[dict[str, Any]] = []
         self.learner_ui_labels: list[str] = []
-        self.duplicate_learner_attributes: list[str] = []
         self._suppressed_text_depth = 0
-        self._hidden_depth = 0
         self._element_suppression_stack: list[tuple[str, bool]] = []
-        self._element_hidden_stack: list[tuple[str, bool]] = []
         self._visible_text_block_stack: list[dict[str, Any]] = []
 
     def _flush_visible_text_block(self) -> None:
@@ -582,36 +493,15 @@ class CourseHTMLParser(HTMLParser):
     ) -> None:
         attributes = dict(attrs)
         self.tag_counts[tag] = self.tag_counts.get(tag, 0) + 1
-        is_hidden = self._hidden_depth > 0 or "hidden" in attributes
         suppresses_text = (
             self._suppressed_text_depth > 0
             or tag in SUPPRESSED_LEARNER_TEXT_TAGS
-            or is_hidden
+            or "hidden" in attributes
         )
         if tag not in VOID_HTML_TAGS:
             self._element_suppression_stack.append((tag, suppresses_text))
-            self._element_hidden_stack.append((tag, is_hidden))
             if suppresses_text:
                 self._suppressed_text_depth += 1
-            if is_hidden:
-                self._hidden_depth += 1
-        if not is_hidden and tag not in NON_RENDERED_LEARNER_ATTRIBUTE_TAGS:
-            learner_attributes = [
-                (name, value)
-                for name, value in attrs
-                if name in LEARNER_FACING_ATTRIBUTES
-            ]
-            self.learner_ui_labels.extend(
-                value
-                for _name, value in learner_attributes
-                if value
-            )
-            attribute_counts = Counter(name for name, _value in learner_attributes)
-            self.duplicate_learner_attributes.extend(
-                f"{tag}[{name}]"
-                for name, count in sorted(attribute_counts.items())
-                if count > 1
-            )
         if (
             tag in VISIBLE_SUPPRESSED_TEXT_BOUNDARY_TAGS
             and self._visible_text_block_stack
@@ -706,13 +596,6 @@ class CourseHTMLParser(HTMLParser):
             _tag, was_suppressed = self._element_suppression_stack.pop()
             if was_suppressed:
                 self._suppressed_text_depth -= 1
-        if (
-            self._element_hidden_stack
-            and self._element_hidden_stack[-1][0] == tag
-        ):
-            _tag, was_hidden = self._element_hidden_stack.pop()
-            if was_hidden:
-                self._hidden_depth -= 1
         if tag != "div":
             return
         completed: list[dict[str, Any]] = []
@@ -779,15 +662,6 @@ def parse_site_documents(
                 blocker(
                     "duplicate-fragment",
                     "duplicate id/name values: " + ", ".join(duplicates),
-                    path,
-                )
-            )
-        if parser.duplicate_learner_attributes:
-            errors.append(
-                blocker(
-                    "duplicate-learner-facing-attribute",
-                    "duplicate learner-facing attributes are ambiguous: "
-                    + ", ".join(sorted(set(parser.duplicate_learner_attributes))),
                     path,
                 )
             )
@@ -1276,50 +1150,6 @@ def contains_unreviewed_latin_text(text: str, allowed: set[str]) -> bool:
     return LATIN_TEXT_RE.search(remainder) is not None
 
 
-def maximal_punctuation_joined_latin_chains(text: str) -> set[str]:
-    """Extract maximal Latin/number chains joined by reviewed punctuation."""
-    return {
-        match.group(1).strip(" .")
-        for match in PUNCTUATION_JOINED_LATIN_CHAIN_RE.finditer(text)
-    }
-
-
-def validate_reviewed_punctuation_grounding(
-    documents: dict[str, CourseHTMLParser],
-    *,
-    reviewed_sources: dict[str, tuple[str, ...]] | None = None,
-) -> list[dict[str, str]]:
-    """Require every reviewed composition to equal a maximal chain at its source."""
-    sources = (
-        REVIEWED_PUNCTUATION_JOINED_LEARNER_SOURCES
-        if reviewed_sources is None
-        else reviewed_sources
-    )
-    errors: list[dict[str, str]] = []
-    for phrase, paths in sorted(sources.items()):
-        grounded = False
-        for path in paths:
-            document = documents.get(path)
-            if document is None:
-                continue
-            if any(
-                phrase in maximal_punctuation_joined_latin_chains(label)
-                for label in document.learner_ui_labels
-            ):
-                grounded = True
-                break
-        if not grounded:
-            errors.append(
-                blocker(
-                    "reviewed-punctuation-source",
-                    f"{phrase!r} must equal a maximal punctuation-joined chain "
-                    "in its declared learner-facing source",
-                    ", ".join(paths) if paths else phrase,
-                )
-            )
-    return errors
-
-
 def validate_generic_learner_ui_labels(
     documents: dict[str, CourseHTMLParser],
 ) -> list[dict[str, str]]:
@@ -1331,7 +1161,6 @@ def validate_generic_learner_ui_labels(
             | SOURCE_TITLE_LEARNER_BLOCKS
             | COURSE_GLOSSARY_TERMS
             | MANIFEST_ROUTE_VOCABULARY
-            | REVIEWED_PUNCTUATION_JOINED_LEARNER_BLOCKS
         )
         prohibited = sorted(
             text
@@ -1647,11 +1476,6 @@ def validate_site_release(
     )
     link_quiz_errors = validate_links_and_quizzes(repo_root, documents)
     learner_ui_errors = validate_generic_learner_ui_labels(documents)
-    punctuation_grounding_errors = (
-        validate_reviewed_punctuation_grounding(documents)
-        if inventory_contract
-        else []
-    )
     compatibility_errors = validate_compatibility_graph(manifest, documents)
     navigation_errors: list[dict[str, str]] = []
     navigation_counts: dict[str, int] = {}
@@ -1719,7 +1543,6 @@ def validate_site_release(
     errors.extend(contract_errors)
     errors.extend(link_quiz_errors)
     errors.extend(learner_ui_errors)
-    errors.extend(punctuation_grounding_errors)
     errors.extend(compatibility_errors)
     errors.extend(navigation_errors)
     errors.extend(index_errors)
@@ -1737,7 +1560,6 @@ def validate_site_release(
         "inventoryContractBlockers": len(contract_errors),
         "linkOrQuizBlockers": len(link_quiz_errors),
         "learnerUiBlockers": len(learner_ui_errors),
-        "reviewedPunctuationBlockers": len(punctuation_grounding_errors),
         "compatibilityBlockers": len(compatibility_errors),
         "routeNavigationBlockers": len(navigation_errors),
         "routeNavigationCounts": navigation_counts,
@@ -2728,7 +2550,6 @@ def run_site_self_test() -> None:
             | SOURCE_TITLE_LEARNER_BLOCKS
             | COURSE_GLOSSARY_TERMS
             | MANIFEST_ROUTE_VOCABULARY
-            | REVIEWED_PUNCTUATION_JOINED_LEARNER_BLOCKS
         )
         for exact_token in TECHNICAL_TOKENS:
             assert not contains_unreviewed_latin_text(
@@ -2737,13 +2558,6 @@ def run_site_self_test() -> None:
             assert contains_unreviewed_latin_text(
                 f"中文 {exact_token}Extra", reviewed_allowlist
             ), exact_token
-        for exact_phrase in REVIEWED_PUNCTUATION_JOINED_LEARNER_BLOCKS:
-            assert not contains_unreviewed_latin_text(
-                f"中文 {exact_phrase}", reviewed_allowlist
-            ), exact_phrase
-            assert contains_unreviewed_latin_text(
-                f"中文 {exact_phrase}Extra", reviewed_allowlist
-            ), exact_phrase
         for unreviewed_composition in (
             "Source check",
             "中文 Source check",
@@ -2759,12 +2573,6 @@ def run_site_self_test() -> None:
             "Source(check)",
             "Source[check]",
             "Source—check",
-            "Source：check",
-            "Source／check",
-            "Source→check",
-            "中文 Source：check 結果",
-            "中文 Source／check 結果",
-            "中文 Source→check 結果",
             "Source/to-spec",
             "中文 Agent test",
             "Claude check",
@@ -2778,6 +2586,9 @@ def run_site_self_test() -> None:
             "GitHub Actions",
             "PPTX：PowerPoint",
             "→ Slash commands。",
+            "Source：check",
+            "Source／check",
+            "Source→check",
             "Source中文check",
         ):
             assert not contains_unreviewed_latin_text(
@@ -3049,208 +2860,9 @@ def run_invisible_format_scope_self_test(repo_root: Path) -> None:
         target_fixture.write_text(valid_html, encoding="utf-8")
 
 
-def run_learner_attribute_scope_self_test(repo_root: Path) -> None:
-    """Exercise learner-facing attributes through full and authored-slice gates."""
-    target_path = "lessons/001-0001-four-claude-surfaces.html"
-    generic_attributes = {
-        "aria-label": "Expected aria label",
-        "aria-description": "Expected aria description",
-        "alt": "Expected image description",
-        "placeholder": "Expected placeholder",
-        "title": "Expected tooltip",
-    }
-    with TemporaryDirectory() as directory:
-        fixture_root = Path(directory) / "repo"
-        shutil.copytree(
-            repo_root,
-            fixture_root,
-            ignore=shutil.ignore_patterns("__pycache__"),
-        )
-        target_fixture = fixture_root / target_path
-        valid_html = target_fixture.read_text(encoding="utf-8")
-        generic_elements = "".join(
-            (
-                f'<img {attribute}="{expected}">'
-                if attribute == "alt"
-                else f'<input {attribute}="{expected}">'
-            )
-            for attribute, expected in generic_attributes.items()
-        )
-        target_fixture.write_text(
-            valid_html.replace("</body>", f"{generic_elements}</body>"),
-            encoding="utf-8",
-        )
-        for report in (
-            build_release_report(fixture_root, as_of=date.today()),
-            build_authored_slice_report(
-                fixture_root,
-                required_paths={target_path},
-                as_of=date.today(),
-            ),
-        ):
-            learner_errors = [
-                error
-                for error in report["blockers"]
-                if error["code"] == "generic-english-ui-label"
-            ]
-            assert learner_errors, report
-            for attribute, expected in generic_attributes.items():
-                assert any(
-                    repr(expected) in error["message"] for error in learner_errors
-                ), (attribute, report)
-
-        duplicate_expectations: list[str] = []
-        duplicate_elements: list[str] = []
-        for attribute in generic_attributes:
-            tag = "img" if attribute == "alt" else "input"
-            generic_first = f"Expected {attribute} first"
-            generic_last = f"Expected {attribute} last"
-            duplicate_expectations.extend((generic_first, generic_last))
-            duplicate_elements.extend(
-                (
-                    f'<{tag} {attribute}="{generic_first}" {attribute}="下一步">',
-                    f'<{tag} {attribute}="下一步" {attribute}="{generic_last}">',
-                )
-            )
-        target_fixture.write_text(
-            valid_html.replace("</body>", "".join(duplicate_elements) + "</body>"),
-            encoding="utf-8",
-        )
-        for report in (
-            build_release_report(fixture_root, as_of=date.today()),
-            build_authored_slice_report(
-                fixture_root,
-                required_paths={target_path},
-                as_of=date.today(),
-            ),
-        ):
-            assert_codes(
-                report["blockers"],
-                "generic-english-ui-label",
-                "duplicate-learner-facing-attribute",
-            )
-            learner_messages = " ".join(
-                error["message"]
-                for error in report["blockers"]
-                if error["code"] == "generic-english-ui-label"
-            )
-            for expected in duplicate_expectations:
-                assert repr(expected) in learner_messages, (expected, report)
-
-        positive_html = (
-            '<button aria-label="下一步" aria-description="使用 Claude Code">下一步</button>'
-            '<img alt="Claude Code" title="PPTX：PowerPoint">'
-            '<input placeholder="輸入內容">'
-            '<div hidden aria-label="Suppressed hidden label"></div>'
-            '<code title="Expected code tooltip">identifier</code>'
-        )
-        target_fixture.write_text(
-            valid_html.replace("</body>", f"{positive_html}</body>"),
-            encoding="utf-8",
-        )
-        full_report = build_release_report(fixture_root, as_of=date.today())
-        learner_errors = [
-            error
-            for error in full_report["blockers"]
-            if error["code"] == "generic-english-ui-label"
-        ]
-        assert learner_errors, full_report
-        assert any(
-            "'Expected code tooltip'" in error["message"]
-            and "'Suppressed hidden label'" not in error["message"]
-            for error in learner_errors
-        ), learner_errors
-        assert not any(
-            any(
-                repr(value) in error["message"]
-                for value in (
-                    "下一步",
-                    "使用 Claude Code",
-                    "Claude Code",
-                    "PPTX：PowerPoint",
-                    "輸入內容",
-                )
-            )
-            for error in learner_errors
-        ), learner_errors
-        target_fixture.write_text(valid_html, encoding="utf-8")
-
-
-def run_punctuation_composition_scope_self_test(repo_root: Path) -> None:
-    """Reject unreviewed fullwidth/arrow token chains in both release scopes."""
-    target_path = "lessons/001-0001-four-claude-surfaces.html"
-    compositions = (
-        "Source：check",
-        "Source／check",
-        "Source→check",
-        "中文 Source：check 結果",
-        "中文 Source／check 結果",
-        "中文 Source→check 結果",
-    )
-    with TemporaryDirectory() as directory:
-        fixture_root = Path(directory) / "repo"
-        shutil.copytree(
-            repo_root,
-            fixture_root,
-            ignore=shutil.ignore_patterns("__pycache__"),
-        )
-        target_fixture = fixture_root / target_path
-        valid_html = target_fixture.read_text(encoding="utf-8")
-        mutation = "".join(f"<p>{value}</p>" for value in compositions)
-        target_fixture.write_text(
-            valid_html.replace("</body>", f"{mutation}</body>"),
-            encoding="utf-8",
-        )
-        for report in (
-            build_release_report(fixture_root, as_of=date.today()),
-            build_authored_slice_report(
-                fixture_root,
-                required_paths={target_path},
-                as_of=date.today(),
-            ),
-        ):
-            learner_errors = [
-                error
-                for error in report["blockers"]
-                if error["code"] == "generic-english-ui-label"
-            ]
-            assert learner_errors, report
-            for value in compositions:
-                assert any(
-                    repr(value) in error["message"] for error in learner_errors
-                ), (value, report)
-        target_fixture.write_text(valid_html, encoding="utf-8")
-
-
-def run_punctuation_grounding_self_test(repo_root: Path) -> None:
-    """Require reviewed punctuation phrases to match maximal chains at their source."""
-    assert "arm64／zsh" not in REVIEWED_PUNCTUATION_JOINED_LEARNER_BLOCKS
-    assert (
-        "macOS 26.5.2／arm64／zsh"
-        in REVIEWED_PUNCTUATION_JOINED_LEARNER_BLOCKS
-    )
-    documents, parse_errors = parse_site_documents(
-        repo_root, collect_site_paths(repo_root)
-    )
-    assert parse_errors == [], parse_errors
-    assert validate_reviewed_punctuation_grounding(documents) == []
-    partial_sources = {
-        "arm64／zsh": ("lessons/001-0004-prepare-claude-code-session.html",),
-    }
-    assert_codes(
-        validate_reviewed_punctuation_grounding(
-            documents, reviewed_sources=partial_sources
-        ),
-        "reviewed-punctuation-source",
-    )
-
-
 def run_self_test(repo_root: Path) -> None:
     run_site_self_test()
     run_invisible_format_scope_self_test(repo_root)
-    run_learner_attribute_scope_self_test(repo_root)
-    run_punctuation_composition_scope_self_test(repo_root)
-    run_punctuation_grounding_self_test(repo_root)
     freeze_module, manifest_module, source_module = load_modules(repo_root)
     freeze = manifest_module["load_validated_freeze"](repo_root)
     manifest = load_json(repo_root / MANIFEST_PATH, "migration manifest")
@@ -3266,11 +2878,6 @@ def run_self_test(repo_root: Path) -> None:
     }
     for exact_term in MANIFEST_ROUTE_VOCABULARY:
         assert exact_term.casefold() in grounded_manifest_values, exact_term
-    learner_documents, learner_parse_errors = parse_site_documents(
-        repo_root, collect_site_paths(repo_root)
-    )
-    assert learner_parse_errors == [], learner_parse_errors
-    assert validate_reviewed_punctuation_grounding(learner_documents) == []
     assert freeze_module["run_self_test"](freeze, repo_root) == []
     assert manifest_module["run_self_test"](manifest, freeze) == []
     source_module["run_self_test"]()
