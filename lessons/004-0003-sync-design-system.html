@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 4 · 第 03 課 · 約 10 分鐘</div>
 <h1>給一份正確的視覺參考</h1>
-<p class="mission">今天只做一件事：把一份核准過的視覺參考交給 Claude Code，明確說明 Design MCP 可以學什麼。</p>
+<p class="mission"><strong>本課成果：</strong>一份核准過的視覺參考，以及 Claude Design 可以學習與不可改動的邊界。</p>
 <div class="rule"><strong>不要一次丟很多：</strong>第一輪只用一張核准過的截圖、既有頁面或品牌範例，能減少互相衝突的風格訊號。</div>
 <h2>加上一份 context</h2>
 <div class="step"><label><input type="checkbox"> 1. 選一份可信參考</label><p>優先用自己的既有產品、核准簡報或品牌資產；先確認 Claude Code 能讀到該檔案，不要用來源不明的設計。</p></div>
@@ -21,9 +21,9 @@
 <div class="done" id="done"><strong>完成：</strong>Claude Code 已把一份清楚的參考與禁止照搬項目交給 Design MCP。</div>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1"><p>加入參考圖時，還要補上什麼？</p><button>只說照這張做</button><button>說明參考部分</button><button>再加十張範例</button><div class="why">明確指出要參考的部分，才能避免 Claude 猜錯重點或整張照搬。</div></div>
-<h2>帶走這個就好</h2><p>入門先學會提供一份清楚 context；完整 design system 匯入與 <code>/design-sync</code> 留到真的需要團隊一致性時再學。</p>
+<h2>關鍵判斷</h2><p>入門先學會提供一份清楚 context；完整 design system 匯入與 <code>/design-sync</code> 留到真的需要團隊一致性時再學。</p>
 <p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design#add-context-to-your-project">Anthropic — Add context to your project</a>。</p>
-<footer>上一課：<a href="004-0002-write-design-brief.html">四句 brief</a> · 下一課：<a href="004-0004-explore-design-directions.html">產生兩個方向</a><br>把 include／exclude 摘要貼回對話，請 AI 老師檢查參考邊界。</footer>
+<footer>上一課：<a href="004-0002-write-design-brief.html">四句 brief</a> · 下一課：<a href="004-0004-explore-design-directions.html">產生兩個方向</a><br>把 include／exclude 摘要貼回 Claude Code，請它檢查參考邊界。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

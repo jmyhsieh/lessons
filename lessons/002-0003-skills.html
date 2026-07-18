@@ -39,7 +39,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 2 · 第 03 課 · 約 30 分鐘 · 進階實作課</div>
 <h1>把重複流程打包成指令（Skills）</h1>
-<p class="mission">任務目標：把你工作中一個<strong>重複出現的多步驟流程</strong>做成 skill，之後一句 <code>/指令</code> 就能執行，並透過 git 分享給全隊。</p>
+<p class="mission"><strong>本課成果：</strong>一個能在目前程式庫重跑的工作技能（Skill）。</p>
 <div class="scope"><strong>本課只做：</strong>判斷重複工作流是否值得打包成 skill。<br><strong>先不要做：</strong>把一次性任務或尚未穩定的流程做成 skill。</div>
 
 
@@ -49,7 +49,9 @@
   <li>你發現自己<strong>重複貼同一段指示、檢查清單或多步驟流程</strong>到對話裡</li>
   <li>CLAUDE.md 裡某一段已經長成「流程」而不是「事實」</li>
 </ul>
-<p>關鍵差異：<strong>CLAUDE.md 的指示會載入 session；skill 的完整內容只在使用時載入</strong>。但 skill 不是零成本：Claude Code 會把所有 skill 的名稱與 description 清單放進 context，預算約為模型 context window 的 1%；太多或太長時，較少使用的 description 會被縮短。可用 <code>/context</code> 看實際 Skills 成本、用 <code>/doctor</code> 找主要貢獻者。所以長參考資料、偶爾才用的流程 → skill；每次都要遵守的短規則 → CLAUDE.md。</p>
+<p><strong>載入方式不同：</strong><code>CLAUDE.md</code> 的指示會在每個工作階段載入；工作技能（Skill）的完整內容只在使用時載入。</p>
+<p><strong>工作技能仍會占用對話脈絡：</strong>Claude Code 會先讀取所有工作技能的名稱與用途說明（<code>description</code>），大約可使用模型對話脈絡上限的 1%。數量太多或說明太長時，較少使用的用途說明會被縮短。可用 <code>/context</code> 查看實際占用量，再用 <code>/doctor</code> 找出主要來源。</p>
+<p><strong>選擇原則：</strong>長篇參考資料或偶爾才用的流程放進工作技能；每次都必須遵守的短規則放進 <code>CLAUDE.md</code>。</p>
 
 <h2>結構：一個資料夾 + SKILL.md</h2>
 <pre>.claude/skills/summarize-changes/SKILL.md   ← 專案（隨 git 共享）
@@ -102,7 +104,7 @@ description: 摘要未 commit 的變更並標記風險。當使用者問
 </div>
 
 <div class="done-banner" id="done">
-  🎉 <strong>你的第一個團隊 skill 上線了！</strong>回對話視窗回報：做了什麼 skill？自動觸發的 description 調了幾次才命中？
+  <strong>完成條件：</strong>工作技能已進入版控、可以重跑，並留下手動或自動觸發的實測結果。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
@@ -136,7 +138,7 @@ description: 摘要未 commit 的變更並標記風險。當使用者問
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/skills">Extend Claude with skills（官方）</a>。</p>
 
 <footer>
-  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  工作技能沒有穩定觸發時，交出 <code>SKILL.md</code>、使用者原話與實際結果，請 Claude Code 判斷要修用途說明還是執行步驟。<br>
   上一課：<a href="002-0002-guardrail-hooks.html">Phase 2 第 02 課 — guardrail hook</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 

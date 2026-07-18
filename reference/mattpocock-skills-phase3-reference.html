@@ -50,18 +50,18 @@
 <tr><td><code>/prototype</code></td><td>用拋棄式原型回答單一設計或邏輯問題；主線用 <code>/handoff</code> 進出。答案寫進 issue／commit／ADR，完整原型留在不 merge 的 throwaway branch 作為 primary source。</td><td><a href="../lessons/003-0005-prototype.html">03-05</a></td></tr>
 <tr><td><code>/to-spec</code></td><td>把已對齊的對話凝結成 spec；你可以把它理解成 PRD 的現行 canonical 名稱。</td><td><a href="../lessons/003-0006-to-spec.html">03-06</a></td></tr>
 <tr><td><code>/to-tickets</code></td><td>把 spec 切成帶 blocking edges、可獨立認領與驗收的 tickets；local tracker 使用 <code>.scratch/&lt;feature&gt;/issues/NN-slug.md</code>，一張一檔。</td><td><a href="../lessons/003-0007-to-tickets.html">03-07</a></td></tr>
-<tr><td><code>/implement</code></td><td>完成一個已對齊的 bounded slice：單-session 小需求可沿用目前 context 的 plan；跨 session 工作則依 spec 與單張 ticket 冷啟動。兩者都包含 TDD、檢查與 <code>/code-review</code> 紀律。</td><td><a href="../lessons/003-0008-implement.html">03-08</a></td></tr>
+<tr><td><code>/implement</code></td><td>完成一個已對齊的有限切片（bounded slice）：同一工作階段的小需求可沿用已確認計畫；跨工作階段則依規格與單張工作項目冷啟動。兩者都包含 TDD、檢查與 <code>/code-review</code> 紀律。</td><td><a href="../lessons/003-0008-implement.html">03-08</a></td></tr>
 <tr><td><code>/triage</code></td><td>把外部回報分流成 needs-info、ready-for-agent、ready-for-human 或 wontfix；agent-ready issue 通常交 <code>/implement</code>，難解、間歇或回歸 bug 才改走 diagnosing-bugs。</td><td><a href="../lessons/003-0009-triage.html">03-09</a></td></tr>
-<tr><td><code>/wayfinder</code></td><td>巨大、模糊、超過一個 session 的 effort 先建立共享 map。普通 frontier ticket 一個 session 解一張；research ticket 是例外，charting 後可平行啟動 research subagents，讓結果留在不 merge 的 <code>research/&lt;name&gt;</code> branch，並在 ticket 留 context pointer。路徑清楚後回到 <code>/to-spec</code>。</td><td><a href="../lessons/003-0013-wayfinder-chart-map.html">03-13</a> · <a href="../lessons/003-0014-wayfinder-frontier.html">03-14</a> · <a href="wayfinder-map-workflow.html">速查</a></td></tr>
+<tr><td><code>/wayfinder</code></td><td>工作巨大、模糊，而且無法在一個工作階段完成時，先建立共享地圖。一般情況下一個工作階段只處理一張待決工作項目；研究型工作是例外，可以在完成地圖後交給多個研究子代理平行調查。調查結果留在不合併的 <code>research/&lt;name&gt;</code> 分支，工作項目則註明需要讀取結果的時機。路徑清楚後回到 <code>/to-spec</code>。</td><td><a href="../lessons/003-0013-wayfinder-chart-map.html">03-13</a> · <a href="../lessons/003-0014-wayfinder-frontier.html">03-14</a> · <a href="wayfinder-map-workflow.html">速查</a></td></tr>
 <tr><td><code>/improve-codebase-architecture</code></td><td>掃描架構深化機會；挑一個候選後回 <code>/grill-with-docs</code>。同-session 小改直接接 bounded implement；跨 session 才先產生 spec 與 tickets。</td><td><a href="../lessons/003-0011-architecture.html">03-11</a></td></tr>
-<tr><td><code>/handoff</code></td><td>把脈絡寫成 OS temp 文件供本機新 session 冷啟動。跨人或跨機器必須另用授權管道安全傳送；本機 temp 路徑不會自動同步。</td><td><a href="../lessons/003-0012-handoff.html">03-12</a></td></tr>
+<tr><td><code>/handoff</code></td><td>把脈絡寫成作業系統暫存文件，供本機新工作階段冷啟動。跨人或跨機器必須另用授權管道安全傳送；本機暫存路徑不會自動同步。</td><td><a href="../lessons/003-0012-handoff.html">03-12</a></td></tr>
 </table>
 
 <h2>流程內能力</h2>
 <table>
 <tr><th>Skill / 能力</th><th>定位</th><th>何時出現</th></tr>
 <tr><td><code>/tdd</code></td><td>用 RED → GREEN 保護行為；refactoring 歸 review 階段。</td><td>主要在 <code>/implement</code> 與除錯修復中出現。</td></tr>
-<tr><td><code>/code-review</code></td><td>以使用者提供的 fixed point（commit、branch、tag 或 merge-base）做 three-dot diff；先找 spec 與 repo standards，再由 Standards／Spec reviewers 平行檢查。Standards 以 repo 規則為準，Fowler code smell baseline 只當 heuristic；兩軸 findings side by side 呈現，不合併或跨軸重排。</td><td>可作為 <code>/implement</code> 收尾關卡，也可獨立 review PR、branch 或 WIP。</td></tr>
+<tr><td><code>/code-review</code></td><td>先指定審查起點（fixed point），例如 commit、branch、tag 或 merge-base，再檢查 three-dot diff。一位審查者對照 repo 規則，另一位對照規格；兩份結果分開保留。</td><td>可作為 <code>/implement</code> 的收尾關卡，也可獨立審查 PR、分支或進行中的修改。</td></tr>
 <tr><td><code>diagnosing-bugs</code></td><td>先建立 red-capable feedback loop，再重現、最小化、列假說、埋點、修復與回歸。</td><td>難解、間歇或回歸 bug；repo 地圖只能服務回饋迴圈，不先代替它猜原因。</td></tr>
 <tr><td><code>domain-modeling</code></td><td>逐詞穩定專案的 implementation-free 領域語言；由人確認已釐清的詞彙後再寫進 CONTEXT.md。</td><td><code>/grill-with-docs</code> 與 CONTEXT.md 會反覆用到；ADR 仍須另外通過 foundation 的三項門檻。</td></tr>
 <tr><td><code>codebase-design</code></td><td>提供深模組、接縫與介面設計 vocabulary；Adapter 是在 seam 上滿足 interface 的具體角色，描述它填入哪個位置。</td><td><code>/improve-codebase-architecture</code> 與設計 review 時使用。</td></tr>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>10：用 /diagnosing-bugs 做紀律除錯</title>
+<title>10：用 /diagnosing-bugs做紀律除錯</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -38,44 +38,58 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 3 · 第 10 課 · 約 45 分鐘 · 缺陷修復</div>
-<h1>用 /diagnosing-bugs 做紀律除錯</h1>
-<p class="mission">目標：學會六階段診斷紀律，下次真實 repo 出 bug 時用 <code>/diagnosing-bugs</code> 跑完整迴圈。這支 skill 的核心價值是把模糊症狀變成可重現、可驗證、可回歸的修復流程。</p>
-<div class="scope"><strong>本課只做：</strong>用可重現訊號推進除錯。<br><strong>先不要做：</strong>在沒有 failing case 時只靠猜測改 code。</div>
+<h1>用 /diagnosing-bugs做紀律除錯</h1>
+<p class="mission"><strong>本課成果：</strong>一份以可重現現象與驗證證據支持的錯誤診斷紀錄。</p>
+<div class="scope"><strong>本課只做：</strong>用可重現訊號推進除錯。<br><strong>先不要做：</strong>在沒有 failing case 時只靠猜測改程式碼。</div>
 
 
-<h2>整個 skill 就一句話</h2>
-<p><code>/diagnosing-bugs</code> skill 原文：「<strong>This is the skill. Everything else is mechanical.</strong>」— 有了快速、確定性、agent 能自己跑的 pass/fail 訊號，bug 就等於修好了 90%；沒有它，盯 code 盯再久都沒用。這是 Phase 1 第 12 課「給它能自己跑的驗證」的除錯版，也是整套課程的母題。</p>
+<h2>整個工作技能就一句話</h2>
+<p><code>/diagnosing-bugs</code> 的核心是先建立快速、穩定，而且 Claude Code 能自己執行的通過／失敗訊號。有了回饋迴圈才能驗證假說；沒有它，就只能猜著修改。</p>
 
 <h2>六階段地圖</h2>
 <table>
 <tr><th>階段</th><th>做什麼</th><th>鐵律</th></tr>
 <tr><td>1. <strong>建回饋迴圈</strong></td><td>用十種武器之一造出 pass/fail 訊號</td><td>沒有迴圈不准進下一階段</td></tr>
-<tr><td>2. Reproduce + minimise</td><td>親眼看 bug 出現，再逐項刪除非必要輸入、caller、設定、資料與步驟</td><td>必須是<strong>使用者描述的那個</strong> bug；最後每個剩餘元素都不可再刪</td></tr>
-<tr><td>3. Hypothesise</td><td><strong>先列 3–5 個排序假說</strong>再測任何一個</td><td>每個假說要可否證（能說出預測）</td></tr>
-<tr><td>4. Instrument</td><td>每個探針對應一個預測，一次改一個變數</td><td>debug log 全部加唯一前綴（如 <code>[DEBUG-a4f2]</code>）</td></tr>
-<tr><td>5. Fix + 回歸測試</td><td><strong>先寫回歸測試（看它失敗）再修</strong></td><td>只在「正確的接縫」寫；沒有正確接縫＝那本身就是發現</td></tr>
-<tr><td>6. Cleanup + 復盤</td><td>grep 前綴清光 debug log、記錄學到的</td><td>沒清乾淨不算完成</td></tr>
+<tr><td>2. 重現並最小化</td><td>親眼看錯誤出現，再逐項刪除非必要輸入、呼叫端、設定、資料與步驟</td><td>必須是<strong>使用者描述的那個</strong>錯誤；最後每個剩餘元素都不可再刪</td></tr>
+<tr><td>3. 提出假說</td><td><strong>先列 3–5 個排序假說</strong>再測任何一個</td><td>每個假說要可否證（能說出預測）</td></tr>
+<tr><td>4. 加入觀測點</td><td>每個探針對應一個預測，一次改一個變數</td><td>除錯紀錄全部加唯一前綴（如 <code>[DEBUG-a4f2]</code>）</td></tr>
+<tr><td>5. 修正並補回歸測試</td><td><strong>先寫回歸測試（看它失敗）再修</strong></td><td>只在「正確的接縫」寫；沒有正確接縫＝那本身就是發現</td></tr>
+<tr><td>6. 清理並復盤</td><td>搜尋前綴，清光除錯紀錄並記下學到的事</td><td>沒清乾淨不算完成</td></tr>
 </table>
 
 <h2>重現後一定要最小化</h2>
-<p>看見紅燈只是 Phase 2 的前半。接著一次只移除一個輸入、caller、設定、資料或操作步驟，每移除一次就重跑回饋迴圈；能維持紅燈就繼續刪，變綠則把該元素放回。完成條件是：剩下的每個元素都對 bug 成立不可或缺。這份 minimal repro 會縮小假說空間，也會成為第 5 階段最乾淨的 regression test。</p>
-<div class="tip"><strong>Repo 地圖的邊界：</strong>陌生子系統可以在第 1 階段用窄地圖協助找到真實 call path 與測試 seam，但地圖必須服務於建立 red-capable command。迴圈存在前，不要先靠讀 code 建立原因假說。</div>
+<p>看見紅燈只是前半段。接著一次只移除一個輸入、呼叫端、設定、資料或操作步驟，每移除一次就重跑回饋迴圈；能維持紅燈就繼續刪，變綠則把該元素放回。最後留下的最小重現案例（minimal reproduction）會縮小假說空間，也能成為乾淨的回歸測試。</p>
+<div class="tip"><strong>repo 地圖的邊界：</strong>陌生子系統可以用窄地圖協助找到真實呼叫路徑與測試接縫，但地圖必須服務於建立能重現紅燈的命令。</div>
 
-<h2>diagnosing-bugs 內部第 1 階段的武器庫（節選）</h2>
-<p>十種造迴圈的方法，大致依序嘗試：失敗測試 → curl/HTTP script → CLI＋fixture 比對快照 → headless browser → <strong>重放捕獲的 trace</strong>（存下真實 payload 重放）→ 拋棄式 harness（mock 依賴只跑出 bug 的路徑）→ fuzz 迴圈 → <strong>bisection harness</strong>（自動化「回到狀態 X 檢查」讓 git bisect 跑）→ 差分迴圈（新舊版同輸入比輸出）→ 最後手段 HITL script。</p>
-<div class="tip"><strong>三個對高風險 bug 特別重要的細則：</strong>
+<h2>入門先用三種回饋迴圈</h2>
+<ol>
+  <li><strong>失敗測試：</strong>最適合已經有測試接縫的 repo；先證明測試能重現錯誤。</li>
+  <li><strong>重現命令：</strong>用 <code>curl</code> 或 CLI 固定輸入，每次修改後執行同一個命令。</li>
+  <li><strong>瀏覽器證據：</strong>網頁錯誤先留下固定操作步驟、console 訊息與 trace，再比較修改前後。</li>
+</ol>
+<details>
+  <summary>前三種都做不到時，再看進階工具</summary>
+  <ul>
+    <li>用固定資料比對輸出快照。</li>
+    <li>重放已捕獲的請求資料或 trace。</li>
+    <li>建立只執行錯誤路徑的拋棄式測試工具。</li>
+    <li>用 fuzzing、<code>git bisect</code> 或新舊版本差分縮小問題。</li>
+    <li>真的無法自動重現時，才保留人工操作腳本。</li>
+  </ul>
+</details>
+<div class="tip"><strong>三個對高風險錯誤特別重要的細則：</strong>
 (1) <strong>迴圈本身要迭代</strong> — 「30 秒且會閃爍的迴圈只比沒有好一點；2 秒且確定性的迴圈是除錯超能力」。
-(2) <strong>非確定性 bug</strong>：目標不是乾淨重現而是「拉高重現率」— 觸發 100 次、平行化、加壓、注入 sleep，50% 重現率就能除錯。
+(2) <strong>非確定性錯誤</strong>：先把重現率拉高，不必等到每次都能乾淨重現— 觸發 100 次、平行化、加壓、注入 sleep，50% 重現率就能除錯。
 (3) <strong>真的造不出迴圈時它會停下來明說</strong>，向你要環境存取、捕獲物（HAR/log dump/錄影）或臨時埋點的許可 — 它被禁止在沒有迴圈時瞎猜假說。</div>
 
-<h2>你的角色：diagnosing-bugs 內部第 3 階段的關鍵一秒</h2>
-<p>它列出排序假說後會先給你看 — 這是人類脈絡的關鍵介入點：「#3 那個模組我們上週才改過」一句話就能瞬間重排序。skill 也明定你不在場時它會照自己的排序繼續，不會卡住。</p>
+<h2>你的角色：在假說階段補上人類脈絡</h2>
+<p>它列出排序假說後會先給你看 — 這是人類脈絡的關鍵介入點：「#3 那個模組我們上週才改過」一句話就能瞬間重排序。工作技能也明定你不在場時它會照自己的排序繼續，不會卡住。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 
 <div class="step">
-  <label><input type="checkbox"> 1. 挑一個真實 bug</label>
-  <p>從 issue tracker、QA 回報或產品待辦挑一個真實 bug — 最好是有點難重現的，才能看出這套紀律的價值。</p>
+  <label><input type="checkbox"> 1. 挑一個真實錯誤</label>
+  <p>從 議題追蹤系統、QA 回報或產品待辦挑一個真實錯誤 — 最好是有點難重現的，才能看出這套紀律的價值。</p>
 </div>
 
 <div class="step">
@@ -96,32 +110,32 @@
 
 <div class="step">
   <label><input type="checkbox"> 5. 盯第 5 階段的接縫判斷</label>
-  <p>確認：回歸測試先紅後綠了嗎？它寫測試的接縫真的能重現 bug 的觸發模式嗎？若它回報「沒有正確接縫」— 把這個發現餵給 Phase 3 第 11 課的架構健檢。</p>
+  <p>確認：回歸測試先紅後綠了嗎？它寫測試的接縫真的能重現錯誤的觸發模式嗎？若它回報「沒有正確接縫」— 把這個發現餵給 Phase 3 第 11 課的架構健檢。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 6. 驗收第 6 階段</label>
-  <p>grep debug 前綴確認清光、原始（未最小化）情境重跑通過。修 bug 若釐清了領域術語，經人確認後才更新 CONTEXT.md；若形成決策，仍要同時通過難以回頭、缺少背景會令人意外、真實 tradeoff 三項 gate 才寫 ADR，否則留在 issue 或 commit。</p>
+  <p>搜尋除錯前綴，確認所有臨時紀錄已清除，再重跑原始情境。若修正釐清了領域術語，經人確認後才更新 CONTEXT.md；需要保存的重要取捨才寫 ADR，其餘留在 issue 或 commit。</p>
 </div>
 
 <div class="done-banner" id="done">
-  🎉 <strong>缺陷線開張：你有了系統化除錯的紀律。</strong>回對話視窗回報：它用哪種武器造迴圈？你的人類脈絡在假說階段重排了什麼？
+  <strong>完成條件：</strong>診斷紀錄包含最小重現案例、排序過的假說、推翻假說的證據與修正後驗證。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
 
 <div class="quiz" data-answer="1">
-  <p>1. bug 很難重現（約 1% 機率），/diagnosing-bugs 的正確策略是？</p>
+  <p>1. 錯誤很難重現（約 1% 機率），/diagnosing-bugs的正確策略是？</p>
   <button>直接閱讀程式碼並推理原因</button>
   <button>拉高重現率並建立回饋迴圈</button>
   <button>先修改最可疑的位置再觀察</button>
-  <div class="why">skill 原文：目標不是乾淨重現而是「更高的重現率」— 50% 就能除錯，1% 不行。沒有迴圈就猜著修，正是這套紀律要根除的行為。</div>
+  <div class="why">技能原文要求先提高重現率— 50% 就能除錯，1% 不行。沒有迴圈就猜著修，正是這套紀律要根除的行為。</div>
 </div>
 
 <div class="quiz" data-answer="0">
   <p>2. 為什麼要求「先列 3–5 個假說再測任何一個」？</p>
   <button>避免錨定在第一個看似合理的想法上</button>
-  <button>因為多數的 bug 都有三到五個根本原因</button>
+  <button>因為多數的錯誤都有三到五個根本原因</button>
   <button>方便把假說平均分配給多個分身去查</button>
   <div class="why">單一假說生成會錨定（anchoring）— 第一個合理解釋會吸走所有注意力。先發散再排序，而且每個假說都要能說出可否證的預測。</div>
 </div>
@@ -131,15 +145,15 @@
   <button>Refactor 階段：全綠之後才開始動結構</button>
   <button>Planning 階段：先和使用者確認要測什麼</button>
   <button>RED→GREEN：沒看過失敗的測試不可信</button>
-  <div class="why">（間隔複習）同一條鐵律：測試必須先紅 — 證明它真的在測這個 bug — 修完轉綠才有意義。診斷迴圈就是 TDD 哲學的除錯變體。</div>
+  <div class="why">（間隔複習）同一條鐵律：測試必須先紅 — 證明它真的在測這個錯誤 — 修完轉綠才有意義。診斷迴圈就是 TDD 哲學的除錯變體。</div>
 </div>
 
 <div class="quiz" data-answer="0">
-  <p>4.（複習 Phase 3 第 03 課）陌生子系統出 bug，repo 地圖放在 /diagnosing-bugs 的哪裡最有價值？</p>
+  <p>4.（複習 Phase 3 第 03 課）陌生子系統出錯誤，程式庫地圖放在 /diagnosing-bugs的哪裡最有價值？</p>
   <button>第 1 階段 — 找到回饋迴圈的路徑</button>
   <button>第 3 階段 — 跳過證據直接猜原因</button>
   <button>第 6 階段 — 修完才第一次讀結構</button>
-  <div class="why">地圖可以協助找到 call path 與測試 seam，但它服務的是 red-capable command；迴圈存在前，不能先靠 code reading 建立原因假說。</div>
+  <div class="why">地圖可以協助找到呼叫路徑與測試接縫，但它服務的是能重現紅燈的命令；建立迴圈前，不能只靠閱讀程式碼猜原因。</div>
 </div>
 
 <h2>下一步</h2>
@@ -147,7 +161,7 @@
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/diagnosing-bugs/SKILL.md">reviewed diagnosing-bugs snapshot（66898f6）</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnosing-bugs/SKILL.md">current diagnosing-bugs</a>。</p>
 
 <footer>
-  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  診斷停滯時，交出最小重現案例、完整錯誤與已排除的假說，請 Claude Code 提出下一個能推翻假說的檢查。<br>
   上一課：<a href="003-0009-triage.html">Phase 3 第 09 課 — /triage</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 

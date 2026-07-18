@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01：從一個重複工作流程開始</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#7a4b25;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#7a4b25}.mission{font-style:italic;color:#555;border-left:3px solid #7a4b25;padding-left:1rem}.rule{background:#fcf8f4;border-left:4px solid #7a4b25;padding:.75rem 1rem}.step,.quiz{border:1px solid #e3d5c8;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f5eee8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#6d421f}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #e3d5c8;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fcf8f4;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #e3d5c8;padding-top:1rem}
+</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 9 · 入門第 01 課 · 約 10 分鐘</div>
+<h1>從一個重複工作流程開始</h1>
+<p class="mission"><strong>本課成果：</strong>一張來自真實 repo 工作的 Skill 需求卡。</p>
+<div class="rule"><strong>Skills 囤積困境（skill hell）：</strong>手上裝了很多 Skills，卻不知道哪個可靠、何時該用，最後也得不到預期結果。先用同一套檢查標準改好一個真實工作流程，再決定是否需要更多 Skills。</div>
+
+<h2>判斷值不值得做成 Skill</h2>
+<div class="step"><label><input type="checkbox"> 1. 找出最近重複過的指示</label><p>回想你至少講過兩次的流程，例如「收尾時列出 changed、verified、remaining、blocked」。一次性需求、純事實或一句簡短偏好，先不要做成 Skill。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 寫清楚輸入與可見輸出</label><p>輸入可以是目前 Claude Code 對話與 repo 狀態；輸出要能被看見與審查，例如四段狀態摘要。避免只寫「做得更好」。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 寫出停止線</label><p>這個 Skill 只整理現況，不替你 commit、push、deploy，也不把沒跑過的檢查寫成通過。先把第一版縮到一個低風險結果。</p></div>
+
+<pre>Skill 名稱：repo-checkpoint
+何時需要：我要暫停、換 session 或確認目前狀態時
+輸入：目前對話、repo 變更與已知檢查結果
+輸出：Changed / Verified / Remaining / Blocked
+停止線：不修改檔案、不執行外部發布、不把未驗證寫成已通過</pre>
+
+<div class="done" id="done"><strong>完成：</strong>你已有一張只涵蓋一個重複流程的 Skill 需求卡。</div>
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="1"><p>哪個最適合成為第一個 Skill？</p><button>只出現一次的特殊文案修改</button><button>每次收尾都重複的狀態整理</button><button>所有工程工作的一次完整自動化</button><div class="why">第一個 Skill 應來自真實、重複、低風險且有可見輸出的流程；不是一次性任務，也不是把所有工作一次包完。</div></div>
+<h2>關鍵判斷</h2><p>先找出值得穩定重用的一組指示，再決定是否做成 Skill。</p>
+<p><strong>主要閱讀：</strong><a href="https://www.youtube.com/watch?v=UNzCG3lw6O0">Building Great Agent Skills: The Missing Manual</a> 的 0:00–3:15；完整四段見 <a href="../reference/agent-skill-checklist.html">Phase 9 工作技能檢查表</a>。</p>
+<footer>上一階段：<a href="008-0009-run-reviewed-tests-in-ci.html">Phase 8 收尾</a> · 下一課：<a href="009-0002-create-first-project-skill-with-claude-code.html">建立第一個專案 Skill</a><br>把 Skill 需求卡貼回 Claude Code，請它檢查這是否真的是重複流程，以及輸出能否被驗收。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
+</body>
+</html>

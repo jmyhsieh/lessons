@@ -36,7 +36,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 1 · 第 05 課 · 約 25 分鐘 · 實作課（桌面 App 優先）</div>
 <h1>第一次讓它改程式碼 — 分支、小改動、review</h1>
-<p class="mission">任務目標：在工作 repo 裡，讓 Claude Code 完成一個<strong>低風險的真實修改</strong>，全程走「先開分支 → 逐項批准 → 親自 review diff → commit」的安全流程。做完這課，你就具備在正式專案日常使用的基本功。</p>
+<p class="mission"><strong>本課成果：</strong>一筆小範圍程式差異（diff），經過人工審查與驗證後再提交。</p>
 <div class="scope"><strong>本課只做：</strong>在分支上做一個小改動，並看懂 diff。<br><strong>先不要做：</strong>把第一個任務選成跨模組重構或高風險修復。</div>
 
 <div class="safety"><strong>開始前檢查：</strong>本課需要 Git 可用，因為會建立分支與 commit。若還沒確認，先在終端機跑 <code>git --version</code>；看不到版本號就回第 02 課完成 Git 先備檢查。</div>
@@ -97,7 +97,7 @@ exit status, and output. If it fails, fix it and rerun.</pre>
 </div>
 
 <div class="done-banner" id="done">
-  🎉 <strong>完成！你已經走過一輪正式專案的安全工作流。</strong>回到對話視窗回報：它的計劃和 diff 品質如何？有沒有你拒絕過的修改？
+  <strong>完成條件：</strong>小改動位於正確分支、差異已審查、適用檢查已通過，拒絕或修正的內容也有紀錄。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
@@ -123,7 +123,7 @@ exit status, and output. If it fails, fix it and rerun.</pre>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code Best Practices（官方）</a> — 本課流程的進階版。</p>
 
 <footer>
-  任何一步卡住或對 diff 有疑慮，回對話視窗問你的 AI 老師。<br>
+  任何一步卡住或對程式差異有疑慮，就把差異與檢查結果貼回 Claude Code，請它指出風險。<br>
   上一課：<a href="001-0004-permission-plan-mode.html">Phase 1 第 04 課 — plan mode</a> · <a href="../reference/claude-code-command-surface.html">Claude Code 操作速查表</a>
 </footer>
 

@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 5 · 進階第 11 課 · 約 20 分鐘</div>
 <h1>稽核 accessibility 與輸出格式</h1>
-<p class="mission">今天只做一件事：讓 Claude Code 做交付前 preflight，再由你確認觀眾拿到的實際檔案清楚可用。</p>
+<p class="mission"><strong>本課成果：</strong>一份交付前檢查紀錄，確認實際檔案的閱讀性與格式。</p>
 <div class="rule"><strong>不要只看編輯畫面：</strong>PDF、HTML 或簡報檔都可能在輸出後換行、缺字、失去閱讀順序。</div>
 <h2>跑一輪交付前稽核</h2>
 <div class="step"><label><input type="checkbox"> 1. 請 Claude Code 抽查內容與權利</label><p>用 claim ledger 指出重要數字、引用與授權位置；圖片與圖表缺少來源就列 blocker，不猜授權。</p></div>
@@ -20,9 +20,9 @@
 <div class="step"><label><input type="checkbox"> 3. 由你打開每種目標格式</label><p>實際打開 PDF、HTML 或簡報檔，檢查字型、裁切、連結與頁面順序，再把實測結果交回 Claude Code。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已驗證真正會交到觀眾手上的檔案，而不只是來源畫面。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>完成匯出後，哪一項才是交付證據？</p><button>目標檔案實際開啟</button><button>原始畫面看起來好</button><button>模型完成一次輸出</button><div class="why">只有實際打開目標檔案，才能發現輸出後的字型、裁切、連結與閱讀順序問題。</div></div>
-<h2>帶走這個就好</h2><p>Accessibility 與格式檢查都必須落在實際交付物上。</p>
+<h2>關鍵判斷</h2><p>Accessibility 與格式檢查都必須落在實際交付物上。</p>
 <p><strong>主要閱讀：</strong><a href="https://www.w3.org/WAI/teach-advocate/accessible-presentations/">W3C WAI — How to Make Your Presentations Accessible to All</a>。</p>
-<footer>上一課：<a href="005-0010-build-reusable-deck-system.html">建立 deck system</a> · 下一課：<a href="005-0012-run-structured-rehearsal-and-version.html">結構化彩排並封存版本</a><br>把 Claude Code checklist 與一項實測結果貼回對話，請 AI 老師分辨建議與證據。</footer>
+<footer>上一課：<a href="005-0010-build-reusable-deck-system.html">建立 deck system</a> · 下一課：<a href="005-0012-run-structured-rehearsal-and-version.html">結構化彩排並封存版本</a><br>把 Claude Code checklist 與一項實測結果貼回 Claude Code，請它分辨建議與證據。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

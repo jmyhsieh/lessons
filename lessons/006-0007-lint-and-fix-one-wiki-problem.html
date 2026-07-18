@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 6 · 進階第 07 課 · 約 15 分鐘</div>
 <h1>Lint 並修一個 Wiki 問題</h1>
-<p class="mission">今天只做一件事：先做唯讀健康檢查，再挑一個最重要的問題修好。</p>
+<p class="mission"><strong>本課成果：</strong>一項由唯讀格式檢查（lint）找出並修好的 Wiki 問題。</p>
 
 <div class="rule"><strong>Lint 先找問題，不先大改：</strong>它檢查矛盾、過期說法、孤兒頁、缺少連結與資料缺口；你決定先修哪一項。</div>
 
@@ -43,10 +43,10 @@
 <div class="why">Lint 是健康檢查：先找矛盾、過期、孤兒頁與缺口，再由人決定怎麼處理。</div>
 </div>
 
-<h2>帶走這個就好</h2>
+<h2>關鍵判斷</h2>
 <p><strong>一次 lint 不必修完整個 Wiki。</strong>報告、選一項、修正、重跑，這個小回圈才是可持續的維護方式。</p>
 <p><strong>主要閱讀：</strong><a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki：Lint</a>。</p>
-<footer>上一課：<a href="006-0006-query-and-file-a-durable-answer.html">Query 並寫回</a> · 下一課：<a href="006-0008-automate-one-safe-wiki-check.html">自動化一個安全檢查</a><br>有不清楚的，回對話視窗問你的 AI 老師。</footer>
+<footer>上一課：<a href="006-0006-query-and-file-a-durable-answer.html">Query 並寫回</a> · 下一課：<a href="006-0008-automate-one-safe-wiki-check.html">自動化一個安全檢查</a><br>格式檢查結果看不懂時，交出執行命令、錯誤訊息與被修改頁面，請 Claude Code 說明哪條規則沒有通過。</footer>
 <script>
 const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});
 </script>

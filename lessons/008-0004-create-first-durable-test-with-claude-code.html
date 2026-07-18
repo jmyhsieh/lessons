@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 8 · 入門第 04 課 · 約 20 分鐘</div>
 <h1>讓 Claude Code 留下第一個持久 test</h1>
-<p class="mission">今天只做一件事：把上一課的 live check 轉成 repo 內一個會失敗、修正後會通過的 Playwright Test。</p>
+<p class="mission"><strong>本課成果：</strong>一個放在程式庫內、具有失敗到通過證據的 Playwright Test。</p>
 <div class="rule"><strong>先審再改：</strong>請 Claude Code 先讀 repo instructions、package scripts 與 test patterns。若尚未安裝 Playwright Test，先列出依賴、檔案與命令，等你同意後才修改。</div>
 <h2>做出第一份紅綠證據</h2>
 <div class="step"><label><input type="checkbox"> 1. 限定只做一個 test</label><pre>先讀 repo instructions、package scripts 與既有 test patterns。
@@ -23,9 +23,9 @@
 <div class="step"><label><input type="checkbox"> 3. 證明 test 真的會抓錯</label><p>先把一個 expected result 暫時改錯並執行，保存可解釋的 failure；立刻還原正確預期、重跑通過，再確認 <code>git diff</code> 沒留下故意錯誤。</p></div>
 <div class="done" id="done"><strong>入門完成：</strong>你已有一個可提交 test，以及同一風險的 fail → pass evidence。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>什麼最能證明新 test 會保護預期行為？</p><button>失敗再通過才能證明有效</button><button>只有通過就能證明有效了</button><button>模型說完成就能證明有效</button><div class="why">刻意破壞預期後看到相關 failure，再還原並通過，能證明 test 不是只在任何情況下都綠。</div></div>
-<h2>帶走這個就好</h2><p>Claude Code 可以寫 test，但你要審查它測了什麼，並用紅綠證據證明它真的能抓到風險。</p>
+<h2>關鍵判斷</h2><p>Claude Code 可以寫 test，但你要審查它測了什麼，並用紅綠證據證明它真的能抓到風險。</p>
 <p><strong>主要閱讀：</strong><a href="https://playwright.dev/docs/writing-tests">Playwright — Writing tests</a> 與 <a href="https://playwright.dev/docs/test-assertions">Assertions</a>。</p>
-<footer>上一課：<a href="008-0003-run-first-browser-check-with-claude-code.html">完成 live check</a> · 進階下一課：<a href="008-0005-initialize-playwright-test-agents.html">初始化 Test Agents</a> · <a href="../reference/playwright-browser-verification-workflow.html">Phase 8 路線卡</a><br>把 test diff、failure 摘要與 passing command 貼回對話，請 AI 老師做一次完成線檢查。</footer>
+<footer>上一課：<a href="008-0003-run-first-browser-check-with-claude-code.html">完成 live check</a> · 進階下一課：<a href="008-0005-initialize-playwright-test-agents.html">初始化 Test Agents</a> · <a href="../reference/playwright-browser-verification-workflow.html">Phase 8 路線卡</a><br>把 test diff、failure 摘要與 passing command 貼回 Claude Code，請它做一次完成線檢查。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

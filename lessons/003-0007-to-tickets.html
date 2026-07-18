@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>07：用 /to-tickets 切成可認領工作</title>
+<title>07：用 /to-tickets切成可認領工作</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -38,66 +38,66 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 3 · 第 07 課 · 約 35 分鐘 · 工作切片</div>
-<h1>用 /to-tickets 切成可認領工作</h1>
-<p class="mission">目標：把第 06 課的 spec 拆成一組可以獨立認領、獨立驗收的 tickets。這一課練的是「切片品質」與 blocking edges，不是把大計畫切成一堆技術層待辦。</p>
-<div class="scope"><strong>本課只做：</strong>把 spec 切成可認領 tickets。<br><strong>先不要做：</strong>用資料層、API 層、UI 層做水平切片。</div>
+<h1>用 /to-tickets切成可認領工作</h1>
+<p class="mission"><strong>本課成果：</strong>一組可獨立認領、各自有完成條件的工作項目（tickets）。</p>
+<div class="scope"><strong>本課只做：</strong>把規格切成可認領工作項目。<br><strong>先不要做：</strong>用資料層、API 層、UI 層做水平切片。</div>
 
-<h2>Pipeline 全景：你在這裡</h2>
+<h2>工作流程全景：你在這裡</h2>
 <pre>/to-spec → <strong>/to-tickets</strong> → /implement</pre>
 
 <h2>垂直切片，不是水平分工</h2>
-<p><code>/to-tickets</code> 的核心是 tracer bullet：每張 ticket 都是一條窄但完整的端到端路徑。它可以很小，但必須自己能 demo、能測、能判斷完成。</p>
+<p><code>/to-tickets</code> 的核心是 tracer bullet：每張工作項目都是一條窄但完整的端到端路徑。它可以很小，但必須自己能 demo、能測、能判斷完成。</p>
 <table>
-<tr><th>好的 ticket</th><th>不好的 ticket</th></tr>
+<tr><th>好的工作項目</th><th>不好的工作項目</th></tr>
 <tr><td>新增「查詢一筆訂單」：schema、API、畫面、測試最小通路。</td><td>先建完所有資料表，之後再補 API 與畫面。</td></tr>
-<tr><td>一張 ticket 有明確驗收條件與 Blocked by。</td><td>一張 ticket 只寫「完成後端」或「整理前端」。</td></tr>
-<tr><td>Blocked by 只列真正會卡住這張 ticket 的前置。</td><td>把所有看起來相關的工作都塞進依賴清單。</td></tr>
+<tr><td>一張工作項目有明確驗收條件與 Blocked by。</td><td>一張工作項目只寫「完成後端」或「整理前端」。</td></tr>
+<tr><td>Blocked by 只列真正會卡住這張工作項目的前置。</td><td>把所有看起來相關的工作都塞進依賴清單。</td></tr>
 </table>
-<div class="tip"><strong>你要把關的問題：</strong>這片能不能獨立驗收？Blocking edge 是否真的阻塞？如果不能，就要求它再切。這比 ticket 數量漂亮更重要。</div>
+<div class="tip"><strong>你要把關的問題：</strong>這片能不能獨立驗收？Blocking edge 是否真的阻塞？如果不能，就要求它再切。這比工作項目數量漂亮更重要。</div>
 
 <h2>Blocking edges 與 frontier</h2>
-<p>每張 ticket 都要列出 <strong>Blocked by</strong>：哪些 tickets 沒完成前，這張不能開始。沒有 blocker 的 ticket 就在 frontier 上，可以先被認領。local markdown tracker 會把 edges 寫成文字；GitHub、GitLab 或其他真 tracker 則盡量使用原生 blocking / sub-issue 關係。</p>
+<p>每張工作項目都要列出 <strong>Blocked by</strong>：哪些工作項目沒完成前，這張不能開始。沒有 blocker 的工作項目就在 frontier 上，可以先被認領。local markdown 追蹤系統會把 edges 寫成文字；GitHub、GitLab 或其他真追蹤系統則盡量使用原生 blocking / sub-issue 關係。</p>
 <table>
 <tr><th>欄位</th><th>你要檢查什麼</th></tr>
 <tr><td><strong>Title</strong></td><td>一眼看得出它交付哪個行為。</td></tr>
 <tr><td><strong>What it delivers</strong></td><td>從使用者角度描述端到端結果，不是分層實作清單。</td></tr>
-<tr><td><strong>Blocked by</strong></td><td>只列真正 gate 住它的 tickets；沒有 blocker 就寫 None。</td></tr>
+<tr><td><strong>Blocked by</strong></td><td>只列真正關卡住它的工作項目；沒有 blocker 就寫 None。</td></tr>
 <tr><td><strong>Acceptance criteria</strong></td><td>完成後能被檢查，不只是「看起來完成」。</td></tr>
 </table>
 <div class="tip"><strong>Wide refactor 例外：</strong>若是欄位改名、共享型別重打這種 blast radius 很大的機械改動，不能硬切成普通垂直切片。改用 expand-contract：先加新形式，再分批搬 call sites，最後刪舊形式。</div>
 
-<h2>Local markdown：一張 ticket 一個檔案</h2>
-<p>使用 local tracker 時，upstream 的 canonical shape 是：</p>
+<h2>Local markdown：一張工作項目一個檔案</h2>
+<p>使用 local 追蹤系統時，upstream 的 canonical shape 是：</p>
 <pre>.scratch/&lt;feature&gt;/spec.md
 .scratch/&lt;feature&gt;/issues/01-&lt;slug&gt;.md
 .scratch/&lt;feature&gt;/issues/02-&lt;slug&gt;.md</pre>
-<p>每張 ticket 依 dependency order 編號，檔內包含 <code>What to build</code>、<code>Blocked by</code>、<code>Status: ready-for-agent</code> 與 acceptance criteria。不要把所有工作合併成單一 <code>tickets.md</code>。</p>
+<p>每張工作項目依 dependency order 編號，檔內包含 <code>What to build</code>、<code>Blocked by</code>、<code>Status: ready-for-agent</code> 與 acceptance criteria。不要把所有工作合併成單一 <code>tickets.md</code>。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
-  <label><input type="checkbox"> 1. 拿到第 06 課 spec</label>
-  <p>確認 spec 有 user stories、scope、驗收條件與測試接縫。沒有這些，先回第 06 課補 spec。</p>
+  <label><input type="checkbox"> 1. 拿到第 06 課規格</label>
+  <p>確認規格有使用情境、範圍、驗收條件與測試接縫。沒有這些，先回第 06 課補規格。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 2. 執行 /to-tickets</label>
   <pre>/to-tickets [spec 路徑或 issue 連結]</pre>
-  <p>讓它先列出 ticket 草案，不要直接發布。</p>
+  <p>讓它先列出工作項目草案，不要直接發布。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 檢查切片粒度</label>
   <p>每片都問一次：能不能獨立 demo？能不能獨立測？是否只依賴少數明確前置？</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 4. 檢查 blocking edges</label>
-  <p>每個 blocker 都追問：它沒完成時，這張 ticket 真的不能開始嗎？能平行就不要假裝依賴。</p>
+  <label><input type="checkbox"> 4. 檢查阻擋關係</label>
+  <p>每個 blocker 都追問：它沒完成時，這張工作項目真的不能開始嗎？能平行就不要假裝依賴。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 5. 發佈並選第一張</label>
-  <p>核准後發佈 tickets。local tracker 要確認是一張一檔，不是合併的 <code>tickets.md</code>。挑 frontier 上第一張可開始的 ticket，下一課開乾淨 context 用 <code>/implement</code> 完成。</p>
+  <p>核准後發佈工作項目。local 追蹤系統要確認是一張一檔，不是合併的 <code>tickets.md</code>。挑 frontier 上第一張可開始的工作項目，下一課開乾淨對話脈絡用 <code>/implement</code> 完成。</p>
 </div>
 
 <div class="done-banner" id="done">
-  🎉 <strong>Spec 已變成可認領工作。</strong>回對話視窗回報：你挑哪一張 ticket 當第一張 implement？
+  <strong>完成條件：</strong>每張工作項目都有完成條件與相依關係，而且至少一張已可直接認領。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
@@ -109,7 +109,7 @@
   <div class="why">垂直切片要窄但完整，能自己 demo、自己驗收。只做一層是水平切片。</div>
 </div>
 <div class="quiz" data-answer="0">
-  <p>2. 一張 ticket 的 Blocked by 是 None，代表什麼？</p>
+  <p>2. 一張工作項目的 Blocked by 是 None，代表什麼？</p>
   <button>位於 frontier，可以先做</button>
   <button>完全不需要任何驗收條件</button>
   <button>一定是全專案唯一最高優先工作項目</button>
@@ -118,24 +118,24 @@
 <div class="quiz" data-answer="2">
   <p>3. 遇到 blast radius 很大的欄位改名，正確切法是？</p>
   <button>用一般垂直切片一次完成欄位改名</button>
-  <button>用全 repo 批次取代一次完成欄位改名</button>
+  <button>用全程式庫批次取代一次完成欄位改名</button>
   <button>用 expand-contract 分批遷移</button>
   <div class="why">wide refactor 是垂直切片的例外：先 expand 新形式，再分批 migrate，最後 contract 舊形式。</div>
 </div>
 <div class="quiz" data-answer="1">
-  <p>4. Local markdown tracker 的 tickets 應該怎麼存？</p>
-  <button>全部合併在一份 tickets.md</button>
-  <button>每張 ticket 各自一個獨立檔案</button>
-  <button>直接追加在原本的 spec.md</button>
-  <div class="why">一張一檔才能讓每張 ticket 有自己的狀態、依賴與驗收條件，也能用路徑交給乾淨 context 的 <code>/implement</code>。</div>
+  <p>4. Local markdown 追蹤系統的工作項目應該怎麼存？</p>
+  <button>全部合併在一份tickets.md</button>
+  <button>每張工作項目各自一個獨立檔案</button>
+  <button>直接追加在原本的spec.md</button>
+  <div class="why">一張一檔才能讓每張工作項目有自己的狀態、依賴與驗收條件，也能用路徑交給乾淨對話脈絡的 <code>/implement</code>。</div>
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課：<a href="003-0008-implement.html">Phase 3 第 08 課 — 用 /implement 完成 bounded slice</a>。</p>
+<p>完成後回對話視窗回報。下一課：<a href="003-0008-implement.html">Phase 3 第 08 課 — 用 /implement 完成有限切片</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/to-tickets/SKILL.md">reviewed to-tickets snapshot（66898f6）</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/to-tickets/SKILL.md">current to-tickets</a>。</p>
 
 <footer>
-  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  工作項目無法獨立驗收時，交出內容、相依關係與完成條件，請 Claude Code 找出需要再拆分或合併的部分。<br>
   上一課：<a href="003-0006-to-spec.html">Phase 3 第 06 課 — /to-spec</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 

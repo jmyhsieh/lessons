@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 5 · 進階第 10 課 · 約 20 分鐘</div>
 <h1>建立可重用 deck system</h1>
-<p class="mission">今天只做一件事：請 Claude Code 從已成功的 deck 抽出規則，再透過 Design MCP 重做一頁驗證。</p>
+<p class="mission"><strong>本課成果：</strong>一條從成功簡報抽出的共用規則，以及一頁重做結果。</p>
 <div class="rule"><strong>系統要能重做：</strong>只寫「專業、簡潔」不夠；要留下字級、色彩、間距與版型規則。</div>
 <h2>做一個最小 deck system</h2>
 <div class="step"><label><input type="checkbox"> 1. 請 Claude Code 抽出三類規則</label><p>只從現有成功頁面提取字級、色彩／對比、頁面邊界／間距，不先發明新 system。</p></div>
@@ -20,9 +20,9 @@
 <div class="step"><label><input type="checkbox"> 3. 透過 Design MCP 重做一頁</label><p>與既有頁並排檢查；有偏差就請 Claude Code 修規則，不用逐頁補丁掩蓋 system 問題。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已有可重用的 deck system，下一頁不必重新猜一次版面。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Deck system 最主要解決什麼問題？</p><button>讓多頁維持一致</button><button>讓每頁完全不同</button><button>增加更多裝飾圖</button><div class="why">Deck system 把反覆出現的視覺決定變成規則，讓多頁與多版本維持一致。</div></div>
-<h2>帶走這個就好</h2><p>先從少量、可檢查的規則開始；只有實際重用過的規則，才算 system。</p>
+<h2>關鍵判斷</h2><p>先從少量、可檢查的規則開始；只有實際重用過的規則，才算 system。</p>
 <p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Anthropic — Get started with Claude Design</a>。</p>
-<footer>上一課：<a href="005-0009-build-claim-ledger.html">建立 claim ledger</a> · 下一課：<a href="005-0011-audit-deck-accessibility-and-formats.html">稽核 accessibility 與格式</a><br>把 Claude Code 抽出的規則與重做結果貼回對話，請 AI 老師找出不可重用的描述。</footer>
+<footer>上一課：<a href="005-0009-build-claim-ledger.html">建立 claim ledger</a> · 下一課：<a href="005-0011-audit-deck-accessibility-and-formats.html">稽核 accessibility 與格式</a><br>把 Claude Code 抽出的規則與重做結果貼回 Claude Code，請它找出不可重用的描述。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 7 · 進階第 06 課 · 約 20 分鐘</div>
 <h1>建立可重用 slide system</h1>
-<p class="mission">今天只做一件事：讓 Claude Code 用 <code>/create-theme</code> 與現有重複證據，抽出一個可重用 pattern。</p>
+<p class="mission"><strong>本課成果：</strong>一個有重複證據支持、已套用到兩頁的共用版型。</p>
 <div class="rule"><strong>先有重複再抽象：</strong>沒有兩個實際使用點，就先保留頁面內寫法，不建立推測性的元件庫。</div>
 <h2>完成一個可重用 pattern</h2>
 <div class="step"><label><input type="checkbox"> 1. 請 Claude Code 找一個重複決定</label><p>只讀三頁，從標題區、證據卡或頁尾來源挑一個至少出現兩次、內容不同而結構相同的 pattern。</p></div>
@@ -20,9 +20,9 @@
 <div class="step"><label><input type="checkbox"> 3. 請它重用兩次並 build</label><p>審查 diff、並排看兩頁，再核對 build output，確認抽取沒有改變內容順序。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已用兩個真實使用點證明一個 theme／元件規則可以重用。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>什麼時候最適合抽出共用元件？</p><button>先抽出重複的版型</button><button>每頁使用不同規則</button><button>只增加更多的裝飾</button><div class="why">已經重複的版型提供明確介面與驗證樣本；還沒出現的需求不值得先抽象。</div></div>
-<h2>帶走這個就好</h2><p>可重用的證據是兩個實際使用點，不是元件名稱看起來很通用。</p>
+<h2>關鍵判斷</h2><p>可重用的證據是兩個實際使用點，不是元件名稱看起來很通用。</p>
 <p><strong>主要閱讀：</strong><a href="https://open-slide.dev/docs/core-feature/themes">open-slide — Themes</a>。</p>
-<footer>上一課：<a href="007-0005-use-agent-contract.html">讀取 workspace contract</a> · 下一課：<a href="007-0007-audit-sources-and-accessibility.html">稽核來源與 accessibility</a><br>把 Claude Code 的 interface、diff 與前後兩頁貼回對話，請 AI 老師檢查是否值得共用。</footer>
+<footer>上一課：<a href="007-0005-use-agent-contract.html">讀取 workspace contract</a> · 下一課：<a href="007-0007-audit-sources-and-accessibility.html">稽核來源與 accessibility</a><br>把 Claude Code 的 interface、diff 與前後兩頁貼回 Claude Code，請它檢查是否值得共用。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

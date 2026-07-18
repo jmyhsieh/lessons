@@ -34,68 +34,68 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 2 · 第 08 課 · 約 20 分鐘 · 品質工作流</div>
-<h1>用兩個 session 分工寫作與審查</h1>
-<p class="mission">任務目標：用兩個乾淨 session 分工：一個寫，一個審。你要練的是把 review 意見帶回 writer，而不是讓同一個對話自我確認。</p>
-<div class="scope"><strong>本課只做：</strong>用兩個 session 分開寫作與審查。<br><strong>先不要做：</strong>讓同一個 session 自寫自審後直接合併。</div>
+<h1>用兩個工作階段分開撰寫與審查</h1>
+<p class="mission"><strong>本課成果：</strong>一輪由兩個乾淨工作階段完成的撰寫與審查交接。</p>
+<div class="scope"><strong>本課只做：</strong>用兩個工作階段分開撰寫與審查。<br><strong>先不要做：</strong>讓同一個工作階段自寫自審後直接合併。</div>
 
 
-<h2>雙 session 流程</h2>
+<h2>雙工作階段流程</h2>
 <table>
-<tr><th>Writer session</th><th>Reviewer session</th></tr>
-<tr><td>在 writer worktree 實作、驗證，建立 checkpoint commit。</td><td></td></tr>
-<tr><td></td><td>在另一個 worktree 以明確 base ref 與 writer branch 讀取同一份 committed diff。</td></tr>
-<tr><td>逐項處理 reviewer 意見。</td><td></td></tr>
+<tr><th>撰寫工作階段</th><th>審查工作階段</th></tr>
+<tr><td>在撰寫用 worktree 實作、驗證，建立檢查點 commit。</td><td></td></tr>
+<tr><td></td><td>在另一個 worktree 以明確起點與撰寫分支讀取同一份已提交 diff。</td></tr>
+<tr><td>逐項處理審查意見。</td><td></td></tr>
 </table>
-<div class="scope"><strong>為什麼要 checkpoint commit：</strong>不同 worktree 共用 git objects 與 refs，但不共用未提交的工作目錄變更。若 writer 只留下 uncommitted diff，reviewer worktree 看不到那份內容。</div>
+<div class="scope"><strong>為什麼要檢查點 commit：</strong>不同 worktree 共用 Git 物件與 refs，但不共用未提交的工作目錄變更。若撰寫者只留下未提交 diff，審查用 worktree 看不到那份內容。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
-  <label><input type="checkbox"> 1. Writer 完成一個小任務</label>
-  <p>照 Phase 1 第 11 課/Phase 1 第 12 課完成探索、實作、驗證與 diff review，然後在 writer branch 建立 checkpoint commit。先記下 base ref 與 writer branch，例如 <code>main</code> 與 <code>claude/task-name</code>。</p>
+  <label><input type="checkbox"> 1. 撰寫者完成一個小任務</label>
+  <p>完成探索、實作、驗證與 diff 審查，然後在撰寫分支建立檢查點 commit。先記下審查起點與撰寫分支，例如 <code>main</code> 與 <code>claude/task-name</code>。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 2. Reviewer 先驗證 diff 身分</label>
-  <p>在另一個 worktree 的乾淨 session，不必 checkout writer branch；用明確 refs 取得 committed diff，先確認檔案清單正是要審的範圍：</p>
+  <label><input type="checkbox"> 2. 審查者先驗證 diff 範圍</label>
+  <p>在另一個 worktree 的乾淨工作階段，不必切換到撰寫分支；用明確 refs 取得已提交 diff，先確認檔案清單正是要審的範圍：</p>
   <pre>git diff --stat main...claude/task-name
 git diff main...claude/task-name</pre>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 3. Reviewer 只審查</label>
+  <label><input type="checkbox"> 3. 審查者只做審查</label>
   <pre>Review the committed diff from main...claude/task-name
 against this task brief. Only report correctness gaps,
 missing tests, or scope creep.</pre>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 4. 把有效意見帶回 Writer</label>
-  <p>不要全部照單全收。先分類：must fix / optional / not relevant。</p>
+  <label><input type="checkbox"> 4. 把有效意見帶回撰寫者</label>
+  <p>先分類成必修、可選與不相關，再處理有效意見。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 5. 再跑驗證</label>
-  <p>修完 reviewer 意見後，重新跑原本的成功條件，並用新 commit 或 amend 更新 writer branch。若 diff refs 改變，reviewer 必須重新讀取新的 committed diff。</p>
+  <p>修完審查意見後，重新跑原本的成功條件，並用新 commit 或 amend 更新撰寫分支。若 diff refs 改變，審查者必須重新讀取新的已提交 diff。</p>
 </div>
 
-<div class="done-banner" id="done">🎉 <strong>完成！</strong>你完成了一輪雙 session 品質工作流。</div>
+<div class="done-banner" id="done"><strong>完成條件：</strong>撰寫者交付內容與審查者意見分開保存，修正後的差異已再次核對。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1">
-  <p>1. 雙 session 比同一對話直接 review 的主要優點是？</p>
-  <button>降低 writer 執行成本</button>
-  <button>保持 reviewer 脈絡乾淨</button>
+  <p>1. 雙工作階段比同一對話直接審查的主要優點是？</p>
+  <button>降低撰寫者執行成本</button>
+  <button>保持審查者脈絡乾淨</button>
   <button>省略 verification 流程</button>
   <div class="why">乾淨 context 比「自己檢查自己」更接近獨立審查。</div>
 </div>
 <div class="quiz" data-answer="2">
-  <p>2. reviewer 回報很多建議時，第一步是？</p>
-  <button>全部交回 writer</button>
+  <p>2. 審查者回報很多建議時，第一步是？</p>
+  <button>全部交回撰寫者</button>
   <button>全部直接忽略掉</button>
   <button>分成必修與可選</button>
-  <div class="why">review 意見仍要人類判斷，不是新的命令來源。</div>
+  <div class="why">審查意見仍要人類判斷，不能直接當成新的命令來源。</div>
 </div>
 
 <h2>下一步</h2>
 <p>下一課：<a href="002-0009-headless-one-shot.html">Phase 2 第 09 課 — 用指令列跑一次性任務（claude -p）</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/worktrees">Run parallel sessions with worktrees（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="002-0007-worktrees.html">Phase 2 第 07 課 — Worktrees</a></footer>
+<footer>交接漏掉資訊時，交出撰寫者的交付內容與審查者的發現，請 Claude Code 列出下一輪必須補齊的證據。<br>上一課：<a href="002-0007-worktrees.html">Phase 2 第 07 課 — Worktrees</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

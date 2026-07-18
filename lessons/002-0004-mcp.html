@@ -40,7 +40,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 2 · 第 04 課 · 約 30 分鐘 · 進階實作課</div>
 <h1>讓 Claude Code 讀外部系統資料（MCP）</h1>
-<p class="mission">任務目標：理解 MCP 的定位與風險，連接第一個對你工作真正有用的 MCP server（如 GitHub/Jira/Notion/資料庫），並完成一個「跨系統」任務。</p>
+<p class="mission"><strong>本課成果：</strong>一筆由 Claude Code 透過 MCP 讀到、你已核對來源的外部資料。</p>
 <div class="scope"><strong>本課只做：</strong>理解 MCP 讓 Claude Code 讀外部系統資料的邊界。<br><strong>先不要做：</strong>未審核來源、權限與敏感資料就接外部工具。</div>
 
 
@@ -104,7 +104,7 @@ claude mcp add --transport stdio myserver -- npx some-mcp-server</pre>
 </div>
 
 <div class="done-banner" id="done">
-  🎉 <strong>你的 Claude Code 現在連著真實世界了。</strong>回對話視窗回報：接了哪個 server？跨系統任務順嗎？
+  <strong>完成條件：</strong>Claude Code 已透過指定 MCP server 讀到一筆外部資料，你也已用原始來源核對內容。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
@@ -138,7 +138,7 @@ claude mcp add --transport stdio myserver -- npx some-mcp-server</pre>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/mcp">Connect Claude Code to tools via MCP（官方）</a>；第一次接建議照 <a href="https://code.claude.com/docs/en/mcp-quickstart">MCP quickstart</a> 走。</p>
 
 <footer>
-  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  外部資料無法核對時，交出 MCP server 名稱、查詢條件與來源識別資訊，請 Claude Code 說明資料從哪裡取得。<br>
   上一課：<a href="002-0003-skills.html">Phase 2 第 03 課 — Skills</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 

@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 6 · 進階第 04 課 · 約 10–15 分鐘</div>
 <h1>把實際規則寫進 schema</h1>
-<p class="mission">今天只做一件事：把前三課已經驗證過的維護規則，寫進 Claude Code 每次都會讀的 schema。</p>
+<p class="mission"><strong>本課成果：</strong>把前三課已驗證的維護規則寫進資料規則（schema）。</p>
 
 <div class="rule"><strong>Schema 不是先寫完的規格書：</strong>它是 Wiki 的維護約定。先用 Wiki，再把證明有用的規則補進現有 <code>CLAUDE.md</code> 或其他指引檔。</div>
 
@@ -43,10 +43,10 @@
 <div class="why">Schema 應跟著實際流程共同演進；先記錄已證明有用的規則，最不容易過度設計。</div>
 </div>
 
-<h2>帶走這個就好</h2>
+<h2>關鍵判斷</h2>
 <p><strong>Schema 是給 agent 的維護手冊。</strong>它約定結構、慣例與工作流，但只需要寫下目前真的用得到的部分。</p>
 <p><strong>主要閱讀：</strong><a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki：Architecture</a>。</p>
-<footer>上一課：<a href="006-0003-ask-first-llm-wiki-question.html">問第一個問題</a> · 下一課：<a href="006-0005-ingest-one-source-with-a-review-loop.html">用 review loop ingest 一份來源</a><br>有不清楚的，回對話視窗問你的 AI 老師。</footer>
+<footer>上一課：<a href="006-0003-ask-first-llm-wiki-question.html">問第一個問題</a> · 下一課：<a href="006-0005-ingest-one-source-with-a-review-loop.html">用 review loop ingest 一份來源</a><br>資料規則拿不準時，交出候選規則、實際頁面與加入規則的理由，請 Claude Code 找出無法一致套用的情況。</footer>
 <script>
 const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});
 </script>

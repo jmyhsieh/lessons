@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 6 · 進階第 08 課 · 約 15–20 分鐘</div>
 <h1>讓 Claude Code 自動化一個安全檢查</h1>
-<p class="mission">今天只做一件事：讓 Claude Code 把一個重複、可檢查、失敗不傷資料的步驟變成可重跑命令。</p>
+<p class="mission"><strong>本課成果：</strong>一個可重跑、失敗也不會改壞資料的 Wiki 檢查命令。</p>
 
 <div class="rule"><strong>先自動化確定的事：</strong>列出最近紀錄、檢查必要檔案或找壞連結適合交給程式；解讀來源、裁決矛盾與大批寫入仍保留 review。</div>
 
@@ -40,10 +40,10 @@
 <div class="why">先自動化可重跑、可驗證、低破壞性的步驟，最容易建立可靠的回饋迴路。</div>
 </div>
 
-<h2>帶走這個就好</h2>
-<p><strong>自動化不是拿掉人的判斷，而是省下重複檢查。</strong>命令穩定使用一段時間後，再決定要不要排程或擴大範圍。</p>
+<h2>關鍵判斷</h2>
+<p><strong>自動化負責省下重複檢查，內容判斷仍由人負責。</strong>命令穩定使用一段時間後，再決定要不要排程或擴大範圍。</p>
 <p><strong>主要閱讀：</strong><a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki：Indexing、logging 與 optional CLI tools</a>。</p>
-<footer>上一課：<a href="006-0007-lint-and-fix-one-wiki-problem.html">Lint 並修一個問題</a> · <a href="../reference/llm-wiki-workflow.html">LLM Wiki 速查卡</a> · <a href="../toc.html">回課目表</a><br>把命令、成功輸出與失敗輸出貼回對話，請 AI 老師幫你檢查安全邊界。</footer>
+<footer>上一課：<a href="006-0007-lint-and-fix-one-wiki-problem.html">Lint 並修一個問題</a> · <a href="../reference/llm-wiki-workflow.html">LLM Wiki 速查卡</a> · <a href="../toc.html">回課目表</a><br>把命令、成功輸出與失敗輸出貼回 Claude Code，請它幫你檢查安全邊界。</footer>
 <script>
 const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});
 </script>

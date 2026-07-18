@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 6 · 第 01 課 · 約 10 分鐘</div>
 <h1>把 LLM Wiki idea file 交給 Claude Code</h1>
-<p class="mission">今天只做一件事：貼一個連結與一句需求，請 Claude Code 建立最小可用的 LLM Wiki。</p>
+<p class="mission"><strong>本課成果：</strong>一個由原始想法檔建立、可以立即瀏覽的最小 LLM Wiki。</p>
 
 <div class="rule"><strong>先記這句：</strong>這份 <em>idea file</em> 是給 AI agent 閱讀的設計說明，不是要你先學會安裝或架構。Claude Code 會依你的主題，和你一起決定最小版本。</div>
 
@@ -40,10 +40,10 @@ https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw
 <div class="why">idea file 本來就是要交給 AI agent 閱讀；你只要補上主題與邊界，就能開始。</div>
 </div>
 
-<h2>帶走這個就好</h2>
+<h2>關鍵判斷</h2>
 <p><strong>一個 raw 連結加一句需求，就足以開始。</strong>具體檔案結構由你和 Claude Code 在實際資料夾中一起決定，不是開始前的考試。</p>
 <p><strong>主要閱讀：</strong><a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki raw idea file</a>。</p>
-<footer>下一課：<a href="006-0002-add-first-llm-wiki-source.html">加入第一份真實來源</a> · <a href="../reference/llm-wiki-workflow.html">LLM Wiki 路線速查卡</a><br>有不清楚的，回對話視窗問你的 AI 老師。</footer>
+<footer>下一課：<a href="006-0002-add-first-llm-wiki-source.html">加入第一份真實來源</a> · <a href="../reference/llm-wiki-workflow.html">LLM Wiki 路線速查卡</a><br>Wiki 無法開啟或結構不符預期時，交出原始想法檔、產生的目錄樹與錯誤訊息，請 Claude Code 找出漏掉的步驟。</footer>
 <script>
 const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});
 </script>

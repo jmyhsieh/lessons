@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>06：用 /to-spec 把對話凝結成 spec</title>
+<title>06：用 /to-spec把對話凝結成規格</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -38,74 +38,74 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 3 · 第 06 課 · 約 30 分鐘 · 固化任務</div>
-<h1>用 /to-spec 把對話凝結成 spec</h1>
-<p class="mission">目標：把前面 grill 與 prototype 已經釐清的內容，整理成一份可引用、可審查、可切 ticket 的 spec。你也可以把它理解成 PRD；upstream 現在用 <code>/to-spec</code> 作為 canonical 名稱。這一課只做「凝結」，不重新訪談，也不開始實作。</p>
-<div class="scope"><strong>本課只做：</strong>把已對齊的內容整理成 spec。<br><strong>先不要做：</strong>需求還沒問清楚就硬產 spec。</div>
+<h1>用 /to-spec 把對話凝結成規格</h1>
+<p class="mission"><strong>本課成果：</strong>一份可引用、可審查，也能往下切工作項目的規格（spec）。</p>
+<div class="scope"><strong>本課只做：</strong>把已對齊的內容整理成規格。<br><strong>先不要做：</strong>需求還沒問清楚就硬產規格。</div>
 
-<h2>Pipeline 全景：你在這裡</h2>
+<h2>工作流程全景：你在這裡</h2>
 <pre>/grill-with-docs → 可選（/handoff → /prototype → /handoff）→ <strong>/to-spec</strong> → /to-tickets → /implement</pre>
 
 <h2>凝結，不是再訪談</h2>
-<p><code>/to-spec</code> 的關鍵設計是：不要再訪談使用者，直接綜合這個 session 已經知道的內容。若它開始問大量新問題，通常代表前面的 grill 沒做透，應該回去補對齊，而不是把 spec 當補救訪談。</p>
-<div class="tip"><strong>Context hygiene：</strong>從 grill 到本課，再到下一課 <code>/to-tickets</code>，盡量維持同一個未中斷 context；不要中途 clear 或 compact，讓 spec 與 tickets 共用完整的決策脈絡。只有接近 smart zone 上限時才用 <code>/handoff</code> 換 session。</div>
+<p><code>/to-spec</code> 的關鍵設計是：不要再訪談使用者，直接綜合這個工作階段已經知道的內容。若它開始問大量新問題，通常代表前面的 grill 沒做透，應該回去補對齊，而不是把規格當補救訪談。</p>
+<div class="tip"><strong>保持對話脈絡乾淨：</strong>從需求追問到本課，再到下一課 <code>/to-tickets</code>，盡量維持同一個未中斷工作階段；不要中途使用 <code>/clear</code> 或 <code>/compact</code>。只有脈絡快滿時才用 <code>/handoff</code> 換工作階段。</div>
 <table>
-<tr><th>Spec 應該包含</th><th>你要檢查什麼</th></tr>
+<tr><th>規格應該包含</th><th>你要檢查什麼</th></tr>
 <tr><td>問題陳述與範圍邊界</td><td>是否清楚說明要解的問題，以及哪些事不做。</td></tr>
-<tr><td>大量編號 user stories</td><td>是否覆蓋 grill 中談過的場景與邊界案例。</td></tr>
-<tr><td>實作決策與測試接縫</td><td>是否尊重 CONTEXT.md、ADR 與既有 repo 介面；測試 seam 是否在夠高、夠穩的位置。</td></tr>
-<tr><td>發佈位置</td><td>是否寫到第 01 課設定的 GitHub / GitLab / local markdown / Other issue tracker。</td></tr>
+<tr><td>編號的使用情境（user stories）</td><td>是否覆蓋需求追問時談過的場景與邊界案例。</td></tr>
+<tr><td>實作決策與測試接縫</td><td>是否尊重 CONTEXT.md、ADR 與既有程式庫介面；測試接縫是否在夠高、夠穩的位置。</td></tr>
+<tr><td>發佈位置</td><td>是否寫到第 01 課設定的 GitHub / GitLab / local markdown / Other 議題追蹤系統。</td></tr>
 </table>
-<div class="tip"><strong>你的主要工作：</strong>審 spec 的「漏」與「多」。漏掉 user story 會讓後續 ticket 不完整；多寫未同意 scope 會讓 agent 做出不該做的功能。</div>
+<div class="tip"><strong>你的主要工作：</strong>審規格的「漏」與「多」。漏掉使用情境會讓後續工作項目不完整；多寫未同意範圍會讓 Claude Code 做出不該做的功能。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
   <label><input type="checkbox"> 1. 接回對齊脈絡</label>
-  <p>在第 04 課 grill 的同一個 session 繼續；若 prototype 曾分支出去，先讀它帶回來的 handoff。只有原 context 已接近上限時，才用 handoff 開新 session，並引用 grill 結論、prototype 結論、CONTEXT.md 與相關 ADR。</p>
+  <p>在第 04 課 grill 的同一個工作階段繼續；若 prototype 曾分支出去，先讀它帶回來的交接。只有原對話脈絡已接近上限時，才用交接開新工作階段，並引用 grill 結論、prototype 結論、CONTEXT.md 與相關 ADR。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 2. 執行 /to-spec</label>
   <pre>/to-spec</pre>
-  <p>若它說資訊不足，先回到 <code>/grill-with-docs</code>；不要在 spec 階段臨時補一堆沒有驗證的假設。</p>
+  <p>若它說資訊不足，先回到 <code>/grill-with-docs</code>；不要在規格階段臨時補一堆沒有驗證的假設。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 3. 審 user stories</label>
+  <label><input type="checkbox"> 3. 審查使用情境</label>
   <p>逐條對照前面對齊過的需求：有沒有漏掉角色、例外、錯誤狀態、權限或資料邊界？</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 4. 審測試接縫</label>
-  <p>確認它提的 seams 是 repo 裡真實可測的位置。看不懂就追問：為什麼在這個介面驗證？有沒有更高層的接縫？</p>
+  <p>確認它提的接縫是程式庫裡真實可測的位置。看不懂就追問：為什麼在這個介面驗證？有沒有更高層的接縫？</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 5. 固定 spec 位置</label>
-  <p>確認 spec 被發佈到 issue tracker；local markdown 的 canonical 位置是 <code>.scratch/&lt;feature&gt;/spec.md</code>。下一課會從這份 spec 切成 tickets。</p>
+  <label><input type="checkbox"> 5. 固定規格位置</label>
+  <p>確認規格被發佈到 議題追蹤系統；local markdown 的 canonical 位置是 <code>.scratch/&lt;feature&gt;/spec.md</code>。下一課會從這份規格切成工作項目。</p>
 </div>
 
 <div class="done-banner" id="done">
-  🎉 <strong>你已把對話凝結成 spec。</strong>回對話視窗回報：spec 裡最重要的 user story 是哪一條？
+  <strong>完成條件：</strong>規格包含使用者故事、可判定的驗收條件、範圍與尚未決定的問題。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
 <div class="quiz" data-answer="0">
-  <p>1. /to-spec 開始大量追問新需求，這代表？</p>
+  <p>1. /to-spec開始大量追問新需求，這代表？</p>
   <button>回到 grill 補足前置對齊</button>
-  <button>直接繼續訪談並產出 spec</button>
-  <button>跳過提問直接產出 spec</button>
+  <button>直接繼續訪談並產出規格</button>
+  <button>跳過提問直接產出規格</button>
   <div class="why"><code>/to-spec</code> 是綜合已知內容，不是重新訪談。大量追問代表上游沒有足夠材料。</div>
 </div>
 <div class="quiz" data-answer="2">
-  <p>2. spec 裡的 user stories 最重要的作用是？</p>
-  <button>補滿 spec 的所有背景材料</button>
+  <p>2. 規格裡的使用情境最重要的作用是？</p>
+  <button>補滿規格的所有背景材料</button>
   <button>取代後續的行為驗證流程</button>
-  <button>提供 tickets 切片依據</button>
-  <div class="why">下一課 <code>/to-tickets</code> 會依 spec 切成可認領的工作；user stories 是切片的主要材料。</div>
+  <button>提供工作項目切片依據</button>
+  <div class="why">下一課 <code>/to-tickets</code> 會依規格切成可認領的工作；使用情境是切片的主要材料。</div>
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課：<a href="003-0007-to-tickets.html">Phase 3 第 07 課 — 用 /to-tickets 切成可認領工作</a>。</p>
+<p>完成後回對話視窗回報。下一課：<a href="003-0007-to-tickets.html">Phase 3 第 07 課 — 用 /to-tickets切成可認領工作</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/to-spec/SKILL.md">reviewed to-spec snapshot（66898f6）</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/to-spec/SKILL.md">current to-spec</a>。</p>
 
 <footer>
-  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  規格無法往下切工作項目時，交出規格與不清楚的驗收條件，請 Claude Code 找出仍未決定的需求。<br>
   上一課：<a href="003-0005-prototype.html">Phase 3 第 05 課 — /prototype</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 

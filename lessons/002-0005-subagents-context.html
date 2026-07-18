@@ -33,7 +33,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 2 · 第 05 課 · 約 15 分鐘 · Context 隔離</div>
 <h1>把大型調查交給另一個 agent（Subagents）</h1>
-<p class="mission">任務目標：知道什麼時候把調查交給 subagent，避免主對話被大量檔案與探索過程塞滿。</p>
+<p class="mission"><strong>本課成果：</strong>一份由子代理（subagent）完成、回到主工作階段的調查摘要。</p>
 <div class="scope"><strong>本課只做：</strong>把大型調查交給隔離 context 的 subagent。<br><strong>先不要做：</strong>把需要即時決策的主線工作丟給 subagent 後放著不管。</div>
 
 
@@ -59,7 +59,7 @@ Return only: summary, key files, risks, open questions.</pre>
   <p>抽查它列出的 2–3 個 key files，確認摘要不是空泛推論。</p>
 </div>
 
-<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經用 subagent 保護主對話 context。</div>
+<div class="done-banner" id="done"><strong>完成條件：</strong>子代理摘要列出調查範圍、證據路徑與結論，主工作階段只保留需要的結果。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="2">
@@ -80,7 +80,7 @@ Return only: summary, key files, risks, open questions.</pre>
 <h2>下一步</h2>
 <p>下一課：<a href="002-0006-custom-subagent-review.html">Phase 2 第 06 課 — 建立專門負責 review 的 agent（custom subagent）</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/sub-agents">Create custom subagents（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="002-0004-mcp.html">Phase 2 第 04 課 — MCP</a></footer>
+<footer>調查摘要不足時，交出子代理任務、摘要與被忽略的檔案，請 Claude Code 補上證據來源。<br>上一課：<a href="002-0004-mcp.html">Phase 2 第 04 課 — MCP</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

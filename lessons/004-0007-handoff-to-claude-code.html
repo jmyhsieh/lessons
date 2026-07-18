@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 4 · 第 07 課 · 約 10–15 分鐘</div>
 <h1>把 Claude Design 工作帶回 repo</h1>
-<p class="mission">今天只做一件事：在同一個 Claude Code session 把已選設計、intent 與停止線帶回 repo，先看實作計畫。</p>
+<p class="mission"><strong>本課成果：</strong>一份回到程式庫的有限實作計畫，包含設計意圖與停止線。</p>
 <div class="rule"><strong>不要只交截圖：</strong>官方 handoff 可延續 Design 工作；仍要附上設計版本、使用者任務、必須保留與本次範圍。</div>
 <h2>完成一次 dry handoff</h2>
 <div class="step"><label><input type="checkbox"> 1. 指定 Claude Design 版本</label><p>請 Claude Code 透過 Design MCP 讀取選定版本；必要時使用官方 handoff／import，而不是只從截圖猜。</p></div>
@@ -21,9 +21,9 @@
 <div class="done" id="done"><strong>完成：</strong>Claude Code 已把 Design intent 與 repo 現況放在一起，並提出一個尚未動手的 bounded plan。</div>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1"><p>哪一種 handoff 最不容易讓 Claude 猜需求？</p><button>只貼一張畫面圖</button><button>附圖加任務範圍</button><button>只說照圖來實作</button><div class="why">畫面、使用者任務與實作範圍一起提供，才能保留設計意圖並控制改動。</div></div>
-<h2>帶走這個就好</h2><p>Claude Design 與 Claude Code 能延續同一份工作，但人仍要用 intent、scope 與驗證方式約束 handoff。</p>
+<h2>關鍵判斷</h2><p>Claude Design 與 Claude Code 能延續同一份工作，但人仍要用 intent、scope 與驗證方式約束 handoff。</p>
 <p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design#move-between-claude-design-and-claude-code">Anthropic — Move between Claude Design and Claude Code</a>。</p>
-<footer>上一課：<a href="004-0006-prototype-and-validate.html">請一個人試用</a> · 下一課：<a href="004-0008-implement-and-verify.html">讓 Claude Code 實作並驗證</a><br>把 bounded plan 貼回對話，請 AI 老師檢查是否遺漏 intent 或擴大範圍。</footer>
+<footer>上一課：<a href="004-0006-prototype-and-validate.html">請一個人試用</a> · 下一課：<a href="004-0008-implement-and-verify.html">讓 Claude Code 實作並驗證</a><br>把 bounded plan 貼回 Claude Code，請它檢查是否遺漏 intent 或擴大範圍。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

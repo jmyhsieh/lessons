@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>07：審查 generator 產生的 test</title>
+<title>07：審查產生代理建立的測試</title>
 <style>
 *{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#4c5f9e;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#4c5f9e}.mission{font-style:italic;color:#555;border-left:3px solid #4c5f9e;padding-left:1rem}.rule{background:#f5f6fc;border-left:4px solid #4c5f9e;padding:.75rem 1rem}.step,.quiz{border:1px solid #d5d9ec;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#eef0f8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#3f4f84}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d5d9ec;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f5f6fc;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d5d9ec;padding-top:1rem}
 </style>
@@ -11,20 +11,20 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 8 · 進階第 07 課 · 約 20 分鐘</div>
-<h1>審查 generator 產生的 test</h1>
-<p class="mission">今天只做一件事：讓 generator 依一份已核准 spec 產生一個 test，親自檢查並執行。</p>
-<div class="rule"><strong>生成不是完成：</strong>generator 會在真實頁面探索 locator 與 assertion，但輸出仍可能測錯重點、擴大範圍或留下脆弱 selector；你必須審查 diff 與執行結果。</div>
-<h2>把一份 spec 變成一個 test</h2>
-<div class="step"><label><input type="checkbox"> 1. 只交核准 spec 與 seed</label><pre>Use the Playwright generator with this approved spec: specs/＿＿.md。
+<h1>審查產生代理建立的測試</h1>
+<p class="mission"><strong>本課成果：</strong>一個由產生代理（generator）依核准規格建立、已審查並執行的測試。</p>
+<div class="rule"><strong>產生不等於完成：</strong>代理可能測錯重點、擴大範圍或留下脆弱的元素定位；工程師仍要審查程式差異與執行結果。</div>
+<h2>把一份核准規格變成一個測試</h2>
+<div class="step"><label><input type="checkbox"> 1. 只交付核准規格與起始測試</label><pre>Use the Playwright generator with this approved spec: specs/＿＿.md。
 Follow the existing seed test and repo conventions.
 Generate only one test. Do not edit product code or unrelated tests.</pre></div>
-<div class="step"><label><input type="checkbox"> 2. 做逐項 diff review</label><p>確認 spec 每個必要步驟都有對應、沒有新增情境，優先使用 role／label／text locator 與 web-first assertion，且未加入固定 sleep 或只為通過而放寬結果。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 執行這個 test 並留下證據</label><p>使用 repo 的精確 command 單獨執行；記錄 command、結果與未涵蓋範圍。若 test fail，先保存現象，不要立刻讓 agent 任意修復。</p></div>
-<div class="done" id="done"><strong>完成：</strong>你已有一個對應 approved spec、通過人工 review 且實際執行過的 generated test。</div>
-<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Generator 顯示完成後，誰負責判斷 test 是否正確？</p><button>生成結果仍需人工審查</button><button>生成結果可以直接合併</button><button>生成結果不用執行測試</button><div class="why">Agent 能加速探索與產生 code，但需求對應、selector 穩定性與執行證據仍由人負責核准。</div></div>
-<h2>帶走這個就好</h2><p>用 approved spec 限定 generator，再用 spec、diff 與真實 test run 三方比對。</p>
+<div class="step"><label><input type="checkbox"> 2. 逐項審查程式差異</label><p>確認規格中的必要步驟都有對應、沒有新增情境；優先使用角色、標籤或文字等使用者看得懂的元素定位，避免固定等待時間。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 單獨執行並留下證據</label><p>使用程式庫既有命令單獨執行；記錄命令、結果與未涵蓋範圍。測試失敗時先保存現象，不要直接讓代理任意修復。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已有一個對應核准規格、通過人工審查且實際執行過的測試。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>產生代理顯示完成後，誰負責判斷測試是否正確？</p><button>生成結果仍需人工審查</button><button>生成結果可以直接合併</button><button>生成結果不用執行測試</button><div class="why">代理能加速探索與產生程式碼，但需求對應、元素定位與執行證據仍由工程師核准。</div></div>
+<h2>關鍵判斷</h2><p>用核准規格限制產生代理，再把規格、程式差異與實際執行結果放在一起比對。</p>
 <p><strong>主要閱讀：</strong><a href="https://playwright.dev/docs/test-agents">Playwright — Test Agents</a> 與 <a href="https://playwright.dev/docs/locators">Locators</a>。</p>
-<footer>上一課：<a href="008-0006-review-planner-spec.html">核准 planner spec</a> · 下一課：<a href="008-0008-supervise-healer-with-trace.html">監督 healer</a><br>把 approved spec、generated diff 與 test output 貼回對話，請 AI 老師找出不一致。</footer>
+<footer>上一課：<a href="008-0006-review-planner-spec.html">核准測試規格</a> · 下一課：<a href="008-0008-supervise-healer-with-trace.html">監督測試修復</a><br>把核准規格、程式差異與測試輸出貼回 Claude Code，請它找出不一致。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

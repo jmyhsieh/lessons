@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>13：用 /wayfinder 畫出 shared map</title>
+<title>13：用 /wayfinder 建立共享決策地圖</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -39,109 +39,77 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 3 選修 · 第 13 課 · 約 45 分鐘 · Wayfinder</div>
-<h1>用 /wayfinder 畫出 shared map</h1>
-<p class="mission">目標：面對巨大、模糊、超過一個 session 的 effort，建立一張以 destination 為邊界、能顯示 frontier 與 fog 的 shared map。本課 chart map 並啟動平行 research；charting agent 不手動解 ticket。</p>
-<div class="scope"><strong>本課只做：</strong>建立 map、能說清的 decision tickets 與 blocking edges，並啟動 research subagents。<br><strong>先不要做：</strong>由 charting agent 順手解票或完成 destination。</div>
+<h1>用 /wayfinder 建立共享決策地圖</h1>
+<p class="mission"><strong>本課成果：</strong>一張共享決策地圖（shared map），標出目標、目前可處理的問題與仍待釐清的區域。</p>
+<div class="scope"><strong>本課只做：</strong>建立一張共享決策地圖，讓下一個 Claude Code 工作階段知道目標、目前能處理的問題，以及還看不清的地方。<br><strong>先不要做：</strong>順手實作功能或解第一張工作項目。</div>
 
-<h2>先確認你真的需要 wayfinder</h2>
+<h2>先確認真的需要 /wayfinder</h2>
 <table>
-<tr><th>情況</th><th>選擇</th></tr>
-<tr><td>需求雖大，但已能寫出完整 spec 與 blocking tickets</td><td>直接走 <code>/to-spec → /to-tickets</code>，不用 wayfinder。</td></tr>
-<tr><td>一個 session 內能把未知問題問清楚</td><td>使用 <code>/grill-with-docs</code>，需要可跑答案時再分支 <code>/prototype</code>。</td></tr>
-<tr><td>destination 大、跨多個 session，而且連「該先決定什麼」都看不清楚</td><td>使用 <code>/wayfinder</code>，先推開 fog，再進一般交付主線。</td></tr>
+<tr><th>你現在的情況</th><th>建議路線</th></tr>
+<tr><td>需求已經能寫成完整規格</td><td>直接用 <code>/to-spec</code>，不用建立地圖。</td></tr>
+<tr><td>一個工作階段就能問清楚</td><td>使用 <code>/grill-with-docs</code>。</td></tr>
+<tr><td>工作跨多個階段，連「該先決定什麼」都不清楚</td><td>使用 <code>/wayfinder</code>，先把未知範圍畫出來。</td></tr>
 </table>
-<div class="rule"><strong>核心邊界：</strong>wayfinder 預設是 planning。它產出 decisions 與清楚路徑，不直接產出 destination 的交付物。想立刻施工，通常代表你已走到 map 邊界，應 handoff 給下一段流程。</div>
+<div class="rule"><strong>使用條件：</strong>Wayfinder 適合巨大、模糊、跨工作階段的任務。它先整理決策路徑，不直接交付最終功能。</div>
 
-<h2>Shared map 只做低解析索引</h2>
-<p>Canonical artifact 是 issue tracker 上一張標記 <code>wayfinder:map</code> 的 issue。它只收低解析資訊；完整答案留在各自的 child ticket，map 只寫一句 gist 並附連結。</p>
+<h2>共享地圖只回答四件事</h2>
 <table>
-<tr><th>區塊</th><th>要回答的事</th></tr>
-<tr><td><strong>Destination</strong></td><td>這張 map 最後要找到什麼：一份 spec、一個決策，或一條可執行的改變路徑。</td></tr>
-<tr><td><strong>Notes</strong></td><td>領域、每個 session 要查的 skills，以及整段 effort 的固定偏好。</td></tr>
-<tr><td><strong>Decisions so far</strong></td><td>已關閉 ticket 的名稱、連結與一句答案 gist；不複製完整結論。</td></tr>
-<tr><td><strong>Not yet specified</strong></td><td>在 scope 內，但目前還無法精確問成 ticket 的 fog。</td></tr>
-<tr><td><strong>Out of scope</strong></td><td>超出 destination 的工作；除非重畫 destination，否則永遠不會升成 ticket。</td></tr>
+<tr><th>地圖欄位</th><th>你要檢查的內容</th></tr>
+<tr><td><strong>Destination</strong></td><td>最後要得到哪一份規格、決策或可執行路徑。</td></tr>
+<tr><td><strong>Frontier</strong></td><td>目前沒有被阻擋、下一個工作階段可以認領的決策問題。</td></tr>
+<tr><td><strong>Not yet specified</strong></td><td>仍然說不清楚，現在不該硬切成工作項目的模糊區。</td></tr>
+<tr><td><strong>Out of 範圍</strong></td><td>明確不在這次目標內的工作。</td></tr>
 </table>
+<p>工具會使用上面的英文欄位名稱，所以保留原文。你只要會用中文判斷：現在能不能清楚說出要回答的問題？能就建立工作項目，不能就留在模糊區。</p>
 
-<h2>Ticket 還是 fog？只問一題</h2>
-<div class="rule"><strong>你現在能不能精確說出「要回答的問題」？</strong><br>能：建立 ticket，即使它目前被 blocker 擋住。<br>不能：先放在 <em>Not yet specified</em>，不要硬切成假精確 tickets。</div>
-<p>每張 ticket 都要回答一個能說清楚的 decision problem，並依需要的 feedback loop 標記一種 type：</p>
-<table>
-<tr><th>Type</th><th>模式</th><th>用途</th></tr>
-<tr><td><code>research</code></td><td>AFK</td><td>查外部 primary sources；建票與 wiring 後交給 <code>/research</code> subagent。</td></tr>
-<tr><td><code>prototype</code></td><td>HITL</td><td>用粗糙可反應的 artifact 回答 UI 或 logic 問題。</td></tr>
-<tr><td><code>grilling</code></td><td>HITL</td><td>與真正能代表需求的人逐題釐清；agent 不能代替人回答。</td></tr>
-<tr><td><code>task</code></td><td>AFK / HITL</td><td>完成阻擋決策的必要手動工作，不是提前交付 destination。</td></tr>
-</table>
-<div class="rule"><strong>Research 是平行例外：</strong>所有 tickets 與 blocking edges 建好後，立即為每張 research ticket 平行啟動一個 <code>/research</code> subagent。研究輸出放在 throwaway <code>research/&lt;name&gt;</code> branch，ticket 留下能恢復研究脈絡的 context pointer；charting agent 本身不逐張解票。</div>
-
-<h2>實作步驟（做完打勾）</h2>
+<h2>實作步驟</h2>
 <div class="step">
-  <label><input type="checkbox"> 1. 選一個真的在霧裡的 effort</label>
-  <p>如果你已能列出完整執行順序，換一個更符合條件的案例，或直接承認不需要 wayfinder。</p>
+  <label><input type="checkbox"> 1. 選一個真的跨多個工作階段的問題</label>
+  <p>如果你已經知道完整實作順序，就換一個案例，或直接承認這次不需要 Wayfinder。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 2. 確認 issue tracker 已設定</label>
-  <p>先完成 <code>/setup-matt-pocock-skills</code>。若沒有 tracker 設定，upstream 會退回 local markdown tracker。</p>
-</div>
-<div class="step">
-  <label><input type="checkbox"> 3. 只用一兩句命名 destination</label>
+  <label><input type="checkbox"> 2. 用兩句話說明目標</label>
   <pre>/wayfinder
 
-我想處理：[巨大而模糊的 effort]。
-這張 map 最後要找到：[spec／決策／改變路徑]。</pre>
-  <p>先讓 grilling 與 domain-modeling 把 destination 邊界釘住，再 breadth-first 掃描整片未知區。</p>
+我想處理：[巨大而模糊的工作]。
+最後希望得到：[規格／決策／可執行路徑]。</pre>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 4. 建立 decision tickets，wire edges，啟動 research</label>
-  <p>先 create tickets，取得 ids 後再第二輪 wire blocking edges。接著為每張 research ticket 平行啟動 <code>/research</code> subagent，讓結果留在各自的 <code>research/&lt;name&gt;</code> branch，並把 context pointer 留回 ticket。Fog 留在 <em>Not yet specified</em>，不要預先切碎。</p>
+  <label><input type="checkbox"> 3. 審查 Claude Code 建立的地圖</label>
+  <p>確認地圖至少有一個清楚目標、一張目前可處理的工作項目，以及仍待釐清的模糊區。依賴關係要能說明「為什麼現在不能先做」。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 5. 驗收 frontier 後停止</label>
-  <p>確認 map 有 destination、至少一張可認領 frontier ticket、必要的 blocked tickets，以及仍看不清的 fog。Research subagents 可以在背景繼續；<strong>charting agent 不要在這個 session 手動解第一票。</strong></p>
+  <label><input type="checkbox"> 4. 留下地圖連結後停止</label>
+  <p>不要在同一個工作階段解第一張工作項目。下一課會用全新的 Claude Code 工作階段接手。</p>
 </div>
 
 <div class="done-banner" id="done">
-  <strong>你的巨大 effort 已有共享地圖。</strong>回對話視窗貼上 map 連結與第一張 frontier ticket 名稱，請 AI 老師檢查 ticket／fog 是否切對。
+  <strong>完成：</strong>你已有一張能讓新工作階段接手的共享決策地圖。
 </div>
 
-<h2>觀念檢查（憑記憶作答）</h2>
+<h2>觀念檢查</h2>
 <div class="quiz" data-answer="1">
-  <p>1. 哪種工作最值得先使用 wayfinder？</p>
-  <button>單一明確功能修正</button>
-  <button>巨大模糊跨期工作</button>
-  <button>既有測試立即修復</button>
-  <div class="why">Wayfinder 留給巨大、模糊、跨 session，而且前方路徑仍看不清楚的 effort。已知路徑的工作直接走主線。</div>
+  <p>哪種工作最適合先用 Wayfinder？</p>
+  <button>單一明確修正</button>
+  <button>巨大模糊工作</button>
+  <button>既有測試失敗</button>
+  <div class="why">只有工作巨大、模糊又跨多個工作階段時，才需要先建立共享決策地圖。</div>
 </div>
 <div class="quiz" data-answer="0">
-  <p>2. Wayfinder map 的 canonical artifact 是？</p>
-  <button>一張共享地圖索引</button>
-  <button>一份完整程式差異</button>
-  <button>一段長篇聊天紀錄</button>
-  <div class="why">Map 是 issue tracker 上的 canonical index；ticket 保存答案細節，map 只保存 destination、fog、scope 與 linked decision gists。</div>
-</div>
-<div class="quiz" data-answer="0">
-  <p>3. 什麼訊號代表 fog 已經能升成 ticket？</p>
-  <button>現在能說清問題</button>
-  <button>現在能直接交付</button>
-  <button>現在能估算工時</button>
-  <div class="why">判斷點是現在能否精確陳述問題，不是能否立刻回答、交付或估時。</div>
-</div>
-<div class="quiz" data-answer="2">
-  <p>4. Chart map 的 session 最後應該做什麼？</p>
-  <button>完成 map 後直接開始最終交付</button>
-  <button>驗收 frontier 後手動解第一票</button>
-  <button>啟動 research，驗收邊界後停止</button>
-  <div class="why">Tickets 與 edges 建好後，research tickets 交給平行 <code>/research</code> subagents；charting agent 驗收 map 與 frontier 後停止，不手動開始解第一票。</div>
+  <p>什麼情況可以把模糊區變成工作項目？</p>
+  <button>問題已能說清</button>
+  <button>答案已經完成</button>
+  <button>工時已能估算</button>
+  <div class="why">判斷點是能不能精確說出要回答的問題，不必先知道答案或工時。</div>
 </div>
 
 <h2>下一步</h2>
-<p>開一個乾淨 session，進入 <a href="003-0014-wayfinder-frontier.html">Phase 3 選修第 14 課</a>：只認領並解完一張 frontier ticket。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md">reviewed wayfinder snapshot（66898f6）</a> 的 The Map、Ticket Types、Fog of war 與 Chart the map；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">current wayfinder</a>，操作時搭配 <a href="../reference/wayfinder-map-workflow.html">Wayfinder map 速查表</a>。</p>
+<p>開一個全新的 Claude Code 工作階段，進入<a href="003-0014-wayfinder-frontier.html">第 14 課</a>，只完成一張目前可處理的工作項目。</p>
+<p><strong>主要閱讀：</strong><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">Wayfinder SKILL.md</a>。操作時可搭配<a href="../reference/wayfinder-map-workflow.html">Wayfinder 地圖速查表</a>。</p>
 
 <footer>
-  有不清楚的，回對話視窗問你的 AI 老師。<br>
-  路線入口：<a href="003-0002-ask-matt.html">Phase 3 第 02 課 — /ask-matt</a> · 下一課：<a href="003-0014-wayfinder-frontier.html">Phase 3 第 14 課 — work the frontier</a> · <a href="../toc.html">課目表</a>
+  把共享地圖連結與第一張可處理工作項目貼回 Claude Code，請它檢查目標、依賴與模糊區是否分得清楚。<br>
+  路線入口：<a href="003-0002-ask-matt.html">第 02 課 — /ask-matt</a> · 下一課：<a href="003-0014-wayfinder-frontier.html">第 14 課 — 完成一張工作項目</a> · <a href="../toc.html">課目表</a>
 </footer>
 
 <script>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05：把特定情況才用的資料移出 SKILL.md</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#7a4b25;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#7a4b25}.mission{font-style:italic;color:#555;border-left:3px solid #7a4b25;padding-left:1rem}.rule{background:#fcf8f4;border-left:4px solid #7a4b25;padding:.75rem 1rem}.step,.quiz{border:1px solid #e3d5c8;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f5eee8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#6d421f}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #e3d5c8;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fcf8f4;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #e3d5c8;padding-top:1rem}
+</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 9 · 進階第 05 課 · 約 15 分鐘</div>
+<h1>把特定情況才用的資料移出 SKILL.md</h1>
+<p class="mission"><strong>本課成果：</strong>一張參考資料放置決策表，以及對應的 diff 或不修改理由。</p>
+<div class="rule"><strong>按需載入（progressive disclosure）不是拆檔比賽：</strong>每次執行都需要的材料留在 <code>SKILL.md</code>；只有特定使用情境才需要的模板、長規則或範例，才放到額外參考檔。必讀內容若無法穩定載入，就應留在主檔。</div>
+
+<h2>按使用情境做判斷</h2>
+<div class="step"><label><input type="checkbox"> 1. 列出 Skill 的真實使用情境</label><p><code>repo-checkpoint</code> 若只有一般狀態摘要一條路，就不需要按需載入。只有你真實需要「一般狀態摘要」與「交接（handoff）草稿」兩種輸出時，才把交接視為第二個使用情境。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 標記每段參考資料的使用情況</label><p>請 Claude Code 做表格：內容、每個使用情境都需要嗎、留在主檔或額外參考檔、理由。四段基本輸出每次都需要；完整交接模板只在交接情境才需要。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 有真實需求才做最小修改</label><p>需要交接時，可把模板放進同一個 Skill 資料夾的 <code>handoff-template.md</code>，在 <code>SKILL.md</code> 留下清楚的按需讀取提示：</p>
+<pre>If the user requests a durable handoff, read [handoff-template.md](handoff-template.md)
+before drafting it. For a chat checkpoint, do not load that template.</pre><p>若沒有真實使用情境，留下「不修改」決策卡就完成，不要製造假需求。</p></div>
+
+<div class="done" id="done"><strong>完成：</strong>你有一份按需載入決策，而且主檔只保留目前使用情境真正需要的內容。</div>
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="2"><p>什麼最適合移到額外參考檔？</p><button>所有使用情境都依賴的安全停止線</button><button>每次執行都要遵守的完成條件</button><button>只有 handoff 情境使用的長模板</button><div class="why">只有特定情境才用的參考資料適合按需載入；每次都必須使用的停止線與完成條件應留在主檔。</div></div>
+<h2>關鍵判斷</h2><p>按需讀取提示（context pointer）要說清楚「什麼條件下讀、讀了拿來做什麼」。</p>
+<p><strong>主要閱讀：</strong><a href="https://www.youtube.com/watch?v=UNzCG3lw6O0">影片 9:00–11:53</a>、<a href="https://code.claude.com/docs/en/skills#add-supporting-files">Claude Code — Add supporting files</a>。</p>
+<footer>入門完成線：<a href="009-0004-separate-steps-reference-and-done.html">整理結構</a> · 下一課：<a href="009-0006-steer-with-leading-words.html">用引導詞讓做法更一致</a><br>把使用情境表與 diff／不修改理由貼回 Claude Code，請它檢查是否把必讀材料藏得太深。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
+</body>
+</html>

@@ -36,7 +36,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 2 · 第 07 課 · 約 15 分鐘 · 平行隔離</div>
 <h1>用 worktree 分開平行工作</h1>
-<p class="mission">任務目標：理解 worktree 如何讓多個 Claude Code session 同時改不同分支而不互踩。</p>
+<p class="mission"><strong>本課成果：</strong>一張平行工作配置，說清楚每個工作樹（worktree）負責的分支與範圍。</p>
 <div class="scope"><strong>本課只做：</strong>用 worktree 分開平行工作區。<br><strong>先不要做：</strong>在不懂 git 狀態時同時開多條工作線。</div>
 
 
@@ -47,7 +47,7 @@
 <tr><td>subagent</td><td>context</td><td>調查、review。</td></tr>
 <tr><td>worktree session</td><td>檔案修改</td><td>同時做多個獨立任務。</td></tr>
 </table>
-<div class="tip">桌面 App 的新 session 會自動使用隔離工作區；CLI 可用 <code>claude --worktree feature-auth</code>。</div>
+<div class="tip">桌面 App 的新工作階段會自動使用隔離工作區；CLI 可用 <code>claude --worktree feature-auth</code>。</div>
 <div class="tip">Worktree 是 fresh checkout。若每個 session 都需要 gitignored 的 <code>.env</code> 或本機設定，可在 repo root 建立 <code>.worktreeinclude</code>；它使用 <code>.gitignore</code> syntax，而且只會複製本來就被忽略的檔案。</div>
 
 <h2>實作步驟（做完打勾）</h2>
@@ -68,7 +68,7 @@
   <p>先結束對應 session，再用 <code>git worktree list</code> 找出路徑；確認 worktree 沒有未提交變更、untracked files 或未保留的 commits 後，執行 <code>git worktree remove &lt;path&gt;</code>，最後再跑一次 <code>git worktree list</code> 驗證已移除。Claude 建立的互動 worktree 在退出時可能自動清理或詢問是否保留；<code>-p --worktree</code> 不會自動清理。不要用 <code>--force</code> 掩蓋不清楚的狀態。</p>
 </div>
 
-<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經能安全平行開多個 session。</div>
+<div class="done-banner" id="done"><strong>完成條件：</strong>工作樹清單能對應分支與負責範圍，各工作樹狀態也已確認。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="2">
@@ -89,7 +89,7 @@
 <h2>下一步</h2>
 <p>下一課：<a href="002-0008-writer-reviewer-session.html">Phase 2 第 08 課 — 用兩個 session 分工寫作與審查</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/worktrees">Run parallel sessions with worktrees（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="002-0006-custom-subagent-review.html">Phase 2 第 06 課 — Custom subagent review</a></footer>
+<footer>工作樹分工不清楚時，交出 <code>git worktree list</code>、各分支狀態與預定範圍，請 Claude Code 找出重疊或遺漏。<br>上一課：<a href="002-0006-custom-subagent-review.html">Phase 2 第 06 課 — Custom subagent review</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

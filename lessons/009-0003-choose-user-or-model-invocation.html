@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03：決定由你手動啟用，還是讓 Claude 自動啟用</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#7a4b25;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#7a4b25}.mission{font-style:italic;color:#555;border-left:3px solid #7a4b25;padding-left:1rem}.rule{background:#fcf8f4;border-left:4px solid #7a4b25;padding:.75rem 1rem}.step,.quiz{border:1px solid #e3d5c8;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f5eee8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#6d421f}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #e3d5c8;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fcf8f4;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #e3d5c8;padding-top:1rem}
+</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 9 · 入門第 03 課 · 約 12 分鐘</div>
+<h1>決定由你手動啟用，還是讓 Claude 自動啟用</h1>
+<p class="mission"><strong>本課成果：</strong>一張 <code>repo-checkpoint</code> 啟用方式決策卡。</p>
+<div class="rule"><strong>兩種負擔：</strong>Claude 自動啟用（model-invoked）會把 <code>description</code> 列在 Claude 可見的 Skills 清單，增加對話脈絡負擔（context load）；使用者手動啟用（user-invoked）則要由工程師記得何時輸入名稱，增加使用者記憶負擔（cognitive load）。兩者沒有永遠比較好的答案。</div>
+
+<h2>先問誰該決定時機</h2>
+<div class="step"><label><input type="checkbox"> 1. 判斷是否需要 Claude 自動發現</label><p><code>repo-checkpoint</code> 只在你要暫停、交接或盤點時使用，時機由人決定，因此第一版選擇手動啟用。若是 Claude 每次寫 API endpoint 都必須套用的共同規範，才較可能選擇自動啟用。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 審查檔頭設定</label><p>請 Claude Code 確認有 <code>disable-model-invocation: true</code>。<code>description</code> 仍保留給人閱讀的一行摘要，但不需要堆滿重複同義詞。</p>
+<pre>---
+name: repo-checkpoint
+description: Summarize current work as Changed, Verified, Remaining, and Blocked.
+disable-model-invocation: true
+---</pre></div>
+<div class="step"><label><input type="checkbox"> 3. 留下啟用方式決策卡</label><p>記錄「使用者手動啟用／由人控制收尾時機／接受記住一個名稱／不讓它在無關對話自動出現」。不要只抄 YAML。</p></div>
+
+<div class="done" id="done"><strong>完成：</strong>啟用方式、代價與實際檔頭設定已對齊。</div>
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="2"><p>哪個情境最適合由使用者手動啟用？</p><button>每次編輯 API 都要自動套用共同規範</button><button>所有測試工作都要自動載入共同資料</button><button>由人決定何時執行 commit 或 deploy</button><div class="why">帶外部影響或需要人選時機的工作流程，通常應由人明確啟用。自動啟用適合 Claude 必須自行發現的知識或流程。</div></div>
+<h2>關鍵判斷</h2><p>啟用方式是設計選擇；只開啟真實工作流程需要的自動啟用。</p>
+<p><strong>主要閱讀：</strong><a href="https://www.youtube.com/watch?v=UNzCG3lw6O0">影片 3:16–7:25</a> 與 <a href="https://code.claude.com/docs/en/skills#control-who-invokes-a-skill">Claude Code — Control who invokes a skill</a>。</p>
+<footer>上一課：<a href="009-0002-create-first-project-skill-with-claude-code.html">建立專案 Skill</a> · 下一課：<a href="009-0004-separate-steps-reference-and-done.html">整理結構與完成條件</a><br>把啟用方式決策卡貼回 Claude Code，請它檢查這個選擇增加了哪一方的記憶負擔。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
+</body>
+</html>

@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 5 · 第 08 課 · 約 15 分鐘</div>
 <h1>把三頁簡報改成一頁摘要</h1>
-<p class="mission">今天只做一件事：請 Claude Code 透過 Design MCP，把已核准三頁改作成可獨立閱讀的一頁摘要。</p>
+<p class="mission"><strong>本課成果：</strong>一份可脫離原簡報獨立閱讀的一頁摘要。</p>
 <div class="rule"><strong>不是把三張縮小：</strong>重用已確認的內容，重新排成一頁閱讀順序。</div>
 <h2>完成一頁摘要</h2>
 <div class="step"><label><input type="checkbox"> 1. 讓 Claude Code 抽出三個核心訊息</label><p>現況一句、證據一句、下一步一句；你要對照 approved storyboard，刪除任何新主張。</p></div>
@@ -21,9 +21,9 @@
 <div class="done" id="done"><strong>完成：</strong>你已把同一組可信內容改作成能獨立閱讀的一頁摘要。</div>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="2"><p>把簡報改成一頁摘要時，應該怎麼做？</p><button>把三張全部縮小</button><button>加入更多新內容</button><button>重排三個核心點</button><div class="why">改作要保留已驗證的內容地基，但依新的閱讀情境重新安排層級。</div></div>
-<h2>帶走這個就好</h2><p>你已完成 Phase 5 入門主線：真實題目、三份資料、三頁簡報、一次彩排與一頁改作。</p>
+<h2>關鍵判斷</h2><p>你已完成 Phase 5 入門主線：真實題目、三份資料、三頁簡報、一次彩排與一頁改作。</p>
 <p><strong>主要閱讀：</strong><a href="https://claude.com/product/design">Anthropic — Claude Design</a>。</p>
-<footer>上一課：<a href="005-0007-export-and-rehearse.html">輸出並講一次</a> · 進階下一課：<a href="005-0009-build-claim-ledger.html">建立 claim ledger</a> · Code-first 簡報：<a href="007-0001-decide-if-open-slide-fits.html">前往 Phase 7</a><br>把一頁摘要與陌生讀者回饋貼回對話，請 AI 老師檢查是否能獨立閱讀。</footer>
+<footer>上一課：<a href="005-0007-export-and-rehearse.html">輸出並講一次</a> · 進階下一課：<a href="005-0009-build-claim-ledger.html">建立 claim ledger</a> · Code-first 簡報：<a href="007-0001-decide-if-open-slide-fits.html">前往 Phase 7</a><br>把一頁摘要與陌生讀者回饋貼回 Claude Code，請它檢查是否能獨立閱讀。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

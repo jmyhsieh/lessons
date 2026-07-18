@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 6 · 進階第 06 課 · 約 10–15 分鐘</div>
 <h1>Query 並留下可重用答案</h1>
-<p class="mission">今天只做一件事：問一個需要跨頁整理的問題，再判斷答案值不值得寫回 Wiki。</p>
+<p class="mission"><strong>本課成果：</strong>一份跨頁查詢（query）得到、值得寫回 Wiki 的答案。</p>
 
 <div class="rule"><strong>Query 會讓探索繼續累積：</strong>Claude Code 先從索引找到相關頁面，再帶著來源回答；只有未來還會再用的結果才寫回 Wiki。</div>
 
@@ -40,10 +40,10 @@
 <div class="why">值得重用的新連結與分析才寫回；全存會製造雜訊，全不存則失去累積效果。</div>
 </div>
 
-<h2>帶走這個就好</h2>
-<p><strong>Query 不只取出答案，也能產生新知識頁。</strong>判斷標準不是答案漂不漂亮，而是它未來是否值得重用。</p>
+<h2>關鍵判斷</h2>
+<p><strong>Query 不只取出答案，也能產生新知識頁。</strong>判斷時只問一件事：這份答案未來是否值得重用。</p>
 <p><strong>主要閱讀：</strong><a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki：Query</a>。</p>
-<footer>上一課：<a href="006-0005-ingest-one-source-with-a-review-loop.html">Ingest 一份來源</a> · 下一課：<a href="006-0007-lint-and-fix-one-wiki-problem.html">Lint 並修一個問題</a><br>有不清楚的，回對話視窗問你的 AI 老師。</footer>
+<footer>上一課：<a href="006-0005-ingest-one-source-with-a-review-loop.html">Ingest 一份來源</a> · 下一課：<a href="006-0007-lint-and-fix-one-wiki-problem.html">Lint 並修一個問題</a><br>查詢答案互相矛盾時，交出問題、相關頁面與衝突內容，請 Claude Code 分開列出證據與仍待確認的部分。</footer>
 <script>
 const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});
 </script>

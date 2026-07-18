@@ -36,7 +36,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 1 · 第 04 課 · 約 15 分鐘 · 安全工作流</div>
 <h1>先用 plan mode 讓它只規劃不修改</h1>
-<p class="mission">任務目標：能判斷什麼時候用預設模式、什麼時候先切 plan mode。這一課只學「模式選擇」，不處理 allow/deny 規則。</p>
+<p class="mission"><strong>本課成果：</strong>一個有理由的模式選擇，能說明這項工作是否要先用規劃模式（plan mode）。</p>
 <div class="scope"><strong>本課只做：</strong>用 plan mode 讓它先規劃、不修改。<br><strong>先不要做：</strong>在還沒看 plan 前就切到自動批准。</div>
 
 
@@ -77,7 +77,7 @@ Do not modify files yet.</pre>
   <p>檢查它是否列出會動到的檔案、風險、驗證方式。缺任一項就要求補齊。</p>
 </div>
 
-<div class="done-banner" id="done">🎉 <strong>完成！</strong>你現在知道什麼任務要先進 plan mode。</div>
+<div class="done-banner" id="done"><strong>完成條件：</strong>模式選擇卡寫出這項工作是否先用規劃模式，以及判斷理由。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="2">
@@ -99,7 +99,7 @@ Do not modify files yet.</pre>
 <p>下一課：<a href="001-0005-first-safe-code-change.html">Phase 1 第 05 課 — 第一次讓它改程式碼</a>。你會把這一課的 plan 接到分支、小改動、驗證與 diff review。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/permissions">Configure permissions（官方）</a>。</p>
 
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0003-read-only-repo-tour.html">Phase 1 第 03 課 — 唯讀 repo 導覽</a></footer>
+<footer>模式拿不準時，把預計動作與可能修改的檔案交給 Claude Code，請它判斷是否要先用規劃模式。<br>上一課：<a href="001-0003-read-only-repo-tour.html">Phase 1 第 03 課 — 唯讀 repo 導覽</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

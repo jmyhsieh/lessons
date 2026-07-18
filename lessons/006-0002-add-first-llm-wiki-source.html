@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 6 · 第 02 課 · 約 10 分鐘</div>
 <h1>加入第一份真實來源</h1>
-<p class="mission">今天只做一件事：把一份你信任的資料交給 Claude Code，讓它更新剛建立的 Wiki。</p>
+<p class="mission"><strong>本課成果：</strong>一筆從可信資料加入 Wiki、仍能回到原文的更新。</p>
 
 <div class="rule"><strong>第一份來源要小：</strong>選一份你看得完、知道作者或出處、之後能重新開啟的資料。先證明流程可用，再慢慢增加。</div>
 
@@ -39,10 +39,10 @@
 <div class="why">Wiki 是整理層，不是新的權威來源。先抽查一點，就能提早發現誤讀。</div>
 </div>
 
-<h2>帶走這個就好</h2>
+<h2>關鍵判斷</h2>
 <p><strong>先加一份，先查一點。</strong>你不需要先懂 <code>ingest</code>；現在做的「把新資料交給 Claude Code 更新 Wiki」，就是最小版本。</p>
 <p><strong>主要閱讀：</strong><a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki raw idea file</a>。</p>
-<footer>上一課：<a href="006-0001-start-llm-wiki-with-claude-code.html">交給 Claude Code</a> · 下一課：<a href="006-0003-ask-first-llm-wiki-question.html">問第一個問題</a><br>有不清楚的，回對話視窗問你的 AI 老師。</footer>
+<footer>上一課：<a href="006-0001-start-llm-wiki-with-claude-code.html">交給 Claude Code</a> · 下一課：<a href="006-0003-ask-first-llm-wiki-question.html">問第一個問題</a><br>來源追不回原文時，交出來源網址、變更頁面與差異，請 Claude Code 補上缺少的引用資訊。</footer>
 <script>
 const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});
 </script>

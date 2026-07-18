@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>08：用 /implement 完成 bounded slice</title>
+<title>08：用 /implement 完成有限切片</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -38,99 +38,78 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 3 · 第 08 課 · 約 60 分鐘 · 實作交付</div>
-<h1>用 /implement 完成一個 bounded slice</h1>
-<p class="mission">目標：用 <code>/implement</code> 完成一個已對齊、可驗收的 bounded slice。單-session 小需求可沿用目前 context 裡的明確 plan；跨 session 工作則依 spec 與第 07 課切出的單張 ticket 冷啟動。兩條路都把 <code>/tdd</code>、測試、<code>/code-review</code> 與 commit 收進同一條實作流程。</p>
-<div class="scope"><strong>本課只做：</strong>完成一個小而可驗收的 slice。<br><strong>先不要做：</strong>實作尚未對齊的需求、一次丟整批 tickets，或把大功能假裝成單-session 工作。</div>
+<h1>用 /implement 完成一個有限切片</h1>
+<p class="mission"><strong>本課成果：</strong>一個已通過測試與程式碼審查的有限切片（bounded slice）。</p>
+<div class="scope"><strong>本課只做：</strong>完成一個小而可驗收的功能切片。<br><strong>先不要做：</strong>實作尚未對齊的需求，或一次處理多張工作項目。</div>
 
-<h2>Pipeline 全景：你在這裡</h2>
-<pre>同一 context 的已對齊 plan ─┐
-spec → 單張 ticket ─────────┴→ <strong>/implement</strong> → tests → /code-review → commit → /handoff</pre>
-
-<h2>/implement 是 orchestrator</h2>
-<p><code>/implement</code> 的原文職責是「依 spec 或 tickets 實作工作」。它不是單純寫 code，而是把施工流程串起來：</p>
-<table>
-<tr><th>階段</th><th>你要看什麼</th></tr>
-<tr><td>確認一種 bounded input</td><td>同一 context 的已對齊 plan，或 spec 加單張 ticket；只做這個 slice，不順手擴 scope。</td></tr>
-<tr><td>使用 <code>/tdd</code></td><td>在預先同意的接縫上做 RED → GREEN；先不重構。</td></tr>
-<tr><td>規律跑檢查</td><td>常跑單檔測試與 typecheck，最後跑完整測試。</td></tr>
-<tr><td>使用 <code>/code-review</code></td><td>以明確 fixed point 檢查 Standards 與 Spec，再處理發現。</td></tr>
-<tr><td>commit 當前分支</td><td>commit message 要能指回 originating plan／ticket 與驗收結果。</td></tr>
-</table>
-<div class="tip"><strong>重點：</strong><code>/tdd</code> 與 <code>/code-review</code> 是 <code>/implement</code> 裡的品質紀律，不是與 <code>/implement</code> 平行的主流程。</div>
-<div class="tip"><strong>Reviewed TDD 邊界：</strong>目前 snapshot 把 TDD 明確定義為 RED → GREEN；refactoring 不在這個 loop 內，而是在 review 階段處理。不要把熟悉的「red-green-refactor」口號誤讀成這份 skill 的實際執行順序。</div>
-
-<h2>/code-review 先釘住 fixed point</h2>
-<p><code>/code-review</code> 不只可放在 <code>/implement</code> 收尾，也能獨立 review 一個 PR、branch 或 WIP。無論哪種用法，都要先由你提供 commit、branch、tag 或 merge-base 當 fixed point，再固定使用 <code>git diff &lt;fixed-point&gt;...HEAD</code> 的 three-dot diff。</p>
-<table>
-<tr><th>準備</th><th>Review 規則</th></tr>
-<tr><td>確認邊界</td><td>先確認 fixed point 可解析，而且 diff 不是空的；錯誤 ref 或空 diff 要在派 reviewer 前就停下來。</td></tr>
-<tr><td>找依據</td><td>先找 originating requirement／plan／spec，以及 AGENTS.md、CONTRIBUTING.md 等 repo standards；不要讓 reviewer 自己猜需求或規範。</td></tr>
-<tr><td>平行雙軸</td><td>Standards reviewer 檢查 repo 規則，並把 Fowler code smell baseline 當 heuristic；repo 明文規則優先。Spec reviewer 則檢查漏做、scope creep 與做錯的需求。</td></tr>
-<tr><td>保留分界</td><td>兩份報告 side by side 呈現，不合併 findings，也不跨軸重排嚴重度。</td></tr>
-</table>
+<h2>先準備可驗收的輸入</h2>
+<p><code>/implement</code> 需要明確的範圍。你可以使用目前對話中已確認的小型實作計畫，或提供規格與一張工作項目。兩種方式都要寫清楚驗收條件、預計修改的範圍，以及要跑的測試。</p>
+<pre>已確認的計畫或「規格 + 單張工作項目」
+  → /implement
+  → 測試
+  → /code-review
+  → commit</pre>
+<div class="tip"><strong>工程師要守的邊界：</strong>Claude Code 若想順手擴大修改範圍，先停下來看 <code>git diff</code>，再把工作收回這張工作項目的驗收條件。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
-  <label><input type="checkbox"> 1. 選定 bounded input 路徑</label>
-  <p><strong>單-session fast path：</strong>需求已在目前 context 對齊，而且有明確驗收條件、測試接縫與窄 scope，就直接使用這份 plan。<strong>跨 session 路徑：</strong>選第 07 課產出的單張 frontier ticket，確認它有 spec 連結、驗收條件、測試接縫與 Blocked by。</p>
+  <label><input type="checkbox"> 1. 選一張可獨立驗收的工作項目</label>
+  <p>確認它只有一個主要結果，並列出驗收條件、相關檔案與測試命令。若資訊還不完整，先回前兩課補規格與工作項目。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 2. 開分支並啟動 /implement</label>
-  <pre># 單-session fast path：留在已對齊的目前 context
-/implement 依剛確認的 plan 完成這個 bounded slice
-
-# 跨 session 路徑：用 durable artifacts 冷啟動
-/implement 根據這份 spec 與這張 ticket 實作：[spec 路徑] [ticket 路徑]</pre>
-  <p>fast path 必須留在已有對齊脈絡的同一個 context；若工作需要換 session，就先產生 durable spec／ticket。每張 ticket 使用新的 context，只從 spec、單張 ticket、CONTEXT.md 與 ADR 冷啟動。如果它試圖擴大 slice 或一次處理多張 ticket，立刻收斂。</p>
+  <label><input type="checkbox"> 2. 請 Claude Code 只實作這個範圍</label>
+  <pre>/implement 根據 [規格路徑] 與 [工作項目路徑] 實作。
+只處理這張工作項目；先回報預計修改的檔案與驗證命令。</pre>
+  <p>核對它提出的檔案清單與你的預期是否一致。涉及額外權限、套件安裝或範圍外檔案時，先看原因再決定是否允許。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 3. 盯住 /tdd 的紅綠燈</label>
-  <p>確認每個關鍵行為至少有一次 RED → GREEN。沒看見失敗的測試，不要相信它真的保護了需求；這一步不順手重構，結構調整留到 review 階段。</p>
+  <label><input type="checkbox"> 3. 看過測試從失敗到通過</label>
+  <p>用 <code>/tdd</code> 保留紅燈到綠燈（RED → GREEN）的證據。測試必須能在需求被破壞時失敗，才算保護到這次修改。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 4. 跑完整驗證</label>
-  <p>要求它回報 typecheck、單檔測試、完整測試或本 repo 對應的驗證命令。命令、結果與未跑原因都要講清楚。</p>
+  <label><input type="checkbox"> 4. 審查 diff 與驗證結果</label>
+  <p>先看 <code>git diff</code>，確認沒有範圍外修改；再執行 repo 規定的測試、型別檢查或 lint。未執行的檢查要留下原因。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 5. 做 /code-review 與 commit</label>
-  <pre>/code-review [fixed point]</pre>
-  <p>fixed point 必填。先確認它可解析、three-dot diff 非空，再找出 originating requirement／plan／spec 與 repo standards，讓 Standards 與 Spec reviewers 平行檢查。讀完 side-by-side findings、處理完發現後，才 commit 到目前分支。</p>
+  <label><input type="checkbox"> 5. 完成程式碼審查</label>
+  <pre>/code-review [審查起點]</pre>
+  <p>提供 commit、branch、tag 或 merge-base 作為審查起點。處理審查發現後，再建立可指回工作項目與驗收結果的 commit。</p>
 </div>
 
 <div class="done-banner" id="done">
-  🎉 <strong>你已完成第一個可交付的 bounded slice。</strong>回對話視窗回報：走哪條 input 路徑？哪個測試先紅後綠？review 抓到什麼？
+  <strong>完成條件：</strong>有限切片符合工作項目、適用測試已通過、審查問題已處理，並保留 <code>git diff --stat</code>。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
 <div class="quiz" data-answer="1">
-  <p>1. /implement 最適合吃什麼輸入？</p>
-  <button>尚未對齊、還要邊做邊猜才能推進的需求</button>
-  <button>已對齊 plan 或一張可認領 ticket</button>
-  <button>未切片 spec、所有 tickets 與相關附件</button>
-  <div class="why"><code>/implement</code> 可承接同一 context 中已對齊的小 plan，也可依 spec 與單張 ticket 冷啟動；關鍵是 input 已對齊而且 scope bounded。</div>
+  <p>1. 哪種內容適合交給 /implement？</p>
+  <button>尚未釐清、需要邊做邊猜的需求</button>
+  <button>有驗收條件與測試方式的一張工作項目</button>
+  <button>所有未切分的功能與附件</button>
+  <div class="why"><code>/implement</code> 適合範圍已對齊、能獨立驗收的工作。</div>
 </div>
 <div class="quiz" data-answer="1">
-  <p>2. 開始 /code-review 前，哪組準備才完整？</p>
-  <button>確認 HEAD 可讀，讓 reviewer 自行推測起點與需求文件</button>
-  <button>確認 review 起點、實際 diff、spec 與規範</button>
-  <button>先合併雙軸 findings，再讓 reviewer 判定需求依據</button>
-  <div class="why">先釘住 fixed point 與非空 diff，再把 spec 與 standards 分別交給平行雙軸 reviewer。結果要 side by side 保留，不合併或跨軸重排。</div>
+  <p>2. Claude Code 修改了工作項目以外的檔案，第一步該做什麼？</p>
+  <button>直接接受，讓它一次完成更多工作</button>
+  <button>查看 git diff，確認原因並收回原本範圍</button>
+  <button>跳過測試，先建立 commit</button>
+  <div class="why"><code>git diff</code> 能讓你看見實際變更，並及早阻止範圍膨脹。</div>
 </div>
 <div class="quiz" data-answer="1">
-  <p>3. 沒看過測試先失敗就綠了，該怎麼辦？</p>
-  <button>接受結果，只要測試綠燈</button>
-  <button>要求補齊 RED 階段證據</button>
-  <button>改用手動 review 取代測試</button>
-  <div class="why">TDD 的信任來自 RED → GREEN。沒看過 RED，就不知道測試是否真的抓得到問題。</div>
+  <p>3. 為什麼要看過測試先失敗？</p>
+  <button>因為所有測試都必須失敗一次</button>
+  <button>因為這能證明測試真的抓得到本課需求</button>
+  <button>因為失敗後就不必再跑完整測試</button>
+  <div class="why">沒有紅燈證據，就無法確認測試是否真的保護了這次修改。</div>
 </div>
 
 <h2>下一步</h2>
 <p>完成後回對話視窗交報告。下一課：<a href="003-0009-triage.html">Phase 3 第 09 課 — 用 /triage 處理外部回報</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/implement/SKILL.md">reviewed implement snapshot（66898f6）</a>，以及同 snapshot 的 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/tdd/SKILL.md">TDD 邊界</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/implement/SKILL.md">current implement</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/implement/SKILL.md">已審查的 implement 版本（66898f6）</a>，以及同版本的 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/tdd/SKILL.md">TDD 邊界</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/implement/SKILL.md">目前的 implement 說明</a>。</p>
 
 <footer>
-  有不清楚的，回對話視窗問你的 AI 老師。<br>
-  上一課：<a href="003-0007-to-tickets.html">Phase 3 第 07 課 — /to-tickets</a> · 相關：<a href="002-0006-custom-subagent-review.html">Phase 2 第 06 課 — review agent</a> · <a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>
+  有限切片尚未通過驗證時，交出工作項目、失敗命令與 <code>git diff</code>，請 Claude Code 只處理阻擋交付的問題。<br>
+  上一課：<a href="003-0007-to-tickets.html">Phase 3 第 07 課 — /to-tickets</a> · 相關：<a href="002-0006-custom-subagent-review.html">Phase 2 第 06 課 — 審查代理</a> · <a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>
 </footer>
 
 <script>

@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 5 · 進階第 09 課 · 約 15 分鐘</div>
 <h1>建立簡報 claim ledger</h1>
-<p class="mission">今天只做一件事：讓 Claude Code 草擬 claim ledger，再由你回到原始來源抽查每個重要主張。</p>
+<p class="mission"><strong>本課成果：</strong>一列可回查原始來源的主張查核表（claim ledger）。</p>
 <div class="rule"><strong>先查高風險主張：</strong>優先處理會改變決策的數字、比較與因果說法，不必先替每個形容詞建立紀錄。</div>
 <h2>完成一份 claim ledger</h2>
 <div class="step"><label><input type="checkbox"> 1. 請 Claude Code 列高影響主張</label><p>只從簡報挑 3 個最可能影響決策的主張，保留頁碼與原句，不要讓它補充新說法。</p></div>
@@ -20,9 +20,9 @@
 <div class="step"><label><input type="checkbox"> 3. 核准證據缺口處理</label><p>請 Claude Code 提議改寫、加限制或移除，逐項 review 後才更新 deck；不能把「待確認」藏在正式交付檔。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你有一份可抽查的 claim ledger，不必再靠記憶回答「這個數字哪裡來的？」</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Claim ledger 應該先檢查哪一種內容？</p><button>會影響決策的數字</button><button>最容易排版的文字</button><button>最漂亮的一張圖片</button><div class="why">會影響決策的數字一旦錯誤，後果最大；它們是第一批需要來源與限制條件的主張。</div></div>
-<h2>帶走這個就好</h2><p>Claim ledger 不是參考資料清單，而是主張與證據的一對一索引。</p>
+<h2>關鍵判斷</h2><p>主張查核表（claim ledger）會把每一項重要主張連到對應證據。</p>
 <p><strong>主要閱讀：</strong><a href="https://claude.com/resources/tutorials/using-claude-design-for-presentations-and-slide-decks">Anthropic — Using Claude Design for presentations and slide decks</a>。</p>
-<footer>上一課：<a href="005-0008-repurpose-one-pager-social.html">完成一頁摘要</a> · 下一課：<a href="005-0010-build-reusable-deck-system.html">建立可重用 deck system</a><br>把 Claude Code 產生的一列與原始來源貼回對話，請 AI 老師檢查是否可追溯。</footer>
+<footer>上一課：<a href="005-0008-repurpose-one-pager-social.html">完成一頁摘要</a> · 下一課：<a href="005-0010-build-reusable-deck-system.html">建立可重用 deck system</a><br>把 Claude Code 產生的一列與原始來源貼回 Claude Code，請它檢查是否可追溯。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

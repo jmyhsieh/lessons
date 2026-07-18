@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 6 · 進階第 05 課 · 約 15 分鐘</div>
 <h1>用 review loop ingest 一份來源</h1>
-<p class="mission">今天只做一件事：依 schema 加入一份新來源，先看更新計畫，再檢查實際變更。</p>
+<p class="mission"><strong>本課成果：</strong>一次先看計畫、再審查實際差異的來源匯入（ingest）。</p>
 
 <div class="rule"><strong>Ingest 不只是把檔案放進資料夾：</strong>Claude Code 要讀懂新來源，更新既有頁面、索引與紀錄，同時保留原始資料不變。</div>
 
@@ -40,10 +40,10 @@
 <div class="why">Ingest 會把新資訊整合進既有知識，而不是只收藏檔案或另開一套 Wiki。</div>
 </div>
 
-<h2>帶走這個就好</h2>
+<h2>關鍵判斷</h2>
 <p><strong>Ingest = 新來源進來，既有 Wiki 跟著演進。</strong>先看計畫、再看 diff，能讓你保有方向控制權。</p>
 <p><strong>主要閱讀：</strong><a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki：Ingest</a>。</p>
-<footer>上一課：<a href="006-0004-evolve-llm-wiki-schema.html">更新 schema</a> · 下一課：<a href="006-0006-query-and-file-a-durable-answer.html">Query 並留下可重用答案</a><br>有不清楚的，回對話視窗問你的 AI 老師。</footer>
+<footer>上一課：<a href="006-0004-evolve-llm-wiki-schema.html">更新 schema</a> · 下一課：<a href="006-0006-query-and-file-a-durable-answer.html">Query 並留下可重用答案</a><br>匯入差異超出計畫時，交出核准的計畫、來源與實際差異，請 Claude Code 標出不該修改的內容。</footer>
 <script>
 const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});
 </script>

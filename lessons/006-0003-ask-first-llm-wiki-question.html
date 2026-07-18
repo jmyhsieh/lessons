@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 6 · 第 03 課 · 約 10 分鐘</div>
 <h1>問第一個問題並檢查來源</h1>
-<p class="mission">今天只做一件事：問一個 Wiki 應該答得出的問題，確認答案能回到來源。</p>
+<p class="mission"><strong>本課成果：</strong>一個 Wiki 能回答、而且能回查來源的問題。</p>
 
 <div class="rule"><strong>好答案有邊界：</strong>Wiki 有資料就指出來源；資料不夠就明說不知道。不要為了看起來完整而補猜測。</div>
 
@@ -38,10 +38,10 @@
 <div class="why">誠實標出資料不足，才能分清楚 Wiki 已知內容與模型猜測。</div>
 </div>
 
-<h2>帶走這個就好</h2>
+<h2>關鍵判斷</h2>
 <p>你現在已經會使用 LLM Wiki。<code>schema</code>、<code>ingest</code>、<code>query</code>、<code>lint</code> 與自動化，等 Wiki 真的變大、問題真的出現時再學。</p>
 <p><strong>主要閱讀：</strong><a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki raw idea file</a>。</p>
-<footer>上一課：<a href="006-0002-add-first-llm-wiki-source.html">加入第一份來源</a> · 進階下一課：<a href="006-0004-evolve-llm-wiki-schema.html">把實際規則寫進 schema</a> · <a href="../reference/llm-wiki-workflow.html">LLM Wiki 速查卡</a><br>把 Wiki 與第一次回答貼回對話，請 AI 老師幫你檢查來源邊界。</footer>
+<footer>上一課：<a href="006-0002-add-first-llm-wiki-source.html">加入第一份來源</a> · 進階下一課：<a href="006-0004-evolve-llm-wiki-schema.html">把實際規則寫進 schema</a> · <a href="../reference/llm-wiki-workflow.html">LLM Wiki 速查卡</a><br>把 Wiki 與第一次回答貼回 Claude Code，請它幫你檢查來源邊界。</footer>
 <script>
 const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});
 </script>

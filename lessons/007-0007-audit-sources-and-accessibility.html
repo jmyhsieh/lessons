@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 7 · 進階第 07 課 · 約 20 分鐘</div>
 <h1>稽核來源與 accessibility</h1>
-<p class="mission">今天只做一件事：讓 Claude Code 先列來源與 accessibility 待查項，再由你在實際輸出驗證。</p>
+<p class="mission"><strong>本課成果：</strong>一份針對實際輸出的來源與無障礙查核紀錄。</p>
 <div class="rule"><strong>程式化不等於可信或可及：</strong>React 元件能重用版型，不能自動證明數字正確、閱讀順序合理或對比足夠。</div>
 <h2>完成雙軸稽核</h2>
 <div class="step"><label><input type="checkbox"> 1. 請 Claude Code 連主張到來源</label><p>使用 Phase 5 claim ledger，讓它指出每個高影響數字的來源位置與限制；你要打開來源抽查。</p></div>
@@ -20,9 +20,9 @@
 <div class="step"><label><input type="checkbox"> 3. 由你在 preview 實際走一次</label><p>用鍵盤完成三頁導覽，檢查窄版與投影距離；把 pass、issue 或未驗證交回 Claude Code。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已留下來源與 accessibility 兩種不同證據，不會用 build 結果替代內容查核。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Code-first 簡報完成後，應該怎麼查核？</p><button>回查來源再讀畫面</button><button>只看畫面是否漂亮</button><button>只讓模型自我評分</button><div class="why">主張要回查來源，實際輸出也要由人操作與閱讀；兩種證據不能互相替代。</div></div>
-<h2>帶走這個就好</h2><p>可信內容與可及呈現是兩條 gate，都要落在實際交付物。</p>
+<h2>關鍵判斷</h2><p>可信內容與可及呈現是兩條 gate，都要落在實際交付物。</p>
 <p><strong>主要閱讀：</strong><a href="https://www.w3.org/WAI/teach-advocate/accessible-presentations/">W3C WAI — Accessible Presentations</a>。</p>
-<footer>上一課：<a href="007-0006-build-reusable-slide-system.html">建立 slide system</a> · 下一課：<a href="007-0008-close-comment-edit-review-loop.html">完成 comment → edit → review</a><br>把 Claude Code checklist、一筆來源與一項實測證據貼回對話，請 AI 老師檢查。</footer>
+<footer>上一課：<a href="007-0006-build-reusable-slide-system.html">建立 slide system</a> · 下一課：<a href="007-0008-close-comment-edit-review-loop.html">完成 comment → edit → review</a><br>把 Claude Code checklist、一筆來源與一項實測證據貼回 Claude Code，請它檢查。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

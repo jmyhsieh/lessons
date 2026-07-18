@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 8 · 入門第 03 課 · 約 15 分鐘</div>
 <h1>讓 Claude Code 走第一條 browser path</h1>
-<p class="mission">今天只做一件事：讓 Claude Code 在可見瀏覽器走完一條路徑，並回報它實際觀察到的結果。</p>
+<p class="mission"><strong>本課成果：</strong>一份 Claude Code 在可見瀏覽器走完單一路徑的觀察紀錄。</p>
 <div class="rule"><strong>你仍是駕駛：</strong>先啟動本機 app，再給精確 URL 與停止線；觀看 headed browser，只批准預期的輸入、點擊或其他狀態變更。</div>
 <h2>完成一次 live check</h2>
 <div class="step"><label><input type="checkbox"> 1. 準備明確起點</label><p>自行啟動 app 並確認 URL 可開啟。若頁面需要登入或真實寫入，改用測試帳號與可回復資料。</p></div>
@@ -23,9 +23,9 @@
 <div class="step"><label><input type="checkbox"> 3. 比對瀏覽器與回報</label><p>確認 Claude Code 的敘述與你看見的頁面一致，保存短 evidence note：路徑、結果、錯誤與未驗證範圍；不要把這次 live check 說成 regression test。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已有一份由可見瀏覽器支持的 live browser evidence note。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Claude Code 完成點擊後，下一個可靠動作是什麼？</p><button>動作後重新讀取頁面狀態</button><button>模型只憑著程式碼猜結果</button><button>瀏覽器曾經成功打開一次</button><div class="why">頁面可能因 navigation、loading 或互動改變；重新取得 snapshot／頁面狀態，才能根據最新畫面判斷。</div></div>
-<h2>帶走這個就好</h2><p>可靠的 agent browser loop 是 Navigate → Snapshot → Interact → Re-snapshot，而不是看過程式碼後猜畫面。</p>
+<h2>關鍵判斷</h2><p>可靠的 agent browser loop 是 Navigate → Snapshot → Interact → Re-snapshot，而不是看過程式碼後猜畫面。</p>
 <p><strong>主要閱讀：</strong><a href="https://playwright.dev/mcp/installation">Playwright MCP — Installation</a>。</p>
-<footer>上一課：<a href="008-0002-connect-playwright-mcp-to-claude-code.html">連接 MCP</a> · 下一課：<a href="008-0004-create-first-durable-test-with-claude-code.html">留下第一個持久 test</a><br>把 evidence note 貼回對話，請 Claude Code 或 AI 老師指出尚未被觀察支持的敘述。</footer>
+<footer>上一課：<a href="008-0002-connect-playwright-mcp-to-claude-code.html">連接 MCP</a> · 下一課：<a href="008-0004-create-first-durable-test-with-claude-code.html">留下第一個持久 test</a><br>把 evidence note 貼回 Claude Code，請它指出尚未被觀察支持的敘述。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

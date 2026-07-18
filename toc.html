@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>課目表 — Claude / Claude Code / AI workflow skills</title>
+<title>課目表 — 台灣工程師的 Claude Code 學習路徑</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 760px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
@@ -18,6 +18,7 @@
   h2.p6 { color: #8a3f5d; border-bottom: 2px solid #8a3f5d; }
   h2.p7 { color: #2f6f63; border-bottom: 2px solid #2f6f63; }
   h2.p8 { color: #4c5f9e; border-bottom: 2px solid #4c5f9e; }
+  h2.p9 { color: #7a4b25; border-bottom: 2px solid #7a4b25; }
   table { border-collapse: collapse; width: 100%; font-size: .92rem; }
   td { border-bottom: 1px solid #eee; padding: .5rem .6rem; vertical-align: top; }
   td.no { width: 2.8rem; color: #999; font-variant-numeric: tabular-nums; }
@@ -30,6 +31,7 @@
   .p6sec a { color: #7a3551; }
   .p7sec a { color: #255c52; }
   .p8sec a { color: #3f4f84; }
+  .p9sec a { color: #6d421f; }
   a:hover { text-decoration: underline; }
   .flow { border: 1px solid #e8e0d8; border-left-width: 4px; border-radius: 8px; padding: .75rem .9rem; margin: .8rem 0 1.4rem; background: #fffdfa; font-size: .86rem; line-height: 1.65; }
   .p2sec .flow { border-left-color: #9a5a00; background: #fffaf1; }
@@ -39,6 +41,7 @@
   .p6sec .flow { border-left-color: #8a3f5d; background: #fcf7f9; }
   .p7sec .flow { border-left-color: #2f6f63; background: #f4faf8; }
   .p8sec .flow { border-left-color: #4c5f9e; background: #f5f6fc; }
+  .p9sec .flow { border-left-color: #7a4b25; background: #fcf8f4; }
   .flow-title { font-weight: 700; margin-bottom: .35rem; color: #333; }
   .flow-note { margin: 0 0 .45rem; color: #666; }
   .flow-row { display: grid; grid-template-columns: 4.8rem 1fr; gap: .35rem .65rem; align-items: start; margin-top: .35rem; }
@@ -55,11 +58,11 @@
 <body class="toc-page">
 <p style="margin:0"><a href="index.html" style="font-size:.85rem">← 封面</a></p>
 <h1>課目表</h1>
-<p class="sub">Claude 工作表面 → 安全開始 → 進階工具箱 → 從需求到交付 → 第一個小畫面 → 第一份三頁簡報 → 第一個迷你 Wiki → 第一個 code-first deck → Claude Code 的 browser 查核與可重跑 tests · 共 87 課 · Phase 4–8 每課約 10–20 分鐘</p>
+<p class="sub">從真實程式庫出發：安全操作 Claude Code → 釐清需求 → 審查程式差異 → 執行測試 → 留下交接；再依需求選學視覺、簡報、知識庫、瀏覽器驗證與工作技能。共 96 課，Phase 4–9 每課約 10–20 分鐘。</p>
 
 <div class="ref">
-<strong>常用速查</strong>：<a href="reference/claude-product-picker.html">產品選用</a>、<a href="reference/claude-design-to-code-workflow.html">第一個小畫面</a>、<a href="reference/claude-design-daily-output-picker.html">視覺交付選路</a>、<a href="reference/claude-design-presentation-workflow.html">三頁簡報</a>、<a href="reference/open-slide-agent-deck-workflow.html">Phase 7 open-slide</a>、<a href="reference/playwright-browser-verification-workflow.html">Phase 8 Playwright</a>、<a href="reference/claude-code-command-surface.html">Claude Code 操作</a>、<a href="reference/claude-code-model-effort.html">模型與推理程度</a>、<a href="reference/wayfinder-map-workflow.html">Wayfinder map</a>、<a href="reference/llm-wiki-workflow.html">迷你 LLM Wiki</a>、<a href="reference/course-glossary.html">課程詞彙表</a><br>
-<strong>完成原則：</strong>勾完 checklist 代表操作完成；能交出 artifact、說明判斷並通過回饋，才是該課的 exit evidence。
+<strong>常用速查</strong>：<a href="reference/claude-product-picker.html">產品選用</a>、<a href="reference/claude-design-to-code-workflow.html">第一個小畫面</a>、<a href="reference/claude-design-daily-output-picker.html">視覺交付選路</a>、<a href="reference/claude-design-presentation-workflow.html">三頁簡報</a>、<a href="reference/open-slide-agent-deck-workflow.html">Phase 7 open-slide</a>、<a href="reference/playwright-browser-verification-workflow.html">Phase 8 Playwright</a>、<a href="reference/agent-skill-checklist.html">Phase 9 工作技能</a>、<a href="reference/claude-code-command-surface.html">Claude Code 操作</a>、<a href="reference/claude-code-model-effort.html">模型與推理程度</a>、<a href="reference/wayfinder-map-workflow.html">Wayfinder 地圖</a>、<a href="reference/llm-wiki-workflow.html">迷你 LLM Wiki</a>、<a href="reference/course-glossary.html">課程詞彙表</a><br>
+<strong>完成原則：</strong>勾完清單代表操作完成；能交出指定產出、說明判斷並通過回饋，才達到這課的完成標準。
 </div>
 
 <h2 class="p1">Phase 1 — 安全開始：四個 Claude 工作表面與 Claude Code 入門（01–12）</h2>
@@ -124,7 +127,7 @@
 <tr><td class="no">05</td><td><a href="lessons/002-0005-subagents-context.html">把大型調查交給另一個 agent（Subagents）</a></td><td class="track">Context 隔離</td></tr>
 <tr><td class="no">06</td><td><a href="lessons/002-0006-custom-subagent-review.html">建立專門負責 review 的 agent（custom subagent）</a></td><td class="track">Context 隔離</td></tr>
 <tr><td class="no">07</td><td><a href="lessons/002-0007-worktrees.html">用 worktree 分開平行工作</a></td><td class="track">擴展</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/002-0008-writer-reviewer-session.html">用兩個 session 分工寫作與審查</a></td><td class="track">擴展</td></tr>
+<tr><td class="no">08</td><td><a href="lessons/002-0008-writer-reviewer-session.html">用兩個工作階段分開撰寫與審查</a></td><td class="track">擴展</td></tr>
 <tr><td class="no">09</td><td><a href="lessons/002-0009-headless-one-shot.html">用指令列跑一次性任務（claude -p）</a></td><td class="track">擴展</td></tr>
 <tr><td class="no">10</td><td><a href="lessons/002-0010-ci-automation-boundary.html">在 CI 中安全使用 Claude Code</a></td><td class="track">擴展</td></tr>
 </table>
@@ -151,7 +154,7 @@
     <div class="flow-label">多工自動化</div>
     <div class="flow-steps">
       <a href="lessons/002-0007-worktrees.html">07 worktree</a>
-      <a href="lessons/002-0008-writer-reviewer-session.html">08 雙 session</a>
+      <a href="lessons/002-0008-writer-reviewer-session.html">08 雙工作階段</a>
       <a href="lessons/002-0009-headless-one-shot.html">09 one-shot</a>
       <a href="lessons/002-0010-ci-automation-boundary.html">10 CI</a>
     </div>
@@ -169,13 +172,13 @@
 <tr><td class="no">05</td><td><a href="lessons/003-0005-prototype.html">用 /prototype 驗證講不清的問題</a></td><td class="track">分支</td></tr>
 <tr><td class="no">06</td><td><a href="lessons/003-0006-to-spec.html">用 /to-spec 把對話凝結成 spec</a></td><td class="track">固化</td></tr>
 <tr><td class="no">07</td><td><a href="lessons/003-0007-to-tickets.html">用 /to-tickets 切成可認領工作</a></td><td class="track">切片</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/003-0008-implement.html">用 /implement 完成 bounded slice</a></td><td class="track">實作</td></tr>
+<tr><td class="no">08</td><td><a href="lessons/003-0008-implement.html">用 /implement 完成有限切片</a></td><td class="track">實作</td></tr>
 <tr><td class="no">09</td><td><a href="lessons/003-0009-triage.html">用 /triage 處理外部回報</a></td><td class="track">入口</td></tr>
 <tr><td class="no">10</td><td><a href="lessons/003-0010-diagnosing-bugs.html">用 /diagnosing-bugs 做紀律除錯</a></td><td class="track">缺陷</td></tr>
 <tr><td class="no">11</td><td><a href="lessons/003-0011-architecture.html">用 /improve-codebase-architecture 找維護切入點</a></td><td class="track">維護</td></tr>
 <tr><td class="no">12</td><td><a href="lessons/003-0012-handoff.html">用 /handoff 做跨 session 交接</a></td><td class="track">跨 session</td></tr>
-<tr><td class="no">13</td><td><a href="lessons/003-0013-wayfinder-chart-map.html">用 /wayfinder 畫出 shared map</a></td><td class="track">選修分支</td></tr>
-<tr><td class="no">14</td><td><a href="lessons/003-0014-wayfinder-frontier.html">沿 frontier 解一張 decision ticket</a></td><td class="track">選修分支</td></tr>
+<tr><td class="no">13</td><td><a href="lessons/003-0013-wayfinder-chart-map.html">用 /wayfinder 建立共享決策地圖</a></td><td class="track">選修分支</td></tr>
+<tr><td class="no">14</td><td><a href="lessons/003-0014-wayfinder-frontier.html">完成一張可處理的決策工作項目</a></td><td class="track">選修分支</td></tr>
 </table>
 <div class="flow">
   <div class="flow-title">建議走法</div>
@@ -193,7 +196,7 @@
       <a href="lessons/003-0002-ask-matt.html">02 選路線</a>
       <a href="lessons/003-0003-repo-map.html">03 可選地圖</a>
       <a href="lessons/003-0004-grill-with-docs.html">04 問清楚</a>
-      <a href="lessons/003-0008-implement.html">08 同 context implement</a>
+      <a href="lessons/003-0008-implement.html">08 同一脈絡實作</a>
     </div>
   </div>
   <div class="flow-row">
@@ -204,7 +207,7 @@
       <a href="lessons/003-0004-grill-with-docs.html">04 問清楚</a>
       <a href="lessons/003-0006-to-spec.html">06 spec</a>
       <a href="lessons/003-0007-to-tickets.html">07 tickets</a>
-      <a href="lessons/003-0008-implement.html">08 fresh implement</a>
+      <a href="lessons/003-0008-implement.html">08 新工作階段實作</a>
     </div>
   </div>
   <div class="flow-row">
@@ -222,7 +225,7 @@
     <div class="flow-steps">
       <a href="lessons/003-0009-triage.html">09 triage</a>
       <span>產生 agent-ready issue</span>
-      <a href="lessons/003-0008-implement.html">08 implement</a>
+      <a href="lessons/003-0008-implement.html">08 實作</a>
     </div>
   </div>
   <div class="flow-row">
@@ -236,8 +239,8 @@
     <div class="flow-label">巨大模糊 effort</div>
     <div class="flow-steps">
       <a href="lessons/003-0002-ask-matt.html">02 確認選路</a>
-      <a href="lessons/003-0013-wayfinder-chart-map.html">13 畫 shared map</a>
-      <a href="lessons/003-0014-wayfinder-frontier.html">14 一次解一票</a>
+      <a href="lessons/003-0013-wayfinder-chart-map.html">13 建立共享決策地圖</a>
+      <a href="lessons/003-0014-wayfinder-frontier.html">14 處理一張決策工作項目</a>
       <a href="lessons/003-0006-to-spec.html">06 回到 spec</a>
     </div>
   </div>
@@ -247,18 +250,18 @@
       <a href="lessons/003-0011-architecture.html">11 找切入點</a>
       <a href="lessons/003-0004-grill-with-docs.html">04 回到打磨</a>
       <span>小且同 session</span>
-      <a href="lessons/003-0008-implement.html">08 bounded implement</a>
+      <a href="lessons/003-0008-implement.html">08 有限切片實作</a>
       <span>跨 session 才走</span>
       <a href="lessons/003-0006-to-spec.html">06 spec</a>
       <a href="lessons/003-0007-to-tickets.html">07 tickets</a>
-      <a href="lessons/003-0008-implement.html">08 fresh implement</a>
+      <a href="lessons/003-0008-implement.html">08 新工作階段實作</a>
     </div>
   </div>
   <div class="flow-row">
     <div class="flow-label">任何路線換 session</div>
     <div class="flow-steps">
       <a href="lessons/003-0012-handoff.html">12 先 handoff</a>
-      <span>→ 新 session 只讀 durable artifacts 冷啟動</span>
+      <span>→ 新工作階段只讀耐久成果冷啟動</span>
     </div>
   </div>
 </div>
@@ -453,10 +456,10 @@
 <tr><td class="no">02</td><td><a href="lessons/007-0002-create-isolated-workspace.html">請 Claude Code 建立隔離 workspace</a></td><td class="track">入門環境</td></tr>
 <tr><td class="no">03</td><td><a href="lessons/007-0003-build-three-slide-slice.html">讓 Claude Code 完成三頁簡報切片</a></td><td class="track">入門實作</td></tr>
 <tr><td class="no">04</td><td><a href="lessons/007-0004-build-and-open-output.html">請 Claude Code build，再親自開啟</a></td><td class="track">入門完成</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/007-0005-use-agent-contract.html">讓 Claude Code 讀 workspace contract</a></td><td class="track">進階規則</td></tr>
+<tr><td class="no">05</td><td><a href="lessons/007-0005-use-agent-contract.html">讓 Claude Code 讀工作區規則</a></td><td class="track">進階規則</td></tr>
 <tr><td class="no">06</td><td><a href="lessons/007-0006-build-reusable-slide-system.html">用 /create-theme 建立可重用系統</a></td><td class="track">進階重用</td></tr>
 <tr><td class="no">07</td><td><a href="lessons/007-0007-audit-sources-and-accessibility.html">讓 Claude Code 列檢查，真人完成稽核</a></td><td class="track">進階稽核</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/007-0008-close-comment-edit-review-loop.html">用 /apply-comments 關閉回饋迴圈</a></td><td class="track">進階回饋</td></tr>
+<tr><td class="no">08</td><td><a href="lessons/007-0008-close-comment-edit-review-loop.html">關閉一則視覺回饋</a></td><td class="track">進階回饋</td></tr>
 <tr><td class="no">09</td><td><a href="lessons/007-0009-package-and-deploy-safely.html">讓 Claude Code 準備受控交付包</a></td><td class="track">進階交付</td></tr>
 </table>
 <div class="flow">
@@ -479,7 +482,7 @@
   <div class="flow-row">
     <div class="flow-label">進階系統</div>
     <div class="flow-steps">
-      <a href="lessons/007-0005-use-agent-contract.html">05 agent contract</a>
+      <a href="lessons/007-0005-use-agent-contract.html">05 工作區規則</a>
       <a href="lessons/007-0006-build-reusable-slide-system.html">06 slide system</a>
     </div>
   </div>
@@ -487,7 +490,7 @@
     <div class="flow-label">進階交付</div>
     <div class="flow-steps">
       <a href="lessons/007-0007-audit-sources-and-accessibility.html">07 稽核</a>
-      <a href="lessons/007-0008-close-comment-edit-review-loop.html">08 feedback loop</a>
+      <a href="lessons/007-0008-close-comment-edit-review-loop.html">08 回饋迴圈</a>
       <a href="lessons/007-0009-package-and-deploy-safely.html">09 部署準備</a>
     </div>
   </div>
@@ -501,19 +504,19 @@
 <tr><td class="no">02</td><td><a href="lessons/008-0002-connect-playwright-mcp-to-claude-code.html">把 Playwright MCP 接到 Claude Code</a></td><td class="track">入門連接</td></tr>
 <tr><td class="no">03</td><td><a href="lessons/008-0003-run-first-browser-check-with-claude-code.html">讓 Claude Code 走第一條 browser path</a></td><td class="track">入門查核</td></tr>
 <tr><td class="no">04</td><td><a href="lessons/008-0004-create-first-durable-test-with-claude-code.html">讓 Claude Code 留下第一個持久 test</a></td><td class="track">入門完成</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/008-0005-initialize-playwright-test-agents.html">初始化 Playwright Test Agents</a></td><td class="track">進階起點</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/008-0006-review-planner-spec.html">先審查 planner 產生的 spec</a></td><td class="track">進階規劃</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/008-0007-review-generator-test.html">審查 generator 產生的 test</a></td><td class="track">進階生成</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/008-0008-supervise-healer-with-trace.html">用 trace 監督 healer</a></td><td class="track">進階修復</td></tr>
-<tr><td class="no">09</td><td><a href="lessons/008-0009-run-reviewed-tests-in-ci.html">讓 reviewed tests 在 CI 執行</a></td><td class="track">進階交付</td></tr>
+<tr><td class="no">05</td><td><a href="lessons/008-0005-initialize-playwright-test-agents.html">建立 Playwright 測試代理</a></td><td class="track">進階起點</td></tr>
+<tr><td class="no">06</td><td><a href="lessons/008-0006-review-planner-spec.html">先審查規劃代理產生的測試規格</a></td><td class="track">進階規劃</td></tr>
+<tr><td class="no">07</td><td><a href="lessons/008-0007-review-generator-test.html">審查產生代理建立的測試</a></td><td class="track">進階生成</td></tr>
+<tr><td class="no">08</td><td><a href="lessons/008-0008-supervise-healer-with-trace.html">用追蹤記錄監督測試修復</a></td><td class="track">進階修復</td></tr>
+<tr><td class="no">09</td><td><a href="lessons/008-0009-run-reviewed-tests-in-ci.html">讓已審查測試在 CI 執行</a></td><td class="track">進階交付</td></tr>
 </table>
 <div class="flow">
-  <div class="flow-title">先讓 Claude Code 查核一條 path，再把已核准 tests 放大</div>
-  <p class="flow-note">01–04 是獨立入門完成線：先判斷 live check 或 durable test，以 local scope 連接 MCP，觀看 Claude Code 操作真實 browser，再審查一個會紅會綠的 committed test。只有要擴大已驗證路徑、診斷 failure 或接 CI 時，才進入 05–09 的 planner → generator → healer 流程；完整停止線見 <a href="reference/playwright-browser-verification-workflow.html">Phase 8 路線卡</a>。</p>
+  <div class="flow-title">先讓 Claude Code 查核一條瀏覽器路徑，再擴大已核准測試</div>
+  <p class="flow-note">01–04 是獨立入門完成線：先選即時查核或耐久測試，以本機範圍連接 MCP，觀看 Claude Code 操作真實瀏覽器，再審查一個會失敗也會通過的已提交測試。只有需要擴大已驗證路徑、診斷測試失敗或接上 CI 時，才進入 05–09 的規劃、產生與修復代理流程；完整停止線見 <a href="reference/playwright-browser-verification-workflow.html">Phase 8 路線卡</a>。</p>
   <div class="flow-row">
     <div class="flow-label">入門選證據</div>
     <div class="flow-steps">
-      <a href="lessons/008-0001-choose-live-check-or-test.html">01 live 或 test</a>
+      <a href="lessons/008-0001-choose-live-check-or-test.html">01 即時查核或測試</a>
     </div>
   </div>
   <div class="flow-row">
@@ -527,21 +530,64 @@
   <div class="flow-row">
     <div class="flow-label">進階生成</div>
     <div class="flow-steps">
-      <a href="lessons/008-0005-initialize-playwright-test-agents.html">05 agents</a>
-      <a href="lessons/008-0006-review-planner-spec.html">06 planner</a>
-      <a href="lessons/008-0007-review-generator-test.html">07 generator</a>
+      <a href="lessons/008-0005-initialize-playwright-test-agents.html">05 建立測試代理</a>
+      <a href="lessons/008-0006-review-planner-spec.html">06 審查測試規格</a>
+      <a href="lessons/008-0007-review-generator-test.html">07 審查產生的測試</a>
     </div>
   </div>
   <div class="flow-row">
     <div class="flow-label">修復交付</div>
     <div class="flow-steps">
-      <a href="lessons/008-0008-supervise-healer-with-trace.html">08 healer</a>
-      <a href="lessons/008-0009-run-reviewed-tests-in-ci.html">09 CI</a>
+      <a href="lessons/008-0008-supervise-healer-with-trace.html">08 監督測試修復</a>
+      <a href="lessons/008-0009-run-reviewed-tests-in-ci.html">09 CI 執行</a>
     </div>
   </div>
 </div>
 </div>
 
-<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-07-17</footer>
+<div class="p9sec">
+<h2 class="p9">Phase 9（Claude Code × 工作技能）— 入門 01–04；進階 05–09</h2>
+<table>
+<tr><td class="no">01</td><td><a href="lessons/009-0001-choose-one-repeatable-workflow.html">從一個重複工作流程開始</a></td><td class="track">入門選題</td></tr>
+<tr><td class="no">02</td><td><a href="lessons/009-0002-create-first-project-skill-with-claude-code.html">讓 Claude Code 建立第一個專案 Skill</a></td><td class="track">入門實作</td></tr>
+<tr><td class="no">03</td><td><a href="lessons/009-0003-choose-user-or-model-invocation.html">決定由你手動啟用，還是讓 Claude 自動啟用</a></td><td class="track">入門啟用</td></tr>
+<tr><td class="no">04</td><td><a href="lessons/009-0004-separate-steps-reference-and-done.html">整理執行步驟、參考資料與完成條件</a></td><td class="track">入門結構</td></tr>
+<tr><td class="no">05</td><td><a href="lessons/009-0005-disclose-branch-reference.html">把特定情況才用的資料移出 SKILL.md</a></td><td class="track">進階按需載入</td></tr>
+<tr><td class="no">06</td><td><a href="lessons/009-0006-steer-with-leading-words.html">用引導詞讓 Claude 的做法更一致</a></td><td class="track">進階行為引導</td></tr>
+<tr><td class="no">07</td><td><a href="lessons/009-0007-increase-legwork-without-rushing.html">先收緊完成條件，再考慮拆 Skill</a></td><td class="track">進階完成條件</td></tr>
+<tr><td class="no">08</td><td><a href="lessons/009-0008-prune-skill-failure-modes.html">刪除重複、過期與無效指令</a></td><td class="track">進階精簡</td></tr>
+<tr><td class="no">09</td><td><a href="lessons/009-0009-evaluate-and-iterate-skill.html">用新對話做前後對照測試</a></td><td class="track">進階測試</td></tr>
+</table>
+<div class="flow">
+  <div class="flow-title">先做出一個 Skill，再用四個問題改好</div>
+  <p class="flow-note">01–04 是獨立入門完成線：從真實程式庫的重複流程做出專案 Skill，決定由誰啟用，並讓每個步驟都有可檢查的完成條件。只有已經觀察到不同使用情境、行為不一致、過早收尾或維護問題，才接 05–09；完整說明見 <a href="reference/agent-skill-checklist.html">工作技能檢查表</a>。</p>
+  <div class="flow-row">
+    <div class="flow-label">入門做出來</div>
+    <div class="flow-steps">
+      <a href="lessons/009-0001-choose-one-repeatable-workflow.html">01 選重複流程</a>
+      <a href="lessons/009-0002-create-first-project-skill-with-claude-code.html">02 建專案 Skill</a>
+      <a href="lessons/009-0003-choose-user-or-model-invocation.html">03 選啟用方式</a>
+      <a href="lessons/009-0004-separate-steps-reference-and-done.html">04 整理結構</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">進階收斂</div>
+    <div class="flow-steps">
+      <a href="lessons/009-0005-disclose-branch-reference.html">05 按需載入</a>
+      <a href="lessons/009-0006-steer-with-leading-words.html">06 行為引導</a>
+      <a href="lessons/009-0007-increase-legwork-without-rushing.html">07 完成條件</a>
+      <a href="lessons/009-0008-prune-skill-failure-modes.html">08 精簡整理</a>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-label">進階證明</div>
+    <div class="flow-steps">
+      <a href="lessons/009-0009-evaluate-and-iterate-skill.html">09 新對話前後對照</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-07-18</footer>
 </body>
 </html>

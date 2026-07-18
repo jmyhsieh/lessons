@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 5 · 進階第 12 課 · 約 20 分鐘</div>
 <h1>結構化彩排並封存版本</h1>
-<p class="mission">今天只做一件事：把一次真人彩排證據交給 Claude Code，只修一個問題並封存可回復版本。</p>
+<p class="mission"><strong>本課成果：</strong>一個根據真人彩排只修正一項問題、可回復的簡報版本。</p>
 <div class="rule"><strong>不要只問「喜歡嗎」：</strong>記錄聽眾在哪裡停頓、問了什麼、用了哪些原話。</div>
 <h2>完成一次受控迭代</h2>
 <div class="step"><label><input type="checkbox"> 1. 設定真實情境</label><p>找一位接近目標觀眾的人，使用正式時間限制與實際輸出檔進行彩排。</p></div>
@@ -20,9 +20,9 @@
 <div class="step"><label><input type="checkbox"> 3. 交給 Claude Code 只改一個問題</label><p>提供卡點、原話與未回答問題，核准最小修改後透過 Design MCP 更新；同步 claim ledger，以日期或版本號封存並保留前一版。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你有一個經真實彩排、可追溯變更、也可回復的正式版本。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>彩排時哪一種紀錄最可用？</p><button>記錄卡點與原話</button><button>只問大家喜歡嗎</button><button>全部意見都採用</button><div class="why">卡點、原話與問題是可觀察證據；喜好問題太籠統，而全部採用會失去交付目標。</div></div>
-<h2>帶走這個就好</h2><p>一次只修最重要的問題，並留下版本與理由，才能知道改動是否真的有效。</p>
+<h2>關鍵判斷</h2><p>一次只修最重要的問題，並留下版本與理由，才能知道改動是否真的有效。</p>
 <p><strong>主要閱讀：</strong><a href="https://www.w3.org/WAI/teach-advocate/accessible-presentations/">W3C WAI — How to Make Your Presentations Accessible to All</a>。</p>
-<footer>上一課：<a href="005-0011-audit-deck-accessibility-and-formats.html">稽核交付檔</a> · 下一個 Phase：<a href="007-0001-decide-if-open-slide-fits.html">讓 Claude Code 判斷 open-slide</a> · <a href="../reference/claude-design-presentation-workflow.html">Phase 5 路線卡</a><br>把真人證據、Claude Code diff 與版本名稱貼回對話，請 AI 老師檢查變更是否聚焦。</footer>
+<footer>上一課：<a href="005-0011-audit-deck-accessibility-and-formats.html">稽核交付檔</a> · 下一個 Phase：<a href="007-0001-decide-if-open-slide-fits.html">讓 Claude Code 判斷 open-slide</a> · <a href="../reference/claude-design-presentation-workflow.html">Phase 5 路線卡</a><br>把真人證據、Claude Code diff 與版本名稱貼回 Claude Code，請它檢查變更是否聚焦。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

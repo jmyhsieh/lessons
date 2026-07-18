@@ -5,7 +5,7 @@
 </style><link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design">
 </head>
 <body><p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p><div class="kicker">Phase 4 · 進階第 13 課 · 約 20 分鐘</div>
-<h1>完成 production vertical slice closeout</h1><p class="mission">今天只做一件事：讓 Claude Code 執行並彙整一條路徑的 checks、browser evidence 與 deviations，再由人核准 closeout。</p>
+<h1>完成 production vertical slice closeout</h1><p class="mission"><strong>本課成果：</strong>一份上線前收尾紀錄，彙整測試、瀏覽器證據、偏差與已知限制。</p>
 <div class="rule"><strong>第 08 課證明小畫面可用；本課證明進階 bundle 被完整落地。</strong>範圍仍只是一條 vertical slice，不順手擴成整個產品。</div>
 <h2>完成三道 gate</h2>
 <div class="step"><label><input type="checkbox"> 1. 請 Claude Code 跑 repo 原有 checks</label><p>執行適用的 test、lint、typecheck、build，保留完整命令、結果與任何未執行項目；不能用摘要隱藏 failure。</p></div>
@@ -17,7 +17,7 @@ Deviations：差異、原因、決定
 Not verified：項目與原因</pre></div>
 <div class="done" id="done"><strong>Phase 4 進階完成：</strong>你已留下能被接手者重跑與挑戰的 production closeout。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Production-ready 證據至少需要什麼？</p><button>測試加真實瀏覽器</button><button>模型說看起來很好</button><button>只看一次成功建置</button><div class="why">程式 checks 與真實 browser evidence 回答不同問題，缺一就不能支持完整完成宣稱。</div></div>
-<h2>帶走這個就好</h2><p>Closeout 要讓下一個人知道哪些已證明、哪些偏離、哪些仍未驗證，而不是只寫「完成」。</p>
+<h2>關鍵判斷</h2><p>Closeout 要讓下一個人知道哪些已證明、哪些偏離、哪些仍未驗證，而不是只寫「完成」。</p>
 <p><strong>主要閱讀：</strong><a href="https://code.claude.com/docs/en/best-practices">Anthropic — Claude Code best practices</a>。</p>
-<footer>上一課：<a href="004-0012-build-implementation-ready-handoff.html">進階 handoff</a> · <a href="../reference/claude-design-to-code-workflow.html">Phase 4 路線速查表</a> · <a href="../toc.html">回課目表</a><br>把 Claude Code 的 closeout 與你的 review 貼回對話，請 AI 老師檢查是否有超出證據的宣稱。</footer>
+<footer>上一課：<a href="004-0012-build-implementation-ready-handoff.html">進階 handoff</a> · <a href="../reference/claude-design-to-code-workflow.html">Phase 4 路線速查表</a> · <a href="../toc.html">回課目表</a><br>把 Claude Code 的 closeout 與你的 review 貼回 Claude Code，請它檢查是否有超出證據的宣稱。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

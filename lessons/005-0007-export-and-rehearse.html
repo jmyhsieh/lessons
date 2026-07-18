@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 5 · 第 07 課 · 約 15–20 分鐘</div>
 <h1>輸出並講一次</h1>
-<p class="mission">今天只做一件事：讓 Claude Code 準備一種目標格式，再由你打開輸出檔並向真人講一次。</p>
+<p class="mission"><strong>本課成果：</strong>一份已親自開啟、並向真人講過一次的目標格式簡報。</p>
 <div class="rule"><strong>不要只看 Claude Design 畫布：</strong>真正交付的是輸出檔與聽眾理解，不是編輯畫面裡的版本。</div>
 <h2>完成第一次彩排</h2>
 <div class="step"><label><input type="checkbox"> 1. 告訴 Claude Code 目標格式</label><p>別人要繼續編輯選 PPTX；只閱讀或列印選 PDF；需要互動才選 HTML。請它只準備這一種 export。</p></div>
@@ -21,9 +21,9 @@
 <div class="done" id="done"><strong>完成：</strong>你已在真正輸出格式完成一次彩排，也知道下一步是否被聽懂。</div>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1"><p>輸出簡報後，第一個動作是什麼？</p><button>直接寄給所有人</button><button>打開輸出檔檢查</button><button>刪除編輯用版本</button><div class="why">Export 可能改變字型、換行或互動；必須檢查真正要交付的檔案。</div></div>
-<h2>帶走這個就好</h2><p>一份三頁簡報只有在輸出檔能開、你講得完、聽眾知道下一步時才完成入門主線。</p>
+<h2>關鍵判斷</h2><p>一份三頁簡報只有在輸出檔能開、你講得完、聽眾知道下一步時才完成入門主線。</p>
 <p><strong>主要閱讀：</strong><a href="https://claude.com/resources/tutorials/using-claude-design-for-presentations-and-slide-decks#export--download-options">Anthropic — Export &amp; download options</a>。</p>
-<footer>上一課：<a href="005-0006-verify-claims-and-accessibility.html">查內容與閱讀性</a> · 下一課：<a href="005-0008-repurpose-one-pager-social.html">改成一頁摘要</a><br>把 export 結果與真人回答貼回對話，請 AI 老師檢查交付完成線。</footer>
+<footer>上一課：<a href="005-0006-verify-claims-and-accessibility.html">查內容與閱讀性</a> · 下一課：<a href="005-0008-repurpose-one-pager-social.html">改成一頁摘要</a><br>把 export 結果與真人回答貼回 Claude Code，請它檢查交付完成線。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

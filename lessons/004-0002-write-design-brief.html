@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 4 · 第 02 課 · 約 10–15 分鐘</div>
 <h1>請 Claude Code 整理四句 design brief</h1>
-<p class="mission">今天只做一件事：把真實需求交給 Claude Code，整理成 Design MCP 能執行、你能檢查的四句 brief。</p>
+<p class="mission"><strong>本課成果：</strong>一份四句設計摘要（brief），每一句都能由你檢查。</p>
 <div class="rule"><strong>四句就夠：</strong>做什麼、給誰用、畫面要放什麼、最重要的是什麼。</div>
 <h2>填入你的內容</h2>
 <div class="step"><label><input type="checkbox"> 1. 把真實需求貼給 Claude Code</label><pre>請只整理 brief，不要先生成設計：
@@ -25,9 +25,9 @@
 <div class="done" id="done"><strong>完成：</strong>你已有一段經人工核對、可由 Claude Code 交給 Design MCP 的四句 brief。</div>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="2"><p>哪一種 prompt 最容易檢查成果？</p><button>做得更有質感</button><button>做得更加現代</button><button>手機找到報名</button><div class="why">能觀察的使用結果，比抽象風格形容詞更容易讓你與 Claude 對齊。</div></div>
-<h2>帶走這個就好</h2><p>Claude Code 可以幫你壓縮需求，但人要確認四句沒有偏離真實任務，再交給視覺工具。</p>
+<h2>關鍵判斷</h2><p>Claude Code 可以幫你壓縮需求，但人要確認四句沒有偏離真實任務，再交給視覺工具。</p>
 <p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design#write-effective-prompts">Anthropic — Write effective prompts</a>。</p>
-<footer>上一課：<a href="004-0001-choose-claude-design-surface.html">連接 Claude Design</a> · 下一課：<a href="004-0003-sync-design-system.html">附上一份正確參考</a><br>把四句 brief 貼回對話，請 AI 老師找出不能驗收的抽象詞。</footer>
+<footer>上一課：<a href="004-0001-choose-claude-design-surface.html">連接 Claude Design</a> · 下一課：<a href="004-0003-sync-design-system.html">附上一份正確參考</a><br>把四句 brief 貼回 Claude Code，請它找出不能驗收的抽象詞。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

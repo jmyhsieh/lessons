@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07：先收緊完成條件，再考慮拆 Skill</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#7a4b25;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#7a4b25}.mission{font-style:italic;color:#555;border-left:3px solid #7a4b25;padding-left:1rem}.rule{background:#fcf8f4;border-left:4px solid #7a4b25;padding:.75rem 1rem}.step,.quiz{border:1px solid #e3d5c8;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f5eee8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#6d421f}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #e3d5c8;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fcf8f4;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #e3d5c8;padding-top:1rem}
+</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 9 · 進階第 07 課 · 約 18 分鐘</div>
+<h1>先收緊完成條件，再考慮拆 Skill</h1>
+<p class="mission"><strong>本課成果：</strong>一組能防止 Claude 太早收尾的完成條件，以及重跑證據。</p>
+<div class="rule"><strong>實際查找與驗證工作（legwork）：</strong>Claude 在一個步驟內讀檔、查找、核對與驗證的工作。後續步驟看得太清楚時，Claude 可能急著往終點走；但優先做法是先把目前步驟的完成條件寫得清楚、可檢查，而且要求足夠的證據。</div>
+
+<h2>先診斷，不急著拆</h2>
+<div class="step"><label><input type="checkbox"> 1. 找一個過早收尾的證據</label><p>例如 <code>/repo-checkpoint</code> 只看聊天摘要，沒有檢查目前 diff；或寫了 Verified 卻沒有指出用哪個命令與輸出確認。若沒有觀察到過早收尾，就記錄「目前不需處理」，不要為了練習硬拆。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 收緊完成條件</label><p>把「產生一份完整 checkpoint」改成可逐項核對的全集：</p>
+<pre>Completion criterion: every modified file is represented in Changed,
+and every relevant check is identified as passed, failed, skipped, or unrun
+with the evidence available in this session.</pre><p>先在新的 Claude Code 對話重跑，檢查缺漏是否消失。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 只有仍會過早收尾才考慮拆分</label><p>影片示範把「充分釐清需求」與「寫 PRD」分成兩個由人接續的 Skills，讓第一段看不到後面的交付終點。拆分會增加 Claude 的對話脈絡負擔或工程師的記憶負擔；而且只有真正隔離對話脈絡的交接（handoff）或子代理（subagent）才能隱藏未來步驟，在同一段對話內呼叫另一個 Skill 不會清掉已看見的內容。</p></div>
+
+<div class="done" id="done"><strong>完成：</strong>你留下修改前後的證據，以及「完成條件已足夠」或「需要拆分」的判斷。</div>
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="1"><p>Claude 在第一步太快結束，應先做什麼？</p><button>立刻把每一個步驟都拆成新 Skill</button><button>先把目前步驟的完成條件寫得可檢查</button><button>加入更多模糊形容詞要求它更加仔細</button><div class="why">先收緊完成條件是局部、低成本的第一手段。只有條件難以再明確，而且新對話的執行證據仍顯示過早收尾，才值得付出拆分的代價。</div></div>
+<h2>關鍵判斷</h2><p>增加實際查找與驗證工作，要靠完成條件要求 Claude 真的讀、查、驗證並交代完整結果。</p>
+<p><strong>主要閱讀：</strong><a href="https://www.youtube.com/watch?v=UNzCG3lw6O0">影片 14:56–16:47</a>、<a href="https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/productivity/writing-great-skills/SKILL.md#failure-modes">writing-great-skills — Premature completion</a> 與 <a href="../reference/agent-skill-checklist.html">Phase 9 工作技能檢查表</a>。</p>
+<footer>上一課：<a href="009-0006-steer-with-leading-words.html">引導詞</a> · 下一課：<a href="009-0008-prune-skill-failure-modes.html">精簡整理</a><br>把過早收尾的證據、完成條件 diff 與重跑結果貼回 Claude Code，請它檢查是否真的需要拆分。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
+</body>
+</html>

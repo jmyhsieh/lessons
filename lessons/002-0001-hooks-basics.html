@@ -35,7 +35,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 2 · 第 01 課 · 約 15 分鐘 · Hooks 與 exit code</div>
 <h1>控制 Claude Code 工具行為（hooks）</h1>
-<p class="mission">任務目標：理解 hooks 在 Claude Code 生命週期中何時執行，以及為什麼 <code>exit 2</code> 的效果必須依事件判斷。這一課先做最小的格式化 hook。</p>
+<p class="mission"><strong>本課成果：</strong>一個已實際觸發的最小格式化 hook，並記下它在哪個事件執行。</p>
 <div class="scope"><strong>本課只做：</strong>理解 hook 何時會執行，以及 exit code 代表什麼。<br><strong>先不要做：</strong>一開始就寫複雜 hook 取代人工 review。</div>
 
 
@@ -75,7 +75,7 @@ Explain every line before changing .claude/settings.json.</pre>
   <p>做一個小改動，看格式化是否真的跑起來。</p>
 </div>
 
-<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經知道 hooks 的基本語意。</div>
+<div class="done-banner" id="done"><strong>完成條件：</strong>最小 hook 已實際觸發，紀錄包含事件名稱、輸入與輸出。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1">
@@ -96,7 +96,7 @@ Explain every line before changing .claude/settings.json.</pre>
 <h2>下一步</h2>
 <p>下一課：<a href="002-0002-guardrail-hooks.html">Phase 2 第 02 課 — 擋下危險操作（guardrail hook）</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/hooks-guide">Automate actions with hooks（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0012-verification-context.html">Phase 1 第 12 課 — 驗證與 context 收尾</a></footer>
+<footer>hook 沒有觸發時，交出事件名稱、設定片段與測試命令輸出，請 Claude Code 檢查觸發條件。<br>上一課：<a href="001-0012-verification-context.html">Phase 1 第 12 課 — 驗證與 context 收尾</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

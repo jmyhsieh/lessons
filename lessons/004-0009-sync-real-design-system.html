@@ -7,7 +7,7 @@
 <body><p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 4 · 進階第 09 課 · 約 15 分鐘</div>
 <h1>同步並校正真實 design system</h1>
-<p class="mission">今天只做一件事：讓 Claude Code 從正式來源執行 <code>/design-sync</code>，再抽查同步結果。</p>
+<p class="mission"><strong>本課成果：</strong>一份正式設計系統同步結果，以及人工抽查紀錄。</p>
 <div class="rule"><strong>同步不是發布：</strong>組織 system 的 setup／publish 與 project 的 <code>/design-sync</code> 是不同工作。只走符合你權限與需求的一條。</div>
 <h2>建立可追溯的同步結果</h2>
 <div class="step"><label><input type="checkbox"> 1. 指定唯一 source of truth</label><p>把正式 repo、release 或品牌文件交給 Claude Code；明確排除實驗分支、舊簡報與生成結果。</p></div>
@@ -15,7 +15,7 @@
 <div class="step"><label><input type="checkbox"> 3. 要求 3＋2＋1 抽查</label><p>請 Claude Code 列出 3 個 tokens、2 個 components 與 1 條禁止規則，再由你回到 source path 比對同步結果與差異。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已留下同步路徑、權威來源與抽查差異，不會把模型抽取結果當成真相。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Design system 同步後，第一個檢查是什麼？</p><button>回到權威來源比對</button><button>直接接受生成結果</button><button>立刻加入更多參考</button><div class="why">同步結果仍可能遺漏或誤讀；先回到正式來源做小樣本校正。</div></div>
-<h2>帶走這個就好</h2><p>Design system 能減少漂移，但只有來源、權限路徑與抽查結果都清楚時才可信。</p>
+<h2>關鍵判斷</h2><p>Design system 能減少漂移，但只有來源、權限路徑與抽查結果都清楚時才可信。</p>
 <p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design">Anthropic — Set up your design system</a>。</p>
-<footer>上一課：<a href="004-0008-implement-and-verify.html">完成小畫面</a> · 下一課：<a href="004-0010-specify-states-and-responsive-rules.html">補齊狀態與尺寸矩陣</a><br>把同步摘要與一項差異貼回對話，請 AI 老師檢查 source of truth。</footer>
+<footer>上一課：<a href="004-0008-implement-and-verify.html">完成小畫面</a> · 下一課：<a href="004-0010-specify-states-and-responsive-rules.html">補齊狀態與尺寸矩陣</a><br>把同步摘要與一項差異貼回 Claude Code，請它檢查 source of truth。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

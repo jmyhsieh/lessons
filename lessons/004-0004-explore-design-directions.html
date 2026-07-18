@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 4 · 第 04 課 · 約 15 分鐘</div>
 <h1>比較兩個不同方向</h1>
-<p class="mission">今天只做一件事：請 Claude Code 透過 Design MCP 產生兩個方向，再依事先寫好的標準選擇。</p>
+<p class="mission"><strong>本課成果：</strong>兩個可比較的視覺方向，以及依事前標準做出的選擇。</p>
 <div class="rule"><strong>先寫標準再生成：</strong>例如「最容易找到主要按鈕」。這能避免只選第一眼最好看的版本。</div>
 <h2>做一次簡單比較</h2>
 <div class="step"><label><input type="checkbox"> 1. 寫一個選擇標準</label><p>只選一個：容易理解、容易操作或更符合品牌。不要一次做完整評分表。</p></div>
@@ -21,9 +21,9 @@
 <div class="done" id="done"><strong>完成：</strong>你已用一個可說明的標準選出方向，而不是只說「我比較喜歡」。</div>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="0"><p>什麼時候應該先寫選擇標準？</p><button>看見版本之前</button><button>選定版本之後</button><button>交付程式之後</button><div class="why">先寫標準能讓比較聚焦在任務，而不是事後替個人偏好找理由。</div></div>
-<h2>帶走這個就好</h2><p>初學者只比較兩版、使用一個標準即可。複雜比較矩陣留到高風險設計決策再用。</p>
+<h2>關鍵判斷</h2><p>初學者只比較兩版、使用一個標準即可。複雜比較矩陣留到高風險設計決策再用。</p>
 <p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design#refine-your-design">Anthropic — Refine your design</a>。</p>
-<footer>上一課：<a href="004-0003-sync-design-system.html">給視覺參考</a> · 下一課：<a href="004-0005-refine-and-version.html">一次只改一件事</a><br>把兩個版本與選擇理由貼回對話，請 AI 老師檢查標準是否一致。</footer>
+<footer>上一課：<a href="004-0003-sync-design-system.html">給視覺參考</a> · 下一課：<a href="004-0005-refine-and-version.html">一次只改一件事</a><br>把兩個版本與選擇理由貼回 Claude Code，請它檢查標準是否一致。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

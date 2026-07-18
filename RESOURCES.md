@@ -1,6 +1,6 @@
 # AI Workflow Composition Resources
 
-這份檔案只保留課程可依賴的高信任來源。新聞與職能案例不作為 factual source of truth；需要案例時，請回查其第一手來源。Phase 4–8 的入門課只取每份來源中完成第一個小成果所需的最少知識。
+這份檔案只保留課程可依賴的高信任來源。新聞與職能案例不作為 factual source of truth；需要案例時，請回查其第一手來源。Phase 4–9 的入門課只取每份來源中完成第一個小成果所需的最少知識。
 
 ## Knowledge
 
@@ -77,7 +77,13 @@
 - [Guide: Extend Claude Code — Anthropic](https://code.claude.com/docs/en/features-overview)
   CLAUDE.md、Skills、Subagents、MCP、hooks、plugins 與 agent teams 的 selector。Use for: Phase 2 工具選擇。
 - [Reference: Skills — Anthropic](https://code.claude.com/docs/en/skills)
-  SKILL.md、invocation controls、context loading 與 supporting files。Use for: Phase 2 Skills。
+  <code>SKILL.md</code>、專案／個人範圍、啟用控制、額外參考檔，以及啟用方式／執行結果分開評估的最新 Claude Code 規則。Use for: Phase 2 Skills 與 Phase 9 全階段；產品行為與檔頭設定以這份最新文件為準。
+- [Talk: Building Great Agent Skills: The Missing Manual — Matt Pocock, AI Engineer](https://www.youtube.com/watch?v=UNzCG3lw6O0)
+  約 20 分鐘的 Skill 檢查架構：啟用方式（Trigger）、內容結構（Structure）、行為引導（Steering）、精簡整理（Pruning），以及 Skills 囤積困境、引導詞、實際查找與驗證工作、歷史堆積、無效指令等設計問題。Use for: Phase 9 的課程骨架；Claude Code 具體欄位仍回查 Anthropic 文件。
+- [Skill snapshot: writing-great-skills](https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/productivity/writing-great-skills/SKILL.md)
+  影片架構的可執行版本，補上完成條件、按需載入、Skill 拆分與失敗模式的更精確順序。Use for: Phase 9 第 01–09 課；reviewed snapshot <code>9603c1c</code>（2026-07-18），使用前仍查 <a href="https://github.com/mattpocock/skills/blob/main/skills/productivity/writing-great-skills/SKILL.md">current version</a>。
+- [Glossary snapshot: Building Great Skills](https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/productivity/writing-great-skills/GLOSSARY.md)
+  流程可預期性、對話脈絡／使用者記憶負擔、資訊層級、引導詞、實際查找與驗證工作，以及精簡整理失敗模式的詞彙模型。Use for: Phase 9 進階 05–08 與速查表；不要求入門先背詞彙。
 - [Reference: Hooks — Anthropic](https://code.claude.com/docs/en/hooks)
   Hook events、event-specific blocking、exit codes 與 structured JSON。Use for: Phase 2 hooks 與 guardrails。
 - [Guide: Subagents — Anthropic](https://code.claude.com/docs/en/sub-agents)
@@ -99,7 +105,7 @@
 - [Guide: Choosing a Claude model and effort level in Claude Code — Anthropic](https://claude.com/blog/claude-model-and-effort-level-in-claude-code)
   官方 default-first 教學：先修 context，再分辨「能力不足」與「做得不夠徹底」；model 決定 capability，effort 也影響讀檔、工具、驗證與工作步數。Use for: Phase 1 第 09 課與 Phase 3 的模型／effort 判斷。
 - [Repository: mattpocock/skills](https://github.com/mattpocock/skills)
-  Phase 3 使用的 upstream skills 與四大失敗模式。Use for: skill inventory；具體行為以各 SKILL.md 為準。
+  Phase 3 使用的上游 workflow skills，以及 Phase 9 的 Skill 編寫檢查架構。Use for: Skill 清單；具體行為以各 <code>SKILL.md</code> 為準。
 - [README snapshot: mattpocock/skills installation](https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/README.md)
   Claude Code native plugin 與 editable project copy 的官方安裝路徑。Use for: Phase 3 第 01 課；plugin 版本與命令變動時重查 upstream。
 - [Skill: setup-matt-pocock-skills](https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/setup-matt-pocock-skills/SKILL.md)
@@ -132,4 +138,5 @@
 - open-slide 仍缺可公開引用、同時包含 source traceability、accessibility evidence 與真實彩排紀錄的完整案例。
 - LLM Wiki 仍缺可公開引用、跨數月且同時展示來源漂移、矛盾裁決、lint 與長期使用價值的完整 proof pack。
 - Claude Code × Playwright 仍缺台灣團隊公開、可重現且同時展示 MCP live check、planner／generator／healer 人工關卡、trace 脫敏與 CI gate 取捨的完整案例。
+- Claude Code 工作技能仍缺台灣團隊公開、可重現且同時展示啟用方式基準、執行結果基準、精簡前後差異與長期維護成本的完整案例。
 - 若使用者不想參與社群，需記錄在 NOTES.md，避免後續重複推薦。

@@ -471,6 +471,7 @@ footer {
 .home-page .phase.p6 { --phase-accent: #9b3f64; }
 .home-page .phase.p7 { --phase-accent: #267565; }
 .home-page .phase.p8 { --phase-accent: #4d61a8; }
+.home-page .phase.p9 { --phase-accent: #8a552b; }
 .home-page .meta {
   margin: 1rem 0 0;
   padding: 1.05rem 1.15rem;
@@ -516,6 +517,7 @@ footer {
 .toc-page h2.p6 { --section-accent: #9b3f64; }
 .toc-page h2.p7 { --section-accent: #267565; }
 .toc-page h2.p8 { --section-accent: #4d61a8; }
+.toc-page h2.p9 { --section-accent: #8a552b; }
 .toc-page table { font-size: .92rem; }
 .toc-page td.no { width: 3.2rem; color: var(--site-tertiary); font-variant-numeric: tabular-nums; }
 .toc-page td.track { width: 8.5rem; color: var(--site-secondary); font-size: .8rem; }

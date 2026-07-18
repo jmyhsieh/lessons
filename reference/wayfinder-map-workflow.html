@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wayfinder shared map 速查表</title>
+<title>Wayfinder 共享決策地圖速查表</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.75; }
@@ -26,21 +26,21 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<h1>Wayfinder shared map 速查表</h1>
-<p class="sub">巨大模糊 effort 的選路、map schema、ticket types、frontier 與 session stop rules。</p>
-<p class="sub">內容校準自 reviewed snapshot <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md"><code>66898f6</code></a>；實際操作前再查 current version。</p>
+<h1>Wayfinder 共享決策地圖速查表</h1>
+<p class="sub">巨大模糊工作的選路、地圖欄位、工作項目類型、目前可處理項目與工作階段停止規則。</p>
+<p class="sub">內容校準自<a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md">已審查版本 <code>66898f6</code></a>；實際操作前再查目前版本。</p>
 
-<div class="rule"><strong>一句話：</strong>Wayfinder 不是把巨大工作切成施工票，而是把看不清的路整理成 decision tickets；路清楚後，再交給 <code>/to-spec → /to-tickets → /implement</code>。</div>
+<div class="rule"><strong>一句話：</strong>Wayfinder 先把看不清的路整理成決策工作項目（decision tickets）；路清楚後，再交給 <code>/to-spec → /to-tickets → /implement</code>。</div>
 
-<h2>Selector</h2>
+<h2>何時使用</h2>
 <table>
 <tr><th>訊號</th><th>判斷</th></tr>
-<tr><td>已能寫完整 spec 與 blocking tickets</td><td>不要用 wayfinder；直接進主線。</td></tr>
-<tr><td>一個 session 能把所有未知問清楚</td><td>用 <code>/grill-with-docs</code>。</td></tr>
-<tr><td>巨大、跨 session，連問題順序都仍在 fog 裡</td><td>使用 wayfinder。</td></tr>
+<tr><td>已能寫完整規格與阻擋關係</td><td>直接進主線。</td></tr>
+<tr><td>一個工作階段能把所有未知問清楚</td><td>用 <code>/grill-with-docs</code>。</td></tr>
+<tr><td>巨大、跨工作階段，連問題順序都還看不清</td><td>使用 Wayfinder。</td></tr>
 </table>
 
-<h2>Canonical map schema</h2>
+<h2>標準地圖欄位</h2>
 <pre>## Destination
 一兩句：這張 map 要找出哪份 spec、哪個決策或哪條改變路徑。
 
@@ -56,61 +56,61 @@
 ## Out of scope
 超出 destination、永遠不會從 fog 升級的工作。</pre>
 
-<h2>Ticket types</h2>
+<h2>工作項目類型</h2>
 <table>
 <tr><th>Label</th><th>模式</th><th>完成訊號</th></tr>
-<tr><td><code>wayfinder:research</code></td><td>AFK</td><td><code>research/&lt;name&gt;</code> branch 上有 cited summary；ticket 留 context pointer。</td></tr>
-<tr><td><code>wayfinder:prototype</code></td><td>HITL</td><td>人類對 artifact 作反應，留下可引用答案。</td></tr>
-<tr><td><code>wayfinder:grilling</code></td><td>HITL</td><td>真正的決策者逐題回答，agent 不代答。</td></tr>
-<tr><td><code>wayfinder:task</code></td><td>AFK / HITL</td><td>阻擋決策的操作完成並留下 facts。</td></tr>
+<tr><td><code>wayfinder:research</code></td><td>可離開等待（AFK）</td><td><code>research/&lt;name&gt;</code> 分支有附來源摘要；工作項目留下脈絡連結。</td></tr>
+<tr><td><code>wayfinder:prototype</code></td><td>人工參與（HITL）</td><td>真人操作原型並留下可引用答案。</td></tr>
+<tr><td><code>wayfinder:grilling</code></td><td>人工參與（HITL）</td><td>真正的決策者逐題回答，Claude Code 不代答。</td></tr>
+<tr><td><code>wayfinder:task</code></td><td>依情境決定</td><td>阻擋決策的操作完成並留下事實。</td></tr>
 </table>
-<div class="rule"><strong>Research exception：</strong>Decision tickets 建立並 wire blocking edges 後，為每張 research ticket 平行啟動 <code>/research</code> subagent。研究留在 throwaway <code>research/&lt;name&gt;</code> branch，ticket 留 context pointer；charting agent 不手動逐張解票。</div>
+<div class="rule"><strong>研究例外：</strong>建立決策工作項目與阻擋關係後，可為每張研究工作項目平行啟動 <code>/research</code> 子代理。研究留在拋棄式 <code>research/&lt;name&gt;</code> 分支，工作項目留下脈絡連結；建立地圖的代理不逐張處理。</div>
 
-<h2>Ticket、fog、out of scope</h2>
+<h2>工作項目、待釐清區與範圍外</h2>
 <table>
 <tr><th>分類</th><th>判斷題</th><th>存放位置</th></tr>
-<tr><td>Ticket</td><td>現在已能精確說出要回答的問題。</td><td>Map 的 child issue。</td></tr>
-<tr><td>Fog</td><td>知道這塊在 scope 內，但還無法精確問問題。</td><td><em>Not yet specified</em>。</td></tr>
-<tr><td>Out of scope</td><td>即使變清楚，也超出 destination。</td><td><em>Out of scope</em>；不會升級。</td></tr>
+<tr><td>工作項目</td><td>現在已能精確說出要回答的問題。</td><td>地圖的子 issue。</td></tr>
+<tr><td>待釐清區</td><td>知道這塊在範圍內，但還無法精確問問題。</td><td><em>Not yet specified</em> 欄位。</td></tr>
+<tr><td>範圍外</td><td>即使變清楚，也超出目標。</td><td><em>Out of scope</em> 欄位；不會升級。</td></tr>
 </table>
 
-<h2>Chart the map</h2>
+<h2>建立地圖</h2>
 <ol>
-  <li>用 grilling 與 domain-modeling 固定 destination。</li>
-  <li>Breadth-first 掃描整片未知區，不急著深挖一題。</li>
-  <li>建立標記 <code>wayfinder:map</code> 的 canonical map。</li>
-  <li>只建立現在能精確問出的 decision tickets。</li>
-  <li>Tickets 取得 ids 後，再第二輪 wire blocking edges。</li>
-  <li>為每張 research ticket 平行啟動 <code>/research</code> subagent。</li>
-  <li>看得到 frontier 後停止；charting agent 不手動解票。</li>
+  <li>用需求追問與 <code>domain-modeling</code> 固定目標。</li>
+  <li>先廣泛掃描整片未知區，不急著深挖一題。</li>
+  <li>建立標記 <code>wayfinder:map</code> 的標準地圖。</li>
+  <li>只建立現在能精確問出的決策工作項目。</li>
+  <li>工作項目取得編號後，再建立阻擋關係。</li>
+  <li>為每張研究工作項目平行啟動 <code>/research</code> 子代理。</li>
+  <li>看得到目前可處理項目後停止；建立地圖的代理不手動解票。</li>
 </ol>
 
-<h2>Work through the map</h2>
-<p>以下是普通 frontier ticket 的 serial loop；charting 時已啟動的 research subagents 是平行例外。</p>
+<h2>逐張處理地圖</h2>
+<p>一般工作項目一次處理一張；建立地圖時已啟動的研究子代理是平行例外。</p>
 <ol>
-  <li>載入 map 低解析全貌。</li>
-  <li>選第一張 open、unblocked、unclaimed frontier ticket。</li>
-  <li>先 assign 給自己，再依 ticket type 解題。</li>
-  <li>把完整答案留在 resolution comment，close ticket。</li>
-  <li>Map 只新增 ticket 名稱、連結與一句 gist。</li>
-  <li>建立新 tickets、wire edges、升級 fog 或移出 scope。</li>
-  <li>停止；下一張普通 ticket 留給下一個 session。</li>
+  <li>載入地圖的低解析全貌。</li>
+  <li>選第一張開放、未被阻擋、尚未認領的工作項目。</li>
+  <li>先指派給自己，再依類型解題。</li>
+  <li>把完整答案留在結案留言，關閉工作項目。</li>
+  <li>地圖只新增名稱、連結與一句結論。</li>
+  <li>建立新工作項目、更新阻擋關係，並整理待釐清區與範圍。</li>
+  <li>停止；下一張普通工作項目留給下一個工作階段。</li>
 </ol>
 
 <h2>不變量</h2>
 <ul>
-  <li><strong>Map 是 index，不是答案倉庫。</strong></li>
-  <li><strong>人類文字用 ticket title，不用裸 issue id。</strong></li>
-  <li><strong>Assignee 是 claim；先 claim 才開始。</strong></li>
-  <li><strong>普通 frontier session 最多解一張 ticket；平行 research subagents 是明確例外。</strong></li>
-  <li><strong>預設產出 decisions，不產出 destination deliverables。</strong></li>
+  <li><strong>地圖是索引，不是答案倉庫。</strong></li>
+  <li><strong>人類文字使用工作項目標題，不只寫 issue 編號。</strong></li>
+  <li><strong>先認領工作項目再開始。</strong></li>
+  <li><strong>一般工作階段最多處理一張；平行研究子代理是明確例外。</strong></li>
+  <li><strong>預設產出決策，不直接製作最終交付物。</strong></li>
 </ul>
 
-<div class="stop"><strong>Exit：</strong>沒有 open tickets、沒有可升級 fog、路徑已清楚 → <code>/to-spec</code> 收斂 linked decisions。只有 effort 最後縮成單一小任務，才例外直接 <code>/implement</code>。</div>
+<div class="stop"><strong>停止條件：</strong>沒有開放工作項目、沒有可升級的待釐清區，而且路徑已清楚 → 用 <code>/to-spec</code> 收斂關聯決策。若工作最後縮成單一小任務，才直接用 <code>/implement</code>。</div>
 
 <footer>
-  對應課程：<a href="../lessons/003-0013-wayfinder-chart-map.html">Phase 3 第 13 課 — chart map</a> · <a href="../lessons/003-0014-wayfinder-frontier.html">Phase 3 第 14 課 — work the frontier</a><br>
-  主要來源：<a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md">reviewed wayfinder snapshot（66898f6）</a> · <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">current wayfinder</a>
+  對應課程：<a href="../lessons/003-0013-wayfinder-chart-map.html">Phase 3 第 13 課 — 建立共享決策地圖</a> · <a href="../lessons/003-0014-wayfinder-frontier.html">Phase 3 第 14 課 — 處理一張決策工作項目</a><br>
+  主要來源：<a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md">已審查 Wayfinder 版本（66898f6）</a> · <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">目前的 Wayfinder 說明</a>
 </footer>
 </body>
 </html>

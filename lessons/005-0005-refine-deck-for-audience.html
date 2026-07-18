@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 5 · 第 05 課 · 約 10–15 分鐘</div>
 <h1>只為一種受眾改寫</h1>
-<p class="mission">今天只做一件事：把一個真人理解障礙交給 Claude Code，只改受影響的一頁。</p>
+<p class="mission"><strong>本課成果：</strong>一筆只處理一項真人理解障礙的單頁修改。</p>
 <div class="rule"><strong>不要說「更專業」：</strong>指出哪個詞不懂、哪個問題會問，再要求 Claude 修改那一頁。</div>
 <h2>完成一次受眾改寫</h2>
 <div class="step"><label><input type="checkbox"> 1. 找一個陌生詞</label><p>請一位代表性讀者指出內部縮寫、技術名詞或沒解釋的指標；不要由 Claude Code 模擬真人回饋。</p></div>
@@ -21,9 +21,9 @@
 <div class="done" id="done"><strong>完成：</strong>你已根據真實受眾理解修改一頁，而不是只改成自己喜歡的語氣。</div>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="2"><p>哪一則修改要求最適合受眾校正？</p><button>整份更加專業</button><button>畫面更有質感</button><button>解釋這個縮寫</button><div class="why">指明受眾可能不懂的詞，能產生可驗收的內容修改。</div></div>
-<h2>帶走這個就好</h2><p>初學精修只要找一個理解障礙、修改、再問一個人。</p>
+<h2>關鍵判斷</h2><p>初學精修只要找一個理解障礙、修改、再問一個人。</p>
 <p><strong>主要閱讀：</strong><a href="https://claude.com/resources/tutorials/using-claude-design-for-presentations-and-slide-decks#customizing-your-deck">Anthropic — Customizing your deck</a>。</p>
-<footer>上一課：<a href="005-0004-create-deck-in-claude-design.html">產生三頁初稿</a> · 下一課：<a href="005-0006-verify-claims-and-accessibility.html">查一個數字與閱讀性</a><br>把真人原話與單頁修改貼回對話，請 AI 老師檢查是否過度改寫。</footer>
+<footer>上一課：<a href="005-0004-create-deck-in-claude-design.html">產生三頁初稿</a> · 下一課：<a href="005-0006-verify-claims-and-accessibility.html">查一個數字與閱讀性</a><br>把真人原話與單頁修改貼回 Claude Code，請它檢查是否過度改寫。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

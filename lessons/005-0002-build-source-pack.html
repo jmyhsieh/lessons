@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 5 · 第 02 課 · 約 10–15 分鐘</div>
 <h1>收集三份可信資料</h1>
-<p class="mission">今天只做一件事：把三份可信資料交給 Claude Code，讓它整理用途與待確認內容。</p>
+<p class="mission"><strong>本課成果：</strong>一份三項資料的來源包（source pack），標出用途與待確認內容。</p>
 <div class="rule"><strong>少就是多：</strong>只把三份你看得懂、知道來源的資料放進 scope；不要讓 Claude Code 掃整個資料夾再替你猜哪些可信。</div>
 <h2>建立迷你資料包</h2>
 <div class="step"><label><input type="checkbox"> 1. 只選三份資料</label><p>可以是文件、試算表、會議筆記或官方網頁。確認 Claude Code 有權讀取；至少一份直接支持主要主張。</p></div>
@@ -23,9 +23,9 @@
 <div class="done" id="done"><strong>完成：</strong>你已有三份可信資料，也知道每一份在簡報中要做什麼。</div>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1"><p>某個重要數字找不到原始出處，該怎麼做？</p><button>先放進簡報再說</button><button>標記待確認不用</button><button>請模型猜個範圍</button><div class="why">先把不確定內容隔離，能避免初稿把猜測包裝成事實。</div></div>
-<h2>帶走這個就好</h2><p>進階工作流會把這組資料稱為 <code>source pack</code>；入門先記得「少量、真實、找得到來源」。</p>
+<h2>關鍵判斷</h2><p>進階工作流會把這組資料稱為 <code>source pack</code>；入門先記得「少量、真實、找得到來源」。</p>
 <p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design#add-context-to-your-project">Anthropic — Add context to your project</a>。</p>
-<footer>上一課：<a href="005-0001-choose-daily-visual-output.html">定義簡報任務</a> · 下一課：<a href="005-0003-storyboard-presentation.html">請 Claude Code 草擬三頁故事</a><br>把 source pack 摘要與一筆回查結果貼回對話，請 AI 老師檢查可信度。</footer>
+<footer>上一課：<a href="005-0001-choose-daily-visual-output.html">定義簡報任務</a> · 下一課：<a href="005-0003-storyboard-presentation.html">請 Claude Code 草擬三頁故事</a><br>把 source pack 摘要與一筆回查結果貼回 Claude Code，請它檢查可信度。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

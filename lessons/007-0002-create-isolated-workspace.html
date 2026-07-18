@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 7 · 入門第 02 課 · 約 15 分鐘</div>
 <h1>請 Claude Code 建立隔離 workspace</h1>
-<p class="mission">今天只做一件事：核准 Claude Code 在新資料夾建立 starter，並親自看到範例簡報。</p>
+<p class="mission"><strong>本課成果：</strong>一個在新資料夾建立、已親自看過範例的 open-slide 工作區（workspace）。</p>
 <div class="rule"><strong>不要裝進現有 repo：</strong>第一次先用獨立 workspace，讓產生的檔案、Git 歷史與 dependencies 都有清楚邊界。</div>
 <h2>把 starter 跑起來</h2>
 <div class="step"><label><input type="checkbox"> 1. 請 Claude Code 檢查前置</label><pre><code>node --version
@@ -22,9 +22,9 @@ npm --version</code></pre><p>要求它顯示實際版本；任何命令不存在
 npm run dev</code></pre><p>從終端輸出的本機網址開啟瀏覽器，確認畫面與上一／下一頁操作正常。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已在隔離 workspace 跑起 open-slide starter，並留下可見的 browser evidence。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>初始化後，哪一項才是第一個完成證據？</p><button>範例能在瀏覽器開啟</button><button>資料夾名稱看起來對</button><button>模型說安裝已經成功</button><div class="why">只有實際啟動 dev server 並打開範例，才能確認 dependencies、設定與瀏覽器路徑都能運作。</div></div>
-<h2>帶走這個就好</h2><p>今天只證明環境可用；不要在還沒看懂 starter 前開始整份簡報。</p>
+<h2>關鍵判斷</h2><p>今天只證明環境可用；不要在還沒看懂 starter 前開始整份簡報。</p>
 <p><strong>主要閱讀：</strong><a href="https://open-slide.dev/docs/getting-started">open-slide — Getting Started</a>。</p>
-<footer>上一課：<a href="007-0001-decide-if-open-slide-fits.html">先完成選路</a> · 下一課：<a href="007-0003-build-three-slide-slice.html">讓 Claude Code 完成三頁切片</a><br>把 Claude Code 的命令輸出與你看到的畫面貼回對話，請 AI 老師判斷是否真的跑起來。</footer>
+<footer>上一課：<a href="007-0001-decide-if-open-slide-fits.html">先完成選路</a> · 下一課：<a href="007-0003-build-three-slide-slice.html">讓 Claude Code 完成三頁切片</a><br>把 Claude Code 的命令輸出與你看到的畫面貼回 Claude Code，請它判斷是否真的跑起來。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

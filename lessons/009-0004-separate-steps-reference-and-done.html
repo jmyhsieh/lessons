@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04：整理執行步驟、參考資料與完成條件</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#7a4b25;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#7a4b25}.mission{font-style:italic;color:#555;border-left:3px solid #7a4b25;padding-left:1rem}.rule{background:#fcf8f4;border-left:4px solid #7a4b25;padding:.75rem 1rem}.step,.quiz{border:1px solid #e3d5c8;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f5eee8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#6d421f}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #e3d5c8;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fcf8f4;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #e3d5c8;padding-top:1rem}
+</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 9 · 入門第 04 課 · 約 15 分鐘</div>
+<h1>整理執行步驟、參考資料與完成條件</h1>
+<p class="mission"><strong>本課成果：</strong>一份有明確步驟與完成條件的最小 <code>SKILL.md</code>。</p>
+<div class="rule"><strong>兩種內容：</strong>執行步驟（steps）是 Claude 要依序完成的動作；參考資料（reference）是執行時查用的規則、格式或知識。Skill 可以只有其中一種，但不要把大段說明混進步驟，讓真正動作被埋住。</div>
+
+<h2>審查一次內容結構</h2>
+<div class="step"><label><input type="checkbox"> 1. 請 Claude Code 標出執行步驟與參考資料</label><p>要求它逐段說明目前 <code>SKILL.md</code> 的角色，不先改檔。找出重複步驟、只是背景介紹的句子，以及沒有完成條件的步驟。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 收斂成三個執行步驟</label><p>第一版只需要：讀取目前狀態與證據、整理四個欄位、檢查每個主張的證據界線。四個欄位只是輸出格式，不必各自變成一個工作流程。</p>
+<pre>## Steps
+1. Inspect the current session, repository changes, and available verification evidence.
+2. Report Changed, Verified, Remaining, and Blocked.
+3. Check every reported item against observed evidence.
+
+Completion criterion: every changed item and every relevant skipped,
+failed, or unrun check is accounted for.</pre></div>
+<div class="step"><label><input type="checkbox"> 3. 再執行並審查過程</label><p>執行 <code>/repo-checkpoint</code>。核對四段是否齊全、未跑檢查是否誠實標記。輸出文字可以不同，但執行步驟與證據界線應穩定。</p></div>
+
+<div class="done" id="done"><strong>入門完成：</strong>你有一個可手動執行、結構清楚且具完成條件的專案 Skill。</div>
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="1"><p>哪個完成條件最容易檢查？</p><button>產生一份看起來很完整的狀態摘要</button><button>每項變更與未跑檢查都已被交代</button><button>盡可能仔細地完成所有需要的工作</button><div class="why">「每項變更與未跑檢查都交代」有可核對的全集；「完整」或「仔細」容易讓 Claude 自己宣告達成。</div></div>
+<h2>關鍵判斷</h2><p>流程可預期性（predictability）指每次走相近的執行過程；完成條件則是 Claude 判斷「真的做完」的尺。</p>
+<p><strong>主要閱讀：</strong><a href="https://www.youtube.com/watch?v=UNzCG3lw6O0">影片 7:29–11:53</a> 與 <a href="https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/productivity/writing-great-skills/SKILL.md">writing-great-skills snapshot</a>。</p>
+<footer>上一課：<a href="009-0003-choose-user-or-model-invocation.html">決定啟用方式</a> · 進階下一課：<a href="009-0005-disclose-branch-reference.html">按需載入參考資料</a> · <a href="../reference/agent-skill-checklist.html">Phase 9 工作技能檢查表</a><br>把第二次輸出與第一次並排貼回 Claude Code，請它檢查流程是否更可預期。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>01：完成 mattpocock/skills 的 repo setup</title>
+<title>01：完成 mattpocock/skills 的程式庫設定</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -38,53 +38,53 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 3 · 第 01 課 · 約 20 分鐘 · 必要設定</div>
-<h1>完成 mattpocock/skills 的 repo setup</h1>
-<p class="mission">Phase 3 任務：用 mattpocock/skills 在<strong>真實 repo</strong> 中處理需求對齊、文件化、開發品質與缺陷分流。本課只有一個成果：選定安裝模式並跑完 <code>/setup-matt-pocock-skills</code>，讓後續 skills 知道 issue tracker、triage label vocabulary 與 domain docs 放在哪裡。</p>
-<div class="scope"><strong>本課只做：</strong>完成安裝與 repo setup。<br><strong>先不要做：</strong>建立 glossary、ADR，或啟動需求流程；它們會在真正釐清術語或決策時才按需產生。</div>
+<h1>完成 mattpocock/skills 的程式庫設定</h1>
+<p class="mission"><strong>本課成果：</strong>一份安裝完成紀錄，寫清楚工作追蹤、分類標籤與領域文件放在哪裡。</p>
+<div class="scope"><strong>本課只做：</strong>完成安裝與程式庫設定。<br><strong>先不要做：</strong>建立詞彙表、ADR，或啟動需求流程；它們會在真正釐清術語或決策時才按需產生。</div>
 
 
-<h2>這套 skills 在解什麼問題</h2>
-<p>Matt Pocock 把 AI 輔助開發的翻車原因歸納成<strong>四大失敗模式</strong>（<a href="https://github.com/mattpocock/skills">GitHub README</a>），每種配對應的 skill：</p>
+<h2>這套工作技能在解什麼問題</h2>
+<p>Matt Pocock 把 AI 輔助開發的翻車原因歸納成<strong>四大失敗模式</strong>（<a href="https://github.com/mattpocock/skills">GitHub README</a>），每種配對應的工作技能：</p>
 <table>
-<tr><th>失敗模式</th><th>症狀</th><th>對策 skill</th></tr>
-<tr><td><strong>Misalignment</strong><br>沒對齊需求</td><td>做出來的不是你要的</td><td><code>/grill-me</code>、<code>/grill-with-docs</code> — 動工前被追問到對齊</td></tr>
-<tr><td><strong>Verbosity</strong><br>缺共享語言</td><td>詞彙不一致、溝通成本高</td><td><code>domain-modeling</code>、<strong>CONTEXT.md</strong> — 定義專案的領域語言</td></tr>
-<tr><td><strong>Broken code</strong><br>回饋迴圈不足</td><td>看似完成、實則會壞</td><td><code>/tdd</code>、<code>/diagnosing-bugs</code> — 紅綠燈與系統化除錯</td></tr>
-<tr><td><strong>Architectural decay</strong><br>架構腐化</td><td>越改越難改</td><td><code>/improve-codebase-architecture</code>、<code>codebase-design</code>、<code>/to-spec</code>、<code>/to-tickets</code></td></tr>
+<tr><th>失敗模式</th><th>症狀</th><th>對策工作技能</th></tr>
+<tr><td><strong>需求錯位</strong>（Misalignment）</td><td>做出來的結果不符合需求</td><td><code>/grill-me</code>、<code>/grill-with-docs</code> — 動工前被追問到對齊</td></tr>
+<tr><td><strong>表達冗長</strong>（Verbosity）</td><td>詞彙不一致、溝通成本高</td><td><code>domain-modeling</code>、<strong>CONTEXT.md</strong> — 定義專案的領域語言</td></tr>
+<tr><td><strong>程式碼損壞（Broken code）</strong><br>回饋迴圈不足</td><td>看似完成、實則會壞</td><td><code>/tdd</code>、<code>/diagnosing-bugs</code> — 紅綠燈與系統化除錯</td></tr>
+<tr><td><strong>架構腐化</strong>（Architectural decay）</td><td>越改越難改</td><td><code>/improve-codebase-architecture</code>、<code>codebase-design</code>、<code>/to-spec</code>、<code>/to-tickets</code></td></tr>
 </table>
-<div class="tip"><strong>為什麼這套對真實 repo 有價值：</strong>AI 最容易翻車的地方不是少打一行 code，而是需求沒對齊、詞彙不一致、驗證不足與架構慢慢腐化。CONTEXT.md 與真正需要的 ADR，讓 agent、工程師與 reviewer 共用同一套語言與決策脈絡。封閉或遺產系統只是風險最高的範例，不是唯一場景。</div>
+<div class="tip"><strong>為什麼這套對真實程式庫有價值：</strong>AI 最常在需求沒對齊、詞彙不一致、驗證不足與架構逐漸腐化時出錯。CONTEXT.md 與真正需要的 ADR，讓代理、工程師與審查者共用同一套語言與決策脈絡。封閉或遺產系統只是風險最高的範例，不是唯一場景。</div>
 
 <h2>兩個地基概念</h2>
-<p><strong>CONTEXT.md</strong> — 放在 repo 的純領域 glossary：只記系統術語與業務概念的精確定義，不放模組結構、class 名稱或其他實作細節。人和 AI 共用同一份。它和 Phase 1 第 06 課的 CLAUDE.md 分工：CLAUDE.md 講「怎麼工作」（規範、指令），CONTEXT.md 講「這個領域是什麼」（語言、概念）。</p>
-<p><strong>ADR（Architecture Decision Record）</strong> — 一份決策一個檔案，記「為什麼這樣設計」。只有當決策同時<strong>難以回頭</strong>、<strong>缺少背景會令人意外</strong>，而且是<strong>真實 tradeoff</strong> 的結果時才寫；少一項就跳過。<code>/grill-with-docs</code> 與 <code>domain-modeling</code> 會在術語或決策真正收斂時，才更新這些文件。</p>
-<p><strong>現行 shared skills</strong> — <code>domain-modeling</code> 管共享語言與決策脈絡，<code>codebase-design</code> 管深模組與介面設計語言；它們通常是其他 skill 背後共用的 vocabulary，不需要每次獨立成任務。</p>
+<p><strong>CONTEXT.md</strong> — 放在程式庫的純領域詞彙表：只記系統術語與業務概念的精確定義，不放模組結構、class 名稱或其他實作細節。人和 AI 共用同一份。它和 Phase 1 第 06 課的 CLAUDE.md 分工：CLAUDE.md 講「怎麼工作」（規範、指令），CONTEXT.md 講「這個領域是什麼」（語言、概念）。</p>
+<p><strong>ADR（Architecture Decision Record）</strong> — 一份決策一個檔案，記「為什麼這樣設計」。只有當決策同時<strong>難以回頭</strong>、<strong>缺少背景會令人意外</strong>，而且是<strong>真實取捨</strong> 的結果時才寫；少一項就跳過。<code>/grill-with-docs</code> 與 <code>domain-modeling</code> 會在術語或決策真正收斂時，才更新這些文件。</p>
+<p><strong>現行共用工作技能</strong> — <code>domain-modeling</code> 管共享語言與決策脈絡，<code>codebase-design</code> 管深模組與介面設計語言；它們通常是其他工作技能背後共用的詞彙，不需要每次獨立成任務。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 
 <div class="step">
   <label><input type="checkbox"> 1. 選一種安裝模式</label>
-  <p><strong>Claude Code plugin（managed/current）：</strong>想直接訂閱 upstream、由 marketplace 管理唯讀 skill bundle，就在 Claude Code 裡執行：</p>
+  <p><strong>Claude Code plugin：</strong>想由 marketplace 管理並取得上游更新，就在 Claude Code 裡執行：</p>
   <pre>/plugin marketplace add mattpocock/skills
 /plugin install mattpocock-skills@mattpocock</pre>
-  <p><strong>Editable project copy（通用／Codex 路徑）：</strong>想把 skills 複製到 project 裡自行調整，或使用 Codex 與其他支援 Agent Skills 的 agent，就在目標 repo 目錄執行：</p>
+  <p><strong>可編輯的專案副本：</strong>想把工作技能複製進 repo 自行調整，或交給 Codex 等相容工具使用，就在目標 repo 執行：</p>
   <pre>npx skills@latest add mattpocock/skills</pre>
-  <p>兩條路選一條即可；選好後再進行下一步的 repo setup。</p>
+  <p>兩條路選一條即可；選好後再進行下一步的程式庫設定。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 2. 設定 issue tracker</label>
-  <p>回到剛才選定的 agent session（plugin 路徑是 Claude Code；project copy 可在 Codex 或相容 agent 使用），執行：</p>
+  <label><input type="checkbox"> 2. 設定議題追蹤系統</label>
+  <p>回到剛才選定的工具工作階段，執行：</p>
   <pre>/setup-matt-pocock-skills</pre>
-  <p>它會先探索 repo，再依現況提出設定草案：issue tracker 一定會確認；只有安裝了 <code>triage</code> 才會問標籤；一般 repo 直接採 single-context，只有偵測到 monorepo 訊號才會問是否使用 multi-context。可用 GitHub 或 GitLab 就接正式 tracker；沒有 tracker、受限環境或練習 repo 再選 <strong>local markdown</strong>；Linear、Jira 或其他工具走 Other，把實際流程寫進 <code>docs/agents/issue-tracker.md</code>。GitHub／GitLab 的 external PR request surface 預設關閉，setup 不會追問；需要時再直接改 tracker 文件。寫入前先審完整草案，確認後才讓它修改檔案。</p>
+  <p>它會先探索 repo，再依現況提出設定草案。可用 GitHub 或 GitLab 就接正式追蹤系統；沒有追蹤系統、權限受限或只是練習時，再選本機 Markdown。使用 Linear、Jira 等其他工具時，把實際流程寫進 <code>docs/agents/issue-tracker.md</code>。寫入前先審完整草案，確認後才允許修改檔案。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 3. 驗收 setup artifacts</label>
-  <p>確認 agent 已回報並讓你審過 <code>docs/agents/issue-tracker.md</code> 與 <code>docs/agents/domain.md</code>；若已安裝 <code>triage</code>，再確認 <code>docs/agents/triage-labels.md</code>。這些檔案只描述後續 skills 的共同設定，不應預先製造 CONTEXT.md 或 ADR。</p>
+  <label><input type="checkbox"> 3. 驗收設定產出</label>
+  <p>確認代理已回報並讓你審過 <code>docs/agents/issue-tracker.md</code> 與 <code>docs/agents/domain.md</code>；若已安裝 <code>triage</code>，再確認 <code>docs/agents/triage-labels.md</code>。這些檔案只描述後續工作技能的共同設定，不應預先製造 CONTEXT.md 或 ADR。</p>
 </div>
 
 <div class="done-banner" id="done">
-  🎉 <strong>地基完成：安裝路徑與 repo setup 都已確認。</strong>回對話視窗回報：選了哪種安裝模式？setup 寫入了哪些設定檔？
+  <strong>完成條件：</strong>安裝方式、工作追蹤位置、分類標籤與領域文件位置都已記錄並確認存在。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
@@ -102,23 +102,23 @@
   <button>CONTEXT.md：定義快取相關術語</button>
   <button>測試套件：保護快取既有行為</button>
   <button>ADR：記錄繞過快取的決策原因</button>
-  <div class="why">這個情境同時符合難以回頭、缺少背景會令人意外、真實 tradeoff 三項條件，因此適合 ADR。TDD 保護的是行為不是原因；CONTEXT.md 只定義領域語言。</div>
+  <div class="why">這個情境同時符合難以回頭、缺少背景會令人意外、真實取捨三項條件，因此適合 ADR。TDD 保護的是行為不是原因；CONTEXT.md 只定義領域語言。</div>
 </div>
 
 <div class="quiz" data-answer="0">
-  <p>3. 本課的 repo setup 驗收後，哪組 artifacts 最符合邊界？</p>
+  <p>3. 本課的程式庫設定 驗收後，哪組產出最符合邊界？</p>
   <button>issue-tracker.md、domain.md，按需加 labels</button>
   <button>CONTEXT.md 與一組 ADR；先預建所有後續知識文件</button>
-  <button>完整 spec 與所有 tickets；直接啟動尚未釐清的需求流程</button>
-  <div class="why">setup 只建立後續 skills 共用的 repo 設定：issue tracker 與 domain 設定一定會有，triage labels 只在安裝 triage 時出現。CONTEXT.md、ADR、spec 與 tickets 都要等真實需求出現後按需建立。</div>
+  <button>完整規格與所有工作項目；直接啟動尚未釐清的需求流程</button>
+  <div class="why">setup 只建立後續工作技能共用的程式庫設定：議題追蹤系統與 領域設定一定會有，triage labels 只在安裝 triage 時出現。CONTEXT.md、ADR、規格與工作項目都要等真實需求出現後按需建立。</div>
 </div>
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。下一課：<a href="003-0002-ask-matt.html">Phase 3 第 02 課 — 用 /ask-matt 判斷該走哪條路</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/setup-matt-pocock-skills/SKILL.md">reviewed setup snapshot（66898f6）</a>；操作前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/setup-matt-pocock-skills/SKILL.md">current setup SKILL.md</a>。背景另見 reviewed <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/README.md">README</a> 與 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/domain-modeling/SKILL.md">domain-modeling</a>；若摘要與 SKILL.md 不一致，以操作時的 current SKILL.md 為準。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/setup-matt-pocock-skills/SKILL.md">reviewed setup snapshot（66898f6）</a>；操作前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/setup-matt-pocock-skills/SKILL.md">current setup SKILL.md</a>。背景另見 reviewed <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/README.md">README</a> 與 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/domain-modeling/SKILL.md">domain-modeling</a>；若摘要與SKILL.md 不一致，以操作時的 current SKILL.md 為準。</p>
 
 <footer>
-  有不清楚的，回對話視窗問你的 AI 老師。<br>
+  設定尚未完成時，交出安裝命令、工作追蹤位置與領域文件位置，請 Claude Code 指出缺少哪項前置條件。<br>
   前一階段收尾：<a href="002-0010-ci-automation-boundary.html">Phase 2 第 10 課 — CI 自動化邊界</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 

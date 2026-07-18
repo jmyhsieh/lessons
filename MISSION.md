@@ -1,7 +1,7 @@
 # Mission: 與 Claude 建立從想法到可驗證交付的工作流
 
 ## Why
-學會判斷 Claude、Cowork、Claude Design、Claude Code 與 skills 各自適合的工作流，並能把模糊想法、視覺探索與 repo 實作串成可驗證、可交付的成果。
+站在台灣工程師的工作現場，學會判斷 Claude、Cowork、Claude Design、Claude Code 與 Skills 各自適合的工作方式，並能把模糊想法、視覺探索與程式庫（repo）實作串成可驗證、可交付的成果；需要重用團隊流程時，也能讓 Claude Code 協助寫出可預期、可維護的工作技能（Skill）。
 
 ## Success looks like
 - 能依任務性質選擇 Claude、Cowork、Claude Design、Claude Code 或本地 skill。
@@ -18,12 +18,15 @@
 - 選讀 Phase 7 進階 05–09 後，能讓 Claude Code 先讀 <code>CLAUDE.md</code> 與 workspace skills，再使用 <code>/create-theme</code>、<code>/apply-comments</code> 等能力建立可重用 slide system、關閉回饋迴圈，並在人工查核來源、accessibility、權限與 rollback 後準備交付包。
 - 完成 Phase 8 入門 01–04 後，能判斷 Claude Code 應做 Playwright MCP live check 或持久 Playwright Test，在 local scope 連接並核對 MCP、觀看一條真實 browser path，並審查第一個 test 的 diff 與可解釋 fail → pass evidence。
 - 選讀 Phase 8 進階 05–09 後，能為 Claude Code 初始化 Playwright Test Agents，以 planner → approved spec → generator → reviewed test 建立受控流程，用 trace 監督 healer，並把已審查 tests 接到最小 CI gate。
+- 完成 Phase 9 入門 01–04 後，能從真實 repo 的重複流程做出專案 Skill，決定由工程師手動啟用或讓 Claude 自動啟用，並用執行步驟、參考資料與可檢查的完成條件審查第一次執行結果。
+- 選讀 Phase 9 進階 05–09 後，能用按需載入、引導詞、實際查找與驗證工作，以及精簡整理改善 Skill，並在新的 Claude Code 對話分開測試啟用方式與執行結果，而不是把一次成功當成可靠。
 
 ## Constraints
-- 課程使用繁體中文與台灣用語；命令、檔名、API 名稱保留英文。
-- 每課要短、可實作、可回到真實 repo 使用。
-- Phase 4–8 都以「Claude Code 使用者」為學習角色：Claude Code 是主要工作介面，Claude Design MCP、open-slide workspace skills、LLM Wiki idea file 與 Playwright 是被 Claude Code 使用的專用能力；學員練習的是 prompt、授權、diff review 與 evidence review，不是先手動背完整 API。
-- Phase 4–8 採 beginner-first：每課只做一個小動作，先得到可見成果；進階術語、完整治理與 production-grade 驗證只能作為後續擴充，不得成為入門門檻。
+- 全課程都以「台灣工程師使用 Claude Code」為學習角色。實際情境放在程式庫、程式差異（diff）、測試、權限與交接，不用抽象的 AI 工作術語代替工作現場。
+- 課程使用繁體中文與台灣用語。中文先講概念；英文只保留產品名、命令、欄位，以及術語第一次出現時的原文。
+- 每課只完成一個可檢查的成果，內容要短、可實作，也要能回到真實程式庫使用；不得在同一課塞入多組尚未解釋的新名詞。
+- Claude Code 是主要工作介面；Claude Design MCP、open-slide 工作區技能、LLM Wiki 原始想法檔、Playwright 與工作技能（Skills）是由 Claude Code 使用或維護的專用能力。學員練習需求說明、授權、程式差異審查與證據審查，不先手動背完整 API。
+- Phase 4–9 採 beginner-first：每課只做一個小動作，先得到可見成果；進階術語、完整治理與 production-grade 驗證只能作為後續擴充，不得成為入門門檻。
 - Claude Design 仍是 beta；課程不依賴單一按鈕位置或未保證的功能。
 - Claude Design MCP 先依官方文件採 user scope 連線並以 <code>/design-login</code> 登入；連線只提供工具能力，不代表授權 Claude Code 修改未指定的 repo、公開內容或代替真人回饋。
 - Phase 4 是選修設計路線；沒有視覺介面的工作不需要為了結業而使用 Claude Design。
@@ -39,6 +42,9 @@
 - Playwright MCP 先使用 local scope；只有團隊核對 server command、來源與權限後，才把 project-scoped 設定納入 repo。
 - Phase 8 進階 05–09 只在需要擴大已驗證 paths、診斷 failure 或形成 delivery gate 時使用；planner spec、generated test、healer patch 與 CI diff 都需要人工核准。
 - Report、trace 與 screenshot 視為可能含敏感資料的受控 artifact；Playwright evidence 不能取代人工 usability、完整 accessibility 或視覺品質判斷。
+- Phase 9 入門 01–04 只要求一個專案 Skill、一個由工程師決定的啟用方式、一份最小結構與一次可觀察執行；不要求先安裝 plugin、建立完整 Skill 收藏庫或跑正式效能評測。
+- Phase 9 先收緊完成條件，只有在新對話的證據顯示 Claude 仍會搶快時，才拆分 Skill 來隱藏完成後才需要的步驟；不得為了看起來模組化而增加對話脈絡負擔或使用者記憶負擔。
+- Skill 的可靠性是流程可預期，不是逐字相同輸出；Claude 自動啟用 Skill 的啟用方式與 Skill 執行後結果必須分開評估。
 - 勾完實作清單只代表完成操作，不等於掌握；能交出課堂要求的 artifact、說明判斷並通過回饋，才算具備該課的 exit evidence。
 - 封閉系統與遺產系統只作為高風險範例，不是課程唯一場景。
 
@@ -49,3 +55,4 @@
 - 未經驗證的職能案例堆疊。
 - 把模型產生的 wiki 頁面當成不需回查來源的權威事實。
 - 把 design system sync、完整 accessibility audit、claim ledger 或 proof pack 當成 Phase 4–6 初學者的結業條件；Phase 7 入門只要求最小三頁 build 與實際開啟，Phase 8 入門只要求一次受控 live check 與一個有紅綠證據的持久 test，不要求 Test Agents 或 CI。
+- 把下載大量社群 Skills、追求逐字固定輸出，或一次成功執行當成工作技能品質證明。

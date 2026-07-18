@@ -36,7 +36,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 1 · 第 11 課 · 約 20 分鐘 · 完整流程</div>
 <h1>從探索到 commit 的安全四步驟</h1>
-<p class="mission">任務目標：用 Claude Code 跑完一次官方建議的四階段開發流程。這一課只練流程節奏，並確保驗證通過後才 commit；下一課再深入 evidence 與 context 收尾。</p>
+<p class="mission"><strong>本課成果：</strong>一筆依「探索、規劃、實作、提交」順序完成的小改動。</p>
 <div class="scope"><strong>本課只做：</strong>練一次探索、規劃、實作、commit 的安全節奏。<br><strong>先不要做：</strong>跳過 plan 或 review 直接要求它大量修改。</div>
 
 
@@ -69,7 +69,7 @@ List files you expect to modify. Do not edit yet.</pre>
   <p>先執行任務的 success criteria，保留 exact command、exit status 與關鍵 output；失敗就修正並重跑。驗證通過後，<strong>桌面 App：</strong>點 diff stats 或打開 diff pane 看完整變更。若 <code>/</code> 清單有 <code>/diff</code>，也可當快捷。最後才請它產 commit message 草稿，你審過才 commit。</p>
 </div>
 
-<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已經跑完一次先驗證、後 commit 的四階段流程。</div>
+<div class="done-banner" id="done"><strong>完成條件：</strong>小改動依序完成探索、規劃、實作與提交，並保留驗證輸出及完整差異。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="0">
@@ -90,7 +90,7 @@ List files you expect to modify. Do not edit yet.</pre>
 <h2>下一步</h2>
 <p>下一課：<a href="001-0012-verification-context.html">Phase 1 第 12 課 — 確認結果並整理 context</a>。你會替剛剛的流程補上可驗證完成條件。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code（官方）</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0010-cowork-hands-on.html">Phase 1 第 10 課 — Cowork hands-on</a></footer>
+<footer>流程停住時，交出目前階段、<code>git diff --stat</code> 與驗證輸出，請 Claude Code 指出尚未通過的關卡。<br>上一課：<a href="001-0010-cowork-hands-on.html">Phase 1 第 10 課 — Cowork hands-on</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

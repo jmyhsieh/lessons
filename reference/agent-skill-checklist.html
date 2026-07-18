@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phase 9 路線卡：Claude Code 工作技能</title>
+<style>
+body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:900px;margin:2.5rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.75}h1{font-size:1.8rem;margin-bottom:.2rem;color:#7a4b25}.sub{color:#666;margin-top:0}h2{font-size:1.12rem;color:#7a4b25;margin-top:2rem}table{width:100%;border-collapse:collapse;font-size:.91rem;margin:1rem 0}th,td{border:1px solid #ddd;padding:.65rem .75rem;vertical-align:top;text-align:left}th{background:#faf5f0}code{background:#f5eee8;border-radius:4px;padding:.1rem .35rem;font-size:.9em}a{color:#6d421f}.rule{border-left:4px solid #7a4b25;background:#fcf8f4;padding:.8rem 1rem;margin:1rem 0}footer{margin-top:2.5rem;font-size:.85rem;color:#666;border-top:1px solid #ddd;padding-top:.8rem}@media print{body{margin:1rem auto}.rule,tr{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Claude Code 工作技能檢查表</h1>
+<p class="sub">把影片的四個問題——怎麼啟用、怎麼組織、怎麼引導、怎麼精簡——變成台灣工程師可以在真實 repo 逐項審查的路線。</p>
+
+<div class="rule"><strong>根本目標：</strong>工作技能（Skill）要讓 Claude Code 每次走相近的<strong>過程</strong>，不是保證每次輸出逐字相同。先為真實 repo 做一個 Skill，再依 diff、檢查結果與交接品質修正；不要先蒐集一大包 Skills。</div>
+
+<h2>入門完成線</h2>
+<table>
+<tr><th>步驟</th><th>你要核對</th><th>完成證據</th></tr>
+<tr><td>01 選流程</td><td>同一組指示真的在 repo 工作中重複出現，而且有可觀察輸出與停止線。</td><td>一張 Skill 需求卡</td></tr>
+<tr><td>02 建 Skill</td><td>專案範圍使用 <code>.claude/skills/&lt;skill-name&gt;/SKILL.md</code>；先審查 Claude Code 草稿再寫入。</td><td>一個可用 <code>/skill-name</code> 執行的 Skill</td></tr>
+<tr><td>03 選啟用方式</td><td>要由工程師決定時機就設 <code>disable-model-invocation: true</code>；需要 Claude 自動發現時，<code>description</code> 才負責列出具體啟用情境。</td><td>一張啟用方式決策卡</td></tr>
+<tr><td>04 整理結構</td><td>執行步驟（steps）是要做的順序；參考資料（reference）是執行時查用的規則。每個步驟都有可檢查的完成條件。</td><td>第一次執行審查</td></tr>
+</table>
+
+<h2>四個進階檢查問題</h2>
+<div class="table-scroll" role="region" aria-label="Claude Code 工作技能四段檢查表，可左右捲動" tabindex="0">
+<table class="wide-table">
+<tr><th>軸</th><th>核心問題</th><th>常見失敗</th><th>優先修法</th></tr>
+<tr><td><strong>啟用方式（Trigger）</strong></td><td>要由工程師手動啟用，還是讓 Claude 自動啟用？哪一種比較不會干擾目前對話？</td><td>該用時沒用、不該用時亂用、Skills 太多而記不住</td><td>先決定啟用方式；自動啟用的 <code>description</code> 只保留真實使用情境與工程師會說的詞。</td></tr>
+<tr><td><strong>內容結構（Structure）</strong></td><td>哪些是執行步驟，哪些是參考資料？每種使用情境都需要這段嗎？</td><td><code>SKILL.md</code> 過長、特定情境的資料一直佔用對話脈絡</td><td>所有情境都需要的留在主檔；只有特定情境才要的放額外參考檔，按需讀取提示要寫清楚「何時讀」。</td></tr>
+<tr><td><strong>行為引導（Steering）</strong></td><td>有沒有一個 Claude 已熟悉的引導詞可以濃縮目標做法？完成條件是否要求它真的讀檔、查找與驗證？</td><td>指示寫了卻沒改變行為、還沒驗證就過早收尾</td><td>先改成正向而具體的引導詞，收緊完成條件；仍觀察到搶快才考慮拆成多個 Skill。</td></tr>
+<tr><td><strong>精簡整理（Pruning）</strong></td><td>每個規則是否只有一個維護來源？每句話真的會改變 Claude 的做法嗎？</td><td>規則重複、過期內容堆積、無效指令、只寫禁止事項</td><td>逐句測試刪除後是否有差；刪掉過期或無作用句，將禁止句改寫成正向目標。</td></tr>
+</table>
+</div>
+
+<h2>啟用方式快速判斷</h2>
+<table>
+<tr><th>情境</th><th>建議</th><th>代價</th></tr>
+<tr><td>要由工程師決定時機，或流程包含 <code>commit</code>、<code>deploy</code>、傳送訊息等外部影響</td><td>使用者手動啟用；設定 <code>disable-model-invocation: true</code></td><td>人要記得 Skill 名稱與使用時機，增加記憶負擔。</td></tr>
+<tr><td>Claude 必須在相關任務自動套用專案知識或檢查流程</td><td>Claude 自動啟用；在 <code>description</code> 寫出具體啟用情境</td><td><code>description</code> 會進入對話脈絡，也要評估該用時沒用與不該用時亂用。</td></tr>
+<tr><td>手動啟用的 Skills 多到記不住</td><td>先刪除或合併不需要的；仍很多時再做一個手動使用的選路 Skill</td><td>選路 Skill 只能幫人選擇，不能讓其他限定手動的 Skill 自動執行。</td></tr>
+</table>
+
+<h2>測試所需的最小證據</h2>
+<p>啟用方式與執行結果要分開測。準備應該啟用、不該啟用與輸出邊界案例；每個案例都開一個新的 Claude Code 對話，比較有 Skill 與停用 Skill 的結果。編寫 Skill 時留下的對話內容，會掩蓋 <code>SKILL.md</code> 真正缺少的指示。</p>
+<div class="rule"><strong>停止線：</strong>一次成功只代表那次成功。至少保留測試提示詞、預期過程、實際檢查證據、有／沒有 Skill 的差異，以及下一個最小修改。</div>
+
+<footer>
+  課程：<a href="../lessons/009-0001-choose-one-repeatable-workflow.html">Phase 9 第 01 課</a> · <a href="../lessons/009-0009-evaluate-and-iterate-skill.html">第 09 課</a><br>
+  主要來源：<a href="https://www.youtube.com/watch?v=UNzCG3lw6O0">Building Great Agent Skills: The Missing Manual</a> · <a href="https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/productivity/writing-great-skills/SKILL.md">writing-great-skills snapshot 9603c1c</a> · <a href="https://code.claude.com/docs/en/skills">Claude Code Skills 官方文件</a><br>
+  產品行為會變動；實際操作前以 Anthropic 最新文件與目前 Claude Code 顯示為準。
+</footer>
+</body>
+</html>

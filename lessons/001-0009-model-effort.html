@@ -35,7 +35,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 1 · 第 09 課 · 約 15 分鐘 · 模型與 effort</div>
 <h1>先用預設，再調模型與 effort</h1>
-<p class="mission">任務目標：先用目前模型的預設 effort；結果不理想時，能分清楚是 context 不足、模型能力不夠，還是 effort 不夠。</p>
+<p class="mission"><strong>本課成果：</strong>一張判斷卡，能分清問題來自對話脈絡（context）、模型能力或推理程度（effort）。</p>
 <div class="scope"><strong>本課只做：</strong>看懂目前模型與 effort，並練習一次「只調一個旋鈕」。<br><strong>先不要做：</strong>背所有版本、把 <code>max</code> 當預設，或在 context 不完整時靠升級硬跑。</div>
 <div class="tip"><strong>先相信實際 picker：</strong><code>default</code> 會依帳號、組織與 provider 選建議模型；<code>sonnet</code>、<code>opus</code>、<code>fable</code> 等 alias 也會隨 provider 更新。先用 <code>/model</code> 看這個 session 真正可用的選項，不要只照課本上的版本名稱。</div>
 
@@ -93,7 +93,7 @@ If Claude skipped files or verification: raise effort.</pre>
   <p>若它跳過查核，維持模型只提高 effort；若它已充分查核仍解錯，維持 effort 改用較強模型。比較第二次是否真的補上缺口，完成後用 <code>/effort auto</code> 回到預設。</p>
 </div>
 
-<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已能分辨 context、model 與 effort 三種不同問題。</div>
+<div class="done-banner" id="done"><strong>完成條件：</strong>判斷卡用實際案例區分對話脈絡、模型能力與推理程度問題。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="0">
@@ -101,7 +101,7 @@ If Claude skipped files or verification: raise effort.</pre>
   <button>提高 effort 後再驗證</button>
   <button>改用 Fable 後再驗證</button>
   <button>放寬 permissions 後再驗證</button>
-  <div class="why">它不是不知道怎麼做，而是做得不夠徹底；這是 effort 問題。</div>
+  <div class="why">它已知道怎麼做，只是做得不夠徹底；這時才需要提高推理程度（effort）。</div>
 </div>
 <div class="quiz" data-answer="0">
   <p>2. Context 完整，Claude 也仔細讀過並驗證，仍解錯困難問題，該先調什麼？</p>
@@ -114,7 +114,7 @@ If Claude skipped files or verification: raise effort.</pre>
 <h2>下一步</h2>
 <p>下一課：<a href="001-0010-cowork-hands-on.html">Phase 1 第 10 課 — 判斷 Cowork 適合的交付物</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://claude.com/blog/claude-model-and-effort-level-in-claude-code">Choosing a Claude model and effort level（官方）</a>；精確 alias、levels 與設定方式見 <a href="https://code.claude.com/docs/en/model-config">Model configuration</a>。</p>
-<footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0008-session-commands.html">Phase 1 第 08 課 — 整理與切換對話狀態（App 與 CLI）</a> · <a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a></footer>
+<footer>判斷不出問題來源時，交出任務、失敗現象與已嘗試的方法，請 Claude Code 分別檢查對話脈絡、模型能力與推理程度。<br>上一課：<a href="001-0008-session-commands.html">Phase 1 第 08 課 — 整理與切換對話狀態（App 與 CLI）</a> · <a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

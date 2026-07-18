@@ -12,7 +12,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 4 · 第 05 課 · 約 10–15 分鐘</div>
 <h1>一次只改一件事</h1>
-<p class="mission">今天只做一件事：請 Claude Code 透過 Design MCP 套用一則具體修改，再比較前後版本。</p>
+<p class="mission"><strong>本課成果：</strong>一筆只改一個問題的設計修正，並保留修改前後版本。</p>
 <div class="rule"><strong>避免「更好看」：</strong>請說明要改哪裡、改成什麼、其他部分保持不變。</div>
 <h2>完成一輪修改</h2>
 <div class="step"><label><input type="checkbox"> 1. 請 Claude Code 保存目前版本</label><p>透過 Design MCP 取一個簡單名稱，例如「A－第一版」，並確認之後能回到這個版本。</p></div>
@@ -21,9 +21,9 @@
 <div class="done" id="done"><strong>完成：</strong>你已完成一次可解釋、可回頭的設計修改。</div>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1"><p>哪一則回饋最容易執行？</p><button>整體再專業一點</button><button>把標題移到上方</button><button>畫面再有感一點</button><div class="why">具體指出元素與變化，Claude 才能精準修改，你也能判斷是否完成。</div></div>
-<h2>帶走這個就好</h2><p>一次只改一件事，才能知道哪個改動造成差異。</p>
+<h2>關鍵判斷</h2><p>一次只改一件事，才能知道哪個改動造成差異。</p>
 <p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design#using-inline-comments">Anthropic — Using inline comments</a>。</p>
-<footer>上一課：<a href="004-0004-explore-design-directions.html">比較兩個方向</a> · 下一課：<a href="004-0006-prototype-and-validate.html">請一個人完成一個任務</a><br>把修改 prompt 與前後版本貼回對話，請 AI 老師檢查是否只改一件事。</footer>
+<footer>上一課：<a href="004-0004-explore-design-directions.html">比較兩個方向</a> · 下一課：<a href="004-0006-prototype-and-validate.html">請一個人完成一個任務</a><br>把修改 prompt 與前後版本貼回 Claude Code，請它檢查是否只改一件事。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

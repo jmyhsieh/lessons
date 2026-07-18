@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>09：用新對話做前後對照測試</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#7a4b25;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#7a4b25}.mission{font-style:italic;color:#555;border-left:3px solid #7a4b25;padding-left:1rem}.rule{background:#fcf8f4;border-left:4px solid #7a4b25;padding:.75rem 1rem}.step,.quiz{border:1px solid #e3d5c8;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f5eee8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#6d421f}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #e3d5c8;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fcf8f4;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #e3d5c8;padding-top:1rem}
+</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 9 · 進階第 09 課 · 約 20 分鐘</div>
+<h1>用新對話做前後對照測試</h1>
+<p class="mission"><strong>本課成果：</strong>一輪有比較基準、只改一個變因的 Skill 改進紀錄。</p>
+<div class="rule"><strong>成功啟用 ≠ Skill 有效：</strong>Claude 有啟用它，只證明啟用方式正常；執行是否遵守步驟、完成條件與證據界線，是另一個問題。編寫 Skill 時殘留的對話會幫 Claude 補洞，所以測試要換新對話。</div>
+
+<h2>做一張最小測試表</h2>
+<div class="step"><label><input type="checkbox"> 1. 準備三種真實工作狀態</label><p>至少包含：repo 有變更且檢查通過、工作目錄乾淨、存在 skipped／failed／unrun checks。每個情境先寫預期流程，不以固定句子當答案。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 分開檢查啟用方式</label><p>手動啟用的 <code>repo-checkpoint</code> 應在輸入 <code>/repo-checkpoint</code> 時執行，普通聊天不自動套用。若改成 Claude 自動啟用，另測應該啟用與不該啟用的提示詞，記錄漏掉或誤用的情況。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 比較有 Skill 與沒有 Skill</label><p>每個情境都新開 Claude Code 對話：一份讓 Skill 可用，一份停用 Skill；比較四段是否完整、證據界線是否正確、是否交代全集。不要在同一段對話先教答案再測。</p></div>
+<div class="step"><label><input type="checkbox"> 4. 一次只改一件事再重跑</label><p>根據證據，只改 <code>description</code>、按需讀取提示、引導詞、完成條件或一條仍有效的規則。需要更正式的自動比較時，才依官方文件安裝 <code>skill-creator@claude-plugins-official</code>；plugin 安裝不是本 Phase 的完成前置。</p></div>
+
+<pre>情境 | 預期啟用方式 | 預期流程 | 有 Skill | 無 Skill | 證據
+1    | 手動啟用     | 四段齊全，交代所有檢查 | ... | ... | ...
+2    | 手動啟用     | 說明乾淨狀態，不捏造變更 | ... | ... | ...
+3    | 手動啟用     | 分開 failed／skipped／unrun | ... | ... | ...</pre>
+
+<div class="done" id="done"><strong>Phase 9 完成：</strong>你有一個可執行 Skill、四段檢查紀錄、新對話比較基準，以及一個經過重跑的最小改進。</div>
+<h2>觀念檢查</h2>
+<div class="quiz" data-answer="2"><p>為什麼測試 Skill 要換新的 Claude Code 對話？</p><button>因為新對話會保證每次輸出逐字一致</button><button>因為新對話會自動修正所有 Skill 缺陷</button><button>因為編寫時的脈絡可能替缺少指示補答案</button><div class="why">若留在寫 Skill 的同一段對話，Claude 已看過意圖與理想答案，可能表現良好，卻不是 Skill 本身造成的。</div></div>
+<h2>關鍵判斷</h2><p>可靠 Skill 需要「比較基準 → 一個修改 → 重跑」的執行證據；作者或 Claude 的自評不能取代實測。</p>
+<p><strong>主要閱讀：</strong><a href="https://code.claude.com/docs/en/skills#evaluate-and-iterate-on-a-skill">Claude Code — Evaluate and iterate on a skill</a>、<a href="https://www.youtube.com/watch?v=UNzCG3lw6O0">影片 19:06–20:43</a>。</p>
+<footer>上一課：<a href="009-0008-prune-skill-failure-modes.html">精簡整理</a> · <a href="../reference/agent-skill-checklist.html">Phase 9 工作技能檢查表</a> · <a href="../toc.html">回課目表</a><br>把測試表與最小修改貼回 Claude Code，請它檢查啟用方式、執行結果與比較基準是否被混在一起。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
+</body>
+</html>
