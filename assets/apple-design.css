@@ -320,6 +320,9 @@ tbody tr:hover { background: rgba(255, 255, 255, .62); }
 
 .table-scroll, .table-wrap { margin: 1rem 0; overflow-x: auto; border-radius: var(--site-radius-md); }
 .table-scroll table, .table-wrap table { margin: 0; }
+.table-scroll > table.wide-table { min-width: 44rem; }
+.wide-table td:first-child { min-width: 6.5rem; }
+.wide-table td:first-child code { display: inline-block; white-space: nowrap; overflow-wrap: normal; word-break: keep-all; }
 
 .grid, .guide-list {
   display: grid;
@@ -565,5 +568,6 @@ footer {
   body, .home-page, .toc-page { width: 100%; padding: 0; color: #000; }
   body > p:first-child:has(> a:only-child), a.start { display: none; }
   .step, .quiz, .mission, .flow, table { background: #fff; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; break-inside: avoid; }
+  .table-scroll > table.wide-table { min-width: 0; }
   a { color: #000; }
 }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>09：選模型與推理強度，避免浪費 token</title>
+<title>09：先用預設，再調模型與 effort</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
   .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
@@ -33,63 +33,87 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 1 · 第 09 課 · 約 15 分鐘 · 模型取捨</div>
-<h1>選模型與推理強度，避免浪費 token</h1>
-<p class="mission">任務目標：能用任務風險選模型，用不確定性選 effort。這一課的重點是取捨，不是把所有任務都升到最高。</p>
-<div class="scope"><strong>本課只做：</strong>判斷何時調整模型與 effort，並知道桌面 App 的操作位置。<br><strong>先不要做：</strong>把 max 當預設，或在需求不清時用高 effort 硬跑。</div>
-<div class="tip"><strong>先看實際 picker：</strong><code>best</code> 代表目前可用的最高能力模型；<code>opus</code>、<code>sonnet</code> 解析到哪一版則依 provider 與組織設定而異。effort 支援範圍也會隨模型改變；以目前 session 顯示的模型與 levels 為準。</div>
+<div class="kicker">Phase 1 · 第 09 課 · 約 15 分鐘 · 模型與 effort</div>
+<h1>先用預設，再調模型與 effort</h1>
+<p class="mission">任務目標：先用目前模型的預設 effort；結果不理想時，能分清楚是 context 不足、模型能力不夠，還是 effort 不夠。</p>
+<div class="scope"><strong>本課只做：</strong>看懂目前模型與 effort，並練習一次「只調一個旋鈕」。<br><strong>先不要做：</strong>背所有版本、把 <code>max</code> 當預設，或在 context 不完整時靠升級硬跑。</div>
+<div class="tip"><strong>先相信實際 picker：</strong><code>default</code> 會依帳號、組織與 provider 選建議模型；<code>sonnet</code>、<code>opus</code>、<code>fable</code> 等 alias 也會隨 provider 更新。先用 <code>/model</code> 看這個 session 真正可用的選項，不要只照課本上的版本名稱。</div>
 
+<h2>先判斷哪裡出了問題</h2>
+<div class="table-scroll" role="region" aria-label="問題症狀與調整方式，可左右捲動" tabindex="0">
+<table class="wide-table">
+<tr><th>你看到的症狀</th><th>先做什麼</th><th>要調的旋鈕</th></tr>
+<tr><td>prompt、工具或 repo context 不完整</td><td>補清楚目標、來源、權限與驗證方式。</td><td>先不要調模型或 effort。</td></tr>
+<tr><td>Claude 已讀關鍵資料、認真嘗試，仍判斷錯誤</td><td>換能力更高的模型。</td><td><strong>Model</strong></td></tr>
+<tr><td>Claude 跳過檔案、測試、查核，或太早停下</td><td>要求更徹底地完成工作。</td><td><strong>Effort</strong></td></tr>
+</table>
+</div>
 
-<h2>不是越高越好</h2>
+<h2>模型決定能力範圍</h2>
 <table>
-<tr><th>情境</th><th>建議</th><th>理由</th></tr>
-<tr><td>日常 coding、小功能、測試可驗證</td><td><code>sonnet</code> + <code>high</code></td><td>速度與能力的平衡點。</td></tr>
-<tr><td>跨模組設計、需求模糊</td><td><code>opusplan</code>，或 <code>opus</code> + picker 支援的較高 effort</td><td><code>opusplan</code> 先深度規劃再用 Sonnet 執行；手動選 effort 時只用介面實際提供的 level。</td></tr>
-<tr><td>短小整理、低風險改字</td><td><code>sonnet</code> + <code>low</code>/<code>medium</code>，或 <code>haiku</code></td><td>不要為簡單任務支付高推理成本。</td></tr>
-<tr><td>無人值守 runner</td><td>預設 <code>high</code>，避免 <code>max</code></td><td>沒有明確 gate 時，高 effort 會放大成本與風險。</td></tr>
+<tr><th>選項</th><th>先這樣理解</th></tr>
+<tr><td><code>default</code></td><td>回到帳號或組織建議的模型；入門先從這裡開始。</td></tr>
+<tr><td><code>sonnet</code></td><td>日常 coding 的 generalist：範圍清楚、能用 tests 驗證的工作。</td></tr>
+<tr><td><code>opus</code></td><td>複雜推理的 expert：模糊需求、架構取捨、困難 bug。</td></tr>
+<tr><td><code>fable</code></td><td>最困難、最長時間任務的 specialist；不是任何帳號的預設，只有可用時才會出現在 picker。</td></tr>
+<tr><td><code>haiku</code></td><td>簡單、明確、重視速度與成本的工作。</td></tr>
+</table>
+
+<h2>Effort 決定做得多徹底</h2>
+<p>Effort 不只是「想多久」；它也會影響 Claude 讀多少檔案、使用多少工具、跑多少驗證，以及在回來問你之前推進多少步。官方建議多數任務先用模型預設值，再依結果調整。</p>
+<table>
+<tr><th>選項</th><th>何時使用</th></tr>
+<tr><td><code>auto</code>／模型預設</td><td>一般起手式；目前多數新模型預設為 <code>high</code>，但不必手動重設。</td></tr>
+<tr><td><code>low</code>／<code>medium</code></td><td>任務短而明確，或你更在意速度與成本。</td></tr>
+<tr><td><code>high</code>／<code>xhigh</code></td><td>需要更完整探索、工具操作與查核；可用範圍依模型而異。</td></tr>
+<tr><td><code>max</code></td><td>最困難且有明確停止條件的 session-only 選項；可能過度思考，不適合長期預設。</td></tr>
 </table>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
-  <label><input type="checkbox"> 1. 打開模型選單</label>
-  <p><strong>桌面 App：</strong>點送出按鈕旁的 model dropdown。若 <code>/</code> 清單有 <code>/model</code>，也可當快捷。看目前模型與可選項，不要急著改，先記錄預設值。</p>
+  <label><input type="checkbox"> 1. 看目前實際使用的模型</label>
+  <p><strong>Claude Code：</strong>執行 <code>/model</code>；桌面 App 也可使用送出按鈕旁的 model dropdown。先記下目前模型與可用 alias，不要急著切換。</p>
+  <p><strong>小提醒：</strong>新版 CLI 在 picker 按 <code>Enter</code> 會切換並存成未來 session 的預設；按 <code>s</code> 才只切換目前 session。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 2. 打開 effort 選單</label>
-  <p><strong>桌面 App：</strong>用 effort menu。若 <code>/</code> 清單有 <code>/effort</code>，也可當快捷。不同模型支援範圍可能不同。</p>
+  <label><input type="checkbox"> 2. 先保留模型預設 effort</label>
+  <p>執行 <code>/effort</code> 查看目前設定；也可在 <code>/model</code> picker 用左右鍵調 slider。若先前手動改過，使用 <code>/effort auto</code> 回到模型預設。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 3. 替一個任務寫 effort policy</label>
-  <pre>Default: sonnet + high.
-Switch to opus + xhigh only if the plan crosses three modules
-or review finds architecture tradeoffs.</pre>
+  <label><input type="checkbox"> 3. 跑一個真實小任務並分類結果</label>
+  <pre>Current model: [picker 顯示的模型]
+Current effort: model default
+
+If context is missing: fix the prompt, tools, or scope.
+If Claude tried thoroughly but was still wrong: use a stronger model.
+If Claude skipped files or verification: raise effort.</pre>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 4. 任務結束後降回預設</label>
-  <p>高 effort 是例外，不是 session 的永久狀態。</p>
+  <label><input type="checkbox"> 4. 只改一個旋鈕再比較</label>
+  <p>若它跳過查核，維持模型只提高 effort；若它已充分查核仍解錯，維持 effort 改用較強模型。比較第二次是否真的補上缺口，完成後用 <code>/effort auto</code> 回到預設。</p>
 </div>
 
-<div class="done-banner" id="done">🎉 <strong>完成！</strong>你現在能說明為什麼升高或降低 effort。</div>
+<div class="done-banner" id="done">🎉 <strong>完成！</strong>你已能分辨 context、model 與 effort 三種不同問題。</div>
 
 <h2>觀念檢查</h2>
-<div class="quiz" data-answer="2">
-  <p>1. 跨模組、需求模糊的任務，較好的起手式是？</p>
-  <button>low effort 直接改</button>
-  <button>先 clear 再忽略 repo 脈絡</button>
-  <button>plan mode 搭配較深推理</button>
-  <div class="why">方向錯比慢更貴；先把計劃做穩。</div>
+<div class="quiz" data-answer="0">
+  <p>1. Claude 找到正確方向，卻跳過 tests 就說完成，該先調什麼？</p>
+  <button>提高 effort 後再驗證</button>
+  <button>改用 Fable 後再驗證</button>
+  <button>放寬 permissions 後再驗證</button>
+  <div class="why">它不是不知道怎麼做，而是做得不夠徹底；這是 effort 問題。</div>
 </div>
-<div class="quiz" data-answer="1">
-  <p>2. 任務完成後還留在最高 effort，主要風險是？</p>
-  <button>後續讀檔權限會失效</button>
-  <button>後續成本與延遲會增加</button>
-  <button>後續 deny 規則會失效</button>
-  <div class="why">effort 影響推理深度與成本，不會取代權限規則。</div>
+<div class="quiz" data-answer="0">
+  <p>2. Context 完整，Claude 也仔細讀過並驗證，仍解錯困難問題，該先調什麼？</p>
+  <button>改用 更強 model 再試</button>
+  <button>提高 目前 effort 再試</button>
+  <button>移除 所有 tests 再試</button>
+  <div class="why">它已經充分嘗試，但能力仍不足；這時才升級模型。</div>
 </div>
 
 <h2>下一步</h2>
 <p>下一課：<a href="001-0010-cowork-hands-on.html">Phase 1 第 10 課 — 判斷 Cowork 適合的交付物</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/model-config">Model configuration（官方）</a>，桌面 App 操作對照見 <a href="https://code.claude.com/docs/en/desktop">Desktop application</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://claude.com/blog/claude-model-and-effort-level-in-claude-code">Choosing a Claude model and effort level（官方）</a>；精確 alias、levels 與設定方式見 <a href="https://code.claude.com/docs/en/model-config">Model configuration</a>。</p>
 <footer>有不清楚的，回對話視窗問你的 AI 老師。<br>上一課：<a href="001-0008-session-commands.html">Phase 1 第 08 課 — 整理與切換對話狀態（App 與 CLI）</a> · <a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');

@@ -72,12 +72,13 @@
 </ul>
 
 <h2>何時升高 effort</h2>
-<p>Grill 的成本應該花在「決策不確定」上，不是花在每個小需求上。若只是釐清文案或簡單流程，維持 <code>high</code>；若它正在跨程式碼、ADR 與產品語言找矛盾，升到 <code>xhigh</code>；若這次 grill 會決定不可逆架構方向，先用 <code>opusplan</code> 做 plan-first。</p>
+<p>Grill 先維持模型預設 effort。若它漏查 code、CONTEXT.md 或 ADR，才提高 effort；若它已完整比對仍無法辨認真正的決策衝突，才升到較強模型。不要因為需求「看起來重要」就同時把兩個旋鈕開到最高。</p>
 <table>
 <tr><th>Signal</th><th>建議</th></tr>
-<tr><td>問題只在欄位名稱、文案、單一路徑。</td><td><code>high</code></td></tr>
-<tr><td>需要比對現有 code、CONTEXT.md、ADR 的矛盾。</td><td><code>xhigh</code></td></tr>
-<tr><td>決策 hard to reverse，且會寫 ADR。</td><td><code>opusplan</code></td></tr>
+<tr><td>問題只在欄位名稱、文案、單一路徑。</td><td>目前模型 + 預設 effort</td></tr>
+<tr><td>方向正確，但漏查 code、CONTEXT.md 或 ADR。</td><td>同模型 + 較高 effort</td></tr>
+<tr><td>資料都查過，仍無法辨認真正的決策衝突。</td><td><code>opus</code> + 預設 effort</td></tr>
+<tr><td>決策 hard to reverse，且會寫 ADR。</td><td><code>opusplan</code> 或 Opus plan mode</td></tr>
 </table>
 
 <h2>實作步驟（做完打勾）</h2>

@@ -95,7 +95,9 @@
 - [Guide: Use Claude Code with Chrome — Anthropic](https://code.claude.com/docs/en/chrome)
   Browser interaction、DOM／console inspection、design verification 與 web app testing。Use for: Phase 4 第 08、13 課，以及 Phase 8 第 01 課的替代 live surface；仍需依 repo 的正式測試補足 evidence。
 - [Guide: Model configuration — Anthropic](https://code.claude.com/docs/en/model-config)
-  Current aliases、model-specific effort levels、<code>opusplan</code> 與 <code>ultrathink</code>。Use for: model/effort decisions。
+  Current aliases（包括 <code>fable</code>）、provider-specific resolution、adaptive effort levels、<code>opusplan</code>、<code>ultracode</code> 與 <code>ultrathink</code>。Use for: model/effort 精確設定與版本校正。
+- [Guide: Choosing a Claude model and effort level in Claude Code — Anthropic](https://claude.com/blog/claude-model-and-effort-level-in-claude-code)
+  官方 default-first 教學：先修 context，再分辨「能力不足」與「做得不夠徹底」；model 決定 capability，effort 也影響讀檔、工具、驗證與工作步數。Use for: Phase 1 第 09 課與 Phase 3 的模型／effort 判斷。
 - [Repository: mattpocock/skills](https://github.com/mattpocock/skills)
   Phase 3 使用的 upstream skills 與四大失敗模式。Use for: skill inventory；具體行為以各 SKILL.md 為準。
 - [README snapshot: mattpocock/skills installation](https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/README.md)

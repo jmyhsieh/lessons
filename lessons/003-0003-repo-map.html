@@ -71,14 +71,15 @@ do not invent new domain terms.</pre>
 <p>和 Phase 2 第 05 課的 Explore subagent 分工：Explore 是 Claude 自己派 subagent 去查細節（結果給它用）；repo 地圖是<strong>你</strong>要一張給<strong>人</strong>看的高層地圖。</p>
 
 <h2>何時升高 effort</h2>
-<p>多數地圖整理用 <code>sonnet</code> + <code>high</code> 就足夠。只有地圖本身會影響架構決策、跨多個 bounded context、或你準備用它審高風險 diff 時，才把 effort 升到 <code>xhigh</code>，或在 plan mode 使用 <code>opusplan</code>。</p>
+<p>多數地圖整理先用目前模型的預設 effort。結果不完整時，先分辨它是<strong>沒讀夠</strong>，還是<strong>讀完仍判斷錯</strong>：漏讀 entry point、call path 或 tests 才提高 effort；已充分探索仍誤判 domain boundary，才換能力更高的模型。</p>
 <table>
 <tr><th>情境</th><th>建議</th><th>理由</th></tr>
-<tr><td>只想知道某資料夾在做什麼。</td><td><code>high</code></td><td>地圖是前置理解，不需要過度推理。</td></tr>
-<tr><td>模組邊界不清，牽涉多個 domain term。</td><td><code>xhigh</code></td><td>要避免把檔案依賴誤讀成業務邊界。</td></tr>
-<tr><td>準備用地圖決定重構方向。</td><td><code>opusplan</code></td><td>先用較深推理規劃，再回到一般實作節奏。</td></tr>
+<tr><td>只想知道某資料夾在做什麼。</td><td>目前模型 + 預設 effort</td><td>先用官方建議的基準，不必每題手動升級。</td></tr>
+<tr><td>地圖漏掉 caller、tests 或驗證路徑。</td><td>同模型 + 較高 effort</td><td>方向正確，但探索與查核不夠徹底。</td></tr>
+<tr><td>已讀完整，仍把檔案依賴誤認成 domain boundary。</td><td><code>opus</code> + 預設 effort</td><td>這是能力與抽象判斷問題，不只是工作量。</td></tr>
+<tr><td>準備用地圖決定不可逆重構方向。</td><td><code>opusplan</code> 或 Opus plan mode</td><td>先用較強模型規劃，再回到有效率的執行節奏。</td></tr>
 </table>
-<div class="tip">不要用 <code>max</code> 跑一般地圖整理。若地圖需要 <code>max</code> 才看懂，通常代表 scope 太大，應先切小區域。</div>
+<div class="tip">不要用 <code>max</code> 跑一般地圖整理。若預設 effort 一直漏讀，先縮小 scope 或補明確驗收條件；若它已完整嘗試仍判斷錯，再升模型。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 
