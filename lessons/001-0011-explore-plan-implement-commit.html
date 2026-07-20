@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>11：從探索到 commit 的安全四步驟</title>
+<title>11：從探索到提交的安全四步驟</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
   .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
@@ -35,38 +35,38 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 1 · 第 11 課 · 約 20 分鐘 · 完整流程</div>
-<h1>從探索到 commit 的安全四步驟</h1>
+<h1>從探索到提交的安全四步驟</h1>
 <p class="mission"><strong>本課成果：</strong>一筆依「探索、規劃、實作、提交」順序完成的小改動。</p>
-<div class="scope"><strong>本課只做：</strong>練一次探索、規劃、實作、commit 的安全節奏。<br><strong>先不要做：</strong>跳過 plan 或 review 直接要求它大量修改。</div>
+<div class="scope"><strong>本課只做：</strong>練一次探索、規劃、實作、提交的安全節奏。<br><strong>先不要做：</strong>跳過規劃或審查，直接要求它大量修改。</div>
 
 
 <h2>四階段流程</h2>
 <table>
 <tr><th>階段</th><th>模式</th><th>你要把關的事</th></tr>
-<tr><td>Explore</td><td>plan mode</td><td>它讀哪些檔？有沒有問清楚需求？</td></tr>
-<tr><td>Plan</td><td>plan mode</td><td>計劃是否列出檔案、步驟、風險？</td></tr>
-<tr><td>Implement</td><td>Manual/default</td><td>審核權限提示與 diff；完成後跑 success criteria。</td></tr>
-<tr><td>Commit</td><td>Manual/default</td><td>先確認驗證通過與完整 diff，再寫清楚 commit message。</td></tr>
+<tr><td>探索（Explore）</td><td>規劃模式</td><td>它讀哪些檔？有沒有問清楚需求？</td></tr>
+<tr><td>規劃（Plan）</td><td>規劃模式</td><td>計畫是否列出檔案、步驟、風險？</td></tr>
+<tr><td>實作（Implement）</td><td>Manual/default</td><td>審核權限提示與程式差異；完成後跑驗收條件。</td></tr>
+<tr><td>提交（Commit）</td><td>Manual/default</td><td>先確認驗證通過與完整程式差異，再寫清楚提交訊息。</td></tr>
 </table>
-<div class="tip">一句話能描述 diff 的小改可以省略 plan；跨檔、不熟、方向不確定，就完整跑四階段。</div>
+<div class="tip">一句話能描述程式差異的小改可以省略規劃；跨檔、不熟、方向不確定，就完整跑四階段。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
   <label><input type="checkbox"> 1. 挑一個中型任務</label>
-  <p>半天內做得完、出錯可回復、範圍清楚。不要拿部署、資料庫 migration 或大型重構當第一次練習。</p>
+  <p>半天內做得完、出錯後能復原、範圍清楚。不要拿部署、資料庫移轉（migration）或大型重構當第一次練習。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 2. Explore + Plan</label>
-  <pre>Use plan mode. Explore the relevant files and propose a plan.
+  <pre>使用規劃模式。探索相關檔案並提出計畫。
 List files you expect to modify. Do not edit yet.</pre>
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. Implement</label>
-  <p>計劃過關後離開 plan mode。每次修改都看過再同意；看到偏離範圍就拒絕。</p>
+  <p>計畫過關後離開規劃模式。每次修改都看過再同意；看到偏離範圍就拒絕。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 4. Verify、review，再 commit</label>
-  <p>先執行任務的 success criteria，保留 exact command、exit status 與關鍵 output；失敗就修正並重跑。驗證通過後，<strong>桌面 App：</strong>點 diff stats 或打開 diff pane 看完整變更。若 <code>/</code> 清單有 <code>/diff</code>，也可當快捷。最後才請它產 commit message 草稿，你審過才 commit。</p>
+  <label><input type="checkbox"> 4. 驗證、審查，再提交</label>
+  <p>先執行任務的驗收條件，保留完整命令、結束狀態與關鍵輸出；失敗就修正並重跑。驗證通過後，<strong>桌面 App：</strong>點程式差異統計或打開差異檢視窗格查看完整變更。若 <code>/</code> 清單有 <code>/diff</code>，也可當快捷。最後才請它產生提交訊息草稿，你審過才提交。</p>
 </div>
 
 <div class="done-banner" id="done"><strong>完成條件：</strong>小改動依序完成探索、規劃、實作與提交，並保留驗證輸出及完整差異。</div>
@@ -76,13 +76,13 @@ List files you expect to modify. Do not edit yet.</pre>
   <p>1. 「修 README 一個錯字」該完整跑四階段嗎？</p>
   <button>直接修改即可</button>
   <button>完整流程不可省</button>
-  <button>先開 agent</button>
+  <button>先開代理</button>
   <div class="why">流程是為了降低不確定性，不是儀式。</div>
 </div>
 <div class="quiz" data-answer="2">
-  <p>2. Explore/Plan 使用 plan mode 的核心原因是？</p>
+  <p>2. 探索／規劃階段使用規劃模式的核心原因是？</p>
   <button>降低本次 token 成本</button>
-  <button>自動建立 git commit</button>
+  <button>自動建立 Git 提交</button>
   <button>系統模式限制不修改檔案</button>
   <div class="why">這是 Phase 1 第 04 課的同一條原則：模式限制比口頭提醒可靠。</div>
 </div>

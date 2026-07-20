@@ -46,18 +46,18 @@
 <h2>兩支 grill，怎麼選</h2>
 <table>
 <tr><th></th><th><code>/grill-me</code></th><th><code>/grill-with-docs</code></th></tr>
-<tr><td>做什麼</td><td>對計劃做結構化追問；沒有程式庫文件可讀寫</td><td>同樣逐題追問，並用 domain-modeling 對照程式碼、CONTEXT.md 與 ADR</td></tr>
-<tr><td>適合</td><td><strong>沒有 codebase</strong> 的計劃或設計</td><td><strong>已有 codebase</strong> 的需求（本課情境）</td></tr>
+<tr><td>做什麼</td><td>對計畫做結構化追問；沒有程式庫文件可讀寫</td><td>同樣逐題追問，並用 domain-modeling 對照程式碼、CONTEXT.md 與 ADR</td></tr>
+<tr><td>適合</td><td><strong>沒有既有程式碼庫</strong>的計畫或設計</td><td><strong>已有程式碼庫</strong>的需求（本課情境）</td></tr>
 </table>
-<p><strong>選擇軸只有「有沒有 codebase」</strong>，不是快速或正式。兩者都使用 <code>grilling</code>：沿決策樹逐一解決依賴、一次只問一題並附建議答案；能從環境找到的<strong>事實</strong>由代理自己查，真正的<strong>決策</strong>則必須逐題交給你回答。你沒有確認「已達成 shared understanding」之前，它不得開始執行計畫。</p>
+<p><strong>選擇軸只有「有沒有既有程式碼庫」</strong>，不是快速或正式。兩者都使用 <code>grilling</code>：沿決策樹逐一解決依賴、一次只問一題並附建議答案；能從環境找到的<strong>事實</strong>由代理自己查，真正的<strong>決策</strong>則必須逐題交給你回答。你沒有確認「雙方已建立共同理解（shared understanding）」之前，它不得開始執行計畫。</p>
 
 <h2>domain-modeling 的五個維護動作</h2>
-<p><code>grill-with-docs/SKILL.md</code> 本身只有一行 orchestration：用 <code>domain-modeling</code> 跑一次 <code>grilling</code>。以下五項文件行為來自 <code>domain-modeling</code>，逐題訪談紀律則來自 <code>grilling</code>：</p>
+<p><code>grill-with-docs/SKILL.md</code> 本身只負責一件事：呼叫 <code>domain-modeling</code>，依 <code>grilling</code> 的方式逐題追問。以下五項文件行為來自 <code>domain-modeling</code>，逐題訪談紀律則來自 <code>grilling</code>：</p>
 <ol>
-  <li><strong>對照詞彙表</strong> —「你的 CONTEXT.md 定義『取消』是 X，但你現在的意思是 Y — 哪個對？」</li>
-  <li><strong>銳化模糊語言</strong> —「你說『帳號』— 是 Customer 還是 User？這是兩個東西。」</li>
+  <li><strong>對照詞彙表</strong>：「你的 CONTEXT.md 定義『取消』是 X，但你現在的意思是 Y — 哪個對？」</li>
+  <li><strong>銳化模糊語言</strong>：「你說『帳號』，是 Customer 還是 User？這是兩個東西。」</li>
   <li><strong>具體情境壓測</strong> — 發明邊界案例情境，逼你把概念之間的界線講清楚。</li>
-  <li><strong>與程式碼交叉比對</strong> —「程式碼是整單取消，但你剛說可以部分取消 — 哪個才對？」高風險程式庫的關鍵檢查：<em>你以為的</em>和<em>程式碼實際做的</em>常常不一樣。</li>
+  <li><strong>與程式碼交叉比對</strong>：「程式碼是整單取消，但你剛說可以部分取消，哪個才對？」高風險程式庫的關鍵檢查：<em>你以為的</em>和<em>程式碼實際做的</em>常常不一樣。</li>
   <li><strong>文件即時更新</strong> — 術語一敲定就寫進 CONTEXT.md（純詞彙表，不放實作細節）；ADR 則<strong>節制地</strong>提議。</li>
 </ol>
 <div class="tip"><strong>ADR 三條件（全滿足才寫）：</strong>決策很難回頭（hard to reverse）＋ 缺少背景就無法理解理由（surprising without context）＋ 決策確實涉及取捨（real trade-off）。缺一就不寫，避免讓不重要的紀錄淹沒真正需要保存的決策。</div>
@@ -65,20 +65,20 @@
 <h2>你在 grill 中的角色</h2>
 <p>grill 的品質取決於你的回答。三個原則：</p>
 <ul>
-  <li><strong>別敷衍</strong> — 「都可以」是 misalignment 的溫床。不確定就說不確定，讓它幫你列選項。</li>
+  <li><strong>別敷衍</strong> — 「都可以」是需求錯位（misalignment）的溫床。不確定就說不確定，讓它幫你列選項。</li>
   <li><strong>善用它的建議答案</strong> — 每題附的建議是好的起點，但它不懂你的業務脈絡，該推翻就推翻。</li>
   <li><strong>讓它去查程式碼</strong> — 它問「現在系統怎麼處理 X」時，正確回應常是「你去看程式碼確認」。</li>
-  <li><strong>決策由你確認</strong> — codebase 能回答現況，不能替你決定未來要怎麼做；代理不得替你回答自己的訪談題。</li>
+  <li><strong>決策由你確認</strong> — 既有程式碼庫能回答現況，不能替你決定未來要怎麼做；代理不得替你回答自己的訪談題。</li>
 </ul>
 
 <h2>何時提高推理程度</h2>
 <p>需求追問先維持模型的預設推理程度。若它漏查程式碼、CONTEXT.md 或 ADR，才提高推理程度；若它已完整比對仍無法辨認真正的決策衝突，才升到較強模型。</p>
 <table>
-<tr><th>Signal</th><th>建議</th></tr>
+<tr><th>訊號</th><th>建議</th></tr>
 <tr><td>問題只在欄位名稱、文案、單一路徑。</td><td>目前模型 + 預設推理程度</td></tr>
 <tr><td>方向正確，但漏查程式碼、CONTEXT.md 或 ADR。</td><td>同模型 + 較高推理程度</td></tr>
 <tr><td>資料都查過，仍無法辨認真正的決策衝突。</td><td><code>opus</code> + 預設推理程度</td></tr>
-<tr><td>決策很難回頭，而且需要寫 ADR。</td><td><code>opusplan</code> 或 Opus plan mode</td></tr>
+<tr><td>決策很難回頭，而且需要寫 ADR。</td><td><code>opusplan</code> 或 Opus 規劃模式</td></tr>
 </table>
 
 <h2>實作步驟（做完打勾）</h2>
@@ -102,7 +102,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 4. 驗收產出</label>
-  <p>結束時你手上應該有：一份對齊的計劃、更新過的 CONTEXT.md、可能 0–2 篇新 ADR（用三條件檢查它提議的 ADR 該不該存在）。明確確認你們已達成 shared understanding；在你確認前，<strong>先不要實作</strong>。計劃接著依規模直接進 /implement，或視需要做 prototype、/to-spec。</p>
+  <p>結束時你手上應該有：一份對齊的計畫、更新過的 CONTEXT.md、可能 0–2 篇新 ADR（用三條件檢查它提議的 ADR 該不該存在）。明確確認雙方已建立共同理解；在你確認前，<strong>先不要實作</strong>。計畫接著依規模直接進 /implement，或視需要先做原型，再進 /to-spec。</p>
 </div>
 
 <div class="done-banner" id="done">
@@ -116,7 +116,7 @@
   <button>依印象直接回答再回頭修正</button>
   <button>暫時跳過問題繼續下一題</button>
   <button>探索程式碼確認後再回答</button>
-  <div class="why">工作技能設計原文：能從 codebase 回答的問題就去探索 codebase。憑印象答是在把 misalignment 重新引進來；跳過則留下未解決的決策依賴。</div>
+  <div class="why">工作技能設計原文：能從既有程式碼庫回答的問題就去探索程式碼庫。憑印象回答會把需求錯位重新引進來；跳過則會留下未解決的決策依賴。</div>
 </div>
 
 <div class="quiz" data-answer="0">
@@ -137,7 +137,7 @@
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。下一課：<a href="003-0005-prototype.html">Phase 3 第 05 課 — 用 /prototype 驗證講不清的問題</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/grill-with-docs/SKILL.md">reviewed grill-with-docs snapshot（66898f6）</a>、同一 snapshot 的 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/productivity/grilling/SKILL.md">grilling</a> 與 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/domain-modeling/SKILL.md">domain-modeling</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/SKILL.md">current grill-with-docs</a>。補充：<a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/grill-with-docs/SKILL.md">reviewed grill-with-docs snapshot（66898f6）</a>、同一版本快照的 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/productivity/grilling/SKILL.md">grilling</a> 與 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/domain-modeling/SKILL.md">domain-modeling</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/SKILL.md">current grill-with-docs</a>。補充：<a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>。</p>
 
 <footer>
   計畫仍無法驗收時，交出計畫與最模糊的條目，請 Claude Code 把它改成能用操作或測試判定的條件。<br>

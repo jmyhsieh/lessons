@@ -40,15 +40,15 @@
 <div class="kicker">Phase 1 · 第 06 課 · 約 20 分鐘 · 實作課（桌面 App 優先）</div>
 <h1>讓 Claude Code 讀懂團隊規範（CLAUDE.md）</h1>
 <p class="mission"><strong>本課成果：</strong>在工作程式庫建立一份 <code>CLAUDE.md</code>，寫入團隊真的會執行的建置指令與慣例。</p>
-<div class="scope"><strong>本課只做：</strong>把團隊工作規範整理進 CLAUDE.md。<br><strong>先不要做：</strong>把領域知識、issue 細節、一次性任務全塞進 CLAUDE.md。</div>
+<div class="scope"><strong>本課只做：</strong>把團隊工作規範整理進 CLAUDE.md。<br><strong>先不要做：</strong>把領域知識、議題細節、一次性任務全塞進 CLAUDE.md。</div>
 
 
 <h2>它是什麼</h2>
-<p>每個 session 都從全新的 context 開始。<code>CLAUDE.md</code> 是放在 repo 根目錄的 markdown 檔，<strong>每次 session 開始時自動完整載入</strong>，等於團隊給 AI 的 onboarding 文件（<a href="https://code.claude.com/docs/en/memory">官方文件</a>）。判斷該不該寫進去的訊號：</p>
+<p>每個工作階段（session）都從新的對話脈絡開始。<code>CLAUDE.md</code> 是放在程式庫根目錄的 Markdown 檔，<strong>每次開啟工作階段時都會自動載入</strong>，就像團隊提供給 AI 的專案入門說明（<a href="https://code.claude.com/docs/en/memory">官方文件</a>）。判斷該不該寫進去的訊號：</p>
 <ul>
   <li>它第二次犯同一個錯</li>
-  <li>code review 抓到它本該知道的本專案慣例</li>
-  <li>你發現自己每個 session 都在重打同一句說明</li>
+  <li>程式碼審查抓到它本該知道的本專案慣例</li>
+  <li>你發現自己每個工作階段都在重打同一句說明</li>
 </ul>
 
 <h2>放哪裡、給誰看</h2>
@@ -58,34 +58,34 @@
 <tr><td><code>./CLAUDE.local.md</code></td><td>專案 · 只有你（加進 <code>.gitignore</code>）</td><td>個人沙箱網址、測試資料</td></tr>
 <tr><td><code>~/.claude/CLAUDE.md</code></td><td>你的所有專案</td><td>個人偏好</td></tr>
 </table>
-<div class="tip"><strong>正式專案提醒：</strong><code>./CLAUDE.md</code> 會進版控、全隊共用 — 提交前讓同事 review，跟一般程式碼一樣走 PR。</div>
+<div class="tip"><strong>正式專案提醒：</strong><code>./CLAUDE.md</code> 會進版控、全隊共用 — 提交前讓同事審查，跟一般程式碼一樣走 PR。</div>
 
 <h2>寫得有效的三原則（官方建議）</h2>
 <ul>
   <li><strong>短</strong>：目標 200 行以內，越長遵守度越差。</li>
-  <li><strong>具體可驗證</strong>：「縮排用 2 空格」優於「格式要乾淨」；「commit 前跑 <code>npm test</code>」優於「記得測試」。</li>
+  <li><strong>具體可驗證</strong>：「縮排用 2 空格」優於「格式要乾淨」；「提交前跑 <code>npm test</code>」優於「記得測試」。</li>
   <li><strong>不自相矛盾</strong>：兩條規則衝突時它會隨機挑一條。</li>
 </ul>
-<p>注意：CLAUDE.md 是<strong>指引不是強制</strong> — 它是 context，不是程式閘門。必須百分之百擋下的事（例如禁推 main）要用 hooks 或 permission 設定，之後的課會教。</p>
+<p>注意：CLAUDE.md 是<strong>指引不是強制</strong> — 它提供對話脈絡，不是程式閘門。必須百分之百擋下的事（例如禁推 main）要用自動化掛鉤（hooks）或權限設定，之後的課會教。</p>
 
 <h2>什麼時候用 <code>/init</code></h2>
-<p><code>/init</code> 適合第一次進 repo 時產生 starter <code>CLAUDE.md</code>：它會分析 codebase，整理能推斷出的建置指令、測試方式與專案慣例。如果已經有 <code>CLAUDE.md</code>，它會提出改進建議，而不是直接覆蓋。把它當成「可審稿初稿」，不要當成團隊規範的最終版（<a href="https://code.claude.com/docs/en/memory">官方文件</a>）。</p>
+<p><code>/init</code> 適合第一次進程式庫時產生 <code>CLAUDE.md</code> 初稿：它會分析程式碼庫，整理能推斷出的建置指令、測試方式與專案慣例。如果已經有 <code>CLAUDE.md</code>，它會提出改進建議，而不是直接覆蓋。把它當成「可審稿初稿」，不要當成團隊規範的最終版（<a href="https://code.claude.com/docs/en/memory">官方文件</a>）。</p>
 <table>
 <tr><th>情境</th><th>建議做法</th></tr>
-<tr><td>第一次進 repo，還沒有 <code>CLAUDE.md</code></td><td>先用 <code>/init</code> 產生初稿，再人工審稿。</td></tr>
-<tr><td>桌面 App 的 slash menu 沒有 <code>/init</code></td><td>用自然語言請它讀 repo 高層檔案並草擬。</td></tr>
-<tr><td>要補團隊才知道的流程或禁忌</td><td>手動補上，因為模型通常無法從 codebase 推斷。</td></tr>
+<tr><td>第一次進程式庫，還沒有 <code>CLAUDE.md</code></td><td>先用 <code>/init</code> 產生初稿，再人工審稿。</td></tr>
+<tr><td>桌面 App 的斜線指令選單沒有 <code>/init</code></td><td>用自然語言請它讀程式庫的高層檔案並草擬。</td></tr>
+<tr><td>要補團隊才知道的流程或禁忌</td><td>手動補上，因為模型通常無法從程式碼庫推斷。</td></tr>
 </table>
 
 <h2>實作步驟（做完打勾）</h2>
 
 <div class="step">
   <label><input type="checkbox"> 1. 建立 <code>CLAUDE.md</code> 初稿</label>
-  <p><strong>桌面 App：</strong>在工作 repo 的 session 裡，用自然語言請它先讀高層檔案，再產生或更新 <code>CLAUDE.md</code>。例如：</p>
-  <pre>Read the repo at a high level and draft a concise CLAUDE.md.
+  <p><strong>桌面 App：</strong>在工作程式庫的工作階段中，用自然語言請它先讀高層檔案，再產生或更新 <code>CLAUDE.md</code>。例如：</p>
+  <pre>從高層次讀取這個程式庫，並草擬一份精簡的 CLAUDE.md。
 Include build/test commands, code style, and project conventions.
-Ask before editing the file.</pre>
-  <p><strong>slash command：</strong>在 prompt box 輸入 <code>/</code>，如果清單有 <code>/init</code>，可先用它產生 starter <code>CLAUDE.md</code>。沒有看到就用上面的自然語言做法。</p>
+編輯檔案前先詢問我。</pre>
+  <p><strong>斜線指令：</strong>在輸入框輸入 <code>/</code>，如果清單有 <code>/init</code>，可先用它產生起始版 <code>CLAUDE.md</code>。沒有看到就用上面的自然語言做法。</p>
 </div>
 
 <div class="step">
@@ -100,7 +100,7 @@ Ask before editing the file.</pre>
 
 <div class="step">
   <label><input type="checkbox"> 4. 走正常流程提交</label>
-  <p>開分支、commit、開 PR 讓同事 review（複習 Phase 1 第 05 課的三道護欄）。</p>
+  <p>開分支、提交、開 PR 讓同事審查（複習 Phase 1 第 05 課的三道護欄）。</p>
 </div>
 
 <div class="done-banner" id="done">
@@ -111,18 +111,18 @@ Ask before editing the file.</pre>
 
 <div class="quiz" data-answer="0">
   <p>1. 「禁止直接推送 main」這條規定，最可靠的實作方式是？</p>
-  <button>用 hook 或 permission 強制</button>
+  <button>用自動化掛鉤或權限規則強制</button>
   <button>寫進 CLAUDE.md 提供指引</button>
-  <button>每個 session 口頭提醒</button>
-  <div class="why">CLAUDE.md 是指引（context），不保證百分之百遵守；必須強制的規則要用技術閘門（hooks / permissions）。這是官方文件明確的分工。</div>
+  <button>每個工作階段口頭提醒</button>
+  <div class="why">CLAUDE.md 是對話脈絡指引，不保證百分之百遵守；必須強制的規則要用技術閘門，例如自動化掛鉤或權限規則。這是官方文件明確的分工。</div>
 </div>
 
 <div class="quiz" data-answer="2">
   <p>2. 哪一條最適合寫進團隊共享的 CLAUDE.md？</p>
   <button>個人環境的登入資訊</button>
-  <button>單次 bug 的任務需求</button>
-  <button>團隊固定的 lint 指令</button>
-  <div class="why">共享 CLAUDE.md 放全隊通用、每個 session 都需要的事實。個人環境放 CLAUDE.local.md；單次任務內容直接在對話講即可。</div>
+  <button>單次錯誤修復的任務需求</button>
+  <button>團隊固定的程式碼檢查指令</button>
+  <div class="why">共享 CLAUDE.md 放全隊通用、每個工作階段都需要的事實。個人環境放 CLAUDE.local.md；單次任務內容直接在對話講即可。</div>
 </div>
 
 <div class="quiz" data-answer="1">
@@ -135,7 +135,7 @@ Ask before editing the file.</pre>
 
 <h2>下一步</h2>
 <p>完成後回到對話視窗回報 <code>CLAUDE.md</code> 初稿的品質。下一課：<a href="001-0007-permission-rules.html">Phase 1 第 07 課 — 控制 Claude Code 能做什麼</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/memory">How Claude remembers your project（官方）</a> — 含 <code>.claude/rules/</code> 進階組織方式與 auto memory。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/memory">How Claude remembers your project（官方）</a> — 含 <code>.claude/rules/</code> 進階組織方式與自動記憶（auto memory）。</p>
 
 <footer>
   草稿拿不準時，把 <code>CLAUDE.md</code> 交給 Claude Code，請它標出無法執行、重複或不該放進全域指示的內容。<br>

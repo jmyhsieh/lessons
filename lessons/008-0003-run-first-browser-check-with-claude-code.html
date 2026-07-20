@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>03：讓 Claude Code 走第一條 browser path</title>
+<title>03：讓 Claude Code 走第一條瀏覽器路徑</title>
 <style>
 *{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#4c5f9e;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#4c5f9e}.mission{font-style:italic;color:#555;border-left:3px solid #4c5f9e;padding-left:1rem}.rule{background:#f5f6fc;border-left:4px solid #4c5f9e;padding:.75rem 1rem}.step,.quiz{border:1px solid #d5d9ec;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#eef0f8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#3f4f84}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d5d9ec;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f5f6fc;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d5d9ec;padding-top:1rem}
 </style>
@@ -11,21 +11,21 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 8 · 入門第 03 課 · 約 15 分鐘</div>
-<h1>讓 Claude Code 走第一條 browser path</h1>
+<h1>讓 Claude Code 走第一條瀏覽器路徑</h1>
 <p class="mission"><strong>本課成果：</strong>一份 Claude Code 在可見瀏覽器走完單一路徑的觀察紀錄。</p>
-<div class="rule"><strong>你仍是駕駛：</strong>先啟動本機 app，再給精確 URL 與停止線；觀看 headed browser，只批准預期的輸入、點擊或其他狀態變更。</div>
-<h2>完成一次 live check</h2>
-<div class="step"><label><input type="checkbox"> 1. 準備明確起點</label><p>自行啟動 app 並確認 URL 可開啟。若頁面需要登入或真實寫入，改用測試帳號與可回復資料。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 交付受限 prompt</label><pre>只做 browser verification，不要修改 repo files。
+<div class="rule"><strong>你仍是駕駛：</strong>先啟動本機應用，再給精確 URL 與停止線；觀看可見瀏覽器，只批准預期的輸入、點擊或其他狀態變更。</div>
+<h2>完成一次即時查核</h2>
+<div class="step"><label><input type="checkbox"> 1. 準備明確起點</label><p>自行啟動本機應用並確認 URL 可開啟。若頁面需要登入或真實寫入，改用測試帳號與可復原的資料。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 交付受限提示詞</label><pre>只做瀏覽器查核，不要修改程式庫檔案。
 使用 Playwright 打開＿＿URL，完成＿＿動作，確認＿＿結果。
-每次 navigation 或 action 後重新讀取頁面狀態。
-回報實際步驟、觀察結果、console errors 與未知項目。</pre></div>
-<div class="step"><label><input type="checkbox"> 3. 比對瀏覽器與回報</label><p>確認 Claude Code 的敘述與你看見的頁面一致，保存短 evidence note：路徑、結果、錯誤與未驗證範圍；不要把這次 live check 說成 regression test。</p></div>
-<div class="done" id="done"><strong>完成：</strong>你已有一份由可見瀏覽器支持的 live browser evidence note。</div>
-<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Claude Code 完成點擊後，下一個可靠動作是什麼？</p><button>動作後重新讀取頁面狀態</button><button>模型只憑著程式碼猜結果</button><button>瀏覽器曾經成功打開一次</button><div class="why">頁面可能因 navigation、loading 或互動改變；重新取得 snapshot／頁面狀態，才能根據最新畫面判斷。</div></div>
-<h2>關鍵判斷</h2><p>可靠的 agent browser loop 是 Navigate → Snapshot → Interact → Re-snapshot，而不是看過程式碼後猜畫面。</p>
+每次導覽或操作後重新讀取頁面狀態。
+回報實際步驟、觀察結果、console 錯誤與未知項目。</pre></div>
+<div class="step"><label><input type="checkbox"> 3. 比對瀏覽器與回報</label><p>確認 Claude Code 的敘述與你看見的頁面一致，保存一份簡短的查核紀錄：操作路徑、結果、錯誤與未驗證範圍；不要把這次即時查核說成回歸測試。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已有一份由可見瀏覽器操作支持的實測紀錄。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Claude Code 完成點擊後，下一個可靠動作是什麼？</p><button>動作後重新讀取頁面狀態</button><button>模型只憑著程式碼猜結果</button><button>瀏覽器曾經成功打開一次</button><div class="why">頁面可能因導覽、載入或互動改變；重新取得畫面狀態，才能根據最新畫面判斷。</div></div>
+<h2>關鍵判斷</h2><p>可靠的代理瀏覽器迴圈是「前往頁面 → 讀取畫面狀態 → 操作 → 重新讀取狀態」，而不是看過程式碼後猜畫面。</p>
 <p><strong>主要閱讀：</strong><a href="https://playwright.dev/mcp/installation">Playwright MCP — Installation</a>。</p>
-<footer>上一課：<a href="008-0002-connect-playwright-mcp-to-claude-code.html">連接 MCP</a> · 下一課：<a href="008-0004-create-first-durable-test-with-claude-code.html">留下第一個持久 test</a><br>把 evidence note 貼回 Claude Code，請它指出尚未被觀察支持的敘述。</footer>
+<footer>上一課：<a href="008-0002-connect-playwright-mcp-to-claude-code.html">連接 MCP</a> · 下一課：<a href="008-0004-create-first-durable-test-with-claude-code.html">留下第一個持久測試</a><br>把查核紀錄貼回 Claude Code，請它指出尚未被觀察支持的敘述。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>02：請 Claude Code 整理四句 design brief</title>
+<title>02：請 Claude Code 整理四句設計摘要（design brief）</title>
 <style>
 *{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#6a4c93;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#6a4c93}.mission{font-style:italic;color:#555;border-left:3px solid #6a4c93;padding-left:1rem}.rule{background:#f8f5fc;border-left:4px solid #6a4c93;padding:.75rem 1rem}.step,.quiz{border:1px solid #d8cce7;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f3eef8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#593c82}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d8cce7;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f8f5fc;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d8cce7;padding-top:1rem}
 </style>
@@ -11,23 +11,23 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 4 · 第 02 課 · 約 10–15 分鐘</div>
-<h1>請 Claude Code 整理四句 design brief</h1>
+<h1>請 Claude Code 整理四句設計摘要（design brief）</h1>
 <p class="mission"><strong>本課成果：</strong>一份四句設計摘要（brief），每一句都能由你檢查。</p>
 <div class="rule"><strong>四句就夠：</strong>做什麼、給誰用、畫面要放什麼、最重要的是什麼。</div>
 <h2>填入你的內容</h2>
-<div class="step"><label><input type="checkbox"> 1. 把真實需求貼給 Claude Code</label><pre>請只整理 brief，不要先生成設計：
+<div class="step"><label><input type="checkbox"> 1. 把真實需求貼給 Claude Code</label><pre>請只整理設計摘要，不要先生成設計：
 我要做＿＿，使用者是＿＿，現有資料是＿＿。</pre></div>
 <div class="step"><label><input type="checkbox"> 2. 要求只保留四句</label><pre>我要做：
 使用者是：
 畫面必須包含：
 最重要的是：</pre><p>必要內容使用真實標題、按鈕名稱或欄位，不要只寫「現代、簡潔」。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 人工核對再送進 Design MCP</label><p>確認沒有發明使用者、資料或功能；最重要判準必須可觀察，例如「第一次使用的人能找到報名按鈕」。</p></div>
-<div class="done" id="done"><strong>完成：</strong>你已有一段經人工核對、可由 Claude Code 交給 Design MCP 的四句 brief。</div>
+<div class="done" id="done"><strong>完成：</strong>你已有一段經人工核對、可由 Claude Code 交給 Design MCP 的四句設計摘要。</div>
 <h2>觀念檢查</h2>
-<div class="quiz" data-answer="2"><p>哪一種 prompt 最容易檢查成果？</p><button>做得更有質感</button><button>做得更加現代</button><button>手機找到報名</button><div class="why">能觀察的使用結果，比抽象風格形容詞更容易讓你與 Claude 對齊。</div></div>
+<div class="quiz" data-answer="2"><p>哪一種提示詞最容易檢查成果？</p><button>做得更有質感</button><button>做得更加現代</button><button>手機找到報名</button><div class="why">能觀察的使用結果，比抽象風格形容詞更容易讓你與 Claude 對齊。</div></div>
 <h2>關鍵判斷</h2><p>Claude Code 可以幫你壓縮需求，但人要確認四句沒有偏離真實任務，再交給視覺工具。</p>
 <p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design#write-effective-prompts">Anthropic — Write effective prompts</a>。</p>
-<footer>上一課：<a href="004-0001-choose-claude-design-surface.html">連接 Claude Design</a> · 下一課：<a href="004-0003-sync-design-system.html">附上一份正確參考</a><br>把四句 brief 貼回 Claude Code，請它找出不能驗收的抽象詞。</footer>
+<footer>上一課：<a href="004-0001-choose-claude-design-surface.html">連接 Claude Design</a> · 下一課：<a href="004-0003-sync-design-system.html">附上一份正確參考</a><br>把四句設計摘要貼回 Claude Code，請它找出不能驗收的抽象詞。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

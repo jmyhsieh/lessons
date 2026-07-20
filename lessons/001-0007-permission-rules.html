@@ -34,19 +34,19 @@
 <div class="kicker">Phase 1 · 第 07 課 · 約 15 分鐘 · 權限規則</div>
 <h1>控制 Claude Code 能做什麼（permission rules）</h1>
 <p class="mission"><strong>本課成果：</strong>把「不要推送 main」「不要讀取 .env」寫成 Claude Code 會強制執行的權限規則（permission rules）。</p>
-<div class="scope"><strong>本課只做：</strong>把 allow / ask / deny 變成清楚的權限規則。<br><strong>先不要做：</strong>用口頭提醒代替必須強制的 deny 規則。</div>
+<div class="scope"><strong>本課只做：</strong>把允許／詢問／拒絕（allow / ask / deny）變成清楚的權限規則。<br><strong>先不要做：</strong>用口頭提醒代替必須強制的拒絕規則。</div>
 
 
 <h2>規則比提醒可靠</h2>
-<p>CLAUDE.md 是上下文指引；permission rules 是程式層的硬閘門。評估順序是 <strong>deny → ask → allow</strong>，命中 deny 就不會被 allow 蓋過。</p>
+<p>CLAUDE.md 是對話脈絡指引；權限規則是程式層的硬閘門。評估順序是 <strong>deny → ask → allow</strong>，命中拒絕規則就不會被允許規則蓋過。</p>
 <pre>{
   "permissions": {
     "allow": ["Bash(npm run *)", "Bash(git commit *)"],
     "deny":  ["Bash(git push *)", "Read(.env)"]
   }
 }</pre>
-<div class="safety"><strong>注意：</strong>這不是作業系統 sandbox。它能擋 Claude Code 內建工具與常見指令，但不要把它當成保護祕密的唯一防線。</div>
-<div class="safety"><strong>桌面 App 路徑：</strong>權限模式用畫面上的 mode selector；allow / ask / deny 規則則直接寫進 <code>.claude/settings.json</code>。Desktop Code tab 不支援會開 terminal-dialog 的 <code>/permissions</code>。</div>
+<div class="safety"><strong>注意：</strong>這不是作業系統沙箱（sandbox）。它能擋 Claude Code 內建工具與常見指令，但不要把它當成保護祕密的唯一防線。</div>
+<div class="safety"><strong>桌面 App 路徑：</strong>權限模式用畫面上的模式選單；允許／詢問／拒絕規則則直接寫進 <code>.claude/settings.json</code>。Desktop Code 分頁不支援會開啟終端機對話框的 <code>/permissions</code>。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
@@ -59,33 +59,33 @@
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 開新工作階段驗證</label>
-  <p>請它 push 目前分支，確認動作被擋下。驗證硬規則，比相信文件重要。</p>
+  <p>請它推送目前分支，確認動作被擋下。驗證硬規則，比相信文件重要。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 4. 決定是否進版控</label>
-  <p>團隊共用規則放專案設定；個人偏好放 local 設定。</p>
+  <p>團隊共用規則放專案設定；個人偏好放本機設定。</p>
 </div>
 
 <div class="done-banner" id="done"><strong>完成條件：</strong>權限規則已用測試命令證明會擋下指定操作，並留下實際結果。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="0">
-  <p>1. 同一個指令同時命中 allow 和 deny，結果是？</p>
-  <button>被擋下，deny 優先</button>
-  <button>被允許，allow 優先</button>
+  <p>1. 同一個指令同時命中允許和拒絕規則，結果是？</p>
+  <button>被擋下，拒絕規則優先</button>
+  <button>被允許，允許規則優先</button>
   <button>交由 Claude 自行判斷</button>
   <div class="why">規則順序固定為 deny → ask → allow。</div>
 </div>
 <div class="quiz" data-answer="1">
-  <p>2. 「commit 前要跑 lint」最適合放 permission rules 嗎？</p>
-  <button>適合，用 rules</button>
-  <button>不適合，用 hook</button>
+  <p>2. 「提交前要跑程式碼檢查」最適合放權限規則嗎？</p>
+  <button>適合，使用權限規則</button>
+  <button>不適合，用自動化掛鉤</button>
   <button>不適合，用 README</button>
-  <div class="why">permission 管能不能做；hook 管某時點必須發生什麼。</div>
+  <div class="why">權限規則決定能不能做；自動化掛鉤（hook）決定某個時間點必須執行什麼。</div>
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0008-session-commands.html">Phase 1 第 08 課 — 整理與切換對話狀態（App 與 CLI）</a>。你會分清楚桌面 App 的可視化控制、可用 slash commands，以及 Desktop 不適用的 commands。</p>
+<p>下一課：<a href="001-0008-session-commands.html">Phase 1 第 08 課 — 整理與切換對話狀態（App 與 CLI）</a>。你會分清楚桌面 App 的視覺化操作、可用的斜線指令（slash commands），以及不適用於 Desktop 的指令。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/permissions">Configure permissions（官方）</a>。</p>
 <footer>規則沒有擋下測試命令時，移除敏感資料後交出權限規則與執行結果，請 Claude Code 找出比對條件的問題。<br>上一課：<a href="001-0006-claude-md.html">Phase 1 第 06 課 — CLAUDE.md</a></footer>
 <script>

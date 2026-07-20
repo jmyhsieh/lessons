@@ -21,7 +21,7 @@
 <div class="done" id="done"><strong>完成：</strong>你已有一則真實使用觀察，不再只依靠自己或 Claude 的看法。</div>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="2"><p>測試時最適合對使用者說什麼？</p><button>請按右上角按鈕</button><button>這裡一定好操作</button><button>請完成活動報名</button><div class="why">只說任務目標，才能觀察介面本身是否幫助使用者找到路徑。</div></div>
-<h2>關鍵判斷</h2><p>入門先測一個人、一個任務、一個卡點。完整 responsive 與 accessibility audit 留到進階驗證。</p>
+<h2>關鍵判斷</h2><p>入門先測一個人、一個任務、一個卡點。完整的響應式版面與無障礙檢查留到進階驗證。</p>
 <p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design#tips-for-best-results">Anthropic — Tips for best results</a>。</p>
 <footer>上一課：<a href="004-0005-refine-and-version.html">一次只改一件事</a> · 下一課：<a href="004-0007-handoff-to-claude-code.html">把設計帶回 repo</a><br>把任務句與真人觀察貼回 Claude Code，請它檢查有沒有混入提示或猜測。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>

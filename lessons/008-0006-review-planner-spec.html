@@ -16,9 +16,9 @@
 <div class="rule"><strong>測試規格是審查關卡：</strong>先確認人在寫程式碼前就能看懂步驟與預期結果；需求仍模糊時，先修規格。</div>
 <h2>只產生一份有限測試規格</h2>
 <div class="step"><label><input type="checkbox"> 1. 提供一條清楚需求與起始測試</label><p>寫出使用者目標、開始狀態、必要動作、預期結果與停止線；有 PRD 時只附相關段落。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 只要求規劃代理寫規格</label><pre>Use the Playwright planner for only this path: ＿＿。
-Use the existing seed test and relevant requirement: ＿＿。
-Write one Markdown spec under specs/. Do not generate tests or edit product code.</pre></div>
+<div class="step"><label><input type="checkbox"> 2. 只要求規劃代理寫規格</label><pre>只針對這條路徑使用 Playwright planner：＿＿。
+沿用既有起始測試，並參考這段需求：＿＿。
+只在 specs/ 下寫一份 Markdown 規格。不要產生測試，也不要修改產品程式碼。</pre></div>
 <div class="step"><label><input type="checkbox"> 3. 人工核准再往下</label><p>逐項檢查範圍、前置條件、步驟、預期結果與未涵蓋項目；刪除模型自行增加的情境，留下已核准規格與審查紀錄。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已有一份可逐項轉成測試的 <code>specs/*.md</code>。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>使用規劃與產生代理時，哪個順序最可靠？</p><button>先審核計畫再生成測試</button><button>先生成全部再檢查範圍</button><button>先略過計畫直接修頁面</button><div class="why">先核准人看得懂的規格，能提早攔下錯誤範圍與錯誤預期。</div></div>

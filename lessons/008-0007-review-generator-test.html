@@ -15,9 +15,9 @@
 <p class="mission"><strong>本課成果：</strong>一個由產生代理（generator）依核准規格建立、已審查並執行的測試。</p>
 <div class="rule"><strong>產生不等於完成：</strong>代理可能測錯重點、擴大範圍或留下脆弱的元素定位；工程師仍要審查程式差異與執行結果。</div>
 <h2>把一份核准規格變成一個測試</h2>
-<div class="step"><label><input type="checkbox"> 1. 只交付核准規格與起始測試</label><pre>Use the Playwright generator with this approved spec: specs/＿＿.md。
-Follow the existing seed test and repo conventions.
-Generate only one test. Do not edit product code or unrelated tests.</pre></div>
+<div class="step"><label><input type="checkbox"> 1. 只交付核准規格與起始測試</label><pre>使用 Playwright generator，並只依這份核准規格工作：specs/＿＿.md。
+遵守既有起始測試與程式庫慣例。
+只產生一個測試，不要修改產品程式碼或無關測試。</pre></div>
 <div class="step"><label><input type="checkbox"> 2. 逐項審查程式差異</label><p>確認規格中的必要步驟都有對應、沒有新增情境；優先使用角色、標籤或文字等使用者看得懂的元素定位，避免固定等待時間。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 單獨執行並留下證據</label><p>使用程式庫既有命令單獨執行；記錄命令、結果與未涵蓋範圍。測試失敗時先保存現象，不要直接讓代理任意修復。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已有一個對應核准規格、通過人工審查且實際執行過的測試。</div>

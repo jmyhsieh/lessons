@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>05：第一次讓它改程式碼 — 分支、小改動、review</title>
+<title>05：第一次讓它改程式碼 — 分支、小改動、審查</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -35,35 +35,35 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 1 · 第 05 課 · 約 25 分鐘 · 實作課（桌面 App 優先）</div>
-<h1>第一次讓它改程式碼 — 分支、小改動、review</h1>
+<h1>第一次讓它改程式碼 — 分支、小改動、審查</h1>
 <p class="mission"><strong>本課成果：</strong>一筆小範圍程式差異（diff），經過人工審查與驗證後再提交。</p>
-<div class="scope"><strong>本課只做：</strong>在分支上做一個小改動，並看懂 diff。<br><strong>先不要做：</strong>把第一個任務選成跨模組重構或高風險修復。</div>
+<div class="scope"><strong>本課只做：</strong>在分支上做一個小改動，並看懂程式差異。<br><strong>先不要做：</strong>把第一個任務選成跨模組重構或高風險修復。</div>
 
-<div class="safety"><strong>開始前檢查：</strong>本課需要 Git 可用，因為會建立分支與 commit。若還沒確認，先在終端機跑 <code>git --version</code>；看不到版本號就回第 02 課完成 Git 先備檢查。</div>
+<div class="safety"><strong>開始前檢查：</strong>本課需要 Git 可用，因為會建立分支與提交。若還沒確認，先在終端機跑 <code>git --version</code>；看不到版本號就回第 02 課完成 Git 先備檢查。</div>
 
 <div class="safety">
 <strong>正式專案三道護欄（這課的核心）：</strong>
 <ol style="margin:.4rem 0 0">
   <li><strong>分支隔離</strong> — 永遠先開分支，main 不直接動。</li>
   <li><strong>審核有風險的動作</strong> — 保持 Desktop Manual 或 CLI default；讀檔與內建唯讀指令通常直接執行，編輯與其他指令出現提示時逐項看懂再同意。</li>
-  <li><strong>人工 review</strong> — AI 寫的 code 和同事寫的一樣：必看 diff 才合併。你批准它「執行」，不代表你已經「審核」過內容。</li>
+  <li><strong>人工審查</strong> — AI 寫的程式碼和同事寫的一樣：必須看過程式差異才合併。你批准它「執行」，不代表你已經「審核」過內容。</li>
 </ol>
 </div>
 
 <h2>挑一個合適的第一個任務</h2>
 <p>好的第一個任務：<strong>小、可驗證、出錯也無傷</strong>。例如：</p>
 <ul>
-  <li>修一個你已知的小 bug（有明確重現方式）</li>
+  <li>修一個你已知的小錯誤（bug，有明確重現方式）</li>
   <li>幫某個沒測試的小函式補單元測試</li>
   <li>更新一段過時的 README / 註解</li>
 </ul>
-<p>避免：跨多模組的重構、碰部署設定、資料庫 migration — 那是熟練之後的事。</p>
+<p>避免：跨多模組的重構、碰部署設定、資料庫遷移 — 那是熟練之後的事。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 
 <div class="step">
   <label><input type="checkbox"> 1. 開分支</label>
-  <p>在 Code 分頁的 session 裡直接用自然語言（<a href="https://code.claude.com/docs/en/quickstart">官方 Quickstart</a> 示範的 git 對話式操作）：</p>
+  <p>在 Code 分頁的工作階段裡直接用自然語言（<a href="https://code.claude.com/docs/en/quickstart">官方 Quickstart</a> 示範的 git 對話式操作）：</p>
   <pre>create a new branch called claude/第一個任務名稱</pre>
   <p>批准它執行 git 指令前，看一眼指令內容 — 養成習慣。</p>
 </div>
@@ -73,27 +73,27 @@
   <p>具體描述（含檔案位置、預期行為），並要求它先說做法：</p>
   <pre>「[描述你的任務]。先告訴我你的修改計劃和會動到哪些檔案，
 我確認後再動手。」</pre>
-  <p>計劃合理再放行。不合理就追問或修正 — 你是 reviewer，不是旁觀者。</p>
+  <p>計畫合理再放行。不合理就追問或修正 — 你是審查者，不是旁觀者。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 3. 逐項批准修改</label>
-  <p>它每次要改檔案都會跳出請求。<strong>每個 diff 都讀過再按同意</strong>（桌面 App 的視覺化 diff 就是為這個設計的）。看到不對的，拒絕並說明原因。</p>
+  <p>它每次要改檔案都會跳出請求。<strong>每筆程式差異都讀過再按同意</strong>（桌面 App 的視覺化程式差異就是為這個設計的）。看到不對的，拒絕並說明原因。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 4. 要求驗證證據</label>
-  <pre>Run the relevant verification. Show me the exact command,
-exit status, and output. If it fails, fix it and rerun.</pre>
-  <p>沒有測試的話，先寫清楚手動驗收步驟並親自驗一次。只說「完成了」或「測試通過」不算 evidence。</p>
+  <pre>執行相關驗證，顯示完整命令、結束狀態與輸出。
+失敗就修正後重跑。</pre>
+  <p>沒有測試的話，先寫清楚手動驗收步驟並親自驗一次。只說「完成了」或「測試通過」不算驗證證據。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 5. 最終 review + commit</label>
+  <label><input type="checkbox"> 5. 最終審查與提交</label>
   <pre>show me the full diff of all changes</pre>
-  <p><strong>桌面 App：</strong>點 diff stats / diff pane 看互動 diff。若 <code>/</code> 清單有 <code>/diff</code>，也可當快捷。從頭到尾讀一遍 — 這是第三道護欄。滿意後：</p>
+  <p><strong>桌面 App：</strong>點開程式差異統計或差異檢視窗格，查看互動式程式差異。若 <code>/</code> 清單有 <code>/diff</code>，也可當快捷。從頭到尾讀一遍 — 這是第三道護欄。滿意後：</p>
   <pre>commit my changes with a descriptive message</pre>
-  <p>之後要不要推上去開 PR，照你們團隊的正常流程走（PR review 仍然必要）。</p>
+  <p>之後要不要推上去開 PR，照你們團隊的正常流程走（PR 仍須人工審查）。</p>
 </div>
 
 <div class="done-banner" id="done">
@@ -107,19 +107,19 @@ exit status, and output. If it fails, fix it and rerun.</pre>
   <button>這個修改已經完成審核，可直接合併</button>
   <button>只是允許它執行，內容仍需自己審核</button>
   <button>它會自動跑完測試後才真正寫入檔案</button>
-  <div class="why">批准 ≠ 審核。批准只是放行動作；diff 內容的正確性永遠由你把關（護欄三）。</div>
+  <div class="why">批准 ≠ 審核。批准只是放行動作；程式差異內容的正確性永遠由你把關（護欄三）。</div>
 </div>
 
 <div class="quiz" data-answer="2">
-  <p>2. 正式 repo 的基準：該停在哪個權限模式？</p>
+  <p>2. 正式程式庫的基準：該停在哪個權限模式？</p>
   <button>Auto，直接批准所有修改</button>
   <button>Plan，完全禁止所有修改</button>
   <button>Manual，風險動作先詢問</button>
-  <div class="why">（間隔複習）Manual/default 是正式專案的基準。工作目錄內讀檔與內建唯讀指令通常不詢問；編輯與其他 shell 指令會停下確認。</div>
+  <div class="why">（間隔複習）Manual/default 是正式專案的基準。工作目錄內讀檔與內建唯讀指令通常不詢問；編輯與其他終端機指令會停下確認。</div>
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0006-claude-md.html">Phase 1 第 06 課 — CLAUDE.md：讓它記住你們團隊的規範</a>。把專案規範寫成它每次 session 自動讀取的指示檔。</p>
+<p>下一課：<a href="001-0006-claude-md.html">Phase 1 第 06 課 — CLAUDE.md：讓它記住你們團隊的規範</a>。把專案規範寫成它每個工作階段自動讀取的指示檔。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code Best Practices（官方）</a> — 本課流程的進階版。</p>
 
 <footer>

@@ -12,17 +12,17 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 9 · 入門第 01 課 · 約 10 分鐘</div>
 <h1>從一個重複工作流程開始</h1>
-<p class="mission"><strong>本課成果：</strong>一張來自真實 repo 工作的 Skill 需求卡。</p>
+<p class="mission"><strong>本課成果：</strong>一張來自真實程式庫工作的 Skill 需求卡。</p>
 <div class="rule"><strong>Skills 囤積困境（skill hell）：</strong>手上裝了很多 Skills，卻不知道哪個可靠、何時該用，最後也得不到預期結果。先用同一套檢查標準改好一個真實工作流程，再決定是否需要更多 Skills。</div>
 
 <h2>判斷值不值得做成 Skill</h2>
 <div class="step"><label><input type="checkbox"> 1. 找出最近重複過的指示</label><p>回想你至少講過兩次的流程，例如「收尾時列出 changed、verified、remaining、blocked」。一次性需求、純事實或一句簡短偏好，先不要做成 Skill。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 寫清楚輸入與可見輸出</label><p>輸入可以是目前 Claude Code 對話與 repo 狀態；輸出要能被看見與審查，例如四段狀態摘要。避免只寫「做得更好」。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 寫出停止線</label><p>這個 Skill 只整理現況，不替你 commit、push、deploy，也不把沒跑過的檢查寫成通過。先把第一版縮到一個低風險結果。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 寫清楚輸入與可見輸出</label><p>輸入可以是目前 Claude Code 對話與程式庫狀態；輸出要能被看見與審查，例如四段狀態摘要。避免只寫「做得更好」。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 寫出停止線</label><p>這個 Skill 只整理現況，不替你提交、推送或部署，也不把沒跑過的檢查寫成通過。先把第一版縮到一個低風險結果。</p></div>
 
 <pre>Skill 名稱：repo-checkpoint
-何時需要：我要暫停、換 session 或確認目前狀態時
-輸入：目前對話、repo 變更與已知檢查結果
+何時需要：我要暫停、換工作階段或確認目前狀態時
+輸入：目前對話、程式庫變更與已知檢查結果
 輸出：Changed / Verified / Remaining / Blocked
 停止線：不修改檔案、不執行外部發布、不把未驗證寫成已通過</pre>
 

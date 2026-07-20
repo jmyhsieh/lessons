@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>04：請 Claude Code build，再親自開啟</title>
+<title>04：請 Claude Code 建置，再親自開啟輸出</title>
 <style>
 *{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#2f6f63;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#2f6f63}.mission{font-style:italic;color:#555;border-left:3px solid #2f6f63;padding-left:1rem}.rule{background:#f4faf8;border-left:4px solid #2f6f63;padding:.75rem 1rem}.step,.quiz{border:1px solid #c9ddd8;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#eaf5f2;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#255c52}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #c9ddd8;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f4faf8;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #c9ddd8;padding-top:1rem}
 </style>
@@ -11,18 +11,18 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 7 · 入門第 04 課 · 約 15 分鐘</div>
-<h1>請 Claude Code build，再親自開啟</h1>
+<h1>請 Claude Code 建置，再親自開啟輸出</h1>
 <p class="mission"><strong>本課成果：</strong>一份已建置、並從正式輸出親自打開檢查的三頁簡報。</p>
-<div class="rule"><strong>Build 成功不是終點：</strong>它只證明工具產生了 <code>dist/</code>；內容、連結與版面仍要親自查看。</div>
+<div class="rule"><strong>建置成功不是終點：</strong>它只證明工具產生了 <code>dist/</code>；內容、連結與版面仍要親自查看。</div>
 <h2>完成入門驗收</h2>
 <div class="step"><label><input type="checkbox"> 1. 請 Claude Code 建立正式輸出</label><pre><code>npm run build</code></pre><p>要求它回報完整結果與 <code>dist/</code> 狀態，不只說「完成」。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 請它啟動 production preview</label><pre><code>npm run preview</code></pre><p>你要用終端提供的網址打開 production build，不要繼續看原本 dev server。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 走完三頁並記錄結果</label><p>檢查首頁、上一／下一頁、文字、來源連結與窄版畫面；記下 pass、issue 或未驗證項目。</p></div>
-<div class="done" id="done"><strong>入門完成：</strong>你已完成選路、隔離 workspace、三頁切片，以及 build 後的 browser verification。</div>
-<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p><code>npm run build</code> 成功後還要做什麼？</p><button>還要打開輸出檢查</button><button>可以直接宣布完成</button><button>可以略過內容查核</button><div class="why">Build 只證明程式能產出；實際輸出仍可能有內容、連結或版面問題。</div></div>
+<div class="step"><label><input type="checkbox"> 2. 請它啟動正式輸出預覽</label><pre><code>npm run preview</code></pre><p>你要用終端提供的網址打開正式建置輸出，不要繼續看原本的開發伺服器。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 走完三頁並記錄結果</label><p>檢查首頁、上一／下一頁、文字、來源連結與窄版畫面；記下通過、有問題或未驗證的項目。</p></div>
+<div class="done" id="done"><strong>入門完成：</strong>你已完成選路、隔離工作區、三頁切片，以及建置後的瀏覽器查核。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p><code>npm run build</code> 成功後還要做什麼？</p><button>還要打開輸出檢查</button><button>可以直接宣布完成</button><button>可以略過內容查核</button><div class="why">建置只證明程式能產出；實際輸出仍可能有內容、連結或版面問題。</div></div>
 <h2>關鍵判斷</h2><p>做到這裡就能停止；遇到重用、協作或部署需求時，再進入第 05–09 課。</p>
 <p><strong>主要閱讀：</strong><a href="https://open-slide.dev/docs/core-feature/export">open-slide — Export</a>。</p>
-<footer>上一課：<a href="007-0003-build-three-slide-slice.html">完成三頁切片</a> · 進階下一課：<a href="007-0005-use-agent-contract.html">讀取 Claude Code contract</a> · <a href="../reference/open-slide-agent-deck-workflow.html">Phase 7 路線卡</a><br>把 Claude Code build 結果與你看到的輸出問題貼回 Claude Code，請它檢查完成證據。</footer>
+<footer>上一課：<a href="007-0003-build-three-slide-slice.html">完成三頁切片</a> · 進階下一課：<a href="007-0005-use-agent-contract.html">讀取 Claude Code 工作規範</a> · <a href="../reference/open-slide-agent-deck-workflow.html">Phase 7 路線卡</a><br>把 Claude Code 建置結果與你看到的輸出問題貼回 Claude Code，請它檢查完成證據。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

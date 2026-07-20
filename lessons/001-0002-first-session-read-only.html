@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>02：安裝 Claude Code，開第一個 session</title>
+<title>02：安裝 Claude Code，開第一個工作階段</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -36,19 +36,19 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 1 · 第 02 課 · 約 15 分鐘 · 實作課</div>
-<h1>安裝 Claude Code，開第一個 session</h1>
+<h1>安裝 Claude Code，開第一個工作階段</h1>
 <p class="mission"><strong>本課成果：</strong>一個已登入、尚未修改檔案的 Claude Code 工作階段（session）。</p>
-<div class="scope"><strong>本課只做：</strong>安裝、登入，並確認第一個 session 與權限介面。<br><strong>先不要做：</strong>打開正式 repo 後直接批准修改檔案。</div>
+<div class="scope"><strong>本課只做：</strong>安裝、登入，並確認第一個工作階段與權限介面。<br><strong>先不要做：</strong>打開正式程式庫後直接批准修改檔案。</div>
 
 
 <div class="safety">
 <strong>正式專案安全規則（本課唯一要背的東西）：</strong><br>
-Claude Code 在工作目錄內讀檔、Grep，以及執行內建認得的唯讀指令時，通常<strong>不會</strong>跳出詢問；預設模式會在<strong>修改檔案或執行其他 shell 指令前</strong>徵求同意。既有 allow / ask / deny 規則與你曾批准的選項也會改變結果，所以正式 repo 先用 Desktop 的 <strong>Manual</strong>（舊版稱 Ask permissions）或 CLI 的 <strong>default</strong>，並逐項看懂有出現的提示。
+Claude Code 在工作目錄內讀檔、Grep，以及執行內建認得的唯讀指令時，通常<strong>不會</strong>跳出詢問；預設模式會在<strong>修改檔案或執行其他終端機指令前</strong>徵求同意。既有允許／詢問／拒絕（allow / ask / deny）規則與你曾批准的選項也會改變結果，所以正式程式庫先用 Desktop 的 <strong>Manual</strong>（舊版稱 Ask permissions）或 CLI 的 <strong>default</strong>，並逐項看懂有出現的提示。
 （出處：<a href="https://code.claude.com/docs/en/permissions">官方 Permissions</a>）
 </div>
 
 <h2>先備檢查：Git 可用嗎？</h2>
-<p>Claude Code 可以用自然語言幫你操作 git，但電腦本身仍要先有 Git。進工作 repo 前，先在終端機跑：</p>
+<p>Claude Code 可以用自然語言幫你操作 Git，但電腦本身仍要先有 Git。進工作程式庫前，先在終端機跑：</p>
 <pre>git --version</pre>
 <p>看得到版本號就可以繼續；如果顯示找不到指令，先到 <a href="https://git-scm.com/downloads">Git 官方下載頁</a>安裝 Git，安裝後重開終端機或 Claude 桌面 App 再檢查一次。</p>
 
@@ -56,7 +56,7 @@ Claude Code 在工作目錄內讀檔、Grep，以及執行內建認得的唯讀�
 
 <div class="step">
   <label><input type="checkbox"> 1. 安裝（建議路徑：桌面 App）</label>
-  <p><strong>建議路徑：</strong>從 <a href="https://claude.com/download">claude.com/download</a> 下載 <strong>Claude 桌面 App</strong>，安裝後登入，點上方的 <strong>Code</strong> 分頁 — 這就是 Claude Code 的圖形介面，有視覺化 diff 與權限模式選單。裝好就可跳到步驟 2。</p>
+  <p><strong>建議路徑：</strong>從 <a href="https://claude.com/download">claude.com/download</a> 下載 <strong>Claude 桌面 App</strong>，安裝後登入，點上方的 <strong>Code</strong> 分頁 — 這就是 Claude Code 的圖形介面，有視覺化程式差異與權限模式選單。裝好就可跳到步驟 2。</p>
   <details><summary>替代路徑：CLI 安裝（之後想在終端機用再回來看）</summary>
   <p><strong>Windows PowerShell</strong>（提示字元開頭是 <code>PS C:\</code>）：</p>
   <pre>irm https://claude.ai/install.ps1 | iex</pre>
@@ -70,8 +70,8 @@ Claude Code 在工作目錄內讀檔、Grep，以及執行內建認得的唯讀�
 
 <div class="step">
   <label><input type="checkbox"> 2. 登入並進入 Code 分頁</label>
-  <p><strong>桌面 App：</strong>啟動 Claude，以有 Code 使用權的 Claude.ai Pro、Max、Team 或 Enterprise 帳號登入，再點 <strong>Code</strong> 分頁。Desktop 與 cloud session 使用 OAuth，不會讀取你 shell 裡的 <code>ANTHROPIC_API_KEY</code> 或 <code>apiKeyHelper</code>；組織部署的第三方推理設定是例外。</p>
-  <p><strong>CLI：</strong><code>cd</code> 到 repo 目錄後執行 <code>claude</code>。Claude.ai 訂閱帳號與受邀的 Console 帳號可依瀏覽器提示登入；使用 Bedrock、Google Cloud Agent Platform 或 Microsoft Foundry 時，則先依組織文件設定 provider credentials。登入後憑證會保存，失效或換帳號時再用 <code>/login</code>。</p>
+  <p><strong>桌面 App：</strong>啟動 Claude，以有 Code 使用權的 Claude.ai Pro、Max、Team 或 Enterprise 帳號登入，再點 <strong>Code</strong> 分頁。桌面 App 與雲端工作階段使用 OAuth，不會讀取你終端機環境裡的 <code>ANTHROPIC_API_KEY</code> 或 <code>apiKeyHelper</code>；組織部署的第三方推理設定是例外。</p>
+  <p><strong>CLI：</strong><code>cd</code> 到程式庫目錄後執行 <code>claude</code>。Claude.ai 訂閱帳號與受邀的 Console 帳號可依瀏覽器提示登入；使用 Bedrock、Google Cloud Agent Platform 或 Microsoft Foundry 時，則先依組織文件設定服務供應商憑證。登入後憑證會保存，失效或換帳號時再用 <code>/login</code>。</p>
 </div>
 
 <div class="step">
@@ -80,22 +80,22 @@ Claude Code 在工作目錄內讀檔、Grep，以及執行內建認得的唯讀�
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 4. 開一個空白 session</label>
-  <p><strong>桌面 App：</strong>選一個低風險資料夾或測試 repo，直接送出一句不會改檔的確認：</p>
-  <pre>Before reading many files, tell me what you can do in this session without changing files.</pre>
-  <p><strong>桌面 App：</strong>也可以在 prompt box 輸入 <code>/</code> 查看目前可用的 slash commands；本課先以 UI 與低風險提問確認 session。<strong>CLI：</strong>可用 <code>/help</code> 看 command 清單。</p>
+  <label><input type="checkbox"> 4. 開一個空白工作階段</label>
+  <p><strong>桌面 App：</strong>選一個低風險資料夾或測試程式庫，直接送出一句不會改檔的確認：</p>
+  <pre>在讀取大量檔案前，先告訴我你在這個工作階段中能做哪些不會修改檔案的事。</pre>
+  <p><strong>桌面 App：</strong>也可以在輸入框輸入 <code>/</code>，查看目前可用的斜線指令；本課先用操作介面與低風險提問確認工作階段。<strong>CLI：</strong>可用 <code>/help</code> 查看指令清單。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 5. 問一個不需要 repo 的問題</label>
+  <label><input type="checkbox"> 5. 問一個不需要程式庫的問題</label>
   <p>例如：</p>
-  <pre>Tell me what Claude Code can do in this session without changing files.</pre>
+  <pre>告訴我 Claude Code 在這個工作階段中能做哪些不會修改檔案的事。</pre>
   <p>重點是確認工具能正常對話、你也看得懂權限提示。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 6. 結束 session</label>
-  <p><strong>桌面 App：</strong>直接關閉或切換 session 即可，歷史會保留，隨時可回來續聊。<strong>CLI：</strong>輸入 <code>/exit</code>（或 Ctrl+D），之後用 <code>claude -c</code> 接續同目錄最近一次對話。</p>
+  <label><input type="checkbox"> 6. 結束工作階段</label>
+  <p><strong>桌面 App：</strong>直接關閉或切換工作階段即可，歷史會保留，隨時可回來續聊。<strong>CLI：</strong>輸入 <code>/exit</code>（或 Ctrl+D），之後用 <code>claude -c</code> 接續同目錄最近一次對話。</p>
 </div>
 
 <div class="done-banner" id="done">
@@ -104,11 +104,11 @@ Claude Code 在工作目錄內讀檔、Grep，以及執行內建認得的唯讀�
 
 <h2>本課速記</h2>
 <ul>
-  <li>桌面 App：Code 分頁開 session、正式 repo 先用 Manual、用 session sidebar 續聊</li>
-  <li>桌面 App：prompt box 輸入 <code>/</code> 看可用 slash commands；快捷鍵清單則看 App 顯示</li>
-  <li>CLI：<code>claude</code> 啟動 / <code>claude -c</code> 續聊 / <code>/help</code> 看 commands / <code>/exit</code> 離開</li>
+  <li>桌面 App：在 Code 分頁開工作階段、正式程式庫先用 Manual、用工作階段側欄續聊</li>
+  <li>桌面 App：在輸入框輸入 <code>/</code> 查看可用的斜線指令；快捷鍵清單則看 App 顯示</li>
+  <li>CLI：<code>claude</code> 啟動 / <code>claude -c</code> 續聊 / <code>/help</code> 看指令 / <code>/exit</code> 離開</li>
   <li><code>Shift+Tab</code> 是 CLI 互動模式快捷鍵；桌面 App 用畫面上的權限模式選單</li>
-  <li>先確認 session 可用，再進正式 repo 做任務</li>
+  <li>先確認工作階段可用，再進正式程式庫做任務</li>
 </ul>
 <p>（已併入<a href="../reference/claude-product-picker.html">產品選用速查表</a>與<a href="../reference/claude-code-command-surface.html">Claude Code 操作速查表</a>；上一課：<a href="001-0001-four-claude-surfaces.html">四個 Claude 工作表面，四種交付路線</a>）</p>
 
@@ -116,19 +116,19 @@ Claude Code 在工作目錄內讀檔、Grep，以及執行內建認得的唯讀�
 <h2>觀念檢查（憑記憶作答）</h2>
 
 <div class="quiz" data-answer="2">
-  <p>1. 正式 repo 第一堂課應停在哪種權限習慣？</p>
+  <p>1. 正式程式庫第一堂課應停在哪種權限習慣？</p>
   <button>使用自動批准模式</button>
   <button>使用跳過權限模式</button>
   <button>使用基準詢問模式</button>
-  <div class="why">正式 repo 先用 Manual/default：讀檔與內建唯讀指令通常直接執行，編輯與其他指令則停下詢問。</div>
+  <div class="why">正式程式庫先用 Manual/default：讀檔與內建唯讀指令通常直接執行，編輯與其他指令則停下詢問。</div>
 </div>
 
 <div class="quiz" data-answer="1">
-  <p>2. 這一課開 session 後先做什麼？</p>
+  <p>2. 這一課開工作階段後先做什麼？</p>
   <button>讀取現有專案</button>
   <button>確認目前環境</button>
   <button>直接修改檔案</button>
-  <div class="why">本課只用低風險問題確認 session 可用；桌面 App 可輸入 <code>/</code> 看 slash commands，但不進 repo 導覽或修改。</div>
+  <div class="why">本課只用低風險問題確認工作階段可用；桌面 App 可輸入 <code>/</code> 看斜線指令，但不進程式庫導覽或修改。</div>
 </div>
 
 <div class="quiz" data-answer="0">
@@ -136,11 +136,11 @@ Claude Code 在工作目錄內讀檔、Grep，以及執行內建認得的唯讀�
   <button>修改檔案</button>
   <button>確認登入</button>
   <button>找到權限</button>
-  <div class="why">安裝與第一個 session 只確認工具、登入與權限介面；修改檔案留到後續安全流程。</div>
+  <div class="why">安裝與第一個工作階段只確認工具、登入與權限介面；修改檔案留到後續安全流程。</div>
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0003-read-only-repo-tour.html">Phase 1 第 03 課 — 先讓 Claude Code 讀 repo，不改檔案</a>。接著才讓它讀真實工作 repo，但仍不修改任何檔案。</p>
+<p>下一課：<a href="001-0003-read-only-repo-tour.html">Phase 1 第 03 課 — 先讓 Claude Code 讀 repo，不改檔案</a>。接著才讓它讀真實工作程式庫，但仍不修改任何檔案。</p>
 
 <h2>主要閱讀資源</h2>
 <p><a href="https://code.claude.com/docs/en/quickstart">Claude Code Quickstart（官方）</a> — 本課即以此為底。下一課前可加讀 <a href="https://code.claude.com/docs/en/how-claude-code-works">How Claude Code works</a>。</p>

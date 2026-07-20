@@ -33,49 +33,49 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 2 · 第 01 課 · 約 15 分鐘 · Hooks 與 exit code</div>
+<div class="kicker">Phase 2 · 第 01 課 · 約 15 分鐘 · 自動化掛鉤與結束狀態碼</div>
 <h1>控制 Claude Code 工具行為（hooks）</h1>
-<p class="mission"><strong>本課成果：</strong>一個已實際觸發的最小格式化 hook，並記下它在哪個事件執行。</p>
-<div class="scope"><strong>本課只做：</strong>理解 hook 何時會執行，以及 exit code 代表什麼。<br><strong>先不要做：</strong>一開始就寫複雜 hook 取代人工 review。</div>
+<p class="mission"><strong>本課成果：</strong>一個已實際觸發的最小格式化掛鉤，並記下它在哪個事件執行。</p>
+<div class="scope"><strong>本課只做：</strong>理解自動化掛鉤（hook）何時執行，以及結束狀態碼（exit code）代表什麼。<br><strong>先不要做：</strong>一開始就寫複雜掛鉤取代人工審查。</div>
 
 
 <h2>三層模型</h2>
 <table>
 <tr><th>層</th><th>機制</th><th>性質</th></tr>
 <tr><td>指引</td><td>CLAUDE.md</td><td>模型會參考，但不保證。</td></tr>
-<tr><td>閘門</td><td>permission rules</td><td>決定工具能不能做。</td></tr>
-<tr><td>自動化</td><td>hooks</td><td>固定時點執行 command、HTTP、prompt、agent 或 MCP tool。</td></tr>
+<tr><td>閘門</td><td>權限規則</td><td>決定工具能不能做。</td></tr>
+<tr><td>自動化</td><td>掛鉤（hooks）</td><td>固定時點執行命令、HTTP、提示、代理或 MCP 工具。</td></tr>
 </table>
 
-<h2>Exit code 必須連同事件一起看</h2>
+<h2>結束狀態碼必須連同事件一起看</h2>
 <table>
 <tr><th>事件</th><th><code>exit 2</code> 的效果</th></tr>
 <tr><td><code>PreToolUse</code></td><td>工具尚未執行，可以阻擋並把 stderr 回饋給 Claude。</td></tr>
-<tr><td><code>PostToolUse</code></td><td>工具已經執行，不能回復動作；stderr 只作為回饋。</td></tr>
+<tr><td><code>PostToolUse</code></td><td>工具已經執行，動作無法復原；stderr 只作為回饋。</td></tr>
 <tr><td><code>Stop</code></td><td>阻止 Claude 結束，讓它依理由繼續處理。</td></tr>
 </table>
-<div class="tip"><code>exit 0</code> 表示 hook 成功；其他非零通常是 hook error。需要 structured control 時，改用 <code>exit 0</code> 搭配 JSON，不要和 <code>exit 2</code> 混用。</div>
+<div class="tip"><code>exit 0</code> 表示掛鉤成功；其他非零值通常代表掛鉤錯誤。需要結構化控制時，改用 <code>exit 0</code> 搭配 JSON，不要和 <code>exit 2</code> 混用。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
-  <label><input type="checkbox"> 1. 選一個安全的 PostToolUse hook</label>
+  <label><input type="checkbox"> 1. 選一個安全的 PostToolUse 掛鉤</label>
   <p>例如每次 Edit/Write 後跑格式化。先挑可重跑、低風險的動作。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 2. 請 Claude 寫設定草稿</label>
-  <pre>Write a PostToolUse hook that runs our formatter after file edits.
+  <pre>寫一個 PostToolUse 掛鉤，在檔案編輯後執行格式化工具。
 Explain every line before changing .claude/settings.json.</pre>
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 讀懂再接受</label>
-  <p>hooks 以你的權限執行 shell 指令，不能不看就合併。</p>
+  <p>掛鉤會以你的權限執行終端機指令，不能不看就合併。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 4. 驗證 hook 觸發</label>
+  <label><input type="checkbox"> 4. 驗證掛鉤是否觸發</label>
   <p>做一個小改動，看格式化是否真的跑起來。</p>
 </div>
 
-<div class="done-banner" id="done"><strong>完成條件：</strong>最小 hook 已實際觸發，紀錄包含事件名稱、輸入與輸出。</div>
+<div class="done-banner" id="done"><strong>完成條件：</strong>最小掛鉤已實際觸發，紀錄包含事件名稱、輸入與輸出。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1">
@@ -86,17 +86,17 @@ Explain every line before changing .claude/settings.json.</pre>
   <div class="why">格式化要等檔案被 Edit/Write 後才有東西可處理。</div>
 </div>
 <div class="quiz" data-answer="2">
-  <p>2. PreToolUse hook 想擋下動作並說明原因，該？</p>
+  <p>2. PreToolUse 掛鉤想擋下動作並說明原因，該？</p>
   <button>exit 0 到 stdout</button>
   <button>exit 1 到 stdout</button>
   <button>exit 2 到 stderr</button>
-  <div class="why">在可阻擋的 PreToolUse 事件，exit 2 會取消工具呼叫，stderr 會回饋給 Claude；同一 exit code 在其他事件可能有不同效果。</div>
+  <div class="why">在可阻擋的 PreToolUse 事件，<code>exit 2</code> 會取消工具呼叫，stderr 會回饋給 Claude；同一個結束狀態碼在其他事件可能有不同效果。</div>
 </div>
 
 <h2>下一步</h2>
 <p>下一課：<a href="002-0002-guardrail-hooks.html">Phase 2 第 02 課 — 擋下危險操作（guardrail hook）</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/hooks-guide">Automate actions with hooks（官方）</a>。</p>
-<footer>hook 沒有觸發時，交出事件名稱、設定片段與測試命令輸出，請 Claude Code 檢查觸發條件。<br>上一課：<a href="001-0012-verification-context.html">Phase 1 第 12 課 — 驗證與 context 收尾</a></footer>
+<footer>掛鉤沒有觸發時，交出事件名稱、設定片段與測試命令輸出，請 Claude Code 檢查觸發條件。<br>上一課：<a href="001-0012-verification-context.html">Phase 1 第 12 課 — 驗證與 context 收尾</a></footer>
 <script>
 const boxes = document.querySelectorAll('input[type=checkbox]');
 boxes.forEach(b => b.addEventListener('change', () => {

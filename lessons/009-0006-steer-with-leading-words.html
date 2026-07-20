@@ -13,16 +13,16 @@
 <div class="kicker">Phase 9 · 進階第 06 課 · 約 15 分鐘</div>
 <h1>用引導詞讓 Claude 的做法更一致</h1>
 <p class="mission"><strong>本課成果：</strong>一個經過前後執行結果驗證的引導詞（leading word）。</p>
-<div class="rule"><strong>什麼是引導詞：</strong>用很少文字喚起一整組模型已熟悉的行為。影片用 <em>vertical slice</em>（端到端切片）取代「不要先做完 database，再做 API，最後才做 frontend」；它既縮短指示，也讓 Claude 在思考與計畫中重用同一個概念。</div>
+<div class="rule"><strong>什麼是引導詞：</strong>用很少文字喚起一整組模型已熟悉的行為。影片用端到端切片（<em>vertical slice</em>）取代「不要先做完資料庫，再做 API，最後才做前端」；它既縮短指示，也讓 Claude 在思考與計畫中重用同一個概念。</div>
 
 <h2>從重複說明找候選</h2>
-<div class="step"><label><input type="checkbox"> 1. 找出被寫了兩三次的同一個意思</label><p>例如 Skill 反覆說「把目前工作凍結成四段、誠實區分完成與未完成、方便下一個人恢復」。候選引導詞可以是 <strong>checkpoint</strong>（檢查點）；不要隨意發明需要長篇定義的新詞。</p></div>
+<div class="step"><label><input type="checkbox"> 1. 找出被寫了兩三次的同一個意思</label><p>例如 Skill 反覆說「把目前工作凍結成四段、誠實區分完成與未完成、方便下一個人恢復」。候選引導詞可以是檢查點（<strong>checkpoint</strong>）；不要隨意發明需要長篇定義的新詞。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 改成正向目標</label><p>把「不要漏掉失敗檢查」改成「交代每個失敗、略過或尚未執行的檢查」。禁止句會把不想要的行為帶進對話脈絡；能直接說目標時，就直接說目標。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 新開一個 Claude Code 對話再執行</label><p>在新對話執行 <code>/repo-checkpoint</code>。觀察輸出是否真的呈現 checkpoint 行為：狀態有邊界、證據與缺口，而不是只看它有沒有重複那個字。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 新開一個 Claude Code 對話再執行</label><p>在新對話執行 <code>/repo-checkpoint</code>。觀察輸出是否真的呈現檢查點行為：狀態有邊界、證據與缺口，而不是只看它有沒有重複那個字。</p></div>
 
-<div class="done" id="done"><strong>完成：</strong>你留下引導詞 diff 與一份新對話行為紀錄。</div>
+<div class="done" id="done"><strong>完成：</strong>你留下引導詞的程式差異與一份新對話行為紀錄。</div>
 <h2>觀念檢查</h2>
-<div class="quiz" data-answer="0"><p>哪個比較像有效的引導詞？</p><button>vertical slice（端到端切片）</button><button>do better（做得更好）</button><button>nice output（好看的輸出）</button><div class="why"><code>vertical slice</code> 是 Claude 已熟悉的工程概念，能喚起端到端切片的做法；另外兩個選項沒有可操作的共同語意。</div></div>
+<div class="quiz" data-answer="0"><p>哪個比較像有效的引導詞？</p><button>端到端切片（vertical slice）</button><button>do better（做得更好）</button><button>nice output（好看的輸出）</button><div class="why"><code>vertical slice</code> 是 Claude 已熟悉的工程概念，能喚起端到端切片的做法；另外兩個選項沒有可操作的共同語意。</div></div>
 <h2>關鍵判斷</h2><p>引導詞是一種方法，效果要靠前後執行結果確認。若加入或拿掉都不影響行為，它可能只是無效指令（no-op）。</p>
 <p><strong>主要閱讀：</strong><a href="https://www.youtube.com/watch?v=UNzCG3lw6O0">影片 11:54–14:55</a>、<a href="https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/productivity/writing-great-skills/SKILL.md#leading-words">writing-great-skills — Leading words</a> 與 <a href="../reference/agent-skill-checklist.html">Phase 9 工作技能檢查表</a>。</p>
 <footer>上一課：<a href="009-0005-disclose-branch-reference.html">按需載入</a> · 下一課：<a href="009-0007-increase-legwork-without-rushing.html">增加實際查找與驗證工作</a><br>把改前、改後的 Skill 片段與新工作階段觀察貼回 Claude Code，請它檢查這個詞是否真的改變行為。</footer>

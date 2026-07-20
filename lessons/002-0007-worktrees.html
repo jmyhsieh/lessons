@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>07：用 worktree 分開平行工作</title>
+<title>07：用工作樹分開平行工作</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
   .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
@@ -35,55 +35,55 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 2 · 第 07 課 · 約 15 分鐘 · 平行隔離</div>
-<h1>用 worktree 分開平行工作</h1>
+<h1>用工作樹分開平行工作</h1>
 <p class="mission"><strong>本課成果：</strong>一張平行工作配置，說清楚每個工作樹（worktree）負責的分支與範圍。</p>
-<div class="scope"><strong>本課只做：</strong>用 worktree 分開平行工作區。<br><strong>先不要做：</strong>在不懂 git 狀態時同時開多條工作線。</div>
+<div class="scope"><strong>本課只做：</strong>用工作樹分開平行工作區。<br><strong>先不要做：</strong>在不懂 Git 狀態時同時開多條工作線。</div>
 
 
-<h2>worktree 解決什麼</h2>
-<p>git worktree 是同一個 repo 的另一個工作目錄：自己的檔案、自己的分支、共用同一份歷史。</p>
+<h2>工作樹解決什麼</h2>
+<p>Git 工作樹（worktree）是同一個程式庫中的另一個工作目錄：有自己的檔案與分支，共用同一份歷史。</p>
 <table>
 <tr><th>機制</th><th>隔離什麼</th><th>適合</th></tr>
-<tr><td>subagent</td><td>context</td><td>調查、review。</td></tr>
-<tr><td>worktree session</td><td>檔案修改</td><td>同時做多個獨立任務。</td></tr>
+<tr><td>子代理</td><td>對話脈絡</td><td>調查、審查。</td></tr>
+<tr><td>工作樹工作階段</td><td>檔案修改</td><td>同時做多個獨立任務。</td></tr>
 </table>
 <div class="tip">桌面 App 的新工作階段會自動使用隔離工作區；CLI 可用 <code>claude --worktree feature-auth</code>。</div>
-<div class="tip">Worktree 是 fresh checkout。若每個 session 都需要 gitignored 的 <code>.env</code> 或本機設定，可在 repo root 建立 <code>.worktreeinclude</code>；它使用 <code>.gitignore</code> syntax，而且只會複製本來就被忽略的檔案。</div>
+<div class="tip">工作樹是一份全新的檢出。如果每個工作階段都需要被 Git 忽略的 <code>.env</code> 或本機設定，可在程式庫根目錄建立 <code>.worktreeinclude</code>；它使用 <code>.gitignore</code> 語法，而且只會複製本來就被忽略的檔案。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
   <label><input type="checkbox"> 1. 確認忽略目錄</label>
-  <p>把 <code>.claude/worktrees/</code> 加到 <code>.gitignore</code>。若需要複製本機設定，再審慎建立 <code>.worktreeinclude</code>，不要把 secrets 改成 tracked files。</p>
+  <p>把 <code>.claude/worktrees/</code> 加到 <code>.gitignore</code>。若需要複製本機設定，再審慎建立 <code>.worktreeinclude</code>，不要為了方便，把敏感資訊改成受 Git 追蹤的檔案。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 2. 開兩個 session</label>
-  <p>一個做小功能、一個修小 bug。確認兩邊各自有分支與變更。</p>
+  <label><input type="checkbox"> 2. 開兩個工作階段</label>
+  <p>一個做小功能、一個修小錯誤。確認兩邊各自有分支與變更。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 各自收尾</label>
-  <p>兩邊都照既有流程：看 diff、驗證、commit、PR。</p>
+  <p>兩邊都照既有流程：查看程式差異、驗證、提交、開 PR。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 4. 清理</label>
-  <p>先結束對應 session，再用 <code>git worktree list</code> 找出路徑；確認 worktree 沒有未提交變更、untracked files 或未保留的 commits 後，執行 <code>git worktree remove &lt;path&gt;</code>，最後再跑一次 <code>git worktree list</code> 驗證已移除。Claude 建立的互動 worktree 在退出時可能自動清理或詢問是否保留；<code>-p --worktree</code> 不會自動清理。不要用 <code>--force</code> 掩蓋不清楚的狀態。</p>
+  <p>先結束對應工作階段，再用 <code>git worktree list</code> 找出路徑；確認工作樹沒有未提交變更、未追蹤檔案或未保留的提交後，執行 <code>git worktree remove &lt;path&gt;</code>，最後再跑一次 <code>git worktree list</code> 驗證已移除。Claude 建立的互動工作樹在退出時可能自動清理或詢問是否保留；<code>-p --worktree</code> 不會自動清理。不要用 <code>--force</code> 掩蓋不清楚的狀態。</p>
 </div>
 
 <div class="done-banner" id="done"><strong>完成條件：</strong>工作樹清單能對應分支與負責範圍，各工作樹狀態也已確認。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="2">
-  <p>1. 同時做 feature A 與 bugfix B，適合？</p>
-  <button>同一 session 交錯兩項</button>
-  <button>同一 subagent 並行兩項</button>
-  <button>兩個 worktree 分別開啟</button>
-  <div class="why">獨立任務需要檔案隔離，不只是 context 隔離。</div>
+  <p>1. 同時做功能 A 與錯誤修復 B，適合？</p>
+  <button>同一個工作階段交錯兩項</button>
+  <button>同一個子代理並行兩項</button>
+  <button>兩個工作樹分別開啟</button>
+  <div class="why">獨立任務需要檔案隔離，不只是對話脈絡隔離。</div>
 </div>
 <div class="quiz" data-answer="0">
-  <p>2. 新 worktree 跑不起來，常見原因是？</p>
+  <p>2. 新工作樹跑不起來，常見原因是？</p>
   <button>缺少本機設定或必要依賴</button>
   <button>完全不允許開兩個資料夾</button>
   <button>完全不支援 git 操作</button>
-  <div class="why">worktree 是新 checkout，.env、node_modules 這類通常要另處理。</div>
+  <div class="why">工作樹是全新檢出，.env、node_modules 這類檔案通常要另外處理。</div>
 </div>
 
 <h2>下一步</h2>

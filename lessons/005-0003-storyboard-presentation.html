@@ -15,15 +15,15 @@
 <p class="mission"><strong>本課成果：</strong>一份只使用核准來源的三頁故事板。</p>
 <div class="rule"><strong>三頁骨架：</strong>現在怎麼了 → 資料告訴我們什麼 → 接下來要做什麼。</div>
 <h2>填完三頁標題</h2>
-<div class="step"><label><input type="checkbox"> 1. 要求三頁、不要排版</label><p>請 Claude Code 只輸出三個完整句標題：現況、證據、下一步；禁止新增 source pack 沒有的主張。</p></div>
+<div class="step"><label><input type="checkbox"> 1. 要求三頁、不要排版</label><p>請 Claude Code 只輸出三個完整句標題：現況、證據、下一步；禁止新增來源包沒有的主張。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 回查第二頁證據</label><p>只保留一個最重要證據，確認 Claude Code 標出的來源與原始位置真的支持該句。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 核准第三頁下一步</label><p>確認它是受眾能執行的選擇、決定或行動；不清楚就只改這一句，再保存 approved storyboard。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 核准第三頁下一步</label><p>確認它是受眾能執行的選擇、決定或行動；不清楚就只改這一句，再保存已核准的故事板。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已有三頁文字故事，光看標題就能理解前因後果與下一步。</div>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="0"><p>三頁入門簡報的可靠順序是什麼？</p><button>現況證據下一步</button><button>圖片目錄附錄頁</button><button>背景細節全資料</button><div class="why">現況建立共同問題，證據支持判斷，最後一頁推動下一步。</div></div>
 <h2>關鍵判斷</h2><p>先讓 Claude Code 的三頁標題與來源講通，再交給 Design MCP；不要用視覺掩蓋沒有故事。</p>
 <p><strong>主要閱讀：</strong><a href="https://claude.com/resources/tutorials/using-claude-design-for-presentations-and-slide-decks#creating-a-presentation">Anthropic — Creating a presentation</a>。</p>
-<footer>上一課：<a href="005-0002-build-source-pack.html">整理三份資料</a> · 下一課：<a href="005-0004-create-deck-in-claude-design.html">透過 Design MCP 產生初稿</a><br>把 storyboard 與來源位置貼回 Claude Code，請它檢查是否有新增主張。</footer>
+<footer>上一課：<a href="005-0002-build-source-pack.html">整理三份資料</a> · 下一課：<a href="005-0004-create-deck-in-claude-design.html">透過 Design MCP 產生初稿</a><br>把故事板與來源位置貼回 Claude Code，請它檢查是否有新增主張。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

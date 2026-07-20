@@ -34,59 +34,59 @@
 <div class="kicker">Phase 2 · 第 10 課 · 約 20 分鐘 · CI 邊界</div>
 <h1>在 CI 中安全使用 Claude Code</h1>
 <p class="mission"><strong>本課成果：</strong>一張 CI 自動化邊界卡，列出允許的任務、權限、輸出與成本限制。</p>
-<div class="scope"><strong>本課只做：</strong>界定 CI 中能安全交給 Claude Code 的任務。<br><strong>先不要做：</strong>讓 CI 自動產生未經人工 review 的 production 改動。</div>
+<div class="scope"><strong>本課只做：</strong>界定 CI 中能安全交給 Claude Code 的任務。<br><strong>先不要做：</strong>讓 CI 自動產生未經人工審查的正式環境改動。</div>
 
 
-<div class="safety"><strong>沒有人在場 = 權限設計取代你的眼睛。</strong>CI 裡先做唯讀摘要、diff review、文件檢查；會寫檔、會 push、會修改環境的任務不要直接無人值守。</div>
+<div class="safety"><strong>CI 執行時沒有人逐項確認，因此必須事先限制權限與可執行的動作。</strong>CI 裡先做唯讀摘要、程式差異審查與文件檢查；會寫檔、會推送、會修改環境的任務不要直接無人值守。</div>
 
 <h2>CI 任務的四個條件</h2>
 <ul>
-  <li><strong>明確認證：</strong><code>--bare</code> 不讀 OAuth/keychain；使用 <code>ANTHROPIC_API_KEY</code>、傳入的 <code>apiKeyHelper</code> 或 provider credentials，不依賴開發者電腦的登入狀態。</li>
-  <li><strong>最小工具面：</strong><code>--allowedTools</code> 只會預先批准工具，不是 allowlist；用 <code>--tools</code> 限制 built-in tools。能從 stdin 餵資料就用 <code>--tools ""</code>。</li>
-  <li><strong>穩定輸出：</strong><code>--output-format json</code> 固定 result envelope；回答內容需要固定欄位時用 <code>--json-schema</code>。</li>
-  <li><strong>可營運：</strong>記錄成本、時間、失敗率與誤報率。</li>
+  <li><strong>明確認證：</strong><code>--bare</code> 不讀 OAuth/keychain；使用 <code>ANTHROPIC_API_KEY</code>、傳入的 <code>apiKeyHelper</code> 或服務供應商憑證，不依賴開發者電腦的登入狀態。</li>
+  <li><strong>最小工具面：</strong><code>--allowedTools</code> 只會預先批准工具，不是允許清單；用 <code>--tools</code> 限制內建工具。能從 stdin 餵資料就用 <code>--tools ""</code>。</li>
+  <li><strong>穩定輸出：</strong><code>--output-format json</code> 固定結果外層結構；回答內容需要固定欄位時用 <code>--json-schema</code>。</li>
+  <li><strong>可追蹤：</strong>記錄成本、執行時間、失敗率與誤報率。</li>
 </ul>
 
-<h2>安全 diff review 範例</h2>
+<h2>安全的程式差異審查範例</h2>
 <pre>git diff main |
 claude --bare -p "Review this diff for risky production config changes.
 Return only filename:line and reason. Return empty output if none." --tools ""</pre>
-<p>這個設計沒有給 Claude built-in tools；diff 已經從管線餵進去。CI 還必須依上面的規則提供 bare mode 可用的明確認證。</p>
+<p>這個設計沒有給 Claude 內建工具；程式差異已經從管線餵進去。CI 還必須依上面的規則提供 bare 模式可用的明確認證。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
   <label><input type="checkbox"> 1. 選一個唯讀 CI 候選</label>
-  <p>例如 typo linter、dangerous config review、release note 摘要。</p>
+  <p>例如錯字檢查、危險設定審查、發行說明摘要。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 2. 寫明 tool surface</label>
-  <p>能不用工具就用 <code>--tools ""</code>；真的需要才列最小 built-in tool 集合。不要把 <code>--allowedTools</code> 誤當成限制工具可見性的 allowlist。</p>
+  <label><input type="checkbox"> 2. 寫清楚可用工具範圍</label>
+  <p>能不用工具就用 <code>--tools ""</code>；真的需要才列最小內建工具集合。不要把 <code>--allowedTools</code> 誤當成限制工具可見性的允許清單。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 測三種輸入</label>
-  <p>正常 diff、有問題 diff、空 diff。輸出都要穩定。</p>
+  <p>正常程式差異、有問題的程式差異、空白程式差異，輸出都要穩定。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 4. 決定 report 形狀</label>
-  <p>CI log、PR comment、artifact 或 JSON 檔。要讓人能判斷是否採納。</p>
+  <label><input type="checkbox"> 4. 決定報告格式</label>
+  <p>CI 紀錄、PR 留言、成品檔或 JSON 檔。要讓人能判斷是否採納。</p>
 </div>
 
 <div class="done-banner" id="done"><strong>Phase 2 完成條件：</strong>自動化邊界卡列出允許任務、權限、輸出、成本限制與必須由人確認的步驟。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="0">
-  <p>1. CI 裡要讀 diff，較安全的做法是？</p>
-  <button>從管線傳入 diff 資料</button>
+  <p>1. CI 裡要讀程式差異，較安全的做法是？</p>
+  <button>從管線傳入程式差異資料</button>
   <button>開放完整 Bash 權限</button>
-  <button>允許直接 push 修正</button>
+  <button>允許直接推送修正</button>
   <div class="why">能用資料輸入解決，就不要給工具權限。</div>
 </div>
 <div class="quiz" data-answer="2">
   <p>2. headless 任務進 CI 前，最不該忽略的是？</p>
-  <button>把 prompt 寫得比較有禮貌</button>
+  <button>把提示寫得比較有禮貌</button>
   <button>把模型永遠設成 max</button>
   <button>權限、輸出格式與成本紀錄</button>
-  <div class="why">CI 是營運介面，不只是一次命令能跑。</div>
+  <div class="why">CI 不是命令跑得動就算完成；還要能追蹤權限、輸出、成本與失敗情況。</div>
 </div>
 
 <h2>下一步</h2>

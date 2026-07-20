@@ -41,19 +41,19 @@
 <div class="kicker">Phase 1 · 第 10 課 · 約 20 分鐘 · 實作課（Desktop 本機檔案路徑）</div>
 <h1>判斷 Cowork 適合的交付物</h1>
 <p class="mission"><strong>本課成果：</strong>一份由 Cowork 整理、你已親自核對的本機檔案結果。</p>
-<div class="scope"><strong>本課只做：</strong>用 Cowork 做一次低風險文件型交付。<br><strong>先不要做：</strong>把 Cowork 產物直接當 production code。</div>
+<div class="scope"><strong>本課只做：</strong>用 Cowork 做一次低風險文件型交付。<br><strong>先不要做：</strong>把 Cowork 產物直接當成正式產品程式碼。</div>
 
 
 <h2>Cowork 跟 Claude Code 像在哪、差在哪</h2>
-<p>兩者都是「代理」：你描述成果，它會規劃並多步驟執行。Cowork session 在 Anthropic 的隔離環境遠端執行，可從 web、Desktop、mobile 接續；需要本機檔案、browser 或 computer use 時，才透過保持開啟的 Desktop 連回你的電腦（<a href="https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork">官方上手指南</a>）。</p>
+<p>兩者都是「代理」：你描述成果，它會規劃並多步驟執行。Cowork 工作階段在 Anthropic 的隔離環境遠端執行，可從網頁版、Desktop 或行動版接續；需要本機檔案、瀏覽器或電腦操作時，才透過保持開啟的 Desktop 連回你的電腦（<a href="https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork">官方上手指南</a>）。</p>
 <table>
 <tr><th></th><th>Cowork</th><th>Claude Code</th></tr>
-<tr><td>入口</td><td>Web、Desktop 或 mobile 的 <strong>Cowork</strong></td><td>Desktop 的 <strong>Code</strong>（或 CLI/IDE/Web）</td></tr>
-<tr><td>工作範圍</td><td>遠端 task files；Desktop 可接本機授權資料夾</td><td>本機、cloud 或 SSH 環境中的 git repo</td></tr>
-<tr><td>擅長</td><td>檔案整理、研究彙整、產 Excel/簡報/報告</td><td>讀寫程式碼、跑測試、git/PR</td></tr>
+<tr><td>入口</td><td>網頁版、Desktop 或行動版的 <strong>Cowork</strong></td><td>Desktop 的 <strong>Code</strong>（或 CLI／IDE／網頁版）</td></tr>
+<tr><td>工作範圍</td><td>遠端任務檔案；Desktop 可接本機授權資料夾</td><td>本機、雲端或 SSH 環境中的 Git 程式庫</td></tr>
+<tr><td>擅長</td><td>檔案整理、研究彙整、產 Excel/簡報/報告</td><td>讀寫程式碼、跑測試、Git／PR</td></tr>
 <tr><td>權限模式</td><td>Manual / Auto / Skip</td><td>Phase 1 第 04 課的權限模式</td></tr>
 </table>
-<div class="safety"><strong>安全注意：</strong>隔離環境保護你的電腦，不會消除你授予的檔案與 connector 權限。永久刪除檔案一定會再詢問；第一次處理重要檔案請選 <strong>Manual</strong>（舊版稱 Ask before acting）。<strong>Auto</strong> 會做背景安全檢查，<strong>Skip</strong>（舊版稱 Act without asking）則不詢問也不做這層檢查。</div>
+<div class="safety"><strong>安全注意：</strong>隔離環境保護你的電腦，不會消除你授予的檔案與連接器權限。永久刪除檔案一定會再詢問；第一次處理重要檔案請選 <strong>Manual</strong>（舊版稱 Ask before acting）。<strong>Auto</strong> 會做背景安全檢查，<strong>Skip</strong>（舊版稱 Act without asking）則不詢問也不做這層檢查。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 
@@ -64,7 +64,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 2. 開啟 Cowork 並授權資料夾</label>
-  <p>在 Claude Desktop 的 message box 選 <strong>Cowork</strong>，建立新任務並授權剛才的練習資料夾。確認權限模式是 <strong>Manual</strong>；任務需要本機檔案期間保持 Desktop 開啟並連線。</p>
+  <p>在 Claude Desktop 的輸入框選 <strong>Cowork</strong>，建立新任務並授權剛才的練習資料夾。確認權限模式是 <strong>Manual</strong>；任務需要本機檔案期間保持 Desktop 開啟並連線。</p>
 </div>
 
 <div class="step">
@@ -96,7 +96,7 @@
   <button>Claude Code，因為檔案數量多需要寫程式</button>
   <button>Cowork，多步驟檔案處理並產出文件成果</button>
   <button>Claude 網頁版，把逐字稿分批貼上去分析</button>
-  <div class="why">（複習 Phase 1 第 01 課 判斷軸）大量本機檔案 + 文件產出 + 非程式碼 → Cowork。網頁版貼 40 份太費工；Claude Code 的強項在 repo 不在文件工作。</div>
+  <div class="why">（複習 Phase 1 第 01 課判斷軸）大量本機檔案＋文件產出＋非程式碼 → Cowork。網頁版貼 40 份太費工；Claude Code 的強項在程式庫，不在文件工作。</div>
 </div>
 
 <div class="quiz" data-answer="2">
@@ -112,7 +112,7 @@
   <button>親自驗收成果，批准執行不等於審核內容</button>
   <button>把這次的批准記錄寫進專案的設定檔裡</button>
   <button>切換回唯讀模式以防它繼續修改其他檔案</button>
-  <div class="why">（間隔複習：護欄三）放行 ≠ 驗收。Cowork 是打開資料夾檢查成果，Claude Code 是讀 diff — 同一個習慣的兩種形式。</div>
+  <div class="why">（間隔複習：護欄三）放行 ≠ 驗收。Cowork 是打開資料夾檢查成果，Claude Code 則審查程式差異 — 同一個習慣的兩種形式。</div>
 </div>
 
 <h2>下一步</h2>
@@ -121,7 +121,7 @@
 
 <footer>
   整理結果與原檔不一致時，移除敏感資料後交出差異清單，請 Claude Code 找出漏檔、誤改名或格式問題。<br>
-  上一課：<a href="001-0009-model-effort.html">Phase 1 第 09 課 — 先用預設，再調模型與 effort</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+  上一課：<a href="001-0009-model-effort.html">Phase 1 第 09 課 — 先用預設，再調模型與推理程度（effort）</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 
 <script>

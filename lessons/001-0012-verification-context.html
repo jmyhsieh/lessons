@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>12：確認結果並整理 context</title>
+<title>12：確認結果並整理對話脈絡</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
   .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
@@ -32,9 +32,9 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 1 · 第 12 課 · 約 15 分鐘 · 驗證與收尾</div>
-<h1>確認結果並整理 context</h1>
+<h1>確認結果並整理對話脈絡</h1>
 <p class="mission"><strong>本課成果：</strong>一份收尾紀錄，列出驗證結果、已知限制與下次接手需要的資訊。</p>
-<div class="scope"><strong>本課只做：</strong>把完成條件、驗證結果與 context 收尾說清楚。<br><strong>先不要做：</strong>只接受「我完成了」這類沒有證據的回覆。</div>
+<div class="scope"><strong>本課只做：</strong>把完成條件、驗證結果與對話脈絡收尾說清楚。<br><strong>先不要做：</strong>只接受「我完成了」這類沒有證據的回覆。</div>
 
 
 <h2>可驗證比「完成了」可靠</h2>
@@ -46,13 +46,13 @@ user@.com → false
 實作後執行測試，失敗就修到通過。</pre>
 <p>要求它出示指令與結果，不只說「已完成」。</p>
 
-<h2>context 收尾三原則</h2>
+<h2>對話脈絡收尾三原則</h2>
 <ul>
-  <li>不相關的新任務 → 桌面 App 用 sidebar 開新工作階段。</li>
-  <li>長對話但方向正確 → 先看 usage ring，必要時切 Summary view 或整理需求；<code>/compact</code> 若可用才當快捷。</li>
+  <li>不相關的新任務 → 桌面 App 用側邊欄開新工作階段。</li>
+  <li>長對話但方向正確 → 先看用量環，必要時切換摘要檢視或整理需求；<code>/compact</code> 若可用才當快捷。</li>
   <li>糾正兩次同一問題仍失敗 → 停止，整理教訓後重開。</li>
 </ul>
-<div class="tip">需要回到前面狀態時，桌面 App 先用 session history、diff pane 與 git 檢查。<code>/rewind</code> 若目前可用，也只當快捷；它不取代 git，重要節點仍要 commit。</div>
+<div class="tip">需要回到前面狀態時，桌面 App 先用工作階段紀錄、程式差異檢視窗格與 Git 檢查。<code>/rewind</code> 若目前可用，也只當快捷；它不取代 Git，重要節點仍要提交。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
@@ -60,25 +60,25 @@ user@.com → false
   <p>寫成一條 Claude 能自己跑或你能手動檢查的句子。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 2. 要求 evidence</label>
-  <pre>Run the relevant verification and show me the exact command
-and output. If it fails, fix and rerun.</pre>
+  <label><input type="checkbox"> 2. 要求驗證證據</label>
+  <pre>執行相關驗證，顯示完整命令與輸出。
+失敗就修正後重跑。</pre>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 3. 做 session 收尾</label>
-  <p>桌面 App 確認是否要開新工作階段、切 Summary view、或整理目前脈絡。若 <code>/compact</code> 在 <code>/</code> 清單中，可用它提早壓縮；若是可重複的教訓，補回 CLAUDE.md。</p>
+  <label><input type="checkbox"> 3. 做工作階段收尾</label>
+  <p>桌面 App 確認是否要開新工作階段、切換摘要檢視，或整理目前脈絡。若 <code>/compact</code> 在 <code>/</code> 清單中，可用它提早壓縮；若是可重複的教訓，補回 CLAUDE.md。</p>
 </div>
 
 <div class="done-banner" id="done"><strong>完成條件：</strong>收尾紀錄列出驗證結果、未執行項目、已知限制與接手資訊。</div>
 
-<h2>Phase 1 驗收 rubric</h2>
-<p>勾完 checkbox 只是提醒，不代表通過。把一個真實小任務交給新的 Claude Code 工作階段，只有以下五項都能從 artifact 找到，才算完成 Phase 1：</p>
+<h2>Phase 1 驗收標準</h2>
+<p>勾完核取方塊只是提醒，不代表通過。把一個真實小任務交給新的 Claude Code 工作階段，只有以下五項都能從實際成果中找到，才算完成 Phase 1：</p>
 <ul>
-  <li>任務 scope 與刻意不做的項目。</li>
-  <li>獨立分支上的完整 diff。</li>
-  <li>實際 verification command、exit status 與 output。</li>
-  <li>你親自 review 後的 commit 或明確不 commit 理由。</li>
-  <li>下一個 session 需要知道的風險或 context。</li>
+  <li>任務範圍與刻意不做的項目。</li>
+  <li>獨立分支上的完整程式差異。</li>
+  <li>實際驗證命令、結束狀態與輸出。</li>
+  <li>你親自審查後的提交，或明確不提交的理由。</li>
+  <li>下一個工作階段需要知道的風險或對話脈絡。</li>
 </ul>
 
 <h2>觀念檢查</h2>
@@ -86,15 +86,15 @@ and output. If it fails, fix and rerun.</pre>
   <p>1. Claude 說「測試都過了」，你下一步該？</p>
   <button>直接相信並合併</button>
   <button>要求指令與輸出</button>
-  <button>調高 effort 再問</button>
-  <div class="why">交付看 evidence，不看自述。</div>
+  <button>調高推理程度再問</button>
+  <div class="why">交付看驗證證據，不看自述。</div>
 </div>
 <div class="quiz" data-answer="2">
   <p>2. 同一問題糾正兩次仍不對，較好的做法是？</p>
   <button>繼續補背景再試</button>
-  <button>立刻 commit 現況</button>
+  <button>立刻提交現況</button>
   <button>整理教訓再重開</button>
-  <div class="why">長對話已被失敗嘗試污染，乾淨 session 通常更有效。</div>
+  <div class="why">長對話已被失敗嘗試污染，乾淨的工作階段通常更有效。</div>
 </div>
 
 <h2>下一步</h2>

@@ -16,7 +16,7 @@
 <div class="rule"><strong>兩種負擔：</strong>Claude 自動啟用（model-invoked）會把 <code>description</code> 列在 Claude 可見的 Skills 清單，增加對話脈絡負擔（context load）；使用者手動啟用（user-invoked）則要由工程師記得何時輸入名稱，增加使用者記憶負擔（cognitive load）。兩者沒有永遠比較好的答案。</div>
 
 <h2>先問誰該決定時機</h2>
-<div class="step"><label><input type="checkbox"> 1. 判斷是否需要 Claude 自動發現</label><p><code>repo-checkpoint</code> 只在你要暫停、交接或盤點時使用，時機由人決定，因此第一版選擇手動啟用。若是 Claude 每次寫 API endpoint 都必須套用的共同規範，才較可能選擇自動啟用。</p></div>
+<div class="step"><label><input type="checkbox"> 1. 判斷是否需要 Claude 自動發現</label><p><code>repo-checkpoint</code> 只在你要暫停、交接或盤點時使用，時機由人決定，因此第一版選擇手動啟用。若是 Claude 每次寫 API 端點都必須套用的共同規範，才較可能選擇自動啟用。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 審查檔頭設定</label><p>請 Claude Code 確認有 <code>disable-model-invocation: true</code>。<code>description</code> 仍保留給人閱讀的一行摘要，但不需要堆滿重複同義詞。</p>
 <pre>---
 name: repo-checkpoint
@@ -27,7 +27,7 @@ disable-model-invocation: true
 
 <div class="done" id="done"><strong>完成：</strong>啟用方式、代價與實際檔頭設定已對齊。</div>
 <h2>觀念檢查</h2>
-<div class="quiz" data-answer="2"><p>哪個情境最適合由使用者手動啟用？</p><button>每次編輯 API 都要自動套用共同規範</button><button>所有測試工作都要自動載入共同資料</button><button>由人決定何時執行 commit 或 deploy</button><div class="why">帶外部影響或需要人選時機的工作流程，通常應由人明確啟用。自動啟用適合 Claude 必須自行發現的知識或流程。</div></div>
+<div class="quiz" data-answer="2"><p>哪個情境最適合由使用者手動啟用？</p><button>每次編輯 API 都要自動套用共同規範</button><button>所有測試工作都要自動載入共同資料</button><button>由人決定何時執行提交或部署</button><div class="why">帶外部影響或需要人選時機的工作流程，通常應由人明確啟用。自動啟用適合 Claude 必須自行發現的知識或流程。</div></div>
 <h2>關鍵判斷</h2><p>啟用方式是設計選擇；只開啟真實工作流程需要的自動啟用。</p>
 <p><strong>主要閱讀：</strong><a href="https://www.youtube.com/watch?v=UNzCG3lw6O0">影片 3:16–7:25</a> 與 <a href="https://code.claude.com/docs/en/skills#control-who-invokes-a-skill">Claude Code — Control who invokes a skill</a>。</p>
 <footer>上一課：<a href="009-0002-create-first-project-skill-with-claude-code.html">建立專案 Skill</a> · 下一課：<a href="009-0004-separate-steps-reference-and-done.html">整理結構與完成條件</a><br>把啟用方式決策卡貼回 Claude Code，請它檢查這個選擇增加了哪一方的記憶負擔。</footer>

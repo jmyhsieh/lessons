@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>12：建立 implementation-ready handoff</title>
+<title>12：建立可實作交接（implementation-ready handoff）</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#6a4c93;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#6a4c93}.mission{font-style:italic;color:#555;border-left:3px solid #6a4c93;padding-left:1rem}.rule{background:#f8f5fc;border-left:4px solid #6a4c93;padding:.75rem 1rem}.step,.quiz{border:1px solid #d8cce7;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f3eef8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#593c82}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d8cce7;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f8f5fc;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d8cce7;padding-top:1rem}
 </style><link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design">
 </head>
 <body><p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p><div class="kicker">Phase 4 · 進階第 12 課 · 約 15 分鐘</div>
-<h1>建立 implementation-ready handoff</h1><p class="mission"><strong>本課成果：</strong>一份可實作交接（implementation-ready 交接），包含決策來源、驗收方式與範圍。</p>
-<div class="rule"><strong>截圖只是其中一項：</strong>進階 handoff 還要有 source of truth、acceptance criteria、state matrix、範圍與已知限制。</div>
-<h2>完成一份可實作 bundle</h2>
+<h1>建立可實作交接（implementation-ready handoff）</h1><p class="mission"><strong>本課成果：</strong>一份可實作交接（implementation-ready 交接），包含決策來源、驗收方式與範圍。</p>
+<div class="rule"><strong>截圖只是其中一項：</strong>進階交接還要包含權威來源、驗收條件、狀態矩陣、實作範圍與已知限制。</div>
+<h2>完成一份可實作交付包</h2>
 <div class="step"><label><input type="checkbox"> 1. 整理五個必要部分</label><pre>Source of truth：設計版本與 design system
 Intent：使用者任務與資訊優先序
 States：state × viewport matrix
 Evidence：試用與 accessibility 結果
 Scope：本次做什麼／不做什麼</pre></div>
-<div class="step"><label><input type="checkbox"> 2. 寫成可判定的 acceptance criteria</label><p>每條都能以操作或畫面狀態判定 pass／fail，不使用「漂亮」、「直覺」等無法驗收的詞。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 先讓 Claude Code dry inspect</label><p>只讀 repo 與 bundle，回報可重用元件、衝突、缺口與預計 diff；確認後才授權修改。</p></div>
-<div class="done" id="done"><strong>完成：</strong>接手者已能在動手前指出實作計畫、repo 衝突與仍缺的決策。</div>
-<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>進階 handoff 應該先做什麼？</p><button>先做唯讀交接檢查</button><button>直接開始大量改碼</button><button>只交最後一張截圖</button><div class="why">唯讀檢查能在改碼前找出現有元件、限制與需求缺口，避免盲目實作。</div></div>
+<div class="step"><label><input type="checkbox"> 2. 寫成可判定的驗收條件（acceptance criteria）</label><p>每條都能以操作或畫面狀態判定通過／失敗，不使用「漂亮」、「直覺」等無法驗收的詞。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 先讓 Claude Code 做唯讀檢查</label><p>只讀程式庫與交付包，回報可重用元件、衝突、缺口與預計程式差異；確認後才授權修改。</p></div>
+<div class="done" id="done"><strong>完成：</strong>接手者已能在動手前指出實作計畫、程式庫衝突與仍缺的決策。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>進階交接應該先做什麼？</p><button>先做唯讀交接檢查</button><button>直接開始大量改碼</button><button>只交最後一張截圖</button><div class="why">唯讀檢查能在改碼前找出現有元件、限制與需求缺口，避免盲目實作。</div></div>
 <h2>關鍵判斷</h2><p>可實作交接（implementation-ready handoff）要讓每個重要決定都有來源、驗收方式與範圍。</p>
 <p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Anthropic — Claude Design handoff guidance</a>。</p>
-<footer>上一課：<a href="004-0011-run-accessibility-audit.html">Accessibility audit</a> · 下一課：<a href="004-0013-close-production-vertical-slice.html">完成 production closeout</a><br>交接仍無法實作時，交出決策來源、驗收條件與狀態表，請 Claude Code 指出缺少的畫面或互動規則。</footer>
+<footer>上一課：<a href="004-0011-run-accessibility-audit.html">無障礙檢查</a> · 下一課：<a href="004-0013-close-production-vertical-slice.html">完成上線前收尾</a><br>交接仍無法實作時，交出決策來源、驗收條件與狀態表，請 Claude Code 指出缺少的畫面或互動規則。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

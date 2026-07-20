@@ -16,10 +16,10 @@
 <div class="rule"><strong>成功啟用 ≠ Skill 有效：</strong>Claude 有啟用它，只證明啟用方式正常；執行是否遵守步驟、完成條件與證據界線，是另一個問題。編寫 Skill 時殘留的對話會幫 Claude 補洞，所以測試要換新對話。</div>
 
 <h2>做一張最小測試表</h2>
-<div class="step"><label><input type="checkbox"> 1. 準備三種真實工作狀態</label><p>至少包含：repo 有變更且檢查通過、工作目錄乾淨、存在 skipped／failed／unrun checks。每個情境先寫預期流程，不以固定句子當答案。</p></div>
+<div class="step"><label><input type="checkbox"> 1. 準備三種真實工作狀態</label><p>至少包含：程式庫有變更且檢查通過、工作目錄乾淨、存在狀態為 skipped／failed／unrun 的檢查。每個情境先寫預期流程，不以固定句子當答案。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 分開檢查啟用方式</label><p>手動啟用的 <code>repo-checkpoint</code> 應在輸入 <code>/repo-checkpoint</code> 時執行，普通聊天不自動套用。若改成 Claude 自動啟用，另測應該啟用與不該啟用的提示詞，記錄漏掉或誤用的情況。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 比較有 Skill 與沒有 Skill</label><p>每個情境都新開 Claude Code 對話：一份讓 Skill 可用，一份停用 Skill；比較四段是否完整、證據界線是否正確、是否交代全集。不要在同一段對話先教答案再測。</p></div>
-<div class="step"><label><input type="checkbox"> 4. 一次只改一件事再重跑</label><p>根據證據，只改 <code>description</code>、按需讀取提示、引導詞、完成條件或一條仍有效的規則。需要更正式的自動比較時，才依官方文件安裝 <code>skill-creator@claude-plugins-official</code>；plugin 安裝不是本 Phase 的完成前置。</p></div>
+<div class="step"><label><input type="checkbox"> 4. 一次只改一件事再重跑</label><p>根據證據，只改 <code>description</code>、按需讀取提示、引導詞、完成條件或一條仍有效的規則。需要更正式的自動比較時，才依官方文件安裝 <code>skill-creator@claude-plugins-official</code>；安裝外掛不是本 Phase 的完成前置。</p></div>
 
 <pre>情境 | 預期啟用方式 | 預期流程 | 有 Skill | 無 Skill | 證據
 1    | 手動啟用     | 四段齊全，交代所有檢查 | ... | ... | ...

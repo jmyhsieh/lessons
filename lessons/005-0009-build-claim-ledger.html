@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>09：建立簡報 claim ledger</title>
+<title>09：建立簡報主張查核表（claim ledger）</title>
 <style>
 *{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#a84f18;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#a84f18}.mission{font-style:italic;color:#555;border-left:3px solid #a84f18;padding-left:1rem}.rule{background:#fff8f2;border-left:4px solid #a84f18;padding:.75rem 1rem}.step,.quiz{border:1px solid #ead1bf;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code{background:#fff3ea;border-radius:4px;padding:.1rem .3rem}a{color:#984412}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #ead1bf;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fff8f2;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #ead1bf;padding-top:1rem}
 </style>
@@ -11,18 +11,18 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 5 · 進階第 09 課 · 約 15 分鐘</div>
-<h1>建立簡報 claim ledger</h1>
+<h1>建立簡報主張查核表（claim ledger）</h1>
 <p class="mission"><strong>本課成果：</strong>一列可回查原始來源的主張查核表（claim ledger）。</p>
 <div class="rule"><strong>先查高風險主張：</strong>優先處理會改變決策的數字、比較與因果說法，不必先替每個形容詞建立紀錄。</div>
-<h2>完成一份 claim ledger</h2>
+<h2>完成一份主張查核表</h2>
 <div class="step"><label><input type="checkbox"> 1. 請 Claude Code 列高影響主張</label><p>只從簡報挑 3 個最可能影響決策的主張，保留頁碼與原句，不要讓它補充新說法。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 要求填入精確來源位置</label><p>每列寫 <code>slide｜claim｜source｜exact location｜status／caveat</code>；你要親自打開來源抽查。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 核准證據缺口處理</label><p>請 Claude Code 提議改寫、加限制或移除，逐項 review 後才更新 deck；不能把「待確認」藏在正式交付檔。</p></div>
-<div class="done" id="done"><strong>完成：</strong>你有一份可抽查的 claim ledger，不必再靠記憶回答「這個數字哪裡來的？」</div>
-<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Claim ledger 應該先檢查哪一種內容？</p><button>會影響決策的數字</button><button>最容易排版的文字</button><button>最漂亮的一張圖片</button><div class="why">會影響決策的數字一旦錯誤，後果最大；它們是第一批需要來源與限制條件的主張。</div></div>
+<div class="step"><label><input type="checkbox"> 3. 核准證據缺口處理</label><p>請 Claude Code 提議改寫、加限制或移除，逐項審查後才更新簡報；不能把「待確認」藏在正式交付檔。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你有一份可抽查的主張查核表，不必再靠記憶回答「這個數字哪裡來的？」</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>主張查核表應該先檢查哪一種內容？</p><button>會影響決策的數字</button><button>最容易排版的文字</button><button>最漂亮的一張圖片</button><div class="why">會影響決策的數字一旦錯誤，後果最大；它們是第一批需要來源與限制條件的主張。</div></div>
 <h2>關鍵判斷</h2><p>主張查核表（claim ledger）會把每一項重要主張連到對應證據。</p>
 <p><strong>主要閱讀：</strong><a href="https://claude.com/resources/tutorials/using-claude-design-for-presentations-and-slide-decks">Anthropic — Using Claude Design for presentations and slide decks</a>。</p>
-<footer>上一課：<a href="005-0008-repurpose-one-pager-social.html">完成一頁摘要</a> · 下一課：<a href="005-0010-build-reusable-deck-system.html">建立可重用 deck system</a><br>把 Claude Code 產生的一列與原始來源貼回 Claude Code，請它檢查是否可追溯。</footer>
+<footer>上一課：<a href="005-0008-repurpose-one-pager-social.html">完成一頁摘要</a> · 下一課：<a href="005-0010-build-reusable-deck-system.html">建立可重用的簡報版型系統</a><br>把 Claude Code 產生的一列與原始來源貼回 Claude Code，請它檢查是否可追溯。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

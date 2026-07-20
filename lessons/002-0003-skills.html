@@ -40,10 +40,10 @@
 <div class="kicker">Phase 2 · 第 03 課 · 約 30 分鐘 · 進階實作課</div>
 <h1>把重複流程打包成指令（Skills）</h1>
 <p class="mission"><strong>本課成果：</strong>一個能在目前程式庫重跑的工作技能（Skill）。</p>
-<div class="scope"><strong>本課只做：</strong>判斷重複工作流是否值得打包成 skill。<br><strong>先不要做：</strong>把一次性任務或尚未穩定的流程做成 skill。</div>
+<div class="scope"><strong>本課只做：</strong>判斷重複工作流程是否值得做成工作技能（Skill）。<br><strong>先不要做：</strong>把一次性任務或尚未穩定的流程做成工作技能。</div>
 
 
-<h2>什麼時候該做成 skill（<a href="https://code.claude.com/docs/en/skills">官方文件</a>）</h2>
+<h2>什麼時候該做成工作技能（<a href="https://code.claude.com/docs/en/skills">官方文件</a>）</h2>
 <p>訊號跟 CLAUDE.md 類似但對象不同：</p>
 <ul>
   <li>你發現自己<strong>重複貼同一段指示、檢查清單或多步驟流程</strong>到對話裡</li>
@@ -58,14 +58,14 @@
 ~/.claude/skills/&lt;name&gt;/SKILL.md            ← 個人（所有專案可用）</pre>
 <p><strong>資料夾名稱就是指令名稱</strong>（<code>deploy-staging/</code> → <code>/deploy-staging</code>）。SKILL.md 長這樣：</p>
 <pre>---
-description: 摘要未 commit 的變更並標記風險。當使用者問
-  「改了什麼」、要 commit message、或要 review diff 時使用。
+description: 摘要未提交的變更並標記風險。當使用者問
+  「改了什麼」、要提交訊息、或要審查程式差異時使用。
 ---
 
 1. 執行 git diff 取得所有未提交變更
 2. 依模組分組摘要
 3. 標記：碰到設定檔／migrations／權限相關的變更
-4. 用團隊格式產生 commit message 草稿</pre>
+4. 用團隊格式產生提交訊息草稿</pre>
 
 <h2>兩種觸發方式，一個開關</h2>
 <table>
@@ -73,34 +73,34 @@ description: 摘要未 commit 的變更並標記風險。當使用者問
 <tr><td>你手動</td><td>輸入 <code>/skill-name</code></td><td>有副作用的流程（部署、發布）</td></tr>
 <tr><td>Claude 自動</td><td>你的話符合 <code>description</code> 描述的情境</td><td>知識型、無副作用的輔助</td></tr>
 </table>
-<div class="tip"><strong>有副作用的 skill 一定加 <code>disable-model-invocation: true</code></strong>，讓它只能由你手動觸發 — 你不會想要 Claude「覺得相關」就自己跑部署。另外 <code>$ARGUMENTS</code> 可接收參數：<code>/fix-issue 1234</code> 會把 1234 帶進內容。</div>
-<p>寫好 <code>description</code> 是自動觸發的關鍵：說清楚「做什麼」+「什麼情境用」，把主要使用情境寫在最前面。skill 目錄有變更會即時生效，不用重啟。</p>
+<div class="tip"><strong>有副作用的工作技能一定加 <code>disable-model-invocation: true</code></strong>，讓它只能由你手動觸發 — 你不會想要 Claude「覺得相關」就自己跑部署。另外 <code>$ARGUMENTS</code> 可接收參數：<code>/fix-issue 1234</code> 會把 1234 帶進內容。</div>
+<p>寫好 <code>description</code> 是自動觸發的關鍵：說清楚「做什麼」與「什麼情境用」，把主要使用情境寫在最前面。工作技能目錄有變更會即時生效，不用重啟。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 
 <div class="step">
   <label><input type="checkbox"> 1. 挑一個真實的重複流程</label>
-  <p>回想最近兩週：你重複向 Claude 解釋過什麼流程？（例：「我們的 PR 前檢查」「依模板建新 API endpoint」「release notes 產生」）。挑一個。</p>
+  <p>回想最近兩週：你重複向 Claude 解釋過什麼流程？（例：「我們的 PR 前檢查」「依模板建新 API 端點」「產生發行說明」）。挑一個。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 2. 寫 SKILL.md</label>
-  <p>在工作 repo 建 <code>.claude/skills/&lt;名稱&gt;/SKILL.md</code>。可以請 Claude 代寫初稿，但 description 與步驟自己打磨 — 步驟要具體到「另一個不認識你的工程師也能照做」。有副作用就加 <code>disable-model-invocation: true</code>。</p>
+  <p>在工作程式庫建立 <code>.claude/skills/&lt;名稱&gt;/SKILL.md</code>。可以請 Claude 代寫初稿，但用途說明與步驟要自己打磨 — 步驟要具體到「另一個不認識你的工程師也能照做」。有副作用就加 <code>disable-model-invocation: true</code>。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 3. 測試手動觸發</label>
-  <p>同一個 session 直接輸入 <code>/你的skill名</code>（變更即時生效）。觀察它是否照步驟走、結果是否符合預期，來回修 SKILL.md 到穩定。</p>
+  <p>在同一個工作階段直接輸入 <code>/你的skill名</code>（變更即時生效）。觀察它是否照步驟走、結果是否符合預期，來回修 SKILL.md 到穩定。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 4. 測試自動觸發（若允許）</label>
-  <p>開新對話，用自然語言描述該情境（不要提 skill 名字），看 Claude 會不會自己載入這個 skill。不會的話 → 修 description，把觸發情境寫得更像你實際會說的話。</p>
+  <p>開新對話，用自然語言描述該情境（不要提工作技能名稱），看 Claude 會不會自己載入這個工作技能。不會的話 → 修改用途說明，把觸發情境寫得更像你實際會說的話。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 5. 分享給團隊</label>
-  <p><code>.claude/skills/</code> 進版控，照常走 PR。隊友 pull 下來就多了這個 / 指令。</p>
+  <p><code>.claude/skills/</code> 進版控，照常走 PR。隊友拉取變更後就多了這個斜線指令。</p>
 </div>
 
 <div class="done-banner" id="done">
@@ -112,25 +112,25 @@ description: 摘要未 commit 的變更並標記風險。當使用者問
 <div class="quiz" data-answer="1">
   <p>1. 「我們的 API 命名慣例」（兩行規則，每次寫 code 都要遵守）該放？</p>
   <button>依需求載入指定流程</button>
-  <button>每個 session 載入規則</button>
+  <button>每個工作階段載入規則</button>
   <button>依事件執行指定程式</button>
-  <div class="why">每次都要、又短 → CLAUDE.md。skill 的優勢在「用到才載入」，對每次都需要的兩行規則沒有意義；hook 是 shell 指令，沒辦法「強制命名風格」這種需要判斷的事。</div>
+  <div class="why">每次都要、又短 → CLAUDE.md。工作技能的優勢在「用到才載入」，對每次都需要的兩行規則沒有意義；掛鉤是終端機指令，沒辦法「強制命名風格」這種需要判斷的事。</div>
 </div>
 
 <div class="quiz" data-answer="0">
-  <p>2. 「/deploy-staging 部署流程」最該加哪個 frontmatter？</p>
+  <p>2. 「/deploy-staging 部署流程」最該加哪個檔頭設定（frontmatter）？</p>
   <button>disable-model-invocation: true</button>
-  <button>when_to_use: 需要部署到 production 時</button>
+  <button>when_to_use: 需要部署到正式環境時</button>
   <button>name: deploy-staging-production-v2</button>
   <div class="why">部署有副作用 — 必須只能手動觸發，防止 Claude 自行判斷「相關」就執行。when_to_use 反而是給自動觸發用的，方向相反。</div>
 </div>
 
 <div class="quiz" data-answer="2">
-  <p>3.（複習三層模型）「commit 前必跑測試，不過就不准結束」這種<strong>保證</strong>，用什麼實現？</p>
+  <p>3.（複習三層模型）「提交前必跑測試，不過就不准結束」這種<strong>保證</strong>，用什麼實現？</p>
   <button>按需載入流程</button>
   <button>持續載入規則</button>
   <button>事件觸發檢查</button>
-  <div class="why">（間隔複習 Phase 2 第 01 課）關鍵字是「必」= 保證 = hooks。skill 和 CLAUDE.md 都靠模型配合，只有 hook 是系統強制。</div>
+  <div class="why">（間隔複習 Phase 2 第 01 課）關鍵字是「必」= 保證 = 自動化掛鉤。工作技能和 CLAUDE.md 都靠模型配合，只有掛鉤是系統強制。</div>
 </div>
 
 <h2>下一步</h2>

@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>11：稽核 accessibility 與輸出格式</title>
+<title>11：稽核無障礙與輸出格式</title>
 <style>
 *{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#a84f18;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#a84f18}.mission{font-style:italic;color:#555;border-left:3px solid #a84f18;padding-left:1rem}.rule{background:#fff8f2;border-left:4px solid #a84f18;padding:.75rem 1rem}.step,.quiz{border:1px solid #ead1bf;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code{background:#fff3ea;border-radius:4px;padding:.1rem .3rem}a{color:#984412}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #ead1bf;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fff8f2;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #ead1bf;padding-top:1rem}
 </style>
@@ -11,18 +11,18 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 5 · 進階第 11 課 · 約 20 分鐘</div>
-<h1>稽核 accessibility 與輸出格式</h1>
+<h1>稽核無障礙與輸出格式</h1>
 <p class="mission"><strong>本課成果：</strong>一份交付前檢查紀錄，確認實際檔案的閱讀性與格式。</p>
 <div class="rule"><strong>不要只看編輯畫面：</strong>PDF、HTML 或簡報檔都可能在輸出後換行、缺字、失去閱讀順序。</div>
 <h2>跑一輪交付前稽核</h2>
-<div class="step"><label><input type="checkbox"> 1. 請 Claude Code 抽查內容與權利</label><p>用 claim ledger 指出重要數字、引用與授權位置；圖片與圖表缺少來源就列 blocker，不猜授權。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 讓它列可讀性待查項</label><p>逐頁指出標題、閱讀順序、替代文字、色彩對比風險；這只是 checklist，不是已通過證據。</p></div>
+<div class="step"><label><input type="checkbox"> 1. 請 Claude Code 抽查內容與權利</label><p>用主張查核表指出重要數字、引用與授權位置；圖片與圖表缺少來源就列為阻擋問題，不猜授權。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 讓它列可讀性待查項</label><p>逐頁指出標題、閱讀順序、替代文字、色彩對比風險；這只是檢查清單，不是已通過證據。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 由你打開每種目標格式</label><p>實際打開 PDF、HTML 或簡報檔，檢查字型、裁切、連結與頁面順序，再把實測結果交回 Claude Code。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已驗證真正會交到觀眾手上的檔案，而不只是來源畫面。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>完成匯出後，哪一項才是交付證據？</p><button>目標檔案實際開啟</button><button>原始畫面看起來好</button><button>模型完成一次輸出</button><div class="why">只有實際打開目標檔案，才能發現輸出後的字型、裁切、連結與閱讀順序問題。</div></div>
-<h2>關鍵判斷</h2><p>Accessibility 與格式檢查都必須落在實際交付物上。</p>
+<h2>關鍵判斷</h2><p>無障礙與格式檢查都必須落在實際交付物上。</p>
 <p><strong>主要閱讀：</strong><a href="https://www.w3.org/WAI/teach-advocate/accessible-presentations/">W3C WAI — How to Make Your Presentations Accessible to All</a>。</p>
-<footer>上一課：<a href="005-0010-build-reusable-deck-system.html">建立 deck system</a> · 下一課：<a href="005-0012-run-structured-rehearsal-and-version.html">結構化彩排並封存版本</a><br>把 Claude Code checklist 與一項實測結果貼回 Claude Code，請它分辨建議與證據。</footer>
+<footer>上一課：<a href="005-0010-build-reusable-deck-system.html">建立簡報版型系統</a> · 下一課：<a href="005-0012-run-structured-rehearsal-and-version.html">結構化彩排並封存版本</a><br>把 Claude Code 的檢查清單與一項實測結果貼回去，請它分辨建議與證據。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

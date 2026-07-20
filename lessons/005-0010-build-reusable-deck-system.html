@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>10：建立可重用 deck system</title>
+<title>10：建立可重用的簡報版型系統（deck system）</title>
 <style>
 *{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#a84f18;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#a84f18}.mission{font-style:italic;color:#555;border-left:3px solid #a84f18;padding-left:1rem}.rule{background:#fff8f2;border-left:4px solid #a84f18;padding:.75rem 1rem}.step,.quiz{border:1px solid #ead1bf;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code{background:#fff3ea;border-radius:4px;padding:.1rem .3rem}a{color:#984412}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #ead1bf;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fff8f2;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #ead1bf;padding-top:1rem}
 </style>
@@ -11,18 +11,18 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 5 · 進階第 10 課 · 約 20 分鐘</div>
-<h1>建立可重用 deck system</h1>
+<h1>建立可重用的簡報版型系統（deck system）</h1>
 <p class="mission"><strong>本課成果：</strong>一條從成功簡報抽出的共用規則，以及一頁重做結果。</p>
 <div class="rule"><strong>系統要能重做：</strong>只寫「專業、簡潔」不夠；要留下字級、色彩、間距與版型規則。</div>
-<h2>做一個最小 deck system</h2>
-<div class="step"><label><input type="checkbox"> 1. 請 Claude Code 抽出三類規則</label><p>只從現有成功頁面提取字級、色彩／對比、頁面邊界／間距，不先發明新 system。</p></div>
+<h2>做一個最小簡報版型系統</h2>
+<div class="step"><label><input type="checkbox"> 1. 請 Claude Code 抽出三類規則</label><p>只從現有成功頁面提取字級、色彩／對比、頁面邊界／間距，不先發明新的簡報版型系統。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 讓它定義三個重複版型</label><p>封面、證據頁、下一步頁各寫清楚放什麼、不放什麼；你要審查是否真的有實際使用點。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 透過 Design MCP 重做一頁</label><p>與既有頁並排檢查；有偏差就請 Claude Code 修規則，不用逐頁補丁掩蓋 system 問題。</p></div>
-<div class="done" id="done"><strong>完成：</strong>你已有可重用的 deck system，下一頁不必重新猜一次版面。</div>
-<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Deck system 最主要解決什麼問題？</p><button>讓多頁維持一致</button><button>讓每頁完全不同</button><button>增加更多裝飾圖</button><div class="why">Deck system 把反覆出現的視覺決定變成規則，讓多頁與多版本維持一致。</div></div>
-<h2>關鍵判斷</h2><p>先從少量、可檢查的規則開始；只有實際重用過的規則，才算 system。</p>
+<div class="step"><label><input type="checkbox"> 3. 透過 Design MCP 重做一頁</label><p>與既有頁並排檢查；有偏差就請 Claude Code 修規則，不用逐頁補丁掩蓋版型系統的問題。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已有可重用的簡報版型系統，下一頁不必重新猜一次版面。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>簡報版型系統最主要解決什麼問題？</p><button>讓多頁維持一致</button><button>讓每頁完全不同</button><button>增加更多裝飾圖</button><div class="why">簡報版型系統把反覆出現的視覺決定變成規則，讓多頁與多版本維持一致。</div></div>
+<h2>關鍵判斷</h2><p>先從少量、可檢查的規則開始；只有實際重用過的規則，才算版型系統。</p>
 <p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Anthropic — Get started with Claude Design</a>。</p>
-<footer>上一課：<a href="005-0009-build-claim-ledger.html">建立 claim ledger</a> · 下一課：<a href="005-0011-audit-deck-accessibility-and-formats.html">稽核 accessibility 與格式</a><br>把 Claude Code 抽出的規則與重做結果貼回 Claude Code，請它找出不可重用的描述。</footer>
+<footer>上一課：<a href="005-0009-build-claim-ledger.html">建立主張查核表</a> · 下一課：<a href="005-0011-audit-deck-accessibility-and-formats.html">稽核無障礙與格式</a><br>把 Claude Code 抽出的規則與重做結果貼回去，請它找出不可重用的描述。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

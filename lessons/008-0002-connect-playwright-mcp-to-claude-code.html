@@ -13,13 +13,13 @@
 <div class="kicker">Phase 8 · 入門第 02 課 · 約 10 分鐘</div>
 <h1>把 Playwright MCP 接到 Claude Code</h1>
 <p class="mission"><strong>本課成果：</strong>一筆 Claude Code 能在個人本機範圍使用 Playwright MCP 的連線證據。</p>
-<div class="rule"><strong>先用本機範圍（local scope）：</strong>這項設定只供你在目前 repo 使用，不會新增可提交的團隊設定。只有團隊審查命令、來源與權限後，才考慮專案範圍。</div>
+<div class="rule"><strong>先用本機範圍（local scope）：</strong>這項設定只供你在目前程式庫使用，不會新增可提交的團隊設定。只有團隊審查命令、來源與權限後，才考慮專案範圍。</div>
 <h2>連接並核對</h2>
-<div class="step"><label><input type="checkbox"> 1. 檢查執行環境</label><p>執行 <code>node --version</code>，確認是 Node.js 20 以上；也先確認目前位於正確 repo。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 新增本機 MCP server</label><p>使用目前 Claude Code 文件的參數順序；<code>--</code> 後面才是 stdio server 命令。</p><pre>claude mcp add --transport stdio --scope local playwright -- npx @playwright/mcp@latest</pre></div>
+<div class="step"><label><input type="checkbox"> 1. 檢查執行環境</label><p>執行 <code>node --version</code>，確認是 Node.js 20 以上；也先確認目前位於正確程式庫。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 新增本機 MCP 伺服器</label><p>使用目前 Claude Code 文件的參數順序；<code>--</code> 後面才是標準輸入輸出伺服器（stdio server）命令。</p><pre>claude mcp add --transport stdio --scope local playwright -- npx @playwright/mcp@latest</pre></div>
 <div class="step"><label><input type="checkbox"> 3. 確認名稱、命令與連線</label><p>執行 <code>claude mcp get playwright</code>；進入 Claude Code 後再用 <code>/mcp</code> 查看狀態。若來源或命令與預期不同，先移除，不要授權。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已留下 Node 版本、MCP 命令與連線狀態三項設定證據。</div>
-<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>第一次把 Playwright MCP 接到 Claude Code，建議怎麼做？</p><button>先在本機範圍中試用</button><button>先提交團隊共用設定</button><button>先允許任意外部主機</button><div class="why">Local scope 讓你先驗證 command 與權限，不會先把未審查的 MCP 設定推給團隊。</div></div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>第一次把 Playwright MCP 接到 Claude Code，建議怎麼做？</p><button>先在本機範圍中試用</button><button>先提交團隊共用設定</button><button>先允許任意外部主機</button><div class="why">本機範圍讓你先驗證命令與權限，不會先把未審查的 MCP 設定推給團隊。</div></div>
 <h2>關鍵判斷</h2><p>MCP 是 Claude Code 可以呼叫的外部能力；先核對來源、範圍與命令，再開始瀏覽。</p>
 <p><strong>主要閱讀：</strong><a href="https://code.claude.com/docs/en/mcp">Claude Code — Connect Claude Code to tools via MCP</a>；Playwright 需求見 <a href="https://playwright.dev/mcp/installation">Playwright MCP — Installation</a>。</p>
 <footer>上一課：<a href="008-0001-choose-live-check-or-test.html">選證據</a> · 下一課：<a href="008-0003-run-first-browser-check-with-claude-code.html">讓 Claude Code 走第一條瀏覽器路徑</a><br>把 <code>claude mcp get playwright</code> 的非敏感輸出貼回 Claude Code，請它一起核對。</footer>

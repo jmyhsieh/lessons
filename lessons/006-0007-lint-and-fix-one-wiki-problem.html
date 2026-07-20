@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>07：Lint 並修一個 Wiki 問題</title>
+<title>07：用格式檢查（Lint）修一個 Wiki 問題</title>
 <style>
 *{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#8a3f5d;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#8a3f5d}.mission{font-style:italic;color:#555;border-left:3px solid #8a3f5d;padding-left:1rem}.rule{background:#fcf7f9;border-left:4px solid #8a3f5d;padding:.75rem 1rem}.step,.quiz{border:1px solid #dfccd4;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}pre,code{background:#f8f0f3;border-radius:4px}pre{padding:.8rem 1rem;white-space:pre-wrap;overflow-wrap:anywhere}code{padding:.1rem .3rem}a{color:#7a3551}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d8c4cd;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fcf7f9;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #dfccd4;padding-top:1rem}
 </style>
@@ -11,14 +11,14 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 6 · 進階第 07 課 · 約 15 分鐘</div>
-<h1>Lint 並修一個 Wiki 問題</h1>
+<h1>用格式檢查（Lint）修一個 Wiki 問題</h1>
 <p class="mission"><strong>本課成果：</strong>一項由唯讀格式檢查（lint）找出並修好的 Wiki 問題。</p>
 
-<div class="rule"><strong>Lint 先找問題，不先大改：</strong>它檢查矛盾、過期說法、孤兒頁、缺少連結與資料缺口；你決定先修哪一項。</div>
+<div class="rule"><strong>格式檢查先找問題，不先大改：</strong>它檢查矛盾、過期說法、孤兒頁、缺少連結與資料缺口；你決定先修哪一項。</div>
 
 <h2>先報告，再修一項</h2>
-<div class="step"><label><input type="checkbox"> 1. 先請 Claude Code 做唯讀 lint</label>
-<pre>請對目前 LLM Wiki 做一次唯讀 lint，先不要修改檔案，也不要上網補資料。
+<div class="step"><label><input type="checkbox"> 1. 先請 Claude Code 做唯讀格式檢查</label>
+<pre>請對目前 LLM Wiki 做一次唯讀格式檢查，先不要修改檔案，也不要上網補資料。
 
 請分組列出：
 - 互相矛盾或可能過期的說法
@@ -30,23 +30,23 @@
 <div class="step"><label><input type="checkbox"> 2. 選一個能確認的高影響問題</label>
 <p>優先選有原始資料可以回查、範圍清楚的問題。資料不足的項目只標記待確認，不讓 Claude Code 猜答案。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 修完後重跑同一項檢查</label>
-<p>只授權修正選中的問題，查看 diff，再請 Claude Code 確認該問題已消失且沒有新增壞連結。</p></div>
+<p>只授權修正選中的問題，查看程式差異，再請 Claude Code 確認該問題已消失且沒有新增壞連結。</p></div>
 
-<div class="done" id="done"><strong>完成：</strong>你已用 lint 找到真問題、修好一項，並用同一檢查確認結果。</div>
+<div class="done" id="done"><strong>完成：</strong>你已用格式檢查找到真正的問題、修好一項，並用同一檢查確認結果。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="0">
-<p>Wiki lint 的主要用途是什麼？</p>
+<p>Wiki 格式檢查的主要用途是什麼？</p>
 <button>找知識庫的缺口</button>
 <button>重寫全部原始檔</button>
 <button>安裝更多搜尋器</button>
-<div class="why">Lint 是健康檢查：先找矛盾、過期、孤兒頁與缺口，再由人決定怎麼處理。</div>
+<div class="why">格式檢查是健康檢查：先找矛盾、過期、孤兒頁與缺口，再由人決定怎麼處理。</div>
 </div>
 
 <h2>關鍵判斷</h2>
-<p><strong>一次 lint 不必修完整個 Wiki。</strong>報告、選一項、修正、重跑，這個小回圈才是可持續的維護方式。</p>
+<p><strong>一次格式檢查不必修完整個 Wiki。</strong>報告、選一項、修正、重跑，這個小回圈才是可持續的維護方式。</p>
 <p><strong>主要閱讀：</strong><a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki：Lint</a>。</p>
-<footer>上一課：<a href="006-0006-query-and-file-a-durable-answer.html">Query 並寫回</a> · 下一課：<a href="006-0008-automate-one-safe-wiki-check.html">自動化一個安全檢查</a><br>格式檢查結果看不懂時，交出執行命令、錯誤訊息與被修改頁面，請 Claude Code 說明哪條規則沒有通過。</footer>
+<footer>上一課：<a href="006-0006-query-and-file-a-durable-answer.html">查詢並寫回</a> · 下一課：<a href="006-0008-automate-one-safe-wiki-check.html">自動化一個安全檢查</a><br>格式檢查結果看不懂時，交出執行命令、錯誤訊息與被修改頁面，請 Claude Code 說明哪條規則沒有通過。</footer>
 <script>
 const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});
 </script>

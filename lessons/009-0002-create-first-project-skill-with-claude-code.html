@@ -12,28 +12,28 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 9 · 入門第 02 課 · 約 15 分鐘</div>
 <h1>讓 Claude Code 建立第一個專案 Skill</h1>
-<p class="mission"><strong>本課成果：</strong>一個 repo 內可執行的 <code>/repo-checkpoint</code>。</p>
-<div class="rule"><strong>先放在專案裡：</strong><code>.claude/skills/repo-checkpoint/SKILL.md</code> 只跟著這個 repo，容易 review、版本控制與移除。等多個 repo 都證明需要時，再考慮跨專案共享或包成 plugin。</div>
+<p class="mission"><strong>本課成果：</strong>一個程式庫內可執行的 <code>/repo-checkpoint</code>。</p>
+<div class="rule"><strong>先放在專案裡：</strong><code>.claude/skills/repo-checkpoint/SKILL.md</code> 只跟著這個程式庫，容易審查、版本控制與移除。等多個程式庫都證明需要時，再考慮跨專案共享或包成外掛。</div>
 
 <h2>先審草稿，再執行</h2>
-<div class="step"><label><input type="checkbox"> 1. 讓 Claude Code 先讀規範並提出單檔草稿</label><p>貼上下面提示詞。第一版只允許一個 <code>SKILL.md</code>，不加 scripts、hooks、plugin manifest 或額外抽象層。</p></div>
-<pre>請先讀這個 repo 的 CLAUDE.md、AGENTS.md 與現有 .claude/skills 慣例。
-依這張 brief，草擬 .claude/skills/repo-checkpoint/SKILL.md：
+<div class="step"><label><input type="checkbox"> 1. 讓 Claude Code 先讀規範並提出單檔草稿</label><p>貼上下面提示詞。第一版只允許一個 <code>SKILL.md</code>，不加指令稿、掛鉤、外掛資訊清單或額外抽象層。</p></div>
+<pre>請先讀這個程式庫的 CLAUDE.md、AGENTS.md 與現有 .claude/skills 慣例。
+依這份需求摘要，草擬 .claude/skills/repo-checkpoint/SKILL.md：
 - 人工執行 /repo-checkpoint
-- 只讀目前對話、repo 變更與檢查證據
+- 只讀目前對話、程式庫變更與檢查證據
 - 輸出 Changed、Verified、Remaining、Blocked
 - 未跑、跳過或失敗的檢查必須誠實列出
-- 不修改檔案、不 commit、不 push
+- 不修改檔案、不提交、不推送
 先顯示完整草稿與唯一預計新增的檔案，等我核准後才寫入。</pre>
-<div class="step"><label><input type="checkbox"> 2. 核對後才允許寫入</label><p>確認路徑、檔頭設定（frontmatter）、四段輸出與停止線都正確，再核准這個單檔 diff。若 Claude Code 提出超出需求卡的能力，請它刪掉。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 執行一次 <code>/repo-checkpoint</code></label><p>直接在目前 repo 執行並保存結果。若這個 Claude Code 對話啟動時連最上層 <code>.claude/skills/</code> 都不存在，建立後需重開 Claude Code，讓檔案監看功能發現新目錄；既有目錄內的 Skill 變更通常會即時生效。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 核對後才允許寫入</label><p>確認路徑、檔頭設定（frontmatter）、四段輸出與停止線都正確，再核准這個單檔程式差異。若 Claude Code 提出超出需求卡的能力，請它刪掉。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 執行一次 <code>/repo-checkpoint</code></label><p>直接在目前程式庫執行並保存結果。若這個 Claude Code 對話啟動時連最上層 <code>.claude/skills/</code> 都不存在，建立後需重開 Claude Code，讓檔案監看功能發現新目錄；既有目錄內的 Skill 變更通常會即時生效。</p></div>
 
 <div class="done" id="done"><strong>完成：</strong>你已有一個專案 Skill、一份可見輸出，以及第一次執行證據。</div>
 <h2>觀念檢查</h2>
-<div class="quiz" data-answer="0"><p>第一次自訂 Skill 為什麼先放在專案裡？</p><button>方便跟 repo 一起審查與版本控制</button><button>可以自動跳過所有權限與核准流程</button><button>能讓每個無關專案都立即自動使用</button><div class="why">專案 Skill 的適用範圍清楚，也能跟 repo diff 一起審查。它不會繞過權限，也不會自動成為所有 repo 的共同規則。</div></div>
+<div class="quiz" data-answer="0"><p>第一次自訂 Skill 為什麼先放在專案裡？</p><button>方便跟程式庫一起審查與版本控制</button><button>可以自動跳過所有權限與核准流程</button><button>能讓每個無關專案都立即自動使用</button><div class="why">專案 Skill 的適用範圍清楚，也能跟程式庫的程式差異一起審查。它不會繞過權限，也不會自動成為所有程式庫的共同規則。</div></div>
 <h2>關鍵判斷</h2><p>先得到一個能執行的最小 Skill；後續優化都要建立在真實執行證據上。</p>
 <p><strong>主要閱讀：</strong><a href="https://code.claude.com/docs/en/skills#create-your-first-skill">Claude Code — Create your first skill</a> 與 <a href="https://code.claude.com/docs/en/skills#where-skills-live">Where skills live</a>。</p>
-<footer>上一課：<a href="009-0001-choose-one-repeatable-workflow.html">選重複流程</a> · 下一課：<a href="009-0003-choose-user-or-model-invocation.html">決定啟用方式</a><br>把 <code>SKILL.md</code> diff 與第一次輸出貼回 Claude Code，請它檢查是否超出需求卡。</footer>
+<footer>上一課：<a href="009-0001-choose-one-repeatable-workflow.html">選重複流程</a> · 下一課：<a href="009-0003-choose-user-or-model-invocation.html">決定啟用方式</a><br>把 <code>SKILL.md</code> 的程式差異與第一次輸出貼回 Claude Code，請它檢查是否超出需求卡。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

@@ -42,33 +42,33 @@
 </header>
 
 <h2>核心觀念：差別不在「聰明程度」，在工作環境</h2>
-<p>這四種入口會重疊，但主要交付物不同。真正的判斷軸是<strong>工作環境與成果類型</strong>：你要一段回答、一組完成的知識工作檔案、一個可反覆評論的視覺原型，還是經過測試的 repo 變更？</p>
+<p>這四種入口會重疊，但主要交付物不同。真正的判斷軸是<strong>工作環境與成果類型</strong>：你要一段回答、一組完成的知識工作檔案、一個可反覆評論的視覺原型，還是經過測試的程式庫變更（repo change）？</p>
 
 <div class="card">
   <h3>Claude（claude.ai 網頁 / App）</h3>
   <p class="tagline">對話助理 — 你貼內容進去，它回答出來。</p>
-  適合：問問題、寫草稿、分析你附上的檔案或程式碼片段、使用 connectors 查資料。重點是由你提供 context，不是把一個本機工作區交給它持續操作。
+  適合：問問題、寫草稿、分析你附上的檔案或程式碼片段、使用連接器查資料。重點是由你提供對話脈絡，不是把一個本機工作區交給它持續操作。
 </div>
 
 <div class="card">
   <h3>Claude Cowork</h3>
   <p class="tagline">知識工作代理 — 遠端任務可跨裝置接續；Desktop 也能直接處理本機檔案。</p>
-  可從 web、Desktop 或 mobile 委派多步驟任務，遠端 session 會跟著帳號跨裝置接續；Desktop 另支援直接讀寫你授權的本機檔案。適合：整理文件、研究彙整、產出報告與簡報。Dispatch 若判斷任務屬於軟體開發，也可能建立 Code session；不要把分頁名稱當成硬邊界。
+  可從網頁版、桌面 App 或行動裝置委派多步驟任務，遠端工作階段會跟著帳號跨裝置接續；桌面 App 另支援直接讀寫你授權的本機檔案。適合：整理文件、研究彙整、產出報告與簡報。Dispatch 若判斷任務屬於軟體開發，也可能建立 Code 工作階段；不要把分頁名稱當成硬邊界。
   （<a href="https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork">官方上手指南</a>）
 </div>
 
 <div class="card">
   <h3>Claude Design</h3>
-  <p class="tagline">視覺協作畫布 — 建立設計、互動原型、簡報與可交接的 design intent。</p>
-  適合：先比較多個視覺方向、套用 design system、在 canvas 上評論與精修，再把選定方向交給 Claude Code 實作。它仍是 beta，現階段在 web 與 Claude Desktop 使用；prototype 不是 usability、accessibility 或 production readiness 的證明。
+  <p class="tagline">視覺協作畫布 — 建立設計、互動原型、簡報與可交接的設計意圖（design intent）。</p>
+  適合先比較多個視覺方向、套用設計系統（design system），並在畫布上評論與精修，再把選定方向交給 Claude Code 實作。它仍是測試版，目前可在網頁版與 Claude Desktop 使用；原型不能直接證明易用性、無障礙或已可正式上線。
   （<a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">官方入門指南</a>）
 </div>
 
 <div class="card">
   <h3>Claude Code</h3>
-  <p class="tagline">軟體工程代理 — 在 git repo 裡讀程式碼、改檔案、跑指令、開 PR。</p>
-  可在終端機、VS Code/JetBrains、桌面 App、瀏覽器使用。理解整個 codebase，能跨多檔案修改、執行測試驗證、操作 git。這是你要在工作 repo 上用的工具。
-  後續進入工作 repo 前，會在安裝課確認 Git 是否可用；本課先只練工具選擇。
+  <p class="tagline">軟體工程代理 — 在 Git 程式庫裡讀程式碼、改檔案、跑指令、開 PR。</p>
+  可在終端機、VS Code/JetBrains、桌面 App、瀏覽器使用。理解整個程式碼庫，能跨多檔案修改、執行測試驗證、操作 Git。這是你要在工作程式庫使用的工具。
+  後續進入工作程式庫前，會在安裝課確認 Git 是否可用；本課先只練工具選擇。
   （<a href="https://code.claude.com/docs/en/overview">官方文件</a>）
 </div>
 
@@ -83,7 +83,7 @@
   <button>Claude Cowork</button>
   <button>Claude Code</button>
   <button>Claude Design</button>
-  <div class="why">需要跨檔案修改 repo 程式碼並執行測試 → Claude Code。</div>
+  <div class="why">需要跨檔案修改程式庫中的程式碼並執行測試 → Claude Code。</div>
 </div>
 
 <div class="quiz" data-answer="1">
@@ -96,26 +96,26 @@
 </div>
 
 <div class="quiz" data-answer="0">
-  <p>3. 「這段 error message 是什麼意思？大概該往哪個方向查？」</p>
+  <p>3. 「這段錯誤訊息是什麼意思？大概該往哪個方向查？」</p>
   <button>Claude 一般對話</button>
   <button>Claude Cowork</button>
   <button>Claude Code</button>
   <button>Claude Design</button>
-  <div class="why">貼上內容、得到解釋即可，不需動到檔案 → Claude 就夠了。若要它直接在 repo 裡追出根因並修掉，才升級到 Claude Code。</div>
+  <div class="why">貼上內容、得到解釋即可，不需動到檔案 → Claude 就夠了。若要它直接在程式庫裡追出根因並修掉，才升級到 Claude Code。</div>
 </div>
 
 <div class="quiz" data-answer="3">
-  <p>4. 「先用品牌元件做三個可互動的 dashboard 方向，選定後再交給工程實作。」</p>
+  <p>4. 「先用品牌元件做三個互動式儀表板（dashboard）方向，選定後再交給工程實作。」</p>
   <button>Claude 一般對話</button>
   <button>Claude Cowork</button>
   <button>Claude Code</button>
   <button>Claude Design</button>
-  <div class="why">要先在視覺畫布探索、比較與評論原型，再 handoff 給工程 → Claude Design。</div>
+  <div class="why">要先在視覺畫布探索、比較與評論原型，再交接給工程團隊 → Claude Design。</div>
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0002-first-session-read-only.html">Phase 1 第 02 課 — 安裝 Claude Code，開第一個 session</a>。先把工具裝好、登入、確認權限模式；下一步才進工作 repo 做唯讀導覽。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Get started with Claude Design</a> 與 <a href="https://code.claude.com/docs/en/quickstart">Claude Code Quickstart</a>（官方）— 先看兩種工作表面的交接邊界。</p>
+<p>下一課：<a href="001-0002-first-session-read-only.html">Phase 1 第 02 課 — 安裝 Claude Code，開第一個 session</a>。先把工具裝好、登入、確認權限模式；下一步才進工作程式庫做唯讀導覽。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design">Get started with Claude Design</a> 與 <a href="https://code.claude.com/docs/en/quickstart">Claude Code Quickstart</a>（官方）。先看兩種工作表面的交接邊界。</p>
 
 <footer>
   不確定怎麼選時，把工作內容與資料所在位置交給 Claude Code，請它說明建議入口與理由。<br>

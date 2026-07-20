@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>05：把大型調查交給另一個 agent（Subagents）</title>
+<title>05：把大型調查交給子代理（Subagents）</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
   .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
@@ -31,50 +31,50 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 2 · 第 05 課 · 約 15 分鐘 · Context 隔離</div>
-<h1>把大型調查交給另一個 agent（Subagents）</h1>
+<div class="kicker">Phase 2 · 第 05 課 · 約 15 分鐘 · 對話脈絡隔離</div>
+<h1>把大型調查交給子代理（Subagents）</h1>
 <p class="mission"><strong>本課成果：</strong>一份由子代理（subagent）完成、回到主工作階段的調查摘要。</p>
-<div class="scope"><strong>本課只做：</strong>把大型調查交給隔離 context 的 subagent。<br><strong>先不要做：</strong>把需要即時決策的主線工作丟給 subagent 後放著不管。</div>
+<div class="scope"><strong>本課只做：</strong>把大型調查交給有獨立對話脈絡的子代理（subagent）。<br><strong>先不要做：</strong>把需要即時決策的主線工作丟給子代理後放著不管。</div>
 
 
-<h2>為什麼需要 subagent</h2>
-<p>調查一個子系統常會讀很多檔案；如果全部塞進主對話，後續實作就容易變慢、變亂。subagent 在自己的 context 裡探索，主對話只收摘要。</p>
-<pre>主對話：用 subagent 調查 token refresh 流程。
-subagent：在獨立 context 讀檔與整理。
+<h2>為什麼需要子代理</h2>
+<p>調查一個子系統常會讀很多檔案；如果全部塞進主對話，後續實作就容易變慢、變亂。子代理在自己的對話脈絡中探索，主對話只接收摘要。</p>
+<pre>主對話：用子代理調查 token refresh 流程。
+子代理：在獨立對話脈絡中讀檔與整理。
 主對話：只收到結論、檔案依據與風險。</pre>
-<div class="tip">判斷句：如果任務只是「為主任務蒐集資訊」，先想 subagent；如果它要獨立改檔，改用 worktree session。</div>
+<div class="tip">判斷句：如果任務只是替主任務蒐集資訊，先考慮子代理（subagent）；如果需要獨立改檔，改用工作樹工作階段（worktree session）。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
   <label><input type="checkbox"> 1. 選一個你不熟的子系統</label>
-  <p>例如 auth、billing、cache、routing。不要選整個 repo。</p>
+  <p>例如登入驗證、計費、快取、路由。不要選整個程式庫。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 2. 明確委派調查</label>
-  <pre>Use a subagent to investigate how [子系統] works.
+  <pre>使用子代理調查 [子系統] 的運作方式。
 Return only: summary, key files, risks, open questions.</pre>
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 驗證摘要</label>
-  <p>抽查它列出的 2–3 個 key files，確認摘要不是空泛推論。</p>
+  <p>抽查它列出的 2–3 個關鍵檔案，確認摘要不是空泛推論。</p>
 </div>
 
 <div class="done-banner" id="done"><strong>完成條件：</strong>子代理摘要列出調查範圍、證據路徑與結論，主工作階段只保留需要的結果。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="2">
-  <p>1. 調查會讀大量檔案時，不用 subagent 的主要代價是？</p>
+  <p>1. 調查會讀大量檔案時，不用子代理的主要代價是？</p>
   <button>增加不必要的權限請求次數</button>
   <button>降低主要模型成本</button>
-  <button>汙染主對話 context</button>
-  <div class="why">subagent 的核心價值是 context 隔離。</div>
+  <button>汙染主對話脈絡</button>
+  <div class="why">子代理最大的用途，是把調查脈絡與主對話分開。</div>
 </div>
 <div class="quiz" data-answer="0">
   <p>2. 子任務只需要回報摘要，不改檔，適合？</p>
-  <button>開一個 subagent</button>
-  <button>開一個 worktree</button>
-  <button>開一個 CI job</button>
-  <div class="why">調查與摘要是 subagent 的典型場景。</div>
+  <button>開一個子代理</button>
+  <button>開一個工作樹</button>
+  <button>開一個 CI 工作（job）</button>
+  <div class="why">調查與摘要是子代理的典型場景。</div>
 </div>
 
 <h2>下一步</h2>

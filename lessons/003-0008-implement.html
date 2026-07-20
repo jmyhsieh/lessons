@@ -67,13 +67,13 @@
   <p>用 <code>/tdd</code> 保留紅燈到綠燈（RED → GREEN）的證據。測試必須能在需求被破壞時失敗，才算保護到這次修改。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 4. 審查 diff 與驗證結果</label>
-  <p>先看 <code>git diff</code>，確認沒有範圍外修改；再執行 repo 規定的測試、型別檢查或 lint。未執行的檢查要留下原因。</p>
+  <label><input type="checkbox"> 4. 審查程式差異與驗證結果</label>
+  <p>先看 <code>git diff</code>，確認沒有範圍外修改；再執行程式庫規定的測試、型別檢查或程式碼檢查。未執行的檢查要留下原因。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 5. 完成程式碼審查</label>
   <pre>/code-review [審查起點]</pre>
-  <p>提供 commit、branch、tag 或 merge-base 作為審查起點。處理審查發現後，再建立可指回工作項目與驗收結果的 commit。</p>
+  <p>提供提交、分支、標籤或合併基準作為審查起點。處理審查發現後，再建立可指回工作項目與驗收結果的提交。</p>
 </div>
 
 <div class="done-banner" id="done">
@@ -92,7 +92,7 @@
   <p>2. Claude Code 修改了工作項目以外的檔案，第一步該做什麼？</p>
   <button>直接接受，讓它一次完成更多工作</button>
   <button>查看 git diff，確認原因並收回原本範圍</button>
-  <button>跳過測試，先建立 commit</button>
+  <button>跳過測試，先建立提交</button>
   <div class="why"><code>git diff</code> 能讓你看見實際變更，並及早阻止範圍膨脹。</div>
 </div>
 <div class="quiz" data-answer="1">

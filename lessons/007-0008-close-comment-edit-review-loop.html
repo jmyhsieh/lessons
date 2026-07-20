@@ -13,16 +13,16 @@
 <div class="kicker">Phase 7 · 進階第 08 課 · 約 15 分鐘</div>
 <h1>關閉一則視覺回饋</h1>
 <p class="mission"><strong>本課成果：</strong>一則從瀏覽器留言到程式差異審查都已關閉的回饋。</p>
-<div class="rule"><strong>留言只是需求：</strong><code>/apply-comments</code> 會把檢查器標記轉成程式碼修改；你仍要審查 diff 與新畫面。</div>
+<div class="rule"><strong>留言只是需求：</strong><code>/apply-comments</code> 會把檢查器標記轉成程式碼修改；你仍要審查程式差異與新畫面。</div>
 <h2>關閉一次視覺回饋迴圈</h2>
 <div class="step"><label><input type="checkbox"> 1. 留下一則可執行留言</label><p>在檢查器選一個元素，描述可觀察問題與期望，例如「標題在投影時太小，請提高到簡報標題尺寸」。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 請 Claude Code 套用並審查</label><p>使用 <code>/apply-comments</code>；你要檢查標記、實際 diff 與是否意外改到其他頁。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 請 Claude Code 套用並審查</label><p>使用 <code>/apply-comments</code>；你要檢查標記、實際程式差異與是否意外改到其他頁。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 請它重建，你重新開啟</label><p>刷新開發伺服器，確認留言已清除且問題改善；再讓 Claude Code 執行建置，留下前後證據。</p></div>
-<div class="done" id="done"><strong>完成：</strong>你已把一則視覺回饋轉成受控 diff，並用新畫面與建置結果關閉迴圈。</div>
-<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Inspector comment 之後，完整流程是什麼？</p><button>留言修改重新驗證</button><button>留言之後直接發布</button><button>只看模型完成回覆</button><div class="why">Comment 只有在變成可 review diff，並由新畫面與 build 再次驗證後才算關閉。</div></div>
-<h2>關鍵判斷</h2><p>好的回饋迴圈讓留言、程式碼 diff 與瀏覽器證據能一一對應。</p>
+<div class="done" id="done"><strong>完成：</strong>你已把一則視覺回饋轉成受控的程式差異，並用新畫面與建置結果關閉迴圈。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>檢查器留言之後，完整流程是什麼？</p><button>留言修改重新驗證</button><button>留言之後直接發布</button><button>只看模型完成回覆</button><div class="why">留言只有轉成可審查的程式差異，並由新畫面與建置再次驗證後才算關閉。</div></div>
+<h2>關鍵判斷</h2><p>好的回饋迴圈讓留言、程式差異與瀏覽器證據能一一對應。</p>
 <p><strong>主要閱讀：</strong><a href="https://open-slide.dev/docs/skills/apply-comments">open-slide — /apply-comments</a>。</p>
-<footer>上一課：<a href="007-0007-audit-sources-and-accessibility.html">稽核來源與無障礙</a> · 下一課：<a href="007-0009-package-and-deploy-safely.html">安全封裝與部署</a><br>把 Claude Code 的 diff、留言與新畫面貼回 Claude Code，請它檢查是否真的關閉。</footer>
+<footer>上一課：<a href="007-0007-audit-sources-and-accessibility.html">稽核來源與無障礙</a> · 下一課：<a href="007-0009-package-and-deploy-safely.html">安全封裝與部署</a><br>把 Claude Code 產生的程式差異、留言與新畫面貼回 Claude Code，請它檢查問題是否真的關閉。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

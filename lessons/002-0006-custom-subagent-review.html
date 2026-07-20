@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>06：建立專門負責 review 的 agent（custom subagent）</title>
+<title>06：建立專門負責審查的自訂子代理</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
   .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
@@ -31,19 +31,19 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 2 · 第 06 課 · 約 20 分鐘 · Review agent</div>
-<h1>建立專門負責 review 的 agent（custom subagent）</h1>
+<div class="kicker">Phase 2 · 第 06 課 · 約 20 分鐘 · 審查代理</div>
+<h1>建立專門負責審查的自訂子代理（custom subagent）</h1>
 <p class="mission"><strong>本課成果：</strong>一份由唯讀審查代理產生、能對照程式差異的審查結果。</p>
-<div class="scope"><strong>本課只做：</strong>建立一個窄範圍、專門 review 的 agent。<br><strong>先不要做：</strong>讓 reviewer agent 同時負責修 code 與批准自己。</div>
+<div class="scope"><strong>本課只做：</strong>建立一個範圍明確、專門審查的代理。<br><strong>先不要做：</strong>讓審查代理同時負責修程式碼與批准自己。</div>
 
 
-<h2>獨立 review 的價值</h2>
-<p>寫 code 的 session 會受自己的推理歷程影響。reviewer subagent 只看 diff、需求與標準，立場更乾淨。</p>
-<pre>Use a reviewer subagent to review this diff against PLAN.md.
-Only report correctness gaps, missing tests, or scope creep.</pre>
-<div class="tip">要求「只回報影響正確性的缺口」，避免 review 變成風格偏好清單。</div>
+<h2>獨立審查的價值</h2>
+<p>撰寫程式碼的工作階段會受自己的推理歷程影響。審查子代理只看程式差異、需求與標準，立場更乾淨。</p>
+<pre>請使用審查子代理，依 PLAN.md 審查這份程式差異。
+只回報正確性缺口、缺少的測試或範圍擴張。</pre>
+<div class="tip">要求「只回報影響正確性的缺口」，避免審查變成風格偏好清單。</div>
 
-<h2>最小 reviewer 定義</h2>
+<h2>最小審查代理定義</h2>
 <pre>---
 name: repo-reviewer
 description: Reviews diffs for correctness gaps and missing tests
@@ -51,38 +51,38 @@ tools: Read, Grep, Glob
 ---
 Review against the stated task and existing repo conventions.
 Report only actionable issues with file references.</pre>
-<p>reviewer 不給 Edit。這是職責分離：它提出問題，主 session 決定怎麼修。</p>
+<p>審查代理不給 Edit。這是職責分離：它提出問題，主工作階段決定怎麼修。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
-  <label><input type="checkbox"> 1. 建立 reviewer subagent</label>
+  <label><input type="checkbox"> 1. 建立審查子代理</label>
   <p>CLI 可用 <code>/agents</code> 建立；Desktop App 或手動設定時，在 <code>.claude/agents/</code> 建檔。工具只給唯讀。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 2. 拿一個真 diff 測試</label>
-  <p>給它任務 brief、diff 與明確審查標準。</p>
+  <label><input type="checkbox"> 2. 拿一個真實程式差異測試</label>
+  <p>給它任務摘要、程式差異與明確審查標準。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 3. 分類 review 結果</label>
-  <p>標出哪些是正確性缺口、哪些只是建議。只把前者帶回主 session。</p>
+  <label><input type="checkbox"> 3. 分類審查結果</label>
+  <p>標出哪些是正確性缺口、哪些只是建議。只把前者帶回主工作階段。</p>
 </div>
 
 <div class="done-banner" id="done"><strong>完成條件：</strong>唯讀審查代理已對照實際差異產生結果，每個問題都有檔案位置與理由。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1">
-  <p>1. reviewer subagent 為什麼不給 Edit？</p>
-  <button>避免 reviewer 讀懂 code</button>
-  <button>維持 review 與修復的角色分工</button>
-  <button>因為 reviewer 沒有 Edit</button>
+  <p>1. 審查子代理為什麼不給 Edit？</p>
+  <button>避免審查代理讀懂程式碼</button>
+  <button>維持審查與修復的角色分工</button>
+  <button>因為審查代理沒有 Edit</button>
   <div class="why">審查者不該同時有筆，否則角色混在一起。</div>
 </div>
 <div class="quiz" data-answer="2">
-  <p>2. 同一 session 寫完後直接叫它 review，主要缺點是？</p>
-  <button>會自動刪除 diff</button>
+  <p>2. 同一個工作階段寫完後直接叫它審查，主要缺點是？</p>
+  <button>會自動刪除程式差異</button>
   <button>不能讀任何檔案</button>
   <button>容易偏袒剛寫的解法</button>
-  <div class="why">乾淨 context 的 reviewer 更像第二雙眼睛。</div>
+  <div class="why">讓審查代理用新的對話脈絡重看一次，才比較接近獨立審查。</div>
 </div>
 
 <h2>下一步</h2>

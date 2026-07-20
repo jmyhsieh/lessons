@@ -8,11 +8,11 @@
 <p class="mission"><strong>本課成果：</strong>一張符號地圖，包含一個定義、兩個引用位置與人工核對結果。</p>
 <div class="rule"><strong>第一次只做唯讀探索：</strong>Serena 能依程式語言理解符號與引用關係。本課不改程式碼，也不假設工具已經找出所有引用。</div>
 <h2>追一個真實程式符號</h2>
-<div class="step"><label><input type="checkbox"> 1. 選一個有程式碼的 repo</label><p>不要用純靜態 HTML 教材練習。改選一個以 Serena 支援語言開發的真實 repo，再挑一個你知道名字的函式、類別或方法。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 請 Claude Code 查目前官方安裝方式</label><pre>請先閱讀 Serena 官方 README 的 Quick Start，檢查這個 repo 的語言與環境。
+<div class="step"><label><input type="checkbox"> 1. 選一個有程式碼的程式庫</label><p>不要用純靜態 HTML 教材練習。改選一個以 Serena 支援語言開發的真實程式庫，再挑一個你知道名字的函式、類別或方法。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 請 Claude Code 查目前官方安裝方式</label><pre>請先閱讀 Serena 官方 README 的 Quick Start，檢查這個程式庫的語言與環境。
 請依目前官方文件提出安裝、初始化與 Claude Code 連接步驟，先不要執行。
 不要使用第三方 MCP 市集提供的舊命令。
-第一次只允許 Serena 讀取這個 repo，並查找符號定義（symbol definition）與引用（references）。</pre><p>目前官方建議先執行 <code>uv tool install -p 3.13 serena-agent</code> 與 <code>serena init</code>；實際連接方式請以操作當天的官方文件為準。</p></div>
+第一次只允許 Serena 讀取這個程式庫，並查找符號定義（symbol definition）與引用（references）。</pre><p>目前官方建議先執行 <code>uv tool install -p 3.13 serena-agent</code> 與 <code>serena init</code>；實際連接方式請以操作當天的官方文件為準。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 找定義與兩個引用，再用原始檔核對</label><pre>符號：____________________________
 定義位置：________________________
 引用一：__________________________

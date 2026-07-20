@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>11：跑一輪 accessibility audit</title>
+<title>11：跑一輪無障礙檢查（accessibility audit）</title>
 <style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#6a4c93;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#6a4c93}.mission{font-style:italic;color:#555;border-left:3px solid #6a4c93;padding-left:1rem}.rule{background:#f8f5fc;border-left:4px solid #6a4c93;padding:.75rem 1rem}.step,.quiz{border:1px solid #d8cce7;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}a{color:#593c82}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d8cce7;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f8f5fc;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #d8cce7;padding-top:1rem}
 </style><link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design">
 </head>
 <body><p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p><div class="kicker">Phase 4 · 進階第 11 課 · 約 15–20 分鐘</div>
-<h1>跑一輪 accessibility audit</h1><p class="mission"><strong>本課成果：</strong>一份小介面的無障礙檢查紀錄，分清 Claude Code 建議與真人實測證據。</p>
-<div class="rule"><strong>模型 review 只是待查清單：</strong>真正證據來自你實際操作、瀏覽器工具與使用者輔助技術；不要讓 Claude 自評取代測試。</div>
-<h2>三個 focused checks</h2>
+<h1>跑一輪無障礙檢查（accessibility audit）</h1><p class="mission"><strong>本課成果：</strong>一份小介面的無障礙檢查紀錄，分清 Claude Code 建議與真人實測證據。</p>
+<div class="rule"><strong>模型審查只能產生待查清單：</strong>真正的證據來自實際操作、瀏覽器工具與輔助技術測試；不要讓 Claude 自評取代測試。</div>
+<h2>三項重點檢查</h2>
 <div class="step"><label><input type="checkbox"> 1. 請 Claude Code 只讀列檢查點</label><p>讓它依現有頁面與 W3C Easy Checks 列出鍵盤、200% 縮放、名稱／狀態／顏色三組檢查，不要先宣稱通過。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 由你實際操作</label><p>只用鍵盤走完主要任務，再放大到 200%；確認焦點、順序、內容與主要動作仍可用。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 把實測結果交回 Claude Code</label><p>逐項記錄 pass／issue 與 evidence，讓它只修一個 blocker；名稱、狀態與重要差異不能只靠顏色。</p></div>
-<div class="done" id="done"><strong>完成：</strong>你已留下三類 accessibility evidence，並能分清楚模型建議與實際驗證。</div>
-<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>哪一項才是 accessibility 實際證據？</p><button>鍵盤走完主要任務</button><button>只看模型自我評分</button><button>只看一張桌面截圖</button><div class="why">實際以鍵盤完成任務能揭露焦點、順序與操作問題；模型或截圖只能提供線索。</div></div>
-<h2>關鍵判斷</h2><p>Focused audit 不等於完整合規認證，但能提早阻止會卡住主要任務的問題進入 handoff。</p>
+<div class="step"><label><input type="checkbox"> 3. 把實測結果交回 Claude Code</label><p>逐項記錄通過、問題與實測證據，讓它只修一個會阻擋任務的問題；名稱、狀態與重要差異不能只靠顏色。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已留下三類無障礙實測證據，並能分清楚模型建議與實際驗證。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>哪一項才是無障礙實測證據？</p><button>鍵盤走完主要任務</button><button>只看模型自我評分</button><button>只看一張桌面截圖</button><div class="why">實際以鍵盤完成任務能揭露焦點、順序與操作問題；模型或截圖只能提供線索。</div></div>
+<h2>關鍵判斷</h2><p>重點檢查不等於完整合規認證，但能提早阻止會卡住主要任務的問題進入交接。</p>
 <p><strong>主要閱讀：</strong><a href="https://www.w3.org/WAI/test-evaluate/preliminary/">W3C WAI — Easy Checks</a>。</p>
-<footer>上一課：<a href="004-0010-specify-states-and-responsive-rules.html">狀態矩陣</a> · 下一課：<a href="004-0012-build-implementation-ready-handoff.html">建立進階 handoff</a><br>把 checklist 與實測 evidence 貼回 Claude Code，請它分辨模型建議與真人證據。</footer>
+<footer>上一課：<a href="004-0010-specify-states-and-responsive-rules.html">狀態矩陣</a> · 下一課：<a href="004-0012-build-implementation-ready-handoff.html">建立進階交接</a><br>把檢查清單與實測證據貼回 Claude Code，請它分辨模型建議與真人證據。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

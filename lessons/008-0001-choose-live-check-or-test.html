@@ -13,19 +13,19 @@
 <div class="kicker">Phase 8 · 入門第 01 課 · 約 10 分鐘</div>
 <h1>判斷即時查核或持久測試</h1>
 <p class="mission"><strong>本課成果：</strong>一張瀏覽器證據選路卡，指出這條路徑需要即時查核或持久測試。</p>
-<div class="rule"><strong>先分兩種結果：</strong>Playwright MCP 適合讓 Claude Code 當下操作真實瀏覽器；Playwright Test 才是能提交、重跑與放進 CI 的持久測試。即時查核成功，不等於 repo 已有測試。</div>
-<h2>做一張 route decision card</h2>
-<div class="step"><label><input type="checkbox"> 1. 先請 Claude Code 只讀檢查</label><p>在 plan mode 請它讀 <code>AGENTS.md</code>、README、啟動命令與既有 tests，不要改檔；列出一條使用者最在意的 browser path。</p></div>
+<div class="rule"><strong>先分兩種結果：</strong>Playwright MCP 適合讓 Claude Code 當下操作真實瀏覽器；Playwright Test 才是能提交、重跑與放進 CI 的持久測試。即時查核成功，不等於程式庫已有測試。</div>
+<h2>做一張路線判斷卡</h2>
+<div class="step"><label><input type="checkbox"> 1. 先請 Claude Code 只讀檢查</label><p>在規劃模式請它讀 <code>AGENTS.md</code>、README、啟動命令與既有測試，不要改檔；列出一條使用者最在意的瀏覽器路徑。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 指定開始、動作與結果</label><p>寫下 URL、使用者動作與可觀察結果，例如「從課目表點入 Phase 8，應看見第 01 課標題」。避免只寫「網站正常」。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 選擇這次要留的證據</label><p>只想現在確認就選 MCP live check；要防止回歸就選 committed Playwright Test。若已使用 Claude in Chrome，也可做 live check，但仍不能取代 test。</p></div>
-<pre>請先只讀檢查這個 repo 的操作規範、啟動方式與既有 tests。
-提出一條高價值 browser path，寫出開始 URL、使用者動作、可觀察結果，
-並建議這次應做 Playwright MCP live check 或 committed Playwright Test。不要改檔。</pre>
-<div class="done" id="done"><strong>完成：</strong>你已有一張寫清楚路徑、證據種類與停止線的 route decision card。</div>
-<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Claude Code 用 MCP 成功操作一次頁面，代表什麼？</p><button>即時查核不等於持久測試</button><button>模型看過就等於測試完成</button><button>所有瀏覽器任務都要自動</button><div class="why">Live check 是當下觀察；只有把可重跑 test 寫進 repo、執行並審查，才形成持久回歸證據。</div></div>
+<div class="step"><label><input type="checkbox"> 3. 選擇這次要留的證據</label><p>只想現在確認就選 MCP 即時查核；要防止回歸就選已提交的 Playwright Test。若已使用 Claude in Chrome，也可做即時查核，但仍不能取代測試。</p></div>
+<pre>請先只讀檢查這個程式庫的操作規範、啟動方式與既有測試。
+提出一條高價值瀏覽器路徑，寫出開始 URL、使用者動作、可觀察結果，
+並建議這次應做 Playwright MCP 即時查核或已提交的 Playwright Test。不要改檔。</pre>
+<div class="done" id="done"><strong>完成：</strong>你已有一張寫清楚操作路徑、證據種類與停止線的路線判斷卡。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Claude Code 用 MCP 成功操作一次頁面，代表什麼？</p><button>即時查核不等於持久測試</button><button>模型看過就等於測試完成</button><button>所有瀏覽器任務都要自動</button><div class="why">即時查核是當下觀察；只有把可重跑測試寫進程式庫、執行並審查，才形成持久回歸證據。</div></div>
 <h2>關鍵判斷</h2><p>先決定要回答「現在正常嗎」或「以後壞了會知道嗎」，再請 Claude Code 選工具。</p>
-<p><strong>主要閱讀：</strong><a href="https://playwright.dev/mcp/installation">Playwright MCP — Installation</a>；替代 live surface 可看 <a href="https://code.claude.com/docs/en/chrome">Claude Code — Chrome</a>。</p>
-<footer>來自 Phase 7：<a href="007-0009-package-and-deploy-safely.html">可信 web output</a> · 下一課：<a href="008-0002-connect-playwright-mcp-to-claude-code.html">把 Playwright MCP 接到 Claude Code</a><br>把 route decision card 貼回 Claude Code，請它檢查證據種類是否選對。</footer>
+<p><strong>主要閱讀：</strong><a href="https://playwright.dev/mcp/installation">Playwright MCP — Installation</a>；另一種即時操作方式可參考 <a href="https://code.claude.com/docs/en/chrome">Claude Code — Chrome</a>。</p>
+<footer>來自 Phase 7：<a href="007-0009-package-and-deploy-safely.html">可信的網頁輸出</a> · 下一課：<a href="008-0002-connect-playwright-mcp-to-claude-code.html">把 Playwright MCP 接到 Claude Code</a><br>把路線判斷卡貼回 Claude Code，請它檢查證據種類是否選對。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

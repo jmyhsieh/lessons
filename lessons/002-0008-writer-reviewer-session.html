@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>08：用兩個 session 分工寫作與審查</title>
+<title>08：用兩個工作階段分工撰寫與審查</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
   .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
@@ -42,20 +42,20 @@
 <h2>雙工作階段流程</h2>
 <table>
 <tr><th>撰寫工作階段</th><th>審查工作階段</th></tr>
-<tr><td>在撰寫用 worktree 實作、驗證，建立檢查點 commit。</td><td></td></tr>
-<tr><td></td><td>在另一個 worktree 以明確起點與撰寫分支讀取同一份已提交 diff。</td></tr>
+<tr><td>在撰寫用工作樹實作、驗證，建立檢查點提交。</td><td></td></tr>
+<tr><td></td><td>在另一個工作樹以明確起點與撰寫分支讀取同一份已提交的程式差異。</td></tr>
 <tr><td>逐項處理審查意見。</td><td></td></tr>
 </table>
-<div class="scope"><strong>為什麼要檢查點 commit：</strong>不同 worktree 共用 Git 物件與 refs，但不共用未提交的工作目錄變更。若撰寫者只留下未提交 diff，審查用 worktree 看不到那份內容。</div>
+<div class="scope"><strong>為什麼要檢查點提交：</strong>不同工作樹共用 Git 物件與參照（refs），但不共用尚未提交的工作目錄變更。若撰寫者只留下未提交的程式差異，審查用工作樹看不到那份內容。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
   <label><input type="checkbox"> 1. 撰寫者完成一個小任務</label>
-  <p>完成探索、實作、驗證與 diff 審查，然後在撰寫分支建立檢查點 commit。先記下審查起點與撰寫分支，例如 <code>main</code> 與 <code>claude/task-name</code>。</p>
+  <p>完成探索、實作、驗證與程式差異審查，然後在撰寫分支建立檢查點提交。先記下審查起點與撰寫分支，例如 <code>main</code> 與 <code>claude/task-name</code>。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 2. 審查者先驗證 diff 範圍</label>
-  <p>在另一個 worktree 的乾淨工作階段，不必切換到撰寫分支；用明確 refs 取得已提交 diff，先確認檔案清單正是要審的範圍：</p>
+  <label><input type="checkbox"> 2. 審查者先驗證程式差異範圍</label>
+  <p>在另一個工作樹的乾淨工作階段，不必切換到撰寫分支；用明確參照取得已提交的程式差異，先確認檔案清單正是要審的範圍：</p>
   <pre>git diff --stat main...claude/task-name
 git diff main...claude/task-name</pre>
 </div>
@@ -71,7 +71,7 @@ missing tests, or scope creep.</pre>
 </div>
 <div class="step">
   <label><input type="checkbox"> 5. 再跑驗證</label>
-  <p>修完審查意見後，重新跑原本的成功條件，並用新 commit 或 amend 更新撰寫分支。若 diff refs 改變，審查者必須重新讀取新的已提交 diff。</p>
+  <p>修完審查意見後，重新跑原本的成功條件，並用新提交或修訂提交（amend）更新撰寫分支。若程式差異的參照改變，審查者必須重新讀取新的已提交程式差異。</p>
 </div>
 
 <div class="done-banner" id="done"><strong>完成條件：</strong>撰寫者交付內容與審查者意見分開保存，修正後的差異已再次核對。</div>
@@ -81,8 +81,8 @@ missing tests, or scope creep.</pre>
   <p>1. 雙工作階段比同一對話直接審查的主要優點是？</p>
   <button>降低撰寫者執行成本</button>
   <button>保持審查者脈絡乾淨</button>
-  <button>省略 verification 流程</button>
-  <div class="why">乾淨 context 比「自己檢查自己」更接近獨立審查。</div>
+  <button>省略驗證流程</button>
+  <div class="why">乾淨的對話脈絡比「自己檢查自己」更接近獨立審查。</div>
 </div>
 <div class="quiz" data-answer="2">
   <p>2. 審查者回報很多建議時，第一步是？</p>

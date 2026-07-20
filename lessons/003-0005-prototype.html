@@ -54,7 +54,7 @@
 <p>原型是用來回答問題、完成後可以丟棄的程式碼；問題會決定原型的形狀。所以第一步是<strong>選分支</strong>：</p>
 <table>
 <tr><th>你的問題</th><th>分支</th><th>產出</th></tr>
-<tr><td>「這個邏輯／狀態模型對嗎？」</td><td><strong>LOGIC</strong></td><td>小型互動<strong>終端機 app</strong>，把狀態機推過紙上難想的案例</td></tr>
+<tr><td>「這個邏輯／狀態模型對嗎？」</td><td><strong>LOGIC</strong></td><td>小型互動<strong>終端機小程式</strong>，把狀態機推過紙上難想的案例</td></tr>
 <tr><td>「這東西該長什麼樣？」</td><td><strong>UI</strong></td><td>同一個路由上<strong>數種差異極大的 UI 變體</strong>，用 URL 參數＋浮動列切換</td></tr>
 </table>
 <div class="safety"><strong>選錯分支等於整個原型白做</strong>（工作技能原文）。問題若真的模糊且你不在線上，它會依周邊程式碼預設（後端模組→logic，頁面/元件→UI）並在原型開頭註明假設 — 但最好你自己先想清楚要回答哪個問題。</div>
@@ -62,13 +62,13 @@
 <h2>兩個分支都遵守的鐵律</h2>
 <ol>
   <li><strong>第一天就是拋棄式，且標明</strong> — 放在它將被使用的程式碼旁（脈絡清楚），但命名要讓人一眼看出是原型不是正式碼。</li>
-  <li><strong>一個指令就能跑</strong> — 用 repo 既有的工作執行工具，使用者不用猜怎麼啟動。</li>
+  <li><strong>一個指令就能跑</strong> — 用程式庫既有的工作執行工具，使用者不用猜怎麼啟動。</li>
   <li><strong>預設不持久化</strong> — 狀態存記憶體。持久化是原型要<em>檢驗</em>的東西，不是它該依賴的。</li>
   <li><strong>跳過所有打磨</strong> — 無測試、無錯誤處理（除了能跑起來所需）、無抽象。重點是快速學到東西。</li>
   <li><strong>把狀態攤開</strong> — 每個動作後（logic）或每次切換變體後（UI），印出/渲染完整相關狀態，讓你看見變化。</li>
-  <li><strong>吸收決策、保存證據</strong> — 把驗證過的決策放進正式程式碼；完整原型則提交到不會合併的拋棄式分支，並在實作 issue 留下連結。</li>
+  <li><strong>吸收決策、保存證據</strong> — 把驗證過的決策放進正式程式碼；完整原型則提交到不會合併的拋棄式分支，並在實作議題留下連結。</li>
 </ol>
-<div class="tip"><strong>完成後留下兩樣東西：</strong>把「問題＋結論」寫進 issue、commit 或 ADR；原型則是產生答案的第一手證據，留在不會合併的拋棄式分支供未來重跑。main 只保留正式實作。</div>
+<div class="tip"><strong>完成後留下兩樣東西：</strong>把「問題＋結論」寫進議題、提交或 ADR；原型則是產生答案的第一手證據，留在不會合併的拋棄式分支供未來重跑。main 只保留正式實作。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 
@@ -90,12 +90,12 @@
 
 <div class="step">
   <label><input type="checkbox"> 4. 記下答案</label>
-  <p>玩出結論後，把「問題＋結論」寫進耐久處。只有決策同時難以回頭、缺少背景會令人意外，而且是實際取捨的結果時才寫 ADR；缺一就寫進實作 issue 或 commit。</p>
+  <p>玩出結論後，把「問題＋結論」寫進耐久處。只有決策同時難以回頭、缺少背景會令人意外，而且是實際取捨的結果時才寫 ADR；缺一就寫進實作議題或提交紀錄。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 5. 吸收決策、保存第一手證據</label>
-  <p>把驗證過的設計放進正式程式碼；接著把完整原型提交到不會合併的拋棄式分支，從 main 移除原型，並在實作 issue 留下分支連結。然後用 <code>/handoff</code> 把答案帶回主線。</p>
+  <p>把驗證過的設計放進正式程式碼；接著把完整原型提交到不會合併的拋棄式分支，從 main 移除原型，並在實作議題留下分支連結。然後用 <code>/handoff</code> 把答案帶回主線。</p>
 </div>
 
 <div class="done-banner" id="done">
@@ -105,7 +105,7 @@
 <h2>觀念檢查（憑記憶作答）</h2>
 
 <div class="quiz" data-answer="1">
-  <p>1. prototype 預設不做持久化（state 存記憶體）的理由是？</p>
+  <p>1. 原型預設不做持久化（狀態只放在記憶體）的理由是？</p>
   <button>因為原型的執行時間很短，不需要存檔</button>
   <button>持久化是原型要檢驗的對象，不是依賴</button>
   <button>因為寫資料庫會讓原型跑得比較慢</button>
@@ -117,7 +117,7 @@
   <button>只保留口頭結論並刪除全部原型證據</button>
   <button>把完整原型直接合併到 main</button>
   <button>保存結論以及不會合併的拋棄式分支</button>
-  <div class="why">正式決策進 main，完整原型留在不會合併的拋棄式分支，issue 再指向它。</div>
+  <div class="why">正式決策進 main，完整原型留在不會合併的拋棄式分支，議題再指向它。</div>
 </div>
 
 <div class="quiz" data-answer="0">
@@ -125,12 +125,12 @@
   <button>LOGIC：驗證狀態與轉換</button>
   <button>UI：比較互動畫面呈現細節</button>
   <button>兩者：同時實作兩種類型</button>
-  <div class="why">狀態／邏輯問題 → LOGIC 分支。prototype 用可跑的狀態機驗證它在邊界案例下行不行得通；這是本課剛建立的分支判斷，不是假裝成前課的 retrieval。</div>
+  <div class="why">狀態／邏輯問題 → LOGIC 分支。原型用可執行的狀態機驗證它在邊界案例下行不行得通；這是本課剛建立的分支判斷，不是硬把前課包裝成提取練習。</div>
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。若是 多工作階段 build，下一課進入 <a href="003-0006-to-spec.html">Phase 3 第 06 課 — 用 /to-spec把對話凝結成規格</a>；若單一工作階段足以完成，帶著答案直接回 <code>/implement</code>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/prototype/SKILL.md">reviewed prototype snapshot（66898f6）</a> 與同 snapshot 的 LOGIC.md／UI.md；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/prototype/SKILL.md">current prototype</a>。</p>
+<p>完成後回對話視窗回報。若工作需要跨多個工作階段完成，下一課進入 <a href="003-0006-to-spec.html">Phase 3 第 06 課 — 用 /to-spec 把對話凝結成規格</a>；若單一工作階段足以完成，帶著答案直接回 <code>/implement</code>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/prototype/SKILL.md">reviewed prototype snapshot（66898f6）</a> 與同一版本快照的 LOGIC.md／UI.md；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/prototype/SKILL.md">current prototype</a>。</p>
 
 <footer>
   原型沒有回答問題時，交出原始設計問題、操作結果與觀察紀錄，請 Claude Code 判斷要縮小問題還是修改實驗。<br>

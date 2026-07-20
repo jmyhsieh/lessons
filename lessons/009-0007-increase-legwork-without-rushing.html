@@ -16,8 +16,8 @@
 <div class="rule"><strong>實際查找與驗證工作（legwork）：</strong>Claude 在一個步驟內讀檔、查找、核對與驗證的工作。後續步驟看得太清楚時，Claude 可能急著往終點走；但優先做法是先把目前步驟的完成條件寫得清楚、可檢查，而且要求足夠的證據。</div>
 
 <h2>先診斷，不急著拆</h2>
-<div class="step"><label><input type="checkbox"> 1. 找一個過早收尾的證據</label><p>例如 <code>/repo-checkpoint</code> 只看聊天摘要，沒有檢查目前 diff；或寫了 Verified 卻沒有指出用哪個命令與輸出確認。若沒有觀察到過早收尾，就記錄「目前不需處理」，不要為了練習硬拆。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 收緊完成條件</label><p>把「產生一份完整 checkpoint」改成可逐項核對的全集：</p>
+<div class="step"><label><input type="checkbox"> 1. 找一個過早收尾的證據</label><p>例如 <code>/repo-checkpoint</code> 只看聊天摘要，沒有檢查目前的程式差異；或寫了 Verified 卻沒有指出用哪個命令與輸出確認。若沒有觀察到過早收尾，就記錄「目前不需處理」，不要為了練習硬拆。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 收緊完成條件</label><p>把「產生一份完整檢查點」改成可逐項核對的全集：</p>
 <pre>Completion criterion: every modified file is represented in Changed,
 and every relevant check is identified as passed, failed, skipped, or unrun
 with the evidence available in this session.</pre><p>先在新的 Claude Code 對話重跑，檢查缺漏是否消失。</p></div>
@@ -28,7 +28,7 @@ with the evidence available in this session.</pre><p>先在新的 Claude Code �
 <div class="quiz" data-answer="1"><p>Claude 在第一步太快結束，應先做什麼？</p><button>立刻把每一個步驟都拆成新 Skill</button><button>先把目前步驟的完成條件寫得可檢查</button><button>加入更多模糊形容詞要求它更加仔細</button><div class="why">先收緊完成條件是局部、低成本的第一手段。只有條件難以再明確，而且新對話的執行證據仍顯示過早收尾，才值得付出拆分的代價。</div></div>
 <h2>關鍵判斷</h2><p>增加實際查找與驗證工作，要靠完成條件要求 Claude 真的讀、查、驗證並交代完整結果。</p>
 <p><strong>主要閱讀：</strong><a href="https://www.youtube.com/watch?v=UNzCG3lw6O0">影片 14:56–16:47</a>、<a href="https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/productivity/writing-great-skills/SKILL.md#failure-modes">writing-great-skills — Premature completion</a> 與 <a href="../reference/agent-skill-checklist.html">Phase 9 工作技能檢查表</a>。</p>
-<footer>上一課：<a href="009-0006-steer-with-leading-words.html">引導詞</a> · 下一課：<a href="009-0008-prune-skill-failure-modes.html">精簡整理</a><br>把過早收尾的證據、完成條件 diff 與重跑結果貼回 Claude Code，請它檢查是否真的需要拆分。</footer>
+<footer>上一課：<a href="009-0006-steer-with-leading-words.html">引導詞</a> · 下一課：<a href="009-0008-prune-skill-failure-modes.html">精簡整理</a><br>把過早收尾的證據、完成條件的程式差異與重跑結果貼回 Claude Code，請它檢查是否真的需要拆分。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

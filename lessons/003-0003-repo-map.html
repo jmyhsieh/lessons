@@ -49,7 +49,7 @@ Give me a map of all the relevant modules and callers,
 using the project's existing domain vocabulary.
 If CONTEXT.md does not exist, reuse terms from product docs and code;
 do not invent new domain terms.</pre>
-<div class="tip"><strong>現行狀態：</strong><code>/zoom-out</code> 曾是本機工作技能捷徑；若你的工作技能清單還有它，可以直接用。若沒有，就用上面的自然語言提示達成同一件事。本課教的是穩定工作法，不是要求背一個 upstream 已移除的指令。</div>
+<div class="tip"><strong>現行狀態：</strong><code>/zoom-out</code> 曾是本機工作技能捷徑；若你的工作技能清單還有它，可以直接用。若沒有，就用上面的自然語言提示達成同一件事。本課教的是穩定工作法，不是要求背一個上游已移除的指令。</div>
 <p>拆解這三句話，每一句都有設計：</p>
 <table>
 <tr><th>原文</th><th>為什麼這樣寫</th></tr>
@@ -64,11 +64,11 @@ do not invent new domain terms.</pre>
 <table>
 <tr><th>情境</th><th>組合</th></tr>
 <tr><td>要 grill 一個碰到陌生模組的需求</td><td>先建立地圖 → 看懂地形 → <code>/grill-with-docs</code></td></tr>
-<tr><td>錯誤在你沒碰過的子系統</td><td>進 <code>/diagnosing-bugs</code> 建回饋迴圈；需要時用窄地圖找 call path／測試接縫，但不先猜原因</td></tr>
+<tr><td>錯誤在你沒碰過的子系統</td><td>進 <code>/diagnosing-bugs</code> 建回饋迴圈；需要時用窄地圖找呼叫路徑／測試接縫，但不先猜原因</td></tr>
 <tr><td>審查 Claude Code 寫的陌生區域改動</td><td>先建立地圖 → 再讀 <code>git diff</code>（你才有判斷基準）</td></tr>
-<tr><td>新人 onboarding（包括未來的你）</td><td>對每個主要模組各跑一次，產出可以存檔的地圖</td></tr>
+<tr><td>新人上手（onboarding，包括未來的你）</td><td>對每個主要模組各跑一次，產出可以存檔的地圖</td></tr>
 </table>
-<p>和 Phase 2 第 05 課的探索子代理分工：子代理替 Claude Code 查細節；repo 地圖則是給<strong>工程師</strong>看的高層地圖。</p>
+<p>和 Phase 2 第 05 課的探索子代理分工：子代理替 Claude Code 查細節；程式庫地圖則是給<strong>工程師</strong>看的高層地圖。</p>
 
 <h2>何時提高推理程度</h2>
 <p>多數地圖整理先用目前模型的預設推理程度。結果不完整時，先分辨它是<strong>沒讀夠</strong>，還是<strong>讀完仍判斷錯</strong>：漏讀進入點、呼叫路徑或測試才提高推理程度；已充分探索仍誤判領域邊界，才換能力更高的模型。</p>
@@ -77,7 +77,7 @@ do not invent new domain terms.</pre>
 <tr><td>只想知道某資料夾在做什麼。</td><td>目前模型 + 預設推理程度</td><td>先用官方建議的基準，不必每題手動升級。</td></tr>
 <tr><td>地圖漏掉呼叫端、測試或驗證路徑。</td><td>同模型 + 較高推理程度</td><td>方向正確，但探索與查核不夠徹底。</td></tr>
 <tr><td>已讀完整，仍把檔案依賴誤認成領域邊界。</td><td><code>opus</code> + 預設推理程度</td><td>這是能力與抽象判斷問題，不只是工作量。</td></tr>
-<tr><td>準備用地圖決定不可逆重構方向。</td><td><code>opusplan</code> 或 Opus plan mode</td><td>先用較強模型規劃，再回到有效率的執行節奏。</td></tr>
+<tr><td>準備用地圖決定不可逆重構方向。</td><td><code>opusplan</code> 或 Opus 規劃模式（Opus plan mode）</td><td>先用較強模型規劃，再回到有效率的執行節奏。</td></tr>
 </table>
 <div class="tip">不要用 <code>max</code> 跑一般地圖整理。若預設推理程度一直漏讀，先縮小範圍或補明確驗收條件；若它已完整嘗試仍判斷錯，再升模型。</div>
 
@@ -105,13 +105,13 @@ do not invent new domain terms.</pre>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 4. 地圖落地</label>
-  <p>發現 CONTEXT.md 尚未建立或可能缺術語 → 先和能代表 domain 的人確認定義；確認後才按需建立或補進 CONTEXT.md。地圖本身若值得保存，存成 docs 下的一頁（標注日期 — 地圖會過期）。</p>
+  <label><input type="checkbox"> 4. 保存並更新地圖</label>
+  <p>發現 CONTEXT.md 尚未建立或可能缺術語 → 先和能代表該領域的人確認定義；確認後才按需建立或補進 CONTEXT.md。地圖本身若值得保存，存成文件目錄下的一頁（標注日期 — 地圖會過期）。</p>
 </div>
 
 <div class="step">
   <label><input type="checkbox"> 5. 接一個真實動作</label>
-  <p>拿著地圖立刻做一件原本不敢做的事：grill 一個碰這區的需求；若用在錯誤，讓地圖協助 <code>/diagnosing-bugs</code> 找到能重現紅燈的命令的 call path 或測試接縫，不要在回饋迴圈建立前先形成原因假說。</p>
+  <p>拿著地圖立刻做一件原本不敢做的事：grill 一個碰這區的需求；若用在錯誤，讓地圖協助 <code>/diagnosing-bugs</code> 找到能重現紅燈的命令呼叫路徑或測試接縫，不要在回饋迴圈建立前先形成原因假說。</p>
 </div>
 
 <div class="done-banner" id="done">
@@ -138,7 +138,7 @@ do not invent new domain terms.</pre>
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。下一課：<a href="003-0004-grill-with-docs.html">Phase 3 第 04 課 — 用 /grill-with-docs 把需求問清楚</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a> 的 explore-first 工作法。本課是自然語言程式庫導覽，不假裝成 upstream 工作技能；選路線以 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/ask-matt/SKILL.md">reviewed ask-matt snapshot（66898f6）</a> 為校準基準，操作前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/ask-matt/SKILL.md">current ask-matt</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a> 的先探索再決定（explore-first）工作法。本課是自然語言程式庫導覽，不假裝成上游工作技能；選路線以 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/ask-matt/SKILL.md">reviewed ask-matt snapshot（66898f6）</a> 為校準基準，操作前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/ask-matt/SKILL.md">current ask-matt</a>。</p>
 
 <footer>
   程式庫地圖有缺口時，交出目前地圖與尚未歸類的路徑，請 Claude Code 補上入口、依賴與風險依據。<br>

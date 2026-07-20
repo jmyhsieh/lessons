@@ -16,10 +16,10 @@
 <div class="rule"><strong>不能為綠燈犧牲需求：</strong>禁止略過或刪除測試、弱化斷言，或只為通過而改產品行為。證據若指向產品錯誤，就停止修測試並回報。</div>
 <h2>完成一次受控修復</h2>
 <div class="step"><label><input type="checkbox"> 1. 固定一個失敗與原始規格</label><p>保存失敗命令、錯誤訊息與相關追蹤記錄；附上核准規格，只允許處理這一個測試。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 要求先診斷再提出修正</label><pre>Use the Playwright healer for only this failing test: ＿＿。
-Read the approved spec and trace. First classify the cause as app, test, or environment.
-Do not skip, delete, weaken assertions, or change product behavior just to pass.
-Show the proposed patch and evidence before applying it.</pre></div>
+<div class="step"><label><input type="checkbox"> 2. 要求先診斷再提出修正</label><pre>只針對這個失敗測試使用 Playwright healer：＿＿。
+閱讀核准規格與追蹤記錄。先判定原因出在應用程式、測試或環境。
+不要為了通過而略過或刪除測試、弱化斷言，或修改產品行為。
+套用前先顯示建議修正與證據。</pre></div>
 <div class="step"><label><input type="checkbox"> 3. 審查修正並重跑</label><p>核對追蹤記錄是否支持原因、程式差異是否最小、原始規格是否仍被保護；同意後才套用並重跑。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已有一張能說明問題在產品、測試或環境的修復證據卡。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>哪一個修復結果必須拒絕？</p><button>把失敗測試直接略過掉</button><button>指出元素定位已經改變</button><button>附上修正和重跑的證據</button><div class="why">略過測試只會隱藏風險；可靠修復要保留原始規格，以追蹤記錄支持原因，並用最小修正與重跑證明。</div></div>

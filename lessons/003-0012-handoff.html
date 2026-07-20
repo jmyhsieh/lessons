@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>12：用 /handoff做跨工作階段交接</title>
+<title>12：用 /handoff 做跨工作階段交接</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -48,14 +48,14 @@
 <p>Phase 1 第 12 課教過：對話脈絡塞滿就砍掉重練、乾淨工作階段贏過污染的長對話。但「重練」有個成本 — <strong>脈絡跟著消失</strong>。交接就是在按下重練之前，先把值錢的脈絡壓縮成文件帶走：</p>
 <pre>長對話（脈絡漸亂）→ /handoff 今天到此，明天繼續做 X
                               ↓
-                  交接文件（存到 作業系統暫存目錄）
+                  交接文件（存到作業系統暫存目錄）
                               ↓
 新工作階段開場：「讀這份交接文件，繼續」 → 乾淨脈絡＋完整交接</pre>
 
 <h2>四個設計細節（SKILL.md 原文）</h2>
 <table>
 <tr><th>設計</th><th>為什麼</th></tr>
-<tr><td>存到<strong>作業系統暫存目錄</strong>，不放 repo</td><td>交接文件是消耗品，不該污染程式庫（同 Phase 3 第 11 課報告的做法）</td></tr>
+<tr><td>存到<strong>作業系統暫存目錄</strong>，不放程式庫</td><td>交接文件是消耗品，不該污染程式庫（同 Phase 3 第 11 課報告的做法）</td></tr>
 <tr><td><strong>不重複既有產出</strong> — 規格、ADR、工作項目、提交紀錄用路徑引用</td><td>單一事實來源：脈絡的正本在文件制度裡，交接只記「正本沒有的東西」（當下的決策過程、卡住的點、下一步）</td></tr>
 <tr><td>內建 <strong>建議工作技能</strong> 區塊</td><td>告訴下一個代理該用哪些工作技能繼續（例：「接下來跑 /implement 實作工作項目 3」）</td></tr>
 <tr><td><strong>產出時遮蔽敏感資訊</strong>（API key、密碼、個資）</td><td>這是工作技能的必要指令，不是零漏網保證；交接前仍要自己掃一眼</td></tr>
@@ -70,7 +70,7 @@
   <li><strong>跨人交接</strong>：需求追問到一半要請假，同事接手 — 先把交接文件經授權的安全管道送到對方能讀的路徑，再由他的 Claude Code 冷啟動。</li>
 </ul>
 <p>與相鄰機制的分工：<code>/compact</code> 是<strong>同一個工作階段內</strong>壓縮歷史；<code>claude -c</code> 是接續<strong>同一個對話</strong>；交接則產生一份本機暫存文件，供新的工作階段讀取。跨人或跨機器時，<strong>本機暫存路徑不會自動同步</strong>，必須先經授權管道安全傳送。</p>
-<div class="tip"><strong>跨機器邊界：</strong>不要把 <code>/tmp/...</code> 或 <code>$TMPDIR/...</code> 路徑直接貼給另一台機器。先重查 redaction，再用組織核准的安全管道傳送；確認接手方可讀後，依資料保留政策清理兩端暫存副本。</div>
+<div class="tip"><strong>跨機器邊界：</strong>不要把 <code>/tmp/...</code> 或 <code>$TMPDIR/...</code> 路徑直接貼給另一台機器。先重新檢查敏感資訊是否已遮蔽（redaction），再用組織核准的安全管道傳送；確認接手方可讀後，依資料保留政策清理兩端暫存副本。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 
@@ -107,11 +107,11 @@
 <p>不要用「12 課都看過」當結業證據。選一條真實路線，交出能讓新工作階段冷啟動的成果鏈：</p>
 <ul>
   <li>新需求：對齊結論 → 規格／工作項目（若需要）→ 實作證據 → 程式碼審查 → 交接。</li>
-  <li>外部回報：issue → 分類狀態 → 診斷證據 → 回歸驗證 → 交接。</li>
+  <li>外部回報：議題 → 分類狀態 → 診斷證據 → 回歸驗證 → 交接。</li>
   <li>維護改善：架構發現 → 被選定的接縫 → 規格／實作證據 → 交接。</li>
   <li>巨大模糊工作：決策地圖 → 關聯決策 → 規格 → 工作項目 → 實作證據 → 交接。</li>
 </ul>
-<p>新的 Claude Code 工作階段能只靠這些產出說出「做了什麼、怎麼驗證、還剩什麼」，才建立 learning record。</p>
+<p>新的 Claude Code 工作階段只靠這些產出，就能說出「做了什麼、怎麼驗證、還剩什麼」，這才算留下可用的學習紀錄。</p>
 
 <h2>觀念檢查（憑記憶作答）</h2>
 
@@ -136,11 +136,11 @@
   <button>繼續加提示並留在原對話</button>
   <button>先交接再開新對話</button>
   <button>先 compact 再留在原對話</button>
-  <div class="why">（間隔複習）Phase 1 第 12 課說砍掉重練；本課補上「怎麼帶走學到的東西」— 交接把失敗嘗試中值錢的部分（什麼不行、為什麼）變成新工作階段的起點。compact 留在原對話，污染還在。</div>
+  <div class="why">（間隔複習）Phase 1 第 12 課說砍掉重練；本課補上「怎麼帶走學到的東西」。交接把失敗嘗試中值錢的部分（什麼不行、為什麼）變成新工作階段的起點。compact 留在原對話，污染還在。</div>
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗交<strong>階段回報</strong>：Claude Code 實戰、mattpocock/skills 四條線在真實程式庫各自落地得如何？CONTEXT.md/ADR 累積了多少？若下一個成果需要介面視覺探索，進入 <a href="004-0001-choose-claude-design-surface.html">Phase 4 第 01 課</a>；若要把真實素材做成簡報或其他日常視覺成果，進入 <a href="005-0001-choose-daily-visual-output.html">Phase 5 第 01 課</a>。</p>
+<p>完成後回對話視窗交<strong>階段回報</strong>：Claude Code 實戰與 mattpocock/skills 四條路線，在真實程式庫裡各自做到什麼程度？CONTEXT.md/ADR 累積了多少？若下一個成果需要介面視覺探索，進入 <a href="004-0001-choose-claude-design-surface.html">Phase 4 第 01 課</a>；若要把真實素材做成簡報或其他日常視覺成果，進入 <a href="005-0001-choose-daily-visual-output.html">Phase 5 第 01 課</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/productivity/handoff/SKILL.md">reviewed handoff snapshot（66898f6）</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/productivity/handoff/SKILL.md">current handoff</a>。</p>
 
 <footer>

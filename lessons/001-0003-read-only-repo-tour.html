@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>03：先讓 Claude Code 讀 repo，不改檔案</title>
+<title>03：先讓 Claude Code 讀程式庫，不改檔案</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
   .kicker { color: #c2571a; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; }
@@ -32,23 +32,23 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 1 · 第 03 課 · 約 15 分鐘 · 唯讀實作</div>
-<h1>先讓 Claude Code 讀 repo，不改檔案</h1>
+<h1>先讓 Claude Code 讀程式庫，不改檔案</h1>
 <p class="mission"><strong>本課成果：</strong>一份由 Claude Code 說明、你已抽查過的程式庫（repo）入口地圖。</p>
-<div class="scope"><strong>本課只做：</strong>讓 Claude Code 只讀 repo、整理地圖。<br><strong>先不要做：</strong>批准 edit、write、install、delete 或 commit 類動作。</div>
+<div class="scope"><strong>本課只做：</strong>讓 Claude Code 以唯讀方式查看程式庫並整理地圖。<br><strong>先不要做：</strong>批准編輯、寫入、安裝、刪除或提交等動作。</div>
 
 
-<div class="safety"><strong>本課邊界：</strong>允許讀檔、允許唯讀查詢；不批准任何寫入、格式化、commit、install 或測試指令。若它要求修改檔案，直接拒絕。</div>
+<div class="safety"><strong>本課邊界：</strong>允許讀檔、允許唯讀查詢；不批准任何寫入、格式化、提交、安裝或測試指令。若它要求修改檔案，直接拒絕。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
-  <label><input type="checkbox"> 1. 在工作 repo 開 session</label>
-  <p>桌面 App 選工作 repo 並確認是 <strong>Manual</strong>；CLI 則 <code>cd</code> 到 repo 後執行 <code>claude</code>，確認是 <strong>default</strong>。工作目錄內讀檔與內建唯讀指令通常不會詢問；本課若出現任何寫入或非唯讀動作，一律拒絕。</p>
+  <label><input type="checkbox"> 1. 在工作程式庫開啟工作階段</label>
+  <p>桌面 App 選工作程式庫並確認是 <strong>Manual</strong>；CLI 則 <code>cd</code> 到程式庫後執行 <code>claude</code>，確認是 <strong>default</strong>。工作目錄內讀檔與內建唯讀指令通常不會詢問；本課若出現任何寫入或非唯讀動作，一律拒絕。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 2. 請它做架構導覽</label>
   <pre>what does this project do? explain the folder structure
 and where the main entry point is. do not modify files.</pre>
-  <p>觀察它讀了哪些檔案，尤其是 README、package/config、入口檔與測試目錄。</p>
+  <p>觀察它讀了哪些檔案，尤其是 README、套件／設定檔、入口檔與測試目錄。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 追問一個真問題</label>
@@ -57,7 +57,7 @@ cite the files you used.</pre>
   <p>要求它附上檔案依據，避免只給一般性猜測。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 4. 對照 repo 驗證</label>
+  <label><input type="checkbox"> 4. 對照程式庫驗證</label>
   <p>自己打開它提到的 2–3 個檔案，檢查摘要是否對得上。若不準，指出具體檔案請它修正。</p>
 </div>
 
@@ -72,15 +72,15 @@ cite the files you used.</pre>
   <div class="why">這一課的學習目標是唯讀理解，不是修改。邊界清楚，後面的安全改 code 才有意義。</div>
 </div>
 <div class="quiz" data-answer="2">
-  <p>2. 要降低它亂猜 repo 架構，最有效的是？</p>
-  <button>改用更高 effort 回答</button>
+  <p>2. 要降低它亂猜程式庫架構，最有效的是？</p>
+  <button>改用更高推理程度回答</button>
   <button>縮短成一句問題再問</button>
   <button>列出回答用的檔案依據</button>
   <div class="why">讓它附檔案依據，回答就能被你驗證。可驗證比聽起來完整更重要。</div>
 </div>
 
 <h2>下一步</h2>
-<p>下一課：<a href="001-0004-permission-plan-mode.html">Phase 1 第 04 課 — 先用 plan mode 規劃</a>。你會在第一次修改前，先用系統模式保證只探索、不編輯 source。</p>
+<p>下一課：<a href="001-0004-permission-plan-mode.html">Phase 1 第 04 課 — 先用 plan mode 規劃</a>。你會在第一次修改前，先用系統模式保證只探索、不編輯原始碼。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://code.claude.com/docs/en/how-claude-code-works">How Claude Code works（官方）</a>。</p>
 
 <footer>地圖有疑點時，把被漏掉的入口檔或目錄交給 Claude Code，請它補上依據並更新地圖。<br>上一課：<a href="001-0002-first-session-read-only.html">Phase 1 第 02 課 — 安裝與第一個 session</a></footer>

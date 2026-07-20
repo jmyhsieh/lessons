@@ -15,15 +15,15 @@
 <p class="mission"><strong>本課成果：</strong>一份依核准故事板產生的三頁簡報初稿。</p>
 <div class="rule"><strong>第一版不是成品：</strong>先確認內容與順序，不要立刻花時間調每個字級、顏色與裝飾。</div>
 <h2>生成第一版</h2>
-<div class="step"><label><input type="checkbox"> 1. 指定 approved inputs</label><p>把任務卡、三頁 storyboard 與三份資料交給 Claude Code，明說哪份支持哪頁，不允許發明數字或引言。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 只要求 Design MCP 建三頁</label><p>要求回傳可查看的 Claude Design project；不要同時加入附錄、動畫或額外頁面。</p></div>
+<div class="step"><label><input type="checkbox"> 1. 指定已核准內容</label><p>把任務卡、三頁故事板與三份資料交給 Claude Code，明說哪份支持哪頁，不允許發明數字或引言。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 只要求 Design MCP 建三頁</label><p>要求回傳可查看的 Claude Design 專案；不要同時加入附錄、動畫或額外頁面。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 人工逐頁檢查</label><p>標題正確嗎？資料用對嗎？下一步清楚嗎？把最重要的一個問題交回 Claude Code，不先精修裝飾。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已有一份三頁初稿，也知道下一輪最先要修哪個內容問題。</div>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1"><p>第一版產生後，最先檢查什麼？</p><button>動畫是否很吸睛</button><button>內容順序正確嗎</button><button>裝飾是否夠豐富</button><div class="why">內容與順序決定簡報能否推動理解；視覺精修應在這個地基正確後進行。</div></div>
 <h2>關鍵判斷</h2><p>好的第一版要能讓你清楚指出下一個修正，不必急著直接上台。</p>
 <p><strong>主要閱讀：</strong><a href="https://claude.com/resources/tutorials/using-claude-design-for-presentations-and-slide-decks#creating-a-presentation">Anthropic — Creating a presentation</a>。</p>
-<footer>上一課：<a href="005-0003-storyboard-presentation.html">核准三頁故事</a> · 下一課：<a href="005-0005-refine-deck-for-audience.html">為一種受眾改寫</a><br>把 project 連結與一項內容問題貼回 Claude Code，請它檢查第一版範圍。</footer>
+<footer>上一課：<a href="005-0003-storyboard-presentation.html">核准三頁故事</a> · 下一課：<a href="005-0005-refine-deck-for-audience.html">為一種受眾改寫</a><br>把專案連結與一項內容問題貼回 Claude Code，請它檢查第一版範圍。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

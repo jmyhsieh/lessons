@@ -15,15 +15,15 @@
 <p class="mission"><strong>本課成果：</strong>一個由 Claude Code 完成、你已在瀏覽器走過的小介面切片。</p>
 <div class="rule"><strong>入門完成線：</strong>一個畫面、一條主要操作、桌面與手機各看一次。不要一次實作整個產品。</div>
 <h2>完成 Phase 4</h2>
-<div class="step"><label><input type="checkbox"> 1. 核准 Claude Code 的 bounded plan</label><p>確認它只碰本次畫面，沿用 repo 已有元件與樣式，再允許修改；完成後先審查 diff。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 請 Claude Code 跑 repo 原有檢查</label><p>使用專案已有的 test、lint 或 build，回報完整命令與結果；不能執行就誠實記錄原因。</p></div>
+<div class="step"><label><input type="checkbox"> 1. 核准 Claude Code 範圍明確的計畫</label><p>確認它只碰本次畫面，沿用程式庫既有元件與樣式，再允許修改；完成後先審查程式差異。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 請 Claude Code 跑程式庫原有檢查</label><p>使用專案已有的測試、格式檢查或建置，回報完整命令與結果；不能執行就誠實記錄原因。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 在瀏覽器走一次</label><p>桌面與手機各開一次，完成主要操作，對照第 07 課交接卡確認保留項。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已把一個設計方向變成可打開、可操作、知道驗證結果的小畫面。</div>
 <h2>觀念檢查</h2>
-<div class="quiz" data-answer="2"><p>程式 build 成功後，還要做什麼？</p><button>直接宣告全部完成</button><button>立即擴充所有頁面</button><button>親自走過主要操作</button><div class="why">Build 只能證明程式能產出；真實畫面與操作仍要在瀏覽器確認。</div></div>
-<h2>想繼續再學</h2><p>完整 design system sync、state／responsive matrix、accessibility audit、implementation-ready handoff 與 production closeout 從<a href="004-0009-sync-real-design-system.html">進階第 09 課</a>開始，仍不是 Phase 4 入門門檻。</p>
+<div class="quiz" data-answer="2"><p>程式建置成功後，還要做什麼？</p><button>直接宣告全部完成</button><button>立即擴充所有頁面</button><button>親自走過主要操作</button><div class="why">建置只能證明程式能產出；真實畫面與操作仍要在瀏覽器確認。</div></div>
+<h2>想繼續再學</h2><p>完整的設計系統同步、狀態與響應式矩陣、無障礙檢查、可實作交接與上線前收尾，從<a href="004-0009-sync-real-design-system.html">進階第 09 課</a>開始，仍不是 Phase 4 入門門檻。</p>
 <p><strong>主要閱讀：</strong><a href="https://code.claude.com/docs/en/best-practices">Anthropic — Claude Code best practices</a>。</p>
-<footer>上一課：<a href="004-0007-handoff-to-claude-code.html">把設計帶回 repo</a> · 進階下一課：<a href="004-0009-sync-real-design-system.html">同步真實 design system</a> · <a href="../reference/claude-design-to-code-workflow.html">Phase 4 路線速查表</a><br>把 diff、checks 與真人 browser 結果貼回 Claude Code，請它檢查完成線。</footer>
+<footer>上一課：<a href="004-0007-handoff-to-claude-code.html">把設計帶回程式庫</a> · 進階下一課：<a href="004-0009-sync-real-design-system.html">同步真實設計系統</a> · <a href="../reference/claude-design-to-code-workflow.html">Phase 4 路線速查表</a><br>把程式差異、檢查結果與真人瀏覽器操作結果貼回 Claude Code，請它檢查完成線。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

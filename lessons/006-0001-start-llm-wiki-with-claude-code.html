@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>01：把 LLM Wiki idea file 交給 Claude Code</title>
+<title>01：把 LLM Wiki 想法檔（idea file）交給 Claude Code</title>
 <style>
 *{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#8a3f5d;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#8a3f5d}.mission{font-style:italic;color:#555;border-left:3px solid #8a3f5d;padding-left:1rem}.rule{background:#fcf7f9;border-left:4px solid #8a3f5d;padding:.75rem 1rem}.step,.quiz{border:1px solid #dfccd4;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}pre,code{background:#f8f0f3;border-radius:4px}pre{padding:.8rem 1rem;white-space:pre-wrap;overflow-wrap:anywhere}code{padding:.1rem .3rem}a{color:#7a3551}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #d8c4cd;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#fcf7f9;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #dfccd4;padding-top:1rem}
 </style>
@@ -11,25 +11,25 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 6 · 第 01 課 · 約 10 分鐘</div>
-<h1>把 LLM Wiki idea file 交給 Claude Code</h1>
+<h1>把 LLM Wiki 想法檔（idea file）交給 Claude Code</h1>
 <p class="mission"><strong>本課成果：</strong>一個由原始想法檔建立、可以立即瀏覽的最小 LLM Wiki。</p>
 
-<div class="rule"><strong>先記這句：</strong>這份 <em>idea file</em> 是給 AI agent 閱讀的設計說明，不是要你先學會安裝或架構。Claude Code 會依你的主題，和你一起決定最小版本。</div>
+<div class="rule"><strong>先記這句：</strong>這份想法檔是給 AI 代理閱讀的設計說明，不是要你先學安裝流程或先設計完整架構。Claude Code 會依你的主題，和你一起決定最小版本。</div>
 
 <h2>直接開始</h2>
 <div class="step"><label><input type="checkbox"> 1. 在 Claude Code 開啟 Wiki 要放的資料夾</label>
 <p>可以是新資料夾，也可以是現有專案中的知識區。第一版不用先安裝任何額外工具。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 貼上這段話</label>
-<pre>請讀這份 LLM Wiki idea file：
+<pre>請讀這份 LLM Wiki 想法檔：
 https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md
 
 請在目前資料夾幫我建立最小可用版本。
 先問我這個 Wiki 要整理的主題，再建立需要的最少檔案。
 不要先安裝額外工具，也不要一次加入大量來源。</pre></div>
 <div class="step"><label><input type="checkbox"> 3. 看懂 Claude Code 準備做什麼</label>
-<p>確認它只建立最少檔案、沒有修改無關內容，再同意開始。如果它無法讀取連結，就開啟 raw 檔並把全文貼進對話。</p></div>
+<p>確認它只建立最少檔案、沒有修改無關內容，再同意開始。如果它無法讀取連結，就開啟原始檔（raw file），再把全文貼進對話。</p></div>
 
-<div class="done" id="done"><strong>完成：</strong>Claude Code 已根據 idea file 與你的主題，建立或提出一個最小可用的 Wiki。</div>
+<div class="done" id="done"><strong>完成：</strong>Claude Code 已根據想法檔與你的主題，建立或提出一個最小可用的 Wiki。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="0">
@@ -37,11 +37,11 @@ https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw
 <button>把說明交給代理</button>
 <button>先安裝搜尋系統</button>
 <button>先設計完整架構</button>
-<div class="why">idea file 本來就是要交給 AI agent 閱讀；你只要補上主題與邊界，就能開始。</div>
+<div class="why">想法檔本來就是交給 AI 代理閱讀；你只要補上主題與邊界，就能開始。</div>
 </div>
 
 <h2>關鍵判斷</h2>
-<p><strong>一個 raw 連結加一句需求，就足以開始。</strong>具體檔案結構由你和 Claude Code 在實際資料夾中一起決定，不是開始前的考試。</p>
+<p><strong>一個原始連結加一句需求，就足以開始。</strong>具體檔案結構由你和 Claude Code 在實際資料夾中一起決定，不是開始前的考試。</p>
 <p><strong>主要閱讀：</strong><a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki raw idea file</a>。</p>
 <footer>下一課：<a href="006-0002-add-first-llm-wiki-source.html">加入第一份真實來源</a> · <a href="../reference/llm-wiki-workflow.html">LLM Wiki 路線速查卡</a><br>Wiki 無法開啟或結構不符預期時，交出原始想法檔、產生的目錄樹與錯誤訊息，請 Claude Code 找出漏掉的步驟。</footer>
 <script>

@@ -14,16 +14,16 @@
 <h1>查一個重要數字，確認字看得清楚</h1>
 <p class="mission"><strong>本課成果：</strong>一份小型查核紀錄，包含最高風險主張的來源與實際閱讀結果。</p>
 <div class="rule"><strong>先擋住兩種常見錯誤：</strong>內容看起來很可信卻沒有依據；畫面在電腦上漂亮，投影後卻讀不到。</div>
-<h2>做一次小型 preflight</h2>
-<div class="step"><label><input type="checkbox"> 1. 請 Claude Code 指出最高風險主張</label><p>讓它列出該頁原句與 source pack 位置；你要打開原始資料，確認數值、日期、單位與意思一致。</p></div>
+<h2>做一次小型交付前預查</h2>
+<div class="step"><label><input type="checkbox"> 1. 請 Claude Code 指出最高風險主張</label><p>讓它列出該頁原句與來源包位置；你要打開原始資料，確認數值、日期、單位與意思一致。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 全螢幕看三頁</label><p>坐到實際觀看距離，確認標題與主要文字不需要瞇眼才能讀。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 不只靠顏色傳達重點</label><p>如果紅綠代表好壞，再加文字、符號或標籤，讓看不到顏色差異的人也能理解。</p></div>
 <div class="done" id="done"><strong>完成：</strong>最重要的主張有原始依據，三頁在目標環境可閱讀，關鍵意思也不只靠顏色。</div>
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="0"><p>重要數字找不到來源時，應該怎麼做？</p><button>移除或標待確認</button><button>保留並補上美化</button><button>改成約略的數字</button><div class="why">沒有來源的數字不能因為版面需要而保留；先移除或清楚標成待確認。</div></div>
-<h2>關鍵判斷</h2><p>完整 claim ledger、reading order、alt text 與格式稽核是進階檢查；入門先建立「回來源、在真實距離看」的習慣。</p>
+<h2>關鍵判斷</h2><p>完整的主張查核表（claim ledger）、閱讀順序、替代文字與格式稽核，留到進階課處理；入門先建立「回來源、在真實距離看」的習慣。</p>
 <p><strong>主要閱讀：</strong><a href="https://www.w3.org/WAI/teach-advocate/accessible-presentations/">W3C WAI — Making Events Accessible</a>。</p>
-<footer>上一課：<a href="005-0005-refine-deck-for-audience.html">為受眾改寫</a> · 下一課：<a href="005-0007-export-and-rehearse.html">輸出並講一次</a><br>把 Claude Code 的 claim 指向與你的來源回查結果貼回 Claude Code，請它檢查。</footer>
+<footer>上一課：<a href="005-0005-refine-deck-for-audience.html">為受眾改寫</a> · 下一課：<a href="005-0007-export-and-rehearse.html">輸出並講一次</a><br>把 Claude Code 標出的主張與你的來源回查結果貼回 Claude Code，請它檢查。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

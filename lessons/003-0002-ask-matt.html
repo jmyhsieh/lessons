@@ -41,23 +41,23 @@
 <h1>用 /ask-matt 判斷該走哪條路</h1>
 <p class="mission"><strong>本課成果：</strong>一張工作路線判斷，能說明目前需求該走哪一條 Claude Code 流程。</p>
 <div class="scope"><strong>本課只做：</strong>判斷下一步該用哪條路。<br><strong>先不要做：</strong>把 <code>/ask-matt</code> 當成會替你完成工作的萬用指令。</div>
-<div class="tip"><strong>必要前置：</strong>若目標 repo 尚未完成 <a href="003-0001-matt-pocock-skills-foundation.html">第 01 課</a>的 <code>/setup-matt-pocock-skills</code>，先完成設定；追蹤系統與領域文件未設定前，不要啟動工程流程。</div>
+<div class="tip"><strong>必要前置：</strong>若目標程式庫尚未完成 <a href="003-0001-matt-pocock-skills-foundation.html">第 01 課</a>的 <code>/setup-matt-pocock-skills</code>，先完成設定；追蹤系統與領域文件未設定前，不要啟動工程流程。</div>
 
-<h2>它是 router，不是施工隊</h2>
+<h2>它是分流器（router），不是施工隊</h2>
 <p><code>/ask-matt</code> 的職責是把情境分到正確流程。它會告訴你該先用哪個工作技能、何時切工作階段、何時改走 triage、wayfinder 或維護線。真正產出規格、工作項目、程式碼或交接的，是後面的專門工作技能。</p>
 <table>
 <tr><th>情境</th><th>建議路線</th></tr>
 <tr><td>單一工作階段能完成的新需求</td><td><code>/grill-with-docs</code> → 同一個對話脈絡直接 <code>/implement</code></td></tr>
-<tr><td>需要多個工作階段的 build</td><td><code>/grill-with-docs</code> → <code>/to-spec</code> → <code>/to-tickets</code> → 每張工作項目開新對話脈絡跑 <code>/implement</code></td></tr>
+<tr><td>需要多個工作階段的開發工作</td><td><code>/grill-with-docs</code> → <code>/to-spec</code> → <code>/to-tickets</code> → 每張工作項目開新對話脈絡跑 <code>/implement</code></td></tr>
 <tr><td>必須用可跑成果回答的設計問題</td><td><code>/handoff</code> 出主線 → <code>/prototype</code> → <code>/handoff</code> 把答案帶回</td></tr>
-<tr><td>外部錯誤或需求回報</td><td><code>/triage</code> 先產生可交給 Claude Code 的 issue → 通常交 <code>/implement</code>；若是難解、間歇或回歸錯誤，再改走 <code>/diagnosing-bugs</code></td></tr>
+<tr><td>外部錯誤或需求回報</td><td><code>/triage</code> 先產生可交給 Claude Code 的議題 → 通常交 <code>/implement</code>；若是難解、間歇或回歸錯誤，再改走 <code>/diagnosing-bugs</code></td></tr>
 <tr><td>巨大、模糊、超過一個工作階段的工作</td><td><code>/wayfinder</code> 先建立共享地圖，逐張決策工作項目推進到路徑清楚，再回到 <code>/to-spec</code>；只有工作最後縮成單一小任務才直接 <code>/implement</code></td></tr>
 <tr><td>架構維護</td><td><code>/improve-codebase-architecture</code> → 選一個改善點 → 回到 <code>/grill-with-docs</code></td></tr>
 <tr><td>對話脈絡太滿或要分支</td><td><code>/handoff</code> 開新工作階段；<code>/compact</code> 留在同一個工作階段。</td></tr>
 </table>
 <div class="tip"><strong>記住主線：</strong><code>/implement</code> 是實作統籌工具；它內部會用 <code>/tdd</code>，做完再用 <code>/code-review</code>。不要把 <code>/tdd</code> 和 <code>/code-review</code> 畫成與 <code>/implement</code> 平行的主流程。</div>
 <div class="tip"><strong>保持對話脈絡乾淨：</strong>從需求追問到 <code>/to-tickets</code> 盡量維持同一個工作階段，不要中途使用 <code>/clear</code> 或 <code>/compact</code>；切完工作項目後，每張 <code>/implement</code> 再各自使用乾淨工作階段。若主線脈絡快滿，先 <code>/handoff</code>。</div>
-<div class="tip"><strong>Wayfinder 是選修分支：</strong>只有當「通往 destination 的路仍看不清楚」，而且一個工作階段放不下時才使用。若你已能列出完整規格與工作項目，就不需要先畫 map。選到這條路時，前往 <a href="003-0013-wayfinder-chart-map.html">第 13 課</a>。</div>
+<div class="tip"><strong>Wayfinder 是選修分支：</strong>只有當「通往目的地的路仍看不清楚」，而且一個工作階段放不下時才使用。若你已能列出完整規格與工作項目，就不需要先畫地圖。選到這條路時，前往 <a href="003-0013-wayfinder-chart-map.html">第 13 課</a>。</div>
 
 <h2>先分清楚：入口與流程內能力</h2>
 <p>不是每個工作技能名稱都代表同一種入口。初學時先把它們分成兩層，會比較不亂：</p>
@@ -74,7 +74,7 @@
 </div>
 <div class="step">
   <label><input type="checkbox"> 2. 逐一問 /ask-matt</label>
-  <pre>/ask-matt 我現在的情境是：[貼上情境]。我應該從哪個 skill 開始？</pre>
+  <pre>/ask-matt 我現在的情境是：[貼上情境]。我應該從哪個工作技能開始？</pre>
   <p>只看它選的路線與理由，先不要立刻執行後續指令。</p>
 </div>
 <div class="step">
@@ -110,7 +110,7 @@
   <button>先做規格，再切成多張工作項目</button>
   <button>同一個對話脈絡直接 /implement</button>
   <button>先 /handoff，換到新的工作階段</button>
-  <div class="why">只有 多工作階段 build 才需要先固化成規格與工作項目。小而已對齊的需求可以留在同一個對話脈絡，直接交給 <code>/implement</code>。</div>
+  <div class="why">只有需要跨多個工作階段完成的工作，才要先固化成規格與工作項目。小而已對齊的需求可以留在同一個對話脈絡，直接交給 <code>/implement</code>。</div>
 </div>
 
 <h2>下一步</h2>
