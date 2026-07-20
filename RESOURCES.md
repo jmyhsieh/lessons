@@ -98,6 +98,14 @@
   說明何時以強制 OCR 取代既有文字層。Use for: Phase 10 第 03、05 課，避免把 <code>--force-ocr</code> 當預設。
 - [Guide: Work with images — Claude Code](https://code.claude.com/docs/en/common-workflows#work-with-images)
   Claude Code 可直接讀取圖片並協助分析；少量 PDF／圖片不一定先安裝轉換器。Use for: Phase 10 第 01 課的直接讀取替代路線。
+- [Repository: ccusage](https://github.com/ccusage/ccusage)
+  從程式開發代理（coding agent）的本機使用紀錄整理每日、工作階段與區塊報表；開源核心採 MIT License。Use for: Phase 11 第 01 課的 Claude Code 工作階段用量基準；不當作官方方案剩餘額度。
+- [Repository: QMD](https://github.com/tobi/qmd)
+  對本機 Markdown 做全文與語意搜尋；程式採 MIT License，另外下載的模型各有自己的授權。Use for: Phase 11 第 02 課；入門只用核准目錄與全文搜尋，不執行向量化（embedding）。
+- [Repository: Serena](https://github.com/oraios/serena)
+  透過語言伺服器提供符號定義與引用查找；開源核心採 MIT License，JetBrains 付費外掛（plugin）是另一項產品。Use for: Phase 11 第 03 課的唯讀程式結構探索；安裝與 Claude Code 連接方式以目前 Quick Start 為準。
+- [Paper: Token Reduction Is Not Cost Reduction](https://arxiv.org/abs/2607.12161)
+  實驗顯示輸出 token 變少不一定會降低計費成本，也可能傷害任務完成率。Use for: Phase 11 的共同邊界，不把 token 減量直接當成工具有效。
 - [Glossary snapshot: Building Great Skills](https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/productivity/writing-great-skills/GLOSSARY.md)
   流程可預期性、對話脈絡／使用者記憶負擔、資訊層級、引導詞、實際查找與驗證工作，以及精簡整理失敗模式的詞彙模型。Use for: Phase 9 進階 05–08 與速查表；不要求入門先背詞彙。
 - [Reference: Hooks — Anthropic](https://code.claude.com/docs/en/hooks)
@@ -156,4 +164,5 @@
 - Claude Code × Playwright 仍缺台灣團隊公開、可重現且同時展示 MCP live check、planner／generator／healer 人工關卡、trace 脫敏與 CI gate 取捨的完整案例。
 - Claude Code 工作技能仍缺台灣團隊公開、可重現且同時展示啟用方式基準、執行結果基準、精簡前後差異與長期維護成本的完整案例。
 - 文件轉 Markdown 仍缺台灣團隊公開、可重現且同時保留原檔、OCR 抽查、表格錯誤、轉換 manifest 與知識庫交接的完整案例。
+- 用量與查找工具仍缺台灣團隊公開、可重現且同時比較同類工作完成率、驗證證據、token 與總成本的長期案例。
 - 若使用者不想參與社群，需記錄在 NOTES.md，避免後續重複推薦。

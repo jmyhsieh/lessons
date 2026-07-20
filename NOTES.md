@@ -17,3 +17,4 @@
 - Phase 7 不再用泛稱 agent 當學習者。open-slide scaffold 產生的 <code>CLAUDE.md</code> 與 workspace skills 是 Claude Code 的工作契約；課程改為讓 Claude Code 讀 contract、使用 <code>/create-slide</code>、<code>/create-theme</code>、<code>/apply-comments</code>，學員審查命令、diff、browser output 與部署邊界。
 - Phase 9 固定從「台灣工程師使用 Claude Code 處理真實 repo」的角度教工作技能（Skill），入門 01–04、進階 05–09。入門從一個真實重複流程做出專案 Skill，決定啟用方式，整理執行步驟、參考資料與完成條件；進階才做按需載入、引導詞、實際查找與驗證工作、精簡整理與新對話前後對照。英文保留給 <code>SKILL.md</code>、檔頭欄位、指令與首次出現的原始術語；影片是檢查架構來源，Claude Code 檔頭設定與載入行為以 Anthropic 最新文件為準。
 - Phase 10 固定為獨立選修「Claude Code × 文件轉 Markdown」，入門 01–04、進階 05–08。入門先依文件特徵選 MarkItDown、Docling 或 Claude Code 直接讀取，轉一份文字型文件、OCR 一份掃描 PDF，再人工對照原檔；進階才處理混合 PDF、可追查紀錄、小批次 allowlist 與 LLM Wiki ingest。Phase 10 不得成為 Phase 6 的前置，轉換輸出永遠是衍生資料，不取代原始文件。
+- Phase 11 固定為獨立選修「Claude Code × 用量與查找工具」，只有三課：ccusage 留下一次工作階段用量基準、QMD 在單一核准 Markdown 目錄做全文搜尋並回查原文、Serena 在真實程式庫唯讀找一個定義與兩個引用。學員不必三個都裝，也不把 token 降低直接當成總成本降低或工作完成。

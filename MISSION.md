@@ -22,13 +22,14 @@
 - 選讀 Phase 9 進階 05–09 後，能用按需載入、引導詞、實際查找與驗證工作，以及精簡整理改善 Skill，並在新的 Claude Code 對話分開測試啟用方式與執行結果，而不是把一次成功當成可靠。
 - 完成 Phase 10 入門 01–04 後，能讓 Claude Code 依文字層、版面與敏感性選擇 MarkItDown、Docling 或直接讀取；轉換一份文字型文件與一份掃描 PDF，並把 Markdown 與原始文件逐項對照。
 - 選讀 Phase 10 進階 05–08 後，能比較預設擷取與強制 OCR、留下可追查轉換紀錄、批次處理精確核准清單，並把已查核 Markdown 連同原始來源與已知限制交給 LLM Wiki。
+- 選修 Phase 11 後，能依問題讓 Claude Code 選用 ccusage、QMD 或 Serena：記錄一個工作階段的用量基準、搜尋一組核准的 Markdown 並回查原文，或唯讀找出一個程式符號的定義與兩個引用。
 
 ## Constraints
 - 全課程都以「台灣工程師使用 Claude Code」為學習角色。實際情境放在程式庫、程式差異（diff）、測試、權限與交接，不用抽象的 AI 工作術語代替工作現場。
 - 課程使用繁體中文與台灣用語。中文先講概念；英文只保留產品名、命令、欄位，以及術語第一次出現時的原文。
 - 每課只完成一個可檢查的成果，內容要短、可實作，也要能回到真實程式庫使用；不得在同一課塞入多組尚未解釋的新名詞。
 - Claude Code 是主要工作介面；Claude Design MCP、open-slide 工作區技能、LLM Wiki 原始想法檔、Playwright 與工作技能（Skills）是由 Claude Code 使用或維護的專用能力。學員練習需求說明、授權、程式差異審查與證據審查，不先手動背完整 API。
-- Phase 4–10 採 beginner-first：每課只做一個小動作，先得到可見成果；進階術語、完整治理與 production-grade 驗證只能作為後續擴充，不得成為入門門檻。
+- Phase 4–11 採 beginner-first：每課只做一個小動作，先得到可見成果；進階術語、完整治理與 production-grade 驗證只能作為後續擴充，不得成為入門門檻。
 - Claude Design 仍是 beta；課程不依賴單一按鈕位置或未保證的功能。
 - Claude Design MCP 先依官方文件採 user scope 連線並以 <code>/design-login</code> 登入；連線只提供工具能力，不代表授權 Claude Code 修改未指定的 repo、公開內容或代替真人回饋。
 - Phase 4 是選修設計路線；沒有視覺介面的工作不需要為了結業而使用 Claude Design。
@@ -48,6 +49,7 @@
 - Phase 9 先收緊完成條件，只有在新對話的證據顯示 Claude 仍會搶快時，才拆分 Skill 來隱藏完成後才需要的步驟；不得為了看起來模組化而增加對話脈絡負擔或使用者記憶負擔。
 - Skill 的可靠性是流程可預期，不是逐字相同輸出；Claude 自動啟用 Skill 的啟用方式與 Skill 執行後結果必須分開評估。
 - Phase 10 是獨立選修，不是 Phase 6 前置。一般文字型 PDF／Office 文件先試 MarkItDown；掃描 PDF、圖片或複雜版面才走 Docling；少量文件也可直接請 Claude Code 讀取。
+- Phase 11 是三課獨立選修，不是其他 Phase 的前置。ccusage 只量本機使用紀錄，不代表成果品質或官方剩餘額度；QMD 入門只搜尋精確核准的 Markdown 目錄，不下載模型；Serena 入門只在真實程式庫做唯讀符號探索。三個工具都不得宣稱保證省 token 或降低總成本。
 - MarkItDown 基礎套件不得被描述為會自動替掃描 PDF 做本機 OCR；Claude Code 訂閱也不得被當成 MarkItDown OCR plugin 的 API 憑證。課程入門不依賴雲端 Vision API。
 - Docling 的 <code>--force-ocr</code> 只用於確認的掃描頁或損壞文字層，不是預設選項。敏感文件留在核准的本機環境，批次只處理精確 allowlist，所有 Markdown 都保留原檔並人工查核。
 - 勾完實作清單只代表完成操作，不等於掌握；能交出課堂要求的 artifact、說明判斷並通過回饋，才算具備該課的 exit evidence。

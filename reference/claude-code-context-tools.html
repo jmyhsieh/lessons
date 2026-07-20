@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Claude Code 用量與查找工具路線卡</title>
+<style>body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:900px;margin:2.5rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.75}h1{font-size:1.8rem;margin-bottom:.2rem;color:#506d2f}.sub{color:#666;margin-top:0}h2{font-size:1.12rem;color:#506d2f;margin-top:2rem}table{width:100%;border-collapse:collapse;font-size:.91rem;margin:1rem 0}th,td{border:1px solid #d4dfc5;padding:.65rem .75rem;vertical-align:top;text-align:left}th{background:#f5f8f0}code,pre{background:#eef3e7;border-radius:4px}code{padding:.1rem .35rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#405a24}.rule{border-left:4px solid #506d2f;background:#f5f8f0;padding:.8rem 1rem;margin:1rem 0}footer{margin-top:2.5rem;font-size:.85rem;color:#666;border-top:1px solid #d4dfc5;padding-top:.8rem}@media print{body{margin:1rem auto}.rule,tr{break-inside:avoid}}</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design"></head><body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Claude Code 用量與查找工具路線卡</h1>
+<p class="sub">先說清楚問題，再決定要看用量、找文件，還是追程式符號。</p>
+<div class="rule"><strong>這三個工具不保證省 token：</strong>它們能讓你更容易查看用量、把資料範圍訂清楚，或查找程式結構。真正要比較的是同類工作是否完成、驗證是否通過，以及總成本有沒有下降。</div>
+<h2>三種問題，三個起點</h2>
+<table>
+<tr><th>你現在想知道</th><th>先用</th><th>本次完成證據</th></tr>
+<tr><td>一個 Claude Code 工作階段用了多少 token？</td><td>ccusage</td><td>一張工作階段用量基準卡</td></tr>
+<tr><td>核准的 Markdown 文件裡，哪一份提到這件事？</td><td>QMD</td><td>一筆搜尋結果與原文對照</td></tr>
+<tr><td>這個函式或類別定義在哪裡，又被誰引用？</td><td>Serena</td><td>一個定義、兩個引用與人工核對</td></tr>
+</table>
+<h2>什麼時候先不要裝</h2>
+<table>
+<tr><th>情況</th><th>更簡單的做法</th></tr>
+<tr><td>只想看 Claude 官方方案的剩餘額度</td><td>看官方產品介面；ccusage 不是額度權威來源。</td></tr>
+<tr><td>只有幾份已知的 Markdown 文件</td><td>直接請 Claude Code 讀取，或先用 <code>rg</code>。</td></tr>
+<tr><td>只找一個固定字串</td><td>先用 <code>rg</code>，不用先接 Serena。</td></tr>
+<tr><td>沒有可比較的同類工作</td><td>先留下一筆基準紀錄，不急著下「有省」或「沒省」的結論。</td></tr>
+</table>
+<h2>交給 Claude Code 的共同提示詞</h2>
+<pre>我的問題是：[看工作階段用量／找核准文件／追程式符號]
+允許範圍：[精確路徑或本機紀錄]
+禁止範圍：[不應讀取、上傳或修改的位置]
+
+請先讀目前官方文件與 --help，提出安裝來源、版本、命令與會讀寫的路徑。
+先不要執行。等我核准後只完成一個成果，最後列出原始證據與限制。</pre>
+<h2>工具邊界</h2>
+<table>
+<tr><th>工具</th><th>授權與注意事項</th></tr>
+<tr><td>ccusage</td><td>開源核心採 MIT License；讀取程式開發代理（coding agent）的本機使用紀錄。報表不能替代成果驗證或官方額度資訊。</td></tr>
+<tr><td>QMD</td><td>程式採 MIT License；若使用 <code>qmd embed</code> 或語意查詢，下載模型各有自己的授權與磁碟需求。本課不下載模型。</td></tr>
+<tr><td>Serena</td><td>開源核心採 MIT License；以語言伺服器理解程式符號。JetBrains 付費外掛（plugin）是另一項產品，本課不需要。</td></tr>
+</table>
+<div class="rule"><strong>停止線：</strong>不掃描未核准目錄、不把敏感紀錄上傳外部服務、不把搜尋結果直接當成答案，也不在第一次 Serena 練習中修改程式碼。</div>
+<footer>開始：<a href="../lessons/011-0001-measure-one-claude-code-session-with-ccusage.html">Phase 11 第 01 課</a> · <a href="../lessons/011-0002-search-one-approved-markdown-collection-with-qmd.html">QMD</a> · <a href="../lessons/011-0003-map-one-symbol-with-serena.html">Serena</a><br>主要來源：<a href="https://github.com/ccusage/ccusage">ccusage</a> · <a href="https://github.com/tobi/qmd">QMD</a> · <a href="https://github.com/oraios/serena">Serena</a> · <a href="https://arxiv.org/abs/2607.12161">Token Reduction Is Not Cost Reduction</a></footer>
+</body></html>
