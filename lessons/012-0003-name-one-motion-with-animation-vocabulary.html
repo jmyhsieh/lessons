@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03：用 animation-vocabulary 把一個動態說清楚</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#6f4d7a;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#6f4d7a}.mission{font-style:italic;color:#555;border-left:3px solid #6f4d7a;padding-left:1rem}.rule{background:#faf5fb;border-left:4px solid #6f4d7a;padding:.75rem 1rem}.step,.quiz{border:1px solid #decfe3;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f5edf7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#5d3e68}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #decfe3;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#faf5fb;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #decfe3;padding-top:1rem}</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design"></head><body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 12 · 第 03 課 · 約 12 分鐘</div><h1>用 animation-vocabulary 把一個動態說清楚</h1>
+<p class="mission"><strong>本課成果：</strong>一張動態需求卡，包含觸發方式、正確名稱、用途、使用頻率與減少動態需求。</p>
+<div class="rule"><strong>這個 Skill 只負責命名：</strong>animation-vocabulary 能把「彈一下」換成較精確的動態術語，但不會替你判斷該不該做，也不會修改程式。</div>
+<h2>先描述看到什麼，再問它叫什麼</h2>
+<div class="step"><label><input type="checkbox"> 1. 選一個真實互動</label><p>回到上一課的元件，用白話記下：使用者做了什麼、哪個物件移動、從哪裡到哪裡、操作能不能中途改變，以及一天可能遇到幾次。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 請 Skill 只整理用語</label><pre>請使用 animation-vocabulary，替下面的互動找出最精確的動態名稱：
+[貼上白話描述]
+
+請回覆：建議術語、白話解釋、容易混淆的另一個術語，以及兩者差異。
+不要提供程式碼，不要修改檔案，也不要假設一定需要動畫。</pre></div>
+<div class="step"><label><input type="checkbox"> 3. 完成動態需求卡</label><pre>觸發方式：________________
+動態名稱：________________
+用途：____________________
+使用頻率：________________
+減少動態時應保留什麼資訊：____________</pre><p>如果用途只能寫「比較好看」，先不要進入實作。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已把一個模糊的動態想法整理成可討論的需求卡。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="1"><p>animation-vocabulary 最適合完成哪一件事？</p><button>直接改好整個元件動畫</button><button>釐清動態名稱與差異</button><button>證明使用者喜歡這個效果</button><div class="why">這個 Skill 提供共同用語。是否值得做、如何實作與使用者是否接受，仍要另外判斷與驗證。</div></div>
+<h2>關鍵判斷</h2><p>正確術語能減少來回猜測，但術語不是需求本身。需求卡仍要寫出用途、頻率與無動態時的資訊表達。</p>
+<p><strong>主要閱讀：</strong><a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/animation-vocabulary/SKILL.md">animation-vocabulary 固定版本</a>。</p>
+<footer>上一課：<a href="012-0002-review-one-component-with-emil-design-eng.html">審查一個元件</a> · 下一課：<a href="012-0004-implement-one-press-feedback-with-apple-design.html">實作按壓回饋</a><br>下一課才會修改程式，而且只改一個低風險互動。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

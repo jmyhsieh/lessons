@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02：用 emil-design-eng 審查一個介面元件</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#6f4d7a;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#6f4d7a}.mission{font-style:italic;color:#555;border-left:3px solid #6f4d7a;padding-left:1rem}.rule{background:#faf5fb;border-left:4px solid #6f4d7a;padding:.75rem 1rem}.step,.quiz{border:1px solid #decfe3;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f5edf7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#5d3e68}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #decfe3;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#faf5fb;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #decfe3;padding-top:1rem}</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design"></head><body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 12 · 第 02 課 · 約 15 分鐘</div><h1>用 emil-design-eng 審查一個介面元件</h1>
+<p class="mission"><strong>本課成果：</strong>一張只針對單一元件的「修改前／修改後／原因」審查表。</p>
+<div class="rule"><strong>先審查，不改程式：</strong>emil-design-eng 提供介面與動態設計原則。它給的是建議，不是使用者證據，也不能取代瀏覽器查核。</div>
+<h2>把範圍縮到一個看得見的元件</h2>
+<div class="step"><label><input type="checkbox"> 1. 留下目前畫面與程式位置</label><p>選一個實際元件，例如設定面板的「儲存」按鈕。記下頁面網址、元件檔案與目前畫面；不要用整個首頁當範圍。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 只請 Skill 做審查</label><pre>請使用 emil-design-eng，只審查 [頁面／元件名稱]。
+範圍：[精確檔案或元件]
+使用情境：[使用者在什麼時候操作]
+
+請以「修改前｜修改後｜原因」表格回覆，附上檔案與行號。
+不要修改檔案，不要擴大到其他元件，最多提出三項建議。</pre></div>
+<div class="step"><label><input type="checkbox"> 3. 人工核對並保留一項</label><p>逐項打開引用的程式位置，確認描述符合現況。刪掉沒有程式證據、超出範圍或只是個人偏好的建議，最後最多保留一項準備實作的候選。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已有一張範圍清楚、可回到原始程式核對的元件審查表。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="2"><p>Skill 回傳審查表後，下一步應該做什麼？</p><button>立即套用表格全部建議</button><button>請它順便改完其他畫面</button><button>核對證據並留一項候選</button><div class="why">審查建議要先回到程式與實際畫面核對。保留一項候選，才容易看懂後續程式差異。</div></div>
+<h2>關鍵判斷</h2><p>審查表若沒有指出精確位置與使用情境，就還不能交給 Claude Code 實作。</p>
+<p><strong>主要閱讀：</strong><a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/emil-design-eng/SKILL.md">emil-design-eng 固定版本</a>。</p>
+<footer>上一課：<a href="012-0001-install-design-engineering-skills-safely.html">安全安裝</a> · 下一課：<a href="012-0003-name-one-motion-with-animation-vocabulary.html">把模糊動態說清楚</a><br>下一課會先把「滑一下、彈一下」換成可實作的描述，還不會動到程式碼。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

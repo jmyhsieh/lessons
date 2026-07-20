@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04：用 apple-design 實作一個按壓回饋</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#6f4d7a;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#6f4d7a}.mission{font-style:italic;color:#555;border-left:3px solid #6f4d7a;padding-left:1rem}.rule{background:#faf5fb;border-left:4px solid #6f4d7a;padding:.75rem 1rem}.step,.quiz{border:1px solid #decfe3;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f5edf7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#5d3e68}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #decfe3;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#faf5fb;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #decfe3;padding-top:1rem}</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design"></head><body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 12 · 第 04 課 · 約 20 分鐘</div><h1>用 apple-design 實作一個按壓回饋</h1>
+<p class="mission"><strong>本課成果：</strong>一個按鈕的按壓回饋程式差異（diff），以及修改前後的瀏覽器證據。</p>
+<div class="rule"><strong>即時回應比華麗效果重要：</strong>這一課只做小幅、短暫的按壓回饋，不做複雜手勢，也不把整站改成 Apple 介面。</div>
+<h2>用一個低風險按鈕完成第一個改動</h2>
+<div class="step"><label><input type="checkbox"> 1. 選定範圍並留下修改前畫面</label><p>選一個次要按鈕，先在真實瀏覽器操作並截圖。確認目前分支、<code>git status</code> 與元件檔案，不要拿刪除、付款等高風險操作當第一次練習。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 請 Claude Code 做最小改動</label><pre>請使用 apple-design，只替 [按鈕／元件] 加上短暫、明確的按壓回饋。
+請沿用現有 CSS 與元件慣例，優先調整 transform 與 transition。
+範圍只限 [精確檔案]，不要新增套件，不要修改其他元件。
+同時處理鍵盤操作、觸控裝置與 prefers-reduced-motion。
+完成後顯示 diff，先不要 commit。</pre></div>
+<div class="step"><label><input type="checkbox"> 3. 在真實瀏覽器反覆操作</label><p>檢查滑鼠按壓、鍵盤啟用、觸控尺寸與減少動態設定。快速連按時不能卡住，按鈕文字與焦點提示也不能消失。保留修改後截圖與實際觀察。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已完成一個範圍小、看得見，也能人工查核的按壓回饋。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="2"><p>第一個按壓回饋最重要的驗證是什麼？</p><button>看起來完全像 Apple 官網</button><button>動畫時間越長越有質感</button><button>操作立即回應且不妨礙使用</button><div class="why">這個改動的目的，是讓操作有清楚回應。品牌模仿與較長動畫都不是成功條件。</div></div>
+<h2>關鍵判斷</h2><p>程式差異只證明程式改了，不能證明手感合理。完成條件一定包含真實瀏覽器操作與減少動態檢查。</p>
+<p><strong>主要閱讀：</strong><a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/apple-design/SKILL.md">apple-design 固定版本</a>；<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion">MDN prefers-reduced-motion</a>。</p>
+<footer>上一課：<a href="012-0003-name-one-motion-with-animation-vocabulary.html">把動態說清楚</a> · 下一課：<a href="012-0005-review-one-animation-diff.html">審查一份動態差異</a><br>完成本課就走完入門線。後四課會進入審查、篩選、計畫與受控執行。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

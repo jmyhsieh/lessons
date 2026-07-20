@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06：找一個值得做的動態，也排除一個</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#6f4d7a;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#6f4d7a}.mission{font-style:italic;color:#555;border-left:3px solid #6f4d7a;padding-left:1rem}.rule{background:#faf5fb;border-left:4px solid #6f4d7a;padding:.75rem 1rem}.step,.quiz{border:1px solid #decfe3;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f5edf7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#5d3e68}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #decfe3;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#faf5fb;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #decfe3;padding-top:1rem}</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design"></head><body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 12 · 第 06 課 · 約 15 分鐘</div><h1>找一個值得做的動態，也排除一個</h1>
+<p class="mission"><strong>本課成果：</strong>一張選擇紀錄，包含一個值得評估的動態，以及一個決定不做的動態。</p>
+<div class="rule"><strong>不是每個狀態變化都要動：</strong>find-animation-opportunities 會找候選，也應該列出被排除的地方。沒有合適機會同樣是有效結論。</div>
+<h2>用用途與頻率篩掉多餘效果</h2>
+<div class="step"><label><input type="checkbox"> 1. 選一個頁面與主要工作</label><p>指定一個使用者會完成的工作，例如在訂單列表套用篩選。記下主要狀態變化、操作頻率與目前最容易看不懂的地方。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 請 Skill 唯讀找候選</label><pre>請使用 find-animation-opportunities，唯讀檢查 [頁面／元件與精確路徑]。
+使用者主要工作是：[工作]
+操作頻率：[低／中／高，附理由]
+
+最多提出三個候選，逐項說明用途與頻率。
+另外列出至少兩個被你排除的候選與排除理由。
+不要修改檔案，也不要把「比較好看」當成唯一理由。</pre></div>
+<div class="step"><label><input type="checkbox"> 3. 保留一個，排除一個</label><p>挑一個能解釋狀態、提供操作回饋或維持空間關係的候選。再排除一個高頻、干擾工作或沒有明確用途的候選，寫下理由。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已留下有取捨的動態機會紀錄，而不是一份待辦清單。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>什麼情況最適合排除動態？</p><button>高頻操作且沒有明確用途</button><button>低頻轉場且能交代位置</button><button>狀態改變需要立即回應</button><div class="why">高頻工作若沒有資訊或操作用途，動態很容易變成反覆干擾。排除它是正常的設計判斷。</div></div>
+<h2>關鍵判斷</h2><p>「這裡不要動」也要寫理由。這能避免下一次審查又把同一個候選加回來。</p>
+<p><strong>主要閱讀：</strong><a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/find-animation-opportunities/SKILL.md">find-animation-opportunities 固定版本</a>。</p>
+<footer>上一課：<a href="012-0005-review-one-animation-diff.html">審查一份動態差異</a> · 下一課：<a href="012-0007-create-one-animation-improvement-plan.html">建立一份改善計畫</a><br>下一課只會把核准的候選寫成計畫，不會直接改程式。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Claude Code × Design Engineering Skills 路線卡</title>
+<style>body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:960px;margin:2.5rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.75}h1{font-size:1.8rem;margin-bottom:.2rem;color:#6f4d7a}.sub{color:#666;margin-top:0}h2{font-size:1.12rem;color:#6f4d7a;margin-top:2rem}table{width:100%;border-collapse:collapse;font-size:.91rem;margin:1rem 0}th,td{border:1px solid #decfe3;padding:.65rem .75rem;vertical-align:top;text-align:left}th{background:#faf5fb}code,pre{background:#f5edf7;border-radius:4px}code{padding:.1rem .35rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#5d3e68}.rule{border-left:4px solid #6f4d7a;background:#faf5fb;padding:.8rem 1rem;margin:1rem 0}footer{margin-top:2.5rem;font-size:.85rem;color:#666;border-top:1px solid #decfe3;padding-top:.8rem}@media print{body{margin:1rem auto}.rule,tr{break-inside:avoid}}</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design"></head><body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Claude Code × Design Engineering Skills 路線卡</h1>
+<p class="sub">先分清楚要命名、審查、找機會、寫計畫還是執行，再叫對應的 Skill。</p>
+<div class="rule"><strong>六個 Skills 不是一條自動流水線：</strong>每次只選一個工作，先訂範圍與完成證據。審查、命名與找候選不等於授權修改程式。</div>
+<h2>六個 Skills 怎麼選</h2>
+<table>
+<tr><th>你現在要完成</th><th>使用 Skill</th><th>這次成果</th><th>不要拿它做什麼</th></tr>
+<tr><td>用一致原則審查一個介面元件</td><td><code>emil-design-eng</code></td><td>修改前／修改後／原因表格</td><td>不要把建議當成使用者證據</td></tr>
+<tr><td>把「滑一下、彈一下」說清楚</td><td><code>animation-vocabulary</code></td><td>一張精確動態需求卡</td><td>不要要求它直接實作</td></tr>
+<tr><td>套用 Apple 的流暢互動原則</td><td><code>apple-design</code></td><td>一個小範圍介面改動</td><td>不要把整站改成 Apple 風格</td></tr>
+<tr><td>審查一份既有動態差異</td><td><code>review-animations</code></td><td>問題清單（findings）與審查結論（verdict）</td><td>不要用來盤點整個程式庫</td></tr>
+<tr><td>找值得評估的動態位置</td><td><code>find-animation-opportunities</code></td><td>少量候選與排除理由</td><td>不要要求每個地方都加效果</td></tr>
+<tr><td>盤點、寫計畫或執行核准計畫</td><td><code>improve-animations</code></td><td>唯讀盤點、單一計畫或受控差異</td><td>不要把盤點直接當執行許可</td></tr>
+</table>
+<h2>兩條學習路線</h2>
+<table>
+<tr><th>路線</th><th>順序</th><th>完成線</th></tr>
+<tr><td>入門</td><td>安全安裝 → 審查單一元件 → 釐清一個術語 → 實作按壓回饋</td><td>一個小幅 diff 與真實瀏覽器證據</td></tr>
+<tr><td>進階</td><td>審查固定 diff → 保留一項，也排除一項 → 建立單一計畫 → 受控執行</td><td>計畫、diff、檢查結果與動態證據</td></tr>
+</table>
+<h2>交給 Claude Code 的共同提示詞</h2>
+<pre>請使用 [Skill 名稱] 完成 [單一工作]。
+允許範圍：[精確檔案、元件或 commit 範圍]
+禁止範圍：[不可修改或不可讀取的位置]
+完成證據：[表格／計畫／diff／測試／瀏覽器紀錄]
+
+先說明這個 Skill 會做什麼、不會做什麼。
+只處理核准範圍；遇到現況不符就停止並回報。
+除非我明確核准實作，否則不要修改產品程式。</pre>
+<h2>交付前核對</h2>
+<table>
+<tr><th>核對項目</th><th>要看到的證據</th></tr>
+<tr><td>來源</td><td>上游位置、版本或 commit、授權與實際安裝路徑</td></tr>
+<tr><td>範圍</td><td>精確檔案、元件、diff 或計畫；沒有順手改動</td></tr>
+<tr><td>程式</td><td>完整 diff、相關檢查結果與未通過項目</td></tr>
+<tr><td>互動</td><td>真實瀏覽器操作、快速重複、中途改變操作與減少動態</td></tr>
+<tr><td>取捨</td><td>採用理由、排除理由，以及仍未驗證的限制</td></tr>
+</table>
+<div class="rule"><strong>停止線：</strong>不讓審查 Skill 自動改程式、不為了展示技巧到處加動態、不忽略 <code>prefers-reduced-motion</code>，也不在計畫與目前 commit 不符時硬著執行。</div>
+<footer>開始：<a href="../lessons/012-0001-install-design-engineering-skills-safely.html">Phase 12 第 01 課</a> · 入門實作：<a href="../lessons/012-0004-implement-one-press-feedback-with-apple-design.html">按壓回饋</a> · 進階交付：<a href="../lessons/012-0008-execute-and-verify-one-animation-plan.html">執行計畫</a><br>主要來源：<a href="https://github.com/emilkowalski/skills/tree/6bf24434f7730ad169077756cf9c7cd7bd675fc6">emilkowalski/skills 固定版本</a> · <a href="https://developer.apple.com/videos/play/wwdc2018/803/">Apple Designing Fluid Interfaces</a> · <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion">MDN prefers-reduced-motion</a></footer>
+</body></html>

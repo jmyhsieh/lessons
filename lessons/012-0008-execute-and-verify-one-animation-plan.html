@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>08：執行並驗證一份動態改善計畫</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#6f4d7a;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#6f4d7a}.mission{font-style:italic;color:#555;border-left:3px solid #6f4d7a;padding-left:1rem}.rule{background:#faf5fb;border-left:4px solid #6f4d7a;padding:.75rem 1rem}.step,.quiz{border:1px solid #decfe3;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f5edf7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#5d3e68}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #decfe3;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#faf5fb;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #decfe3;padding-top:1rem}</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design"></head><body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 12 · 第 08 課 · 約 25 分鐘</div><h1>執行並驗證一份動態改善計畫</h1>
+<p class="mission"><strong>本課成果：</strong>一份依核准計畫完成的程式差異，以及測試、真實瀏覽器與減少動態證據。</p>
+<div class="rule"><strong>核准計畫，不代表同意它順手多做：</strong>開始前先重讀計畫，確認分支與範圍；遇到新需求就停下來。</div>
+<h2>照核准計畫完成一份可查核交付</h2>
+<div class="step"><label><input type="checkbox"> 1. 建立乾淨起點</label><p>重新讀取計畫，確認目前 commit、分支與 <code>git status</code>。若現況已和計畫不同，先更新或撤回計畫，不要直接猜著做。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 只執行核准內容</label><pre>請使用 improve-animations execute [計畫路徑]。
+只執行計畫明列的檔案與步驟，不要加入新候選、套件或重構。
+若計畫與現況不符，立即停止並回報差異。
+完成後執行計畫列出的檢查，顯示完整 diff 與未通過項目，先不要 commit。</pre></div>
+<div class="step"><label><input type="checkbox"> 3. 親自在真實瀏覽器驗證</label><p>反覆操作正常路徑、中途改變操作與快速連續操作，再切換減少動態設定。核對焦點、鍵盤、觸控和畫面穩定性；截圖只能證明外觀，互動手感要寫下實際觀察。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已把一份核准計畫做成有程式差異、檢查結果與瀏覽器證據的交付。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>執行時發現計畫與目前程式不同，應該怎麼做？</p><button>停止並回報現況差異</button><button>自行擴大範圍完成改寫</button><button>略過差異直接標示完成</button><div class="why">計畫依賴特定現況。基準不同時繼續實作，會讓原本核准的範圍失效。</div></div>
+<h2>關鍵判斷</h2><p>沒有真實瀏覽器操作，就不能說動態已驗證。需要可重跑證據時，可接 Phase 8 的 Playwright 路線，但自動化不能取代真人手感檢查。</p>
+<p><strong>主要閱讀：</strong><a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/improve-animations/SKILL.md">improve-animations 固定版本</a>；<a href="https://developer.chrome.com/docs/devtools/css/animations">Chrome DevTools 動態檢查</a>。</p>
+<footer>上一課：<a href="012-0007-create-one-animation-improvement-plan.html">建立改善計畫</a> · <a href="../toc.html">回到課目表</a><br>交付前再核對一次：計畫範圍、完整 diff、檢查結果、正常動態與減少動態證據都在同一份紀錄裡。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

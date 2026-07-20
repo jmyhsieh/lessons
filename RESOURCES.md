@@ -1,6 +1,6 @@
 # AI Workflow Composition Resources
 
-這份檔案只保留課程可依賴的高信任來源。新聞與職能案例不作為 factual source of truth；需要案例時，請回查其第一手來源。Phase 4–9 的入門課只取每份來源中完成第一個小成果所需的最少知識。
+這份檔案只保留課程可依賴的高信任來源。新聞與職能案例不作為 factual source of truth；需要案例時，請回查其第一手來源。Phase 4–12 的入門課只取每份來源中完成第一個小成果所需的最少知識。
 
 ## Knowledge
 
@@ -106,6 +106,26 @@
   透過語言伺服器提供符號定義與引用查找；開源核心採 MIT License，JetBrains 付費外掛（plugin）是另一項產品。Use for: Phase 11 第 03 課的唯讀程式結構探索；安裝與 Claude Code 連接方式以目前 Quick Start 為準。
 - [Paper: Token Reduction Is Not Cost Reduction](https://arxiv.org/abs/2607.12161)
   實驗顯示輸出 token 變少不一定會降低計費成本，也可能傷害任務完成率。Use for: Phase 11 的共同邊界，不把 token 減量直接當成工具有效。
+- [Repository snapshot: emilkowalski/skills](https://github.com/emilkowalski/skills/tree/6bf24434f7730ad169077756cf9c7cd7bd675fc6)
+  MIT 授權的六個設計工程 Skills 與固定版本內容。Use for: Phase 12 全階段；安裝前仍要查核目前 README、commit 與寫入範圍。
+- [Skill: emil-design-eng](https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/emil-design-eng/SKILL.md)
+  介面與動態設計原則，以及「修改前／修改後／原因」審查格式。Use for: Phase 12 第 02 課的單一元件審查。
+- [Skill: animation-vocabulary](https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/animation-vocabulary/SKILL.md)
+  把模糊動態描述換成精確術語並釐清相近概念；不負責設計或實作。Use for: Phase 12 第 03 課。
+- [Skill: apple-design](https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/apple-design/SKILL.md)
+  把即時回應、一對一跟隨、動量、可中斷與減少動態等 Apple 互動原則帶到網頁。Use for: Phase 12 第 04 課的小幅按壓回饋。
+- [Skill and standards: review-animations](https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/review-animations/STANDARDS.md)
+  以用途、頻率、時間、緩動、效能、輸入方式與減少動態審查單一 diff。Use for: Phase 12 第 05 課；不延伸為盤點整個程式庫。
+- [Skill: find-animation-opportunities](https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/find-animation-opportunities/SKILL.md)
+  唯讀提出少量候選並保留排除理由；沒有合適動畫也是有效結論。Use for: Phase 12 第 06 課。
+- [Skill and plan template: improve-animations](https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/improve-animations/SKILL.md)
+  唯讀盤點整個程式庫、由使用者選擇、建立單一計畫，再受控執行。Use for: Phase 12 第 07–08 課；盤點不等於執行許可。
+- [Video: Designing Fluid Interfaces — Apple](https://developer.apple.com/videos/play/wwdc2018/803/)
+  即時回應、一對一觸控、可中斷與保留動量的第一手設計說明。Use for: Phase 12 第 04、08 課的互動判斷。
+- [Reference: prefers-reduced-motion — MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion)
+  依使用者系統設定減少非必要動態的 CSS media feature。Use for: Phase 12 第 04、08 課。
+- [Guide: Inspect and modify CSS animation effects — Chrome for Developers](https://developer.chrome.com/docs/devtools/css/animations)
+  在 Chrome DevTools 檢查、重播與調整 CSS 動態。Use for: Phase 12 第 08 課的真實瀏覽器查核。
 - [Glossary snapshot: Building Great Skills](https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/productivity/writing-great-skills/GLOSSARY.md)
   流程可預期性、對話脈絡／使用者記憶負擔、資訊層級、引導詞、實際查找與驗證工作，以及精簡整理失敗模式的詞彙模型。Use for: Phase 9 進階 05–08 與速查表；不要求入門先背詞彙。
 - [Reference: Hooks — Anthropic](https://code.claude.com/docs/en/hooks)
@@ -165,4 +185,5 @@
 - Claude Code 工作技能仍缺台灣團隊公開、可重現且同時展示啟用方式基準、執行結果基準、精簡前後差異與長期維護成本的完整案例。
 - 文件轉 Markdown 仍缺台灣團隊公開、可重現且同時保留原檔、OCR 抽查、表格錯誤、轉換 manifest 與知識庫交接的完整案例。
 - 用量與查找工具仍缺台灣團隊公開、可重現且同時比較同類工作完成率、驗證證據、token 與總成本的長期案例。
+- Design Engineering Skills 仍缺台灣團隊公開、可重現且同時保留選擇理由、正常與減少動態證據、使用者回饋及最終 diff 的長期案例。
 - 若使用者不想參與社群，需記錄在 NOTES.md，避免後續重複推薦。

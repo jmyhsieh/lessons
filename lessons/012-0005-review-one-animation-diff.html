@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05：用 review-animations 審查一份動態差異</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#6f4d7a;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#6f4d7a}.mission{font-style:italic;color:#555;border-left:3px solid #6f4d7a;padding-left:1rem}.rule{background:#faf5fb;border-left:4px solid #6f4d7a;padding:.75rem 1rem}.step,.quiz{border:1px solid #decfe3;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#f5edf7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#5d3e68}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #decfe3;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#faf5fb;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #decfe3;padding-top:1rem}</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design"></head><body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 12 · 第 05 課 · 約 15 分鐘</div><h1>用 review-animations 審查一份動態差異</h1>
+<p class="mission"><strong>本課成果：</strong>一張針對固定程式差異（diff）的發現清單與審查結論。</p>
+<div class="rule"><strong>審查時先凍結範圍：</strong>review-animations 是單一動態差異的審查工具，不負責開發功能、修其他問題或審查整個程式庫。</div>
+<h2>讓審查結論能回到程式核對</h2>
+<div class="step"><label><input type="checkbox"> 1. 指定同一份差異</label><p>先記下起點 commit、終點 commit 或精確檔案。確認這份差異只包含要審查的動態改動；若混有其他功能，先拆開再繼續。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 請 Skill 只做審查</label><pre>請使用 review-animations 審查 [commit 範圍／精確 diff]。
+只檢查這份動態差異，附上檔案與行號，並依嚴重度排序。
+請回傳問題清單（findings）與審查結論（verdict）。
+不要修改檔案，不要審查無關功能，也不要自行擴大範圍。</pre></div>
+<div class="step"><label><input type="checkbox"> 3. 回到原始程式核對一項發現</label><p>打開最高優先的發現，確認引用位置、使用頻率、動態時間與實際互動都符合描述。把核對結果寫進審查表；有誤就標成不採用，不要為了湊數硬留問題。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已有一份可追到精確差異，也保留人工核對結果的動態審查。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="1"><p>用 review-animations 時，哪個範圍最合適？</p><button>整個產品全部歷史紀錄</button><button>一份固定的動態程式差異</button><button>所有尚未實作的設計想法</button><div class="why">這個 Skill 的工作是審查已存在的單一動態差異。盤點整個程式庫與探索新機會有其他工具。</div></div>
+<h2>關鍵判斷</h2><p>Skill 的審查結論只能當參考，不能直接拿來合併程式。要不要修、能不能合併，仍要看程式證據、測試與瀏覽器結果。</p>
+<p><strong>主要閱讀：</strong><a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/review-animations/SKILL.md">review-animations 固定版本</a>；<a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/review-animations/STANDARDS.md">審查標準</a>。</p>
+<footer>上一課：<a href="012-0004-implement-one-press-feedback-with-apple-design.html">實作按壓回饋</a> · 下一課：<a href="012-0006-find-one-animation-opportunity-and-one-rejection.html">找一個值得做的動態，也排除一個</a><br>審查完成後先保留問題清單，不要在同一個步驟請 Claude Code 自動全修。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

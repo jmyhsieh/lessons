@@ -21,6 +21,7 @@
   h2.p9 { color: #7a4b25; border-bottom: 2px solid #7a4b25; }
   h2.p10 { color: #0d7180; border-bottom: 2px solid #0d7180; }
   h2.p11 { color: #506d2f; border-bottom: 2px solid #506d2f; }
+  h2.p12 { color: #6f4d7a; border-bottom: 2px solid #6f4d7a; }
   table { border-collapse: collapse; width: 100%; font-size: .92rem; }
   td { border-bottom: 1px solid #eee; padding: .5rem .6rem; vertical-align: top; }
   td.no { width: 2.8rem; color: #999; font-variant-numeric: tabular-nums; }
@@ -36,6 +37,7 @@
   .p9sec a { color: #6d421f; }
   .p10sec a { color: #0a6572; }
   .p11sec a { color: #405a24; }
+  .p12sec a { color: #5d3e68; }
   a:hover { text-decoration: underline; }
   .flow { border: 1px solid #e8e0d8; border-left-width: 4px; border-radius: 8px; padding: .75rem .9rem; margin: .8rem 0 1.4rem; background: #fffdfa; font-size: .86rem; line-height: 1.65; }
   .p2sec .flow { border-left-color: #9a5a00; background: #fffaf1; }
@@ -48,6 +50,7 @@
   .p9sec .flow { border-left-color: #7a4b25; background: #fcf8f4; }
   .p10sec .flow { border-left-color: #0d7180; background: #f3fafb; }
   .p11sec .flow { border-left-color: #506d2f; background: #f5f8f0; }
+  .p12sec .flow { border-left-color: #6f4d7a; background: #faf5fb; }
   .flow-title { font-weight: 700; margin-bottom: .35rem; color: #333; }
   .flow-note { margin: 0 0 .45rem; color: #666; }
   .flow-row { display: grid; grid-template-columns: 4.8rem 1fr; gap: .35rem .65rem; align-items: start; margin-top: .35rem; }
@@ -64,10 +67,10 @@
 <body class="toc-page">
 <p style="margin:0"><a href="index.html" style="font-size:.85rem">← 封面</a></p>
 <h1>課目表</h1>
-<p class="sub">課程從真實程式庫開始，先練習安全操作 Claude Code、釐清需求、審查程式差異、執行測試與交接。之後再依工作需求選學視覺設計、簡報、知識庫、瀏覽器驗證、工作技能、文件轉換或用量與查找工具。共 107 課，Phase 4–11 每課約 10–20 分鐘。</p>
+<p class="sub">課程從真實程式庫開始，先練習安全操作 Claude Code、釐清需求、審查程式差異、執行測試與交接。之後再依工作需求選學視覺設計、簡報、知識庫、瀏覽器驗證、工作技能、文件轉換、查找工具或介面動態。共 115 課，Phase 4–12 每課約 10–25 分鐘。</p>
 
 <div class="ref">
-<strong>常用速查</strong>：<a href="reference/claude-product-picker.html">產品選用</a>、<a href="reference/claude-design-to-code-workflow.html">第一個小畫面</a>、<a href="reference/claude-design-daily-output-picker.html">視覺交付選路</a>、<a href="reference/claude-design-presentation-workflow.html">三頁簡報</a>、<a href="reference/open-slide-agent-deck-workflow.html">Phase 7 open-slide</a>、<a href="reference/playwright-browser-verification-workflow.html">Phase 8 Playwright</a>、<a href="reference/agent-skill-checklist.html">Phase 9 工作技能</a>、<a href="reference/document-to-markdown-workflow.html">Phase 10 文件轉 Markdown</a>、<a href="reference/claude-code-context-tools.html">Phase 11 用量與查找工具</a>、<a href="reference/claude-code-command-surface.html">Claude Code 操作</a>、<a href="reference/claude-code-model-effort.html">模型與推理程度</a>、<a href="reference/wayfinder-map-workflow.html">Wayfinder 地圖</a>、<a href="reference/llm-wiki-workflow.html">迷你 LLM Wiki</a>、<a href="reference/course-glossary.html">課程詞彙表</a><br>
+<strong>常用速查</strong>：<a href="reference/claude-product-picker.html">產品選用</a>、<a href="reference/claude-design-to-code-workflow.html">第一個小畫面</a>、<a href="reference/claude-design-daily-output-picker.html">視覺交付選路</a>、<a href="reference/claude-design-presentation-workflow.html">三頁簡報</a>、<a href="reference/open-slide-agent-deck-workflow.html">Phase 7 open-slide</a>、<a href="reference/playwright-browser-verification-workflow.html">Phase 8 Playwright</a>、<a href="reference/agent-skill-checklist.html">Phase 9 工作技能</a>、<a href="reference/document-to-markdown-workflow.html">Phase 10 文件轉 Markdown</a>、<a href="reference/claude-code-context-tools.html">Phase 11 用量與查找工具</a>、<a href="reference/design-engineering-skills-workflow.html">Phase 12 介面動態 Skills</a>、<a href="reference/claude-code-command-surface.html">Claude Code 操作</a>、<a href="reference/claude-code-model-effort.html">模型與推理程度</a>、<a href="reference/wayfinder-map-workflow.html">Wayfinder 地圖</a>、<a href="reference/llm-wiki-workflow.html">迷你 LLM Wiki</a>、<a href="reference/course-glossary.html">課程詞彙表</a><br>
 <strong>完成原則：</strong>勾完清單代表操作完成；能交出指定產出、說明判斷並通過回饋，才達到這課的完成標準。
 </div>
 
@@ -628,6 +631,26 @@
 </div>
 </div>
 
-<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-07-20</footer>
+<div class="p12sec">
+<h2 class="p12">Phase 12（Claude Code × Design Engineering Skills）— 入門 01–04；進階 05–08</h2>
+<table>
+<tr><td class="no">01</td><td><a href="lessons/012-0001-install-design-engineering-skills-safely.html">安全安裝 Design Engineering Skills</a></td><td class="track">入門安裝</td></tr>
+<tr><td class="no">02</td><td><a href="lessons/012-0002-review-one-component-with-emil-design-eng.html">用 emil-design-eng 審查一個介面元件</a></td><td class="track">入門審查</td></tr>
+<tr><td class="no">03</td><td><a href="lessons/012-0003-name-one-motion-with-animation-vocabulary.html">用 animation-vocabulary 把一個動態說清楚</a></td><td class="track">入門用語</td></tr>
+<tr><td class="no">04</td><td><a href="lessons/012-0004-implement-one-press-feedback-with-apple-design.html">用 apple-design 實作一個按壓回饋</a></td><td class="track">入門實作</td></tr>
+<tr><td class="no">05</td><td><a href="lessons/012-0005-review-one-animation-diff.html">用 review-animations 審查一份動態差異</a></td><td class="track">進階審查</td></tr>
+<tr><td class="no">06</td><td><a href="lessons/012-0006-find-one-animation-opportunity-and-one-rejection.html">找一個值得做的動態，也排除一個</a></td><td class="track">進階取捨</td></tr>
+<tr><td class="no">07</td><td><a href="lessons/012-0007-create-one-animation-improvement-plan.html">用 improve-animations 建立一份改善計畫</a></td><td class="track">進階計畫</td></tr>
+<tr><td class="no">08</td><td><a href="lessons/012-0008-execute-and-verify-one-animation-plan.html">執行並驗證一份動態改善計畫</a></td><td class="track">進階交付</td></tr>
+</table>
+<div class="flow">
+  <div class="flow-title">入門先完成一個小改動，進階再做全流程</div>
+  <p class="flow-note">前四課從來源查核開始，只審查一個元件、釐清一個動態，最後完成一個按壓回饋。需要盤點真實產品時，再接 05–08：審查固定 diff、保留一項，也排除一項並寫下理由、建立單一計畫，最後才受控執行；完整分工與停止線見 <a href="reference/design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a>。</p>
+  <div class="flow-row"><div class="flow-label">入門小改動</div><div class="flow-steps"><a href="lessons/012-0001-install-design-engineering-skills-safely.html">01 安裝</a><a href="lessons/012-0002-review-one-component-with-emil-design-eng.html">02 元件審查</a><a href="lessons/012-0003-name-one-motion-with-animation-vocabulary.html">03 動態用語</a><a href="lessons/012-0004-implement-one-press-feedback-with-apple-design.html">04 按壓回饋</a></div></div>
+  <div class="flow-row"><div class="flow-label">進階管交付</div><div class="flow-steps"><a href="lessons/012-0005-review-one-animation-diff.html">05 diff 審查</a><a href="lessons/012-0006-find-one-animation-opportunity-and-one-rejection.html">06 機會取捨</a><a href="lessons/012-0007-create-one-animation-improvement-plan.html">07 改善計畫</a><a href="lessons/012-0008-execute-and-verify-one-animation-plan.html">08 執行驗證</a></div></div>
+</div>
+</div>
+
+<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-07-21</footer>
 </body>
 </html>
