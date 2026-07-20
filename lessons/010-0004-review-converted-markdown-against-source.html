@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>04：把 Markdown 與原始文件逐項對照</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:740px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker{color:#0d7180;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem;color:#0d7180}.mission{font-style:italic;color:#555;border-left:3px solid #0d7180;padding-left:1rem}.rule{background:#f3fafb;border-left:4px solid #0d7180;padding:.75rem 1rem}.step,.quiz{border:1px solid #c7dfe3;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#eaf5f6;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}a{color:#0a6572}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #c7dfe3;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#f3fafb;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #c7dfe3;padding-top:1rem}</style><link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design"></head><body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p><div class="kicker">Phase 10 · 入門第 04 課 · 約 15 分鐘</div><h1>把 Markdown 與原始文件逐項對照</h1>
+<p class="mission"><strong>本課成果：</strong>一份記錄缺頁、OCR 錯字、表格與閱讀順序的人工查核表。</p>
+<div class="rule"><strong>不要只讀順暢段落：</strong>轉換錯誤最常藏在換頁處、數字、專有名詞、表格與多欄版面。抽查首頁、中間頁、末頁和一個高風險區塊，才能決定能否往下使用。</div>
+<h2>做一次最小品質查核</h2>
+<div class="step"><label><input type="checkbox"> 1. 核對範圍是否完整</label><p>確認首頁標題與末頁內容都在，而且輸出頁數沒有明顯短少。若輸出缺少整頁，先標記為受阻（blocked），不要用模型猜回內容。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 抽查高風險內容</label><p>抽一段含專有名詞與數字的文字逐字比對，再檢查一張表格和一個多欄或圖說區。記下頁碼、原文、轉換結果與影響。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 決定這份檔案怎麼使用</label><pre>範圍：首頁／中間頁／末頁／表格 1
+結果：通過 3，需修正 1
+問題：第 7 頁料號 O 被辨識為 0
+決定：修正後可供搜尋；金額仍須回原始 PDF 查核
+原檔：docs/vendor-guide.pdf
+輸出：converted/vendor-guide.md</pre></div>
+<div class="done" id="done"><strong>入門完成：</strong>你有一份已人工抽查的 Markdown 與明確使用限制，不再把「有輸出」當成「可信」。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="2"><p>哪項最能證明轉換結果可供後續使用？</p><button>命令正常結束而且沒有錯誤訊息</button><button>Markdown 看起來段落完整又很順暢</button><button>高風險區塊已與原始文件對照</button><div class="why">命令跑完、文章讀起來順，都可能掩蓋缺頁、數字或表格錯誤；原檔對照才是品質證據。</div></div>
+<h2>關鍵判斷</h2><p>轉換完成時，應保留原始內容的來源、查核結果與使用限制，不必把每份文件硬修成完美 Markdown。</p>
+<p><strong>主要閱讀：</strong><a href="https://docling-project.github.io/docling/usage/">Docling usage</a> 與 <a href="https://github.com/microsoft/markitdown/blob/main/README.md">MarkItDown README</a>；查核欄位見 <a href="../reference/document-to-markdown-workflow.html">文件轉 Markdown 路線卡</a>。</p>
+<footer>上一課：<a href="010-0003-ocr-one-scanned-pdf-with-docling.html">Docling OCR</a> · 進階下一課：<a href="010-0005-compare-default-extraction-and-forced-ocr.html">比較預設擷取與強制 OCR</a><br>把查核表與問題頁貼回 Claude Code，請它依證據建議修正、重轉或保留限制，不要補寫原檔沒有的內容。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

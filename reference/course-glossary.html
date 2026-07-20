@@ -121,6 +121,20 @@
 <tr><td>待確認</td><td>來源不同、資料不足或仍需人決定的內容；先誠實標記。</td></tr>
 </table>
 
+<h2>文件轉換與 OCR</h2>
+<table>
+<tr><th>課程用語</th><th>意思</th></tr>
+<tr><td>文字型文件</td><td>內含可搜尋、可複製文字層的 PDF 或 Office 文件；通常先用 MarkItDown。</td></tr>
+<tr><td>掃描文件</td><td>頁面主要是影像、沒有可靠文字層的 PDF 或圖片；通常需要 OCR。</td></tr>
+<tr><td>光學字元辨識（OCR）</td><td>從頁面影像辨識文字的過程；數字、專有名詞、表格與閱讀順序仍需人工查核。</td></tr>
+<tr><td>MarkItDown</td><td>Microsoft 的輕量文件轉 Markdown 工具；基礎套件不會自動替掃描 PDF 做本機 OCR。</td></tr>
+<tr><td>Docling</td><td>可在本機處理 OCR、版面、閱讀順序、表格與 Markdown 輸出的文件轉換工具。</td></tr>
+<tr><td>強制 OCR（force OCR）</td><td>用 OCR 結果取代既有文字層；只在掃描頁或文字層損壞時使用，不是預設選項。</td></tr>
+<tr><td>轉換紀錄</td><td>連結原檔、輸出、工具版本、實際命令、人工查核範圍與已知缺口的可追查資料。</td></tr>
+<tr><td>核准清單（allowlist）</td><td>批次轉換前明確列出的精確檔案集合，避免遞迴掃描未授權資料。</td></tr>
+<tr><td>批次結果清單（manifest）</td><td>逐檔記錄 success、failed、skipped、輸出位置與查核狀態的結果表。</td></tr>
+</table>
+
 <h3>Phase 6 進階詞</h3>
 <table>
 <tr><th>課程用語</th><th>意思</th></tr>
@@ -133,6 +147,6 @@
 <tr><td>證明包（proof pack）</td><td>用來證明 Wiki 可重跑、可查核的一組進階證據。</td></tr>
 </table>
 
-<footer>相關：<a href="claude-product-picker.html">產品選用</a> · <a href="claude-code-command-surface.html">Claude Code 操作</a> · <a href="claude-design-presentation-workflow.html">簡報工作流</a> · <a href="playwright-browser-verification-workflow.html">Playwright</a> · <a href="agent-skill-checklist.html">工作技能檢查表</a> · <a href="llm-wiki-workflow.html">LLM Wiki</a></footer>
+<footer>相關：<a href="claude-product-picker.html">產品選用</a> · <a href="claude-code-command-surface.html">Claude Code 操作</a> · <a href="claude-design-presentation-workflow.html">簡報工作流</a> · <a href="playwright-browser-verification-workflow.html">Playwright</a> · <a href="agent-skill-checklist.html">工作技能檢查表</a> · <a href="document-to-markdown-workflow.html">文件轉 Markdown</a> · <a href="llm-wiki-workflow.html">LLM Wiki</a></footer>
 </body>
 </html>

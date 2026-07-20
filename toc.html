@@ -19,6 +19,7 @@
   h2.p7 { color: #2f6f63; border-bottom: 2px solid #2f6f63; }
   h2.p8 { color: #4c5f9e; border-bottom: 2px solid #4c5f9e; }
   h2.p9 { color: #7a4b25; border-bottom: 2px solid #7a4b25; }
+  h2.p10 { color: #0d7180; border-bottom: 2px solid #0d7180; }
   table { border-collapse: collapse; width: 100%; font-size: .92rem; }
   td { border-bottom: 1px solid #eee; padding: .5rem .6rem; vertical-align: top; }
   td.no { width: 2.8rem; color: #999; font-variant-numeric: tabular-nums; }
@@ -32,6 +33,7 @@
   .p7sec a { color: #255c52; }
   .p8sec a { color: #3f4f84; }
   .p9sec a { color: #6d421f; }
+  .p10sec a { color: #0a6572; }
   a:hover { text-decoration: underline; }
   .flow { border: 1px solid #e8e0d8; border-left-width: 4px; border-radius: 8px; padding: .75rem .9rem; margin: .8rem 0 1.4rem; background: #fffdfa; font-size: .86rem; line-height: 1.65; }
   .p2sec .flow { border-left-color: #9a5a00; background: #fffaf1; }
@@ -42,6 +44,7 @@
   .p7sec .flow { border-left-color: #2f6f63; background: #f4faf8; }
   .p8sec .flow { border-left-color: #4c5f9e; background: #f5f6fc; }
   .p9sec .flow { border-left-color: #7a4b25; background: #fcf8f4; }
+  .p10sec .flow { border-left-color: #0d7180; background: #f3fafb; }
   .flow-title { font-weight: 700; margin-bottom: .35rem; color: #333; }
   .flow-note { margin: 0 0 .45rem; color: #666; }
   .flow-row { display: grid; grid-template-columns: 4.8rem 1fr; gap: .35rem .65rem; align-items: start; margin-top: .35rem; }
@@ -58,10 +61,10 @@
 <body class="toc-page">
 <p style="margin:0"><a href="index.html" style="font-size:.85rem">← 封面</a></p>
 <h1>課目表</h1>
-<p class="sub">從真實程式庫出發：安全操作 Claude Code → 釐清需求 → 審查程式差異 → 執行測試 → 留下交接；再依需求選學視覺、簡報、知識庫、瀏覽器驗證與工作技能。共 96 課，Phase 4–9 每課約 10–20 分鐘。</p>
+<p class="sub">課程從真實程式庫開始，先練習安全操作 Claude Code、釐清需求、審查程式差異、執行測試與交接。之後再依工作需求選學視覺設計、簡報、知識庫、瀏覽器驗證、工作技能或文件轉換。共 104 課，Phase 4–10 每課約 10–20 分鐘。</p>
 
 <div class="ref">
-<strong>常用速查</strong>：<a href="reference/claude-product-picker.html">產品選用</a>、<a href="reference/claude-design-to-code-workflow.html">第一個小畫面</a>、<a href="reference/claude-design-daily-output-picker.html">視覺交付選路</a>、<a href="reference/claude-design-presentation-workflow.html">三頁簡報</a>、<a href="reference/open-slide-agent-deck-workflow.html">Phase 7 open-slide</a>、<a href="reference/playwright-browser-verification-workflow.html">Phase 8 Playwright</a>、<a href="reference/agent-skill-checklist.html">Phase 9 工作技能</a>、<a href="reference/claude-code-command-surface.html">Claude Code 操作</a>、<a href="reference/claude-code-model-effort.html">模型與推理程度</a>、<a href="reference/wayfinder-map-workflow.html">Wayfinder 地圖</a>、<a href="reference/llm-wiki-workflow.html">迷你 LLM Wiki</a>、<a href="reference/course-glossary.html">課程詞彙表</a><br>
+<strong>常用速查</strong>：<a href="reference/claude-product-picker.html">產品選用</a>、<a href="reference/claude-design-to-code-workflow.html">第一個小畫面</a>、<a href="reference/claude-design-daily-output-picker.html">視覺交付選路</a>、<a href="reference/claude-design-presentation-workflow.html">三頁簡報</a>、<a href="reference/open-slide-agent-deck-workflow.html">Phase 7 open-slide</a>、<a href="reference/playwright-browser-verification-workflow.html">Phase 8 Playwright</a>、<a href="reference/agent-skill-checklist.html">Phase 9 工作技能</a>、<a href="reference/document-to-markdown-workflow.html">Phase 10 文件轉 Markdown</a>、<a href="reference/claude-code-command-surface.html">Claude Code 操作</a>、<a href="reference/claude-code-model-effort.html">模型與推理程度</a>、<a href="reference/wayfinder-map-workflow.html">Wayfinder 地圖</a>、<a href="reference/llm-wiki-workflow.html">迷你 LLM Wiki</a>、<a href="reference/course-glossary.html">課程詞彙表</a><br>
 <strong>完成原則：</strong>勾完清單代表操作完成；能交出指定產出、說明判斷並通過回饋，才達到這課的完成標準。
 </div>
 
@@ -588,6 +591,26 @@
 </div>
 </div>
 
-<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-07-18</footer>
+<div class="p10sec">
+<h2 class="p10">Phase 10（Claude Code × 文件轉 Markdown）— 入門 01–04；進階 05–08</h2>
+<table>
+<tr><td class="no">01</td><td><a href="lessons/010-0001-choose-document-conversion-route.html">判斷文件該走哪條轉換路線</a></td><td class="track">入門選路</td></tr>
+<tr><td class="no">02</td><td><a href="lessons/010-0002-convert-one-text-document-with-markitdown.html">用 MarkItDown 轉換一份文字型文件</a></td><td class="track">入門轉換</td></tr>
+<tr><td class="no">03</td><td><a href="lessons/010-0003-ocr-one-scanned-pdf-with-docling.html">用 Docling OCR 一份掃描 PDF</a></td><td class="track">入門 OCR</td></tr>
+<tr><td class="no">04</td><td><a href="lessons/010-0004-review-converted-markdown-against-source.html">把 Markdown 與原始文件逐項對照</a></td><td class="track">入門完成</td></tr>
+<tr><td class="no">05</td><td><a href="lessons/010-0005-compare-default-extraction-and-forced-ocr.html">比較預設擷取與強制 OCR</a></td><td class="track">進階混合檔</td></tr>
+<tr><td class="no">06</td><td><a href="lessons/010-0006-record-traceable-conversion-evidence.html">留下可追查的轉換紀錄</a></td><td class="track">進階追查</td></tr>
+<tr><td class="no">07</td><td><a href="lessons/010-0007-batch-convert-an-approved-file-list.html">批次轉換已核准的檔案清單</a></td><td class="track">進階批次</td></tr>
+<tr><td class="no">08</td><td><a href="lessons/010-0008-handoff-reviewed-markdown-to-llm-wiki.html">把已查核 Markdown 交給 LLM Wiki</a></td><td class="track">進階交接</td></tr>
+</table>
+<div class="flow">
+  <div class="flow-title">先轉一份、對照一份，再考慮批次與知識庫</div>
+  <p class="flow-note">入門 01–04 可以獨立完成：一般文字型 PDF／Office 文件先試 MarkItDown，掃描 PDF 才用 Docling OCR；若只有少量檔案，也可直接請 Claude Code 讀取。每次都要保留原檔並人工對照。只有遇到混合版面、需要稽核或小批次交接時，才接 05–08；完整停止線見 <a href="reference/document-to-markdown-workflow.html">文件轉 Markdown 路線卡</a>。</p>
+  <div class="flow-row"><div class="flow-label">入門轉一份</div><div class="flow-steps"><a href="lessons/010-0001-choose-document-conversion-route.html">01 選路</a><a href="lessons/010-0002-convert-one-text-document-with-markitdown.html">02 MarkItDown</a><a href="lessons/010-0003-ocr-one-scanned-pdf-with-docling.html">03 Docling OCR</a><a href="lessons/010-0004-review-converted-markdown-against-source.html">04 原檔對照</a></div></div>
+  <div class="flow-row"><div class="flow-label">進階管品質</div><div class="flow-steps"><a href="lessons/010-0005-compare-default-extraction-and-forced-ocr.html">05 混合檔比較</a><a href="lessons/010-0006-record-traceable-conversion-evidence.html">06 轉換紀錄</a><a href="lessons/010-0007-batch-convert-an-approved-file-list.html">07 小批次</a><a href="lessons/010-0008-handoff-reviewed-markdown-to-llm-wiki.html">08 Wiki 交接</a></div></div>
+</div>
+</div>
+
+<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-07-20</footer>
 </body>
 </html>

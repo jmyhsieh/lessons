@@ -82,6 +82,22 @@
   約 20 分鐘的 Skill 檢查架構：啟用方式（Trigger）、內容結構（Structure）、行為引導（Steering）、精簡整理（Pruning），以及 Skills 囤積困境、引導詞、實際查找與驗證工作、歷史堆積、無效指令等設計問題。Use for: Phase 9 的課程骨架；Claude Code 具體欄位仍回查 Anthropic 文件。
 - [Skill snapshot: writing-great-skills](https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/productivity/writing-great-skills/SKILL.md)
   影片架構的可執行版本，補上完成條件、按需載入、Skill 拆分與失敗模式的更精確順序。Use for: Phase 9 第 01–09 課；reviewed snapshot <code>9603c1c</code>（2026-07-18），使用前仍查 <a href="https://github.com/mattpocock/skills/blob/main/skills/productivity/writing-great-skills/SKILL.md">current version</a>。
+- [Repository: MarkItDown — Microsoft](https://github.com/microsoft/markitdown)
+  把 PDF、Office、圖片、音訊與其他格式轉成適合 LLM 使用的 Markdown；基礎套件不是掃描 PDF 的本機 OCR 引擎。Use for: Phase 10 第 01–02、04、06–07 課的輕量轉換路線。
+- [Package: MarkItDown — PyPI](https://pypi.org/project/markitdown/)
+  目前套件需求、extras、CLI 與 Python 用法。Use for: Phase 10 第 02 課的實際安裝與版本查核。
+- [Package: MarkItDown OCR](https://github.com/microsoft/markitdown/blob/main/packages/markitdown-ocr/README.md)
+  MarkItDown 的獨立 OCR plugin，需要 OpenAI-compatible client、model 與 API 設定；不是基礎套件或 Claude Code 訂閱內含能力。Use for: 說明 Phase 10 為何以 Docling 作為本機 OCR 主線。
+- [Repository: Docling](https://github.com/docling-project/docling)
+  支援本機文件解析、OCR、版面、閱讀順序、表格與 Markdown 輸出。Use for: Phase 10 第 01、03–08 課的掃描與複雜文件路線。
+- [Guide: Docling installation](https://docling-project.github.io/docling/getting_started/installation/)
+  Python、平台、accelerator 與 OCR extras 的目前需求。Use for: Phase 10 第 03 課的核准安裝計畫。
+- [Reference: Docling CLI](https://docling-project.github.io/docling/reference/cli/)
+  <code>docling convert</code>、Markdown 輸出、OCR、<code>--force-ocr</code>、表格與 device 旗標。Use for: Phase 10 第 03、05–07 課的命令與停止線。
+- [Example: Full-page OCR — Docling](https://docling-project.github.io/docling/_generated/examples/full_page_ocr/)
+  說明何時以強制 OCR 取代既有文字層。Use for: Phase 10 第 03、05 課，避免把 <code>--force-ocr</code> 當預設。
+- [Guide: Work with images — Claude Code](https://code.claude.com/docs/en/common-workflows#work-with-images)
+  Claude Code 可直接讀取圖片並協助分析；少量 PDF／圖片不一定先安裝轉換器。Use for: Phase 10 第 01 課的直接讀取替代路線。
 - [Glossary snapshot: Building Great Skills](https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/productivity/writing-great-skills/GLOSSARY.md)
   流程可預期性、對話脈絡／使用者記憶負擔、資訊層級、引導詞、實際查找與驗證工作，以及精簡整理失敗模式的詞彙模型。Use for: Phase 9 進階 05–08 與速查表；不要求入門先背詞彙。
 - [Reference: Hooks — Anthropic](https://code.claude.com/docs/en/hooks)
@@ -139,4 +155,5 @@
 - LLM Wiki 仍缺可公開引用、跨數月且同時展示來源漂移、矛盾裁決、lint 與長期使用價值的完整 proof pack。
 - Claude Code × Playwright 仍缺台灣團隊公開、可重現且同時展示 MCP live check、planner／generator／healer 人工關卡、trace 脫敏與 CI gate 取捨的完整案例。
 - Claude Code 工作技能仍缺台灣團隊公開、可重現且同時展示啟用方式基準、執行結果基準、精簡前後差異與長期維護成本的完整案例。
+- 文件轉 Markdown 仍缺台灣團隊公開、可重現且同時保留原檔、OCR 抽查、表格錯誤、轉換 manifest 與知識庫交接的完整案例。
 - 若使用者不想參與社群，需記錄在 NOTES.md，避免後續重複推薦。
