@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code hooks｜工具卡</title>
+<style>
+:root{--tool:#926500}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html#phase2-toolbox">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 2 · 固定時點自動化</span>
+<h1>Claude Code hooks</h1>
+<p class="lead">在 Claude Code 的生命週期事件執行可預測的檢查、格式化、記錄或通知。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>把固定規則變成自動動作</h2><p>不必每次提醒 Claude 執行同一件事；指定事件發生時，由 hook 一致處理。</p></section>
+<section class="card"><div class="label">何時用</div><h2>規則可以明確判定</h2><p>適合格式化、記錄、通知與機械式驗證，尤其是漏做一次就會影響品質的步驟。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>需要情境判斷或討論</h2><p>需求取捨、程式審查與模糊政策不該硬塞進固定腳本；這些工作保留給人或 agent 判斷。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>設定、輸入與命令副作用</h2><p>Hook 會讀設定與事件輸入，並可執行命令、呼叫服務或修改檔案；實際副作用取決於設定內容。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>先縮小事件、matcher 與設定範圍。</strong>專案規則優先放在專案設定；執行前閱讀腳本，不把 secrets 或完整敏感輸入寫進 log。</div>
+<h2>最低完成證據</h2>
+<ul><li>記錄事件、matcher、設定位置與實際命令。</li><li>觸發一次並保留輸出，另確認不符合條件時不執行。</li><li>說明如何停用或移除 hook。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>先唯讀檢查目前的 hooks 設定與相關腳本。
+針對「＿＿」提出一個專案範圍、低副作用的 hook；說明事件、matcher、命令、輸入輸出與移除方式。
+先不要寫入設定或執行命令，等我核准。</pre>
+<footer>實作：<a href="../../lessons/002-0001-hooks-basics.html">控制工具行為</a> · 延伸：<a href="guardrail-hooks.html">guardrail hook</a><br>主要來源：<a href="https://code.claude.com/docs/en/hooks-guide">Hooks guide</a> · <a href="https://code.claude.com/docs/en/hooks">Hooks reference</a></footer>
+</body>
+</html>

@@ -22,7 +22,6 @@
   h2.p10 { color: #0d7180; border-bottom: 2px solid #0d7180; }
   h2.p11 { color: #506d2f; border-bottom: 2px solid #506d2f; }
   h2.p12 { color: #6f4d7a; border-bottom: 2px solid #6f4d7a; }
-  h2.p13 { color: #365f79; border-bottom: 2px solid #365f79; }
   table { border-collapse: collapse; width: 100%; font-size: .92rem; }
   td { border-bottom: 1px solid #eee; padding: .5rem .6rem; vertical-align: top; }
   td.no { width: 2.8rem; color: #999; font-variant-numeric: tabular-nums; }
@@ -39,7 +38,6 @@
   .p10sec a { color: #0a6572; }
   .p11sec a { color: #405a24; }
   .p12sec a { color: #5d3e68; }
-  .p13sec a { color: #2d536b; }
   a:hover { text-decoration: underline; }
   .flow { border: 1px solid #e8e0d8; border-left-width: 4px; border-radius: 8px; padding: .75rem .9rem; margin: .8rem 0 1.4rem; background: #fffdfa; font-size: .86rem; line-height: 1.65; }
   .p2sec .flow { border-left-color: #9a5a00; background: #fffaf1; }
@@ -53,7 +51,6 @@
   .p10sec .flow { border-left-color: #0d7180; background: #f3fafb; }
   .p11sec .flow { border-left-color: #506d2f; background: #f5f8f0; }
   .p12sec .flow { border-left-color: #6f4d7a; background: #faf5fb; }
-  .p13sec .flow { border-left-color: #365f79; background: #f4f8fb; }
   .flow-title { font-weight: 700; margin-bottom: .35rem; color: #333; }
   .flow-note { margin: 0 0 .45rem; color: #666; }
   .flow-row { display: grid; grid-template-columns: 4.8rem 1fr; gap: .35rem .65rem; align-items: start; margin-top: .35rem; }
@@ -70,14 +67,14 @@
 <body class="toc-page">
 <p style="margin:0"><a href="index.html" style="font-size:.85rem">← 封面</a></p>
 <h1>課目表</h1>
-<p class="sub">課程從真實程式庫開始，先練習安全操作 Claude Code、釐清需求、審查程式差異、執行測試與交接。之後再依工作需求選學視覺設計、簡報、知識庫、瀏覽器驗證、工作技能、文件轉換、查找工具、介面動態或 OpenSpec。共 124 課，Phase 4–13 每課約 10–30 分鐘。</p>
+<p class="sub">正式課程保留 Phase 1、3、4、5、6、9，從安全操作 Claude Code 一路做到需求交付、畫面、簡報、知識庫與工作技能。Phase 2、7、8、10、11、12 改為工具庫，不列入正式課程；遇到真實需求時先查一頁式卡片，再選擇是否進入實作。</p>
 
 <div class="ref">
-<strong>常用速查</strong>：<a href="reference/claude-product-picker.html">產品選用</a>、<a href="reference/claude-design-to-code-workflow.html">第一個小畫面</a>、<a href="reference/claude-design-daily-output-picker.html">視覺交付選路</a>、<a href="reference/claude-design-presentation-workflow.html">三頁簡報</a>、<a href="reference/open-slide-agent-deck-workflow.html">Phase 7 open-slide</a>、<a href="reference/playwright-browser-verification-workflow.html">Phase 8 Playwright</a>、<a href="reference/agent-skill-checklist.html">Phase 9 工作技能</a>、<a href="reference/document-to-markdown-workflow.html">Phase 10 文件轉 Markdown</a>、<a href="reference/claude-code-context-tools.html">Phase 11 用量與查找工具</a>、<a href="reference/design-engineering-skills-workflow.html">Phase 12 介面動態 Skills</a>、<a href="reference/phase3-openspec-workflow.html">Phase 13 路線比較</a>、<a href="reference/claude-code-command-surface.html">Claude Code 操作</a>、<a href="reference/claude-code-model-effort.html">模型與推理程度</a>、<a href="reference/wayfinder-map-workflow.html">Wayfinder 地圖</a>、<a href="reference/llm-wiki-workflow.html">迷你 LLM Wiki</a>、<a href="reference/course-glossary.html">課程詞彙表</a><br>
+<strong>常用速查</strong>：<a href="reference/claude-code-tool-library.html">Claude Code 工具庫</a>、<a href="reference/claude-product-picker.html">產品選用</a>、<a href="reference/claude-design-to-code-workflow.html">第一個小畫面</a>、<a href="reference/claude-design-daily-output-picker.html">視覺交付選路</a>、<a href="reference/claude-design-presentation-workflow.html">三頁簡報</a>、<a href="reference/open-slide-agent-deck-workflow.html">Phase 7 open-slide</a>、<a href="reference/playwright-browser-verification-workflow.html">Phase 8 Playwright</a>、<a href="reference/agent-skill-checklist.html">Phase 9 工作技能</a>、<a href="reference/document-to-markdown-workflow.html">Phase 10 文件轉 Markdown</a>、<a href="reference/claude-code-context-tools.html">Phase 11 用量與查找工具</a>、<a href="reference/design-engineering-skills-workflow.html">Phase 12 介面動態 Skills</a>、<a href="reference/claude-code-command-surface.html">Claude Code 操作</a>、<a href="reference/claude-code-model-effort.html">模型與推理程度</a>、<a href="reference/wayfinder-map-workflow.html">Wayfinder 地圖</a>、<a href="reference/llm-wiki-workflow.html">迷你 LLM Wiki</a>、<a href="reference/course-glossary.html">課程詞彙表</a><br>
 <strong>完成原則：</strong>勾完清單代表操作完成；能交出指定產出、說明判斷並通過回饋，才達到這課的完成標準。
 </div>
 
-<h2 class="p1">Phase 1 — 安全開始：四個 Claude 工作表面與 Claude Code 入門（01–12）</h2>
+<h2 class="p1" id="phase-1">Phase 1 — 安全開始：四個 Claude 工作表面與 Claude Code 入門（01–12）</h2>
 <table>
 <tr><td class="no">01</td><td><a href="lessons/001-0001-four-claude-surfaces.html">四個 Claude 工作表面，四種交付路線</a></td><td class="track">產品判斷</td></tr>
 <tr><td class="no">02</td><td><a href="lessons/001-0002-first-session-read-only.html">安裝 Claude Code，開第一個 session</a></td><td class="track">入門</td></tr>
@@ -130,52 +127,21 @@
 </div>
 
 <div class="p2sec">
-<h2 class="p2">Phase 2 工具箱 — 依任務選用 Skills、Subagents、MCP、hooks 與自動化（01–10）</h2>
-<table>
-<tr><td class="no">01</td><td><a href="lessons/002-0001-hooks-basics.html">控制 Claude Code 工具行為（hooks）</a></td><td class="track">操作控制</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/002-0002-guardrail-hooks.html">擋下危險操作（guardrail hook）</a></td><td class="track">操作控制</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/002-0003-skills.html">把重複流程打包成指令（Skills）</a></td><td class="track">操作控制</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/002-0004-mcp.html">讓 Claude Code 讀外部系統資料（MCP）</a></td><td class="track">操作控制</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/002-0005-subagents-context.html">把大型調查交給另一個 agent（Subagents）</a></td><td class="track">Context 隔離</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/002-0006-custom-subagent-review.html">建立專門負責 review 的 agent（custom subagent）</a></td><td class="track">Context 隔離</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/002-0007-worktrees.html">用 worktree 分開平行工作</a></td><td class="track">擴展</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/002-0008-writer-reviewer-session.html">用兩個工作階段分開撰寫與審查</a></td><td class="track">擴展</td></tr>
-<tr><td class="no">09</td><td><a href="lessons/002-0009-headless-one-shot.html">用指令列跑一次性任務（claude -p）</a></td><td class="track">擴展</td></tr>
-<tr><td class="no">10</td><td><a href="lessons/002-0010-ci-automation-boundary.html">在 CI 中安全使用 Claude Code</a></td><td class="track">擴展</td></tr>
-</table>
+<h2 class="p2" id="phase-2">Phase 2 工具庫 — Claude Code 擴充與自動化（選用，不列入正式課程）</h2>
 <div class="flow">
-  <div class="flow-title">建議走法</div>
-  <p class="flow-note">這一階段不用全讀。先問下一個目標是重用流程、隔離 context、連外部系統、固定時點執行，還是無人值守，再選工具。完整分類可對照 <a href="https://code.claude.com/docs/en/features-overview">官方 Extend Claude Code</a>。</p>
+  <div class="flow-title">10 張一頁式工具／模式卡</div>
+  <p class="flow-note">依需求選 hooks、Skills、MCP、Subagents、worktrees、headless 或 CI。原本的 lesson 頁保留為卡片內的選擇性實作，不再按課號依序學習。</p>
   <div class="flow-row">
-    <div class="flow-label">重用與連接</div>
+    <div class="flow-label">進入工具庫</div>
     <div class="flow-steps">
-      <a href="lessons/002-0003-skills.html">03 Skills</a>
-      <a href="lessons/002-0005-subagents-context.html">05 Subagents</a>
-      <a href="lessons/002-0006-custom-subagent-review.html">06 review agent</a>
-      <a href="lessons/002-0004-mcp.html">04 MCP</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">規則與自動化</div>
-    <div class="flow-steps">
-      <a href="lessons/002-0001-hooks-basics.html">01 hooks</a>
-      <a href="lessons/002-0002-guardrail-hooks.html">02 guardrail</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">多工自動化</div>
-    <div class="flow-steps">
-      <a href="lessons/002-0007-worktrees.html">07 worktree</a>
-      <a href="lessons/002-0008-writer-reviewer-session.html">08 雙工作階段</a>
-      <a href="lessons/002-0009-headless-one-shot.html">09 one-shot</a>
-      <a href="lessons/002-0010-ci-automation-boundary.html">10 CI</a>
+      <a href="reference/claude-code-tool-library.html#phase2-toolbox">開啟 Phase 2 工具卡</a>
     </div>
   </div>
 </div>
 </div>
 
 <div class="p3sec">
-<h2 class="p3">Phase 3 — 把模糊需求變成可交付成果（主線 01–12；選修 13–14）</h2>
+<h2 class="p3" id="phase-3">Phase 3 — 把模糊需求變成可交付成果（主線 01–12；選修 13–14）</h2>
 <table>
 <tr><td class="no">01</td><td><a href="lessons/003-0001-matt-pocock-skills-foundation.html">先完成 mattpocock/skills 設定</a></td><td class="track">地基</td></tr>
 <tr><td class="no">02</td><td><a href="lessons/003-0002-ask-matt.html">用 /ask-matt 判斷該走哪條路</a></td><td class="track">路線選擇</td></tr>
@@ -280,7 +246,7 @@
 </div>
 
 <div class="p4sec">
-<h2 class="p4">Phase 4（Claude Code × Claude Design）— 入門 01–08；進階 09–13</h2>
+<h2 class="p4" id="phase-4">Phase 4（Claude Code × Claude Design）— 入門 01–08；進階 09–13</h2>
 <table>
 <tr><td class="no">01</td><td><a href="lessons/004-0001-choose-claude-design-surface.html">從 Claude Code 連接 Claude Design</a></td><td class="track">連接能力</td></tr>
 <tr><td class="no">02</td><td><a href="lessons/004-0002-write-design-brief.html">請 Claude Code 整理四句 design brief</a></td><td class="track">Prompt</td></tr>
@@ -346,7 +312,7 @@
 </div>
 
 <div class="p5sec">
-<h2 class="p5">Phase 5（Claude Code × Claude Design 簡報）— 入門 01–08；進階 09–12</h2>
+<h2 class="p5" id="phase-5">Phase 5（Claude Code × Claude Design 簡報）— 入門 01–08；進階 09–12</h2>
 <table>
 <tr><td class="no">01</td><td><a href="lessons/005-0001-choose-daily-visual-output.html">請 Claude Code 定義真實簡報任務</a></td><td class="track">題目</td></tr>
 <tr><td class="no">02</td><td><a href="lessons/005-0002-build-source-pack.html">讓 Claude Code 整理三份可信資料</a></td><td class="track">資料</td></tr>
@@ -404,14 +370,14 @@
   <div class="flow-row">
     <div class="flow-label">Code-first</div>
     <div class="flow-steps">
-      <a href="lessons/007-0001-decide-if-open-slide-fits.html">前往 Phase 7 選路</a>
+      <a href="reference/claude-code-tool-library.html#open-slide">前往 open-slide 工具卡</a>
     </div>
   </div>
 </div>
 </div>
 
 <div class="p6sec">
-<h2 class="p6">Phase 6（Claude Code × LLM Wiki）— 入門 01–03；進階 04–08</h2>
+<h2 class="p6" id="phase-6">Phase 6（Claude Code × LLM Wiki）— 入門 01–03；進階 04–08</h2>
 <table>
 <tr><td class="no">01</td><td><a href="lessons/006-0001-start-llm-wiki-with-claude-code.html">把 LLM Wiki idea file 交給 Claude Code</a></td><td class="track">快速開始</td></tr>
 <tr><td class="no">02</td><td><a href="lessons/006-0002-add-first-llm-wiki-source.html">加入第一份真實來源</a></td><td class="track">第一次更新</td></tr>
@@ -462,103 +428,37 @@
 </div>
 
 <div class="p7sec">
-<h2 class="p7">Phase 7（Claude Code × open-slide）— 入門 01–04；進階 05–09</h2>
-<table>
-<tr><td class="no">01</td><td><a href="lessons/007-0001-decide-if-open-slide-fits.html">讓 Claude Code 判斷 open-slide 是否適合</a></td><td class="track">入門選路</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/007-0002-create-isolated-workspace.html">請 Claude Code 建立隔離 workspace</a></td><td class="track">入門環境</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/007-0003-build-three-slide-slice.html">讓 Claude Code 完成三頁簡報切片</a></td><td class="track">入門實作</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/007-0004-build-and-open-output.html">請 Claude Code build，再親自開啟</a></td><td class="track">入門完成</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/007-0005-use-agent-contract.html">讓 Claude Code 讀工作區規則</a></td><td class="track">進階規則</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/007-0006-build-reusable-slide-system.html">用 /create-theme 建立可重用系統</a></td><td class="track">進階重用</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/007-0007-audit-sources-and-accessibility.html">讓 Claude Code 列檢查，真人完成稽核</a></td><td class="track">進階稽核</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/007-0008-close-comment-edit-review-loop.html">關閉一則視覺回饋</a></td><td class="track">進階回饋</td></tr>
-<tr><td class="no">09</td><td><a href="lessons/007-0009-package-and-deploy-safely.html">讓 Claude Code 準備受控交付包</a></td><td class="track">進階交付</td></tr>
-</table>
+<h2 class="p7" id="phase-7">Phase 7 工具庫 — open-slide（選用，不列入正式課程）</h2>
 <div class="flow">
-  <div class="flow-title">先完成三頁，再處理 code-first 成長</div>
-  <p class="flow-note">01–04 讓 Claude Code 判斷、scaffold、使用 <code>/create-slide</code> 與 build；學員核准命令、審查 diff、親自打開輸出。遇到重用、可信查核或部署需求才接 05–09；完整路線見 <a href="reference/open-slide-agent-deck-workflow.html">Phase 7 路線卡</a>。</p>
+  <div class="flow-title">一張工具卡＋一條按需工作流</div>
+  <p class="flow-note">先判斷是否需要 code-first 簡報；需要時再由工作流挑選三頁實作、重用、稽核、回饋或交付。原 lesson 頁保留為選擇性實作。</p>
   <div class="flow-row">
-    <div class="flow-label">入門選路</div>
+    <div class="flow-label">開啟</div>
     <div class="flow-steps">
-      <a href="lessons/007-0001-decide-if-open-slide-fits.html">01 判斷適用</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">入門切片</div>
-    <div class="flow-steps">
-      <a href="lessons/007-0002-create-isolated-workspace.html">02 workspace</a>
-      <a href="lessons/007-0003-build-three-slide-slice.html">03 三頁切片</a>
-      <a href="lessons/007-0004-build-and-open-output.html">04 正式輸出</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">進階系統</div>
-    <div class="flow-steps">
-      <a href="lessons/007-0005-use-agent-contract.html">05 工作區規則</a>
-      <a href="lessons/007-0006-build-reusable-slide-system.html">06 slide system</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">進階交付</div>
-    <div class="flow-steps">
-      <a href="lessons/007-0007-audit-sources-and-accessibility.html">07 稽核</a>
-      <a href="lessons/007-0008-close-comment-edit-review-loop.html">08 回饋迴圈</a>
-      <a href="lessons/007-0009-package-and-deploy-safely.html">09 部署準備</a>
+      <a href="reference/claude-code-tool-library.html#open-slide">open-slide 工具卡</a>
+      <a href="reference/open-slide-agent-deck-workflow.html">選擇性實作路線</a>
     </div>
   </div>
 </div>
 </div>
 
 <div class="p8sec">
-<h2 class="p8">Phase 8（Claude Code × Playwright）— 入門 01–04；進階 05–09</h2>
-<table>
-<tr><td class="no">01</td><td><a href="lessons/008-0001-choose-live-check-or-test.html">判斷即時查核或持久測試</a></td><td class="track">入門選證據</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/008-0002-connect-playwright-mcp-to-claude-code.html">把 Playwright MCP 接到 Claude Code</a></td><td class="track">入門連接</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/008-0003-run-first-browser-check-with-claude-code.html">讓 Claude Code 走第一條 browser path</a></td><td class="track">入門查核</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/008-0004-create-first-durable-test-with-claude-code.html">讓 Claude Code 留下第一個持久 test</a></td><td class="track">入門完成</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/008-0005-initialize-playwright-test-agents.html">建立 Playwright 測試代理</a></td><td class="track">進階起點</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/008-0006-review-planner-spec.html">先審查規劃代理產生的測試規格</a></td><td class="track">進階規劃</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/008-0007-review-generator-test.html">審查產生代理建立的測試</a></td><td class="track">進階生成</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/008-0008-supervise-healer-with-trace.html">用追蹤記錄監督測試修復</a></td><td class="track">進階修復</td></tr>
-<tr><td class="no">09</td><td><a href="lessons/008-0009-run-reviewed-tests-in-ci.html">讓已審查測試在 CI 執行</a></td><td class="track">進階交付</td></tr>
-</table>
+<h2 class="p8" id="phase-8">Phase 8 工具庫 — Playwright（選用，不列入正式課程）</h2>
 <div class="flow">
-  <div class="flow-title">先讓 Claude Code 查核一條瀏覽器路徑，再擴大已核准測試</div>
-  <p class="flow-note">01–04 是獨立入門完成線：先選即時查核或耐久測試，以本機範圍連接 MCP，觀看 Claude Code 操作真實瀏覽器，再審查一個會失敗也會通過的已提交測試。只有需要擴大已驗證路徑、診斷測試失敗或接上 CI 時，才進入 05–09 的規劃、產生與修復代理流程；完整停止線見 <a href="reference/playwright-browser-verification-workflow.html">Phase 8 路線卡</a>。</p>
+  <div class="flow-title">三張工具卡，依證據需求選一張</div>
+  <p class="flow-note">即時查核選 Playwright MCP；防回歸選 Playwright Test；已有測試地基且要擴大多條路徑，才評估 Test Agents。原 lesson 頁保留為選擇性實作。</p>
   <div class="flow-row">
-    <div class="flow-label">入門選證據</div>
+    <div class="flow-label">開啟</div>
     <div class="flow-steps">
-      <a href="lessons/008-0001-choose-live-check-or-test.html">01 即時查核或測試</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">入門查核</div>
-    <div class="flow-steps">
-      <a href="lessons/008-0002-connect-playwright-mcp-to-claude-code.html">02 MCP</a>
-      <a href="lessons/008-0003-run-first-browser-check-with-claude-code.html">03 live check</a>
-      <a href="lessons/008-0004-create-first-durable-test-with-claude-code.html">04 durable test</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">進階生成</div>
-    <div class="flow-steps">
-      <a href="lessons/008-0005-initialize-playwright-test-agents.html">05 建立測試代理</a>
-      <a href="lessons/008-0006-review-planner-spec.html">06 審查測試規格</a>
-      <a href="lessons/008-0007-review-generator-test.html">07 審查產生的測試</a>
-    </div>
-  </div>
-  <div class="flow-row">
-    <div class="flow-label">修復交付</div>
-    <div class="flow-steps">
-      <a href="lessons/008-0008-supervise-healer-with-trace.html">08 監督測試修復</a>
-      <a href="lessons/008-0009-run-reviewed-tests-in-ci.html">09 CI 執行</a>
+      <a href="reference/claude-code-tool-library.html#playwright">Playwright 工具卡</a>
+      <a href="reference/playwright-browser-verification-workflow.html">選擇性實作路線</a>
     </div>
   </div>
 </div>
 </div>
 
 <div class="p9sec">
-<h2 class="p9">Phase 9（Claude Code × 工作技能）— 入門 01–04；進階 05–09</h2>
+<h2 class="p9" id="phase-9">Phase 9（Claude Code × 工作技能）— 入門 01–04；進階 05–09</h2>
 <table>
 <tr><td class="no">01</td><td><a href="lessons/009-0001-choose-one-repeatable-workflow.html">從一個重複工作流程開始</a></td><td class="track">入門選題</td></tr>
 <tr><td class="no">02</td><td><a href="lessons/009-0002-create-first-project-skill-with-claude-code.html">讓 Claude Code 建立第一個專案 Skill</a></td><td class="track">入門實作</td></tr>
@@ -601,80 +501,32 @@
 </div>
 
 <div class="p10sec">
-<h2 class="p10">Phase 10（Claude Code × 文件轉 Markdown）— 入門 01–04；進階 05–08</h2>
-<table>
-<tr><td class="no">01</td><td><a href="lessons/010-0001-choose-document-conversion-route.html">判斷文件該走哪條轉換路線</a></td><td class="track">入門選路</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/010-0002-convert-one-text-document-with-markitdown.html">用 MarkItDown 轉換一份文字型文件</a></td><td class="track">入門轉換</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/010-0003-ocr-one-scanned-pdf-with-docling.html">用 Docling OCR 一份掃描 PDF</a></td><td class="track">入門 OCR</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/010-0004-review-converted-markdown-against-source.html">把 Markdown 與原始文件逐項對照</a></td><td class="track">入門完成</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/010-0005-compare-default-extraction-and-forced-ocr.html">比較預設擷取與強制 OCR</a></td><td class="track">進階混合檔</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/010-0006-record-traceable-conversion-evidence.html">留下可追查的轉換紀錄</a></td><td class="track">進階追查</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/010-0007-batch-convert-an-approved-file-list.html">批次轉換已核准的檔案清單</a></td><td class="track">進階批次</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/010-0008-handoff-reviewed-markdown-to-llm-wiki.html">把已查核 Markdown 交給 LLM Wiki</a></td><td class="track">進階交接</td></tr>
-</table>
+<h2 class="p10" id="phase-10">Phase 10 工具庫 — 文件轉 Markdown（選用，不列入正式課程）</h2>
 <div class="flow">
-  <div class="flow-title">先轉一份、對照一份，再考慮批次與知識庫</div>
-  <p class="flow-note">入門 01–04 可以獨立完成：一般文字型 PDF／Office 文件先試 MarkItDown，掃描 PDF 才用 Docling OCR；若只有少量檔案，也可直接請 Claude Code 讀取。每次都要保留原檔並人工對照。只有遇到混合版面、需要稽核或小批次交接時，才接 05–08；完整停止線見 <a href="reference/document-to-markdown-workflow.html">文件轉 Markdown 路線卡</a>。</p>
-  <div class="flow-row"><div class="flow-label">入門轉一份</div><div class="flow-steps"><a href="lessons/010-0001-choose-document-conversion-route.html">01 選路</a><a href="lessons/010-0002-convert-one-text-document-with-markitdown.html">02 MarkItDown</a><a href="lessons/010-0003-ocr-one-scanned-pdf-with-docling.html">03 Docling OCR</a><a href="lessons/010-0004-review-converted-markdown-against-source.html">04 原檔對照</a></div></div>
-  <div class="flow-row"><div class="flow-label">進階管品質</div><div class="flow-steps"><a href="lessons/010-0005-compare-default-extraction-and-forced-ocr.html">05 混合檔比較</a><a href="lessons/010-0006-record-traceable-conversion-evidence.html">06 轉換紀錄</a><a href="lessons/010-0007-batch-convert-an-approved-file-list.html">07 小批次</a><a href="lessons/010-0008-handoff-reviewed-markdown-to-llm-wiki.html">08 Wiki 交接</a></div></div>
+  <div class="flow-title">三張工具卡，先依文件特徵選路</div>
+  <p class="flow-note">文字型文件選 MarkItDown，掃描或複雜版面選 Docling，少量一次性整理可直接由 Claude Code 讀取。原 lesson 頁保留為選擇性實作。</p>
+  <div class="flow-row"><div class="flow-label">開啟</div><div class="flow-steps"><a href="reference/claude-code-tool-library.html#document">文件轉換工具卡</a><a href="reference/document-to-markdown-workflow.html">選擇性實作路線</a></div></div>
 </div>
 </div>
 
 <div class="p11sec">
-<h2 class="p11">Phase 11（Claude Code × 用量與查找工具）— 選修 01–03</h2>
-<table>
-<tr><td class="no">01</td><td><a href="lessons/011-0001-measure-one-claude-code-session-with-ccusage.html">用 ccusage 記錄一個 Claude Code 工作階段的用量</a></td><td class="track">用量基準</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/011-0002-search-one-approved-markdown-collection-with-qmd.html">用 QMD 搜尋一組核准的 Markdown 文件</a></td><td class="track">找文件</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/011-0003-map-one-symbol-with-serena.html">用 Serena 畫一張程式符號地圖</a></td><td class="track">追符號</td></tr>
-</table>
+<h2 class="p11" id="phase-11">Phase 11 工具庫 — 用量與查找（選用，不列入正式課程）</h2>
 <div class="flow">
-  <div class="flow-title">依問題選工具，不用三個都裝</div>
-  <p class="flow-note">想看一個工作階段用了多少 token，走 ccusage；想搜尋核准的 Markdown 文件，走 QMD；想理解程式符號的定義與引用，走 Serena。三課都由 Claude Code 先檢查環境與官方文件，學員再核准範圍和命令；完整停止線見 <a href="reference/claude-code-context-tools.html">用量與查找工具路線卡</a>。</p>
-  <div class="flow-row"><div class="flow-label">三選一開始</div><div class="flow-steps"><a href="lessons/011-0001-measure-one-claude-code-session-with-ccusage.html">01 ccusage 基準</a><a href="lessons/011-0002-search-one-approved-markdown-collection-with-qmd.html">02 QMD 查核</a><a href="lessons/011-0003-map-one-symbol-with-serena.html">03 Serena 符號</a></div></div>
+  <div class="flow-title">依問題選 ccusage、QMD 或 Claude Code LSP</div>
+  <p class="flow-note">三個工具互不相依，不用全部安裝。Serena 保留為需要更完整專案探索工作流時的替代工具；原 lesson 頁保留為選擇性實作。</p>
+  <div class="flow-row"><div class="flow-label">開啟</div><div class="flow-steps"><a href="reference/claude-code-tool-library.html#context">用量與查找工具卡</a><a href="reference/claude-code-context-tools.html">工具比較與選擇性實作</a></div></div>
 </div>
 </div>
 
 <div class="p12sec">
-<h2 class="p12">Phase 12（Claude Code × Design Engineering Skills）— 入門 01–04；進階 05–08</h2>
-<table>
-<tr><td class="no">01</td><td><a href="lessons/012-0001-install-design-engineering-skills-safely.html">安全安裝 Design Engineering Skills</a></td><td class="track">入門安裝</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/012-0002-review-one-component-with-emil-design-eng.html">用 emil-design-eng 審查一個介面元件</a></td><td class="track">入門審查</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/012-0003-name-one-motion-with-animation-vocabulary.html">用 animation-vocabulary 把一個動態說清楚</a></td><td class="track">入門用語</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/012-0004-implement-one-press-feedback-with-apple-design.html">用 apple-design 實作一個按壓回饋</a></td><td class="track">入門實作</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/012-0005-review-one-animation-diff.html">用 review-animations 審查一份動態差異</a></td><td class="track">進階審查</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/012-0006-find-one-animation-opportunity-and-one-rejection.html">找一個值得做的動態，也排除一個</a></td><td class="track">進階取捨</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/012-0007-create-one-animation-improvement-plan.html">用 improve-animations 建立一份改善計畫</a></td><td class="track">進階計畫</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/012-0008-execute-and-verify-one-animation-plan.html">執行並驗證一份動態改善計畫</a></td><td class="track">進階交付</td></tr>
-</table>
+<h2 class="p12" id="phase-12">Phase 12 工具庫 — Design Engineering Skills（選用，不列入正式課程）</h2>
 <div class="flow">
-  <div class="flow-title">入門先完成一個小改動，進階再做全流程</div>
-  <p class="flow-note">前四課從來源查核開始，只審查一個元件、釐清一個動態，最後完成一個按壓回饋。需要盤點真實產品時，再接 05–08：審查固定 diff、保留一項，也排除一項並寫下理由、建立單一計畫，最後才受控執行；完整分工與停止線見 <a href="reference/design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a>。</p>
-  <div class="flow-row"><div class="flow-label">入門小改動</div><div class="flow-steps"><a href="lessons/012-0001-install-design-engineering-skills-safely.html">01 安裝</a><a href="lessons/012-0002-review-one-component-with-emil-design-eng.html">02 元件審查</a><a href="lessons/012-0003-name-one-motion-with-animation-vocabulary.html">03 動態用語</a><a href="lessons/012-0004-implement-one-press-feedback-with-apple-design.html">04 按壓回饋</a></div></div>
-  <div class="flow-row"><div class="flow-label">進階管交付</div><div class="flow-steps"><a href="lessons/012-0005-review-one-animation-diff.html">05 diff 審查</a><a href="lessons/012-0006-find-one-animation-opportunity-and-one-rejection.html">06 機會取捨</a><a href="lessons/012-0007-create-one-animation-improvement-plan.html">07 改善計畫</a><a href="lessons/012-0008-execute-and-verify-one-animation-plan.html">08 執行驗證</a></div></div>
+  <div class="flow-title">六張 Skill 卡，按任務選一張</div>
+  <p class="flow-note">審查、動態用語、有限實作、diff review、機會盤點與改善計畫各有獨立卡片。原 lesson 頁保留為選擇性實作。</p>
+  <div class="flow-row"><div class="flow-label">開啟</div><div class="flow-steps"><a href="reference/claude-code-tool-library.html#design-skills">Design Engineering Skills 工具卡</a><a href="reference/design-engineering-skills-workflow.html">選擇性實作路線</a></div></div>
 </div>
 </div>
 
-<div class="p13sec">
-<h2 class="p13">Phase 13（Claude Code × OpenSpec）— 入門 01–06；進階 07–09</h2>
-<table>
-<tr><td class="no">01</td><td><a href="lessons/013-0001-choose-phase3-or-openspec.html">判斷這次工作要走 Phase 3 還是 OpenSpec</a></td><td class="track">入門選路</td></tr>
-<tr><td class="no">02</td><td><a href="lessons/013-0002-initialize-openspec-safely.html">安全初始化 OpenSpec</a></td><td class="track">入門安裝</td></tr>
-<tr><td class="no">03</td><td><a href="lessons/013-0003-read-specs-and-changes.html">分清 current specs 與 active changes</a></td><td class="track">入門地圖</td></tr>
-<tr><td class="no">04</td><td><a href="lessons/013-0004-propose-one-small-change.html">提出並審查一個小型 change</a></td><td class="track">入門規格</td></tr>
-<tr><td class="no">05</td><td><a href="lessons/013-0005-apply-one-bounded-change.html">實作一個有邊界的變更</a></td><td class="track">入門實作</td></tr>
-<tr><td class="no">06</td><td><a href="lessons/013-0006-archive-and-check-current-spec.html">封存 change 並核對 current spec</a></td><td class="track">入門完成</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/013-0007-control-artifact-order.html">逐份控制 artifact 的產生順序</a></td><td class="track">進階規劃</td></tr>
-<tr><td class="no">08</td><td><a href="lessons/013-0008-verify-artifact-code-alignment.html">查核 artifacts 與程式是否一致</a></td><td class="track">進階查核</td></tr>
-<tr><td class="no">09</td><td><a href="lessons/013-0009-manage-parallel-changes.html">管理兩個同時進行的 changes</a></td><td class="track">進階多工</td></tr>
-</table>
-<div class="flow">
-  <div class="flow-title">入門先完成並封存一個真實 change，進階再增加控制</div>
-  <p class="flow-note">01–06 是獨立完成線：先選 Phase 3 或 OpenSpec，再用一個真實小變更走完初始化、proposal review、apply 與 archive。需要逐份審 artifact、找規格漂移或同時管理多個 changes 時，才接 07–09；完整分工與停止線見 <a href="reference/phase3-openspec-workflow.html">Phase 3／OpenSpec 路線卡</a>。</p>
-  <div class="flow-row"><div class="flow-label">入門關一個</div><div class="flow-steps"><a href="lessons/013-0001-choose-phase3-or-openspec.html">01 選路</a><a href="lessons/013-0002-initialize-openspec-safely.html">02 初始化</a><a href="lessons/013-0003-read-specs-and-changes.html">03 讀狀態</a><a href="lessons/013-0004-propose-one-small-change.html">04 提案</a><a href="lessons/013-0005-apply-one-bounded-change.html">05 實作</a><a href="lessons/013-0006-archive-and-check-current-spec.html">06 封存</a></div></div>
-  <div class="flow-row"><div class="flow-label">進階加控制</div><div class="flow-steps"><a href="lessons/013-0007-control-artifact-order.html">07 逐份 artifact</a><a href="lessons/013-0008-verify-artifact-code-alignment.html">08 查落差</a><a href="lessons/013-0009-manage-parallel-changes.html">09 平行 changes</a></div></div>
-</div>
-</div>
-
-<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-07-22</footer>
+<footer>正式課程頁包含實作清單與觀念檢查；工具庫依需求選讀 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-07-21</footer>
 </body>
 </html>

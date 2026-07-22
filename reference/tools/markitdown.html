@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MarkItDown｜Claude Code 工具卡</title>
+<style>
+:root{--tool:#0d7180}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 10 · 文件轉換</span>
+<h1>MarkItDown</h1>
+<p class="lead">把有可靠文字層的 PDF、Word、Excel、PowerPoint 等文件轉成適合後續處理的 Markdown。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>輕量文字轉換</h2><p>抽取文件內容與基本結構，建立可搜尋、可引用、可再加工的 Markdown。</p></section>
+<section class="card"><div class="label">何時用</div><h2>原檔已有文字層</h2><p>一般 Office 文件與可選取文字的 PDF；先用最輕的轉換路線。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>掃描或版面複雜</h2><p>輸出空白、亂碼、閱讀順序錯誤時，改評估 <a href="docling.html">Docling</a>，不要把基礎轉換器當本機 OCR。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>讀原檔、寫 Markdown</h2><p>會讀指定文件並產生文字檔；選用額外 plugin 時，資料流與憑證需求可能不同。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>機密文件先確認處理邊界。</strong>使用基礎本機轉換；若 plugin 需要外部模型或 API，必須另外說明並核准。Claude Code 訂閱不是 API key。</div>
+<h2>最低完成證據</h2>
+<ul><li>記錄原檔、工具版本與實際命令。</li><li>輸出標示為「待查核」，不能直接當權威內容。</li><li>對照標題、段落、表格、數字與頁面，記下遺漏或順序錯誤。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>先檢查這份文件是否有可靠文字層，並依目前官方 README 提出 MarkItDown 命令。
+只做本機基礎轉換，不啟用外部 API 或 OCR plugin。
+輸出標記為待查核，回報版本、命令、警告與需人工對照的區段。</pre>
+<footer>工作流：<a href="../document-to-markdown-workflow.html">文件轉 Markdown 路線卡</a> · 實作：<a href="../../lessons/010-0002-convert-one-text-document-with-markitdown.html">轉換文字文件</a><br>主要來源：<a href="https://github.com/microsoft/markitdown/blob/main/README.md">MarkItDown README</a></footer>
+</body>
+</html>

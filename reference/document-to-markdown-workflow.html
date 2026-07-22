@@ -10,18 +10,17 @@
 <h2>三條入門路線</h2>
 <table>
 <tr><th>文件情況</th><th>先選</th><th>原因與停止線</th></tr>
-<tr><td>一般文字型 PDF、Word、Excel、PowerPoint</td><td>MarkItDown</td><td>輕量、適合有文字層的文件；基礎套件不會自動替掃描 PDF 做本機 OCR。</td></tr>
-<tr><td>掃描 PDF、圖片、複雜版面或表格</td><td>Docling</td><td>本機處理 OCR、版面與閱讀順序；第一次可能下載模型，先核准安裝與資源。</td></tr>
-<tr><td>只有少量文件、不想安裝工具</td><td>Claude Code 直接讀取</td><td>可直接讀 PDF 與圖片後寫 Markdown；這是 Claude 的讀取能力，不是 MarkItDown OCR，Claude Code 訂閱也不能拿來當 API key。</td></tr>
+<tr><td>一般文字型 PDF、Word、Excel、PowerPoint</td><td><a href="tools/markitdown.html">MarkItDown</a></td><td>輕量、適合有文字層的文件；基礎套件不會自動替掃描 PDF 做本機 OCR。</td></tr>
+<tr><td>掃描 PDF、圖片、複雜版面或表格</td><td><a href="tools/docling.html">Docling</a></td><td>本機處理 OCR、版面與閱讀順序；第一次可能下載模型，先核准安裝與資源。</td></tr>
+<tr><td>只有少量文件、不想安裝工具</td><td><a href="tools/claude-code-document-reading.html">Claude Code 直接讀取</a></td><td>可直接讀 PDF 與圖片後寫 Markdown；這是 Claude 的讀取能力，不是 MarkItDown OCR，Claude Code 訂閱也不能拿來當 API key。</td></tr>
 </table>
 
-<h2>入門 01–04：做到這裡就完成</h2>
+<h2>入門：選一種轉換，再共同查核</h2>
 <table>
-<tr><th>課</th><th>動作</th><th>完成證據</th></tr>
-<tr><td>01 選路</td><td>判斷文字層、版面、敏感性與使用目的。</td><td>一張單檔路線卡</td></tr>
-<tr><td>02 MarkItDown</td><td>轉換一份文字型文件，不覆寫原檔。</td><td>一份待查核 Markdown</td></tr>
-<tr><td>03 Docling OCR</td><td>只對確認的掃描 PDF 做本機 OCR。</td><td>一份待查核 OCR Markdown</td></tr>
-<tr><td>04 原檔對照</td><td>查缺頁、OCR 錯字、表格與閱讀順序。</td><td>人工查核表與使用方式</td></tr>
+<tr><th>文件</th><th>順序</th><th>完成證據</th></tr>
+<tr><td>文字型 PDF／Office</td><td>01 選路 → 02 MarkItDown → 04 原檔對照</td><td>原檔、待查核 Markdown、人工查核表與使用限制</td></tr>
+<tr><td>掃描 PDF</td><td>01 選路 → 03 Docling OCR → 04 原檔對照</td><td>原檔、待查核 OCR Markdown、人工查核表與疑點</td></tr>
+<tr><td>少量一次性文件</td><td>01 選路 → Claude Code 直接讀取 → 04 的查核方法</td><td>來源頁面、抽查紀錄與仍不確定的內容</td></tr>
 </table>
 
 <h2>進階 05–08：遇到真實需求再接</h2>
@@ -52,5 +51,5 @@
 </table>
 
 <div class="rule"><strong>安全停止線：</strong>敏感文件只在核准的本機環境處理；<code>--force-ocr</code> 只用於確認的掃描頁或損壞文字層；批次只讀取精確的核准清單（allowlist）；所有輸出都要人工查核。</div>
-<footer>開始：<a href="../lessons/010-0001-choose-document-conversion-route.html">Phase 10 第 01 課</a> · 入門完成：<a href="../lessons/010-0004-review-converted-markdown-against-source.html">第 04 課</a> · Wiki 交接：<a href="../lessons/010-0008-handoff-reviewed-markdown-to-llm-wiki.html">第 08 課</a><br>主要來源：<a href="https://github.com/microsoft/markitdown/blob/main/README.md">MarkItDown</a> · <a href="https://docling-project.github.io/docling/">Docling</a> · <a href="https://code.claude.com/docs/en/common-workflows#work-with-images">Claude Code images workflow</a></footer>
+<footer>工具卡：<a href="tools/markitdown.html">MarkItDown</a> · <a href="tools/docling.html">Docling</a> · <a href="tools/claude-code-document-reading.html">Claude Code 直接讀取</a> · 工具庫：<a href="claude-code-tool-library.html#document">Phase 10</a> · 選路：<a href="../lessons/010-0001-choose-document-conversion-route.html">第 01 課</a> · 共同查核：<a href="../lessons/010-0004-review-converted-markdown-against-source.html">第 04 課</a> · Wiki 交接：<a href="../lessons/010-0008-handoff-reviewed-markdown-to-llm-wiki.html">第 08 課</a><br>主要來源：<a href="https://github.com/microsoft/markitdown/blob/main/README.md">MarkItDown</a> · <a href="https://docling-project.github.io/docling/">Docling</a> · <a href="https://code.claude.com/docs/en/common-workflows#work-with-images">Claude Code images workflow</a></footer>
 </body></html>

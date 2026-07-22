@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Playwright MCP｜Claude Code 工具卡</title>
+<style>
+:root{--tool:#4c5f9e}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 8 · 即時瀏覽器查核</span>
+<h1>Playwright MCP</h1>
+<p class="lead">讓 Claude Code 操作可見瀏覽器，回答「這條使用路徑現在是否正常？」</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>查核眼前狀態</h2><p>開頁、點擊、輸入、讀取畫面與 console，取得真實瀏覽器證據。</p></section>
+<section class="card"><div class="label">何時用</div><h2>探索與一次性驗收</h2><p>需求尚在探索、需要人工一起看畫面，或先確認問題能否重現。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>需要長期防回歸</h2><p>若同一風險必須在 CI 重複檢查，改用 <a href="playwright-test.html">Playwright Test</a>。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>瀏覽器狀態</h2><p>會開啟頁面、操作表單並讀取 console；本身不會自動在 repo 留下測試檔。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>把登入與外部寫入當成真實操作。</strong>優先使用本機或測試環境；送出表單、刪資料、寄信、付款或發布前必須停下來確認。</div>
+<h2>最低完成證據</h2>
+<ul><li>實際走過的步驟與測試環境。</li><li>最後可見狀態、console error 與未知項目。</li><li>不能把「頁面能開」當成完整流程通過。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>使用 Playwright MCP 唯讀查核這條路徑：＿＿。
+先說明將操作的頁面、資料與可能副作用；不得送出外部寫入。
+回報實際步驟、可見結果、console error 與尚未驗證的部分。</pre>
+<footer>工作流：<a href="../playwright-browser-verification-workflow.html">Playwright 路線卡</a> · 實作：<a href="../../lessons/008-0002-connect-playwright-mcp-to-claude-code.html">連接 MCP</a><br>主要來源：<a href="https://code.claude.com/docs/en/mcp">Claude Code MCP</a> · <a href="https://playwright.dev/mcp/installation">Playwright MCP</a></footer>
+</body>
+</html>

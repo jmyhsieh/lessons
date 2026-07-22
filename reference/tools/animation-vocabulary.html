@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>animation-vocabulary｜Claude Code Skill 卡</title>
+<style>
+:root{--tool:#6f4d7a}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 12 · 動態語彙</span>
+<h1>animation-vocabulary</h1>
+<p class="lead">把「滑一下、彈一下」等模糊描述，換成團隊能共同理解與實作的精確動態語彙。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>讓動態需求可溝通</h2><p>描述觸發、方向、時間、easing、用途與狀態關係，減少各自想像。</p></section>
+<section class="card"><div class="label">何時用</div><h2>需求說不清楚</h2><p>設計、產品與工程對同一句動態描述有不同理解時。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>命名不等於決策或實作</h2><p>它不判斷動態是否值得做，也不應直接修改程式或證明使用者喜歡。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>讀互動情境、寫需求卡</h2><p>只需讀核准的元件描述或錄影，產出文字規格，不需要產品程式寫入權限。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>限制在共同語言。</strong>必須一併寫出使用頻率、取消條件與 <code>prefers-reduced-motion</code>；精確術語不能替代產品取捨。</div>
+<h2>最低完成證據</h2>
+<ul><li>一張動態需求卡：觸發、名稱、用途、頻率、時間與減少動態。</li><li>附上容易混淆的近似詞，說明為何不用。</li><li>明確標記「尚未核准實作」。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>請使用 animation-vocabulary，只替這段互動找最精確的動態名稱：＿＿。
+輸出觸發、名稱、用途、頻率、時間、easing 與減少動態需求。
+不要修改程式，也不要判定使用者一定會喜歡。</pre>
+<footer>工作流：<a href="../design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a> · 實作：<a href="../../lessons/012-0003-name-one-motion-with-animation-vocabulary.html">把一個動態說清楚</a><br>主要來源：<a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/animation-vocabulary/SKILL.md">固定版本 SKILL.md</a></footer>
+</body>
+</html>

@@ -16,9 +16,9 @@
 <h2>先選三層中的一層</h2>
 <table>
 <tr><th>層級</th><th>用來回答</th><th>工具與留下的證據</th></tr>
-<tr><td>即時查核（live check）</td><td>這條路徑現在正常嗎？</td><td>Playwright MCP（或 Claude in Chrome）操作可見瀏覽器，留一份查核紀錄；不會自動變成 repo 測試。</td></tr>
-<tr><td>耐久測試（durable test）</td><td>以後壞掉時會被發現嗎？</td><td>Claude Code 產生並執行 Playwright Test，留下已提交的測試與可解釋的失敗 → 通過紀錄。</td></tr>
-<tr><td>代理工作流程（agent workflow）</td><td>需求變多時，如何保留人工審查？</td><td>規劃代理 → 核准規格 → 產生代理 → 已審查測試 → 修復代理；每一層都有可審查成果。</td></tr>
+<tr><td>即時查核（live check）</td><td>這條路徑現在正常嗎？</td><td><a href="tools/playwright-mcp.html">Playwright MCP</a>（或 Claude in Chrome）操作可見瀏覽器，留一份查核紀錄；不會自動變成 repo 測試。</td></tr>
+<tr><td>耐久測試（durable test）</td><td>以後壞掉時會被發現嗎？</td><td>Claude Code 產生並執行 <a href="tools/playwright-test.html">Playwright Test</a>，留下已提交的測試與可解釋的失敗 → 通過紀錄。</td></tr>
+<tr><td>代理工作流程（agent workflow）</td><td>需求變多時，如何保留人工審查？</td><td><a href="tools/playwright-test-agents.html">Playwright Test Agents</a>：規劃代理 → 核准規格 → 產生代理 → 已審查測試 → 修復代理；每一層都有可審查成果。</td></tr>
 </table>
 
 <h2>最小指令</h2>
@@ -43,13 +43,12 @@ npx playwright init-agents --loop=claude</pre>
 不要跳過、刪除或弱化 assertion，也不要為了通過而改變產品行為。
 套用前先顯示建議 patch 與證據。</pre></div>
 
-<h2>入門 01–04</h2>
+<h2>三條實作路線</h2>
 <table>
-<tr><th>課</th><th>只做這件事</th><th>留下什麼</th></tr>
-<tr><td>01</td><td>請 Claude Code 讀 repo，判斷即時查核或耐久測試</td><td>選路決策卡</td></tr>
-<tr><td>02</td><td>用本機範圍連接並核對 Playwright MCP</td><td>設定證據</td></tr>
-<tr><td>03</td><td>觀看 Claude Code 走完一條可見瀏覽器路徑</td><td>即時瀏覽器查核紀錄</td></tr>
-<tr><td>04</td><td>審查第一個已提交測試，證明會紅會綠</td><td>測試 diff＋失敗／通過輸出</td></tr>
+<tr><th>路線</th><th>順序</th><th>留下什麼</th></tr>
+<tr><td>即時查核</td><td>01 選路 → 02 MCP → 03 可見瀏覽器</td><td>當下操作與觀察紀錄；不會自動成為 repo 測試</td></tr>
+<tr><td>耐久測試</td><td>01 選路 → 04 Playwright Test</td><td>測試 diff＋同一風險的失敗／通過輸出</td></tr>
+<tr><td>代理流程</td><td>04 地基 → 05 → 06 → 07 → 08 → 09</td><td>核准規格、已審查測試、trace 與 CI 紀錄</td></tr>
 </table>
 
 <h2>進階 05–09</h2>
@@ -67,8 +66,8 @@ npx playwright init-agents --loop=claude</pre>
 <div class="rule"><strong>外部內容：</strong>瀏覽器讀到的網頁可能含提示注入（prompt injection）；不要讓未信任內容擴大操作範圍，也不要隨意啟用 repo 以外的檔案存取。</div>
 <div class="rule"><strong>成果檔：</strong>報告、trace 與 screenshot 可能包含 token、資料或原始碼；限制存取與保留期限，分享前先脫敏。</div>
 <div class="rule"><strong>人類責任：</strong>代理顯示成功不等於需求正確。每次都審查提示、規格、diff 與真實輸出；修復代理的綠燈也不能取代工程師判斷。</div>
-<p>第 04 課是獨立入門完成線。只有一條路徑時，不必初始化測試代理或建立完整瀏覽器矩陣；第 09 課也只能聲稱指定測試與專案有證據，不能說「所有 UI 都已自動驗證」。</p>
+<p>第 03 課與第 04 課各自是完成線，不必兩條都做。只有一條路徑時，不必初始化測試代理或建立完整瀏覽器矩陣；第 09 課也只能聲稱指定測試與專案有證據，不能說「所有 UI 都已自動驗證」。</p>
 
-<footer>入門開始：<a href="../lessons/008-0001-choose-live-check-or-test.html">第 01 課</a> · 進階開始：<a href="../lessons/008-0005-initialize-playwright-test-agents.html">第 05 課</a> · 主要來源：<a href="https://code.claude.com/docs/en/mcp">Claude Code MCP</a> · <a href="https://playwright.dev/mcp/installation">Playwright MCP</a> · <a href="https://playwright.dev/docs/test-agents">Playwright Test Agents</a> · <a href="../toc.html">課目表</a></footer>
+<footer>工具卡：<a href="tools/playwright-mcp.html">MCP</a> · <a href="tools/playwright-test.html">Test</a> · <a href="tools/playwright-test-agents.html">Test Agents</a> · 工具庫：<a href="claude-code-tool-library.html#playwright">Phase 8</a> · 選路：<a href="../lessons/008-0001-choose-live-check-or-test.html">第 01 課</a> · 代理流程：<a href="../lessons/008-0005-initialize-playwright-test-agents.html">第 05 課</a><br>主要來源：<a href="https://code.claude.com/docs/en/mcp">Claude Code MCP</a> · <a href="https://playwright.dev/mcp/installation">Playwright MCP</a> · <a href="https://playwright.dev/docs/test-agents">Playwright Test Agents</a> · <a href="../toc.html">課目表</a></footer>
 </body>
 </html>

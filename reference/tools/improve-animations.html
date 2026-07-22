@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>improve-animations｜Claude Code Skill 卡</title>
+<style>
+:root{--tool:#6f4d7a}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 12 · 計畫與受控執行</span>
+<h1>improve-animations</h1>
+<p class="lead">把動態改善拆成 quick 盤點、plan 計畫與 execute 執行三種模式；模式切換就是人工關卡。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>讓改善可交接、可執行</h2><p>從有限盤點形成單一計畫，再依核准版本完成受控 diff 與驗證。</p></section>
+<section class="card"><div class="label">何時用</div><h2>候選已選定</h2><p>已有明確頁面、使用者問題與優先候選，需要一份能交給下一次工作的計畫。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>盤點不是執行許可</h2><p>若還不知道要改哪裡，先用 <a href="find-animation-opportunities.html">find-animation-opportunities</a>；若現況已偏離計畫，停止重規劃。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>三種模式、三種權限</h2><p><code>quick</code> 唯讀；<code>plan</code> 只寫核准計畫；<code>execute</code> 才能修改指定產品檔案。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>每次只啟用一種模式。</strong>計畫要固定基準 commit、允許檔案、禁止範圍、驗證命令與停止條件；execute 前重新比對現況。</div>
+<h2>最低完成證據</h2>
+<ul><li>plan 模式：一份可交接計畫，不含產品程式改動。</li><li>execute 模式：計畫仍適用、diff 受控、檢查結果完整。</li><li>真實瀏覽器驗證正常動態、快速操作與 <code>prefers-reduced-motion</code>。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>請使用 improve-animations 的 [quick／plan／execute] 模式。
+範圍：＿＿；基準 commit：＿＿；禁止範圍：＿＿；停止條件：＿＿。
+不得切換模式。execute 前先確認計畫與目前程式一致，否則停止回報。</pre>
+<footer>工作流：<a href="../design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a> · 計畫：<a href="../../lessons/012-0007-create-one-animation-improvement-plan.html">建立改善計畫</a> · 執行：<a href="../../lessons/012-0008-execute-and-verify-one-animation-plan.html">受控執行</a><br>主要來源：<a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/improve-animations/SKILL.md">固定版本 SKILL.md</a> · <a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/improve-animations/PLAN-TEMPLATE.md">計畫範本</a></footer>
+</body>
+</html>

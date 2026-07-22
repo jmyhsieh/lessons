@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>apple-design｜Claude Code Skill 卡</title>
+<style>
+:root{--tool:#6f4d7a}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 12 · 有限互動實作</span>
+<h1>apple-design</h1>
+<p class="lead">把流暢、連續、可中斷的互動原則套到一個低風險元件，不是把整個產品改成 Apple 風格。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>改善單一互動回饋</h2><p>讓按壓、切換或狀態變化更即時、有因果關係，並保留操作控制感。</p></section>
+<section class="card"><div class="label">何時用</div><h2>已核准的小範圍改動</h2><p>例如替一個按鈕加入短暫按壓回饋，且成功條件可在瀏覽器檢查。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>不要做整站換皮</h2><p>沒有明確用途、高頻操作會受干擾，或只是為了展示動畫技巧時。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>會修改產品程式</h2><p>可能改元件、CSS 與測試，因此必須先指定精確檔案、狀態與禁止範圍。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>這是一張實作卡。</strong>核准前先看計畫；不得更動相鄰元件或設計系統。必須處理鍵盤、快速重複操作與 <code>prefers-reduced-motion</code>。</div>
+<h2>最低完成證據</h2>
+<ul><li>只涵蓋核准元件的完整 diff。</li><li>相關檢查通過，未通過項目如實列出。</li><li>真實瀏覽器比較修改前後，包含快速操作與減少動態。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>請使用 apple-design，只替「＿＿」元件加入「＿＿」回饋。
+允許檔案：＿＿；禁止修改：＿＿。先提出最小 diff，我核准後再實作。
+完成後檢查鍵盤、快速重複操作與 prefers-reduced-motion，回報證據。</pre>
+<footer>工作流：<a href="../design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a> · 實作：<a href="../../lessons/012-0004-implement-one-press-feedback-with-apple-design.html">實作按壓回饋</a><br>主要來源：<a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/apple-design/SKILL.md">固定版本 SKILL.md</a> · <a href="https://developer.apple.com/videos/play/wwdc2018/803/">Designing Fluid Interfaces</a></footer>
+</body>
+</html>

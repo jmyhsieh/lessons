@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Docling｜Claude Code 工具卡</title>
+<style>
+:root{--tool:#0d7180}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 10 · OCR 與版面</span>
+<h1>Docling</h1>
+<p class="lead">在本機處理掃描 PDF、圖片、表格與複雜版面，保留比純文字抽取更多的文件結構。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>OCR 與閱讀順序</h2><p>辨識沒有可靠文字層的內容，並處理標題、欄位、表格與頁面版面。</p></section>
+<section class="card"><div class="label">何時用</div><h2>輕量路線已不足</h2><p>掃描文件、圖片、複雜表格，或 <a href="markitdown.html">MarkItDown</a> 輸出明顯缺漏。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>普通文字檔不必重裝備</h2><p>有乾淨文字層時先用較輕的工具；<code>--force-ocr</code> 不應成為所有 PDF 的預設。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>原檔、模型與輸出</h2><p>會讀文件、可能下載模型並使用較多 CPU／記憶體，再輸出 Markdown 或結構化結果。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>第一次執行前先核准下載與資源需求。</strong>機密文件維持本機處理；記錄模型、OCR 選項與版本，避免結果無法重現。</div>
+<h2>最低完成證據</h2>
+<ul><li>記錄工具版本、命令、OCR 選項與是否下載模型。</li><li>逐頁抽查姓名、數字、表格欄位與閱讀順序。</li><li>保留低信心或無法辨識的區段，不擅自補字。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>先檢查文件是否真的需要 OCR，並依 Docling 官方文件提出最小本機命令。
+說明可能下載的模型、磁碟與運算需求；我核准前不要執行。
+輸出後逐頁抽查，列出疑似誤辨識、表格錯位與未確認內容。</pre>
+<footer>工作流：<a href="../document-to-markdown-workflow.html">文件轉 Markdown 路線卡</a> · 實作：<a href="../../lessons/010-0003-ocr-one-scanned-pdf-with-docling.html">OCR 掃描 PDF</a><br>主要來源：<a href="https://docling-project.github.io/docling/">Docling Documentation</a></footer>
+</body>
+</html>

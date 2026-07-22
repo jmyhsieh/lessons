@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code 工具庫：Phase 2、7、8、10、11、12</title>
+<style>
+*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:1040px;margin:2.5rem auto;padding:0 1.5rem;color:#1d1d1d;line-height:1.72}h1{font-size:2rem;margin:.35rem 0}h2{font-size:1.3rem;margin-top:2.5rem;border-bottom:2px solid #d9d9d9;padding-bottom:.35rem}h3{font-size:1.05rem;margin:0 0 .4rem}.sub{color:#666;margin-top:0}.rule{border-left:4px solid #49677f;background:#f4f7f9;padding:.85rem 1rem;margin:1rem 0}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1rem 0}.card{border:1px solid #d7dde1;border-radius:12px;padding:1rem 1.1rem;background:#fff}.card p{margin:.35rem 0}.tag{display:inline-block;border-radius:999px;background:#edf2f5;color:#38566d;font-size:.75rem;font-weight:600;padding:.15rem .55rem;margin-bottom:.45rem}table{width:100%;border-collapse:collapse;font-size:.9rem;margin:1rem 0}th,td{border:1px solid #d7dde1;padding:.62rem .7rem;text-align:left;vertical-align:top}th{background:#f4f7f9}code{background:#eef2f4;border-radius:4px;padding:.08rem .3rem}a{color:#315f7c}.route{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f4f7f9;border-radius:8px;padding:.8rem 1rem;overflow-wrap:anywhere}footer{margin-top:2.8rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.85rem}@media(max-width:720px){body{overflow-x:hidden}.cards{grid-template-columns:1fr}table{display:block;max-width:100%;overflow-x:auto!important;font-size:.83rem;-webkit-overflow-scrolling:touch}}@media print{body{margin:1rem auto}.card,tr{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<h1>Claude Code 工具庫</h1>
+<p class="sub">Phase 2、7、8、10、11、12 的 27 張單頁工具／模式卡集中在這裡；原 lesson 頁保留為選擇性實作，不列入正式課程。</p>
+<div class="rule"><strong>工具卡不是必修課：</strong>先找目前的問題，只讀那張卡，再進一條實作路線。安裝成功、命令成功或代理顯示完成，都不是交付證據。</div>
+
+<h2>先用問題找工具</h2>
+<table>
+<tr><th>你要解決的問題</th><th>先查</th><th>實作入口</th></tr>
+<tr><td>重用流程、連外部系統、隔離 context，或安全自動化 Claude Code</td><td><a href="#phase2-toolbox">Phase 2 工具箱</a></td><td>從卡片選擇性進入實作</td></tr>
+<tr><td>用 React、Git 與 HTML／PDF 做 code-first 簡報</td><td><a href="tools/open-slide.html">open-slide</a></td><td><a href="../lessons/007-0002-create-isolated-workspace.html">建立隔離工作區</a></td></tr>
+<tr><td>操作真實瀏覽器，或留下可重跑的 UI 測試</td><td><a href="#playwright">Playwright</a></td><td><a href="../lessons/008-0001-choose-live-check-or-test.html">選證據路線</a></td></tr>
+<tr><td>把 PDF、Office 或掃描文件轉成 Markdown</td><td><a href="#document">文件轉換</a></td><td><a href="../lessons/010-0001-choose-document-conversion-route.html">選文件路線</a></td></tr>
+<tr><td>看用量、找 Markdown、追程式符號</td><td><a href="#context">用量與查找</a></td><td>三選一，不必照順序</td></tr>
+<tr><td>審查、描述、規劃或實作介面動態</td><td><a href="#design-skills">Design Engineering Skills</a></td><td><a href="../lessons/012-0002-review-one-component-with-emil-design-eng.html">審查一個元件</a></td></tr>
+</table>
+
+<h2 id="phase2-toolbox">Phase 2：Claude Code 工具箱</h2>
+<table>
+<tr><th>工具／模式卡</th><th>何時先用</th><th>停止線</th><th>實作</th></tr>
+<tr><td><a href="tools/claude-code-hooks.html">Claude Code hooks</a></td><td>在固定生命週期事件執行可預測動作。</td><td>需要情境判斷時，不要硬寫成腳本。</td><td><a href="../lessons/002-0001-hooks-basics.html">控制工具行為</a></td></tr>
+<tr><td><a href="tools/guardrail-hooks.html">Guardrail hook</a></td><td>明確的危險模式必須在執行前被擋。</td><td>不能取代權限、人工核准與模糊政策判斷。</td><td><a href="../lessons/002-0002-guardrail-hooks.html">擋下危險操作</a></td></tr>
+<tr><td><a href="tools/claude-code-skills.html">Claude Code Skills</a></td><td>知識或流程會跨任務重複使用。</td><td>一次性問題不用做成 Skill；隔離 context 改用 Subagent。</td><td><a href="../lessons/002-0003-skills.html">打包重複流程</a></td></tr>
+<tr><td><a href="tools/claude-code-mcp.html">Claude Code MCP</a></td><td>權威資料或專用工具位於外部系統。</td><td>本機工具已足夠，或 server 來源與權限不明時，不連線。</td><td><a href="../lessons/002-0004-mcp.html">讀外部資料</a></td></tr>
+<tr><td><a href="tools/claude-code-subagents.html">Claude Code Subagents</a></td><td>大型旁線調查需要獨立 context。</td><td>它不等於獨立 checkout；平行寫入改用 worktree。</td><td><a href="../lessons/002-0005-subagents-context.html">隔離大型調查</a></td></tr>
+<tr><td><a href="tools/custom-review-subagent.html">Custom review subagent</a></td><td>固定審查標準需要重複使用與唯讀工具限制。</td><td>不能取代測試、真實執行或人類核准。</td><td><a href="../lessons/002-0006-custom-subagent-review.html">建立 review agent</a></td></tr>
+<tr><td><a href="tools/git-worktrees.html">Git worktrees</a></td><td>多個獨立修改需要平行 checkout。</td><td>只做唯讀調查，或任務會撞同一批檔案時，不必使用。</td><td><a href="../lessons/002-0007-worktrees.html">分開平行工作</a></td></tr>
+<tr><td><a href="tools/writer-reviewer-sessions.html">Writer／Reviewer 工作階段</a></td><td>作者與審查者需要不同 context。</td><td>Reviewer 預設唯讀；兩邊不要同時改相同檔案。</td><td><a href="../lessons/002-0008-writer-reviewer-session.html">分開撰寫與審查</a></td></tr>
+<tr><td><a href="tools/claude-code-headless.html">Claude Code headless</a></td><td>一次性任務有固定輸入、工具與輸出格式。</td><td>探索性或高風險寫入回到互動工作階段。</td><td><a href="../lessons/002-0009-headless-one-shot.html">跑 one-shot</a></td></tr>
+<tr><td><a href="tools/claude-code-ci.html">Claude Code CI</a></td><td>無人值守任務可縮成最小權限、可稽核流程。</td><td>不讓模型自行做 production write、push、merge 或發布。</td><td><a href="../lessons/002-0010-ci-automation-boundary.html">設定 CI 邊界</a></td></tr>
+</table>
+<p class="route">固定時點 → hooks · 重用流程 → Skills · 連外部系統 → MCP · 隔離 context → Subagents · 隔離 checkout → worktrees · 程式化單次任務 → headless · 無人值守 → CI</p>
+<p>官方來源：<a href="https://code.claude.com/docs/en/features-overview">Extend Claude Code</a>、<a href="https://code.claude.com/docs/en/hooks-guide">Hooks guide</a>、<a href="https://code.claude.com/docs/en/sub-agents">Subagents</a>、<a href="https://code.claude.com/docs/en/worktrees">Git worktrees</a>。</p>
+
+<h2 id="open-slide">open-slide</h2>
+<p><a href="tools/open-slide.html">打開 open-slide 單頁工具卡 →</a></p>
+<div class="cards">
+<div class="card"><span class="tag">何時用</span><h3>需要 code-first 簡報</h3><p>交付接受 HTML／PDF，而且 React 元件、Git diff、客製互動或部署能力真的重要。</p></div>
+<div class="card"><span class="tag">何時不用</span><h3>需要 PPTX 或一次性簡報</h3><p>必須交可編輯 PPTX、團隊不維護 React／Git，或用 Claude Design 就能完成時，不必導入。</p></div>
+<div class="card"><span class="tag">設定與範圍</span><h3>先建隔離工作區，再讀規則</h3><p>初始化會建立檔案並安裝相依套件。確認新目錄後才執行；編輯前先讀 <code>AGENTS.md</code>、<code>CLAUDE.md</code> 與需要的工作區 Skill。</p></div>
+<div class="card"><span class="tag">完成證據</span><h3>不是只有 build 成功</h3><p>保留有限 diff、建置輸出，並親自在瀏覽器開啟正式輸出。公開部署仍由負責人另外核准。</p></div>
+</div>
+<p class="route">工具卡 → 02 workspace → 05 工作區規則 → 03 三頁切片 → 04 正式輸出</p>
+<p>詳細工作流：<a href="open-slide-agent-deck-workflow.html">open-slide 路線卡</a>。官方來源：<a href="https://open-slide.dev/docs/getting-started">Getting Started</a>、<a href="https://open-slide.dev/docs/skills/overview">Agent Skills</a>。</p>
+
+<h2 id="playwright">Playwright</h2>
+<table>
+<tr><th>工具</th><th>用來回答</th><th>設定／副作用</th><th>最低證據</th></tr>
+<tr><td><a href="tools/playwright-mcp.html">Playwright MCP</a></td><td>這條路徑現在正常嗎？</td><td>連接 MCP 並操作可見瀏覽器；先用本機範圍，不會自動留下 repo 測試。</td><td>實際步驟、最新頁面狀態、console error 與未知項目。</td></tr>
+<tr><td><a href="tools/playwright-test.html">Playwright Test</a></td><td>以後壞掉時會被發現嗎？</td><td>會新增或修改測試檔；先讀既有測試規則與啟動方式。</td><td>可提交的 test diff，以及同一風險由失敗到通過的紀錄。</td></tr>
+<tr><td><a href="tools/playwright-test-agents.html">Playwright Test Agents</a></td><td>多條路徑如何保留規格與人工關卡？</td><td>已有 Playwright Test 地基後，才初始化 planner、generator、healer 定義。</td><td>核准規格、已審查測試、trace 與不弱化 assertion 的修復紀錄。</td></tr>
+</table>
+<p class="route">即時查核：01 選路 → 02 MCP → 03 live check<br>耐久測試：01 選路 → 04 durable test<br>代理流程：04 地基 → 05 → 06 → 07 → 08 → 09</p>
+<p>詳細工作流：<a href="playwright-browser-verification-workflow.html">Playwright 路線卡</a>。官方來源：<a href="https://code.claude.com/docs/en/mcp">Claude Code MCP</a>、<a href="https://playwright.dev/mcp/installation">Playwright MCP</a>、<a href="https://playwright.dev/docs/test-agents">Playwright Test Agents</a>。</p>
+
+<h2 id="document">文件轉 Markdown</h2>
+<table>
+<tr><th>工具</th><th>優先使用情況</th><th>何時不要用</th><th>最低證據</th></tr>
+<tr><td><a href="tools/markitdown.html">MarkItDown</a></td><td>有可靠文字層的 PDF、Word、Excel、PowerPoint。</td><td>不要把基礎轉換器當成本機掃描 OCR；空白或亂碼就重新選路。</td><td>原檔、實際命令、待查核 Markdown。</td></tr>
+<tr><td><a href="tools/docling.html">Docling</a></td><td>掃描 PDF、圖片、複雜版面或表格。</td><td><code>--force-ocr</code> 不應成為所有 PDF 的預設；先核准模型下載與本機資源。</td><td>原檔、工具版本、OCR 疑點與人工抽查。</td></tr>
+<tr><td><a href="tools/claude-code-document-reading.html">Claude Code 直接讀取</a></td><td>少量文件、只需一次性整理，而且不想先裝轉換器。</td><td>不要把 Claude Code 訂閱當成 MarkItDown OCR plugin 的 API 憑證。</td><td>來源頁面、抽查紀錄與仍不確定的內容。</td></tr>
+</table>
+<p class="route">01 選路 → 02 MarkItDown 或 03 Docling → 04 原檔對照</p>
+<p>詳細工作流：<a href="document-to-markdown-workflow.html">文件轉 Markdown 路線卡</a>。主要來源：<a href="https://github.com/microsoft/markitdown/blob/main/README.md">MarkItDown</a>、<a href="https://docling-project.github.io/docling/">Docling</a>。</p>
+
+<h2 id="context">用量與查找</h2>
+<table>
+<tr><th>問題</th><th>先用</th><th>何時先不用</th><th>實作卡</th></tr>
+<tr><td>一個 Claude Code 工作階段用了多少 token？</td><td><a href="tools/ccusage.html">ccusage</a></td><td>要查官方方案剩餘額度，回官方產品介面。</td><td><a href="../lessons/011-0001-measure-one-claude-code-session-with-ccusage.html">留一筆基準</a></td></tr>
+<tr><td>核准的 Markdown 裡哪份提到這件事？</td><td><a href="tools/qmd.html">QMD</a></td><td>只有幾份已知檔案，先直接讀或用 <code>rg</code>。</td><td><a href="../lessons/011-0002-search-one-approved-markdown-collection-with-qmd.html">搜尋並回查</a></td></tr>
+<tr><td>符號定義在哪裡、被誰引用？</td><td><a href="tools/claude-code-lsp.html">Claude Code LSP</a></td><td>固定字串先用 <code>rg</code>；語言尚無可用 code intelligence plugin 時先不要硬裝。</td><td><a href="../lessons/011-0003-map-one-symbol-with-lsp.html">畫符號地圖</a></td></tr>
+</table>
+<div class="rule"><strong><a href="tools/serena.html">Serena</a> 保留為替代工具：</strong>需要它更完整的專案探索工作流時再評估。只查 definition／references，優先使用 Claude Code 內建的 LSP tool；它仍需要對應語言的 code intelligence plugin 與 language server。</div>
+<p>詳細比較：<a href="claude-code-context-tools.html">用量與查找工具卡</a>。官方來源：<a href="https://code.claude.com/docs/en/tools-reference">Claude Code Tools reference</a>、<a href="https://code.claude.com/docs/en/discover-plugins">Code intelligence plugins</a>。</p>
+
+<h2 id="design-skills">Design Engineering Skills</h2>
+<div class="cards">
+<div class="card"><span class="tag">工具卡</span><h3>先選一個 Skill</h3><p><a href="tools/emil-design-eng.html"><code>emil-design-eng</code></a> 審查元件、<a href="tools/animation-vocabulary.html"><code>animation-vocabulary</code></a> 說清動態、<a href="tools/apple-design.html"><code>apple-design</code></a> 做有限改動；另外三個 Skills 用於 diff 審查、找候選與改善計畫。</p></div>
+<div class="card"><span class="tag">安裝邊界</span><h3>保留來源、版本與路徑</h3><p>先查固定上游版本與授權，記錄實際安裝路徑與移除方式。安裝完成不代表任何產品程式已驗證。</p></div>
+<div class="card"><span class="tag">何時不用</span><h3>不為了展示技巧加動態</h3><p>高頻操作、鍵盤路徑或沒有明確用途的狀態變化，可以不加動畫；審查建議也不是實作授權。</p></div>
+<div class="card"><span class="tag">完成證據</span><h3>diff 加真實互動</h3><p>保留範圍、完整 diff、檢查結果、正常動態與 <code>prefers-reduced-motion</code> 證據。</p></div>
+</div>
+<table>
+<tr><th>單頁 Skill 卡</th><th>這次只完成</th></tr>
+<tr><td><a href="tools/emil-design-eng.html"><code>emil-design-eng</code></a></td><td>審查一個介面元件</td></tr>
+<tr><td><a href="tools/animation-vocabulary.html"><code>animation-vocabulary</code></a></td><td>把一個動態說清楚</td></tr>
+<tr><td><a href="tools/apple-design.html"><code>apple-design</code></a></td><td>實作一個有限互動改動</td></tr>
+<tr><td><a href="tools/review-animations.html"><code>review-animations</code></a></td><td>審查一份固定動態 diff</td></tr>
+<tr><td><a href="tools/find-animation-opportunities.html"><code>find-animation-opportunities</code></a></td><td>找少量候選，也排除一項</td></tr>
+<tr><td><a href="tools/improve-animations.html"><code>improve-animations</code></a></td><td>唯讀盤點、寫計畫或受控執行</td></tr>
+</table>
+<p class="route">入門：01 安裝卡 → 02 → 03 → 04 → 05 驗收<br>進階：05 橋接 → 06 → 07 → 08</p>
+<p>詳細工作流：<a href="design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a>。主要來源：<a href="https://github.com/emilkowalski/skills/tree/6bf24434f7730ad169077756cf9c7cd7bd675fc6">固定上游版本</a>。</p>
+
+<footer>27 張單頁工具／模式卡只處理選用、設定與停止線；實作成果仍以課程要求的 artifact、diff、測試、原始來源與真實瀏覽器證據為準。 · <a href="../toc.html">回課目表</a></footer>
+</body>
+</html>

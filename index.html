@@ -3,162 +3,109 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Claude 工作流與可驗證交付 — 學習手冊</title>
+<title>Claude Code 可驗證交付課程｜台灣工程師學習手冊</title>
 <style>
   * { box-sizing: border-box; }
-  body { margin: 0; font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
-         min-height: 100vh; display: flex; align-items: center; justify-content: center;
-         background: linear-gradient(160deg, #faf6f1 0%, #f3ece4 55%, #e9f0ed 100%); color: #1a1a1a; }
-  .cover { max-width: 980px; padding: 4rem 2.5rem; text-align: center; }
-  .mark { font-size: .8rem; letter-spacing: .32em; text-transform: uppercase; color: #b04a12; margin-bottom: 2rem; }
-  h1 { font-size: 2.65rem; line-height: 1.3; margin: 0 0 1rem; font-weight: 700; }
-  h1 .accent { color: #c2571a; }
-  .subtitle { font-size: 1.08rem; color: #555; line-height: 1.85; margin: 0 auto 1.6rem; max-width: 620px; }
-  .path-note { margin: 1rem 0 2rem; color: #777; font-size: .9rem; }
-  .phases { display: grid; gap: .7rem; max-width: 860px; margin: 0 auto 2.4rem; text-align: left; }
-  .phase { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; align-items: center;
-           border-radius: 8px; padding: .9rem 1.1rem; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,.06); }
-  .phase-index { border-right: 1px solid #eee; padding-right: .9rem; font-weight: 700; line-height: 1.25; }
-  .phase-index span { display: block; margin-top: .35rem; color: #999; font-size: .78rem; font-weight: 500; }
-  .phase h2 { font-size: 1rem; margin: 0 0 .25rem; }
-  .phase.p1 .phase-index, .phase.p1 h2 { color: #c2571a; }
-  .phase.p2 .phase-index, .phase.p2 h2 { color: #9a5a00; }
-  .phase.p3 .phase-index, .phase.p3 h2 { color: #1a6b5a; }
-  .phase.p4 .phase-index, .phase.p4 h2 { color: #6f4dbf; }
-  .phase.p5 .phase-index, .phase.p5 h2 { color: #315f86; }
-  .phase.p6 .phase-index, .phase.p6 h2 { color: #8a3f5d; }
-  .phase.p7 .phase-index, .phase.p7 h2 { color: #2f6f63; }
-  .phase.p8 .phase-index, .phase.p8 h2 { color: #4c5f9e; }
-  .phase.p9 .phase-index, .phase.p9 h2 { color: #7a4b25; }
-  .phase.p10 .phase-index, .phase.p10 h2 { color: #0d7180; }
-  .phase.p11 .phase-index, .phase.p11 h2 { color: #506d2f; }
-  .phase.p12 .phase-index, .phase.p12 h2 { color: #6f4d7a; }
-  .phase.p13 .phase-index, .phase.p13 h2 { color: #365f79; }
-  .phase p { font-size: .9rem; color: #666; margin: 0; line-height: 1.65; }
-  a.start { display: inline-block; background: #c2571a; color: #fff; text-decoration: none;
-            padding: .85rem 2.6rem; border-radius: 999px; font-size: 1.05rem; font-weight: 600;
-            box-shadow: 0 3px 10px rgba(194,87,26,.3); transition: transform .15s, box-shadow .15s; }
-  a.start:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(194,87,26,.35); }
-  .meta { margin-top: 2rem; font-size: .82rem; color: #999; line-height: 1.9; }
-  .meta a { color: #b04a12; }
-  @media (max-width: 860px) {
-    .cover { padding: 3rem 1.25rem; }
-    h1 { font-size: 2.15rem; }
-    .phase { grid-template-columns: 1fr; gap: .55rem; }
-    .phase-index { border-right: 0; border-bottom: 1px solid #eee; padding-right: 0; padding-bottom: .5rem; }
-  }
-  @media print { a.start { display: none; } body { background: #fff; } }
+  .entry-actions { display: flex; flex-wrap: wrap; gap: .65rem; align-items: center; margin: 0 0 1.4rem; }
+  .home-page a.entry { display: inline-flex; min-height: 2.85rem; align-items: center; justify-content: center; padding: .68rem 1rem; border: 1px solid var(--site-border); border-radius: 999px; background: rgba(255,255,255,.68); color: var(--site-accent); font-size: .9rem; font-weight: 650; text-decoration: none; box-shadow: var(--site-shadow-sm); transition: transform 110ms ease-out, background-color 150ms ease-out; }
+  .home-page a.entry.primary { border-color: transparent; background: var(--site-accent); color: #fff; box-shadow: 0 8px 24px rgba(0,102,204,.23); }
+  .home-page a.entry.quiet { border-color: transparent; background: transparent; box-shadow: none; }
+  .home-page a.entry:hover { transform: translateY(-1px); background: #fff; }
+  .home-page a.entry.primary:hover { background: #0071e3; }
+  .route-intro { max-width: 48rem; margin: 3.4rem 0 1.25rem; }
+  .route-intro h2 { margin: .4rem 0 .6rem; font-size: clamp(1.65rem,3.8vw,2.35rem); }
+  .route-intro p { margin: 0; color: var(--site-secondary); }
+  .routes { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; }
+  .route-card { --route-accent: #0066cc; position: relative; min-width: 0; padding: 1.35rem 1.4rem 1.45rem; overflow: hidden; border: 1px solid var(--site-border); border-radius: var(--site-radius-lg); background: linear-gradient(145deg,color-mix(in srgb,var(--route-accent) 7%,white),rgba(255,255,255,.76) 62%); box-shadow: var(--site-shadow-sm); }
+  .route-card::before { content: ""; position: absolute; inset: 0 0 auto; height: .24rem; background: var(--route-accent); }
+  .route-card.core { --route-accent: #16705d; }
+  .route-card.outputs { --route-accent: #6e4bc1; }
+  .route-card.tools { --route-accent: #4d61a8; }
+  .route-label { color: var(--route-accent); font-size: .75rem; font-weight: 720; letter-spacing: .06em; }
+  .route-card h3 { margin: .45rem 0 .55rem; font-size: 1.25rem; }
+  .route-card > p { min-height: 4.9rem; margin: 0; color: var(--site-secondary); font-size: .91rem; line-height: 1.58; }
+  .phase-links { display: flex; flex-wrap: wrap; gap: .42rem; margin-top: 1rem; }
+  .phase-links a { display: inline-flex; align-items: center; min-height: 2.2rem; padding: .38rem .68rem; border: 1px solid color-mix(in srgb,var(--route-accent) 19%,var(--site-border)); border-radius: 999px; background: rgba(255,255,255,.72); color: var(--route-accent); font-size: .78rem; font-weight: 650; line-height: 1.25; text-decoration: none; }
+  .phase-links a:hover { background: #fff; }
+  .route-aside { margin-top: .9rem !important; min-height: 0 !important; font-size: .8rem !important; }
+  .completion { display: grid; grid-template-columns: 8rem 1fr; gap: 1rem; align-items: start; margin: 1.25rem 0 0; padding: 1.1rem 1.2rem; border: 1px solid var(--site-border); border-radius: var(--site-radius-md); background: rgba(255,255,255,.54); }
+  .completion strong { color: var(--site-text); }
+  .completion p { margin: 0; color: var(--site-secondary); font-size: .9rem; }
+  .home-page .meta { margin-top: 1rem; }
+  @media (max-width: 900px) { .routes { grid-template-columns: 1fr; } .route-card > p { min-height: 0; } }
+  @media (max-width: 560px) { .entry-actions { display: grid; grid-template-columns: 1fr; } .home-page a.entry { width: 100%; } .route-intro { margin-top: 2.7rem; } .completion { grid-template-columns: 1fr; gap: .35rem; } }
+  @media print { .entry-actions { display: none; } .route-card { break-inside: avoid; } }
 </style>
 <link rel="stylesheet" href="assets/apple-design.css" data-site-style="apple-design">
 </head>
 <body class="home-page">
 <div class="cover">
   <div class="mark">台灣工程師的 Claude Code 課程 · 2026</div>
-  <h1>從 0 開始，用 <span class="accent">Claude</span> 做出可驗證交付</h1>
-  <p class="subtitle">從真實程式庫開始，練習需求釐清、程式差異審查、測試、權限與交接，把 Claude Code 的產出變成可查核的交付成果。</p>
+  <h1>用 <span class="accent">Claude Code</span>，把真實工作做成可驗證交付</h1>
+  <p class="subtitle">從真實程式庫開始，練習需求釐清、程式差異審查、測試、權限與交接；不用照 Phase 編號全修，只走符合目前工作的路線。</p>
 
-  <a class="start" href="toc.html">進入課目表 →</a>
+  <nav class="entry-actions" aria-label="選擇學習入口">
+    <a class="entry primary" href="lessons/001-0001-four-claude-surfaces.html">第一次使用：從 Phase 1 開始</a>
+    <a class="entry" href="toc.html#phase-3">已會基本操作：從 Phase 3 選路</a>
+    <a class="entry" href="reference/claude-code-tool-library.html">我現在要找工具</a>
+    <a class="entry quiet" href="toc.html">查看完整課目表 →</a>
+  </nav>
 
-  <p class="path-note">第一次使用先走 Phase 1；已能安全操作 Claude Code，可從 Phase 3 開始。Phase 4–13 都可以先走入門課，做出一個小成果。實際工作遇到更複雜的需求時，再接著上同一階段的進階課。</p>
+  <div class="path-note"><strong>課程不是 Phase 1 → 12 的必修清單：</strong>第一次使用先建立安全工作方式；遇到真實需求時走交付主線；視覺成果、知識庫與專項工具都依工作需要選讀。</div>
 
-  <div class="phases">
-    <div class="phase p1">
-      <div class="phase-index">Phase 1<span>01–12</span></div>
-      <div>
-        <h2>安全開始</h2>
-        <p>選對工具、開啟工作階段、唯讀探索、設定權限，再完成第一次安全的小改動。</p>
-      </div>
+  <section aria-labelledby="route-title">
+    <div class="route-intro">
+      <div class="mark">選你的路線</div>
+      <h2 id="route-title">今天要完成什麼？</h2>
+      <p>先選問題，再進對應 Phase。完整課次、進階分支與完成線都留在課目表。</p>
     </div>
-    <div class="phase p2">
-      <div class="phase-index">Phase 2 工具箱<span>依需求選讀</span></div>
-      <div>
-        <h2>控制進階能力</h2>
-        <p>遇到重用、隔離、外部連線或自動化需求時，再選工作技能、子代理、MCP、hooks、worktree 或 CI。</p>
-      </div>
+
+    <div class="routes">
+      <article class="route-card core">
+        <div class="route-label">核心主線</div>
+        <h3>安全使用，再把需求做完</h3>
+        <p>第一次使用先學會讀 repo、控制權限與驗證；已有基本操作後，直接進入需求釐清、實作與交接。</p>
+        <div class="phase-links">
+          <a href="toc.html#phase-1">Phase 1 安全開始</a>
+          <a href="toc.html#phase-3">Phase 3 從需求到交付</a>
+        </div>
+        <p class="route-aside">需要 hooks、MCP、subagents 或 CI 時，直接查 <a href="reference/claude-code-tool-library.html#phase2-toolbox">Phase 2 工具卡</a>。</p>
+      </article>
+
+      <article class="route-card outputs">
+        <div class="route-label">日常成果</div>
+        <h3>做畫面、簡報或知識庫</h3>
+        <p>從一個可見成果開始；設計規則、可信交付與進階治理，等真實需求出現再接。</p>
+        <div class="phase-links">
+          <a href="toc.html#phase-4">Phase 4 小畫面</a>
+          <a href="toc.html#phase-5">Phase 5 簡報</a>
+          <a href="toc.html#phase-6">Phase 6 LLM Wiki</a>
+        </div>
+      </article>
+
+      <article class="route-card tools">
+        <div class="route-label">專項工具</div>
+        <h3>先查工具卡，再走一條實作線</h3>
+        <p>依問題選 open-slide、Playwright、工作技能、文件轉換、查找或介面動態，不需要全部安裝。</p>
+        <div class="phase-links">
+          <a href="reference/claude-code-tool-library.html#open-slide">Phase 7 簡報工具</a>
+          <a href="reference/claude-code-tool-library.html#playwright">Phase 8 瀏覽器工具</a>
+          <a href="toc.html#phase-9">Phase 9 Skills</a>
+          <a href="reference/claude-code-tool-library.html#document">Phase 10 文件工具</a>
+          <a href="reference/claude-code-tool-library.html#context">Phase 11 查找工具</a>
+          <a href="reference/claude-code-tool-library.html#design-skills">Phase 12 動態工具</a>
+        </div>
+        <p class="route-aside"><a href="reference/claude-code-tool-library.html">不知道選哪個？從 Claude Code 工具庫開始。</a></p>
+      </article>
     </div>
-    <div class="phase p3">
-      <div class="phase-index">Phase 3<span>主線 01–12 · 選修 13–14</span></div>
-      <div>
-        <h2>從需求到交付</h2>
-        <p>先選路線，再把需求問清楚、寫成規格、切成工作項目，最後交給 Claude Code 實作並驗證。</p>
-      </div>
-    </div>
-    <div class="phase p4">
-      <div class="phase-index">Phase 4 Claude Code × Claude Design<span>入門 01–08 · 進階 09–13</span></div>
-      <div>
-        <h2>從 Claude Code 做視覺探索，再回到程式庫</h2>
-        <p>入門完成小畫面、選版與真人試用；進階再同步設計系統，補齊規則、交接與瀏覽器證據。</p>
-      </div>
-    </div>
-    <div class="phase p5">
-      <div class="phase-index">Phase 5 Claude Code × Claude Design 簡報<span>入門 01–08 · 進階 09–12</span></div>
-      <div>
-        <h2>讓 Claude Code 管理簡報內容</h2>
-        <p>入門整理來源、完成三頁故事並由真人查核；進階再建立主張查核表、共用版型與受控彩排。</p>
-      </div>
-    </div>
-    <div class="phase p6">
-      <div class="phase-index">Phase 6 Claude Code × LLM Wiki<span>入門 01–03 · 進階 04–08</span></div>
-      <div>
-        <h2>LLM Wiki：從來源到持久知識</h2>
-        <p>前三課直接使用原始想法檔；進階再學資料規則、匯入、查詢、格式檢查與低風險自動化。</p>
-      </div>
-    </div>
-    <div class="phase p7">
-      <div class="phase-index">Phase 7 Claude Code × open-slide<span>入門 01–04 · 進階 05–09</span></div>
-      <div>
-        <h2>讓 Claude Code 使用工作區技能做簡報</h2>
-        <p>入門核准初始專案、審查三頁程式差異並親自開啟；進階再讀工作契約、稽核內容並準備部署。</p>
-      </div>
-    </div>
-    <div class="phase p8">
-      <div class="phase-index">Phase 8 Claude Code × Playwright<span>入門 01–04 · 進階 05–09</span></div>
-      <div>
-        <h2>讓 Claude Code 查核瀏覽器，再留下可信測試</h2>
-        <p>入門分清即時查核與持久測試，觀看真實瀏覽器並審查第一次失敗到通過的證據；進階再用三種測試代理與 CI 擴大已核准路徑。</p>
-      </div>
-    </div>
-    <div class="phase p9">
-      <div class="phase-index">Phase 9 Claude Code × 工作技能<span>入門 01–04 · 進階 05–09</span></div>
-      <div>
-        <h2>讓 Claude Code 把重複流程寫成可預期的 Skill</h2>
-        <p>入門先做出一個專案 Skill 並決定啟用方式；進階再學按需載入、行為引導、精簡整理與新對話測試。</p>
-      </div>
-    </div>
-    <div class="phase p10">
-      <div class="phase-index">Phase 10 Claude Code × 文件轉 Markdown<span>入門 01–04 · 進階 05–08</span></div>
-      <div>
-        <h2>把 PDF、Office 與掃描文件轉成可查核 Markdown</h2>
-        <p>入門先選 MarkItDown、Docling 或直接讀取，轉換一份文件並對照原檔；進階再處理混合文件、小批次轉換與 LLM Wiki 交接。</p>
-      </div>
-    </div>
-    <div class="phase p11">
-      <div class="phase-index">Phase 11 Claude Code × 用量與查找工具<span>選修 01–03</span></div>
-      <div>
-        <h2>看用量、找文件、追程式符號</h2>
-        <p>用 ccusage 留下一筆用量基準紀錄、用 QMD 搜尋核准的 Markdown 文件，再用 Serena 唯讀追蹤一個程式符號。</p>
-      </div>
-    </div>
-    <div class="phase p12">
-      <div class="phase-index">Phase 12 Claude Code × Design Engineering Skills<span>入門 01–04 · 進階 05–08</span></div>
-      <div>
-        <h2>讓 Claude Code 審查、規劃並驗證介面動態</h2>
-        <p>入門先安全安裝、審查一個元件並完成按壓回饋；進階再審查動態差異、篩選候選、建立計畫並受控執行。</p>
-      </div>
-    </div>
-    <div class="phase p13">
-      <div class="phase-index">Phase 13 Claude Code × OpenSpec<span>入門 01–06 · 進階 07–09</span></div>
-      <div>
-        <h2>讓規格跟著每一次程式變更演進</h2>
-        <p>入門完成一個真實小變更並更新 current specs；進階再控制 artifact 順序、查核落差與管理平行 changes。</p>
-      </div>
-    </div>
+  </section>
+
+  <div class="completion">
+    <strong>完成原則</strong>
+    <p>勾完清單只代表做過操作；能交出指定成果、說明判斷並保留 diff、測試或瀏覽器證據，才算完成。</p>
   </div>
 
-  <div class="meta">
-    常用速查：<a href="reference/claude-product-picker.html">產品選用</a> · <a href="reference/claude-design-to-code-workflow.html">第一個小畫面</a> · <a href="reference/claude-design-presentation-workflow.html">三頁簡報</a> · <a href="reference/open-slide-agent-deck-workflow.html">open-slide</a> · <a href="reference/playwright-browser-verification-workflow.html">Playwright</a> · <a href="reference/agent-skill-checklist.html">工作技能檢查表</a> · <a href="reference/document-to-markdown-workflow.html">文件轉 Markdown</a> · <a href="reference/claude-code-context-tools.html">用量與查找工具</a> · <a href="reference/design-engineering-skills-workflow.html">介面動態 Skills</a> · <a href="reference/phase3-openspec-workflow.html">Phase 3／OpenSpec</a> · <a href="reference/claude-code-command-surface.html">Claude Code 操作</a> · <a href="reference/llm-wiki-workflow.html">迷你 LLM Wiki</a> · <a href="reference/course-glossary.html">課程詞彙表</a><br>
-    每課都有實作清單與觀念檢查；勾完清單只代表做過操作，還要保留指定產出、判斷理由與回饋證據
-  </div>
+  <div class="meta">常用速查：<a href="reference/claude-code-tool-library.html">Claude Code 工具庫</a> · <a href="reference/claude-product-picker.html">產品選用</a> · <a href="reference/course-glossary.html">課程詞彙表</a></div>
 </div>
 </body>
 </html>

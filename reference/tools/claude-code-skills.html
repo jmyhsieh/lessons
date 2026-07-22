@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code Skills｜工具卡</title>
+<style>
+:root{--tool:#926500}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html#phase2-toolbox">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 2 · 重用知識與流程</span>
+<h1>Claude Code Skills</h1>
+<p class="lead">把會重複使用的工作方法、判斷規則與支援資源包成可發現、可重跑的能力。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>不用反覆重寫長 prompt</h2><p>將穩定流程與專業知識放進 Skill，讓 Claude 在符合描述的任務中載入一致指引。</p></section>
+<section class="card"><div class="label">何時用</div><h2>同一做法會跨任務重複</h2><p>適合 repo 慣例、固定交付流程、領域檢查表，以及需要搭配參考文件或腳本的工作。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>只有一次，或要隔離 context</h2><p>一次性問題直接說明即可；需要把大量搜尋留在主 context 外時，改用 <a href="claude-code-subagents.html">Subagents</a>。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>讀 SKILL.md 與配套資源</h2><p>Skill 可包含指令、references、scripts 與 assets；若執行腳本或工具，副作用由那些資源決定。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>先讀內容，再決定安裝範圍。</strong>專案專用 Skill 放專案內；第三方 Skill 要確認來源、版本、腳本與移除方式，不把 secrets 寫進檔案。</div>
+<h2>最低完成證據</h2>
+<ul><li>描述清楚何時觸發、何時不觸發。</li><li>用一個真實任務驗證產物與流程。</li><li>另測一個不該使用此 Skill 的案例。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>先盤點目前重複出現的流程與 repo 慣例。
+判斷「＿＿」是否值得做成 Skill；若值得，只提出最小結構、觸發描述、必要資源與驗證案例。
+不要先建立檔案或安裝第三方內容。</pre>
+<footer>實作：<a href="../../lessons/002-0003-skills.html">把重複流程打包</a> · 比較：<a href="claude-code-subagents.html">Subagents</a><br>主要來源：<a href="https://code.claude.com/docs/en/skills">Agent Skills</a></footer>
+</body>
+</html>

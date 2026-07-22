@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>emil-design-eng｜Claude Code Skill 卡</title>
+<style>
+:root{--tool:#6f4d7a}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 12 · 介面審查</span>
+<h1>emil-design-eng</h1>
+<p class="lead">用一致的介面與動態設計原則，審查一個明確元件，產出可討論的修改前／修改後／原因表格。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>把設計批評具體化</h2><p>從階層、排版、互動與動態等面向，指出單一元件可改善之處。</p></section>
+<section class="card"><div class="label">何時用</div><h2>需要一致的審查框架</h2><p>元件已存在，但團隊只覺得「哪裡怪怪的」，需要具體問題與理由。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>不能取代使用者證據</h2><p>Skill 的建議不是研究結果，也不是自動修改許可；實作動態可另選 <a href="apple-design.html">apple-design</a>。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>預設只讀元件與上下文</h2><p>審查時只需讀核准檔案與畫面；要求它直接修改會擴大副作用。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>先凍結單一元件範圍。</strong>安裝 Skill 時保留來源、固定 commit、授權、實際路徑與移除方式；審查階段不得改產品程式。</div>
+<h2>最低完成證據</h2>
+<ul><li>修改前／建議修改後／原因的對照表。</li><li>每項建議指向明確元件狀態或畫面。</li><li>標出哪些是原則判斷、哪些仍需使用者驗證。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>請使用 emil-design-eng，只審查「＿＿」元件與指定檔案。
+不要修改程式；以「現況／建議／原因／仍需驗證」表格輸出。
+若需要讀取或改動範圍外內容，停止並先說明。</pre>
+<footer>工作流：<a href="../design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a> · 實作：<a href="../../lessons/012-0002-review-one-component-with-emil-design-eng.html">審查一個元件</a><br>主要來源：<a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/emil-design-eng/SKILL.md">固定版本 SKILL.md</a></footer>
+</body>
+</html>

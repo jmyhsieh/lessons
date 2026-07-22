@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Playwright Test Agents｜Claude Code 工具卡</title>
+<style>
+:root{--tool:#4c5f9e}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 8 · 進階測試流程</span>
+<h1>Playwright Test Agents</h1>
+<p class="lead">用 planner、generator、healer 分工規劃、產生與修復 Playwright 測試；前提是測試地基已經可用。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>把多步測試工作拆開</h2><p>先形成可審查的規格，再產生測試；失敗時由 healer 根據證據提出最小修復。</p></section>
+<section class="card"><div class="label">何時用</div><h2>已有穩定 Test 地基</h2><p>多條使用路徑需要一致規格、人工核准與修復紀錄。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>第一支測試都還跑不起來</h2><p>先建立 <a href="playwright-test.html">Playwright Test</a>、fixtures 與測試資料，不要用代理掩蓋基礎問題。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>代理定義與測試檔</h2><p>初始化會增加代理設定；generator 與 healer 可能修改測試，需逐次審查 diff。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>代理輸出不是自動授權。</strong>planner 的規格先由人核准；healer 不得刪除或放寬 assertion 來換取綠燈。</div>
+<h2>最低完成證據</h2>
+<ul><li>人工核准的測試規格。</li><li>可說明的測試 diff 與實際執行結果。</li><li>修復時保留 trace／錯誤證據，並證明 assertion 未被弱化。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>先唯讀確認現有 Playwright Test 能獨立通過，再評估 Test Agents。
+列出初始化會新增的檔案與 planner、generator、healer 的人工關卡。
+我核准規格前不要產生測試；不得以刪除 assertion 修復失敗。</pre>
+<footer>工作流：<a href="../playwright-browser-verification-workflow.html">Playwright 路線卡</a> · 實作：<a href="../../lessons/008-0005-initialize-playwright-test-agents.html">初始化代理</a><br>主要來源：<a href="https://playwright.dev/docs/test-agents">Playwright Test Agents</a></footer>
+</body>
+</html>

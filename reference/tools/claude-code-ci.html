@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code CI｜模式卡</title>
+<style>
+:root{--tool:#926500}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html#phase2-toolbox">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 2 · 無人值守邊界</span>
+<h1>Claude Code CI</h1>
+<p class="lead">把範圍明確、可稽核的 Claude Code 任務放進 CI，並以最小權限與可驗證輸出控制風險。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>自動處理重複的 repo 事件</h2><p>在 pull request 或排程觸發時執行固定分析、摘要或檢查，不依賴人工開啟工作階段。</p></section>
+<section class="card"><div class="label">何時用</div><h2>輸入、權限與失敗條件都清楚</h2><p>結果可留下 log、artifact 或 comment，且即使任務失敗，也不會造成難以回復的外部狀態。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>會直接改正式環境或自動推送</h2><p>未經審查的 production write、自動合併、權限升級與不可逆操作，不應只靠模型自行決定。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>Checkout、workflow、secrets 與平台輸出</h2><p>CI 可讀 repo 與事件內容，並依 workflow 權限寫 comment、artifact 或 branch；每一項都要顯式授權。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>從唯讀、最小權限開始。</strong>限制觸發來源、工具、timeout 與花費；特別檢查 fork PR 的 secrets 邊界，不允許模型繞過既有 required checks。</div>
+<h2>最低完成證據</h2>
+<ul><li>Workflow 顯示最小 <code>permissions</code>、觸發條件與 secret 使用範圍。</li><li>一個成功案例與一個失敗案例都有可查 log／artifact。</li><li>輸出需要人類核准才會進入寫入、合併或發布步驟。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>先唯讀檢查 repo 現有 CI、required checks 與 secrets 邊界。
+為「＿＿」提出一個最小、唯讀、可稽核的 Claude Code job：列出 trigger、permissions、tools、timeout、輸出與失敗行為。
+不要建立 workflow、寫 comment、push 或改外部狀態。</pre>
+<footer>實作：<a href="../../lessons/002-0010-ci-automation-boundary.html">在 CI 安全使用</a> · 基礎：<a href="claude-code-headless.html">Claude Code headless</a><br>主要來源：<a href="https://code.claude.com/docs/en/github-actions">Claude Code GitHub Actions</a> · <a href="https://code.claude.com/docs/en/headless">Headless mode</a></footer>
+</body>
+</html>

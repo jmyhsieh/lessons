@@ -10,7 +10,7 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 7 · 入門第 01 課 · 約 10 分鐘</div>
+<div class="kicker">Phase 7 · 工具選用卡 · 約 10 分鐘</div>
 <h1>讓 Claude Code 判斷 open-slide 是否適合</h1>
 <p class="mission"><strong>本課成果：</strong>一張工具選路卡，說明這份簡報是否適合 open-slide。</p>
 <div class="rule"><strong>本課不安裝：</strong>需要快速做簡報或交可編輯 PPTX，就留在 Phase 5；接受 HTML／PDF，且需要 React、Git 或客製互動才繼續。</div>
@@ -22,7 +22,7 @@
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>哪種情境最適合繼續學 open-slide？</p><button>需要版本與互動</button><button>只要快速做簡報</button><button>必須交付簡報檔</button><div class="why">open-slide 的核心價值是 React、Git、客製互動與 HTML／PDF，而不是 PPTX 交接。</div></div>
 <h2>關鍵判斷</h2><p>需求不適合 open-slide 時就停下來，這也是正確的選路結果。</p>
 <p><strong>主要閱讀：</strong><a href="https://open-slide.dev/docs">open-slide — Introduction</a>。</p>
-<footer>來自 Phase 5：<a href="005-0012-run-structured-rehearsal-and-version.html">可信簡報交付</a> · 下一課：<a href="007-0002-create-isolated-workspace.html">請 Claude Code 建立 workspace</a><br>把 Claude Code 的建議與你的選路理由貼回 Claude Code，請它檢查是否過度工具化。</footer>
+<footer>先查：<a href="../reference/claude-code-tool-library.html#open-slide">open-slide 工具卡</a> · 選定後：<a href="007-0002-create-isolated-workspace.html">建立 workspace</a><br>把 Claude Code 的建議與你的選路理由貼回 Claude Code，請它檢查是否過度工具化。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

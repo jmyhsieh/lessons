@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Git worktrees｜工具卡</title>
+<style>
+:root{--tool:#926500}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html#phase2-toolbox">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 2 · Checkout 隔離</span>
+<h1>Git worktrees</h1>
+<p class="lead">為平行工作建立獨立 checkout 與 branch，避免多個工作階段在同一工作樹互相覆蓋。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>把平行寫入真正分開</h2><p>每個任務在自己的目錄與 branch 修改、測試與檢查，不共用未提交的工作樹狀態。</p></section>
+<section class="card"><div class="label">何時用</div><h2>兩個以上獨立修改可並行</h2><p>任務邊界、branch 所有權與整合順序清楚，而且同時進行能實際節省時間。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>只是唯讀調查或小改動</h2><p>搜尋資料可用 <a href="claude-code-subagents.html">Subagent</a>；會同時修改相同檔案的任務，也不適合硬拆平行。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>建立目錄、branch 與 Git metadata</h2><p>Worktree 有自己的工作目錄，但共享 repository history；未追蹤檔、環境檔與相依套件仍要另外處理。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>建立前先看 branch 與 dirty state。</strong>為每個 worktree 指定任務與 branch；移除前確認沒有未提交成果，不使用 force 清理不明狀態。</div>
+<h2>最低完成證據</h2>
+<ul><li><code>git worktree list</code> 顯示正確路徑與 branch。</li><li>每個工作樹的 diff、測試與負責範圍可獨立說明。</li><li>整合後確認 branch 與 worktree 的保留或安全移除狀態。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>先唯讀執行 git status、git branch 與 git worktree list。
+判斷任務「＿＿」是否值得獨立 worktree；提出明確路徑、branch、檔案範圍、驗證與整合順序。
+先不要建立、切換或移除任何 worktree。</pre>
+<footer>實作：<a href="../../lessons/002-0007-worktrees.html">分開平行工作</a> · 模式：<a href="writer-reviewer-sessions.html">Writer／Reviewer</a><br>主要來源：<a href="https://code.claude.com/docs/en/worktrees">Run parallel Claude Code sessions with Git worktrees</a></footer>
+</body>
+</html>

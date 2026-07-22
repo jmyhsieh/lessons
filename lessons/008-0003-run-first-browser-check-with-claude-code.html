@@ -25,7 +25,7 @@
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Claude Code 完成點擊後，下一個可靠動作是什麼？</p><button>動作後重新讀取頁面狀態</button><button>模型只憑著程式碼猜結果</button><button>瀏覽器曾經成功打開一次</button><div class="why">頁面可能因導覽、載入或互動改變；重新取得畫面狀態，才能根據最新畫面判斷。</div></div>
 <h2>關鍵判斷</h2><p>可靠的代理瀏覽器迴圈是「前往頁面 → 讀取畫面狀態 → 操作 → 重新讀取狀態」，而不是看過程式碼後猜畫面。</p>
 <p><strong>主要閱讀：</strong><a href="https://playwright.dev/mcp/installation">Playwright MCP — Installation</a>。</p>
-<footer>上一課：<a href="008-0002-connect-playwright-mcp-to-claude-code.html">連接 MCP</a> · 下一課：<a href="008-0004-create-first-durable-test-with-claude-code.html">留下第一個持久測試</a><br>把查核紀錄貼回 Claude Code，請它指出尚未被觀察支持的敘述。</footer>
+<footer>上一課：<a href="008-0002-connect-playwright-mcp-to-claude-code.html">連接 MCP</a> · 即時查核路線到此完成；需要防回歸才另走 <a href="008-0004-create-first-durable-test-with-claude-code.html">04 耐久測試</a><br>把查核紀錄貼回 Claude Code，請它指出尚未被觀察支持的敘述。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

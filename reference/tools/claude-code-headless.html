@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code headless｜工具卡</title>
+<style>
+:root{--tool:#926500}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html#phase2-toolbox">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 2 · 一次性程式化任務</span>
+<h1>Claude Code headless（<code>claude -p</code>）</h1>
+<p class="lead">以非互動方式送入一個範圍明確的任務，取得可供 shell、程式或後續流程處理的輸出。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>把單次任務放進 script</h2><p>輸入、工具範圍與輸出格式穩定時，不需要開啟互動工作階段逐步操作。</p></section>
+<section class="card"><div class="label">何時用</div><h2>任務有明確終點</h2><p>適合摘要、分類、抽取、固定檢查與結構化回傳，並且失敗行為可以預先定義。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>還在探索或風險很高</h2><p>需求需要來回釐清、可能修改大量狀態，或遇到例外必須即時判斷時，使用互動工作階段。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>由 flags、prompt 與 tools 決定</h2><p>可從 stdin 或參數接收輸入並輸出文字／結構化資料；允許工具後，也可能讀檔、執行命令或寫入。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>顯式限制工具與輸出格式。</strong>先用非敏感資料和唯讀任務測試；設定 timeout、錯誤處理與成本邊界，不把 secrets 拼進命令或 log。</div>
+<h2>最低完成證據</h2>
+<ul><li>保留完整命令、輸入來源、工具限制與輸出格式。</li><li>輸出可被下一步穩定解析，且 exit status 被正確處理。</li><li>至少驗證一個失敗或無結果案例不會誤報成功。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>先把「＿＿」縮成一個 claude -p 可完成的唯讀任務。
+提出完整命令、輸入方式、允許工具、結構化輸出、timeout 與失敗處理。
+先用最小無敏感資料的樣本示範，不要改檔或呼叫外部寫入。</pre>
+<footer>實作：<a href="../../lessons/002-0009-headless-one-shot.html">跑一次性任務</a> · 延伸：<a href="claude-code-ci.html">CI 自動化</a><br>主要來源：<a href="https://code.claude.com/docs/en/headless">Run Claude Code programmatically</a></footer>
+</body>
+</html>

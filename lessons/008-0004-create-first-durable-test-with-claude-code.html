@@ -25,7 +25,7 @@
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>什麼最能證明新測試會保護預期行為？</p><button>失敗再通過才能證明有效</button><button>只有通過就能證明有效了</button><button>模型說完成就能證明有效</button><div class="why">刻意破壞預期後看到相關失敗結果，再還原並通過，能證明測試不是只在任何情況下都綠。</div></div>
 <h2>關鍵判斷</h2><p>Claude Code 可以寫測試，但你要審查它測了什麼，並用紅綠證據證明它真的能抓到風險。</p>
 <p><strong>主要閱讀：</strong><a href="https://playwright.dev/docs/writing-tests">Playwright — Writing tests</a> 與 <a href="https://playwright.dev/docs/test-assertions">Assertions</a>。</p>
-<footer>上一課：<a href="008-0003-run-first-browser-check-with-claude-code.html">完成即時查核</a> · 進階下一課：<a href="008-0005-initialize-playwright-test-agents.html">初始化測試代理</a> · <a href="../reference/playwright-browser-verification-workflow.html">Phase 8 路線卡</a><br>把測試差異、失敗摘要與通過時使用的命令貼回 Claude Code，請它做一次完成線檢查。</footer>
+<footer>選路起點：<a href="008-0001-choose-live-check-or-test.html">第 01 課</a> · 耐久測試路線到此完成；需要多路徑代理流程才接 <a href="008-0005-initialize-playwright-test-agents.html">05</a> · <a href="../reference/playwright-browser-verification-workflow.html">工作流卡</a><br>把測試差異、失敗摘要與通過時使用的命令貼回 Claude Code，請它做一次完成線檢查。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

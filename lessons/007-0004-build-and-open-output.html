@@ -20,9 +20,9 @@
 <div class="step"><label><input type="checkbox"> 3. 走完三頁並記錄結果</label><p>檢查首頁、上一／下一頁、文字、來源連結與窄版畫面；記下通過、有問題或未驗證的項目。</p></div>
 <div class="done" id="done"><strong>入門完成：</strong>你已完成選路、隔離工作區、三頁切片，以及建置後的瀏覽器查核。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p><code>npm run build</code> 成功後還要做什麼？</p><button>還要打開輸出檢查</button><button>可以直接宣布完成</button><button>可以略過內容查核</button><div class="why">建置只證明程式能產出；實際輸出仍可能有內容、連結或版面問題。</div></div>
-<h2>關鍵判斷</h2><p>做到這裡就能停止；遇到重用、協作或部署需求時，再進入第 05–09 課。</p>
+<h2>關鍵判斷</h2><p>做到這裡就能停止；遇到重用、稽核、回饋或部署需求時，再選讀第 06–09 課。</p>
 <p><strong>主要閱讀：</strong><a href="https://open-slide.dev/docs/core-feature/export">open-slide — Export</a>。</p>
-<footer>上一課：<a href="007-0003-build-three-slide-slice.html">完成三頁切片</a> · 進階下一課：<a href="007-0005-use-agent-contract.html">讀取 Claude Code 工作規範</a> · <a href="../reference/open-slide-agent-deck-workflow.html">Phase 7 路線卡</a><br>把 Claude Code 建置結果與你看到的輸出問題貼回 Claude Code，請它檢查完成證據。</footer>
+<footer>上一課：<a href="007-0003-build-three-slide-slice.html">完成三頁切片</a> · 已完成三頁路線；有重用需求才接 <a href="007-0006-build-reusable-slide-system.html">第 06 課</a> · <a href="../reference/open-slide-agent-deck-workflow.html">工作流卡</a><br>把 Claude Code 建置結果與你看到的輸出問題貼回 Claude Code，請它檢查完成證據。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

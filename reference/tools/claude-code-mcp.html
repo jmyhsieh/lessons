@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code MCP｜工具卡</title>
+<style>
+:root{--tool:#926500}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html#phase2-toolbox">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 2 · 外部工具與資料</span>
+<h1>Claude Code MCP</h1>
+<p class="lead">透過 MCP server，讓 Claude Code 使用外部系統提供的工具、資源與資料來源。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>跨出本機 repo</h2><p>需要查詢 issue、文件、資料庫、瀏覽器或其他專用系統時，提供明確的整合介面。</p></section>
+<section class="card"><div class="label">何時用</div><h2>外部系統才有權威資料</h2><p>已有可信任的 MCP server，且任務確實需要它的工具或資料，而不是只讀本機檔案。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>本機工具已經足夠</h2><p>讀檔、搜尋 repo 或跑現有命令不必先接 MCP；來源不明或權限過寬的 server 也不應連線。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>設定、憑證與外部狀態</h2><p>連線方式可能需要 command、URL、環境變數或 OAuth；可見工具若含寫入能力，可能改變外部系統。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>只給任務所需的最小範圍。</strong>確認 server 來源、啟動命令、可見工具與憑證存放方式；先跑唯讀查詢，外部寫入另行核准。</div>
+<h2>最低完成證據</h2>
+<ul><li>記錄 server 來源、版本或端點、設定範圍與可見工具。</li><li>用一個唯讀查詢取得可回查的來源資料。</li><li>知道如何停用、移除與撤銷憑證。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>先唯讀說明完成「＿＿」需要哪個外部系統，以及本機工具為何不足。
+盤點候選 MCP server 的來源、設定範圍、工具清單、憑證與寫入風險。
+先不要連線、登入或改變外部狀態。</pre>
+<footer>實作：<a href="../../lessons/002-0004-mcp.html">讀外部系統資料</a><br>主要來源：<a href="https://code.claude.com/docs/en/mcp">Connect Claude Code to tools via MCP</a> · <a href="https://modelcontextprotocol.io/docs/getting-started/intro">MCP introduction</a></footer>
+</body>
+</html>

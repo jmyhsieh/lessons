@@ -23,7 +23,7 @@
 <div class="quiz" data-answer="2"><p>把簡報改成一頁摘要時，應該怎麼做？</p><button>把三張全部縮小</button><button>加入更多新內容</button><button>重排三個核心點</button><div class="why">改作要保留已驗證的內容地基，但依新的閱讀情境重新安排層級。</div></div>
 <h2>關鍵判斷</h2><p>你已完成 Phase 5 入門主線：真實題目、三份資料、三頁簡報、一次彩排與一頁改作。</p>
 <p><strong>主要閱讀：</strong><a href="https://claude.com/product/design">Anthropic — Claude Design</a>。</p>
-<footer>上一課：<a href="005-0007-export-and-rehearse.html">輸出並講一次</a> · 進階下一課：<a href="005-0009-build-claim-ledger.html">建立主張查核表</a> · 程式碼優先的簡報：<a href="007-0001-decide-if-open-slide-fits.html">前往 Phase 7</a><br>把一頁摘要與陌生讀者回饋貼回 Claude Code，請它檢查是否能獨立閱讀。</footer>
+<footer>上一課：<a href="005-0007-export-and-rehearse.html">輸出並講一次</a> · 進階下一課：<a href="005-0009-build-claim-ledger.html">建立主張查核表</a> · 程式碼優先的簡報：<a href="../reference/claude-code-tool-library.html#open-slide">open-slide 工具卡</a><br>把一頁摘要與陌生讀者回饋貼回 Claude Code，請它檢查是否能獨立閱讀。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

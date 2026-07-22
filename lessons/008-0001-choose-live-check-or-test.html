@@ -10,7 +10,7 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 8 · 入門第 01 課 · 約 10 分鐘</div>
+<div class="kicker">Phase 8 · 工具選路卡 · 約 10 分鐘</div>
 <h1>判斷即時查核或持久測試</h1>
 <p class="mission"><strong>本課成果：</strong>一張瀏覽器證據選路卡，指出這條路徑需要即時查核或持久測試。</p>
 <div class="rule"><strong>先分兩種結果：</strong>Playwright MCP 適合讓 Claude Code 當下操作真實瀏覽器；Playwright Test 才是能提交、重跑與放進 CI 的持久測試。即時查核成功，不等於程式庫已有測試。</div>
@@ -25,7 +25,7 @@
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>Claude Code 用 MCP 成功操作一次頁面，代表什麼？</p><button>即時查核不等於持久測試</button><button>模型看過就等於測試完成</button><button>所有瀏覽器任務都要自動</button><div class="why">即時查核是當下觀察；只有把可重跑測試寫進程式庫、執行並審查，才形成持久回歸證據。</div></div>
 <h2>關鍵判斷</h2><p>先決定要回答「現在正常嗎」或「以後壞了會知道嗎」，再請 Claude Code 選工具。</p>
 <p><strong>主要閱讀：</strong><a href="https://playwright.dev/mcp/installation">Playwright MCP — Installation</a>；另一種即時操作方式可參考 <a href="https://code.claude.com/docs/en/chrome">Claude Code — Chrome</a>。</p>
-<footer>來自 Phase 7：<a href="007-0009-package-and-deploy-safely.html">可信的網頁輸出</a> · 下一課：<a href="008-0002-connect-playwright-mcp-to-claude-code.html">把 Playwright MCP 接到 Claude Code</a><br>把路線判斷卡貼回 Claude Code，請它檢查證據種類是否選對。</footer>
+<footer>選路後分支：即時查核走 <a href="008-0002-connect-playwright-mcp-to-claude-code.html">02 MCP</a>；耐久測試走 <a href="008-0004-create-first-durable-test-with-claude-code.html">04 Playwright Test</a> · <a href="../reference/claude-code-tool-library.html#playwright">工具卡</a><br>把路線判斷卡貼回 Claude Code，請它檢查證據種類是否選對。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

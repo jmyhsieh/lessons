@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writer／Reviewer 工作階段｜模式卡</title>
+<style>
+:root{--tool:#926500}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html#phase2-toolbox">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 2 · 獨立撰寫與審查</span>
+<h1>Writer／Reviewer 工作階段</h1>
+<p class="lead">讓一個工作階段負責產出，另一個以新鮮 context 審查固定成果，降低自我確認偏誤。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>把作者與審查者角色分開</h2><p>Reviewer 不承接所有實作對話，只依需求、diff 與證據重新檢查成果。</p></section>
+<section class="card"><div class="label">何時用</div><h2>變更值得獨立第二視角</h2><p>規格、安全性或維護風險較高，且可以提供固定 commit、diff 或 artifact 給 reviewer。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>沒有清楚交接邊界</h2><p>若兩邊同時改同一批檔案，只會製造競爭；小型低風險修改也不必為了形式增加工作階段。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>Writer 寫，Reviewer 預設唯讀</h2><p>交接內容包含需求、固定 diff、已跑檢查與未知風險；若需平行寫入，另用 <a href="git-worktrees.html">worktree</a> 隔離。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>明確指定唯一寫入者。</strong>Reviewer 不修程式，只回報 finding；作者收到回饋後另行修改，再以新 diff 驗證。</div>
+<h2>最低完成證據</h2>
+<ul><li>一份可獨立理解的 handoff，含需求與固定 diff／commit。</li><li>Reviewer findings 附位置、理由與嚴重度。</li><li>每項 finding 有採納、拒絕或待確認的處理紀錄。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>你是唯讀 Reviewer。只審查固定成果「＿＿」，不要修改檔案。
+先對照需求與 repo 規則，再檢查 diff、測試證據與未覆蓋風險。
+只回報可定位、可重現的 findings；沒有 finding 就直接說明。</pre>
+<footer>實作：<a href="../../lessons/002-0008-writer-reviewer-session.html">分開撰寫與審查</a> · 隔離：<a href="git-worktrees.html">Git worktrees</a><br>主要來源：<a href="https://code.claude.com/docs/en/worktrees">Git worktrees</a> · <a href="https://code.claude.com/docs/en/sub-agents">Subagents</a></footer>
+</body>
+</html>

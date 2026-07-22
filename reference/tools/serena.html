@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Serena｜Claude Code 工具卡</title>
+<style>
+:root{--tool:#506d2f}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 11 · 進階替代</span>
+<h1>Serena</h1>
+<p class="lead">透過 MCP 提供 symbol-level 的程式探索與編輯工作流；在 Claude Code 裡屬於有明確需求才加的進階替代。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>更完整的語意式專案探索</h2><p>用符號層級工具支援大型 repo 的查找、編輯、重構與除錯工作流。</p></section>
+<section class="card"><div class="label">何時用</div><h2>內建能力仍有明確缺口</h2><p>需要 Serena 特有的專案探索流程，且已能說明它比 <a href="claude-code-lsp.html">Claude Code LSP</a> 多解決什麼。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>基本 definition／references</h2><p>Claude Code 內建 LSP 已足夠時不要重複安裝；固定字串仍先用 <code>rg</code>。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>索引與修改 repo</h2><p>Serena 會分析專案，部分工具可編輯程式碼；安裝還涉及 Python／uv、語言後端與 MCP 設定。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>先從官方 repo 與唯讀工具開始。</strong>確認安裝路徑、語言相依與移除方式；不要從過時第三方 marketplace 安裝，也不要一開始開放編輯工具。</div>
+<h2>最低完成證據</h2>
+<ul><li>寫清楚選 Serena 而不是內建 LSP 的具體缺口。</li><li>記錄版本、安裝範圍、MCP 設定與啟用工具。</li><li>先用同一符號比較結果；若沒有增加價值就移除。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>先用內建 LSP 嘗試完成「＿＿」，並記錄不足之處。
+只有缺口成立時，依 Serena 官方 README 提出安裝、唯讀工具範圍與移除方式。
+我核准前不要安裝或啟用編輯工具；完成後比較兩者證據。</pre>
+<footer>比較卡：<a href="../claude-code-context-tools.html">用量與查找</a> · 主要路線：<a href="../../lessons/011-0003-map-one-symbol-with-lsp.html">Claude Code LSP</a><br>主要來源：<a href="https://github.com/oraios/serena">Serena</a></footer>
+</body>
+</html>

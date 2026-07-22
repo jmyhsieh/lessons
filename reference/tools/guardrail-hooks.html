@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guardrail hook｜工具卡</title>
+<style>
+:root{--tool:#926500}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html#phase2-toolbox">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 2 · 危險操作防線</span>
+<h1>Guardrail hook</h1>
+<p class="lead">在工具執行前檢查明確的危險條件，符合時阻擋並回傳可理解的原因。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>阻止已知危險模式</h2><p>把「這種命令或目標一律不能執行」變成確定的阻擋規則，而不是依賴臨場提醒。</p></section>
+<section class="card"><div class="label">何時用</div><h2>條件能精確描述</h2><p>例如特定破壞性命令、受保護路徑或禁止的參數組合，且允許與拒絕案例都能列出。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>政策仍然模糊</h2><p>需要理解意圖、資料敏感度或例外情境時，不要只靠字串比對；guardrail 也不能取代權限與人工核准。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>讀取工具輸入，可能阻擋執行</h2><p>常在 <code>PreToolUse</code> 讀取工具名稱與參數；規則本身應避免額外寫入或網路副作用。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>避免過寬的 substring 規則。</strong>精確解析輸入，讓安全案例通過、危險案例被擋；阻擋訊息要指出原因與安全替代方案。</div>
+<h2>最低完成證據</h2>
+<ul><li>一個允許案例成功通過。</li><li>一個禁止案例在執行前被擋，且原因清楚。</li><li>保留設定、腳本與回復方式。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>先唯讀盤點現有權限與 hooks。
+為「＿＿」設計一個最窄的 PreToolUse guardrail，列出精確輸入條件、允許案例、阻擋案例與訊息。
+不要用模糊 substring，也不要先修改設定。</pre>
+<footer>實作：<a href="../../lessons/002-0002-guardrail-hooks.html">擋下危險操作</a> · 基礎：<a href="claude-code-hooks.html">Claude Code hooks</a><br>主要來源：<a href="https://code.claude.com/docs/en/hooks-guide">Hooks guide</a> · <a href="https://code.claude.com/docs/en/hooks">Hooks reference</a></footer>
+</body>
+</html>

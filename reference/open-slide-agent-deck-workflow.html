@@ -11,7 +11,7 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <h1>Phase 7：Claude Code × open-slide</h1>
-<p>Claude Code 讀取初始專案（scaffold）產生的 <code>CLAUDE.md</code> 與工作區 Skills；你核准命令、審查 diff 並親自看瀏覽器。01–04 完成第一個三頁切片，遇到重用、稽核或部署需求再接 05–09。</p>
+<p>先用工具卡判斷是否需要 open-slide。選定後，Claude Code 建立隔離工作區、先讀初始專案產生的 <code>AGENTS.md</code>／<code>CLAUDE.md</code> 與工作區 Skills，再做三頁切片；你核准命令、審查 diff 並親自看瀏覽器。</p>
 
 <div class="decision no"><strong>留在 Claude Design，如果：</strong><br>需要 PPTX 交接、想用 canvas 快速修改，或團隊不想維護 React／Git。</div>
 <div class="decision yes"><strong>讓 Claude Code 使用 open-slide，如果：</strong><br>交付接受 HTML／PDF，而且 Git diff、客製互動、React 元件或部署能力真的重要。</div>
@@ -19,12 +19,13 @@
 <h2>一句話做決定</h2>
 <p>「我選 Claude Design／open-slide，因為交付格式需要＿＿，團隊也願意／不願意維護 React 與 Git。」</p>
 
-<h2>入門 01–04</h2>
+<h2>三頁實作路線</h2>
 <table>
 <tr><th>課</th><th>只做這件事</th><th>留下什麼</th></tr>
 <tr><td>01</td><td>請 Claude Code 唯讀比較 Claude Design 與 open-slide</td><td>人工核准的選路理由</td></tr>
 <tr><td>02</td><td>核對目標與命令，再讓 Claude Code 建立隔離工作區</td><td>開發伺服器與瀏覽器證據</td></tr>
-<tr><td>03</td><td>讓 Claude Code 讀 <code>CLAUDE.md</code>、使用 <code>/create-slide</code></td><td>人工審查過的三頁 diff</td></tr>
+<tr><td>05</td><td>先讀 <code>AGENTS.md</code>／<code>CLAUDE.md</code> 與本次需要的 Skill</td><td>檔案契約、禁止事項與驗證命令摘要</td></tr>
+<tr><td>03</td><td>讓 Claude Code 使用 <code>/create-slide</code></td><td>人工審查過的三頁 diff</td></tr>
 <tr><td>04</td><td>請 Claude Code 建置並預覽，真人打開正式輸出</td><td><code>dist/</code>＋檢查紀錄</td></tr>
 </table>
 
@@ -43,10 +44,9 @@ npm run preview</pre>
 → 顯示 diff 與建置輸出
 → 真人在瀏覽器檢查</pre>
 
-<h2>進階 05–09</h2>
+<h2>需要才接 06–09</h2>
 <table>
 <tr><th>課</th><th>解決的真實需求</th><th>留下什麼</th></tr>
-<tr><td>05</td><td>Claude Code 先讀 <code>CLAUDE.md</code> 與相關 Skills</td><td>符合工作區規則的有限 diff</td></tr>
 <tr><td>06</td><td>Claude Code 以 <code>/create-theme</code> 收斂重複規則</td><td>主題＋一個重用模式</td></tr>
 <tr><td>07</td><td>Claude Code 列查核點，真人檢查來源與畫面</td><td>來源＋無障礙證據</td></tr>
 <tr><td>08</td><td>Claude Code 以 <code>/apply-comments</code> 處理具體回饋</td><td>留言＋diff＋重新驗證</td></tr>
@@ -54,8 +54,8 @@ npm run preview</pre>
 </table>
 
 <h2>停止線</h2>
-<p>必須交可編輯 PPTX 就回 Phase 5。第 04 課是獨立入門完成線；不需要重用、稽核或部署，就不必繼續第 05–09 課。建置成功仍要打開目標輸出；Claude Code 不能代替負責人授權公開部署。</p>
+<p>必須交可編輯 PPTX 就回 Phase 5。第 04 課是獨立完成線；不需要重用、稽核、回饋或部署，就不必繼續第 06–09 課。建置成功仍要打開目標輸出；Claude Code 不能代替負責人授權公開部署。</p>
 
-<footer>入門開始：<a href="../lessons/007-0001-decide-if-open-slide-fits.html">第 01 課</a> · 進階開始：<a href="../lessons/007-0005-use-agent-contract.html">第 05 課</a> · 下一個 Phase：<a href="../lessons/008-0001-choose-live-check-or-test.html">Claude Code × Playwright</a> · 主要來源：<a href="https://open-slide.dev/docs/getting-started">Getting Started</a> · <a href="https://open-slide.dev/docs/skills/overview">Agent Skills</a> · <a href="../toc.html">課目表</a></footer>
+<footer>工具卡：<a href="tools/open-slide.html">open-slide</a> · 工具庫：<a href="claude-code-tool-library.html#open-slide">Phase 7</a> · 實作開始：<a href="../lessons/007-0002-create-isolated-workspace.html">第 02 課</a> · 實作前置：<a href="../lessons/007-0005-use-agent-contract.html">第 05 課</a> · 主要來源：<a href="https://open-slide.dev/docs/getting-started">Getting Started</a> · <a href="https://open-slide.dev/docs/skills/overview">Agent Skills</a> · <a href="../toc.html">課目表</a></footer>
 </body>
 </html>

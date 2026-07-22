@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code Subagents｜工具卡</title>
+<style>
+:root{--tool:#926500}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html#phase2-toolbox">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 2 · Context 隔離</span>
+<h1>Claude Code Subagents</h1>
+<p class="lead">把範圍明確的調查交給獨立 context，主工作階段只接收結論與可回查證據。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>避免主 context 被大量細節淹沒</h2><p>將搜尋、log 分析或文件整理放到旁線，保留主線的決策脈絡與 token 空間。</p></section>
+<section class="card"><div class="label">何時用</div><h2>旁線任務可以清楚交付</h2><p>輸入範圍、預期答案與停止條件都能說明，而且結果可用檔案、行號或來源驗證。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>需要獨立寫入空間</h2><p>Subagent 隔離的是 context，不必然隔離 checkout；平行修改應改用 <a href="git-worktrees.html">worktree</a> 或明確檔案所有權。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>獨立 context 與受控工具</h2><p>Subagent 有自己的 prompt、context 與工具設定；是否能寫檔或執行命令，取決於授予的工具與權限。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>先縮小任務，再縮小工具。</strong>唯讀調查不授予 Edit／Write；說清楚不可越界的目錄、輸出格式與遇到未知時的停止條件。</div>
+<h2>最低完成證據</h2>
+<ul><li>保留交付給 subagent 的範圍與問題。</li><li>結論附檔案、行號、命令輸出或來源連結。</li><li>主工作階段明確記錄採納、拒絕或仍待確認的項目。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>把「＿＿」交給一個唯讀 subagent。
+限制在「＿＿」範圍，只能使用 Read、Glob、Grep（必要時再列出其他工具）。
+回傳三項內的結論、檔案與行號、未知項目；不要修改任何檔案。</pre>
+<footer>實作：<a href="../../lessons/002-0005-subagents-context.html">隔離大型調查</a> · 延伸：<a href="custom-review-subagent.html">custom review subagent</a><br>主要來源：<a href="https://code.claude.com/docs/en/sub-agents">Create custom subagents</a></footer>
+</body>
+</html>

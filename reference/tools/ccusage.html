@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ccusage｜Claude Code 工具卡</title>
+<style>
+:root{--tool:#506d2f}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 11 · 用量觀測</span>
+<h1>ccusage</h1>
+<p class="lead">讀取本機 coding agent 使用紀錄，整理工作階段的 token 與成本估算，建立可比較的用量基準。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>看本機用量結構</h2><p>把零散紀錄整理成日、月或工作階段報表，觀察任務規模與用量變化。</p></section>
+<section class="card"><div class="label">何時用</div><h2>需要自己的基準</h2><p>比較兩種工作方式、追蹤長任務或記錄一次 Claude Code 工作階段。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>不是官方剩餘額度</h2><p>要查方案限制或帳戶可用量，回官方產品介面；用量較低也不代表成果較好。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>讀本機紀錄</h2><p>會掃描支援工具的本機使用資料並輸出報表；先確認範圍，避免把不相干工作階段混入。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>報表可能揭露工作時間、模型與專案模式。</strong>分享前先移除敏感路徑或識別資訊；安裝方式與支援資料來源以目前 README 為準。</div>
+<h2>最低完成證據</h2>
+<ul><li>記錄工具版本、資料範圍與報表時間窗。</li><li>保留一張工作階段基準卡，註明估算與未知項目。</li><li>用量結論與交付品質分開，不用 token 數取代成果驗證。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>依 ccusage 目前 README 與 --help，先提出唯讀報表命令。
+範圍只限這個工作階段／日期：＿＿，不要修改或上傳本機紀錄。
+輸出版本、資料範圍、token／成本欄位，以及它不能代表的結論。</pre>
+<footer>比較卡：<a href="../claude-code-context-tools.html">用量與查找</a> · 實作：<a href="../../lessons/011-0001-measure-one-claude-code-session-with-ccusage.html">留一筆基準</a><br>主要來源：<a href="https://github.com/ccusage/ccusage">ccusage</a></footer>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Custom review subagent｜工具卡</title>
+<style>
+:root{--tool:#926500}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html#phase2-toolbox">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 2 · 可重用審查角色</span>
+<h1>Custom review subagent</h1>
+<p class="lead">把固定的審查標準、工具限制與回報格式，做成專門的唯讀 subagent。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>讓審查有一致焦點</h2><p>每次都以相同標準檢查固定 diff，並把作者脈絡與審查脈絡分開。</p></section>
+<section class="card"><div class="label">何時用</div><h2>同類 review 會重複發生</h2><p>例如安全、可及性、規格符合度或 repo 慣例，且規則與輸出格式已經清楚。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>沒有固定基準或固定 diff</h2><p>需求仍模糊時先釐清；review agent 的結論也不能取代測試、真實執行或人類核准。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>讀定義、repo 與變更</h2><p>專案定義通常放在 <code>.claude/agents/</code>；若只做審查，限制為讀取、搜尋與必要的唯讀命令。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>Reviewer 預設不寫檔。</strong>明列可用工具與禁止工具，指定固定 commit 或 diff；若需執行測試，先確認命令不會改寫工作樹。</div>
+<h2>最低完成證據</h2>
+<ul><li>保留 subagent 定義與審查基準。</li><li>每項 finding 含嚴重度、檔案、行號與理由。</li><li>記錄誤報、採納結果與尚未驗證的風險。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>為「＿＿」設計一個專案範圍的唯讀 review subagent。
+只審查固定 diff「＿＿」，工具限於 Read、Glob、Grep 與必要的唯讀 Bash。
+finding 必須附嚴重度、檔案、行號與可重現理由；先不要建立檔案。</pre>
+<footer>實作：<a href="../../lessons/002-0006-custom-subagent-review.html">建立 review agent</a> · 基礎：<a href="claude-code-subagents.html">Claude Code Subagents</a><br>主要來源：<a href="https://code.claude.com/docs/en/sub-agents">Create custom subagents</a></footer>
+</body>
+</html>

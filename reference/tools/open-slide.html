@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>open-slide｜Claude Code 工具卡</title>
+<style>
+:root{--tool:#2f6f63}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 7 · 簡報製作</span>
+<h1>open-slide</h1>
+<p class="lead">把簡報當成 React 專案製作，適合需要 Git diff、元件、互動與 HTML／PDF 輸出的任務。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>code-first 簡報</h2><p>讓 Claude Code 在可追蹤的專案裡建立與修改投影片，而不是只在圖形介面手動排版。</p></section>
+<section class="card"><div class="label">何時用</div><h2>程式化能力真的重要</h2><p>交付接受 HTML／PDF，而且團隊願意維護 React、套件與 Git 歷史。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>PPTX 或一次性工作</h2><p>必須交可編輯 PPTX、團隊不維護程式碼，或 Claude Design 已足以完成時。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>建立完整工作區</h2><p>初始化會建立目錄、設定檔、<code>AGENTS.md</code>／<code>CLAUDE.md</code>、Skills 與相依套件。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>先核准新目錄與安裝命令。</strong>在隔離工作區初始化；編輯前先讀專案規則與需要的 Skill。公開部署是另一個需另行核准的動作。</div>
+<h2>最低完成證據</h2>
+<ul><li>有限、可說明的 Git diff。</li><li>正式 build 成功並知道輸出位置。</li><li>親自在瀏覽器檢查正式輸出；build 成功不等於版面正確。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>先唯讀檢查目前目錄與 open-slide 官方初始化方式。
+提出隔離工作區名稱、會建立或下載的內容、驗證命令與停止線。
+我核准前不要執行；建立後先讀 AGENTS.md、CLAUDE.md 與相關 Skill。</pre>
+<footer>工作流：<a href="../open-slide-agent-deck-workflow.html">open-slide 路線卡</a> · 實作：<a href="../../lessons/007-0002-create-isolated-workspace.html">建立隔離工作區</a><br>主要來源：<a href="https://open-slide.dev/docs/getting-started">Getting Started</a> · <a href="https://open-slide.dev/docs/skills/overview">Agent Skills</a></footer>
+</body>
+</html>

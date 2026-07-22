@@ -45,18 +45,6 @@
 <tr><td>工作樹（worktree）</td><td>同一個 Git 程式庫的另一份工作目錄，用來隔離分支與平行改動。</td></tr>
 </table>
 
-<h2>OpenSpec 規格生命週期</h2>
-<table>
-<tr><th>課程用語</th><th>意思</th></tr>
-<tr><td>目前規格（current spec）</td><td><code>openspec/specs/</code> 裡已生效的行為說明；archive 後才會納入已完成的變更。</td></tr>
-<tr><td>變更（change）</td><td><code>openspec/changes/&lt;name&gt;/</code> 裡的一組 proposal、delta specs、design 與 tasks，描述一項尚未封存的修改。</td></tr>
-<tr><td>差異規格（delta spec）</td><td>只描述這次新增、修改或移除哪些 requirement，不重寫整個系統。</td></tr>
-<tr><td>需求（requirement）</td><td>可由外部觀察並判定是否成立的一項行為；OpenSpec 通常用 <code>SHALL</code> 或 <code>MUST</code> 表示硬性要求。</td></tr>
-<tr><td>情境（scenario）</td><td>用 GIVEN／WHEN／THEN 寫出的具體例子，用來檢查 requirement 是否真的成立。</td></tr>
-<tr><td>同步（sync）</td><td>把 active change 的 delta specs 合併進 current specs，但仍保留 change 為進行中狀態。</td></tr>
-<tr><td>封存（archive）</td><td>變更完成後，視需要把 delta specs 同步到 current specs，再將整份 change 移到帶日期的 archive 路徑保存。</td></tr>
-</table>
-
 <h2>從需求到可驗證交付</h2>
 <table>
 <tr><th>課程用語</th><th>意思</th></tr>
@@ -150,11 +138,11 @@
 <h2>Claude Code × 用量與查找工具</h2>
 <table>
 <tr><th>課程用語</th><th>意思</th></tr>
-<tr><td>用量與查找工具</td><td>本課程用這個名稱統稱 ccusage、QMD 與 Serena；分別協助查看工作階段用量、搜尋核准文件，以及理解程式符號，不保證能省 token。</td></tr>
+<tr><td>用量與查找工具</td><td>本課程用這個名稱統稱 ccusage、QMD 與 Claude Code LSP；分別協助查看工作階段用量、搜尋核准文件，以及理解程式符號，不保證能省 token。Serena 是需要更完整專案探索時的替代工具。</td></tr>
 <tr><td>用量基準</td><td>一筆工作階段紀錄，用來比較相近任務的用量；至少要同時保留工作內容、模型、token 分布與完成情況。</td></tr>
 <tr><td>全文搜尋</td><td>依文件中的字詞找出可能相關的內容；排序是線索，仍要打開原始文件查核。</td></tr>
 <tr><td>文件集合（collection）</td><td>經過明確核准，可供 QMD 建立索引與搜尋的 Markdown 目錄；不能改用範圍模糊的上層路徑。</td></tr>
-<tr><td>程式符號（symbol）</td><td>程式中的函式、類別、方法或其他有名稱的程式結構；Serena 可協助找定義與引用位置。</td></tr>
+<tr><td>程式符號（symbol）</td><td>程式中的函式、類別、方法或其他有名稱的程式結構；Claude Code LSP 可協助找定義與引用位置。</td></tr>
 <tr><td>引用（reference）</td><td>程式中使用某個符號的位置；工具結果仍要用原始檔、編輯器或其他查找方式抽查。</td></tr>
 </table>
 
@@ -170,6 +158,6 @@
 <tr><td>證明包（proof pack）</td><td>用來證明 Wiki 可重跑、可查核的一組進階證據。</td></tr>
 </table>
 
-<footer>相關：<a href="claude-product-picker.html">產品選用</a> · <a href="claude-code-command-surface.html">Claude Code 操作</a> · <a href="claude-design-presentation-workflow.html">簡報工作流</a> · <a href="playwright-browser-verification-workflow.html">Playwright</a> · <a href="agent-skill-checklist.html">工作技能檢查表</a> · <a href="document-to-markdown-workflow.html">文件轉 Markdown</a> · <a href="claude-code-context-tools.html">用量與查找工具</a> · <a href="phase3-openspec-workflow.html">Phase 3／OpenSpec</a> · <a href="llm-wiki-workflow.html">LLM Wiki</a></footer>
+<footer>相關：<a href="claude-product-picker.html">產品選用</a> · <a href="claude-code-command-surface.html">Claude Code 操作</a> · <a href="claude-design-presentation-workflow.html">簡報工作流</a> · <a href="playwright-browser-verification-workflow.html">Playwright</a> · <a href="agent-skill-checklist.html">工作技能檢查表</a> · <a href="document-to-markdown-workflow.html">文件轉 Markdown</a> · <a href="claude-code-context-tools.html">用量與查找工具</a> · <a href="llm-wiki-workflow.html">LLM Wiki</a></footer>
 </body>
 </html>

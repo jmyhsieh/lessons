@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Playwright Test｜Claude Code 工具卡</title>
+<style>
+:root{--tool:#4c5f9e}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 8 · 耐久 UI 證據</span>
+<h1>Playwright Test</h1>
+<p class="lead">把重要的瀏覽器風險寫成可重跑、可審查、可進 CI 的測試。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>讓回歸可被發現</h2><p>用測試程式固定前置條件、互動與 assertion，讓同一風險之後能再次驗證。</p></section>
+<section class="card"><div class="label">何時用</div><h2>風險值得長期保護</h2><p>登入、付款、建立資料、關鍵導覽或曾經壞過的流程。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>只需探索目前畫面</h2><p>需求尚未穩定或只需一次性查核時，先用 <a href="playwright-mcp.html">Playwright MCP</a>。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>repo 測試資產</h2><p>可能修改 Playwright 設定、測試檔、fixtures、快照、trace 與測試資料。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>先讀既有測試慣例。</strong>確認啟動方式、base URL、帳號、資料清理與 CI 限制；不要把正式環境當測試資料場。</div>
+<h2>最低完成證據</h2>
+<ul><li>測試會在目標風險壞掉時失敗。</li><li>保留先失敗、修正後通過的證據，或清楚說明為何無法先製造失敗。</li><li>diff、命令與結果可由其他人重跑。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>先讀 repo 的 Playwright 設定、既有測試與啟動命令。
+針對風險「＿＿」提出一個最小測試，說明它在什麼故障下會失敗。
+只修改必要檔案，完成後回報 diff、命令、結果與未覆蓋範圍。</pre>
+<footer>工作流：<a href="../playwright-browser-verification-workflow.html">Playwright 路線卡</a> · 實作：<a href="../../lessons/008-0004-create-first-durable-test-with-claude-code.html">建立耐久測試</a><br>主要來源：<a href="https://playwright.dev/docs/intro">Playwright Test</a></footer>
+</body>
+</html>

@@ -22,7 +22,7 @@
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>第一次用 open-slide，最合適的範圍是什麼？</p><button>先做三頁可用切片</button><button>一次做完整份簡報</button><button>先加入全部互動項</button><div class="why">三頁切片能用最小範圍驗證內容、React 實作與瀏覽器呈現，不會先擴大失敗成本。</div></div>
 <h2>關鍵判斷</h2><p>一條完整的小路徑，比半完成的完整簡報更適合第一次練習。</p>
 <p><strong>主要閱讀：</strong><a href="https://open-slide.dev/docs/flow/create-slide">open-slide — Create a slide</a>。</p>
-<footer>上一課：<a href="007-0002-create-isolated-workspace.html">建立工作區</a> · 下一課：<a href="007-0004-build-and-open-output.html">請 Claude Code 建置並打開輸出</a><br>把程式差異、三頁畫面與一項不確定處貼回 Claude Code，請它檢查。</footer>
+<footer>前置卡：<a href="007-0005-use-agent-contract.html">已讀工作區規則</a> · 下一步：<a href="007-0004-build-and-open-output.html">建置並打開輸出</a><br>把程式差異、三頁畫面與一項不確定處貼回 Claude Code，請它檢查。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

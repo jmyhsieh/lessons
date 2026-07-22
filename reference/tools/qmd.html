@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QMD｜Claude Code 工具卡</title>
+<style>
+:root{--tool:#506d2f}.lead{color:#5f6368;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.grid .card{margin:0}.card h2{margin:.1rem 0 .45rem;font-size:1.05rem}.card p{margin:.3rem 0}.label{color:var(--tool);font-size:.75rem;font-weight:700;letter-spacing:.08em}.safety{border-color:color-mix(in srgb,var(--tool) 25%,transparent)}pre{white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:2.6rem;padding-top:1rem;border-top:1px solid var(--site-border);color:var(--site-secondary);font-size:.86rem}@media(max-width:680px){.grid{grid-template-columns:1fr}}@media print{.card{break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../../assets/apple-design.css" data-site-style="apple-design">
+</head>
+<body>
+<p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
+<span class="kicker">Phase 11 · 本機 Markdown 搜尋</span>
+<h1>QMD</h1>
+<p class="lead">在核准的 Markdown collection 裡做本機全文、語意或混合搜尋，再回到原文確認答案。</p>
+<div class="grid">
+<section class="card"><div class="label">解決的問題</div><h2>跨文件找相關內容</h2><p>管理多個 Markdown collection，快速找到可能回答問題的文件與片段。</p></section>
+<section class="card"><div class="label">何時用</div><h2>文件已多到記不住位置</h2><p>筆記、規格或課程資料分散，但仍希望搜尋與索引留在本機。</p></section>
+<section class="card"><div class="label">何時不用</div><h2>幾個已知檔案先直接讀</h2><p>固定字串先用 <code>rg</code>；資料來源未核准時，不要為了方便把整個家目錄加入 collection。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>讀文件、建本機索引</h2><p>會索引指定 collection。語意／混合搜尋可能另外下載模型；精確全文搜尋不必先啟用它們。</p></section>
+</div>
+<h2>權限與副作用</h2>
+<div class="safety"><strong>collection 是資料邊界。</strong>只加入明確核准的路徑；先從全文搜尋開始。下載模型、建立 embeddings 或擴大資料範圍前另行核准。</div>
+<h2>最低完成證據</h2>
+<ul><li>列出 collection 名稱、實際路徑與查詢模式。</li><li>搜尋結果能連回原始 Markdown，而不是只保留摘要。</li><li>人工讀上下文，確認命中片段沒有斷章取義。</li></ul>
+<h2>交給 Claude Code</h2>
+<pre>只對核准路徑「＿＿」建立 QMD collection。
+先用不需模型下載的全文搜尋回答「＿＿」，不要執行 embed 或語意查詢。
+列出命中檔案與片段，並逐一回讀原文後再下結論。</pre>
+<footer>比較卡：<a href="../claude-code-context-tools.html">用量與查找</a> · 實作：<a href="../../lessons/011-0002-search-one-approved-markdown-collection-with-qmd.html">搜尋並回查</a><br>主要來源：<a href="https://github.com/tobi/qmd">QMD</a></footer>
+</body>
+</html>
