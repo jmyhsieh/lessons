@@ -57,7 +57,7 @@
   <li>幫某個沒測試的小函式補單元測試</li>
   <li>更新一段過時的 README / 註解</li>
 </ul>
-<p>避免：跨多模組的重構、碰部署設定、資料庫遷移 — 那是熟練之後的事。</p>
+<p>先避開跨多模組重構、部署設定與資料庫遷移，等熟練後再處理。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 
@@ -65,7 +65,7 @@
   <label><input type="checkbox"> 1. 開分支</label>
   <p>在 Code 分頁的工作階段裡直接用自然語言（<a href="https://code.claude.com/docs/en/quickstart">官方 Quickstart</a> 示範的 git 對話式操作）：</p>
   <pre>create a new branch called claude/第一個任務名稱</pre>
-  <p>批准它執行 git 指令前，看一眼指令內容 — 養成習慣。</p>
+  <p>批准它執行 git 指令前，先看一眼指令內容，把這個習慣養起來。</p>
 </div>
 
 <div class="step">
@@ -73,7 +73,7 @@
   <p>具體描述（含檔案位置、預期行為），並要求它先說做法：</p>
   <pre>「[描述你的任務]。先告訴我你的修改計劃和會動到哪些檔案，
 我確認後再動手。」</pre>
-  <p>計畫合理再放行。不合理就追問或修正 — 你是審查者，不是旁觀者。</p>
+  <p>計畫合理再放行；不合理就追問或修正。你是審查者，不是旁觀者。</p>
 </div>
 
 <div class="step">
@@ -91,7 +91,7 @@
 <div class="step">
   <label><input type="checkbox"> 5. 最終審查與提交</label>
   <pre>show me the full diff of all changes</pre>
-  <p><strong>桌面 App：</strong>點開程式差異統計或差異檢視窗格，查看互動式程式差異。若 <code>/</code> 清單有 <code>/diff</code>，也可當快捷。從頭到尾讀一遍 — 這是第三道護欄。滿意後：</p>
+  <p><strong>桌面 App：</strong>點開程式差異統計或差異檢視窗格，查看互動式程式差異。若 <code>/</code> 清單有 <code>/diff</code>，也可當快捷。從頭到尾讀一遍，這是第三道護欄。滿意後：</p>
   <pre>commit my changes with a descriptive message</pre>
   <p>之後要不要推上去開 PR，照你們團隊的正常流程走（PR 仍須人工審查）。</p>
 </div>

@@ -58,7 +58,7 @@
 <tr><td><code>./CLAUDE.local.md</code></td><td>專案 · 只有你（加進 <code>.gitignore</code>）</td><td>個人沙箱網址、測試資料</td></tr>
 <tr><td><code>~/.claude/CLAUDE.md</code></td><td>你的所有專案</td><td>個人偏好</td></tr>
 </table>
-<div class="tip"><strong>正式專案提醒：</strong><code>./CLAUDE.md</code> 會進版控、全隊共用 — 提交前讓同事審查，跟一般程式碼一樣走 PR。</div>
+<div class="tip"><strong>正式專案提醒：</strong><code>./CLAUDE.md</code> 會進版控、由全隊共用。提交前讓同事審查，跟一般程式碼一樣走 PR。</div>
 
 <h2>寫得有效的三原則（官方建議）</h2>
 <ul>
@@ -66,10 +66,10 @@
   <li><strong>具體可驗證</strong>：「縮排用 2 空格」優於「格式要乾淨」；「提交前跑 <code>npm test</code>」優於「記得測試」。</li>
   <li><strong>不自相矛盾</strong>：兩條規則衝突時它會隨機挑一條。</li>
 </ul>
-<p>注意：CLAUDE.md 是<strong>指引不是強制</strong> — 它提供對話脈絡，不是程式閘門。必須百分之百擋下的事（例如禁推 main）要用自動化掛鉤（hooks）或權限設定，之後的課會教。</p>
+<p>注意：CLAUDE.md 是<strong>指引，不是強制</strong>。它提供對話脈絡，不是程式閘門。必須百分之百擋下的事（例如禁推 main）要用自動化掛鉤（hooks）或權限設定，之後的課會教。</p>
 
 <h2>什麼時候用 <code>/init</code></h2>
-<p><code>/init</code> 適合第一次進程式庫時產生 <code>CLAUDE.md</code> 初稿：它會分析程式碼庫，整理能推斷出的建置指令、測試方式與專案慣例。如果已經有 <code>CLAUDE.md</code>，它會提出改進建議，而不是直接覆蓋。把它當成「可審稿初稿」，不要當成團隊規範的最終版（<a href="https://code.claude.com/docs/en/memory">官方文件</a>）。</p>
+<p><code>/init</code> 適合第一次進程式庫時產生 <code>CLAUDE.md</code> 初稿：它會分析程式碼庫，整理能推斷出的建置指令、測試方式與專案慣例。如果已經有 <code>CLAUDE.md</code>，它會提出改進建議，而不是直接覆寫。把它當成「可審稿初稿」，不要當成團隊規範的最終版（<a href="https://code.claude.com/docs/en/memory">官方文件</a>）。</p>
 <table>
 <tr><th>情境</th><th>建議做法</th></tr>
 <tr><td>第一次進程式庫，還沒有 <code>CLAUDE.md</code></td><td>先用 <code>/init</code> 產生初稿，再人工審稿。</td></tr>

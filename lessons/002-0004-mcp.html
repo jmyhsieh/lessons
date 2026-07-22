@@ -48,7 +48,7 @@
 <p><strong>訊號：你發現自己在把別的系統的資料複製貼上進對話</strong>（議題內容、監控資料、設計稿連結⋯⋯）。MCP（Model Context Protocol）是開放標準，讓 Claude 直接讀取並操作那些系統（<a href="https://code.claude.com/docs/en/mcp">官方文件</a>）。接上之後可以說：</p>
 <pre>「實作 JIRA ENG-4521 描述的功能並開 PR」
 「查 PostgreSQL，找出用過這功能的 10 個使用者的 email」</pre>
-<div class="tip">先想一下你是否已經有更簡單的路：官方最佳做法提過 <strong>CLI 工具往往比 MCP 更省對話脈絡</strong> — GitHub 用 <code>gh</code> CLI 就很夠。MCP 的價值在沒有好 CLI 的系統（Jira、Notion、Figma、內部 API）。</div>
+<div class="tip">先想一下你是否已經有更簡單的路：官方最佳做法提過，<strong>CLI 工具往往比 MCP 更省對話脈絡</strong>，GitHub 用 <code>gh</code> CLI 就很夠。MCP 的價值在沒有好 CLI 的系統（Jira、Notion、Figma、內部 API）。</div>
 
 <h2>接法與範圍</h2>
 <p>優先使用 <strong>http</strong>（遠端服務，支援 OAuth）或 <strong>stdio</strong>（本機程式，適合需要直接存取系統的工具）。舊的 <strong>sse</strong> 傳輸方式已淘汰；只有伺服器尚未提供 HTTP 時才沿用，不要為新整合選它。</p>
@@ -95,7 +95,7 @@ claude mcp add --transport stdio myserver -- npx some-mcp-server</pre>
 
 <div class="step">
   <label><input type="checkbox"> 4. 體驗一次提示注入防線</label>
-  <p>留意：當任務內容來自外部（工單、網頁）時，它提出的每個動作你是否都看得出「為什麼需要」？看不出來的就拒絕並追問 — 這就是提示注入的日常防禦。</p>
+  <p>留意：當任務內容來自外部（工單、網頁）時，它提出的每個動作你是否都看得出「為什麼需要」？看不出來的就拒絕並追問，這是平常防範提示注入最直接的做法。</p>
 </div>
 
 <div class="step">

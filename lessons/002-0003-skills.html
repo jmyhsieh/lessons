@@ -73,7 +73,7 @@ description: 摘要未提交的變更並標記風險。當使用者問
 <tr><td>你手動</td><td>輸入 <code>/skill-name</code></td><td>有副作用的流程（部署、發布）</td></tr>
 <tr><td>Claude 自動</td><td>你的話符合 <code>description</code> 描述的情境</td><td>知識型、無副作用的輔助</td></tr>
 </table>
-<div class="tip"><strong>有副作用的工作技能一定加 <code>disable-model-invocation: true</code></strong>，讓它只能由你手動觸發 — 你不會想要 Claude「覺得相關」就自己跑部署。另外 <code>$ARGUMENTS</code> 可接收參數：<code>/fix-issue 1234</code> 會把 1234 帶進內容。</div>
+<div class="tip"><strong>有副作用的工作技能一定加 <code>disable-model-invocation: true</code></strong>，讓它只能由你手動觸發。你不會想要 Claude「覺得相關」就自己跑部署。另外 <code>$ARGUMENTS</code> 可接收參數：<code>/fix-issue 1234</code> 會把 1234 帶進內容。</div>
 <p>寫好 <code>description</code> 是自動觸發的關鍵：說清楚「做什麼」與「什麼情境用」，把主要使用情境寫在最前面。工作技能目錄有變更會即時生效，不用重啟。</p>
 
 <h2>實作步驟（做完打勾）</h2>
@@ -85,7 +85,7 @@ description: 摘要未提交的變更並標記風險。當使用者問
 
 <div class="step">
   <label><input type="checkbox"> 2. 寫 SKILL.md</label>
-  <p>在工作程式庫建立 <code>.claude/skills/&lt;名稱&gt;/SKILL.md</code>。可以請 Claude 代寫初稿，但用途說明與步驟要自己打磨 — 步驟要具體到「另一個不認識你的工程師也能照做」。有副作用就加 <code>disable-model-invocation: true</code>。</p>
+  <p>在工作程式庫建立 <code>.claude/skills/&lt;名稱&gt;/SKILL.md</code>。可以請 Claude 代寫初稿，但用途說明與步驟要自己打磨，具體到「另一個不認識你的工程師也能照做」。有副作用就加 <code>disable-model-invocation: true</code>。</p>
 </div>
 
 <div class="step">
@@ -122,7 +122,7 @@ description: 摘要未提交的變更並標記風險。當使用者問
   <button>disable-model-invocation: true</button>
   <button>when_to_use: 需要部署到正式環境時</button>
   <button>name: deploy-staging-production-v2</button>
-  <div class="why">部署有副作用 — 必須只能手動觸發，防止 Claude 自行判斷「相關」就執行。when_to_use 反而是給自動觸發用的，方向相反。</div>
+  <div class="why">部署有副作用，必須只能手動觸發，避免 Claude 自行判斷「相關」就執行。when_to_use 反而是給自動觸發用的，方向相反。</div>
 </div>
 
 <div class="quiz" data-answer="2">

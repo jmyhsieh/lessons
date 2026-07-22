@@ -49,13 +49,13 @@
 <table>
 <tr><th>術語</th><th>意思</th></tr>
 <tr><td><strong>模組</strong></td><td>任何有介面＋實作的東西（函式、類別、套件）</td></tr>
-<tr><td><strong>介面</strong></td><td>呼叫者必須知道的<strong>一切</strong>：型別、不變量、錯誤模式、順序、設定 — 不只是型別簽名</td></tr>
+<tr><td><strong>介面</strong></td><td>呼叫者必須知道的<strong>一切</strong>：型別、不變量、錯誤模式、順序與設定，而不限於型別簽名</td></tr>
 <tr><td><strong>深度</strong>（Depth）</td><td>介面的槓桿：小介面後面藏大量行為 = 深；介面跟實作一樣複雜 = 淺</td></tr>
 <tr><td><strong>接縫</strong>（Seam）</td><td>介面所在之處；不改內部就能換行為的地方</td></tr>
 <tr><td><strong>轉接器</strong></td><td>在接縫上滿足介面的具體角色；名稱描述它填入哪個位置，不描述內部材料或實作大小</td></tr>
 <tr><td><strong>槓桿與集中性</strong>（Leverage / Locality）</td><td>深度給呼叫者的好處，以及把改動、錯誤與知識集中一處的維護效益</td></tr>
 </table>
-<div class="tip"><strong>三句口訣：</strong>(1) <strong>刪除測試</strong> — 想像刪掉這個模組：複雜度消失 = 它是過水層；複雜度散落到 N 個呼叫端重新出現 = 它有在賺自己的飯。(2) <strong>介面就是測試面</strong>（接 Phase 3 第 08 課：測行為不測實作）。(3) <strong>一個轉接器 = 假想接縫，兩個轉接器 = 真接縫</strong>。</div>
+<div class="tip"><strong>三句口訣：</strong>(1) <strong>刪除測試</strong>：想像刪掉這個模組；複雜度消失，代表它是過水層；複雜度散落到 N 個呼叫端重新出現，代表它有在賺自己的飯。(2) <strong>介面就是測試面</strong>（接 Phase 3 第 08 課：測行為不測實作）。(3) <strong>一個轉接器 = 假想接縫，兩個轉接器 = 真接縫</strong>。</div>
 
 <h2>先圈範圍：還用不到就先別做（YAGNI）也是架構原則</h2>
 <p>先用使用者已點名的模組、子系統（subsystem）或痛點作為範圍，不自行擴張。若沒有指定，才讀 <code>git log --oneline</code>，從近期反覆被修改的區域選一個窄範圍。目標是找一個值得深化的接縫，不要替整個程式庫建立重構待辦清單。</p>
@@ -106,7 +106,7 @@
   <p>1. 刪掉某個包裝層（wrapper）模組後，它做的事在六個呼叫端各自重新出現。結論是？</p>
   <button>它是深模組，應該保留</button>
   <button>它是過水層，應該刪除</button>
-  <button>先看測試覆蓋率再判斷</button>
+  <button>先看測試涵蓋率再判斷</button>
   <div class="why">刪除測試的判讀：複雜度重新散落到多個呼叫端，表示它原本把複雜度集中在一處；這正是深模組的價值。複雜度一起消失，才代表它可能只是過水層。</div>
 </div>
 

@@ -48,7 +48,7 @@
   <td><a href="https://www.businessinsider.com/coders-keep-laptops-open-in-public-ai-agent-2026-5">Mach 1 sales / CRM 匯入案例</a></td>
   <td>Head of sales 使用 Claude Code 掃描 conference selfies、辨識相關公司，並把結果載入 CRM。</td>
   <td>活動資料 → entity matching → CRM update → review</td>
-  <td>先產生 import diff 與信心分數，再由人核准寫入；不要讓 agent 直接覆蓋 CRM 真實資料。</td>
+  <td>先產生 import diff 與信心分數，再由人核准寫入；不要讓 agent 直接覆寫 CRM 的正式資料。</td>
 </tr>
 <tr>
   <td>2026-05-12</td>
@@ -78,7 +78,7 @@
 <div class="grid">
   <div class="card"><strong>資料寫入要分兩段</strong><br>先產生候選更新與 diff，再由人核准寫入 CRM、ticket 或內部系統。</div>
   <div class="card"><strong>營運任務需要 runbook</strong><br>Claude Code 可以協助診斷，但 runbook 要規定何時升級、何時 rollback、何時停止。</div>
-  <div class="card"><strong>長任務要可恢復</strong><br>保活只是表面問題；真正要設計的是 checkpoint、輸出檔、狀態摘要與 handoff。</div>
+  <div class="card"><strong>長任務要可恢復</strong><br>長任務需要 checkpoint、輸出檔、狀態摘要與 handoff，才能在中斷後繼續。</div>
   <div class="card"><strong>內部工具也要治理</strong><br>小工具若碰到客戶、營收或 production 資料，就需要權限、審計與 owner。</div>
 </div>
 
