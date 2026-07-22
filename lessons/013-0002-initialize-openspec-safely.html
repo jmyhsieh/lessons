@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02：安全初始化 OpenSpec</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:760px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker,h2{color:#365f79}.kicker{font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem}.mission{font-style:italic;color:#555;border-left:3px solid #365f79;padding-left:1rem}.rule{background:#f4f8fb;border-left:4px solid #365f79;padding:.75rem 1rem}.step,.quiz{border:1px solid #cbd9e2;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#edf3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap;overflow-x:auto}a{color:#294f68}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #cbd9e2;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#edf3f7;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #cbd9e2;padding-top:1rem}</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design"></head><body class="phase13">
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 13 · 第 02 課 · 約 20 分鐘</div><h1>安全初始化 OpenSpec</h1>
+<p class="mission"><strong>本課成果：</strong>一張可重現的初始化紀錄，包含版本、命令、寫入路徑、實際 diff 與移除方式。</p>
+<div class="rule"><strong>先核對環境與寫入範圍：</strong>OpenSpec v1.6.0 需要 Node.js 20.19.0 以上。全域安裝與 repo 初始化是兩次不同的寫入，請分開核准、分開檢查。</div>
+<h2>初始化 Core profile</h2>
+<div class="step"><label><input type="checkbox"> 1. 唯讀確認環境</label><pre>node --version
+npm --version
+git status --short</pre><p>若 Node.js 未達版本需求，先處理執行環境。不要用 <code>--force</code> 略過現況，也不要在髒工作樹裡把既有修改算成 OpenSpec 產物。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 查核套件後才安裝</label><pre>npm install -g @fission-ai/openspec@latest
+openspec --version</pre><p>這是官方文件提供的全域安裝方式。若團隊有固定的 package manager 或版本鎖定政策，請依 repo 規則調整，並把實際版本寫進紀錄。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 在目標 repo 初始化 Claude Code 指示</label><pre>git status --short
+openspec init --tools claude --profile core
+git status --short
+git diff --stat
+git diff</pre><p>Core profile 會提供 <code>explore</code>、<code>propose</code>、<code>apply</code>、<code>sync</code> 與 <code>archive</code>。先逐一看清新增或修改的路徑，不要急著建立 change。</p></div>
+<div class="step"><label><input type="checkbox"> 4. 留下初始化紀錄</label><pre>OpenSpec version：
+Node.js version：
+安裝命令：
+初始化命令：
+新增／修改路徑：
+移除方式：
+Telemetry 選擇：</pre><p>OpenSpec 的匿名 telemetry 只記錄 command 名稱與版本，不會收集 arguments、檔案路徑或內容；在 CI 環境中預設不啟用。若政策要求停用，可設 <code>OPENSPEC_TELEMETRY=0</code> 或 <code>DO_NOT_TRACK=1</code>。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你能指出 OpenSpec 寫入了哪些路徑，也知道如何只移除這次新增的內容。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>執行 OpenSpec v1.6.0 安裝前，哪一項是必要查核？</p><button>核對 Node 版本範圍</button><button>核對 品牌 動畫配色</button><button>核對 部署 行銷文案</button><div class="why">執行環境不符合版本需求時，後面的初始化結果就不可信；畫面與行銷內容不屬於這次安裝查核。</div></div>
+<h2>停止線</h2><p>只完成初始化與 diff 審查。若命令要覆寫不明檔案、無法說明生成路徑，或工作樹的既有變更混在一起，先停下來拆清楚。</p>
+<p><strong>主要閱讀：</strong><a href="https://github.com/Fission-AI/OpenSpec/blob/v1.6.0/docs/installation.md">OpenSpec v1.6.0 Installation</a>、<a href="https://github.com/Fission-AI/OpenSpec/blob/v1.6.0/docs/supported-tools.md">Supported Tools</a>。</p>
+<footer>上一課：<a href="013-0001-choose-phase3-or-openspec.html">選擇工作路線</a> · 下一課：<a href="013-0003-read-specs-and-changes.html">讀懂 specs 與 changes</a><br>完成後，請 Claude Code 回報初始化前後的精確路徑差異，不要只說「安裝成功」。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

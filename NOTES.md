@@ -19,3 +19,4 @@
 - Phase 10 固定為獨立選修「Claude Code × 文件轉 Markdown」，入門 01–04、進階 05–08。入門先依文件特徵選 MarkItDown、Docling 或 Claude Code 直接讀取，轉一份文字型文件、OCR 一份掃描 PDF，再人工對照原檔；進階才處理混合 PDF、可追查紀錄、小批次 allowlist 與 LLM Wiki ingest。Phase 10 不得成為 Phase 6 的前置，轉換輸出永遠是衍生資料，不取代原始文件。
 - Phase 11 固定為獨立選修「Claude Code × 用量與查找工具」，只有三課：ccusage 留下一次工作階段用量基準、QMD 在單一核准 Markdown 目錄做全文搜尋並回查原文、Serena 在真實程式庫唯讀找一個定義與兩個引用。學員不必三個都裝，也不把 token 降低直接當成總成本降低或工作完成。
 - Phase 12 固定為獨立選修「Claude Code × Design Engineering Skills」，入門 01–04、進階 05–08。入門從安裝來源與寫入範圍開始，只審查一個元件、整理一張動態需求卡，最後實作一個按壓回饋；進階才審查固定 diff、保留一項，也排除一項並寫下理由、建立單一改善計畫並受控執行。emil-design-eng、animation-vocabulary、review-animations 與 find-animation-opportunities 的輸出都是判斷材料，不是產品程式修改權限或合併證據。
+- Phase 13 固定為獨立選修「Claude Code × OpenSpec」，入門 01–06 走完選路、安裝、讀懂 workspace、propose、apply 與 archive；進階 07–09 才教逐份 artifacts、verify 與平行 changes。Phase 3 保留需求追問、診斷、TDD、code review 與 handoff；同一項變更只選一份規格正本。Phase 13 對外課文要用 <code>speak-human-tw</code> 做完整語感掃描。

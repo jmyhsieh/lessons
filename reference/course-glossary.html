@@ -45,6 +45,18 @@
 <tr><td>工作樹（worktree）</td><td>同一個 Git 程式庫的另一份工作目錄，用來隔離分支與平行改動。</td></tr>
 </table>
 
+<h2>OpenSpec 規格生命週期</h2>
+<table>
+<tr><th>課程用語</th><th>意思</th></tr>
+<tr><td>目前規格（current spec）</td><td><code>openspec/specs/</code> 裡已生效的行為說明；archive 後才會納入已完成的變更。</td></tr>
+<tr><td>變更（change）</td><td><code>openspec/changes/&lt;name&gt;/</code> 裡的一組 proposal、delta specs、design 與 tasks，描述一項尚未封存的修改。</td></tr>
+<tr><td>差異規格（delta spec）</td><td>只描述這次新增、修改或移除哪些 requirement，不重寫整個系統。</td></tr>
+<tr><td>需求（requirement）</td><td>可由外部觀察並判定是否成立的一項行為；OpenSpec 通常用 <code>SHALL</code> 或 <code>MUST</code> 表示硬性要求。</td></tr>
+<tr><td>情境（scenario）</td><td>用 GIVEN／WHEN／THEN 寫出的具體例子，用來檢查 requirement 是否真的成立。</td></tr>
+<tr><td>同步（sync）</td><td>把 active change 的 delta specs 合併進 current specs，但仍保留 change 為進行中狀態。</td></tr>
+<tr><td>封存（archive）</td><td>變更完成後，視需要把 delta specs 同步到 current specs，再將整份 change 移到帶日期的 archive 路徑保存。</td></tr>
+</table>
+
 <h2>從需求到可驗證交付</h2>
 <table>
 <tr><th>課程用語</th><th>意思</th></tr>
@@ -158,6 +170,6 @@
 <tr><td>證明包（proof pack）</td><td>用來證明 Wiki 可重跑、可查核的一組進階證據。</td></tr>
 </table>
 
-<footer>相關：<a href="claude-product-picker.html">產品選用</a> · <a href="claude-code-command-surface.html">Claude Code 操作</a> · <a href="claude-design-presentation-workflow.html">簡報工作流</a> · <a href="playwright-browser-verification-workflow.html">Playwright</a> · <a href="agent-skill-checklist.html">工作技能檢查表</a> · <a href="document-to-markdown-workflow.html">文件轉 Markdown</a> · <a href="claude-code-context-tools.html">用量與查找工具</a> · <a href="llm-wiki-workflow.html">LLM Wiki</a></footer>
+<footer>相關：<a href="claude-product-picker.html">產品選用</a> · <a href="claude-code-command-surface.html">Claude Code 操作</a> · <a href="claude-design-presentation-workflow.html">簡報工作流</a> · <a href="playwright-browser-verification-workflow.html">Playwright</a> · <a href="agent-skill-checklist.html">工作技能檢查表</a> · <a href="document-to-markdown-workflow.html">文件轉 Markdown</a> · <a href="claude-code-context-tools.html">用量與查找工具</a> · <a href="phase3-openspec-workflow.html">Phase 3／OpenSpec</a> · <a href="llm-wiki-workflow.html">LLM Wiki</a></footer>
 </body>
 </html>

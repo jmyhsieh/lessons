@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07：逐份控制 artifact 產生順序</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:760px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker,h2{color:#365f79}.kicker{font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem}.mission{font-style:italic;color:#555;border-left:3px solid #365f79;padding-left:1rem}.rule{background:#f4f8fb;border-left:4px solid #365f79;padding:.75rem 1rem}.step,.quiz{border:1px solid #cbd9e2;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#edf3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap;overflow-x:auto}a{color:#294f68}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #cbd9e2;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#edf3f7;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #cbd9e2;padding-top:1rem}</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design"></head><body class="phase13">
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 13 · 第 07 課 · 進階 · 約 25 分鐘</div><h1>逐份控制 artifact 產生順序</h1>
+<p class="mission"><strong>本課成果：</strong>一個用 <code>/opsx:new</code> 建立、再以 <code>/opsx:continue</code> 逐份審查的 change。</p>
+<div class="rule"><strong>Artifact dependencies 決定資訊怎麼往下傳：</strong>前一份內容會成為下一份 artifact 的輸入。需求還不穩時，逐份產生能讓你提早修正；變更已很清楚時，才考慮 <code>/opsx:ff</code>。</div>
+<h2>先啟用需要的 expanded commands</h2>
+<div class="step"><label><input type="checkbox"> 1. 檢查並調整 profile</label><pre>openspec config profile
+openspec update
+git status --short
+git diff</pre><p>在互動設定裡選擇需要的 expanded workflows，接著更新 Claude Code 的指示。把選項與新增路徑記下來；本課不改 custom schema，也不使用 beta Stores。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 建立空的 change workspace</label><pre>/opsx:new improve-session-expiry-message</pre><p><code>/opsx:new</code> 只建立 change 骨架；其他 artifacts 要再用 <code>/opsx:continue</code> 或 <code>/opsx:ff</code> 產生。先確認名稱與 schema，再繼續。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 一次產生一份 artifact</label><pre>/opsx:continue improve-session-expiry-message</pre><p>每次執行後都閱讀實際生成的檔案，檢查範圍、行為、假設與未決問題。內容正確才再執行一次 <code>/opsx:continue</code>。</p></div>
+<div class="step"><label><input type="checkbox"> 4. 留下順序紀錄</label><pre>Change：
+使用的 schema／profile：
+已產生 artifacts：
+每份 artifact 的審查結論：
+下一份 artifact：
+目前 blocker：</pre><p>若已知資訊足夠、也接受一次產完，可以改用 <code>/opsx:ff &lt;change&gt;</code>；完成後仍要逐份審查。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你能說明每份 artifact 依賴哪些前置資訊，也留下每一站的審查結果。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>需求仍可能調整時，哪一種做法最容易在早期攔下偏差？</p><button>逐份 產生 並且 審查</button><button>一次 產生 全部 檔案</button><button>略過 內容 直接 實作</button><div class="why">逐份產生可在 proposal 或 specs 階段先修正，避免不正確的假設一路流到 design、tasks 與程式碼。</div></div>
+<h2>停止線</h2><p>Profile 與生成指示更新後，先審 diff。若不確定新增 command 的行為，就回官方 commands 文件核對，不要用猜的。</p>
+<p><strong>主要閱讀：</strong><a href="https://github.com/Fission-AI/OpenSpec/blob/v1.6.0/docs/commands.md">OpenSpec v1.6.0 Commands</a>、<a href="https://github.com/Fission-AI/OpenSpec/blob/v1.6.0/docs/concepts.md">Artifact Dependencies</a>。</p>
+<footer>上一課：<a href="013-0006-archive-and-check-current-spec.html">入門完成線</a> · 下一課：<a href="013-0008-verify-artifact-code-alignment.html">查核 artifact 與程式是否一致</a><br>每完成一份 artifact，就請 Claude Code 摘要它新增了哪些可驗證承諾，以及仍缺哪些證據。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

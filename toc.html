@@ -22,6 +22,7 @@
   h2.p10 { color: #0d7180; border-bottom: 2px solid #0d7180; }
   h2.p11 { color: #506d2f; border-bottom: 2px solid #506d2f; }
   h2.p12 { color: #6f4d7a; border-bottom: 2px solid #6f4d7a; }
+  h2.p13 { color: #365f79; border-bottom: 2px solid #365f79; }
   table { border-collapse: collapse; width: 100%; font-size: .92rem; }
   td { border-bottom: 1px solid #eee; padding: .5rem .6rem; vertical-align: top; }
   td.no { width: 2.8rem; color: #999; font-variant-numeric: tabular-nums; }
@@ -38,6 +39,7 @@
   .p10sec a { color: #0a6572; }
   .p11sec a { color: #405a24; }
   .p12sec a { color: #5d3e68; }
+  .p13sec a { color: #2d536b; }
   a:hover { text-decoration: underline; }
   .flow { border: 1px solid #e8e0d8; border-left-width: 4px; border-radius: 8px; padding: .75rem .9rem; margin: .8rem 0 1.4rem; background: #fffdfa; font-size: .86rem; line-height: 1.65; }
   .p2sec .flow { border-left-color: #9a5a00; background: #fffaf1; }
@@ -51,6 +53,7 @@
   .p10sec .flow { border-left-color: #0d7180; background: #f3fafb; }
   .p11sec .flow { border-left-color: #506d2f; background: #f5f8f0; }
   .p12sec .flow { border-left-color: #6f4d7a; background: #faf5fb; }
+  .p13sec .flow { border-left-color: #365f79; background: #f4f8fb; }
   .flow-title { font-weight: 700; margin-bottom: .35rem; color: #333; }
   .flow-note { margin: 0 0 .45rem; color: #666; }
   .flow-row { display: grid; grid-template-columns: 4.8rem 1fr; gap: .35rem .65rem; align-items: start; margin-top: .35rem; }
@@ -67,10 +70,10 @@
 <body class="toc-page">
 <p style="margin:0"><a href="index.html" style="font-size:.85rem">← 封面</a></p>
 <h1>課目表</h1>
-<p class="sub">課程從真實程式庫開始，先練習安全操作 Claude Code、釐清需求、審查程式差異、執行測試與交接。之後再依工作需求選學視覺設計、簡報、知識庫、瀏覽器驗證、工作技能、文件轉換、查找工具或介面動態。共 115 課，Phase 4–12 每課約 10–25 分鐘。</p>
+<p class="sub">課程從真實程式庫開始，先練習安全操作 Claude Code、釐清需求、審查程式差異、執行測試與交接。之後再依工作需求選學視覺設計、簡報、知識庫、瀏覽器驗證、工作技能、文件轉換、查找工具、介面動態或 OpenSpec。共 124 課，Phase 4–13 每課約 10–30 分鐘。</p>
 
 <div class="ref">
-<strong>常用速查</strong>：<a href="reference/claude-product-picker.html">產品選用</a>、<a href="reference/claude-design-to-code-workflow.html">第一個小畫面</a>、<a href="reference/claude-design-daily-output-picker.html">視覺交付選路</a>、<a href="reference/claude-design-presentation-workflow.html">三頁簡報</a>、<a href="reference/open-slide-agent-deck-workflow.html">Phase 7 open-slide</a>、<a href="reference/playwright-browser-verification-workflow.html">Phase 8 Playwright</a>、<a href="reference/agent-skill-checklist.html">Phase 9 工作技能</a>、<a href="reference/document-to-markdown-workflow.html">Phase 10 文件轉 Markdown</a>、<a href="reference/claude-code-context-tools.html">Phase 11 用量與查找工具</a>、<a href="reference/design-engineering-skills-workflow.html">Phase 12 介面動態 Skills</a>、<a href="reference/claude-code-command-surface.html">Claude Code 操作</a>、<a href="reference/claude-code-model-effort.html">模型與推理程度</a>、<a href="reference/wayfinder-map-workflow.html">Wayfinder 地圖</a>、<a href="reference/llm-wiki-workflow.html">迷你 LLM Wiki</a>、<a href="reference/course-glossary.html">課程詞彙表</a><br>
+<strong>常用速查</strong>：<a href="reference/claude-product-picker.html">產品選用</a>、<a href="reference/claude-design-to-code-workflow.html">第一個小畫面</a>、<a href="reference/claude-design-daily-output-picker.html">視覺交付選路</a>、<a href="reference/claude-design-presentation-workflow.html">三頁簡報</a>、<a href="reference/open-slide-agent-deck-workflow.html">Phase 7 open-slide</a>、<a href="reference/playwright-browser-verification-workflow.html">Phase 8 Playwright</a>、<a href="reference/agent-skill-checklist.html">Phase 9 工作技能</a>、<a href="reference/document-to-markdown-workflow.html">Phase 10 文件轉 Markdown</a>、<a href="reference/claude-code-context-tools.html">Phase 11 用量與查找工具</a>、<a href="reference/design-engineering-skills-workflow.html">Phase 12 介面動態 Skills</a>、<a href="reference/phase3-openspec-workflow.html">Phase 13 路線比較</a>、<a href="reference/claude-code-command-surface.html">Claude Code 操作</a>、<a href="reference/claude-code-model-effort.html">模型與推理程度</a>、<a href="reference/wayfinder-map-workflow.html">Wayfinder 地圖</a>、<a href="reference/llm-wiki-workflow.html">迷你 LLM Wiki</a>、<a href="reference/course-glossary.html">課程詞彙表</a><br>
 <strong>完成原則：</strong>勾完清單代表操作完成；能交出指定產出、說明判斷並通過回饋，才達到這課的完成標準。
 </div>
 
@@ -651,6 +654,27 @@
 </div>
 </div>
 
-<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-07-21</footer>
+<div class="p13sec">
+<h2 class="p13">Phase 13（Claude Code × OpenSpec）— 入門 01–06；進階 07–09</h2>
+<table>
+<tr><td class="no">01</td><td><a href="lessons/013-0001-choose-phase3-or-openspec.html">判斷這次工作要走 Phase 3 還是 OpenSpec</a></td><td class="track">入門選路</td></tr>
+<tr><td class="no">02</td><td><a href="lessons/013-0002-initialize-openspec-safely.html">安全初始化 OpenSpec</a></td><td class="track">入門安裝</td></tr>
+<tr><td class="no">03</td><td><a href="lessons/013-0003-read-specs-and-changes.html">分清 current specs 與 active changes</a></td><td class="track">入門地圖</td></tr>
+<tr><td class="no">04</td><td><a href="lessons/013-0004-propose-one-small-change.html">提出並審查一個小型 change</a></td><td class="track">入門規格</td></tr>
+<tr><td class="no">05</td><td><a href="lessons/013-0005-apply-one-bounded-change.html">實作一個有邊界的變更</a></td><td class="track">入門實作</td></tr>
+<tr><td class="no">06</td><td><a href="lessons/013-0006-archive-and-check-current-spec.html">封存 change 並核對 current spec</a></td><td class="track">入門完成</td></tr>
+<tr><td class="no">07</td><td><a href="lessons/013-0007-control-artifact-order.html">逐份控制 artifact 的產生順序</a></td><td class="track">進階規劃</td></tr>
+<tr><td class="no">08</td><td><a href="lessons/013-0008-verify-artifact-code-alignment.html">查核 artifacts 與程式是否一致</a></td><td class="track">進階查核</td></tr>
+<tr><td class="no">09</td><td><a href="lessons/013-0009-manage-parallel-changes.html">管理兩個同時進行的 changes</a></td><td class="track">進階多工</td></tr>
+</table>
+<div class="flow">
+  <div class="flow-title">入門先完成並封存一個真實 change，進階再增加控制</div>
+  <p class="flow-note">01–06 是獨立完成線：先選 Phase 3 或 OpenSpec，再用一個真實小變更走完初始化、proposal review、apply 與 archive。需要逐份審 artifact、找規格漂移或同時管理多個 changes 時，才接 07–09；完整分工與停止線見 <a href="reference/phase3-openspec-workflow.html">Phase 3／OpenSpec 路線卡</a>。</p>
+  <div class="flow-row"><div class="flow-label">入門關一個</div><div class="flow-steps"><a href="lessons/013-0001-choose-phase3-or-openspec.html">01 選路</a><a href="lessons/013-0002-initialize-openspec-safely.html">02 初始化</a><a href="lessons/013-0003-read-specs-and-changes.html">03 讀狀態</a><a href="lessons/013-0004-propose-one-small-change.html">04 提案</a><a href="lessons/013-0005-apply-one-bounded-change.html">05 實作</a><a href="lessons/013-0006-archive-and-check-current-spec.html">06 封存</a></div></div>
+  <div class="flow-row"><div class="flow-label">進階加控制</div><div class="flow-steps"><a href="lessons/013-0007-control-artifact-order.html">07 逐份 artifact</a><a href="lessons/013-0008-verify-artifact-code-alignment.html">08 查落差</a><a href="lessons/013-0009-manage-parallel-changes.html">09 平行 changes</a></div></div>
+</div>
+</div>
+
+<footer>每課皆含實作清單與觀念檢查 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-07-22</footer>
 </body>
 </html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04：提出並審查一個小變更</title>
+<style>*{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:760px;margin:3rem auto;padding:0 1.5rem;color:#1a1a1a;line-height:1.85}.kicker,h2{color:#365f79}.kicker{font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}h1{font-size:1.7rem;margin:.3rem 0}h2{font-size:1.15rem;margin-top:2.2rem}.mission{font-style:italic;color:#555;border-left:3px solid #365f79;padding-left:1rem}.rule{background:#f4f8fb;border-left:4px solid #365f79;padding:.75rem 1rem}.step,.quiz{border:1px solid #cbd9e2;border-radius:8px;padding:1rem 1.3rem;margin:1rem 0}.step label{font-weight:600;cursor:pointer}code,pre{background:#edf3f7;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap;overflow-x:auto}a{color:#294f68}table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{border:1px solid #cbd9e2;padding:.55rem .7rem;text-align:left;vertical-align:top}th{background:#edf3f7}.quiz button{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.55rem .9rem;border:1px solid #cbd9e2;border-radius:6px;background:#fff;font-family:inherit;cursor:pointer}.quiz button.correct{background:#e7f3e7;border-color:#2e7d32}.quiz button.wrong{background:#fbeaea;border-color:#c62828}.why,.done{display:none;background:#edf3f7;padding:.6rem .9rem}.done{background:#e7f3e7;border:1px solid #2e7d32;border-radius:8px;padding:1rem}footer{margin-top:3rem;color:#666;font-size:.88rem;border-top:1px solid #cbd9e2;padding-top:1rem}</style>
+<link rel="stylesheet" href="../assets/apple-design.css" data-site-style="apple-design"></head><body class="phase13">
+<p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
+<div class="kicker">Phase 13 · 第 04 課 · 約 30 分鐘</div><h1>提出並審查一個小變更</h1>
+<p class="mission"><strong>本課成果：</strong>一份經人工審查並通過 <code>openspec validate</code> 的小型 change package；產品程式碼尚未修改。</p>
+<div class="rule"><strong>先審行為，再授權實作：</strong><code>/opsx:propose</code> 會建立 proposal、delta specs、design 與 tasks。檔案產生後，先進入人工審查；內容不會自動成為已核准的決策。</div>
+<h2>把變更寫成可判定的行為</h2>
+<div class="step"><label><input type="checkbox"> 1. 必要時先探索</label><pre>/opsx:explore 登入失敗提示目前怎麼運作？相關程式、測試與規格在哪裡？只調查，不建立 change，也不要修改程式。</pre><p><code>/opsx:explore</code> 適合在提案前查資料；如果變更已經清楚，可以略過。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 建立單一小變更</label><pre>/opsx:propose add-login-attempt-feedback
+
+目標：登入失敗時顯示剩餘嘗試次數。
+請先讀現有程式、測試與 current specs。
+這一步只建立 openspec change artifacts，不要修改產品程式碼。</pre></div>
+<div class="step"><label><input type="checkbox"> 3. 依順序審查 artifacts</label><table><tr><th>Artifact</th><th>要問的問題</th></tr>
+<tr><td><code>proposal.md</code></td><td>問題、範圍、影響與不做事項是否清楚？</td></tr>
+<tr><td>Delta specs</td><td>使用 ADDED／MODIFIED／REMOVED 是否正確？Requirement 能否由外部觀察？Scenario 是否有 GIVEN／WHEN／THEN？</td></tr>
+<tr><td><code>design.md</code></td><td>技術決策是否尊重 repo 現況？有沒有多餘抽象？</td></tr>
+<tr><td><code>tasks.md</code></td><td>每項工作是否可驗證，並涵蓋測試與文件同步？</td></tr></table></div>
+<div class="step"><label><input type="checkbox"> 4. 驗證並記錄審查結論</label><pre>openspec validate add-login-attempt-feedback</pre><p>修正所有已確認的問題，再留下「同意範圍、排除範圍、未決問題、validate 結果」。若行為仍說不清楚，就停在 proposal，不要先施工。</p></div>
+<div class="done" id="done"><strong>完成：</strong>Change package 能回答改什麼、怎麼判定成立、預計怎麼做，以及哪些工作尚未完成。</div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="0"><p><code>/opsx:propose</code> 產生檔案後，下一個合理動作是什麼？</p><button>先讀 proposal 核對範圍</button><button>先改 production 開始施工</button><button>先跑 archive 完成封存</button><div class="why">Proposal 先界定問題與範圍。它若有偏差，後面的 specs、design、tasks 與實作都會跟著偏。</div></div>
+<h2>停止線</h2><p>本課不修改產品程式碼。Requirement 若只能寫成「系統要更好用」，或 scenario 無法判定成功與失敗，先回去補行為定義。</p>
+<p><strong>主要閱讀：</strong><a href="https://github.com/Fission-AI/OpenSpec/blob/v1.6.0/docs/writing-specs.md">Writing Good Specs</a>、<a href="https://github.com/Fission-AI/OpenSpec/blob/v1.6.0/docs/reviewing-changes.md">Reviewing a Change</a>。</p>
+<footer>上一課：<a href="013-0003-read-specs-and-changes.html">讀懂 workspace</a> · 下一課：<a href="013-0005-apply-one-bounded-change.html">實作一個有邊界的變更</a><br>把審查結論貼回 Claude Code，請它只修 change artifacts；確認後再進 apply。</footer>
+<script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

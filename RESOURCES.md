@@ -162,6 +162,24 @@
   先按使用者方向或近期 hot spots 限定範圍，再掃描 deepening opportunities。Use for: Phase 3 architecture 支線。
 - [Skill: wayfinder](https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md)
   巨大模糊 effort 的 shared map、decision tickets、fog 與 frontier；research ticket 是單 ticket session 規則的例外，會由 subagent 平行處理，並把發現留在 throwaway <code>research/&lt;name&gt;</code> branch，由 ticket 指回 context。Use for: Phase 3 選修 wayfinder 分支。
+- [Repository snapshot: OpenSpec v1.6.0](https://github.com/Fission-AI/OpenSpec/tree/v1.6.0)
+  Phase 13 的固定查核基準，commit <code>e1b51d1</code>。Use for: 安裝需求、版本紀錄與課程內所有 OpenSpec 行為；實際操作前仍查看 <a href="https://github.com/Fission-AI/OpenSpec">current repository</a>。
+- [Guide: Installation — OpenSpec v1.6.0](https://github.com/Fission-AI/OpenSpec/blob/v1.6.0/docs/installation.md)
+  Node.js 版本、npm／pnpm／yarn／bun／nix 安裝方式與 <code>openspec init</code>。Use for: Phase 13 第 02 課的安裝與寫入範圍查核。
+- [Guide: Getting Started — OpenSpec v1.6.0](https://github.com/Fission-AI/OpenSpec/blob/v1.6.0/docs/getting-started.md)
+  Core profile、<code>specs/</code>、<code>changes/</code>、proposal、delta specs、design、tasks、apply 與 archive 的第一個閉環。Use for: Phase 13 入門 02–06。
+- [Guide: Concepts — OpenSpec v1.6.0](https://github.com/Fission-AI/OpenSpec/blob/v1.6.0/docs/concepts.md)
+  Current specs、changes、artifact dependencies、delta specs、schemas 與 archive 的正式心智模型。Use for: Phase 13 第 03–04、07、09 課與速查表。
+- [Guide: Existing Projects — OpenSpec v1.6.0](https://github.com/Fission-AI/OpenSpec/blob/v1.6.0/docs/existing-projects.md)
+  Brownfield 專案從真實小變更開始，不先回填整個程式庫；既有 PRD／SRS 留作探索材料。Use for: Phase 13 第 01、03–04 課。
+- [Guide: Writing Good Specs — OpenSpec v1.6.0](https://github.com/Fission-AI/OpenSpec/blob/v1.6.0/docs/writing-specs.md)
+  Requirement、<code>SHALL</code>／<code>MUST</code>、GIVEN／WHEN／THEN scenario 與 ADDED／MODIFIED／REMOVED delta 的審查標準。Use for: Phase 13 第 04 課。
+- [Guide: Reviewing a Change — OpenSpec v1.6.0](https://github.com/Fission-AI/OpenSpec/blob/v1.6.0/docs/reviewing-changes.md)
+  在寫程式前依 proposal → specs → design → tasks 的順序審查，實作後再核對 artifacts 與程式。Use for: Phase 13 第 04–06、08 課。
+- [Reference: Commands and Workflows — OpenSpec v1.6.0](https://github.com/Fission-AI/OpenSpec/blob/v1.6.0/docs/commands.md)
+  Core／expanded commands、Claude Code 指令格式、apply、verify、sync、archive 與多變更操作；完整組合另見 <a href="https://github.com/Fission-AI/OpenSpec/blob/v1.6.0/docs/workflows.md">Workflows</a>。Use for: Phase 13 全階段。
+- [Reference: Supported Tools — OpenSpec v1.6.0](https://github.com/Fission-AI/OpenSpec/blob/v1.6.0/docs/supported-tools.md)
+  <code>openspec init</code> 對 Claude Code 與其他 coding assistants 產生的 skills／commands 路徑。Use for: Phase 13 第 02、07 課。
 - [Paper: Physics Is All You Need?](https://arxiv.org/abs/2605.30353)
   Domain expert supervision 與 oracle tests 的案例。Use for: 說明 deterministic feedback 有效處與人類知識邊界。
 - [Paper: AI Coding Agents Can Reproduce Social Science Findings](https://arxiv.org/abs/2606.11447)
@@ -173,6 +191,8 @@
   官方使用者社群。Use for: 對照實際 Claude Code／Cowork 使用摩擦與版本差異。
 - [mattpocock/skills Discussions](https://github.com/mattpocock/skills/discussions)
   Upstream 使用者與維護者討論。Use for: 驗證 skill routing、tracker 與 workflow 的真實用法。
+- [OpenSpec Discussions](https://github.com/Fission-AI/OpenSpec/discussions)
+  維護者與使用者討論導入、spec 組織、平行 changes 與版本差異。Use for: Phase 13 進階問題；正式行為仍以固定版本文件與程式為準。
 
 ## Gaps
 
@@ -186,4 +206,5 @@
 - 文件轉 Markdown 仍缺台灣團隊公開、可重現且同時保留原檔、OCR 抽查、表格錯誤、轉換 manifest 與知識庫交接的完整案例。
 - 用量與查找工具仍缺台灣團隊公開、可重現且同時比較同類工作完成率、驗證證據、token 與總成本的長期案例。
 - Design Engineering Skills 仍缺台灣團隊公開、可重現且同時保留選擇理由、正常與減少動態證據、使用者回饋及最終 diff 的長期案例。
+- OpenSpec 仍缺台灣團隊公開、可重現且同時保留 proposal review、delta spec 修訂、實作證據、archive 後規格與長期漂移修正的完整案例。
 - 若使用者不想參與社群，需記錄在 NOTES.md，避免後續重複推薦。
