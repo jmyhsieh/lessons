@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Claude Code 工具庫：Phase 2、7、8、10、11、12</title>
+<title>Claude Code 工具庫</title>
 <style>
 *{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:1040px;margin:2.5rem auto;padding:0 1.5rem;color:#1d1d1d;line-height:1.72}h1{font-size:2rem;margin:.35rem 0}h2{font-size:1.3rem;margin-top:2.5rem;border-bottom:2px solid #d9d9d9;padding-bottom:.35rem}h3{font-size:1.05rem;margin:0 0 .4rem}.sub{color:#666;margin-top:0}.rule{border-left:4px solid #49677f;background:#f4f7f9;padding:.85rem 1rem;margin:1rem 0}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1rem 0}.card{border:1px solid #d7dde1;border-radius:12px;padding:1rem 1.1rem;background:#fff}.card p{margin:.35rem 0}.tag{display:inline-block;border-radius:999px;background:#edf2f5;color:#38566d;font-size:.75rem;font-weight:600;padding:.15rem .55rem;margin-bottom:.45rem}table{width:100%;border-collapse:collapse;font-size:.9rem;margin:1rem 0}th,td{border:1px solid #d7dde1;padding:.62rem .7rem;text-align:left;vertical-align:top}th{background:#f4f7f9}code{background:#eef2f4;border-radius:4px;padding:.08rem .3rem}a{color:#315f7c}.route{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f4f7f9;border-radius:8px;padding:.8rem 1rem;overflow-wrap:anywhere}footer{margin-top:2.8rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.85rem}@media(max-width:720px){body{overflow-x:hidden}.cards{grid-template-columns:1fr}table{display:block;max-width:100%;overflow-x:auto!important;font-size:.83rem;-webkit-overflow-scrolling:touch}}@media print{body{margin:1rem auto}.card,tr{break-inside:avoid}}
 </style>
@@ -11,13 +11,13 @@
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <h1>Claude Code 工具庫</h1>
-<p class="sub">Phase 2、7、8、10、11、12 的 27 張單頁工具／模式卡集中在這裡；原 lesson 頁保留為選擇性實作，不列入正式課程。</p>
+<p class="sub">27 張單頁工具／模式卡集中在這裡；原 lesson 頁保留為選擇性實作，不列入正式課程。</p>
 <div class="rule"><strong>工具卡不是必修課：</strong>先找目前的問題，只讀那張卡，再進一條實作路線。安裝成功、命令成功或代理顯示完成，都不是交付證據。</div>
 
 <h2>先用問題找工具</h2>
 <table>
 <tr><th>你要解決的問題</th><th>先查</th><th>實作入口</th></tr>
-<tr><td>重用流程、連外部系統、隔離 context，或安全自動化 Claude Code</td><td><a href="#phase2-toolbox">Phase 2 工具箱</a></td><td>從卡片選擇性進入實作</td></tr>
+<tr><td>重用流程、連外部系統、隔離 context，或安全自動化 Claude Code</td><td><a href="#phase2-toolbox">Claude Code 擴充工具箱</a></td><td>從卡片選擇性進入實作</td></tr>
 <tr><td>用 React、Git 與 HTML／PDF 做 code-first 簡報</td><td><a href="tools/open-slide.html">open-slide</a></td><td><a href="../lessons/007-0002-create-isolated-workspace.html">建立隔離工作區</a></td></tr>
 <tr><td>操作真實瀏覽器，或留下可重跑的 UI 測試</td><td><a href="#playwright">Playwright</a></td><td><a href="../lessons/008-0001-choose-live-check-or-test.html">選證據路線</a></td></tr>
 <tr><td>把 PDF、Office 或掃描文件轉成 Markdown</td><td><a href="#document">文件轉換</a></td><td><a href="../lessons/010-0001-choose-document-conversion-route.html">選文件路線</a></td></tr>
@@ -25,7 +25,7 @@
 <tr><td>審查、描述、規劃或實作介面動態</td><td><a href="#design-skills">Design Engineering Skills</a></td><td><a href="../lessons/012-0002-review-one-component-with-emil-design-eng.html">審查一個元件</a></td></tr>
 </table>
 
-<h2 id="phase2-toolbox">Phase 2：Claude Code 工具箱</h2>
+<h2 id="phase2-toolbox">Claude Code 擴充與自動化</h2>
 <table>
 <tr><th>工具／模式卡</th><th>何時先用</th><th>停止線</th><th>實作</th></tr>
 <tr><td><a href="tools/claude-code-hooks.html">Claude Code hooks</a></td><td>在固定生命週期事件執行可預測動作。</td><td>需要情境判斷時，不要硬寫成腳本。</td><td><a href="../lessons/002-0001-hooks-basics.html">控制工具行為</a></td></tr>

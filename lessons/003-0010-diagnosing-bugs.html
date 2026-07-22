@@ -37,7 +37,7 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 3 · 第 10 課 · 約 45 分鐘 · 缺陷修復</div>
+<div class="kicker">Phase 2 · 第 10 課 · 約 45 分鐘 · 缺陷修復</div>
 <h1>用 /diagnosing-bugs 做紀律除錯</h1>
 <p class="mission"><strong>本課成果：</strong>一份以可重現現象與驗證證據支持的錯誤診斷紀錄。</p>
 <div class="scope"><strong>本課只做：</strong>用可重現訊號推進除錯。<br><strong>先不要做：</strong>在沒有失敗案例（failing case）時只靠猜測改程式碼。</div>
@@ -110,7 +110,7 @@
 
 <div class="step">
   <label><input type="checkbox"> 5. 盯第 5 階段的接縫判斷</label>
-  <p>確認：回歸測試先紅後綠了嗎？它寫測試的接縫真的能重現錯誤的觸發模式嗎？若它回報「沒有正確接縫」，把這個發現餵給 Phase 3 第 11 課的架構健檢。</p>
+  <p>確認：回歸測試先紅後綠了嗎？它寫測試的接縫真的能重現錯誤的觸發模式嗎？若它回報「沒有正確接縫」，把這個發現餵給 Phase 2 第 11 課的架構健檢。</p>
 </div>
 
 <div class="step">
@@ -141,7 +141,7 @@
 </div>
 
 <div class="quiz" data-answer="2">
-  <p>3.（複習 Phase 3 第 08 課）第 5 階段「先寫回歸測試、看它失敗、再修」對應 TDD 的什麼？</p>
+  <p>3.（複習 Phase 2 第 08 課）第 5 階段「先寫回歸測試、看它失敗、再修」對應 TDD 的什麼？</p>
   <button>重構（Refactor）階段：全綠之後才開始動結構</button>
   <button>規劃（Planning）階段：先和使用者確認要測什麼</button>
   <button>紅燈轉綠燈（RED→GREEN）：沒看過失敗的測試不可信</button>
@@ -149,7 +149,7 @@
 </div>
 
 <div class="quiz" data-answer="0">
-  <p>4.（複習 Phase 3 第 03 課）陌生子系統出錯誤，程式庫地圖放在 /diagnosing-bugs 的哪個階段最有價值？</p>
+  <p>4.（複習 Phase 2 第 03 課）陌生子系統出錯誤，程式庫地圖放在 /diagnosing-bugs 的哪個階段最有價值？</p>
   <button>第 1 階段 — 找到回饋迴圈的路徑</button>
   <button>第 3 階段 — 跳過證據直接猜原因</button>
   <button>第 6 階段 — 修完才第一次讀結構</button>
@@ -157,12 +157,12 @@
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課：<a href="003-0011-architecture.html">Phase 3 第 11 課 — 用 /improve-codebase-architecture 找維護切入點</a>。</p>
+<p>完成後回對話視窗回報。下一課：<a href="003-0011-architecture.html">Phase 2 第 11 課 — 用 /improve-codebase-architecture 找維護切入點</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/diagnosing-bugs/SKILL.md">reviewed diagnosing-bugs snapshot（66898f6）</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnosing-bugs/SKILL.md">current diagnosing-bugs</a>。</p>
 
 <footer>
   診斷停滯時，交出最小重現案例、完整錯誤與已排除的假說，請 Claude Code 提出下一個能推翻假說的檢查。<br>
-  上一課：<a href="003-0009-triage.html">Phase 3 第 09 課 — /triage</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+  上一課：<a href="003-0009-triage.html">Phase 2 第 09 課 — /triage</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 
 <script>

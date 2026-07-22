@@ -10,7 +10,7 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 7 · 進階第 09 課 · 約 20 分鐘</div>
+<div class="kicker">open-slide 工具 · 進階第 09 課 · 約 20 分鐘</div>
 <h1>安全封裝與部署</h1>
 <p class="mission"><strong>本課成果：</strong>一份已驗證輸出的交付包，並寫清楚部署負責人與復原方式。</p>
 <div class="rule"><strong>部署是外部狀態變更：</strong>先確認負責人（owner）、受眾、敏感資料、公開期限與復原方法；本課不要求把任何內容直接公開。</div>
@@ -21,9 +21,9 @@ npm run preview</code></pre><p>從 <code>dist/</code> 打開三頁，檢查來�
 <div class="step"><label><input type="checkbox"> 3. 請它草擬部署與復原卡</label><p>列出託管位置（host）、負責人、權限、網址、版本、驗證與復原方式（rollback）；你核對後，只有取得授權的負責人才部署。</p></div>
 <div class="done" id="done"><strong>進階完成：</strong>你已準備一個可驗證、可交接、也知道如何停止或復原的 open-slide 交付包。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>準備部署前，第一個可靠動作是什麼？</p><button>先驗證目標輸出檔</button><button>先把原始專案公開</button><button>先略過權限與連結</button><div class="why">先驗證目標格式與內容，再確認權限、負責人與復原方式，才能避免把錯誤或敏感內容公開。</div></div>
-<h2>關鍵判斷</h2><p>Phase 7 的完成線是可信交付包，不是「有一個公開網址」。</p>
+<h2>關鍵判斷</h2><p>open-slide 的完成線是可信交付包，不是「有一個公開網址」。</p>
 <p><strong>主要閱讀：</strong><a href="https://open-slide.dev/docs/core-feature/export">open-slide — Export</a>。</p>
-<footer>上一課：<a href="007-0008-close-comment-edit-review-loop.html">完成 feedback loop</a> · 下一個 Phase：<a href="008-0001-choose-live-check-or-test.html">判斷即時查核或持久測試</a> · <a href="../reference/open-slide-agent-deck-workflow.html">Phase 7 路線卡</a><br>把 Claude Code 草擬的部署與復原卡貼回 Claude Code，請它檢查外部風險。</footer>
+<footer>上一個實作：<a href="007-0008-close-comment-edit-review-loop.html">完成 feedback loop</a> · 相關工具：<a href="008-0001-choose-live-check-or-test.html">判斷即時查核或持久測試</a> · <a href="../reference/open-slide-agent-deck-workflow.html">open-slide 路線卡</a><br>把 Claude Code 草擬的部署與復原卡貼回 Claude Code，請它檢查外部風險。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

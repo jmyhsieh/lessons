@@ -10,13 +10,13 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 8 · 工具選路卡 · 約 10 分鐘</div>
+<div class="kicker">Playwright 工具 · 工具選路卡 · 約 10 分鐘</div>
 <h1>判斷即時查核或持久測試</h1>
 <p class="mission"><strong>本課成果：</strong>一張瀏覽器證據選路卡，指出這條路徑需要即時查核或持久測試。</p>
 <div class="rule"><strong>先分兩種結果：</strong>Playwright MCP 適合讓 Claude Code 當下操作真實瀏覽器；Playwright Test 才是能提交、重跑與放進 CI 的持久測試。即時查核成功，不等於程式庫已有測試。</div>
 <h2>做一張路線判斷卡</h2>
 <div class="step"><label><input type="checkbox"> 1. 先請 Claude Code 只讀檢查</label><p>在規劃模式請它讀 <code>AGENTS.md</code>、README、啟動命令與既有測試，不要改檔；列出一條使用者最在意的瀏覽器路徑。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 指定開始、動作與結果</label><p>寫下 URL、使用者動作與可觀察結果，例如「從課目表點入 Phase 8，應看見第 01 課標題」。避免只寫「網站正常」。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 指定開始、動作與結果</label><p>寫下 URL、使用者動作與可觀察結果，例如「從課目表點入 Playwright 工具，應看見第 01 課標題」。避免只寫「網站正常」。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 選擇這次要留的證據</label><p>只想現在確認就選 MCP 即時查核；要防止回歸就選已提交的 Playwright Test。若已使用 Claude in Chrome，也可做即時查核，但仍不能取代測試。</p></div>
 <pre>請先只讀檢查這個程式庫的操作規範、啟動方式與既有測試。
 提出一條高價值瀏覽器路徑，寫出開始 URL、使用者動作、可觀察結果，

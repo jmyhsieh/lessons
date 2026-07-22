@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Phase 8 路線卡：Claude Code × Playwright</title>
+<title>Playwright 路線卡：Claude Code × Playwright</title>
 <style>
 *{box-sizing:border-box}body{font-family:"Source Han Sans TC","PingFang TC",-apple-system,sans-serif;max-width:900px;margin:2.5rem auto;padding:0 1.5rem;color:#1d1d1d;line-height:1.7}h1{color:#4c5f9e}h2{font-size:1.15rem;color:#4c5f9e;margin-top:2rem;border-bottom:2px solid #d5d9ec;padding-bottom:.35rem}.decision{border:1px solid #d5d9ec;border-left:5px solid #4c5f9e;border-radius:8px;padding:1rem 1.2rem;margin:1rem 0}.yes{background:#f5f6fc}.no{background:#faf8f4}table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{padding:.55rem .65rem;border-bottom:1px solid #e1e3ef;text-align:left;vertical-align:top}th{background:#eef0f8}code,pre{background:#eef0f8;border-radius:4px}code{padding:.1rem .3rem}pre{padding:.8rem 1rem;white-space:pre-wrap}.prompt{border:1px solid #d5d9ec;border-radius:8px;padding:.2rem 1rem;margin:1rem 0}a{color:#3f4f84}.rule{border-left:4px solid #4c5f9e;background:#f5f6fc;padding:.8rem 1rem;margin:1rem 0}footer{margin-top:2.5rem;border-top:1px solid #ddd;padding-top:1rem;color:#666;font-size:.85rem}@media print{body{margin:.5cm auto}}
 </style>
@@ -10,8 +10,8 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<h1>Phase 8：Claude Code × Playwright</h1>
-<p>這個 Phase 不要求你手動背 Playwright API。你先把任務講清楚，讓 Claude Code 操作或產生變更；你負責觀看真實瀏覽器、審查規格、diff 與執行結果，並判斷證據是否足夠。</p>
+<h1>Claude Code × Playwright</h1>
+<p>這個工具路線不要求你手動背 Playwright API。你先把任務講清楚，讓 Claude Code 操作或產生變更；你負責觀看真實瀏覽器、審查規格、diff 與執行結果，並判斷證據是否足夠。</p>
 
 <h2>先選三層中的一層</h2>
 <table>
@@ -68,6 +68,6 @@ npx playwright init-agents --loop=claude</pre>
 <div class="rule"><strong>人類責任：</strong>代理顯示成功不等於需求正確。每次都審查提示、規格、diff 與真實輸出；修復代理的綠燈也不能取代工程師判斷。</div>
 <p>第 03 課與第 04 課各自是完成線，不必兩條都做。只有一條路徑時，不必初始化測試代理或建立完整瀏覽器矩陣；第 09 課也只能聲稱指定測試與專案有證據，不能說「所有 UI 都已自動驗證」。</p>
 
-<footer>工具卡：<a href="tools/playwright-mcp.html">MCP</a> · <a href="tools/playwright-test.html">Test</a> · <a href="tools/playwright-test-agents.html">Test Agents</a> · 工具庫：<a href="claude-code-tool-library.html#playwright">Phase 8</a> · 選路：<a href="../lessons/008-0001-choose-live-check-or-test.html">第 01 課</a> · 代理流程：<a href="../lessons/008-0005-initialize-playwright-test-agents.html">第 05 課</a><br>主要來源：<a href="https://code.claude.com/docs/en/mcp">Claude Code MCP</a> · <a href="https://playwright.dev/mcp/installation">Playwright MCP</a> · <a href="https://playwright.dev/docs/test-agents">Playwright Test Agents</a> · <a href="../toc.html">課目表</a></footer>
+<footer>工具卡：<a href="tools/playwright-mcp.html">MCP</a> · <a href="tools/playwright-test.html">Test</a> · <a href="tools/playwright-test-agents.html">Test Agents</a> · 工具庫：<a href="claude-code-tool-library.html#playwright">Playwright 工具</a> · 選路：<a href="../lessons/008-0001-choose-live-check-or-test.html">第 01 課</a> · 代理流程：<a href="../lessons/008-0005-initialize-playwright-test-agents.html">第 05 課</a><br>主要來源：<a href="https://code.claude.com/docs/en/mcp">Claude Code MCP</a> · <a href="https://playwright.dev/mcp/installation">Playwright MCP</a> · <a href="https://playwright.dev/docs/test-agents">Playwright Test Agents</a> · <a href="../toc.html">課目表</a></footer>
 </body>
 </html>

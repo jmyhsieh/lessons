@@ -1,6 +1,6 @@
 # Playwright 改為 Claude Code 使用者路線
 
-Status: active
+Status: superseded by LR-0017
 
 使用者指出 Phase 8 應該教「給 Claude Code 使用者的 Playwright」，而不是要求學員先手動學完整 Playwright API。課程仍固定為入門 01–04、進階 05–09，但重心改為寫清楚 prompt、觀看真實 browser、審查 spec／diff／output，以及判斷證據邊界。
 

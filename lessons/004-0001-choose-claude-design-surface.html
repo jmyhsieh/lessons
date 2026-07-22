@@ -10,7 +10,7 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 4 · 第 01 課 · 約 10 分鐘</div>
+<div class="kicker">Phase 3 · 第 01 課 · 約 10 分鐘</div>
 <h1>從 Claude Code 連接 Claude Design</h1>
 <p class="mission"><strong>本課成果：</strong>一張視覺工具選路卡；需要探索畫面時，再確認 Claude Design MCP 已連線。</p>
 <div class="rule"><strong>Claude Code 是主場：</strong>畫面還沒決定，就讓 Claude Code 透過 Design MCP 建立與修改設計；畫面已經決定、只需要修改程式庫時，就留在一般程式碼工作流程。</div>
@@ -23,7 +23,7 @@
 <div class="quiz" data-answer="0"><p>版面還沒決定，想先看兩種方向，應先用什麼？</p><button>視覺設計畫布</button><button>程式開發環境</button><button>完整測試流程</button><div class="why">視覺方向尚未確定時，先在 Claude Design 看見並比較，比直接進入程式庫實作更容易調整。</div></div>
 <h2>關鍵判斷</h2><p>你不必先離開 Claude Code 學一套新工具；需要視覺能力時，再把 Design MCP 接進目前工作流。</p>
 <p><strong>主要閱讀：</strong><a href="https://support.claude.com/en/articles/14604416-get-started-with-claude-design#move-between-claude-design-and-claude-code">Anthropic — Move between Claude Design and Claude Code</a>。</p>
-<footer>下一課：<a href="004-0002-write-design-brief.html">請 Claude Code 整理四句 brief</a> · <a href="../reference/claude-design-to-code-workflow.html">Claude Code × Design 速查表</a><br>把路線判斷與 <code>/mcp</code> 狀態貼回 Claude Code，請它一起核對。</footer>
+<footer>上一個正式階段：<a href="003-0012-handoff.html">Phase 2 交接</a> · 下一課：<a href="004-0002-write-design-brief.html">請 Claude Code 整理四句 brief</a> · <a href="../reference/claude-design-to-code-workflow.html">Claude Code × Design 速查表</a><br>把路線判斷與 <code>/mcp</code> 狀態貼回 Claude Code，請它一起核對。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

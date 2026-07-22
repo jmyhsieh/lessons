@@ -1,6 +1,6 @@
 # 文件轉 Markdown 改為獨立 Phase 10
 
-Status: active
+Status: superseded by LR-0017
 
 使用者確認 MarkItDown 與 Docling 可以合成一個獨立 Phase，因為兩者共同解決「讓 Claude Code 把一般文件與掃描文件轉成可查核 Markdown」這個完整成果。Phase 10 不成為 LLM Wiki 前置：一般文字型文件先用 MarkItDown，掃描或複雜文件走 Docling，本來就只有少量文件時也可直接請 Claude Code 讀取。
 

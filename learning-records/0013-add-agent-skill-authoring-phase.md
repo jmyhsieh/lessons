@@ -1,6 +1,6 @@
 # Claude Code 工作技能改為獨立 Phase 9
 
-Status: active
+Status: superseded by LR-0017
 
 使用者要求把 Matt Pocock 的「Building Great Agent Skills: The Missing Manual」整理成獨立 Phase。Phase 9 不重複 Phase 2 的工具概覽或 Phase 3 的現成 workflow skills，而是從台灣工程師的角度，教 Claude Code 使用者把真實 repo 的重複流程寫成、審查並改善專案 Skill。
 

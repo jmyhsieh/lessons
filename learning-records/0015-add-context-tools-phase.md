@@ -1,6 +1,6 @@
 # 新增 Claude Code × 用量與查找工具 Phase 11
 
-Status: active
+Status: superseded by LR-0017
 
 使用者確認把 ccusage、QMD 與 Serena 放進同一個獨立選修 Phase，並且全程從「台灣工程師使用 Claude Code」的角度教。三課分別只完成一個成果：工作階段用量基準、核准 Markdown 的搜尋與原文對照、程式符號的定義與兩個引用。
 

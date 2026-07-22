@@ -1,6 +1,6 @@
 # 新增 Claude Code × Design Engineering Skills Phase 12
 
-Status: active
+Status: superseded by LR-0017
 
 使用者確認把 emilkowalski/skills 做成獨立 Phase，並要求依 teach 建立課程，再用 speak-human-tw 掃描。課程固定站在「台灣工程師使用 Claude Code」的角度，分成入門 01–04 與進階 05–08，每課只留下單一可檢查成果。
 

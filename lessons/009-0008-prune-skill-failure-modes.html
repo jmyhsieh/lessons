@@ -10,7 +10,7 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 9 · 進階第 08 課 · 約 18 分鐘</div>
+<div class="kicker">Phase 6 · 進階第 08 課 · 約 18 分鐘</div>
 <h1>刪除重複、過期與無效指令</h1>
 <p class="mission"><strong>本課成果：</strong>一份 Skill 精簡紀錄，以及修改前後的執行證據。</p>
 <div class="rule"><strong>短不是唯一目標：</strong>每一條仍有效、不重複、確實改變行為的安全規則都值得留下。精簡整理（pruning）是讓每個規則只有一個維護來源，並移除過期、重複或刪掉也不影響行為的句子。</div>
@@ -25,7 +25,7 @@
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="0"><p>哪一句最可能是無效指令？</p><button>請產生一份高品質而且有幫助的摘要</button><button>每個未跑檢查都標記成 unrun 並說明原因</button><button>只把有命令輸出支持的檢查寫成 verified</button><div class="why">「高品質而且有幫助」通常沒有超過模型的預設行為；另外兩句都指定可觀察、可核對的行為邊界。</div></div>
 <h2>關鍵判斷</h2><p>重複內容（duplication）是一個規則說很多次；歷史堆積是舊內容一直沒刪；無效指令看似相關，卻不改變 Claude 的行為。三者需要不同的刪除證據。</p>
-<p><strong>主要閱讀：</strong><a href="https://www.youtube.com/watch?v=UNzCG3lw6O0">影片 16:48–19:05</a>、<a href="https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/productivity/writing-great-skills/SKILL.md#pruning">writing-great-skills — Pruning</a> 與 <a href="../reference/agent-skill-checklist.html">Phase 9 工作技能檢查表</a>。</p>
+<p><strong>主要閱讀：</strong><a href="https://www.youtube.com/watch?v=UNzCG3lw6O0">影片 16:48–19:05</a>、<a href="https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/productivity/writing-great-skills/SKILL.md#pruning">writing-great-skills — Pruning</a> 與 <a href="../reference/agent-skill-checklist.html">Phase 6 工作技能檢查表</a>。</p>
 <footer>上一課：<a href="009-0007-increase-legwork-without-rushing.html">完成條件與拆分</a> · 下一課：<a href="009-0009-evaluate-and-iterate-skill.html">新對話前後對照</a><br>把精簡紀錄與重跑結果貼回 Claude Code，請它指出哪些句子仍有必要保留。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>

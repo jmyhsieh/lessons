@@ -1,6 +1,6 @@
 # Phase 4–7 改為 Claude Code 使用者路線
 
-Status: active
+Status: superseded by LR-0017
 
 使用者要求重新檢視 Phase 4–7 是否真的是「給 Claude Code 使用者」的學習路徑。稽核結果是 Phase 6 已符合：學員把 LLM Wiki idea file、來源與問題交給 Claude Code，進階再審查 schema、ingest、query、lint 與低風險自動化。Phase 4、5 與 7 則需要修正主介面與人工關卡。
 

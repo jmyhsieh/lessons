@@ -10,7 +10,7 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 6 · 進階第 08 課 · 約 15–20 分鐘</div>
+<div class="kicker">Phase 5 · 進階第 08 課 · 約 15–20 分鐘</div>
 <h1>讓 Claude Code 自動化一個安全檢查</h1>
 <p class="mission"><strong>本課成果：</strong>一個可重跑、失敗也不會改壞資料的 Wiki 檢查命令。</p>
 
@@ -29,7 +29,7 @@
 <div class="step"><label><input type="checkbox"> 3. 故意製造一個可復原的小失敗</label>
 <p>例如暫時給命令一個不存在的檔名，確認它會清楚失敗；恢復後再跑一次。自動化只有在成功與失敗都看得懂時才可靠。</p></div>
 
-<div class="done" id="done"><strong>Phase 6 進階完成：</strong>你已讓一個安全檢查可重跑，同時保留內容判斷與寫入前的人工審查。</div>
+<div class="done" id="done"><strong>Phase 5 進階完成：</strong>你已讓一個安全檢查可重跑，同時保留內容判斷與寫入前的人工審查。</div>
 
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="0">
@@ -43,7 +43,7 @@
 <h2>關鍵判斷</h2>
 <p><strong>自動化負責省下重複檢查，內容判斷仍由人負責。</strong>命令穩定使用一段時間後，再決定要不要排程或擴大範圍。</p>
 <p><strong>主要閱讀：</strong><a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki：Indexing、logging 與 optional CLI tools</a>。</p>
-<footer>上一課：<a href="006-0007-lint-and-fix-one-wiki-problem.html">用格式檢查修一個問題</a> · <a href="../reference/llm-wiki-workflow.html">LLM Wiki 速查卡</a> · <a href="../toc.html">回課目表</a><br>把命令、成功輸出與失敗輸出貼回 Claude Code，請它幫你檢查安全邊界。</footer>
+<footer>上一課：<a href="006-0007-lint-and-fix-one-wiki-problem.html">用格式檢查修一個問題</a> · 下一個正式階段：<a href="009-0001-choose-one-repeatable-workflow.html">Phase 6 工作技能</a> · <a href="../reference/llm-wiki-workflow.html">LLM Wiki 速查卡</a><br>把命令、成功輸出與失敗輸出貼回 Claude Code，請它幫你檢查安全邊界。</footer>
 <script>
 const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});
 </script>

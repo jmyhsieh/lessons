@@ -10,7 +10,7 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 8 · 進階第 09 課 · 約 20 分鐘</div>
+<div class="kicker">Playwright 工具 · 進階第 09 課 · 約 20 分鐘</div>
 <h1>讓已審查測試在 CI 執行</h1>
 <p class="mission"><strong>本課成果：</strong>一張 CI 證明卡，列出已審查測試的範圍、執行結果與限制。</p>
 <div class="rule"><strong>不要宣稱全部介面都被保護：</strong>CI 只證明指定測試、環境與瀏覽器設定在該次執行的結果；易用性、完整無障礙與視覺品質仍需其他證據。</div>
@@ -22,7 +22,7 @@
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>對外說明 Playwright CI 結果時，可靠的做法是什麼？</p><button>附上範圍證據與限制</button><button>聲稱全部瀏覽器都好</button><button>公開全部報告與密碼</button><div class="why">可信說法要列出實際測試、瀏覽器設定、執行結果與限制，並把敏感產出留在受控位置。</div></div>
 <h2>關鍵判斷</h2><p>Claude Code 可以接上 CI；交付完成線仍由人工審查過的範圍、執行證據與已知限制決定。</p>
 <p><strong>主要閱讀：</strong><a href="https://playwright.dev/docs/ci">Playwright — Continuous Integration</a> 與 <a href="https://playwright.dev/docs/test-projects">Projects</a>。</p>
-<footer>上一課：<a href="008-0008-supervise-healer-with-trace.html">監督測試修復</a> · <a href="../reference/playwright-browser-verification-workflow.html">Phase 8 路線卡</a> · <a href="../toc.html">回課目表</a><br>把 CI 證明卡貼回 Claude Code，請它檢查宣稱是否超過實際證據。</footer>
+<footer>上一個實作：<a href="008-0008-supervise-healer-with-trace.html">監督測試修復</a> · <a href="../reference/playwright-browser-verification-workflow.html">Playwright 路線卡</a> · <a href="../toc.html">回課目表</a><br>把 CI 證明卡貼回 Claude Code，請它檢查宣稱是否超過實際證據。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

@@ -37,7 +37,7 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 3 · 第 11 課 · 約 45 分鐘 · 維護入口</div>
+<div class="kicker">Phase 2 · 第 11 課 · 約 45 分鐘 · 維護入口</div>
 <h1>用 /improve-codebase-architecture 找維護切入點</h1>
 <p class="mission"><strong>本課成果：</strong>一份架構健檢結果，並選出一個值得繼續追問的候選問題。</p>
 <div class="scope"><strong>本課只做：</strong>找出一個值得整理的架構摩擦。<br><strong>先不要做：</strong>把架構健檢變成大型重構清單。</div>
@@ -55,7 +55,7 @@
 <tr><td><strong>轉接器</strong></td><td>在接縫上滿足介面的具體角色；名稱描述它填入哪個位置，不描述內部材料或實作大小</td></tr>
 <tr><td><strong>槓桿與集中性</strong>（Leverage / Locality）</td><td>深度給呼叫者的好處，以及把改動、錯誤與知識集中一處的維護效益</td></tr>
 </table>
-<div class="tip"><strong>三句口訣：</strong>(1) <strong>刪除測試</strong>：想像刪掉這個模組；複雜度消失，代表它是過水層；複雜度散落到 N 個呼叫端重新出現，代表它有在賺自己的飯。(2) <strong>介面就是測試面</strong>（接 Phase 3 第 08 課：測行為不測實作）。(3) <strong>一個轉接器 = 假想接縫，兩個轉接器 = 真接縫</strong>。</div>
+<div class="tip"><strong>三句口訣：</strong>(1) <strong>刪除測試</strong>：想像刪掉這個模組；複雜度消失，代表它是過水層；複雜度散落到 N 個呼叫端重新出現，代表它有在賺自己的飯。(2) <strong>介面就是測試面</strong>（接 Phase 2 第 08 課：測行為不測實作）。(3) <strong>一個轉接器 = 假想接縫，兩個轉接器 = 真接縫</strong>。</div>
 
 <h2>先圈範圍：還用不到就先別做（YAGNI）也是架構原則</h2>
 <p>先用使用者已點名的模組、子系統（subsystem）或痛點作為範圍，不自行擴張。若沒有指定，才讀 <code>git log --oneline</code>，從近期反覆被修改的區域選一個窄範圍。目標是找一個值得深化的接縫，不要替整個程式庫建立重構待辦清單。</p>
@@ -119,7 +119,7 @@
 </div>
 
 <div class="quiz" data-answer="1">
-  <p>3.（複習 Phase 3 第 08 課）「介面就是測試面」和 TDD 哲學的關係是？</p>
+  <p>3.（複習 Phase 2 第 08 課）「介面就是測試面」和 TDD 哲學的關係是？</p>
   <button>兩者矛盾：TDD 要求測試深入實作細節</button>
   <button>同一件事：測公開介面的行為，重構不死</button>
   <button>無關：一個講架構設計一個講測試流程</button>
@@ -127,12 +127,12 @@
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗回報。下一課：<a href="003-0012-handoff.html">Phase 3 第 12 課 — 用 /handoff 做跨工作階段交接</a>。</p>
+<p>完成後回對話視窗回報。下一課：<a href="003-0012-handoff.html">Phase 2 第 12 課 — 用 /handoff 做跨工作階段交接</a>。</p>
 <p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/improve-codebase-architecture/SKILL.md">reviewed architecture snapshot（66898f6）</a>；深模組與轉接器定義對照同一版本快照的 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/codebase-design/SKILL.md">codebase-design</a>，使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/improve-codebase-architecture/SKILL.md">current architecture skill</a>。</p>
 
 <footer>
   架構候選仍太大時，交出健檢報告、首選候選與程式證據，請 Claude Code 縮成一個可驗證的接縫。<br>
-  上一課：<a href="003-0010-diagnosing-bugs.html">Phase 3 第 10 課 — /diagnosing-bugs</a> · <a href="../reference/claude-product-picker.html">速查表</a>
+  上一課：<a href="003-0010-diagnosing-bugs.html">Phase 2 第 10 課 — /diagnosing-bugs</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 
 <script>

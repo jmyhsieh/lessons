@@ -10,7 +10,7 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 9 · 入門第 01 課 · 約 10 分鐘</div>
+<div class="kicker">Phase 6 · 入門第 01 課 · 約 10 分鐘</div>
 <h1>從一個重複工作流程開始</h1>
 <p class="mission"><strong>本課成果：</strong>一張來自真實程式庫工作的 Skill 需求卡。</p>
 <div class="rule"><strong>Skills 囤積困境（skill hell）：</strong>手上裝了很多 Skills，卻不知道哪個可靠、何時該用，最後也得不到預期結果。先用同一套檢查標準改好一個真實工作流程，再決定是否需要更多 Skills。</div>
@@ -30,8 +30,8 @@
 <h2>觀念檢查</h2>
 <div class="quiz" data-answer="1"><p>哪個最適合成為第一個 Skill？</p><button>只出現一次的特殊文案修改</button><button>每次收尾都重複的狀態整理</button><button>所有工程工作的一次完整自動化</button><div class="why">第一個 Skill 應來自真實、重複、低風險且有可見輸出的流程；不是一次性任務，也不是把所有工作一次包完。</div></div>
 <h2>關鍵判斷</h2><p>先找出值得穩定重用的一組指示，再決定是否做成 Skill。</p>
-<p><strong>主要閱讀：</strong><a href="https://www.youtube.com/watch?v=UNzCG3lw6O0">Building Great Agent Skills: The Missing Manual</a> 的 0:00–3:15；完整四段見 <a href="../reference/agent-skill-checklist.html">Phase 9 工作技能檢查表</a>。</p>
-<footer>上一階段：<a href="008-0009-run-reviewed-tests-in-ci.html">Phase 8 收尾</a> · 下一課：<a href="009-0002-create-first-project-skill-with-claude-code.html">建立第一個專案 Skill</a><br>把 Skill 需求卡貼回 Claude Code，請它檢查這是否真的是重複流程，以及輸出能否被驗收。</footer>
+<p><strong>主要閱讀：</strong><a href="https://www.youtube.com/watch?v=UNzCG3lw6O0">Building Great Agent Skills: The Missing Manual</a> 的 0:00–3:15；完整四段見 <a href="../reference/agent-skill-checklist.html">Phase 6 工作技能檢查表</a>。</p>
+<footer>上一個正式階段：<a href="006-0008-automate-one-safe-wiki-check.html">Phase 5 LLM Wiki 收尾</a> · 下一課：<a href="009-0002-create-first-project-skill-with-claude-code.html">建立第一個專案 Skill</a><br>把 Skill 需求卡貼回 Claude Code，請它檢查這是否真的是重複流程，以及輸出能否被驗收。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>
