@@ -15,9 +15,9 @@
 <p class="lead">把範圍明確、可稽核的 Claude Code 任務放進 CI，並以最小權限與可驗證輸出控制風險。</p>
 <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>自動處理重複的 repo 事件</h2><p>在 pull request 或排程觸發時執行固定分析、摘要或檢查，不依賴人工開啟工作階段。</p></section>
-<section class="card"><div class="label">何時用</div><h2>輸入、權限與失敗條件都清楚</h2><p>結果可留下 log、artifact 或 comment，且即使任務失敗，也不會造成難以回復的外部狀態。</p></section>
+<section class="card"><div class="label">何時用</div><h2>輸入、權限與失敗條件都清楚</h2><p>結果可留下 log、artifact 或 comment，且即使任務失敗，也不會造成難以復原的外部狀態。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>會直接改正式環境或自動推送</h2><p>未經審查的 production write、自動合併、權限升級與不可逆操作，不應只靠模型自行決定。</p></section>
-<section class="card"><div class="label">會讀寫什麼</div><h2>Checkout、workflow、secrets 與平台輸出</h2><p>CI 可讀 repo 與事件內容，並依 workflow 權限寫 comment、artifact 或 branch；每一項都要顯式授權。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>Checkout、workflow、secrets 與平台輸出</h2><p>CI 可讀 repo 與事件內容，並依 workflow 權限寫 comment、artifact 或 branch；每一項都要明確授權。</p></section>
 </div>
 <h2>權限與副作用</h2>
 <div class="safety"><strong>從唯讀、最小權限開始。</strong>限制觸發來源、工具、timeout 與花費；特別檢查 fork PR 的 secrets 邊界，不允許模型繞過既有 required checks。</div>

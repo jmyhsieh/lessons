@@ -14,13 +14,13 @@
 <h1>apple-design</h1>
 <p class="lead">把流暢、連續、可中斷的互動原則套到一個低風險元件，不是把整個產品改成 Apple 風格。</p>
 <div class="grid">
-<section class="card"><div class="label">解決的問題</div><h2>改善單一互動回饋</h2><p>讓按壓、切換或狀態變化更即時、有因果關係，並保留操作控制感。</p></section>
+<section class="card"><div class="label">解決的問題</div><h2>改善單一互動回饋</h2><p>讓按壓、切換或狀態變化立即回應使用者，而且可以中斷或快速重複操作。</p></section>
 <section class="card"><div class="label">何時用</div><h2>已核准的小範圍改動</h2><p>例如替一個按鈕加入短暫按壓回饋，且成功條件可在瀏覽器檢查。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>不要做整站換皮</h2><p>沒有明確用途、高頻操作會受干擾，或只是為了展示動畫技巧時。</p></section>
 <section class="card"><div class="label">會讀寫什麼</div><h2>會修改產品程式</h2><p>可能改元件、CSS 與測試，因此必須先指定精確檔案、狀態與禁止範圍。</p></section>
 </div>
 <h2>權限與副作用</h2>
-<div class="safety"><strong>這是一張實作卡。</strong>核准前先看計畫；不得更動相鄰元件或設計系統。必須處理鍵盤、快速重複操作與 <code>prefers-reduced-motion</code>。</div>
+<div class="safety"><strong>這張卡會修改產品程式。</strong>核准前先看計畫；不得更動相鄰元件或設計系統。必須處理鍵盤、快速重複操作與 <code>prefers-reduced-motion</code>。</div>
 <h2>最低完成證據</h2>
 <ul><li>只涵蓋核准元件的完整 diff。</li><li>相關檢查通過，未通過項目如實列出。</li><li>真實瀏覽器比較修改前後，包含快速操作與減少動態。</li></ul>
 <h2>交給 Claude Code</h2>

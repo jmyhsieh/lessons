@@ -12,10 +12,10 @@
 <p><a href="../claude-code-tool-library.html#phase2-toolbox">← Claude Code 工具庫</a></p>
 <span class="kicker">Claude Code 擴充工具 · 獨立撰寫與審查</span>
 <h1>Writer／Reviewer 工作階段</h1>
-<p class="lead">讓一個工作階段負責產出，另一個以新鮮 context 審查固定成果，降低自我確認偏誤。</p>
+<p class="lead">讓一個工作階段負責產出，另一個不帶前一段實作對話，只依需求、diff 與證據重看固定成果，減少自己審自己時的盲點。</p>
 <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>把作者與審查者角色分開</h2><p>Reviewer 不承接所有實作對話，只依需求、diff 與證據重新檢查成果。</p></section>
-<section class="card"><div class="label">何時用</div><h2>變更值得獨立第二視角</h2><p>規格、安全性或維護風險較高，且可以提供固定 commit、diff 或 artifact 給 reviewer。</p></section>
+<section class="card"><div class="label">何時用</div><h2>值得獨立再審一次</h2><p>規格、安全性或維護風險較高，且可以提供固定 commit、diff 或 artifact 給 reviewer。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>沒有清楚交接邊界</h2><p>若兩邊同時改同一批檔案，只會製造競爭；小型低風險修改也不必為了形式增加工作階段。</p></section>
 <section class="card"><div class="label">會讀寫什麼</div><h2>Writer 寫，Reviewer 預設唯讀</h2><p>交接內容包含需求、固定 diff、已跑檢查與未知風險；若需平行寫入，另用 <a href="git-worktrees.html">worktree</a> 隔離。</p></section>
 </div>
