@@ -12,8 +12,20 @@
 <p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
 <span class="kicker">文件轉換 · 少量文件</span>
 <h1>Claude Code 直接讀文件</h1>
-<p class="lead">不先安裝轉換器，直接讓 Claude Code 讀取少量 PDF 或圖片，整理成一次性 Markdown 草稿。</p>
-<div class="grid">
+    <p class="lead">不先安裝轉換器，直接讓 Claude Code 讀取少量 PDF 或圖片，整理成一次性 Markdown 草稿。</p>
+    <figure class="tool-flow" aria-labelledby="claude-code-document-reading-flow-title" style="--tool-flow-count: 3">
+      <figcaption id="claude-code-document-reading-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        少量文件直接讀、人工核對
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>限定檔案</strong><small>只給核准的檔案或頁面，先列出要回答的問題。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>整理草稿</strong><small>保留來源檔名、頁碼或畫面位置，標記不確定處。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>對照原文</strong><small>人工核對專有名詞、數字、表格與否定句。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>大量、重複或需要穩定轉換的工作，改用文件轉換工具；複雜掃描件再考慮 OCR。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>降低一次性設定成本</h2><p>文件很少、任務很短時，直接讀取與整理，不先建立完整轉換工具鏈。</p></section>
 <section class="card"><div class="label">何時用</div><h2>少量、人工可抽查</h2><p>一兩份文件、只需摘要或結構化筆記，且能逐頁回看來源。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>大量或需可重現批次</h2><p>大量文件、固定 pipeline、精確 OCR 或複雜表格，改用 <a href="markitdown.html">MarkItDown</a> 或 <a href="docling.html">Docling</a>。</p></section>

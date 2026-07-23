@@ -12,8 +12,20 @@
 <p><a href="../claude-code-tool-library.html#claude-code-toolbox">← Claude Code 工具庫</a></p>
 <span class="kicker">Claude Code 擴充工具 · 重用知識與流程</span>
 <h1>Claude Code Skills</h1>
-<p class="lead">把會重複使用的工作方法、判斷規則與支援資源包成可發現、可重跑的能力。</p>
-<div class="grid">
+    <p class="lead">把會重複使用的工作方法、判斷規則與支援資源包成可發現、可重跑的能力。</p>
+    <figure class="tool-flow" aria-labelledby="claude-code-skills-flow-title" style="--tool-flow-count: 3">
+      <figcaption id="claude-code-skills-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        把重複做法整理成 Skill
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>找出重複做法</strong><small>確認同一套判斷與步驟會跨任務反覆使用。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>寫清楚邊界</strong><small>定義觸發時機、輸入、輸出與不該使用的情況。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>用真實任務驗證</strong><small>測一個應觸發與一個不應觸發的案例，再刪掉多餘內容。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>只有一次的工作不必做成 Skill；需要隔離 context 時，改用 subagent。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>不用反覆重寫長 prompt</h2><p>將穩定流程與專業知識放進 Skill，讓 Claude 在符合描述的任務中載入一致指引。</p></section>
 <section class="card"><div class="label">何時用</div><h2>同一做法會跨任務重複</h2><p>適合 repo 慣例、固定交付流程、領域檢查表，以及需要搭配參考文件或腳本的工作。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>只有一次，或要隔離 context</h2><p>一次性問題直接說明即可；需要把大量搜尋留在主 context 外時，改用 <a href="claude-code-subagents.html">Subagents</a>。</p></section>

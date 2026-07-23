@@ -12,8 +12,21 @@
 <p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
 <span class="kicker">Playwright · 進階測試流程</span>
 <h1>Playwright Test Agents</h1>
-<p class="lead">用 planner、generator、healer 分工規劃、產生與修復 Playwright 測試；前提是測試地基已經可用。</p>
-<div class="grid">
+    <p class="lead">用 planner、generator、healer 分工規劃、產生與修復 Playwright 測試；前提是測試地基已經可用。</p>
+    <figure class="tool-flow" aria-labelledby="playwright-test-agents-flow-title" style="--tool-flow-count: 4">
+      <figcaption id="playwright-test-agents-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        用代理分工建立與維護測試
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>確認測試地基</strong><small>先證明既有 Playwright Test 能穩定執行。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>Planner 寫規格</strong><small>把路徑、風險與 assertions 交給人工核准。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>Generator 產生測試</strong><small>審查 test diff，再實際執行並保存結果。</small></li>
+        <li><span class="tool-flow-index">4</span><strong>Healer 提議修復</strong><small>依 trace 與錯誤做最小調整，證明 assertion 沒有被弱化。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>第一支測試都還跑不起來時，先修好 Playwright Test 地基；規格與 assertion 不能交給代理自行放寬。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>把多步測試工作拆開</h2><p>先形成可審查的規格，再產生測試；失敗時由 healer 根據證據提出最小修復。</p></section>
 <section class="card"><div class="label">何時用</div><h2>已有穩定 Test 地基</h2><p>多條使用路徑需要一致規格、人工核准與修復紀錄。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>第一支測試都還跑不起來</h2><p>先建立 <a href="playwright-test.html">Playwright Test</a>、fixtures 與測試資料，不要用代理掩蓋基礎問題。</p></section>

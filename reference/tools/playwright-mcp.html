@@ -13,6 +13,15 @@
 <span class="kicker">Playwright · 即時瀏覽器查核</span>
 <h1>Playwright MCP</h1>
 <p class="lead">讓 Claude Code 操作可見瀏覽器，回答「這條使用路徑現在是否正常？」</p>
+<figure class="tool-flow" aria-labelledby="playwright-mcp-flow-title" style="--tool-flow-count: 3">
+<figcaption id="playwright-mcp-flow-title"><span class="tool-flow-kicker">建議流程</span><strong>從待查路徑到瀏覽器證據</strong></figcaption>
+<ol>
+<li><span class="tool-flow-index">1</span><strong>定義路徑</strong><small>寫出開始 URL、操作、可見結果與可能副作用。</small></li>
+<li><span class="tool-flow-index">2</span><strong>操作瀏覽器</strong><small>逐步開頁、點擊、輸入並查看 console。</small></li>
+<li><span class="tool-flow-index">3</span><strong>核對並留證</strong><small>記錄最後畫面、環境、錯誤與未驗證項目。</small></li>
+</ol>
+<p class="tool-flow-stop"><strong>停止線：</strong>登入、送出表單或外部寫入要先確認；同一風險需要持續防回歸時，改用 Playwright Test。</p>
+</figure>
 <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>查核眼前狀態</h2><p>開頁、點擊、輸入、讀取畫面與 console，取得真實瀏覽器證據。</p></section>
 <section class="card"><div class="label">何時用</div><h2>探索與一次性驗收</h2><p>需求尚在探索、需要人工一起看畫面，或先確認問題能否重現。</p></section>

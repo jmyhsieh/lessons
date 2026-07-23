@@ -12,8 +12,21 @@
 <p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
 <span class="kicker">文件轉換 · OCR 與版面</span>
 <h1>Docling</h1>
-<p class="lead">在本機處理掃描 PDF、圖片、表格與複雜版面，保留比純文字抽取更多的文件結構。</p>
-<div class="grid">
+    <p class="lead">在本機處理掃描 PDF、圖片、表格與複雜版面，保留比純文字抽取更多的文件結構。</p>
+    <figure class="tool-flow" aria-labelledby="docling-flow-title" style="--tool-flow-count: 4">
+      <figcaption id="docling-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        轉換複雜或掃描文件
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>先看原檔</strong><small>確認是掃描、表格或複雜版面，輕量工具確實不足。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>核准資源</strong><small>確認安裝、模型下載、輸出路徑與 OCR 選項。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>轉換一份</strong><small>保留工具版本、命令與低信心區段。</small></li>
+        <li><span class="tool-flow-index">4</span><strong>逐頁抽查</strong><small>對照姓名、數字、表格欄位與閱讀順序。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>一般文字型 PDF 或 Office 文件先用 MarkItDown；不要為了少量錯字全面強開 OCR。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>OCR 與閱讀順序</h2><p>辨識沒有可靠文字層的內容，並處理標題、欄位、表格與頁面版面。</p></section>
 <section class="card"><div class="label">何時用</div><h2>輕量路線已不足</h2><p>掃描文件、圖片、複雜表格，或 <a href="markitdown.html">MarkItDown</a> 輸出明顯缺漏。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>普通文字檔不必重裝備</h2><p>有乾淨文字層時先用較輕的工具；<code>--force-ocr</code> 不應成為所有 PDF 的預設。</p></section>

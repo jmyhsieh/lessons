@@ -12,8 +12,20 @@
 <p><a href="../claude-code-tool-library.html#claude-code-toolbox">← Claude Code 工具庫</a></p>
 <span class="kicker">Claude Code 擴充工具 · 可重用審查角色</span>
 <h1>Custom review subagent</h1>
-<p class="lead">把固定的審查標準、工具限制與回報格式，做成專門的唯讀 subagent。</p>
-<div class="grid">
+    <p class="lead">把固定的審查標準、工具限制與回報格式，做成專門的唯讀 subagent。</p>
+    <figure class="tool-flow" aria-labelledby="custom-review-subagent-flow-title" style="--tool-flow-count: 3">
+      <figcaption id="custom-review-subagent-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        建立可重複的專項審查
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>固定審查基準</strong><small>寫明範圍、嚴重度、工具限制與回報格式。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>交付固定差異</strong><small>提供需求與 diff，讓 reviewer 唯讀檢查。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>人工分流 findings</strong><small>逐項核對位置與證據，記錄採納、誤報與未知風險。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>沒有固定基準或固定 diff 時，先釐清審查問題；reviewer 不直接修改程式。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>讓審查有一致焦點</h2><p>每次都以相同標準檢查固定 diff，並把作者脈絡與審查脈絡分開。</p></section>
 <section class="card"><div class="label">何時用</div><h2>同類 review 會重複發生</h2><p>例如安全、無障礙、規格符合度或 repo 慣例，且規則與輸出格式已經清楚。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>沒有固定基準或固定 diff</h2><p>需求仍模糊時先釐清；review agent 的結論也不能取代測試、真實執行或人類核准。</p></section>

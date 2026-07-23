@@ -12,8 +12,21 @@
 <p><a href="../claude-code-tool-library.html#claude-code-toolbox">← Claude Code 工具庫</a></p>
 <span class="kicker">Claude Code 擴充工具 · 一次性程式化任務</span>
 <h1>Claude Code headless（<code>claude -p</code>）</h1>
-<p class="lead">以非互動方式送入一個範圍明確的任務，取得可供 shell、程式或後續流程處理的輸出。</p>
-<div class="grid">
+    <p class="lead">以非互動方式送入一個範圍明確的任務，取得可供 shell、程式或後續流程處理的輸出。</p>
+    <figure class="tool-flow" aria-labelledby="claude-code-headless-flow-title" style="--tool-flow-count: 4">
+      <figcaption id="claude-code-headless-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        把一次性任務接進 script
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>固定任務</strong><small>寫清楚輸入、終點、輸出格式與允許的工具。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>先跑唯讀</strong><small>用非敏感資料測試一次，確認 timeout 與權限限制。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>執行單次流程</strong><small>保留完整命令與輸入來源，讓下一步能穩定解析。</small></li>
+        <li><span class="tool-flow-index">4</span><strong>處理失敗</strong><small>檢查 exit status，驗證無結果時不會誤報成功。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>還在探索、需要來回判斷或會造成高風險寫入時，留在互動工作階段。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>把單次任務放進 script</h2><p>輸入、工具範圍與輸出格式穩定時，不需要開啟互動工作階段逐步操作。</p></section>
 <section class="card"><div class="label">何時用</div><h2>任務有明確終點</h2><p>適合摘要、分類、抽取、固定檢查與結構化回傳，並且失敗行為可以預先定義。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>還在探索或風險很高</h2><p>需求需要來回釐清、可能修改大量狀態，或遇到例外必須即時判斷時，使用互動工作階段。</p></section>

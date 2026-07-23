@@ -12,8 +12,21 @@
 <p><a href="../claude-code-tool-library.html#claude-code-toolbox">← Claude Code 工具庫</a></p>
 <span class="kicker">Claude Code 擴充工具 · Checkout 隔離</span>
 <h1>Git worktrees</h1>
-<p class="lead">為平行工作建立獨立 checkout 與 branch，避免多個工作階段在同一工作樹互相覆蓋。</p>
-<div class="grid">
+    <p class="lead">為平行工作建立獨立 checkout 與 branch，避免多個工作階段在同一工作樹互相覆蓋。</p>
+    <figure class="tool-flow" aria-labelledby="git-worktrees-flow-title" style="--tool-flow-count: 4">
+      <figcaption id="git-worktrees-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        安全隔離平行修改
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>拆開任務</strong><small>確認工作彼此獨立，分配各自的 branch 與負責範圍。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>檢查再建立</strong><small>先看現有 worktree 與狀態，再建立獨立 checkout。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>各自修改驗證</strong><small>每個工作樹只處理自己的檔案、diff 與檢查。</small></li>
+        <li><span class="tool-flow-index">4</span><strong>整合後收尾</strong><small>確認提交與乾淨狀態，再決定保留或安全移除。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>兩項工作會同時修改同一批檔案時，不適合硬拆平行；狀態不明的 worktree 不要強制移除。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>把平行寫入真正分開</h2><p>每個任務在自己的目錄與 branch 修改、測試與檢查，不共用未提交的工作樹狀態。</p></section>
 <section class="card"><div class="label">何時用</div><h2>兩個以上獨立修改可並行</h2><p>任務邊界、branch 所有權與整合順序清楚，而且同時進行能實際節省時間。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>只是唯讀調查或小改動</h2><p>搜尋資料可用 <a href="claude-code-subagents.html">Subagent</a>；會同時修改相同檔案的任務，也不適合硬拆平行。</p></section>

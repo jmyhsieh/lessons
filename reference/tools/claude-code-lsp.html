@@ -12,8 +12,20 @@
 <p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
 <span class="kicker">用量與查找 · 程式符號查找</span>
 <h1>Claude Code LSP</h1>
-<p class="lead">使用 Claude Code 內建 LSP tool 查 definition、references、types、implementations 與 call hierarchy。</p>
-<div class="grid">
+    <p class="lead">使用 Claude Code 內建 LSP tool 查 definition、references、types、implementations 與 call hierarchy。</p>
+    <figure class="tool-flow" aria-labelledby="claude-code-lsp-flow-title" style="--tool-flow-count: 3">
+      <figcaption id="claude-code-lsp-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        從符號找到真正的程式關係
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>指定符號</strong><small>確認語言服務可用，提出 definition 或 references 等明確問題。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>查語意關係</strong><small>取得定義、引用、型別或呼叫階層。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>回讀原始碼</strong><small>打開相關上下文，並用 rg 或人工閱讀交叉確認。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>固定字串搜尋先用 rg；語言服務不可用時，不要把文字命中假裝成 LSP 結果。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>理解符號關係</h2><p>分辨同名文字與真正程式符號，追蹤定義、引用、型別與呼叫關係。</p></section>
 <section class="card"><div class="label">何時用</div><h2>跨檔案程式理解</h2><p>評估修改影響、找實作、追引用，且語言已有可用 code intelligence plugin。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>固定字串先用 rg</h2><p>搜尋設定值、文案或檔名時，<code>rg</code> 更直接；需要完整專案探索工作流再評估 <a href="serena.html">Serena</a>。</p></section>

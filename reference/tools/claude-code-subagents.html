@@ -12,8 +12,20 @@
 <p><a href="../claude-code-tool-library.html#claude-code-toolbox">← Claude Code 工具庫</a></p>
 <span class="kicker">Claude Code 擴充工具 · Context 隔離</span>
 <h1>Claude Code Subagents</h1>
-<p class="lead">把範圍明確的調查交給獨立 context，主工作階段只接收結論與可回查證據。</p>
-<div class="grid">
+    <p class="lead">把範圍明確的調查交給獨立 context，主工作階段只接收結論與可回查證據。</p>
+    <figure class="tool-flow" aria-labelledby="claude-code-subagents-flow-title" style="--tool-flow-count: 3">
+      <figcaption id="claude-code-subagents-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        把旁線調查交給獨立 context
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>切出問題</strong><small>限定檔案、工具與要回答的單一問題。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>獨立調查</strong><small>讓 subagent 讀取必要上下文，回報可定位的證據。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>主線複核</strong><small>對照來源，記錄採納、拒絕或仍待確認的結論。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>subagent 不會自動隔離 checkout；需要平行修改時，先使用 Git worktree。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>避免主 context 被大量細節淹沒</h2><p>將搜尋、log 分析或文件整理放到旁線，保留主線的決策脈絡與 token 空間。</p></section>
 <section class="card"><div class="label">何時用</div><h2>旁線任務可以清楚交付</h2><p>輸入範圍、預期答案與停止條件都能說明，而且結果可用檔案、行號或來源驗證。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>需要獨立寫入空間</h2><p>Subagent 隔離的是 context，不必然隔離 checkout；平行修改應改用 <a href="git-worktrees.html">worktree</a> 或明確檔案所有權。</p></section>

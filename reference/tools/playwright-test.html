@@ -12,8 +12,21 @@
 <p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
 <span class="kicker">Playwright · 耐久 UI 證據</span>
 <h1>Playwright Test</h1>
-<p class="lead">把重要的瀏覽器風險寫成可重跑、可審查、可進 CI 的測試。</p>
-<div class="grid">
+    <p class="lead">把重要的瀏覽器風險寫成可重跑、可審查、可進 CI 的測試。</p>
+    <figure class="tool-flow" aria-labelledby="playwright-test-flow-title" style="--tool-flow-count: 4">
+      <figcaption id="playwright-test-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        把重要風險寫成回歸測試
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>選定風險</strong><small>只保護一條值得長期維護的使用路徑或失敗條件。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>寫明行為</strong><small>定義 setup、操作與會在風險壞掉時失敗的 assertion。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>證明測試有效</strong><small>保留先失敗、修正後通過的證據，或說明無法製造失敗的原因。</small></li>
+        <li><span class="tool-flow-index">4</span><strong>留下可重跑資產</strong><small>保存 test diff、命令、結果與必要 trace。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>只想探索目前畫面時用 Playwright MCP；不能只測「頁面能開」這類淺層結果。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>讓回歸可被發現</h2><p>用測試程式固定前置條件、互動與 assertion，讓同一風險之後能再次驗證。</p></section>
 <section class="card"><div class="label">何時用</div><h2>風險值得長期保護</h2><p>登入、付款、建立資料、關鍵導覽或曾經壞過的流程。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>只需探索目前畫面</h2><p>需求尚未穩定或只需一次性查核時，先用 <a href="playwright-mcp.html">Playwright MCP</a>。</p></section>

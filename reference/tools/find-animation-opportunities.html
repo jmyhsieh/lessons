@@ -12,8 +12,20 @@
 <p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
 <span class="kicker">Design Engineering Skills · 機會盤點</span>
 <h1>find-animation-opportunities</h1>
-<p class="lead">唯讀找出少量值得評估的動態位置，也主動列出不該加動態的地方。</p>
-<div class="grid">
+    <p class="lead">唯讀找出少量值得評估的動態位置，也主動列出不該加動態的地方。</p>
+    <figure class="tool-flow" aria-labelledby="find-animation-opportunities-flow-title" style="--tool-flow-count: 3">
+      <figcaption id="find-animation-opportunities-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        找出少量值得評估的動態
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>限定頁面</strong><small>只讀檢查指定頁面、元件與狀態。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>找候選也找排除</strong><small>從狀態變化、空間關係與回饋需求判斷，不為了裝飾加效果。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>排序少量候選</strong><small>列出位置、用途、風險與不做的理由，交回人工選擇。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>找不到合適候選也是有效結果；這份盤點保持唯讀，不代表已核准實作。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>把候選從整頁中找出來</h2><p>檢查狀態變化、空間關係與因果回饋，找出動態可能提升理解的地方。</p></section>
 <section class="card"><div class="label">何時用</div><h2>不知道下一個機會在哪</h2><p>已有可用產品，想在有限頁面內找一個能幫助使用者理解，又不會干擾高頻操作的候選。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>不是「每處都加效果」</h2><p>已有固定 diff 要審查時用 <a href="review-animations.html">review-animations</a>；沒有合適機會也是有效結論。</p></section>

@@ -12,8 +12,20 @@
 <p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
 <span class="kicker">用量與查找 · 用量觀測</span>
 <h1>ccusage</h1>
-<p class="lead">讀取本機 coding agent 使用紀錄，整理工作階段的 token 與成本估算，建立可比較的用量基準。</p>
-<div class="grid">
+    <p class="lead">讀取本機 coding agent 使用紀錄，整理工作階段的 token 與成本估算，建立可比較的用量基準。</p>
+    <figure class="tool-flow" aria-labelledby="ccusage-flow-title" style="--tool-flow-count: 3">
+      <figcaption id="ccusage-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        建立可比較的本機用量基準
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>限定資料</strong><small>確認本機資料來源、工具版本與統計期間。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>產生報表</strong><small>整理工作階段用量，移除不需要分享的路徑或身分資訊。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>標示估算</strong><small>把估算、未知項目與交付品質分開說明。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>這份報表不是官方帳單或剩餘額度，token 數也不能取代成果驗證。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>看本機用量結構</h2><p>把零散紀錄整理成日、月或工作階段報表，觀察任務規模與用量變化。</p></section>
 <section class="card"><div class="label">何時用</div><h2>需要自己的基準</h2><p>比較兩種工作方式、追蹤長任務或記錄一次 Claude Code 工作階段。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>不是官方剩餘額度</h2><p>要查方案限制或帳戶可用量，回官方產品介面；用量較低也不代表成果較好。</p></section>

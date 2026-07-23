@@ -12,8 +12,20 @@
 <p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
 <span class="kicker">文件轉換 · 文件轉換</span>
 <h1>MarkItDown</h1>
-<p class="lead">把有可靠文字層的 PDF、Word、Excel、PowerPoint 等文件轉成適合後續處理的 Markdown。</p>
-<div class="grid">
+    <p class="lead">把有可靠文字層的 PDF、Word、Excel、PowerPoint 等文件轉成適合後續處理的 Markdown。</p>
+    <figure class="tool-flow" aria-labelledby="markitdown-flow-title" style="--tool-flow-count: 3">
+      <figcaption id="markitdown-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        輕量轉換有文字層的文件
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>確認適用</strong><small>先看原檔是否有可靠文字層，核准輸入與輸出路徑。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>轉換一份</strong><small>保留工具版本、實際命令與待查核標記。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>對照原檔</strong><small>檢查標題、段落、表格、數字與頁面順序。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>輸出空白、亂碼或閱讀順序嚴重錯誤時，不要硬修 Markdown，改走 Docling／OCR 路線。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>輕量文字轉換</h2><p>抽取文件內容與基本結構，建立可搜尋、可引用、可再加工的 Markdown。</p></section>
 <section class="card"><div class="label">何時用</div><h2>原檔已有文字層</h2><p>一般 Office 文件與可選取文字的 PDF；先用最輕的轉換路線。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>掃描或版面複雜</h2><p>輸出空白、亂碼、閱讀順序錯誤時，改評估 <a href="docling.html">Docling</a>，不要把基礎轉換器當本機 OCR。</p></section>

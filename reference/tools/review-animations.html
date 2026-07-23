@@ -12,8 +12,20 @@
 <p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
 <span class="kicker">Design Engineering Skills · Diff 審查</span>
 <h1>review-animations</h1>
-<p class="lead">審查一份已存在、範圍固定的動態程式差異，輸出有優先序的 findings 與 verdict。</p>
-<div class="grid">
+    <p class="lead">審查一份已存在、範圍固定的動態程式差異，輸出有優先序的 findings 與 verdict。</p>
+    <figure class="tool-flow" aria-labelledby="review-animations-flow-title" style="--tool-flow-count: 3">
+      <figcaption id="review-animations-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        驗收一份已存在的動態 diff
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>固定審查範圍</strong><small>指定 diff、元件與預期用途，只讀必要上下文。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>檢查動態品質</strong><small>核對時機、時間、easing、可中斷性、效能與減少動態。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>提出 verdict</strong><small>用可定位的 findings 說明 pass、needs changes 與未驗證範圍。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>沒有固定 diff 時，先用 find-animation-opportunities 盤點；reviewer 保持唯讀，不直接修程式。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>驗收一份動態 diff</h2><p>檢查目的、時間、easing、可中斷性、效能、無障礙與減少動態。</p></section>
 <section class="card"><div class="label">何時用</div><h2>改動已經存在</h2><p>準備合併前，或完成 <a href="apple-design.html">apple-design</a> 小幅實作後，需要獨立審查。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>不是全 repo 盤點</h2><p>尚未有 diff 時，不拿它找所有機會；改用 <a href="find-animation-opportunities.html">find-animation-opportunities</a>。</p></section>

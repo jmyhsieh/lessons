@@ -12,8 +12,21 @@
 <p><a href="../claude-code-tool-library.html#claude-code-toolbox">← Claude Code 工具庫</a></p>
 <span class="kicker">Claude Code 擴充工具 · 無人值守邊界</span>
 <h1>Claude Code CI</h1>
-<p class="lead">把範圍明確、可稽核的 Claude Code 任務放進 CI，並以最小權限與可驗證輸出控制風險。</p>
-<div class="grid">
+    <p class="lead">把範圍明確、可稽核的 Claude Code 任務放進 CI，並以最小權限與可驗證輸出控制風險。</p>
+    <figure class="tool-flow" aria-labelledby="claude-code-ci-flow-title" style="--tool-flow-count: 4">
+      <figcaption id="claude-code-ci-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        把固定任務安全放進 CI
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>固定輸入</strong><small>定義觸發事件、任務範圍、輸出與失敗條件。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>縮小權限</strong><small>只開必要的 tools、permissions 與 secret 範圍。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>測試兩條路</strong><small>用非敏感資料各跑一次成功與失敗案例。</small></li>
+        <li><span class="tool-flow-index">4</span><strong>保留稽核</strong><small>保存 log 或 artifact，寫入與發布仍交給人類核准。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>會直接改正式環境、自動推送、合併或發布的任務，不應只靠這條自動流程決定。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>自動處理重複的 repo 事件</h2><p>在 pull request 或排程觸發時執行固定分析、摘要或檢查，不依賴人工開啟工作階段。</p></section>
 <section class="card"><div class="label">何時用</div><h2>輸入、權限與失敗條件都清楚</h2><p>結果可留下 log、artifact 或 comment，且即使任務失敗，也不會造成難以復原的外部狀態。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>會直接改正式環境或自動推送</h2><p>未經審查的 production write、自動合併、權限升級與不可逆操作，不應只靠模型自行決定。</p></section>

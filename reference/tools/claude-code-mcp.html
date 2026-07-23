@@ -12,8 +12,21 @@
 <p><a href="../claude-code-tool-library.html#claude-code-toolbox">← Claude Code 工具庫</a></p>
 <span class="kicker">Claude Code 擴充工具 · 外部工具與資料</span>
 <h1>Claude Code MCP</h1>
-<p class="lead">透過 MCP server，讓 Claude Code 使用外部系統提供的工具、資源與資料來源。</p>
-<div class="grid">
+    <p class="lead">透過 MCP server，讓 Claude Code 使用外部系統提供的工具、資源與資料來源。</p>
+    <figure class="tool-flow" aria-labelledby="claude-code-mcp-flow-title" style="--tool-flow-count: 4">
+      <figcaption id="claude-code-mcp-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        安全接上外部資料與工具
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>確認必要性</strong><small>先確定權威資料只在外部系統，本機工具無法完成。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>查明來源</strong><small>核對 server、端點、可見工具與所需憑證。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>最小權限試跑</strong><small>先做一個非敏感的唯讀查詢，檢查回傳來源。</small></li>
+        <li><span class="tool-flow-index">4</span><strong>留下退路</strong><small>記錄設定與結果，也確認如何停用、移除及撤銷憑證。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>外部寫入或敏感資料需要另外核准；來源不明、權限過大時不要連線。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>跨出本機 repo</h2><p>需要查詢 issue、文件、資料庫、瀏覽器或其他專用系統時，提供明確的整合介面。</p></section>
 <section class="card"><div class="label">何時用</div><h2>外部系統才有權威資料</h2><p>已有可信任的 MCP server，且任務確實需要它的工具或資料，而不是只讀本機檔案。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>本機工具已經足夠</h2><p>讀檔、搜尋 repo 或跑現有命令不必先接 MCP；來源不明或權限過寬的 server 也不應連線。</p></section>

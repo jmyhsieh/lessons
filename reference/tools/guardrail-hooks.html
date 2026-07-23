@@ -12,8 +12,20 @@
 <p><a href="../claude-code-tool-library.html#claude-code-toolbox">← Claude Code 工具庫</a></p>
 <span class="kicker">Claude Code 擴充工具 · 危險操作防線</span>
 <h1>Guardrail hook</h1>
-<p class="lead">在工具執行前檢查明確的危險條件，符合時阻擋並回傳可理解的原因。</p>
-<div class="grid">
+    <p class="lead">在工具執行前檢查明確的危險條件，符合時阻擋並回傳可理解的原因。</p>
+    <figure class="tool-flow" aria-labelledby="guardrail-hooks-flow-title" style="--tool-flow-count: 3">
+      <figcaption id="guardrail-hooks-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        把明確禁令做成執行前攔截
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>定義規則</strong><small>把危險條件寫成可判定的模式，列出允許與禁止案例。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>核准並啟用</strong><small>先讀腳本與設定，確認阻擋範圍及復原方式。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>測試兩種結果</strong><small>確認安全案例通過，危險案例在執行前被擋且原因清楚。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>政策仍然模糊或需要語意判斷時，不應硬寫成 hook；權限控管與人工核准仍要保留。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>阻止已知危險模式</h2><p>把「這種命令或目標一律不能執行」變成確定的阻擋規則，而不是依賴臨場提醒。</p></section>
 <section class="card"><div class="label">何時用</div><h2>條件能精確描述</h2><p>例如特定破壞性命令、受保護路徑或禁止的參數組合，且允許與拒絕案例都能列出。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>政策仍然模糊</h2><p>需要理解意圖、資料敏感度或例外情境時，不要只靠字串比對；guardrail 也不能取代權限與人工核准。</p></section>

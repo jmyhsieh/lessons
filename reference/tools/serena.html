@@ -12,8 +12,21 @@
 <p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
 <span class="kicker">用量與查找 · 進階替代</span>
 <h1>Serena</h1>
-<p class="lead">Serena 透過 MCP 提供 symbol-level 的程式探索與編輯工作流；只有 Claude Code 內建 LSP 不夠用，而且能說清楚缺口時，才需要加裝。</p>
-<div class="grid">
+    <p class="lead">Serena 透過 MCP 提供 symbol-level 的程式探索與編輯工作流；只有 Claude Code 內建 LSP 不夠用，而且能說清楚缺口時，才需要加裝。</p>
+    <figure class="tool-flow" aria-labelledby="serena-flow-title" style="--tool-flow-count: 4">
+      <figcaption id="serena-flow-title">
+        <span class="tool-flow-kicker">建議流程</span>
+        先證明內建 LSP 真的不夠
+      </figcaption>
+      <ol>
+        <li><span class="tool-flow-index">1</span><strong>先用內建工具</strong><small>以 LSP、rg 與人工閱讀查同一個具體符號問題。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>寫出能力缺口</strong><small>說明缺少哪種語意關係或工作流，不用模糊理由加裝。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>核准後最小安裝</strong><small>確認官方來源、版本、相依套件與唯讀工具範圍。</small></li>
+        <li><span class="tool-flow-index">4</span><strong>比較同一題</strong><small>用相同符號驗證新增價值，記錄設定；沒有改善就移除。</small></li>
+      </ol>
+      <p class="tool-flow-stop"><strong>停止線：</strong>基本 definition／references 已能回答時，不必加裝；啟用編輯工具需要另外核准。</p>
+    </figure>
+    <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>更完整的語意式專案探索</h2><p>用符號層級工具支援大型 repo 的查找、編輯、重構與除錯工作流。</p></section>
 <section class="card"><div class="label">何時用</div><h2>內建能力仍有明確缺口</h2><p>需要 Serena 特有的專案探索流程，且已能說明它比 <a href="claude-code-lsp.html">Claude Code LSP</a> 多解決什麼。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>基本 definition／references</h2><p>Claude Code 內建 LSP 已足夠時不要重複安裝；固定字串仍先用 <code>rg</code>。</p></section>

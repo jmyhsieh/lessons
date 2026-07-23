@@ -13,6 +13,16 @@
 <span class="kicker">Claude Code 擴充工具 · 固定時點自動化</span>
 <h1>Claude Code hooks</h1>
 <p class="lead">在 Claude Code 的生命週期事件執行可預測的檢查、格式化、記錄或通知。</p>
+<figure class="tool-flow" aria-labelledby="hooks-flow-title" style="--tool-flow-count: 4">
+<figcaption id="hooks-flow-title"><span class="tool-flow-kicker">建議流程</span><strong>從固定規則到可驗證 hook</strong></figcaption>
+<ol>
+<li><span class="tool-flow-index">1</span><strong>選事件與規則</strong><small>只處理可預測的時點，寫明 matcher、輸入與命令。</small></li>
+<li><span class="tool-flow-index">2</span><strong>核准副作用</strong><small>先看腳本、修改路徑與 log 內容。</small></li>
+<li><span class="tool-flow-index">3</span><strong>測試會觸發</strong><small>跑一次符合條件的案例，保留輸出與錯誤。</small></li>
+<li><span class="tool-flow-index">4</span><strong>測試不觸發</strong><small>確認不符條件時不執行，並記下移除方式。</small></li>
+</ol>
+<p class="tool-flow-stop"><strong>停止線：</strong>需要需求取捨或模糊判斷時，不做 hook，交回人或 agent。</p>
+</figure>
 <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>把固定規則變成自動動作</h2><p>不必每次提醒 Claude 執行同一件事；到了指定事件，就由 hook 每次照同一套規則處理。</p></section>
 <section class="card"><div class="label">何時用</div><h2>規則可以明確判定</h2><p>適合格式化、記錄、通知與機械式驗證，尤其是漏做一次就會影響品質的步驟。</p></section>
