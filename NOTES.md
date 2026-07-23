@@ -19,5 +19,5 @@
 - 文件轉 Markdown 固定為按需工具路線。先依文件特徵選 MarkItDown、Docling 或 Claude Code 直接讀取，只走一條轉換路線，再人工對照原檔；混合 PDF、可追查紀錄、小批次 allowlist 或 LLM Wiki ingest 依需求選讀。它不得成為 Phase 5 的前置，轉換輸出永遠是衍生資料，不取代原始文件。
 - 用量與查找固定為三張互不相依的工具實作卡：ccusage 留下一次工作階段用量基準、QMD 在單一核准 Markdown 目錄做全文搜尋並回查原文、Claude Code LSP 在真實程式庫唯讀找一個定義與兩個引用。Serena 留作需要更完整專案探索工作流時的替代工具。學員不必三個都裝，也不把 token 降低直接當成總成本降低或工作完成。
 - Design Engineering Skills 固定為工具卡＋兩條選擇性實作線：安裝來源與寫入範圍；元件審查、動態需求卡、按壓回饋與 diff 驗收；需要時再接候選取捨、計畫與受控執行。Skills 的輸出都是判斷材料，不是產品程式修改權限或合併證據。
-- Claude Code 擴充與自動化、open-slide、Playwright、文件轉 Markdown、用量與查找、Design Engineering Skills 固定採「中央工具庫索引＋每個工具／模式一張單頁卡＋工作流頁保留實作選路」，不列入正式課程。原 lesson 檔案不刪除，由工具卡連入作為選擇性實作；課目表不再列出這些工具的 lesson 編號。Claude Code 擴充工具的 10 個項目各自成卡；hooks／guardrail、Subagents／custom reviewer、headless／CI 不合併，因為判斷、權限與停止線不同。單頁卡統一包含解決的問題、何時用／不用、讀寫範圍、權限副作用、最低完成證據與 Claude Code 提示詞。
+- Claude Code 擴充與自動化、open-slide、Playwright、文件轉 Markdown、用量與查找、Design Engineering Skills 固定採「中央工具庫索引＋每個工具／模式一張單頁卡＋工作流頁保留實作選路」，不列入正式課程。原 lesson 檔案不刪除，由工具卡連入作為選擇性實作；課目表不再重複列出工具區段。Claude Code 擴充工具的 10 個項目各自成卡；hooks／guardrail、Subagents／custom reviewer、headless／CI 不合併，因為判斷、權限與停止線不同。單頁卡統一包含解決的問題、何時用／不用、讀寫範圍、權限副作用、最低完成證據與 Claude Code 提示詞。
 - 首頁固定是選起點與選路的導覽頁，不再重複完整課目表。首屏提供 Phase 1、Phase 2、Claude Code 工具庫與完整課目表入口；正式課程依序為 Phase 1–6，專項工具直接進中央工具庫。
