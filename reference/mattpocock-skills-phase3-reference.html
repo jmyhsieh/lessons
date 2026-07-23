@@ -59,7 +59,7 @@
 
 <h2>流程內能力</h2>
 <table>
-<tr><th>Skill / 能力</th><th>定位</th><th>何時出現</th></tr>
+<tr><th>Skill／能力</th><th>定位</th><th>何時出現</th></tr>
 <tr><td><code>/tdd</code></td><td>用 RED → GREEN 保護行為；refactoring 歸 review 階段。</td><td>主要在 <code>/implement</code> 與除錯修復中出現。</td></tr>
 <tr><td><code>/code-review</code></td><td>先指定審查起點（fixed point），例如 commit、branch、tag 或 merge-base，再檢查 three-dot diff。一位審查者對照 repo 規則，另一位對照規格；兩份結果分開保留。</td><td>可作為 <code>/implement</code> 的收尾關卡，也可獨立審查 PR、分支或進行中的修改。</td></tr>
 <tr><td><code>diagnosing-bugs</code></td><td>先建立 red-capable feedback loop，再重現、最小化、列假說、埋點、修復與回歸。</td><td>難解、間歇或回歸 bug；repo 地圖只能服務回饋迴圈，不先代替它猜原因。</td></tr>
