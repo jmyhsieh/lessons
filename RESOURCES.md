@@ -154,17 +154,17 @@
   官方 default-first 教學：先修 context，再分辨「能力不足」與「做得不夠徹底」；model 決定 capability，effort 也影響讀檔、工具、驗證與工作步數。Use for: Phase 1 第 09 課與 Phase 2 的模型／effort 判斷。
 - [Repository: mattpocock/skills](https://github.com/mattpocock/skills)
   Phase 2 使用的上游 workflow skills，以及 Phase 6 的 Skill 編寫檢查架構。Use for: Skill 清單；具體行為以各 <code>SKILL.md</code> 為準。
-- [README snapshot: mattpocock/skills installation](https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/README.md)
+- [README snapshot: mattpocock/skills installation](https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/README.md)
   Claude Code native plugin 與 editable project copy 的官方安裝路徑。Use for: Phase 2 第 01 課；plugin 版本與命令變動時重查 upstream。
-- [Skill: setup-matt-pocock-skills](https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/setup-matt-pocock-skills/SKILL.md)
+- [Skill: setup-matt-pocock-skills](https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/setup-matt-pocock-skills/SKILL.md)
   Issue tracker、triage labels 與 domain docs 的實際設定流程。Use for: Phase 2 地基；README 摘要漂移時以本檔為準。
-- [Skill: domain-modeling](https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/domain-modeling/SKILL.md)
+- [Skill: domain-modeling](https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/domain-modeling/SKILL.md)
   純 glossary、lazy file creation 與三條件 ADR gate。Use for: Phase 2 的 CONTEXT.md／ADR 行為。
-- [Skill: code-review](https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/code-review/SKILL.md)
+- [Skill: code-review](https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/code-review/SKILL.md)
   固定點三點 diff、Standards／Spec 平行雙軸與分開報告。Use for: Phase 2 implement closeout 與獨立 review。
-- [Skill: improve-codebase-architecture](https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/improve-codebase-architecture/SKILL.md)
+- [Skill: improve-codebase-architecture](https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/improve-codebase-architecture/SKILL.md)
   先按使用者方向或近期 hot spots 限定範圍，再掃描 deepening opportunities。Use for: Phase 2 architecture 支線。
-- [Skill: wayfinder](https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md)
+- [Skill: wayfinder](https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/wayfinder/SKILL.md)
   巨大模糊 effort 的 shared map、decision tickets、fog 與 frontier；research ticket 是單 ticket session 規則的例外，會由 subagent 平行處理，並把發現留在 throwaway <code>research/&lt;name&gt;</code> branch，由 ticket 指回 context。Use for: Phase 2 選修 wayfinder 分支。
 - [Paper: Physics Is All You Need?](https://arxiv.org/abs/2605.30353)
   Domain expert supervision 與 oracle tests 的案例。Use for: 說明 deterministic feedback 有效處與人類知識邊界。

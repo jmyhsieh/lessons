@@ -63,9 +63,10 @@
 
 <div class="step">
   <label><input type="checkbox"> 1. 選一種安裝模式</label>
-  <p><strong>Claude Code 外掛（plugin）：</strong>想由外掛市集管理並取得上游更新，就在 Claude Code 裡執行：</p>
-  <pre>/plugin marketplace add mattpocock/skills
-/plugin install mattpocock-skills@mattpocock</pre>
+  <p><strong>Claude Code 外掛（plugin）：</strong>想讓 Claude Code 管理外掛並自動取得上游更新，在 Claude Code 裡執行：</p>
+  <pre>/plugin install mattpocock-skills</pre>
+  <p>也可以在 shell 執行：</p>
+  <pre>claude plugins install mattpocock-skills</pre>
   <p><strong>可編輯的專案副本：</strong>想把工作技能複製進程式庫自行調整，或交給 Codex 等相容工具使用，就在目標程式庫執行：</p>
   <pre>npx skills@latest add mattpocock/skills</pre>
   <p>兩條路選一條即可；選好後再進行下一步的程式庫設定。</p>
@@ -115,7 +116,7 @@
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。上一個正式階段：<a href="001-0012-verification-context.html">Phase 1 第 12 課 — 驗證與收尾</a>；下一課：<a href="003-0002-ask-matt.html">Phase 2 第 02 課 — 用 /ask-matt 判斷該走哪條路</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/setup-matt-pocock-skills/SKILL.md">reviewed setup snapshot（66898f6）</a>；操作前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/setup-matt-pocock-skills/SKILL.md">current setup SKILL.md</a>。背景另見已審查的 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/README.md">README</a> 與 <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/domain-modeling/SKILL.md">domain-modeling</a>；若摘要與 SKILL.md 不一致，以操作當下的 SKILL.md 為準。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/setup-matt-pocock-skills/SKILL.md">已審查的 setup 版本（2ab9580）</a>；操作前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/setup-matt-pocock-skills/SKILL.md">目前的 setup SKILL.md</a>。背景可參考同一版本的 <a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/README.md">README</a> 與 <a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/domain-modeling/SKILL.md">domain-modeling</a>。若 README 摘要與 SKILL.md 不一致，以操作當下的 SKILL.md 為準。</p>
 
 <footer>
   設定尚未完成時，交出安裝命令、工作追蹤位置與領域文件位置，請 Claude Code 指出缺少哪項前置條件。<br>

@@ -25,7 +25,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <h1>mattpocock/skills 參考索引</h1>
 <p class="sub">同一組來源的 skills 放在這裡查；主線課程只保留從需求到交付最常用的路徑。</p>
-<p class="sub">校準基準：upstream <a href="https://github.com/mattpocock/skills/tree/66898f60e8c744e269f8ce06c2b2b99ce7660d5f"><code>66898f6</code></a>（2026-07-13）。上游會持續變動，實際使用前仍要重新查閱 <a href="https://github.com/mattpocock/skills/tree/main">current repository</a> 的 <code>SKILL.md</code>。</p>
+<p class="sub">校準基準：上游 <a href="https://github.com/mattpocock/skills/tree/2ab958093e83e0ec752e6c1c5932da465bf23e0c"><code>2ab9580</code></a>（2026-07-28）。實際使用前，仍要重新查閱 <a href="https://github.com/mattpocock/skills/tree/main">current repository</a> 的 <code>SKILL.md</code>。</p>
 <p class="sub"><strong>共同前置：</strong>在任何工程流程前先完成 <a href="../lessons/003-0001-matt-pocock-skills-foundation.html"><code>/setup-matt-pocock-skills</code></a>；未設定 issue tracker 與 domain docs 時先不要往下跑。</p>
 
 <div class="rule">
@@ -35,7 +35,7 @@
 <h2>安裝模式與 foundation 文件</h2>
 <table>
 <tr><th>項目</th><th>選擇或規則</th><th>課程</th></tr>
-<tr><td>Claude Code plugin</td><td>先執行 <code>/plugin marketplace add mattpocock/skills</code>，再執行 <code>/plugin install mattpocock-skills@mattpocock</code>。這是由 Claude Code 管理、直接使用 marketplace current version 的唯讀 plugin 安裝。</td><td><a href="../lessons/003-0001-matt-pocock-skills-foundation.html">03-01</a></td></tr>
+<tr><td>Claude Code plugin</td><td>在 Claude Code 裡執行 <code>/plugin install mattpocock-skills</code>，或在 shell 執行 <code>claude plugins install mattpocock-skills</code>，不需要先加入 marketplace。這是由 Claude Code 管理的唯讀外掛，會自動取得上游更新。</td><td><a href="../lessons/003-0001-matt-pocock-skills-foundation.html">03-01</a></td></tr>
 <tr><td>Editable project copy</td><td>執行 <code>npx skills@latest add mattpocock/skills</code>。需要可編輯的 project copy，或從 Codex 等其他支援 skills 的 agent 使用時選這條；兩種模式擇一後再跑 setup。</td><td><a href="../lessons/003-0001-matt-pocock-skills-foundation.html">03-01</a></td></tr>
 <tr><td><code>CONTEXT.md</code></td><td>純粹、implementation-free 的領域詞彙表；第一個詞釐清後才逐步建立，不放 module 名稱或實作細節。</td><td><a href="../lessons/003-0001-matt-pocock-skills-foundation.html">03-01</a></td></tr>
 <tr><td>ADR</td><td>只有 decision 同時難以逆轉、缺少脈絡會令人意外，而且確實存在 tradeoff 時才寫；零篇 ADR 也可以。</td><td><a href="../lessons/003-0001-matt-pocock-skills-foundation.html">03-01</a></td></tr>
@@ -76,7 +76,7 @@
 
 <footer>
   對應課程：<a href="../lessons/003-0001-matt-pocock-skills-foundation.html">完成 mattpocock/skills 設定</a> · <a href="../lessons/003-0002-ask-matt.html">用 /ask-matt 選路</a> · <a href="../lessons/003-0013-wayfinder-chart-map.html">建立共享決策地圖</a> · <a href="../lessons/003-0014-wayfinder-frontier.html">處理一張決策工作項目</a><br>
-  主要來源（reviewed <code>66898f6</code>）：<a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/ask-matt/SKILL.md">ask-matt</a> · <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/domain-modeling/SKILL.md">domain-modeling</a> · <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/codebase-design/SKILL.md">codebase-design</a> · <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md">wayfinder</a> · <a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/resolving-merge-conflicts/SKILL.md">resolving-merge-conflicts</a> · <a href="https://github.com/mattpocock/skills/tree/main">current repository</a>
+  主要來源（已審查 <code>2ab9580</code>）：<a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/ask-matt/SKILL.md">ask-matt</a> · <a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/domain-modeling/SKILL.md">domain-modeling</a> · <a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/codebase-design/SKILL.md">codebase-design</a> · <a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/wayfinder/SKILL.md">wayfinder</a> · <a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/resolving-merge-conflicts/SKILL.md">resolving-merge-conflicts</a> · <a href="https://github.com/mattpocock/skills/tree/main">current repository</a>
 </footer>
 </body>
 </html>
