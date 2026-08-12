@@ -20,8 +20,8 @@
 - 選用 Playwright Test Agents 進階實作後，能以 planner → approved spec → generator → reviewed test 建立受控流程，用 trace 監督 healer，並把已審查 tests 接到最小 CI gate。
 - 完成 Phase 6 入門 01–04 後，能從真實 repo 的重複流程做出專案 Skill，決定由工程師手動啟用或讓 Claude 自動啟用，並用執行步驟、參考資料與可檢查的完成條件審查第一次執行結果。
 - 選讀 Phase 6 進階 05–09 後，能用按需載入、引導詞、實際查找與驗證工作，以及精簡整理改善 Skill，並在新的 Claude Code 對話分開測試啟用方式與執行結果，而不是把一次成功當成可靠。
-- 選用文件轉換工具卡與任一實作路線後，能讓 Claude Code 依文字層、版面與敏感性選擇 MarkItDown、Docling 或直接讀取；只轉換一份符合該路線的文件，並把 Markdown 與原始文件逐項對照。
-- 選用文件轉換進階實作後，能比較預設擷取與強制 OCR、留下可追查轉換紀錄、批次處理精確核准清單，並把已查核 Markdown 連同原始來源與已知限制交給 LLM Wiki。
+- 選用文件轉換工具卡與任一實作路線後，能讓 Claude Code 依文字層、版面、敏感性與目前 surface，選擇 MarkItDown、Docling、Desktop 附件或 CLI image workflow；只處理一份符合該路線的文件，並把 Markdown 與原始文件逐項對照。
+- 選用文件轉換進階實作後，能比較預設擷取與 full-page OCR、留下可追查轉換紀錄、批次處理精確核准清單，並把已查核 Markdown 連同原始來源與已知限制交給 LLM Wiki。
 - 選用任一用量與查找工具卡後，能依問題使用 ccusage、QMD 或 Claude Code LSP：記錄一個工作階段的用量基準、搜尋一組核准的 Markdown 並回查原文，或唯讀找出一個程式符號的定義與兩個引用；需要更完整專案探索工作流時才另評估 Serena。
 - 選用 Design Engineering Skills 工具卡與入門實作後，能查核並安裝 emilkowalski/skills，請 Claude Code 審查一個介面元件、把一個模糊動態說清楚，並完成一個有真實瀏覽器證據的按壓回饋。
 - 選用 Design Engineering Skills 進階實作後，能以固定 diff 驗收按壓回饋，保留一項、排除一項並寫下理由，建立可直接交接的改善計畫，再依核准範圍執行並查核。
@@ -42,7 +42,7 @@
 - Phase 5 入門 01–03 只要求一個 raw 連結、一份真實來源與一個問題；進階 04–08 不得回頭變成入門門檻。
 - Phase 5 自動化只從可重跑、可檢查、低破壞性的步驟開始；不把無人審查的批次 ingest 或大規模改寫列為完成條件。
 - open-slide 工具路線不要求先懂 React 或手動背 API；工作區規則必須在第一次編輯前讀取。三頁輸出是最小完成線，重用、稽核、回饋或部署實作只依需求選用。
-- open-slide 工具卡不把 open-slide 說成 PPTX 工具；部署是需 owner 與授權的外部狀態變更，不以公開網址作為必修完成條件。
+- open-slide 工具卡不把 open-slide 說成可編輯原生 PPTX 的製作工具；它可以匯出 image-based PPTX snapshot。部署是需 owner 與授權的外部狀態變更，不以公開網址作為必修完成條件。
 - Playwright 工具路線不要求手動背 API；live check 與 durable test 是兩條獨立完成線，不得要求兩條都做。
 - Playwright MCP 先使用 local scope；只有團隊核對 server command、來源與權限後，才把 project-scoped 設定納入 repo。
 - Playwright Test Agents 只在需要擴大已驗證 paths、診斷 failure 或形成 delivery gate 時使用；planner spec、generated test、healer patch 與 CI diff 都需要人工核准。
@@ -50,12 +50,12 @@
 - Phase 6 入門 01–04 只要求一個專案 Skill、一個由工程師決定的啟用方式、一份最小結構與一次可觀察執行；不要求先安裝 plugin、建立完整 Skill 收藏庫或跑正式效能評測。
 - Phase 6 先收緊完成條件，只有在新對話的證據顯示 Claude 仍會搶快時，才拆分 Skill 來隱藏完成後才需要的步驟；不得為了看起來模組化而增加對話脈絡負擔或使用者記憶負擔。
 - Skill 的可靠性是流程可預期，不是逐字相同輸出；Claude 自動啟用 Skill 的啟用方式與 Skill 執行後結果必須分開評估。
-- 文件轉換是按需工具路線，不是 Phase 5 前置。一般文字型 PDF／Office 文件先試 MarkItDown；掃描 PDF、圖片或複雜版面才走 Docling；少量文件也可直接請 Claude Code 讀取。
+- 文件轉換是按需工具路線，不是 Phase 5 前置。一般文字型 PDF／Office 文件先試 MarkItDown；掃描 PDF、圖片或複雜版面才走 Docling；少量 PDF 可在支援附件的 Claude Code Desktop 直接附檔，CLI common workflow 則明確支援圖片路徑。
 - 用量與查找是三張獨立工具卡，不是其他 Phase 的前置。ccusage 只量本機使用紀錄，不代表成果品質或官方剩餘額度；QMD 只搜尋精確核准的 Markdown 目錄，不下載模型；符號探索優先使用 Claude Code LSP，Serena 只留作替代。這些工具都不得宣稱保證省 token 或降低總成本。
 - Design Engineering Skills 是按需工具路線，不是 Phase 3 的前置。安裝、元件審查、動態需求、按壓回饋、diff 驗收、候選盤點與改善計畫都依需求選用；任何 Skill 的建議都不取代 diff、測試、真實瀏覽器與人工判斷。
 - Design Engineering Skills 不以模仿 Apple 外觀或增加動畫數量為目標。高頻操作、鍵盤路徑與沒有明確用途的狀態變化可以不加動態；實作要檢查 <code>prefers-reduced-motion</code>，計畫與目前 commit 不符時必須停止。
 - MarkItDown 基礎套件不得被描述為會自動替掃描 PDF 做本機 OCR；Claude Code 訂閱也不得被當成 MarkItDown OCR plugin 的 API 憑證。課程入門不依賴雲端 Vision API。
-- Docling 的 <code>--force-ocr</code> 只用於確認的掃描頁或損壞文字層，不是預設選項。敏感文件留在核准的本機環境，批次只處理精確 allowlist，所有 Markdown 都保留原檔並人工查核。
+- Docling 的 <code>--ocr-mode full_page</code> 只用於確認的掃描頁或損壞文字層，不是預設選項。敏感文件留在核准的本機環境，批次只處理精確 allowlist，所有 Markdown 都保留原檔並人工查核。
 - 勾完實作清單只代表完成操作，不等於掌握；能交出課堂要求的 artifact、說明判斷並通過回饋，才算具備該課的 exit evidence。
 - 封閉系統與遺產系統只作為高風險範例，不是課程唯一場景。
 

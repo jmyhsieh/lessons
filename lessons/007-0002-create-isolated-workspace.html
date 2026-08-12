@@ -17,7 +17,7 @@
 <h2>把範例專案跑起來</h2>
 <div class="step"><label><input type="checkbox"> 1. 請 Claude Code 檢查前置</label><pre><code>node --version
 npm --version</code></pre><p>要求它顯示實際版本；任何命令不存在就停止，不讓模型猜安裝狀態。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 先看命令與目標再核准</label><pre><code>npx @open-slide/cli init open-slide-deck --use-npm --locale zh-TW</code></pre><p>確認目標是新的明確資料夾、預計安裝官方套件，才允許 Claude Code 執行。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 先看命令與目標再核准</label><pre><code>npx @open-slide/cli init open-slide-deck --use-npm</code></pre><p>確認目標是新的明確資料夾、預計安裝官方套件，才允許 Claude Code 執行。介面語言在應用程式內選擇，不是初始化參數。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 讓 Claude Code 啟動，你親自開啟</label><pre><code>cd open-slide-deck
 npm run dev</code></pre><p>從終端輸出的本機網址開啟瀏覽器，確認畫面與上一／下一頁操作正常。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已在隔離工作區啟動 open-slide 範例，並留下可見的瀏覽器證據。</div>

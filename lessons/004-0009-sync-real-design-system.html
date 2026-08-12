@@ -11,7 +11,7 @@
 <div class="rule"><strong>同步不是發布：</strong>組織層級的設計系統設定與發布，和專案層級的 <code>/design-sync</code>，是兩種不同工作。只走符合你權限與需求的一條。</div>
 <h2>建立可追溯的同步結果</h2>
 <div class="step"><label><input type="checkbox"> 1. 指定唯一可信來源（source of truth）</label><p>把正式程式庫、發布版本或品牌文件交給 Claude Code；明確排除實驗分支、舊簡報與生成結果。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 核准正確同步路徑</label><p>組織擁有者才在 Claude Design 設定中發布；專案匯入由 Claude Code 使用 <code>/design-sync</code>。先看來源與預計變更，沒有權限就只附背景資料。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 核准正確同步路徑</label><p>有相應設計系統管理權限的人才在 Claude Design 設定中發布；Enterprise 可限制誰能發布、設為預設或刪除。專案匯入由 Claude Code 使用 <code>/design-sync</code>。先看來源與預計變更，沒有權限就只附背景資料。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 要求 3＋2＋1 抽查</label><p>請 Claude Code 列出 3 個設計變數（tokens）、2 個元件（components）和 1 條禁止規則，再由你回到來源路徑比對同步結果與差異。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已留下同步路徑、權威來源與抽查差異，不會把模型抽取結果當成真相。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>設計系統同步後，第一個檢查是什麼？</p><button>回到權威來源比對</button><button>直接接受生成結果</button><button>立刻加入更多參考</button><div class="why">同步結果仍可能遺漏或誤讀；先回到正式來源做小樣本校正。</div></div>

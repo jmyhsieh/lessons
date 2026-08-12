@@ -5,15 +5,15 @@
 <p class="mission"><strong>本課成果：</strong>一份由 Docling 本機 OCR 產生、尚待人工查核的 Markdown 檔。</p>
 <div class="rule"><strong>Docling 需要安裝較多套件，但能處理掃描頁：</strong>它會分析版面、閱讀順序與表格，也可使用本機 OCR。第一次可能下載模型；先確認磁碟、網路與文件權限。課程不要求雲端 Vision API 或額外 API key。</div>
 <h2>只 OCR 一份掃描檔</h2>
-<div class="step"><label><input type="checkbox"> 1. 確認真的需要 OCR</label><p>抽查兩頁：文字無法搜尋或複製，才標記為掃描 PDF。若文件已有正常文字層，先不要使用 <code>--force-ocr</code>。</p></div>
+<div class="step"><label><input type="checkbox"> 1. 確認真的需要 OCR</label><p>抽查兩頁：文字無法搜尋或複製，才標記為掃描 PDF。若文件已有正常文字層，先不要使用 <code>--ocr-mode full_page</code>。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 請 Claude Code 提出本機方案</label><pre>請依這台電腦的環境，提出 Docling 的隔離安裝與本機 OCR 計畫，先不要執行。
 只處理 scans/invoice.pdf，輸出 Markdown 到 converted/。
 請列出預計下載的套件或模型、磁碟需求與完整命令。
 不要使用雲端 OCR，也不要覆寫原始 PDF。</pre></div>
 <div class="step"><label><input type="checkbox"> 3. 核准後執行並打開輸出</label><p>CLI 核心形式為 <code>docling convert scans/invoice.pdf --to md --ocr --output converted</code>。macOS 可依官方文件評估 <code>ocrmac</code>；實際旗標以目前安裝版本的 <code>docling --help</code> 為準。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已用本機 OCR 產生一份 Markdown，且保留原始掃描 PDF。</div>
-<h2>觀念檢查</h2><div class="quiz" data-answer="1"><p>何時不該直接加上 <code>--force-ocr</code>？</p><button>整份文件只有掃描影像時</button><button>文件已有可靠文字內容時</button><button>文字層明顯損壞缺漏時</button><div class="why">強制 OCR 會以辨識結果取代既有文字；文件已有可靠文字層時，反而可能降低品質。</div></div>
+<h2>觀念檢查</h2><div class="quiz" data-answer="1"><p>何時不該直接加上 <code>--ocr-mode full_page</code>？</p><button>整份文件只有掃描影像時</button><button>文件已有可靠文字內容時</button><button>文字層明顯損壞缺漏時</button><div class="why">全頁 OCR 會以辨識結果取代既有文字；文件已有可靠文字層時，反而可能降低品質。</div></div>
 <h2>關鍵判斷</h2><p>Docling 可以在本機執行，但還是會占用磁碟、下載模型並花時間運算。敏感文件的處理仍要先核准。</p>
 <p><strong>主要閱讀：</strong><a href="https://docling-project.github.io/docling/getting_started/installation/">Docling installation</a>、<a href="https://docling-project.github.io/docling/reference/cli/">Docling CLI reference</a>、<a href="https://docling-project.github.io/docling/_generated/examples/full_page_ocr/">Full-page OCR example</a>。</p>
-<footer>選路起點：<a href="010-0001-choose-document-conversion-route.html">第 01 課</a> · 下一步：<a href="010-0004-review-converted-markdown-against-source.html">對照原始文件</a><br>把安裝範圍、執行命令、輸出檔與已知疑點貼回 Claude Code，請它檢查強制 OCR 是否真的有必要。</footer>
+<footer>選路起點：<a href="010-0001-choose-document-conversion-route.html">第 01 課</a> · 下一步：<a href="010-0004-review-converted-markdown-against-source.html">對照原始文件</a><br>把安裝範圍、執行命令、輸出檔與已知疑點貼回 Claude Code，請它檢查全頁 OCR 是否真的有必要。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

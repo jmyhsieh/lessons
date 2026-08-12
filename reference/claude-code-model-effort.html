@@ -27,7 +27,7 @@
 <p class="sub">先用模型預設；結果不足時，再分辨是能力不夠，還是做得不夠徹底。</p>
 
 <div class="rule">
-  <strong>2026-07-18 核心判斷：</strong>先修正 prompt、context、tools 與 scope。Claude 已充分嘗試仍判斷錯誤，才換更強模型；Claude 跳過檔案、工具或驗證，才提高 effort。
+  <strong>2026-08-12 核心判斷：</strong>先修正 prompt、context、tools 與 scope。Claude 已充分嘗試仍判斷錯誤，才換更強模型；Claude 跳過檔案、工具或驗證，才提高 effort。
 </div>
 
 <h2>模型 alias</h2>
@@ -37,14 +37,24 @@
 <tr><td><code>default</code></td><td>回到帳號或組織建議的預設模型。</td><td>依 account tier、provider 與 organization default 而變；它不是固定模型。</td></tr>
 <tr><td><code>best</code></td><td>使用組織可用的最高能力模型。</td><td>有 Fable 5 權限時選 Fable 5，否則選最新 Opus；不是固定版本。</td></tr>
 <tr><td><code>fable</code></td><td>最困難、最長時間、超過一般單次工作的任務。</td><td>Fable 5 是 opt-in specialist，不是任何帳號的預設；可用性與安全 fallback 依組織而異。</td></tr>
-<tr><td><code>opus</code></td><td>架構判斷、模糊需求、跨模組推理、困難 review。</td><td>Anthropic API 目前解析到 Opus 4.8；其他 provider 可能不同。</td></tr>
+<tr><td><code>opus</code></td><td>架構判斷、模糊需求、跨模組推理、困難 review。</td><td>Anthropic API 目前解析到 Opus 5；其他 provider 可能不同。</td></tr>
 <tr><td><code>sonnet</code></td><td>日常 coding、局部修改、測試可驗證的任務。</td><td>Anthropic API 目前解析到 Sonnet 5；是多數日常工作的 generalist。</td></tr>
 <tr><td><code>opusplan</code></td><td>先深度規劃，再有效率實作。</td><td>plan mode 用 Opus，執行回 Sonnet。</td></tr>
 <tr><td><code>haiku</code></td><td>簡單整理、格式化、低風險小任務。</td><td>不適合複雜推理。</td></tr>
 <tr><td><code>sonnet[1m]</code>／<code>opus[1m]</code></td><td>真的需要超長 context 的 session。</td><td>不要用長 context 取代乾淨 scope 與 handoff。</td></tr>
 </table>
 </div>
-<p><strong>版本提醒：</strong>alias 會更新。Claude Code 目前需要 v2.1.197+ 才能使用 Sonnet 5、v2.1.170+ 才會顯示 Fable 5；看不到新模型時先執行 <code>claude update</code>，再檢查帳號與組織權限。</p>
+<p><strong>Provider 會改變 alias 指向：</strong>同一個 <code>opus</code> 或 <code>sonnet</code> 不保證在每個 provider 都解析到同一版本；切換 provider 前要重新核對。</p>
+<div class="table-scroll" role="region" aria-label="各 provider 的模型 alias 對照表，可左右捲動" tabindex="0">
+<table class="wide-table">
+<tr><th>Provider</th><th><code>opus</code></th><th><code>sonnet</code></th></tr>
+<tr><td>Anthropic API</td><td>Opus 5</td><td>Sonnet 5</td></tr>
+<tr><td>Claude Platform on AWS</td><td>Opus 5</td><td>Sonnet 4.6</td></tr>
+<tr><td>Amazon Bedrock／Google Cloud Agent Platform</td><td>Opus 5</td><td>Sonnet 4.5</td></tr>
+<tr><td>Microsoft Foundry</td><td>Opus 4.6</td><td>Sonnet 4.5</td></tr>
+</table>
+</div>
+<p><strong>版本提醒：</strong>alias 會更新。Claude Code 目前需要 v2.1.219+ 才能使用 Opus 5、v2.1.197+ 才能使用 Sonnet 5、v2.1.170+ 才會顯示 Fable 5；看不到新模型時先執行 <code>claude update</code>，再檢查帳號與組織權限。</p>
 
 <h2>先分辨 model、effort 還是 context</h2>
 <div class="table-scroll" role="region" aria-label="問題症狀與調整方式，可左右捲動" tabindex="0">
@@ -67,7 +77,7 @@
 <tr><td><code>max</code></td><td>最困難且有明確 stop condition 的任務。</td><td>只套用目前 session，可能出現 diminishing returns 與 overthinking。</td></tr>
 </table>
 </div>
-<p><strong>模型差異：</strong>Fable 5、Sonnet 5、Opus 4.8 與 Opus 4.7 支援 <code>low</code>、<code>medium</code>、<code>high</code>、<code>xhigh</code>、<code>max</code>；Opus 4.6 與 Sonnet 4.6 沒有 <code>xhigh</code>。Fable 5、Sonnet 5、Opus 4.8、Opus 4.6 與 Sonnet 4.6 預設 <code>high</code>，Opus 4.7 預設 <code>xhigh</code>。相同 level 在不同模型上也不是相同 token 配額。</p>
+<p><strong>模型差異：</strong>Fable 5、Opus 5、Sonnet 5、Opus 4.8 與 Opus 4.7 支援 <code>low</code>、<code>medium</code>、<code>high</code>、<code>xhigh</code>、<code>max</code>；Opus 4.6 與 Sonnet 4.6 沒有 <code>xhigh</code>。支援 effort 的模型預設通常是 <code>high</code>，但 Opus 4.7 預設 <code>xhigh</code>。相同 level 在不同模型上也不是相同 token 配額。</p>
 
 <h2>特殊控制不是新模型</h2>
 <div class="table-scroll" role="region" aria-label="特殊推理控制速查表，可左右捲動" tabindex="0">
@@ -122,7 +132,7 @@
 
 <footer>
   對應課程：<a href="../lessons/001-0009-model-effort.html">001-09 — 模型與推理程度</a><br>
-  主要來源：<a href="https://code.claude.com/docs/en/model-config">Claude Code Model configuration</a> · <a href="https://claude.com/blog/claude-model-and-effort-level-in-claude-code">Choosing a Claude model and effort level</a> · <a href="https://code.claude.com/docs/en/desktop">Claude Code Desktop application</a> · 更新：2026-07-18
+  主要來源：<a href="https://code.claude.com/docs/en/model-config">Claude Code Model configuration</a> · <a href="https://claude.com/blog/claude-model-and-effort-level-in-claude-code">Choosing a Claude model and effort level</a> · <a href="https://code.claude.com/docs/en/desktop">Claude Code Desktop application</a> · 更新：2026-08-12
 </footer>
 </body>
 </html>

@@ -12,33 +12,34 @@
 <p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
 <span class="kicker">Design Engineering Skills · 動態語彙</span>
 <h1>animation-vocabulary</h1>
-    <p class="lead">把「滑一下、彈一下」等模糊描述，換成團隊能共同理解與實作的精確動態語彙。</p>
+    <p class="lead">把「滑一下、彈一下」等模糊描述，換成精確動態名稱與容易混淆的近似詞；它不負責設計規格。</p>
     <figure class="tool-flow" aria-labelledby="animation-vocabulary-flow-title" style="--tool-flow-count: 3">
       <figcaption id="animation-vocabulary-flow-title">
         <span class="tool-flow-kicker">建議流程</span>
-        把感覺寫成可討論的規格
+        把感覺換成可討論的名稱
       </figcaption>
       <ol>
-        <li><span class="tool-flow-index">1</span><strong>描述情境</strong><small>寫清楚觸發時機、元件狀態與想解決的問題。</small></li>
-        <li><span class="tool-flow-index">2</span><strong>選定語彙</strong><small>補上動態名稱、時間、頻率與容易混淆的近似詞。</small></li>
-        <li><span class="tool-flow-index">3</span><strong>交付需求卡</strong><small>納入減少動態做法，並標示尚未核准實作。</small></li>
+        <li><span class="tool-flow-index">1</span><strong>描述看到什麼</strong><small>用白話說明元件狀態、方向與感覺，不先決定要不要做。</small></li>
+        <li><span class="tool-flow-index">2</span><strong>取得名稱</strong><small>只輸出最佳 term，以及 1–2 個 close alternates 的差異。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>交回下一步</strong><small>purpose、frequency、timing、easing 與 reduced-motion 留給人類或後續設計工作流。</small></li>
       </ol>
-      <p class="tool-flow-stop"><strong>停止線：</strong>這張卡只把需求說清楚，不代表已決定設計或可以開始修改程式。</p>
+      <p class="tool-flow-stop"><strong>停止線：</strong>這張卡只負責命名與 disambiguation，不產出實作規格，也不代表可以開始修改程式。</p>
     </figure>
     <div class="grid">
-<section class="card"><div class="label">解決的問題</div><h2>讓動態需求可溝通</h2><p>描述觸發、方向、時間、easing、用途與狀態關係，減少各自想像。</p></section>
+<section class="card"><div class="label">解決的問題</div><h2>讓模糊描述有名字</h2><p>把看到的效果對到最接近的 term，並說明容易混淆的近似詞差異。</p></section>
 <section class="card"><div class="label">何時用</div><h2>需求說不清楚</h2><p>設計、產品與工程對同一句動態描述有不同理解時。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>命名不等於決策或實作</h2><p>它不判斷動態是否值得做，也不應直接修改程式或證明使用者喜歡。</p></section>
-<section class="card"><div class="label">會讀寫什麼</div><h2>讀互動情境、寫需求卡</h2><p>只需讀核准的元件描述或錄影，產出文字規格，不需要產品程式寫入權限。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>讀描述、寫名稱</h2><p>只需讀核准的元件描述或錄影，輸出 term 與 close alternates，不需要產品程式寫入權限。</p></section>
 </div>
 <h2>權限與副作用</h2>
-<div class="safety"><strong>這張卡只負責把動態說清楚。</strong>需求仍要寫出使用頻率、取消條件與 <code>prefers-reduced-motion</code>；用了精確術語，不代表產品已經決定要做。</div>
+<div class="safety"><strong>這張卡只負責命名。</strong>purpose、frequency、timing、easing 與 <code>prefers-reduced-motion</code> 要在下一步由人類或設計工作流補齊；用了精確術語，不代表產品已經決定要做。</div>
 <h2>最低完成證據</h2>
-<ul><li>一張動態需求卡：觸發、名稱、用途、頻率、時間與減少動態。</li><li>附上容易混淆的近似詞，說明為何不用。</li><li>明確標記「尚未核准實作」。</li></ul>
+<ul><li>最佳 term 與一行白話解釋。</li><li>1–2 個 close alternates，說明為何不是它們。</li><li>明確標記「尚未核准設計或實作」。</li></ul>
 <h2>交給 Claude Code</h2>
 <pre>請使用 animation-vocabulary，只替這段互動找最精確的動態名稱：＿＿。
-輸出觸發、名稱、用途、頻率、時間、easing 與減少動態需求。
+只輸出最佳 term、一行白話解釋，以及 1–2 個 close alternates 的差異。
+不要產出 purpose、frequency、timing、easing 或 reduced-motion 規格；那些留給下一步人工或設計工作流。
 不要修改程式，也不要判定使用者一定會喜歡。</pre>
-<footer>工作流：<a href="../design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a> · 實作：<a href="../../lessons/012-0003-name-one-motion-with-animation-vocabulary.html">把一個動態說清楚</a><br>主要來源：<a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/animation-vocabulary/SKILL.md">固定版本 SKILL.md</a></footer>
+<footer>工作流：<a href="../design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a> · 實作：<a href="../../lessons/012-0003-name-one-motion-with-animation-vocabulary.html">把一個動態說清楚</a><br>主要來源：<a href="https://github.com/emilkowalski/skills/blob/78761e1b57f97dce65b983d640c70a68f39e8163/skills/animation-vocabulary/SKILL.md">固定版本 SKILL.md</a></footer>
 </body>
 </html>

@@ -129,7 +129,7 @@
 <tr><td>光學字元辨識（OCR）</td><td>從頁面影像辨識文字的過程；數字、專有名詞、表格與閱讀順序仍需人工查核。</td></tr>
 <tr><td>MarkItDown</td><td>Microsoft 的輕量文件轉 Markdown 工具；基礎套件不會自動替掃描 PDF 做本機 OCR。</td></tr>
 <tr><td>Docling</td><td>可在本機處理 OCR、版面、閱讀順序、表格與 Markdown 輸出的文件轉換工具。</td></tr>
-<tr><td>強制 OCR（force OCR）</td><td>用 OCR 結果取代既有文字層；只在掃描頁或文字層損壞時使用，不是預設選項。</td></tr>
+<tr><td>全頁 OCR（full-page OCR）</td><td>用 OCR 結果取代既有文字層；Docling 使用 <code>--ocr-mode full_page</code>，只在掃描頁或文字層損壞時使用，不是預設選項。</td></tr>
 <tr><td>轉換紀錄</td><td>連結原檔、輸出、工具版本、實際命令、人工查核範圍與已知缺口的可追查資料。</td></tr>
 <tr><td>核准清單（allowlist）</td><td>批次轉換前明確列出的精確檔案集合，避免遞迴掃描未授權資料。</td></tr>
 <tr><td>批次結果清單（manifest）</td><td>逐檔記錄 success、failed、skipped、輸出位置與查核狀態的結果表。</td></tr>
@@ -153,7 +153,7 @@
 <tr><td>匯入（ingest）</td><td>讀取一份新原始資料，整合進既有 Wiki，並維護索引與紀錄。</td></tr>
 <tr><td>查詢（query）</td><td>從索引定位相關頁面、附來源回答問題，必要時把結果寫回。</td></tr>
 <tr><td>整合異同（reconcile）</td><td>整理新舊說法，同時保留矛盾與不確定性。</td></tr>
-<tr><td>Wiki 格式檢查（lint）</td><td>檢查過期說法、孤兒頁、缺少連結與資料缺口。</td></tr>
+<tr><td>Wiki 健康檢查（lint）</td><td>檢查矛盾、過期說法、孤兒頁、缺少連結與資料缺口；不是單純的文字格式化。</td></tr>
 <tr><td>自動化（automation）</td><td>把重複、可用確定規則檢查、低破壞性的步驟做成可重跑命令。</td></tr>
 <tr><td>證明包（proof pack）</td><td>用來證明 Wiki 可重跑、可查核的一組進階證據。</td></tr>
 </table>

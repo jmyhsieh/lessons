@@ -16,9 +16,9 @@
 <div class="rule"><strong>先有重複再抽象：</strong>沒有兩個實際使用點，就先保留頁面內寫法，不建立推測性的元件庫。</div>
 <h2>完成一個可重用版型規則</h2>
 <div class="step"><label><input type="checkbox"> 1. 請 Claude Code 找一個重複決定</label><p>只讀三頁，從標題區、證據卡或頁尾來源挑一個至少出現兩次、內容不同而結構相同的重複版型。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 核准 <code>/create-theme</code> 範圍</label><p>色彩、字級、間距進主題設定（theme）；元件只接收真正會變的內容。先看介面，不讓它順手建立完整元件庫。</p></div>
-<div class="step"><label><input type="checkbox"> 3. 請它重用兩次並建置</label><p>審查程式差異、並排看兩頁，再核對建置輸出，確認抽取沒有改變內容順序。</p></div>
-<div class="done" id="done"><strong>完成：</strong>你已用兩個真實使用點證明一個主題設定與元件規則可以重用。</div>
+<div class="step"><label><input type="checkbox"> 2. 核准 <code>/create-theme</code> 範圍</label><p>確認它會建立一組 theme bundle：<code>themes/&lt;id&gt;.md</code> 是給 agent 讀的 recipe，<code>themes/&lt;id&gt;.demo.tsx</code> 是可預覽的示範投影片。先看介面，不讓它順手建立完整元件庫。</p></div>
+<div class="step"><label><input type="checkbox"> 3. 請它用新主題重用兩次並建置</label><p>審查程式差異、並排看兩頁，再核對建置輸出，確認抽取沒有改變內容順序。</p></div>
+<div class="done" id="done"><strong>完成：</strong>你已用兩個真實使用點證明一組 theme bundle 與元件規則可以重用。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>什麼時候最適合抽出共用元件？</p><button>先抽出重複的版型</button><button>每頁使用不同規則</button><button>只增加更多的裝飾</button><div class="why">已經重複的版型提供明確介面與驗證樣本；還沒出現的需求不值得先抽象。</div></div>
 <h2>關鍵判斷</h2><p>可重用的證據是兩個實際使用點，不是元件名稱看起來很通用。</p>
 <p><strong>主要閱讀：</strong><a href="https://open-slide.dev/docs/core-feature/themes">open-slide — Themes</a>。</p>

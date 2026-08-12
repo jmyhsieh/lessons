@@ -20,7 +20,7 @@
   React-first agent slide framework、固定 1920×1080 canvas、present mode 與 HTML／PDF export 的正式定位。Use for: open-slide 實作第 01 課的 surface 邊界與停止線。
 - [Guide: Getting started — open-slide](https://open-slide.dev/docs/getting-started)
   Workspace scaffold、dev server、Claude Code authoring、inspector comments、static build 與 deploy 流程。Use for: open-slide 實作第 02–04 課由 Claude Code 建立 workspace、使用 <code>/create-slide</code> 與 build 的入門主線。
-- [Guide: Create a slide — open-slide](https://open-slide.dev/docs/flow/create-slide)
+- [Skill: /create-slide — open-slide](https://open-slide.dev/docs/skills/create-slide)
   從 agent brief 到第一張可在 dev server 檢查的投影片。Use for: open-slide 實作第 03 課三頁 vertical slice。
 - [Guide: Agent skills overview — open-slide](https://open-slide.dev/docs/skills/overview)
   Workspace-local <code>AGENTS.md</code>、鏡像 <code>CLAUDE.md</code>，以及 Claude Code 可用的 <code>/create-slide</code>、<code>/slide-authoring</code>、<code>/create-theme</code>、<code>/apply-comments</code> 等 skills；<code>open-slide sync:skills</code> 可刷新本地版本。Use for: open-slide 實作第 03、05、06、08 課。
@@ -29,7 +29,7 @@
 - [Skill: /apply-comments — open-slide](https://open-slide.dev/docs/skills/apply-comments)
   把 inspector 的 <code>@slide-comment</code> markers 轉成 code edits，再回到瀏覽器驗證。Use for: open-slide 實作第 08 課的 comment → edit → review loop。
 - [Reference: Export — open-slide](https://open-slide.dev/docs/core-feature/export)
-  <code>dist/</code> static HTML build、browser print PDF 與公開分享時可關閉的 UI surface。Use for: open-slide 實作第 04、09 課的輸出與部署邊界。
+  Toolbar 可匯出每頁 1920×1080 橫式 PDF（Safari 不支援）與 image-based PPTX snapshot；<code>dist/</code> static HTML build 是另一條輸出。Use for: open-slide 實作第 04、09 課的輸出與部署邊界。
 - [Guide: Connect Claude Code to tools via MCP — Anthropic](https://code.claude.com/docs/en/mcp)
   Claude Code 的 stdio command ordering、<code>--</code> 分隔、local／project scope、<code>claude mcp get</code> 與 trust 邊界。Use for: Playwright 實作第 02 課與 route card 的 Claude Code 操作基準。
 - [Guide: Installation — Playwright MCP](https://playwright.dev/mcp/installation)
@@ -95,15 +95,17 @@
 - [Guide: Docling installation](https://docling-project.github.io/docling/getting_started/installation/)
   Python、平台、accelerator 與 OCR extras 的目前需求。Use for: 文件轉換實作第 03 課的核准安裝計畫。
 - [Reference: Docling CLI](https://docling-project.github.io/docling/reference/cli/)
-  <code>docling convert</code>、Markdown 輸出、OCR、<code>--force-ocr</code>、表格與 device 旗標。Use for: 文件轉換實作第 03、05–07 課的命令與停止線。
+  <code>docling convert</code>、Markdown 輸出、OCR、<code>--ocr-mode full_page</code>、表格與 device 旗標。Use for: 文件轉換實作第 03、05–07 課的命令與停止線。
 - [Example: Full-page OCR — Docling](https://docling-project.github.io/docling/_generated/examples/full_page_ocr/)
-  說明何時以強制 OCR 取代既有文字層。Use for: 文件轉換實作第 03、05 課，避免把 <code>--force-ocr</code> 當預設。
+  說明何時以全頁 OCR 取代既有文字層。Use for: 文件轉換實作第 03、05 課，避免把 <code>--ocr-mode full_page</code> 當預設。
 - [Guide: Work with images — Claude Code](https://code.claude.com/docs/en/common-workflows#work-with-images)
-  Claude Code 可直接讀取圖片並協助分析；少量 PDF／圖片不一定先安裝轉換器。Use for: 文件轉換實作第 01 課的直接讀取替代路線。
+  Claude Code CLI 可用圖片路徑或拖放／貼上圖片協助分析。Use for: 文件轉換實作第 01 課的圖片直接讀取替代路線。
+- [Reference: Prompt attachments — Claude Code Desktop](https://code.claude.com/docs/en/desktop)
+  支援附件的 Claude Code Desktop prompt 可加入圖片、PDF 與其他檔案。Use for: 文件轉換實作第 01 課少量 PDF 的直接讀取替代路線；不要把 Desktop 附件能力泛稱為所有 CLI 路徑。
 - [Repository: ccusage](https://github.com/ccusage/ccusage)
   從程式開發代理（coding agent）的本機使用紀錄整理每日、工作階段與區塊報表；開源核心採 MIT License。Use for: 用量與查找實作第 01 課的 Claude Code 工作階段用量基準；不當作官方方案剩餘額度。
-- [Repository: QMD](https://github.com/tobi/qmd)
-  對本機 Markdown 做全文與語意搜尋；程式採 MIT License，另外下載的模型各有自己的授權。Use for: 用量與查找實作第 02 課；入門只用核准目錄與全文搜尋，不執行向量化（embedding）。
+- [Repository: QMD](https://github.com/tobi/qmd/tree/e428df76bc0274d9e93eb7ca3e95673315c42e90)
+  對本機 Markdown 做全文與語意搜尋；程式採 MIT License，另外下載的模型各有自己的授權。Use for: 用量與查找實作第 02 課；入門只用 <code>-c course-reference</code> 搜尋核准 collection，不執行向量化（embedding）。Reviewed upstream main: <code>e428df7</code>（2026-08-12）；發佈前仍需重查 npm 版本。
 - [Reference: Tools — Claude Code](https://code.claude.com/docs/en/tools-reference)
   內建 LSP tool 可查 definition、references、types、implementations 與 call hierarchy；需要對應語言的 code intelligence plugin 與 language server。Use for: 用量與查找實作第 03 課的優先符號探索路線。
 - [Guide: Discover and install plugins — Claude Code](https://code.claude.com/docs/en/discover-plugins)
@@ -112,20 +114,20 @@
   透過語言伺服器提供符號與專案探索工作流；開源核心採 MIT License，JetBrains 付費外掛（plugin）是另一項產品。Use for: 內建 LSP 不合適或需要更完整專案探索時的用量與查找替代工具。
 - [Paper: Token Reduction Is Not Cost Reduction](https://arxiv.org/abs/2607.12161)
   實驗顯示輸出 token 變少不一定會降低計費成本，也可能傷害任務完成率。Use for: 用量與查找工具的共同邊界，不把 token 減量直接當成工具有效。
-- [Repository snapshot: emilkowalski/skills](https://github.com/emilkowalski/skills/tree/6bf24434f7730ad169077756cf9c7cd7bd675fc6)
-  MIT 授權的六個設計工程 Skills 與固定版本內容。Use for: Design Engineering Skills 全階段；安裝前仍要查核目前 README、commit 與寫入範圍。
-- [Skill: emil-design-eng](https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/emil-design-eng/SKILL.md)
+- [Repository snapshot: emilkowalski/skills](https://github.com/emilkowalski/skills/tree/78761e1b57f97dce65b983d640c70a68f39e8163)
+  MIT 授權的設計工程 Skills 固定版本內容；本課程只採用其中六個，上游目前可能同時安裝其他 Skills。Use for: Design Engineering Skills 全階段；安裝前仍要查核目前 README、commit、實際 Skill 清單與寫入範圍。Reviewed upstream main: <code>78761e1</code>（2026-08-12）。
+- [Skill: emil-design-eng](https://github.com/emilkowalski/skills/blob/78761e1b57f97dce65b983d640c70a68f39e8163/skills/emil-design-eng/SKILL.md)
   介面與動態設計原則，以及「修改前／修改後／原因」審查格式。Use for: Design Engineering Skills 實作第 02 課的單一元件審查。
-- [Skill: animation-vocabulary](https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/animation-vocabulary/SKILL.md)
+- [Skill: animation-vocabulary](https://github.com/emilkowalski/skills/blob/78761e1b57f97dce65b983d640c70a68f39e8163/skills/animation-vocabulary/SKILL.md)
   把模糊動態描述換成精確術語並釐清相近概念；不負責設計或實作。Use for: Design Engineering Skills 實作第 03 課。
-- [Skill: apple-design](https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/apple-design/SKILL.md)
+- [Skill: apple-design](https://github.com/emilkowalski/skills/blob/78761e1b57f97dce65b983d640c70a68f39e8163/skills/apple-design/SKILL.md)
   把即時回應、一對一跟隨、動量、可中斷與減少動態等 Apple 互動原則帶到網頁。Use for: Design Engineering Skills 實作第 04 課的小幅按壓回饋。
-- [Skill and standards: review-animations](https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/review-animations/STANDARDS.md)
+- [Skill and standards: review-animations](https://github.com/emilkowalski/skills/blob/78761e1b57f97dce65b983d640c70a68f39e8163/skills/review-animations/STANDARDS.md)
   以用途、頻率、時間、緩動、效能、輸入方式與減少動態審查單一 diff。Use for: Design Engineering Skills 實作第 05 課；不延伸為盤點整個程式庫。
-- [Skill: find-animation-opportunities](https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/find-animation-opportunities/SKILL.md)
+- [Skill: find-animation-opportunities](https://github.com/emilkowalski/skills/blob/78761e1b57f97dce65b983d640c70a68f39e8163/skills/find-animation-opportunities/SKILL.md)
   唯讀提出少量候選並保留排除理由；沒有合適動畫也是有效結論。Use for: Design Engineering Skills 實作第 06 課。
-- [Skill and plan template: improve-animations](https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/improve-animations/SKILL.md)
-  唯讀盤點整個程式庫、由使用者選擇、建立單一計畫，再受控執行。Use for: Design Engineering Skills 實作第 07–08 課；盤點不等於執行許可。
+- [Skill and plan template: improve-animations](https://github.com/emilkowalski/skills/blob/78761e1b57f97dce65b983d640c70a68f39e8163/skills/improve-animations/SKILL.md)
+  唯讀盤點整個程式庫、由使用者選擇並建立單一計畫；<code>execute</code> 會 dispatch 給獨立 implementation agent／隔離 worktree，再審查 diff。Use for: Design Engineering Skills 實作第 07–08 課；盤點不等於執行許可。
 - [Video: Designing Fluid Interfaces — Apple](https://developer.apple.com/videos/play/wwdc2018/803/)
   即時回應、一對一觸控、可中斷與保留動量的第一手設計說明。Use for: Design Engineering Skills 實作第 04、08 課的互動判斷。
 - [Reference: prefers-reduced-motion — MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion)

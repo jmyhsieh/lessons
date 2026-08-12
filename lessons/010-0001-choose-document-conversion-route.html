@@ -6,7 +6,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">文件轉換工具 · 工具選路卡 · 約 10 分鐘</div><h1>判斷文件該走哪條轉換路線</h1>
 <p class="mission"><strong>本課成果：</strong>一張只涵蓋一份真實文件的轉換路線卡。</p>
-<div class="rule"><strong>先看文件，不先裝工具：</strong>一般文字型 PDF、Word、Excel、PowerPoint 先試 MarkItDown；掃描 PDF、圖片或複雜版面走 Docling；文件不多，而且不想安裝工具時，可以直接請 Claude Code 讀取。</div>
+<div class="rule"><strong>先看文件，不先裝工具：</strong>一般文字型 PDF、Word、Excel、PowerPoint 先試 MarkItDown；掃描 PDF、圖片或複雜版面走 Docling；少量 PDF／其他檔案可用支援附件的 Claude Code Desktop，CLI common workflow 則明確支援圖片路徑。</div>
 <h2>替一份文件選路</h2>
 <div class="step"><label><input type="checkbox"> 1. 記下檔案與使用目的</label><p>只選一份你有權處理的文件，記錄格式、頁數、是否含敏感資料，以及轉成 Markdown 後，要拿來搜尋、摘要，還是加入知識庫。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 判斷文字能否直接選取</label><p>能搜尋、複製文字，多半是文字型文件；整頁像照片、文字選不到或複製後是亂碼，才需要光學字元辨識（OCR）。</p></div>
@@ -17,7 +17,7 @@
 改走 Docling 的條件：文字缺漏、閱讀順序錯亂或表格無法使用</pre></div>
 <div class="done" id="done"><strong>完成：</strong>你已用文件特徵選路，沒有把所有 PDF 一律送去 OCR。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="2"><p>哪份文件最應先走 Docling？</p><button>可搜尋文字的普通 Word 檔</button><button>可複製文字的簡單 PDF 檔</button><button>整頁是影像的掃描 PDF 檔</button><div class="why">掃描 PDF 沒有可靠文字層，需要 OCR；文字型文件先用較輕的轉換路線。</div></div>
-<h2>關鍵判斷</h2><p>工具選擇取決於文件的文字層、版面與風險，不只取決於副檔名。敏感文件只使用團隊核准的本機工具。</p>
+<h2>關鍵判斷</h2><p>工具選擇取決於文件的文字層、版面、surface 與風險，不只取決於副檔名。敏感文件只使用團隊核准的環境與工具。</p>
 <p><strong>主要閱讀：</strong><a href="https://github.com/microsoft/markitdown/blob/main/README.md">Microsoft MarkItDown README</a>、<a href="https://github.com/docling-project/docling">Docling README</a>；完整判斷見 <a href="../reference/document-to-markdown-workflow.html">文件轉 Markdown 路線卡</a>。</p>
-<footer>選路後分支：文字型文件走 <a href="010-0002-convert-one-text-document-with-markitdown.html">02 MarkItDown</a>；掃描文件走 <a href="010-0003-ocr-one-scanned-pdf-with-docling.html">03 Docling</a> · <a href="../reference/claude-code-tool-library.html#document">工具卡</a><br>把路線卡貼回 Claude Code，請它檢查你是否選錯工具，或漏掉文件權限與敏感資料限制。</footer>
+<footer>選路後分支：文字型文件走 <a href="010-0002-convert-one-text-document-with-markitdown.html">02 MarkItDown</a>；掃描文件走 <a href="010-0003-ocr-one-scanned-pdf-with-docling.html">03 Docling</a>；少量附件／圖片看 <a href="../reference/tools/claude-code-document-reading.html">Claude Code 直接讀文件</a> · <a href="../reference/claude-code-tool-library.html#document">工具卡</a><br>把路線卡貼回 Claude Code，請它檢查你是否選錯工具，或漏掉文件權限與敏感資料限制。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

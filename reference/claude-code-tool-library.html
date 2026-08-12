@@ -67,8 +67,8 @@
 <table>
 <tr><th>工具</th><th>優先使用情況</th><th>何時不要用</th><th>最低證據</th></tr>
 <tr><td><a href="tools/markitdown.html">MarkItDown</a></td><td>有可靠文字層的 PDF、Word、Excel、PowerPoint。</td><td>不要把基礎轉換器當成本機掃描 OCR；空白或亂碼就重新選路。</td><td>原檔、實際命令、待查核 Markdown。</td></tr>
-<tr><td><a href="tools/docling.html">Docling</a></td><td>掃描 PDF、圖片、複雜版面或表格。</td><td><code>--force-ocr</code> 不應成為所有 PDF 的預設；先核准模型下載與本機資源。</td><td>原檔、工具版本、OCR 疑點與人工抽查。</td></tr>
-<tr><td><a href="tools/claude-code-document-reading.html">Claude Code 直接讀文件</a></td><td>少量文件、只需一次性整理，而且不想先裝轉換器。</td><td>不要把 Claude Code 訂閱當成 MarkItDown OCR plugin 的 API 憑證。</td><td>來源頁面、抽查紀錄與仍不確定的內容。</td></tr>
+<tr><td><a href="tools/docling.html">Docling</a></td><td>掃描 PDF、圖片、複雜版面或表格。</td><td><code>--ocr-mode full_page</code> 不應成為所有 PDF 的預設；先核准模型下載與本機資源。</td><td>原檔、工具版本、OCR 疑點與人工抽查。</td></tr>
+<tr><td><a href="tools/claude-code-document-reading.html">Claude Code 直接讀文件</a></td><td>少量 PDF／文件可用支援附件的 Desktop；CLI image workflow 可讀圖片路徑。</td><td>不要假設所有 CLI 路徑都能直接附 PDF，也不要把 Claude Code 訂閱當成 MarkItDown OCR plugin 的 API 憑證。</td><td>來源頁面、抽查紀錄與仍不確定的內容。</td></tr>
 </table>
 <p class="route">01 選路 → 02 MarkItDown 或 03 Docling → 04 原檔對照</p>
 <p>詳細工作流：<a href="document-to-markdown-workflow.html">文件轉 Markdown 路線卡</a>。主要來源：<a href="https://github.com/microsoft/markitdown/blob/main/README.md">MarkItDown</a>、<a href="https://docling-project.github.io/docling/">Docling</a>。</p>
@@ -85,7 +85,7 @@
 
 <h2 id="design-skills">Design Engineering Skills</h2>
 <div class="cards">
-<div class="card"><span class="tag">工具卡</span><h3>先選一個 Skill</h3><p><a href="tools/emil-design-eng.html"><code>emil-design-eng</code></a> 審查元件、<a href="tools/animation-vocabulary.html"><code>animation-vocabulary</code></a> 說清動態、<a href="tools/apple-design.html"><code>apple-design</code></a> 做有限改動；另外三個 Skills 用於 diff 審查、找候選與改善計畫。</p></div>
+<div class="card"><span class="tag">工具卡</span><h3>先選一個 Skill</h3><p><a href="tools/emil-design-eng.html"><code>emil-design-eng</code></a> 審查元件、<a href="tools/animation-vocabulary.html"><code>animation-vocabulary</code></a> 說清動態、<a href="tools/apple-design.html"><code>apple-design</code></a> 做有限改動；本路線採用的另外三個 Skills 用於 diff 審查、找候選與改善計畫，上游實際安裝清單可能更多。</p></div>
 <div class="card"><span class="tag">安裝邊界</span><h3>保留來源、版本與路徑</h3><p>先查固定上游版本與授權，記錄實際安裝路徑與移除方式。安裝完成不代表任何產品程式已驗證。</p></div>
 <div class="card"><span class="tag">何時不用</span><h3>不為了展示技巧加動態</h3><p>高頻操作、鍵盤路徑或沒有明確用途的狀態變化，可以不加動畫；審查建議也不是實作授權。</p></div>
 <div class="card"><span class="tag">完成證據</span><h3>diff 加真實互動</h3><p>保留範圍、完整 diff、檢查結果、正常動態與 <code>prefers-reduced-motion</code> 證據。</p></div>
@@ -97,10 +97,10 @@
 <tr><td><a href="tools/apple-design.html"><code>apple-design</code></a></td><td>實作一個有限互動改動</td></tr>
 <tr><td><a href="tools/review-animations.html"><code>review-animations</code></a></td><td>審查一份固定動態 diff</td></tr>
 <tr><td><a href="tools/find-animation-opportunities.html"><code>find-animation-opportunities</code></a></td><td>找少量候選，也排除一項</td></tr>
-<tr><td><a href="tools/improve-animations.html"><code>improve-animations</code></a></td><td>唯讀盤點、寫計畫或受控執行</td></tr>
+<tr><td><a href="tools/improve-animations.html"><code>improve-animations</code></a></td><td>唯讀盤點與寫計畫；執行由獨立 implementation agent 接手</td></tr>
 </table>
 <p class="route">入門：01 安裝卡 → 02 → 03 → 04 → 05 驗收<br>進階：05 橋接 → 06 → 07 → 08</p>
-<p>詳細工作流：<a href="design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a>。主要來源：<a href="https://github.com/emilkowalski/skills/tree/6bf24434f7730ad169077756cf9c7cd7bd675fc6">固定上游版本</a>。</p>
+<p>詳細工作流：<a href="design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a>。主要來源：<a href="https://github.com/emilkowalski/skills/tree/78761e1b57f97dce65b983d640c70a68f39e8163">已審查上游版本 <code>78761e1</code></a>。</p>
 
 <footer>27 張單頁工具／模式卡只處理選用、設定與停止線；實作成果仍以課程要求的 artifact、diff、測試、原始來源與真實瀏覽器證據為準。 · <a href="../toc.html">回課目表</a></footer>
 </body>

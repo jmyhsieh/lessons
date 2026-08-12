@@ -32,7 +32,7 @@ failed, or unrun check is accounted for.</pre></div>
 <div class="quiz" data-answer="1"><p>哪個完成條件最容易檢查？</p><button>產生一份看起來很完整的狀態摘要</button><button>每項變更與未跑檢查都已被交代</button><button>盡可能仔細地完成所有需要的工作</button><div class="why">「每項變更與未跑檢查都交代」有可核對的全集；「完整」或「仔細」容易讓 Claude 自己宣告達成。</div></div>
 <h2>關鍵判斷</h2><p>流程可預期性（predictability）指每次走相近的執行過程；完成條件則是 Claude 判斷「真的做完」的尺。</p>
 <p><strong>主要閱讀：</strong><a href="https://www.youtube.com/watch?v=UNzCG3lw6O0">影片 7:29–11:53</a> 與 <a href="https://github.com/mattpocock/skills/blob/9603c1cc8118d08bc1b3bf34cf714f62178dea3b/skills/productivity/writing-great-skills/SKILL.md">writing-great-skills snapshot</a>。</p>
-<footer>上一課：<a href="009-0003-choose-user-or-model-invocation.html">決定啟用方式</a> · 進階下一課：<a href="009-0005-disclose-branch-reference.html">按需載入參考資料</a> · <a href="../reference/agent-skill-checklist.html">Phase 6 工作技能檢查表</a><br>把第二次輸出與第一次並排貼回 Claude Code，請它檢查流程是否更可預期。</footer>
+<footer>上一課：<a href="009-0003-choose-user-or-model-invocation.html">決定啟用方式</a> · 進階下一課：<a href="009-0005-disclose-branch-reference.html">按需載入參考資料</a> · <a href="../reference/agent-skill-checklist.html">工作技能檢查表</a><br>把第二次輸出與第一次並排貼回 Claude Code，請它檢查流程是否更可預期。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script>
 </body>
 </html>

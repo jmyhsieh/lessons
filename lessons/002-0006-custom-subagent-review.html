@@ -56,7 +56,7 @@ Report only actionable issues with file references.</pre>
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
   <label><input type="checkbox"> 1. 建立審查子代理</label>
-  <p>CLI 可用 <code>/agents</code> 建立；Desktop App 或手動設定時，在 <code>.claude/agents/</code> 建檔。工具只給唯讀。</p>
+  <p>目前做法是請 Claude 依官方格式撰寫代理檔，或直接在 <code>.claude/agents/</code> 建檔；較舊版 CLI 的 <code>/agents</code> 曾提供互動建立流程，v2.1.198+ 不再把它當建立 wizard。工具只給唯讀。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 2. 拿一個真實程式差異測試</label>

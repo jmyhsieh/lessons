@@ -74,7 +74,7 @@ description: 摘要未提交的變更並標記風險。當使用者問
 <tr><td>Claude 自動</td><td>你的話符合 <code>description</code> 描述的情境</td><td>知識型、無副作用的輔助</td></tr>
 </table>
 <div class="tip"><strong>有副作用的工作技能一定加 <code>disable-model-invocation: true</code></strong>，讓它只能由你手動觸發。你不會想要 Claude「覺得相關」就自己跑部署。另外 <code>$ARGUMENTS</code> 可接收參數：<code>/fix-issue 1234</code> 會把 1234 帶進內容。</div>
-<p>寫好 <code>description</code> 是自動觸發的關鍵：說清楚「做什麼」與「什麼情境用」，把主要使用情境寫在最前面。工作技能目錄有變更會即時生效，不用重啟。</p>
+<p>寫好 <code>description</code> 是自動觸發的關鍵：說清楚「做什麼」與「什麼情境用」，把主要使用情境寫在最前面。既有工作技能目錄內的變更通常會即時生效；如果目前工作階段啟動時連最上層 <code>.claude/skills/</code> 都不存在，建立後可能需要重開 Claude Code，讓檔案監看功能發現新目錄。</p>
 
 <h2>實作步驟（做完打勾）</h2>
 
@@ -90,7 +90,7 @@ description: 摘要未提交的變更並標記風險。當使用者問
 
 <div class="step">
   <label><input type="checkbox"> 3. 測試手動觸發</label>
-  <p>在同一個工作階段直接輸入 <code>/你的skill名</code>（變更即時生效）。觀察它是否照步驟走、結果是否符合預期，來回修 SKILL.md 到穩定。</p>
+  <p>在同一個工作階段直接輸入 <code>/你的skill名</code>（既有目錄內的變更通常即時生效）。觀察它是否照步驟走、結果是否符合預期，來回修 SKILL.md 到穩定。若剛從零建立最上層 <code>.claude/skills/</code> 後看不到指令，先重開 Claude Code。</p>
 </div>
 
 <div class="step">

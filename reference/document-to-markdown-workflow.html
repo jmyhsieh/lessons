@@ -12,7 +12,7 @@
 <tr><th>文件情況</th><th>先選</th><th>原因與停止線</th></tr>
 <tr><td>一般文字型 PDF、Word、Excel、PowerPoint</td><td><a href="tools/markitdown.html">MarkItDown</a></td><td>輕量、適合有文字層的文件；基礎套件不會自動替掃描 PDF 做本機 OCR。</td></tr>
 <tr><td>掃描 PDF、圖片、複雜版面或表格</td><td><a href="tools/docling.html">Docling</a></td><td>本機處理 OCR、版面與閱讀順序；第一次可能下載模型，先核准安裝與資源。</td></tr>
-<tr><td>只有少量文件、不想安裝工具</td><td><a href="tools/claude-code-document-reading.html">Claude Code 直接讀取</a></td><td>可直接讀 PDF 與圖片後寫 Markdown；這是 Claude 的讀取能力，不是 MarkItDown OCR，Claude Code 訂閱也不能拿來當 API key。</td></tr>
+<tr><td>只有少量文件、不想安裝工具</td><td><a href="tools/claude-code-document-reading.html">Claude Code 直接讀取</a></td><td>在支援附件的 Claude Code Desktop 可直接附 PDF 與其他檔案；CLI common workflow 明確支援 image path。這是 Claude 的讀取能力，不是 MarkItDown OCR，Claude Code 訂閱也不能拿來當 API key。</td></tr>
 </table>
 
 <h2>入門：選一種轉換，再共同查核</h2>
@@ -26,7 +26,7 @@
 <h2>進階 05–08：遇到真實需求再接</h2>
 <table>
 <tr><th>課</th><th>解決的需求</th><th>完成證據</th></tr>
-<tr><td>05 混合檔</td><td>同一份 PDF 同時有正常文字頁與掃描頁。</td><td>預設擷取與強制 OCR 比較表</td></tr>
+<tr><td>05 混合檔</td><td>同一份 PDF 同時有正常文字頁與掃描頁。</td><td>預設擷取與 full-page OCR／全頁 OCR 比較表</td></tr>
 <tr><td>06 可追查</td><td>日後要知道輸出從哪裡來、怎麼重跑。</td><td>來源、輸出、版本、命令、查核、缺口</td></tr>
 <tr><td>07 小批次</td><td>轉換少量已核准文件，分開記錄成功、失敗與略過。</td><td>核准清單（allowlist）、試跑結果（dry run）、結果清單（manifest）</td></tr>
 <tr><td>08 Wiki 交接</td><td>把已查核的 Markdown 加進 LLM Wiki。</td><td>匯入（ingest）計畫、程式差異（diff）、來源回查</td></tr>
@@ -50,6 +50,6 @@
 <tr><td>追查</td><td>保留原檔、工具版本、實際命令、輸出路徑與已知限制。</td></tr>
 </table>
 
-<div class="rule"><strong>安全停止線：</strong>敏感文件只在核准的本機環境處理；<code>--force-ocr</code> 只用於確認的掃描頁或損壞文字層；批次只讀取精確的核准清單（allowlist）；所有輸出都要人工查核。</div>
-<footer>工具卡：<a href="tools/markitdown.html">MarkItDown</a> · <a href="tools/docling.html">Docling</a> · <a href="tools/claude-code-document-reading.html">Claude Code 直接讀取</a> · 工具庫：<a href="claude-code-tool-library.html#document">文件轉換工具</a> · 選路：<a href="../lessons/010-0001-choose-document-conversion-route.html">第 01 課</a> · 共同查核：<a href="../lessons/010-0004-review-converted-markdown-against-source.html">第 04 課</a> · Wiki 交接：<a href="../lessons/010-0008-handoff-reviewed-markdown-to-llm-wiki.html">第 08 課</a><br>主要來源：<a href="https://github.com/microsoft/markitdown/blob/main/README.md">MarkItDown</a> · <a href="https://docling-project.github.io/docling/">Docling</a> · <a href="https://code.claude.com/docs/en/common-workflows#work-with-images">Claude Code images workflow</a></footer>
+<div class="rule"><strong>安全停止線：</strong>敏感文件只在核准的本機環境處理；<code>--ocr-mode full_page</code> 只用於確認的掃描頁或損壞文字層；批次只讀取精確的核准清單（allowlist）；所有輸出都要人工查核。</div>
+<footer>工具卡：<a href="tools/markitdown.html">MarkItDown</a> · <a href="tools/docling.html">Docling</a> · <a href="tools/claude-code-document-reading.html">Claude Code 直接讀取</a> · 工具庫：<a href="claude-code-tool-library.html#document">文件轉換工具</a> · 選路：<a href="../lessons/010-0001-choose-document-conversion-route.html">第 01 課</a> · 共同查核：<a href="../lessons/010-0004-review-converted-markdown-against-source.html">第 04 課</a> · Wiki 交接：<a href="../lessons/010-0008-handoff-reviewed-markdown-to-llm-wiki.html">第 08 課</a><br>主要來源：<a href="https://github.com/microsoft/markitdown/blob/main/README.md">MarkItDown</a> · <a href="https://docling-project.github.io/docling/">Docling</a> · <a href="https://code.claude.com/docs/en/desktop">Claude Code Desktop docs</a> · <a href="https://code.claude.com/docs/en/common-workflows#work-with-images">Claude Code images workflow</a></footer>
 </body></html>

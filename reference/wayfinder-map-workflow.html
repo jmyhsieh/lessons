@@ -28,7 +28,7 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <h1>Wayfinder 共享決策地圖速查表</h1>
 <p class="sub">巨大模糊工作的選路、地圖欄位、工作項目類型、目前可處理項目與工作階段停止規則。</p>
-<p class="sub">內容校準自<a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md">已審查版本 <code>66898f6</code></a>；實際操作前再查目前版本。</p>
+<p class="sub">內容校準自<a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/wayfinder/SKILL.md">穩定版 <code>v1.2.3</code>（<code>6acc160</code>）</a>；實際操作前再查目前版本。</p>
 
 <div class="rule"><strong>一句話：</strong>Wayfinder 先把看不清的路整理成決策工作項目（decision tickets）；路清楚後，再交給 <code>/to-spec → /to-tickets → /implement</code>。</div>
 
@@ -61,7 +61,7 @@
 <tr><th>Label</th><th>模式</th><th>完成訊號</th></tr>
 <tr><td><code>wayfinder:research</code></td><td>可離開等待（AFK）</td><td><code>research/&lt;name&gt;</code> 分支有附來源摘要；工作項目留下脈絡連結。</td></tr>
 <tr><td><code>wayfinder:prototype</code></td><td>人工參與（HITL）</td><td>真人操作原型並留下可引用答案。</td></tr>
-<tr><td><code>wayfinder:grilling</code></td><td>人工參與（HITL）</td><td>真正的決策者逐題回答，Claude Code 不代答。</td></tr>
+<tr><td><code>wayfinder:grilling</code></td><td>人工參與（HITL）</td><td>真正的決策者回答目前 frontier 的 decisions，Claude Code 不代答。</td></tr>
 <tr><td><code>wayfinder:task</code></td><td>依情境決定</td><td>阻擋決策的操作完成並留下事實。</td></tr>
 </table>
 <div class="rule"><strong>研究例外：</strong>建立決策工作項目與阻擋關係後，可為每張研究工作項目平行啟動 <code>/research</code> 子代理。研究留在拋棄式 <code>research/&lt;name&gt;</code> 分支，工作項目留下脈絡連結；建立地圖的代理不逐張處理。</div>
@@ -110,7 +110,7 @@
 
 <footer>
   對應課程：<a href="../lessons/003-0013-wayfinder-chart-map.html">建立共享決策地圖</a> · <a href="../lessons/003-0014-wayfinder-frontier.html">處理一張決策工作項目</a><br>
-  主要來源：<a href="https://github.com/mattpocock/skills/blob/66898f60e8c744e269f8ce06c2b2b99ce7660d5f/skills/engineering/wayfinder/SKILL.md">已審查 Wayfinder 版本（66898f6）</a> · <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">目前的 Wayfinder 說明</a>
+  主要來源：<a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/wayfinder/SKILL.md">Wayfinder v1.2.3（6acc160）</a> · <a href="https://github.com/mattpocock/skills/tree/v1.2.3">穩定版 repository</a> · <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md">目前的 Wayfinder 說明</a>
 </footer>
 </body>
 </html>

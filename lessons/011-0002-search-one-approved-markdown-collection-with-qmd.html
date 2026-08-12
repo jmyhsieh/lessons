@@ -11,8 +11,8 @@
 <div class="step"><label><input type="checkbox"> 1. 訂出搜尋範圍</label><p>選一個不含機密、而且你有權使用的 Markdown 目錄，例如這個課程的 <code>reference/</code>。不要把整個家目錄或不明確的上層路徑加入文件集合（collection）。</p></div>
 <div class="step"><label><input type="checkbox"> 2. 請 Claude Code 提出命令</label><pre>請檢查 QMD 最新版的安裝方式與 --help，先不要執行。
 只把 ./reference 加入名為 course-reference 的文件集合，
-再用全文搜尋查「強制 OCR」。
-不要加入其他目錄，不要執行 qmd embed 或下載模型。</pre><p>核准後，命令會像 <code>qmd collection add ./reference --name course-reference</code> 與 <code>qmd search "強制 OCR"</code>；參數仍以目前版本為準。</p></div>
+再用全文搜尋查「全頁 OCR」，搜尋時明確指定 <code>-c course-reference</code>。
+不要加入其他目錄，不要執行 qmd embed 或下載模型。</pre><p>核准後，命令會像 <code>qmd collection add ./reference --name course-reference</code> 與 <code>qmd search -c course-reference "全頁 OCR"</code>；參數仍以目前版本為準。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 打開找到的檔案核對原文</label><pre>問題：____________________________
 QMD 找到的檔案：__________________
 原文位置：________________________

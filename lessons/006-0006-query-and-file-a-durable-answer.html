@@ -43,7 +43,7 @@
 <h2>關鍵判斷</h2>
 <p><strong>查詢不只取出答案，也能產生新知識頁。</strong>判斷時只問一件事：這份答案未來是否值得重用。</p>
 <p><strong>主要閱讀：</strong><a href="https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519de94f/raw/ac46de1ad27f92b28ac95459c782c07f6b8c964a/llm-wiki.md">Karpathy — LLM Wiki：Query</a>。</p>
-<footer>上一課：<a href="006-0005-ingest-one-source-with-a-review-loop.html">匯入一份來源</a> · 下一課：<a href="006-0007-lint-and-fix-one-wiki-problem.html">用格式檢查修一個問題</a><br>查詢答案互相矛盾時，交出問題、相關頁面與衝突內容，請 Claude Code 分開列出證據與仍待確認的部分。</footer>
+<footer>上一課：<a href="006-0005-ingest-one-source-with-a-review-loop.html">匯入一份來源</a> · 下一課：<a href="006-0007-lint-and-fix-one-wiki-problem.html">用健康檢查修一個問題</a><br>查詢答案互相矛盾時，交出問題、相關頁面與衝突內容，請 Claude Code 分開列出證據與仍待確認的部分。</footer>
 <script>
 const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});
 </script>

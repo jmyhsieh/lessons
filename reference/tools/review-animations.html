@@ -34,11 +34,12 @@
 <h2>權限與副作用</h2>
 <div class="safety"><strong>固定 commit 或 diff 範圍。</strong>先產生 findings，再由人決定是否修；不要讓審查 Skill 自動更改產品程式或擴到整個歷史。</div>
 <h2>最低完成證據</h2>
-<ul><li>每個 finding 有位置、影響、證據與建議。</li><li>列出正常動態與 <code>prefers-reduced-motion</code> 的檢查結果。</li><li>給出 pass／needs changes verdict，並說明未驗證範圍。</li></ul>
+<ul><li>每個 finding 都在 <code>Before | After | Why</code> 表格中，並附 <code>file:line</code>。</li><li>duration、easing、spring 或 accessibility 數值回查 <code>STANDARDS.md</code>，不憑印象估。</li><li>列出正常動態與 <code>prefers-reduced-motion</code> 的檢查結果。</li><li>給出 pass／needs changes verdict，並說明未驗證範圍。</li></ul>
 <h2>交給 Claude Code</h2>
 <pre>請使用 review-animations，只審查「＿＿」commit／diff。
-不要修改程式；依嚴重度列出位置、影響、證據與建議。
-分別檢查正常動態與 prefers-reduced-motion，最後給出 verdict。</pre>
-<footer>工作流：<a href="../design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a> · 實作：<a href="../../lessons/012-0005-review-one-animation-diff.html">驗收一份動態差異</a><br>主要來源：<a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/review-animations/SKILL.md">固定版本 SKILL.md</a> · <a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/review-animations/STANDARDS.md">審查標準</a></footer>
+不要修改程式；用 Before | After | Why 表格輸出 findings，逐項附 file:line。
+需要精確 duration、easing、spring 或 accessibility 數值時，先回查 STANDARDS.md。
+分別檢查正常動態與 prefers-reduced-motion，最後給出 pass／needs changes verdict。</pre>
+<footer>工作流：<a href="../design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a> · 實作：<a href="../../lessons/012-0005-review-one-animation-diff.html">驗收一份動態差異</a><br>主要來源：<a href="https://github.com/emilkowalski/skills/blob/78761e1b57f97dce65b983d640c70a68f39e8163/skills/review-animations/SKILL.md">固定版本 SKILL.md</a> · <a href="https://github.com/emilkowalski/skills/blob/78761e1b57f97dce65b983d640c70a68f39e8163/skills/review-animations/STANDARDS.md">審查標準</a></footer>
 </body>
 </html>

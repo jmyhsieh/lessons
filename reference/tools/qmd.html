@@ -37,7 +37,8 @@
 <ul><li>列出 collection 名稱、實際路徑與查詢模式。</li><li>搜尋結果能連回原始 Markdown，而不是只保留摘要。</li><li>人工讀上下文，確認命中片段沒有斷章取義。</li></ul>
 <h2>交給 Claude Code</h2>
 <pre>只對核准路徑「＿＿」建立 QMD collection。
-先用不需模型下載的全文搜尋回答「＿＿」，不要執行 embed 或語意查詢。
+先用不需模型下載的全文搜尋回答「＿＿」，搜尋時明確指定 collection，例如 <code>qmd search -c course-reference "全頁 OCR"</code>。
+不要執行 embed 或語意查詢。
 列出命中檔案與片段，並逐一回讀原文後再下結論。</pre>
 <footer>比較卡：<a href="../claude-code-context-tools.html">用量與查找</a> · 實作：<a href="../../lessons/011-0002-search-one-approved-markdown-collection-with-qmd.html">搜尋並回查</a><br>主要來源：<a href="https://github.com/tobi/qmd">QMD</a></footer>
 </body>

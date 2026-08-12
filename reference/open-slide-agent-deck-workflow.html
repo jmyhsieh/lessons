@@ -13,8 +13,8 @@
 <h1>Claude Code × open-slide</h1>
 <p>先用工具卡判斷是否需要 open-slide。選定後，Claude Code 建立隔離工作區、先讀初始專案產生的 <code>AGENTS.md</code>／<code>CLAUDE.md</code> 與工作區 Skills，再做三頁切片；你核准命令、審查 diff 並親自看瀏覽器。</p>
 
-<div class="decision no"><strong>留在 Claude Design，如果：</strong><br>需要 PPTX 交接、想用 canvas 快速修改，或團隊不想維護 React／Git。</div>
-<div class="decision yes"><strong>讓 Claude Code 使用 open-slide，如果：</strong><br>交付接受 HTML／PDF，而且確實需要 Git diff、客製互動、React 元件或部署流程。</div>
+<div class="decision no"><strong>留在 Claude Design，如果：</strong><br>需要可編輯原生 PPTX、想用 canvas 快速修改，或團隊不想維護 React／Git。</div>
+<div class="decision yes"><strong>讓 Claude Code 使用 open-slide，如果：</strong><br>交付接受 HTML／PDF，或只需要 image-based PPTX 快照；而且確實需要 Git diff、客製互動、React 元件或部署流程。</div>
 
 <h2>一句話做決定</h2>
 <p>「我選 Claude Design／open-slide，因為交付格式需要＿＿，團隊也願意／不願意維護 React 與 Git。」</p>
@@ -30,12 +30,12 @@
 </table>
 
 <h2>讓 Claude Code 提議的最小命令</h2>
-<pre>npx @open-slide/cli init open-slide-deck --use-npm --locale zh-TW
+<pre>npx @open-slide/cli init open-slide-deck --use-npm
 cd open-slide-deck
 npm run dev
 npm run build
 npm run preview</pre>
-<p>學員不必背 React 或 open-slide API；先核對目標目錄與命令，再授權執行。建立後，Claude Code 應先讀工作區的 <code>CLAUDE.md</code>，再選用對應 Skill。</p>
+<p>學員不必背 React 或 open-slide API；先核對目標目錄與命令，再授權執行。介面語言在應用程式內選擇，不是初始化參數。建立後，Claude Code 應先讀工作區的 <code>CLAUDE.md</code>，再選用對應 Skill。</p>
 
 <h2>Claude Code 工作迴圈</h2>
 <pre>讀 CLAUDE.md 與相關 Skill
@@ -47,14 +47,14 @@ npm run preview</pre>
 <h2>需要才接 06–09</h2>
 <table>
 <tr><th>課</th><th>解決的真實需求</th><th>留下什麼</th></tr>
-<tr><td>06</td><td>Claude Code 以 <code>/create-theme</code> 收斂重複規則</td><td>主題＋一個重用模式</td></tr>
+<tr><td>06</td><td>Claude Code 以 <code>/create-theme</code> 收斂重複規則</td><td><code>themes/&lt;id&gt;.md</code> recipe＋<code>.demo.tsx</code> 預覽</td></tr>
 <tr><td>07</td><td>Claude Code 列查核點，真人檢查來源與畫面</td><td>來源＋無障礙證據</td></tr>
 <tr><td>08</td><td>Claude Code 以 <code>/apply-comments</code> 處理具體回饋</td><td>留言＋diff＋重新驗證</td></tr>
 <tr><td>09</td><td>Claude Code 準備部署套件；負責人決定是否部署</td><td>可部署套件</td></tr>
 </table>
 
 <h2>停止線</h2>
-<p>必須交可編輯 PPTX 就改用 <a href="claude-design-presentation-workflow.html">Claude Design 簡報路線</a>。第 04 課是獨立完成線；不需要重用、稽核、回饋或部署，就不必繼續第 06–09 課。建置成功仍要打開目標輸出；Claude Code 不能代替負責人授權公開部署。</p>
+<p>必須交可編輯原生 PPTX 就改用 <a href="claude-design-presentation-workflow.html">Claude Design 簡報路線</a>；open-slide 的 PPTX 輸出是每頁圖片的快照，不是可編輯投影片。第 04 課是獨立完成線；不需要重用、稽核、回饋或部署，就不必繼續第 06–09 課。建置成功仍要打開目標輸出；Claude Code 不能代替負責人授權公開部署。</p>
 
 <footer>工具卡：<a href="tools/open-slide.html">open-slide</a> · 工具庫：<a href="claude-code-tool-library.html#open-slide">open-slide</a> · 實作開始：<a href="../lessons/007-0002-create-isolated-workspace.html">第 02 課</a> · 實作前置：<a href="../lessons/007-0005-use-agent-contract.html">第 05 課</a> · 主要來源：<a href="https://open-slide.dev/docs/getting-started">Getting Started</a> · <a href="https://open-slide.dev/docs/skills/overview">Agent Skills</a> · <a href="../toc.html">課目表</a></footer>
 </body>

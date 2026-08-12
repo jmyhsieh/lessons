@@ -9,19 +9,19 @@
 <div class="rule"><strong>安裝外部 Skill 等於引入新的操作指示：</strong>先讀來源與寫入範圍，再決定要不要執行。安裝成功不代表內容適合你的程式庫。</div>
 <h2>先查清楚，再讓 Claude Code 安裝</h2>
 <div class="step"><label><input type="checkbox"> 1. 請 Claude Code 唯讀查核來源</label><pre>請唯讀查核 emilkowalski/skills：
-1. README 的安裝命令與目前包含的 Skills
+1. README 的安裝命令、目前包含的 Skills，以及本路線採用的六個 Skills 是否仍存在
 2. LICENSE
 3. 目前 main 的 commit SHA
 4. 安裝命令可能寫入的位置
 
 先回報查核結果與預計命令，不要安裝，也不要修改任何檔案。</pre></div>
-<div class="step"><label><input type="checkbox"> 2. 看懂範圍後才核准</label><p>上游 README 目前提供 <code>npx skills@latest add emilkowalski/skills</code>。這會透過套件執行外部安裝流程；請先確認套件來源、目標範圍與變更清單，再讓 Claude Code 執行。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 看懂範圍後才核准</label><p>上游 README 目前提供 <code>npx skills@latest add emilkowalski/skills</code>。這會透過套件執行外部安裝流程，而且上游可能另含本路線以外的 Skills；請先確認套件來源、目標範圍、實際安裝清單與變更清單，再讓 Claude Code 執行。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 安裝後核對實際變更</label><pre>請列出這次新增或修改的精確路徑，並顯示 git status 與相關 diff。
 不要執行任何 Skill，也不要順手修改專案。
-最後說明：如何只移除這次新增的內容，以及哪些變更不在 git 追蹤中。</pre><p>把結果填入紀錄卡：來源與 commit、安裝命令、目標範圍、實際路徑、移除方式。</p></div>
+最後說明：如何只移除這次新增的內容，以及哪些變更不在 git 追蹤中。</pre><p>把結果填入紀錄卡：來源與 commit、安裝命令、目標範圍、實際安裝清單、實際路徑、移除方式。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已有一張可以追查與復原的安裝紀錄卡。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>第一次安裝外部 Skill，最安全的起點是什麼？</p><button>先查來源與寫入範圍</button><button>直接執行完整安裝命令</button><button>先讓工具重寫整個專案</button><div class="why">Skill 會影響 Claude Code 如何工作。先確認來源、版本與寫入位置，才知道自己核准了什麼。</div></div>
 <h2>關鍵判斷</h2><p>如果 Claude Code 說不清楚會寫到哪裡，就先停在查核，不要用「裝了再看」代替範圍確認。</p>
-<p><strong>主要閱讀：</strong><a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/README.md">上游 README 固定版本</a>；選用方式見 <a href="../reference/design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a>。</p>
+<p><strong>主要閱讀：</strong><a href="https://github.com/emilkowalski/skills/blob/78761e1b57f97dce65b983d640c70a68f39e8163/README.md">上游 README 固定版本</a>；選用方式見 <a href="../reference/design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a>。</p>
 <footer>工具總覽：<a href="../reference/claude-code-tool-library.html#design-skills">Design Engineering Skills</a> · 實作入口：<a href="012-0002-review-one-component-with-emil-design-eng.html">審查一個介面元件</a><br>安裝紀錄要保留實際路徑與版本，不能只寫「已安裝」。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

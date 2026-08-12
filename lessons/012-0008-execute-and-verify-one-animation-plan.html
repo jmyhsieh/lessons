@@ -6,17 +6,17 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Design Engineering Skills 工具 · 第 08 課 · 約 25 分鐘</div><h1>執行並驗證一份動態改善計畫</h1>
 <p class="mission"><strong>本課成果：</strong>一份依核准計畫完成的程式差異，以及測試、真實瀏覽器與減少動態證據。</p>
-<div class="rule"><strong>核准計畫，不代表同意它順手多做：</strong>開始前先重讀計畫，確認分支與範圍；遇到新需求就停下來。</div>
-<h2>照核准計畫完成一份可查核交付</h2>
+<div class="rule"><strong>核准計畫，不代表同意它順手多做：</strong><code>improve-animations</code> 是唯讀盤點與計畫工具；執行時要把核准計畫交給獨立 implementation agent 或隔離 worktree，再用審查工具驗收。</div>
+<h2>用獨立執行者完成一份可查核交付</h2>
 <div class="step"><label><input type="checkbox"> 1. 建立乾淨起點</label><p>重新讀取計畫，確認目前 commit、分支與 <code>git status</code>。若現況已和計畫不同，先更新或撤回計畫，不要直接猜著做。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 只執行核准內容</label><pre>請使用 improve-animations execute [計畫路徑]。
-只執行計畫明列的檔案與步驟，不要加入新候選、套件或重構。
+<div class="step"><label><input type="checkbox"> 2. 只執行核准內容</label><pre>請使用 improve-animations execute [計畫路徑]，把計畫 dispatch 給獨立 implementation agent／隔離 worktree。
+執行者只可處理計畫明列的檔案與步驟，不要加入新候選、套件或重構。
 若計畫與現況不符，立即停止並回報差異。
-完成後執行計畫列出的檢查，顯示完整 diff 與未通過項目，先不要 commit。</pre></div>
+完成後由 review-animations 審查 diff，執行計畫列出的檢查，顯示完整 diff 與未通過項目，先不要 commit。</pre></div>
 <div class="step"><label><input type="checkbox"> 3. 親自在真實瀏覽器驗證</label><p>反覆操作正常路徑、中途改變操作與快速連續操作，再切換減少動態設定。核對焦點、鍵盤、觸控和畫面穩定性；截圖只能證明外觀，互動手感要寫下實際觀察。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已把一份核准計畫做成有程式差異、檢查結果與瀏覽器證據的交付。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>執行時發現計畫與目前程式不同，應該怎麼做？</p><button>停止並回報現況差異</button><button>自行擴大範圍完成改寫</button><button>略過差異直接標示完成</button><div class="why">計畫依賴特定現況。基準不同時繼續實作，會讓原本核准的範圍失效。</div></div>
-<h2>關鍵判斷</h2><p>沒有真實瀏覽器操作，就不能說動態已驗證。需要可重跑證據時，可接 Playwright 工具路線，但自動化不能取代真人手感檢查。</p>
-<p><strong>主要閱讀：</strong><a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/improve-animations/SKILL.md">improve-animations 固定版本</a>；<a href="https://developer.chrome.com/docs/devtools/css/animations">Chrome DevTools 動態檢查</a>。</p>
+<h2>關鍵判斷</h2><p>沒有真實瀏覽器操作，就不能說動態已驗證。需要可重跑證據時，可接 Playwright 工具路線；但 planner 不應自己改產品碼，自動化也不能取代真人手感檢查。</p>
+<p><strong>主要閱讀：</strong><a href="https://github.com/emilkowalski/skills/blob/78761e1b57f97dce65b983d640c70a68f39e8163/skills/improve-animations/SKILL.md">improve-animations 固定版本</a>；<a href="https://developer.chrome.com/docs/devtools/css/animations">Chrome DevTools 動態檢查</a>。</p>
 <footer>上一課：<a href="012-0007-create-one-animation-improvement-plan.html">建立改善計畫</a> · <a href="../toc.html">回到課目表</a><br>交付前再核對一次：計畫範圍、完整 diff、檢查結果、正常動態與減少動態證據都在同一份紀錄裡。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

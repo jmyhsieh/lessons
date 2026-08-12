@@ -12,7 +12,7 @@
 <p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
 <span class="kicker">文件轉換 · 少量文件</span>
 <h1>Claude Code 直接讀文件</h1>
-    <p class="lead">不先安裝轉換器，直接讓 Claude Code 讀取少量 PDF 或圖片，整理成一次性 Markdown 草稿。</p>
+    <p class="lead">不先安裝轉換器，在支援附件的 Claude Code Desktop 附上少量 PDF／其他檔案，或在 CLI image workflow 提供圖片路徑，整理成一次性 Markdown 草稿。</p>
     <figure class="tool-flow" aria-labelledby="claude-code-document-reading-flow-title" style="--tool-flow-count: 3">
       <figcaption id="claude-code-document-reading-flow-title">
         <span class="tool-flow-kicker">建議流程</span>
@@ -27,18 +27,19 @@
     </figure>
     <div class="grid">
 <section class="card"><div class="label">解決的問題</div><h2>降低一次性設定成本</h2><p>文件很少、任務很短時，直接讀取與整理，不先建立完整轉換工具鏈。</p></section>
-<section class="card"><div class="label">何時用</div><h2>少量、人工可抽查</h2><p>一兩份文件、只需摘要或結構化筆記，且能逐頁回看來源。</p></section>
+<section class="card"><div class="label">何時用</div><h2>少量、人工可抽查</h2><p>一兩份文件、只需摘要或結構化筆記，且能逐頁回看來源；PDF 直接附檔以支援附件的 Desktop surface 為準。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>大量或需可重現批次</h2><p>大量文件、固定 pipeline、精確 OCR 或複雜表格，改用 <a href="markitdown.html">MarkItDown</a> 或 <a href="docling.html">Docling</a>。</p></section>
-<section class="card"><div class="label">會讀寫什麼</div><h2>讀指定檔案、寫草稿</h2><p>Claude Code 會讀你放入範圍的文件，並建立或修改 Markdown；模型輸出不是原文複本。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>讀指定檔案、寫草稿</h2><p>Claude Code Desktop 可讀附上的 PDF、圖片與其他檔案；CLI common workflow 明確支援 image path。模型輸出不是原文複本。</p></section>
 </div>
 <h2>權限與副作用</h2>
 <div class="safety"><strong>先限制檔案範圍與資料敏感度。</strong>不要把 Claude Code 訂閱視為第三方 OCR plugin 的 API 憑證；若要呼叫外部服務，需另行說明。</div>
 <h2>最低完成證據</h2>
 <ul><li>草稿保留來源檔名與頁碼或畫面位置。</li><li>人工核對專有名詞、數字、表格與否定句。</li><li>不確定內容明確標記，不用流暢文字掩蓋缺漏。</li></ul>
 <h2>交給 Claude Code</h2>
-<pre>只讀取這些檔案：＿＿。先列出檔案數與預計輸出，不使用外部轉換 API。
+<pre>只讀取這些檔案：＿＿。若是 PDF 或其他文件，先確認目前 Claude Code surface 支援附件；CLI 只依官方 image workflow 處理圖片路徑。
+先列出檔案數與預計輸出，不使用外部轉換 API。
 整理成待查核 Markdown，保留來源頁面或位置。
 對專有名詞、數字、表格與無法辨識內容加上人工查核標記。</pre>
-<footer>工作流：<a href="../document-to-markdown-workflow.html">文件轉 Markdown 路線卡</a> · 選路：<a href="../../lessons/010-0001-choose-document-conversion-route.html">選文件路線</a><br>主要來源：<a href="https://code.claude.com/docs/en/common-workflows#work-with-images">Claude Code images workflow</a></footer>
+<footer>工作流：<a href="../document-to-markdown-workflow.html">文件轉 Markdown 路線卡</a> · 選路：<a href="../../lessons/010-0001-choose-document-conversion-route.html">選文件路線</a><br>主要來源：<a href="https://code.claude.com/docs/en/desktop">Claude Code Desktop docs</a> · <a href="https://code.claude.com/docs/en/common-workflows#work-with-images">Claude Code images workflow</a></footer>
 </body>
 </html>

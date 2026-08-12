@@ -16,7 +16,7 @@
 <div class="rule"><strong>不要只丟一句「幫我改」：</strong><code>AGENTS.md</code>、<code>CLAUDE.md</code> 與工作區技能定義了檔案結構、可用流程與完成方式。</div>
 <h2>先做唯讀 preflight</h2>
 <div class="step"><label><input type="checkbox"> 1. 讀取程式庫規則</label><p>請 Claude Code 先唯讀列出 <code>CLAUDE.md</code>、同步的 <code>AGENTS.md</code> 與相關工作技能重點，不修改檔案。</p></div>
-<div class="step"><label><input type="checkbox"> 2. 選一個對應工作技能</label><p>建立簡報切片用 <code>/create-slide</code>，修改現有頁面依 <code>/slide-authoring</code>；不要把所有工作技能一次載入。</p></div>
+<div class="step"><label><input type="checkbox"> 2. 選一個對應工作技能</label><p>建立簡報切片用 <code>/create-slide</code>；修改現有頁面時先讀 <code>/slide-authoring</code> 作為技術規則，不把它當成完整改稿流程。不要把所有工作技能一次載入。</p></div>
 <div class="step"><label><input type="checkbox"> 3. 寫下下一課的邊界</label><p>列出這次允許新增或修改的檔案、不得碰的設定，以及 build／preview 命令。這張摘要會直接帶進第 03 課。</p></div>
 <div class="done" id="done"><strong>完成：</strong>你已把工作區規則整理成下一課可直接使用的 preflight 摘要。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="0"><p>請 Claude Code 修改 open-slide 前，第一步是什麼？</p><button>先讀工作區規範</button><button>先刪除所有說明檔</button><button>先讓模型自由猜測</button><div class="why">先讀程式庫規範，才知道應遵守的檔案結構、工作技能與驗證方式。</div></div>

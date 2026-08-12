@@ -19,6 +19,6 @@
 <div class="done" id="done"><strong>完成：</strong>你已有一張範圍清楚、可回到原始程式核對的元件審查表。</div>
 <h2>觀念檢查</h2><div class="quiz" data-answer="2"><p>Skill 回傳審查表後，下一步應該做什麼？</p><button>立即套用表格全部建議</button><button>請它順便改完其他畫面</button><button>核對證據並留一項候選</button><div class="why">審查建議要先回到程式與實際畫面核對。保留一項候選，才容易看懂後續程式差異。</div></div>
 <h2>關鍵判斷</h2><p>審查表若沒有指出精確位置與使用情境，就還不能交給 Claude Code 實作。</p>
-<p><strong>主要閱讀：</strong><a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/emil-design-eng/SKILL.md">emil-design-eng 固定版本</a>。</p>
+<p><strong>主要閱讀：</strong><a href="https://github.com/emilkowalski/skills/blob/78761e1b57f97dce65b983d640c70a68f39e8163/skills/emil-design-eng/SKILL.md">emil-design-eng 固定版本</a>。</p>
 <footer>上一課：<a href="012-0001-install-design-engineering-skills-safely.html">安全安裝</a> · 下一課：<a href="012-0003-name-one-motion-with-animation-vocabulary.html">把模糊動態說清楚</a><br>下一課會先把「滑一下、彈一下」換成可實作的描述，還不會動到程式碼。</footer>
 <script>const boxes=document.querySelectorAll('input[type=checkbox]');boxes.forEach(b=>b.addEventListener('change',()=>{document.getElementById('done').style.display=[...boxes].every(x=>x.checked)?'block':'none'}));document.querySelectorAll('.quiz').forEach(q=>{const a=+q.dataset.answer;q.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelectorAll('button')[a].classList.add('correct');if(i!==a)b.classList.add('wrong');q.querySelector('.why').style.display='block'}))});</script></body></html>

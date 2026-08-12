@@ -23,6 +23,7 @@
   h2.p11 { color: #506d2f; border-bottom: 2px solid #506d2f; }
   h2.p12 { color: #6f4d7a; border-bottom: 2px solid #6f4d7a; }
   table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+  th { white-space: nowrap; }
   td { border-bottom: 1px solid #eee; padding: .5rem .6rem; vertical-align: top; }
   td.no { width: 2.8rem; color: #999; font-variant-numeric: tabular-nums; }
   td.track { width: 7.5rem; color: #777; font-size: .85rem; }
@@ -76,6 +77,8 @@
 
 <h2 class="p1" id="phase-1">Phase 1 — 安全開始：四個 Claude 工作表面與 Claude Code 入門（01–12）</h2>
 <table>
+<thead><tr><th scope="col">課次</th><th scope="col">課程</th><th scope="col">學習定位</th></tr></thead>
+<tbody>
 <tr><td class="no">01</td><td><a href="lessons/001-0001-four-claude-surfaces.html">四個 Claude 工作表面，四種交付路線</a></td><td class="track">產品判斷</td></tr>
 <tr><td class="no">02</td><td><a href="lessons/001-0002-first-session-read-only.html">安裝 Claude Code，開第一個 session</a></td><td class="track">入門</td></tr>
 <tr><td class="no">03</td><td><a href="lessons/001-0003-read-only-repo-tour.html">先讓 Claude Code 讀 repo，不改檔案</a></td><td class="track">入門</td></tr>
@@ -88,6 +91,7 @@
 <tr><td class="no">10</td><td><a href="lessons/001-0010-cowork-hands-on.html">判斷 Cowork 適合的交付物</a></td><td class="track">產品判斷</td></tr>
 <tr><td class="no">11</td><td><a href="lessons/001-0011-explore-plan-implement-commit.html">從探索到 commit 的安全四步驟</a></td><td class="track">總驗收</td></tr>
 <tr><td class="no">12</td><td><a href="lessons/001-0012-verification-context.html">確認結果並整理 context</a></td><td class="track">總驗收</td></tr>
+</tbody>
 </table>
 <div class="flow">
   <div class="flow-title">建議走法</div>
@@ -129,6 +133,8 @@
 <div class="p3sec">
 <h2 class="p3" id="phase-2">Phase 2 — 把模糊需求變成可交付成果（主線 01–12；選修 13–14）</h2>
 <table>
+<thead><tr><th scope="col">課次</th><th scope="col">課程</th><th scope="col">學習定位</th></tr></thead>
+<tbody>
 <tr><td class="no">01</td><td><a href="lessons/003-0001-matt-pocock-skills-foundation.html">先完成 mattpocock/skills 設定</a></td><td class="track">地基</td></tr>
 <tr><td class="no">02</td><td><a href="lessons/003-0002-ask-matt.html">用 /ask-matt 判斷該走哪條路</a></td><td class="track">路線選擇</td></tr>
 <tr><td class="no">03</td><td><a href="lessons/003-0003-repo-map.html">不熟 repo 時，先建立地圖</a></td><td class="track">前置</td></tr>
@@ -143,10 +149,11 @@
 <tr><td class="no">12</td><td><a href="lessons/003-0012-handoff.html">用 /handoff 做可攜式工作交接</a></td><td class="track">可攜交接</td></tr>
 <tr><td class="no">13</td><td><a href="lessons/003-0013-wayfinder-chart-map.html">用 /wayfinder 建立共享決策地圖</a></td><td class="track">選修分支</td></tr>
 <tr><td class="no">14</td><td><a href="lessons/003-0014-wayfinder-frontier.html">完成一張可處理的決策工作項目</a></td><td class="track">選修分支</td></tr>
+</tbody>
 </table>
 <div class="flow">
   <div class="flow-title">建議走法</div>
-  <p class="flow-note"><strong>第一次進入 repo engineering flow 前，先完成第 01 課的 repo setup。</strong>其餘主線不是線性流程；standalone 路線不一定需要 setup，第 13–14 課只給巨大、模糊、超過一個 session 的 effort。補充參考：<a href="reference/mattpocock-skills-phase3-reference.html">Phase 2 skill 參考索引</a>。</p>
+  <p class="flow-note"><strong>第一次進入 repo engineering flow 前，先完成第 01 課的 repo setup。</strong>其餘主線不是線性流程；standalone 路線不一定需要 setup，第 13–14 課只給巨大、模糊、超過一個 session 的 effort。補充參考：<a href="reference/mattpocock-skills-phase3-reference.html">mattpocock/skills 參考索引</a>。</p>
   <div class="flow-row">
     <div class="flow-label">工程主線前置</div>
     <div class="flow-steps">
@@ -235,6 +242,8 @@
 <div class="p4sec">
 <h2 class="p4" id="phase-3">Phase 3（Claude Code × Claude Design）— 入門 01–08；進階 09–13</h2>
 <table>
+<thead><tr><th scope="col">課次</th><th scope="col">課程</th><th scope="col">學習定位</th></tr></thead>
+<tbody>
 <tr><td class="no">01</td><td><a href="lessons/004-0001-choose-claude-design-surface.html">從 Claude Code 連接 Claude Design</a></td><td class="track">連接能力</td></tr>
 <tr><td class="no">02</td><td><a href="lessons/004-0002-write-design-brief.html">請 Claude Code 整理四句 design brief</a></td><td class="track">Prompt</td></tr>
 <tr><td class="no">03</td><td><a href="lessons/004-0003-sync-design-system.html">把一份正確參考交給 Claude Code</a></td><td class="track">Context</td></tr>
@@ -248,6 +257,7 @@
 <tr><td class="no">11</td><td><a href="lessons/004-0011-run-accessibility-audit.html">跑一輪 accessibility audit</a></td><td class="track">進階稽核</td></tr>
 <tr><td class="no">12</td><td><a href="lessons/004-0012-build-implementation-ready-handoff.html">建立 implementation-ready handoff</a></td><td class="track">進階交接</td></tr>
 <tr><td class="no">13</td><td><a href="lessons/004-0013-close-production-vertical-slice.html">完成 production vertical-slice closeout</a></td><td class="track">進階收尾</td></tr>
+</tbody>
 </table>
 <div class="flow">
   <div class="flow-title">第一個小畫面</div>
@@ -301,6 +311,8 @@
 <div class="p5sec">
 <h2 class="p5" id="phase-4">Phase 4（Claude Code × Claude Design 簡報）— 入門 01–08；進階 09–12</h2>
 <table>
+<thead><tr><th scope="col">課次</th><th scope="col">課程</th><th scope="col">學習定位</th></tr></thead>
+<tbody>
 <tr><td class="no">01</td><td><a href="lessons/005-0001-choose-daily-visual-output.html">請 Claude Code 定義真實簡報任務</a></td><td class="track">題目</td></tr>
 <tr><td class="no">02</td><td><a href="lessons/005-0002-build-source-pack.html">讓 Claude Code 整理三份可信資料</a></td><td class="track">資料</td></tr>
 <tr><td class="no">03</td><td><a href="lessons/005-0003-storyboard-presentation.html">請 Claude Code 先寫三頁故事</a></td><td class="track">順序</td></tr>
@@ -313,6 +325,7 @@
 <tr><td class="no">10</td><td><a href="lessons/005-0010-build-reusable-deck-system.html">讓 Claude Code 建立 deck system</a></td><td class="track">進階系統</td></tr>
 <tr><td class="no">11</td><td><a href="lessons/005-0011-audit-deck-accessibility-and-formats.html">稽核 accessibility 與輸出格式</a></td><td class="track">進階稽核</td></tr>
 <tr><td class="no">12</td><td><a href="lessons/005-0012-run-structured-rehearsal-and-version.html">結構化彩排並封存版本</a></td><td class="track">進階版本</td></tr>
+</tbody>
 </table>
 <div class="flow">
   <div class="flow-title">第一份三頁簡報</div>
@@ -366,14 +379,17 @@
 <div class="p6sec">
 <h2 class="p6" id="phase-5">Phase 5（Claude Code × LLM Wiki）— 入門 01–03；進階 04–08</h2>
 <table>
+<thead><tr><th scope="col">課次</th><th scope="col">課程</th><th scope="col">學習定位</th></tr></thead>
+<tbody>
 <tr><td class="no">01</td><td><a href="lessons/006-0001-start-llm-wiki-with-claude-code.html">把 LLM Wiki idea file 交給 Claude Code</a></td><td class="track">快速開始</td></tr>
 <tr><td class="no">02</td><td><a href="lessons/006-0002-add-first-llm-wiki-source.html">加入第一份真實來源</a></td><td class="track">第一次更新</td></tr>
 <tr><td class="no">03</td><td><a href="lessons/006-0003-ask-first-llm-wiki-question.html">問第一個問題並檢查來源</a></td><td class="track">第一次使用</td></tr>
 <tr><td class="no">04</td><td><a href="lessons/006-0004-evolve-llm-wiki-schema.html">把實際規則寫進 schema</a></td><td class="track">進階規則</td></tr>
 <tr><td class="no">05</td><td><a href="lessons/006-0005-ingest-one-source-with-a-review-loop.html">用 review loop ingest 一份來源</a></td><td class="track">進階更新</td></tr>
 <tr><td class="no">06</td><td><a href="lessons/006-0006-query-and-file-a-durable-answer.html">Query 並留下可重用答案</a></td><td class="track">進階探索</td></tr>
-<tr><td class="no">07</td><td><a href="lessons/006-0007-lint-and-fix-one-wiki-problem.html">Lint 並修一個 Wiki 問題</a></td><td class="track">進階維護</td></tr>
+<tr><td class="no">07</td><td><a href="lessons/006-0007-lint-and-fix-one-wiki-problem.html">做一次 Wiki 健康檢查並修正問題</a></td><td class="track">進階維護</td></tr>
 <tr><td class="no">08</td><td><a href="lessons/006-0008-automate-one-safe-wiki-check.html">讓 Claude Code 自動化一個安全檢查</a></td><td class="track">進階自動化</td></tr>
+</tbody>
 </table>
 <div class="flow">
   <div class="flow-title">前三課先把 Wiki 用起來，後五課再補資料規則、更新與維護</div>
@@ -417,6 +433,8 @@
 <div class="p9sec">
 <h2 class="p9" id="phase-6">Phase 6（Claude Code × 工作技能）— 入門 01–04；進階 05–09</h2>
 <table>
+<thead><tr><th scope="col">課次</th><th scope="col">課程</th><th scope="col">學習定位</th></tr></thead>
+<tbody>
 <tr><td class="no">01</td><td><a href="lessons/009-0001-choose-one-repeatable-workflow.html">從一個重複工作流程開始</a></td><td class="track">入門選題</td></tr>
 <tr><td class="no">02</td><td><a href="lessons/009-0002-create-first-project-skill-with-claude-code.html">讓 Claude Code 建立第一個專案 Skill</a></td><td class="track">入門實作</td></tr>
 <tr><td class="no">03</td><td><a href="lessons/009-0003-choose-user-or-model-invocation.html">決定由你手動啟用，還是讓 Claude 自動啟用</a></td><td class="track">入門啟用</td></tr>
@@ -426,6 +444,7 @@
 <tr><td class="no">07</td><td><a href="lessons/009-0007-increase-legwork-without-rushing.html">先收緊完成條件，再考慮拆 Skill</a></td><td class="track">進階完成條件</td></tr>
 <tr><td class="no">08</td><td><a href="lessons/009-0008-prune-skill-failure-modes.html">刪除重複、過期與無效指令</a></td><td class="track">進階精簡</td></tr>
 <tr><td class="no">09</td><td><a href="lessons/009-0009-evaluate-and-iterate-skill.html">用新對話做前後對照測試</a></td><td class="track">進階測試</td></tr>
+</tbody>
 </table>
 <div class="flow">
   <div class="flow-title">先做出一個 Skill，再用四個問題改好</div>
@@ -457,6 +476,6 @@
 </div>
 </div>
 
-<footer>正式課程頁包含實作清單與觀念檢查；專項工具請從 Claude Code 工具庫依需求選讀 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 2026-07-21</footer>
+<footer>正式課程頁包含實作清單與觀念檢查；專項工具請從 Claude Code 工具庫依需求選讀 · 教材依據官方文件、SKILL.md 原文與實務流程圖 · 上次全課程來源審查：2026-08-12</footer>
 </body>
 </html>

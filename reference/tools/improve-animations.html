@@ -12,33 +12,33 @@
 <p><a href="../claude-code-tool-library.html">← Claude Code 工具庫</a></p>
 <span class="kicker">Design Engineering Skills · 計畫與受控執行</span>
 <h1>improve-animations</h1>
-    <p class="lead">把動態改善拆成 quick 盤點、plan 計畫與 execute 執行三種模式；模式切換就是人工關卡。</p>
+    <p class="lead">把動態改善拆成 quick 盤點、plan 計畫與 execute dispatch；planner 保持唯讀，模式切換就是人工關卡。</p>
     <figure class="tool-flow" aria-labelledby="improve-animations-flow-title" style="--tool-flow-count: 3">
       <figcaption id="improve-animations-flow-title">
         <span class="tool-flow-kicker">建議流程</span>
-        用三種模式控制動態改善
+        用盤點、計畫與獨立執行控制動態改善
       </figcaption>
       <ol>
         <li><span class="tool-flow-index">1</span><strong>Quick：唯讀盤點</strong><small>找出少量候選與風險，不修改產品程式。</small></li>
         <li><span class="tool-flow-index">2</span><strong>Plan：提出計畫</strong><small>鎖定一個候選，寫清楚改法、檢查與停止線，等人工核准。</small></li>
-        <li><span class="tool-flow-index">3</span><strong>Execute：修改驗證</strong><small>依核准計畫實作，並在瀏覽器檢查快速操作與減少動態。</small></li>
+        <li><span class="tool-flow-index">3</span><strong>Execute：交給執行者</strong><small>把核准計畫 dispatch 給獨立 implementation agent／隔離 worktree，再審查 diff。</small></li>
       </ol>
-      <p class="tool-flow-stop"><strong>停止線：</strong>沒有合適候選就停在 quick；計畫已不符合現況時，回到 plan，不直接擴大修改。</p>
+      <p class="tool-flow-stop"><strong>停止線：</strong>沒有合適候選就停在 quick；計畫已不符合現況時，回到 plan，不讓 planner 或執行者直接擴大修改。</p>
     </figure>
     <div class="grid">
-<section class="card"><div class="label">解決的問題</div><h2>讓改善可交接、可執行</h2><p>從有限盤點形成單一計畫，再依核准版本完成受控 diff 與驗證。</p></section>
+<section class="card"><div class="label">解決的問題</div><h2>讓改善可交接、可執行</h2><p>從有限盤點形成單一計畫，再把核准版本交給獨立執行者完成受控 diff 與驗證。</p></section>
 <section class="card"><div class="label">何時用</div><h2>候選已選定</h2><p>已有明確頁面、使用者問題與優先候選，需要一份能交給下一次工作的計畫。</p></section>
 <section class="card"><div class="label">何時不用</div><h2>盤點不是執行許可</h2><p>若還不知道要改哪裡，先用 <a href="find-animation-opportunities.html">find-animation-opportunities</a>；若現況已偏離計畫，就停止執行並重新規劃。</p></section>
-<section class="card"><div class="label">會讀寫什麼</div><h2>三種模式、三種權限</h2><p><code>quick</code> 唯讀；<code>plan</code> 只寫核准計畫；<code>execute</code> 才能修改指定產品檔案。</p></section>
+<section class="card"><div class="label">會讀寫什麼</div><h2>Planner 保持唯讀</h2><p><code>quick</code> 唯讀；<code>plan</code> 只寫核准計畫；<code>execute</code> 是把計畫交給獨立 implementation agent／隔離 worktree，再回來 review diff。</p></section>
 </div>
 <h2>權限與副作用</h2>
-<div class="safety"><strong>每次只啟用一種模式。</strong>計畫要固定基準 commit、允許檔案、禁止範圍、驗證命令與停止條件；execute 前重新比對現況。</div>
+<div class="safety"><strong>每次只啟用一種模式。</strong>計畫要固定基準 commit、允許檔案、禁止範圍、驗證命令與停止條件；execute 前重新比對現況，並由獨立執行者處理產品程式。</div>
 <h2>最低完成證據</h2>
-<ul><li>plan 模式：一份可交接計畫，不含產品程式改動。</li><li>execute 模式：計畫仍適用、diff 受控、檢查結果完整。</li><li>真實瀏覽器驗證正常動態、快速操作與 <code>prefers-reduced-motion</code>。</li></ul>
+<ul><li>plan 模式：一份可交接計畫，不含產品程式改動。</li><li>execute dispatch：計畫仍適用、獨立執行者的 diff 受控、檢查結果完整，且已用 review-animations 驗收。</li><li>真實瀏覽器驗證正常動態、快速操作與 <code>prefers-reduced-motion</code>。</li></ul>
 <h2>交給 Claude Code</h2>
 <pre>請使用 improve-animations 的 [quick／plan／execute] 模式。
 範圍：＿＿；基準 commit：＿＿；禁止範圍：＿＿；停止條件：＿＿。
-不得切換模式。execute 前先確認計畫與目前程式一致，否則停止回報。</pre>
-<footer>工作流：<a href="../design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a> · 計畫：<a href="../../lessons/012-0007-create-one-animation-improvement-plan.html">建立改善計畫</a> · 執行：<a href="../../lessons/012-0008-execute-and-verify-one-animation-plan.html">受控執行</a><br>主要來源：<a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/improve-animations/SKILL.md">固定版本 SKILL.md</a> · <a href="https://github.com/emilkowalski/skills/blob/6bf24434f7730ad169077756cf9c7cd7bd675fc6/skills/improve-animations/PLAN-TEMPLATE.md">計畫範本</a></footer>
+不得切換模式。execute 前先確認計畫與目前程式一致；若不一致，停止回報，不要讓 planner 或執行者猜著改。</pre>
+<footer>工作流：<a href="../design-engineering-skills-workflow.html">Design Engineering Skills 路線卡</a> · 計畫：<a href="../../lessons/012-0007-create-one-animation-improvement-plan.html">建立改善計畫</a> · 執行：<a href="../../lessons/012-0008-execute-and-verify-one-animation-plan.html">受控執行</a><br>主要來源：<a href="https://github.com/emilkowalski/skills/blob/78761e1b57f97dce65b983d640c70a68f39e8163/skills/improve-animations/SKILL.md">固定版本 SKILL.md</a> · <a href="https://github.com/emilkowalski/skills/blob/78761e1b57f97dce65b983d640c70a68f39e8163/skills/improve-animations/PLAN-TEMPLATE.md">計畫範本</a></footer>
 </body>
 </html>
