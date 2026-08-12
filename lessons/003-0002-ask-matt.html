@@ -48,15 +48,25 @@
 <table>
 <tr><th>情境</th><th>建議路線</th></tr>
 <tr><td>單一工作階段能完成的新需求</td><td><code>/grill-with-docs</code> → 同一個對話脈絡直接 <code>/implement</code></td></tr>
-<tr><td>需要多個工作階段的開發工作</td><td><code>/grill-with-docs</code> → <code>/to-spec</code> → <code>/to-tickets</code> → 每張工作項目開新對話脈絡跑 <code>/implement</code></td></tr>
+<tr><td>需要多個工作階段的開發工作</td><td><code>/grill-with-docs</code> → <code>/to-spec</code> → <code>/to-tickets</code> → 每張工作項目開始前用 <code>/clear</code> 清空脈絡，再跑 <code>/implement</code></td></tr>
 <tr><td>必須用可跑成果回答的設計問題</td><td><code>/handoff</code> 出主線 → <code>/prototype</code> → <code>/handoff</code> 把答案帶回</td></tr>
 <tr><td>外部錯誤或需求回報</td><td><code>/triage</code> 先產生可交給 Claude Code 的議題 → 通常交 <code>/implement</code>；若是難解、間歇或回歸錯誤，再改走 <code>/diagnosing-bugs</code></td></tr>
 <tr><td>巨大、模糊、超過一個工作階段的工作</td><td><code>/wayfinder</code> 先建立共享地圖，逐張決策工作項目推進到路徑清楚，再回到 <code>/to-spec</code>；只有工作最後縮成單一小任務才直接 <code>/implement</code></td></tr>
 <tr><td>架構維護</td><td><code>/improve-codebase-architecture</code> → 選一個改善點 → 回到 <code>/grill-with-docs</code></td></tr>
-<tr><td>對話脈絡太滿或要分支</td><td><code>/handoff</code> 開新工作階段；<code>/compact</code> 留在同一個工作階段。</td></tr>
+<tr><td>完成一個階段，準備換下一種工作</td><td>依下方 phase-boundary decision tree，從 Continue 開始逐項判斷；不要看到脈絡變長就直接 <code>/handoff</code>。</td></tr>
+</table>
+<h2>Phase boundary：照順序走五個判斷</h2>
+<p>Phase boundary 是一段工作剛結束、下一段還沒開始的交界，例如需求追問完成、準備寫規格。只在交界做這個判斷；工作做到一半時，應繼續完成，或把剩餘的窄任務交給 subagent。到交界後由上往下問，第一個「是」就是答案：</p>
+<table>
+<tr><th>順序</th><th>判斷</th><th>行動</th></tr>
+<tr><td>1</td><td>下一階段仍需要這段對話作為 primary source，或目前還有足夠的 smart zone 嗎？</td><td><strong>Continue</strong>：留在原工作階段，資訊零損失。</td></tr>
+<tr><td>2</td><td>目前脈絡對下一階段完全無關嗎？</td><td><code>/clear</code>：清空脈絡；原工作階段仍可回頭繼續。</td></tr>
+<tr><td>3</td><td>需要換 harness、移到新目錄／程式庫、交給同事，或在工作中途分出支線嗎？</td><td><code>/handoff</code>：寫成可攜的 Markdown。它買到的是 portability，適用範圍很窄。</td></tr>
+<tr><td>4</td><td>任務已縮到不需你在線引導，可以 AFK 完成嗎？</td><td><strong>Subagent</strong>：送到獨立脈絡執行，再把報告帶回來。</td></tr>
+<tr><td>5</td><td>以上都不是，但相關脈絡仍要保留嗎？</td><td><code>/compact</code>：壓縮脈絡後接續。這是 decision tree 最後的預設答案，不是第一個反射動作。</td></tr>
 </table>
 <div class="tip"><strong>記住主線：</strong><code>/implement</code> 是實作統籌工具；它內部會用 <code>/tdd</code>，做完再用 <code>/code-review</code>。不要把 <code>/tdd</code> 和 <code>/code-review</code> 畫成與 <code>/implement</code> 平行的主流程。</div>
-<div class="tip"><strong>保持對話脈絡乾淨：</strong>從需求追問到 <code>/to-tickets</code> 盡量維持同一個工作階段，不要中途使用 <code>/clear</code> 或 <code>/compact</code>；切完工作項目後，每張 <code>/implement</code> 再各自使用乾淨工作階段。若主線脈絡快滿，先 <code>/handoff</code>。</div>
+<div class="tip"><strong>保持對話脈絡乾淨：</strong>從需求追問到 <code>/to-tickets</code> 正常情況維持同一個未中斷工作階段，讓規格與工作項目保留原始推理。若在完成 <code>/to-tickets</code> 前已逼近 smart zone，不要硬撐；在最近的 phase boundary 用 <code>/compact</code> 接續。只有真的需要 portability 時才用 <code>/handoff</code>。</div>
 <div class="tip"><strong>Wayfinder 是選修分支：</strong>只有當「通往目的地的路仍看不清楚」，而且一個工作階段放不下時才使用。若你已能列出完整規格與工作項目，就不需要先畫地圖。選到這條路時，前往 <a href="003-0013-wayfinder-chart-map.html">第 13 課</a>。</div>
 
 <h2>先分清楚：入口與流程內能力</h2>
@@ -82,12 +92,16 @@
   <p>如果它把 <code>/tdd</code> 或 <code>/code-review</code> 當成主流程起點，請它重新對照 <code>/implement</code> 的職責。</p>
 </div>
 <div class="step">
-  <label><input type="checkbox"> 4. 選一條真的要做的路</label>
+  <label><input type="checkbox"> 4. 替一個 phase boundary 走完五個判斷</label>
+  <p>假設其中一段工作剛完成，依序檢查 Continue、<code>/clear</code>、<code>/handoff</code>、Subagent、<code>/compact</code>，記下第一個「是」以及理由。不要從偏好的工具倒推答案。</p>
+</div>
+<div class="step">
+  <label><input type="checkbox"> 5. 選一條真的要做的路</label>
   <p>挑一個情境，記下下一課要帶進程式庫地圖或 grill 的輸入。</p>
 </div>
 
 <div class="done-banner" id="done">
-  <strong>完成條件：</strong>三個情境都已分到對應流程，而且每個選擇都有工作規模與風險依據。
+  <strong>完成條件：</strong>三個情境都已分到對應流程，而且能依 phase-boundary decision tree 說明何時 Continue、清空、交接、分派或壓縮脈絡。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
@@ -112,10 +126,17 @@
   <button>先 /handoff，換到新的工作階段</button>
   <div class="why">只有需要跨多個工作階段完成的工作，才要先固化成規格與工作項目。小而已對齊的需求可以留在同一個對話脈絡，直接交給 <code>/implement</code>。</div>
 </div>
+<div class="quiz" data-answer="2">
+  <p>4. Grill 剛完成，下一階段仍需這些決策，但同一程式庫的脈絡已逼近 smart zone；不需要換工具、目錄或交給同事。最合理的是？</p>
+  <button>/handoff，把摘要寫成可攜檔案</button>
+  <button>/clear，讓下一階段從零開始</button>
+  <button>在這個 phase boundary 用 /compact 接續</button>
+  <div class="why">相關脈絡仍要保留，又沒有 portability 或 AFK 需求，decision tree 會落到 <code>/compact</code>。脈絡快滿本身不是 <code>/handoff</code> 的理由。</div>
+</div>
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。一般路線下一課是 <a href="003-0003-repo-map.html">Phase 2 第 03 課 — 不熟 repo 時，先建立地圖</a>；若選到巨大模糊工作，改走 <a href="003-0013-wayfinder-chart-map.html">Phase 2 選修第 13 課 — 建立共享決策地圖</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/ask-matt/SKILL.md">已審查的 ask-matt 版本（2ab9580）</a>；選路前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/ask-matt/SKILL.md">目前的 ask-matt 說明</a>。主線實作與巨大模糊工作的邊界，另見 <a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/implement/SKILL.md">implement</a> 與 <a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/wayfinder/SKILL.md">wayfinder</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/ask-matt/SKILL.md">已審查的 ask-matt 版本（v1.2.3）</a>與同版的 <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/ask-matt/PHASE-BOUNDARIES.md">phase-boundary decision tree</a>；選路前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/ask-matt/SKILL.md">目前的 ask-matt 說明</a>。主線實作與巨大模糊工作的邊界，另見 <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/implement/SKILL.md">implement</a> 與 <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/wayfinder/SKILL.md">wayfinder</a>。</p>
 
 <footer>
   路線選擇有疑問時，交出需求摘要、工作規模與可逆性，請 Claude Code 說明選擇該入口的依據。<br>

@@ -47,7 +47,7 @@
 
 <h2>凝結，不是再訪談</h2>
 <p><code>/to-spec</code> 的關鍵設計是：不要再訪談使用者，直接綜合這個工作階段已經知道的內容。若它開始問大量新問題，通常代表前面的 grill 沒做透，應該回去補對齊，而不是把規格當補救訪談。</p>
-<div class="tip"><strong>保持對話脈絡乾淨：</strong>從需求追問到本課，再到下一課 <code>/to-tickets</code>，盡量維持同一個未中斷工作階段；不要中途使用 <code>/clear</code> 或 <code>/compact</code>。只有脈絡快滿時才用 <code>/handoff</code> 換工作階段。</div>
+<div class="tip"><strong>保持對話脈絡乾淨：</strong>從需求追問到本課，再到下一課 <code>/to-tickets</code>，正常情況維持同一個未中斷工作階段，讓規格能使用原始推理。若逼近 smart zone，等到最近的 phase boundary 再用 <code>/compact</code> 接續。不要只因脈絡變長就用 <code>/handoff</code>；它只適合換 harness、目錄／程式庫、交給同事或在工作中途分出支線。</div>
 <table>
 <tr><th>規格應該包含</th><th>你要檢查什麼</th></tr>
 <tr><td>問題陳述與範圍邊界</td><td>是否清楚說明要解的問題，以及哪些事不做。</td></tr>
@@ -60,7 +60,7 @@
 <h2>實作步驟（做完打勾）</h2>
 <div class="step">
   <label><input type="checkbox"> 1. 接回對齊脈絡</label>
-  <p>在第 04 課 grill 的同一個工作階段繼續；若 prototype 曾分支出去，先讀它帶回來的交接。只有原對話脈絡已接近上限時，才用交接開新工作階段，並引用 grill 結論、prototype 結論、CONTEXT.md 與相關 ADR。</p>
+  <p>在第 04 課 grill 的同一個工作階段繼續；若 prototype 曾移到獨立目錄，先讀它交接回來的答案。若原對話脈絡已逼近 smart zone，在這個 phase boundary 用 <code>/compact</code>，並指明下一階段要寫 spec；只有真的需要 portability 時才改用 <code>/handoff</code>。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 2. 執行 /to-spec</label>
@@ -99,10 +99,17 @@
   <button>提供工作項目切片依據</button>
   <div class="why">下一課 <code>/to-tickets</code> 會依規格切成可認領的工作；使用情境是切片的主要材料。</div>
 </div>
+<div class="quiz" data-answer="1">
+  <p>3. Grill 已完成，仍在同一程式庫且下一步需要保留決策脈絡，但已逼近 smart zone。這時應該？</p>
+  <button>/clear，讓 /to-spec 從零探索</button>
+  <button>在 phase boundary 用 /compact，註明接著要寫 spec</button>
+  <button>/handoff，因為只要脈絡快滿就必須寫交接檔</button>
+  <div class="why">脈絡仍相關、沒有 portability 需求，應在階段交界使用 <code>/compact</code>。<code>/handoff</code> 不是一般的 context 壓縮工具。</div>
+</div>
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。下一課：<a href="003-0007-to-tickets.html">Phase 2 第 07 課 — 用 /to-tickets 切成可認領工作</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/to-spec/SKILL.md">已審查的 to-spec 版本（2ab9580）</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/to-spec/SKILL.md">目前的 to-spec 說明</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/to-spec/SKILL.md">已審查的 to-spec 版本（v1.2.3）</a>與同版的 <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/ask-matt/PHASE-BOUNDARIES.md">phase-boundary decision tree</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/to-spec/SKILL.md">目前的 to-spec 說明</a>。</p>
 
 <footer>
   規格無法往下切工作項目時，交出規格與不清楚的驗收條件，請 Claude Code 找出仍未決定的需求。<br>

@@ -25,8 +25,8 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <h1>mattpocock/skills 參考索引</h1>
 <p class="sub">同一組來源的 skills 放在這裡查；主線課程只保留從需求到交付最常用的路徑。</p>
-<p class="sub">校準基準：上游 <a href="https://github.com/mattpocock/skills/tree/2ab958093e83e0ec752e6c1c5932da465bf23e0c"><code>2ab9580</code></a>（2026-07-28）。實際使用前，仍要重新查閱 <a href="https://github.com/mattpocock/skills/tree/main">current repository</a> 的 <code>SKILL.md</code>。</p>
-<p class="sub"><strong>共同前置：</strong>在任何工程流程前先完成 <a href="../lessons/003-0001-matt-pocock-skills-foundation.html"><code>/setup-matt-pocock-skills</code></a>；未設定 issue tracker 與 domain docs 時先不要往下跑。</p>
+<p class="sub">校準基準：上游穩定版 <a href="https://github.com/mattpocock/skills/tree/v1.2.3"><code>v1.2.3</code></a>／<a href="https://github.com/mattpocock/skills/tree/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e"><code>6acc160</code></a>（2026-08-06）。實際使用前，仍要重新查閱 <a href="https://github.com/mattpocock/skills/tree/main">current repository</a> 的 <code>SKILL.md</code>。</p>
+<p class="sub"><strong>共同前置：</strong>第一次進入這套 repo engineering 主線前，先完成 <a href="../lessons/003-0001-matt-pocock-skills-foundation.html"><code>/setup-matt-pocock-skills</code></a>；未設定 issue tracker 與 domain docs 時先不要往下跑。</p>
 
 <div class="rule">
   <strong>使用原則：</strong>先用主線入口推進工作；只有遇到特定情境，才拉出流程內能力或補充 skill。
@@ -44,17 +44,17 @@
 <h2>主要入口與 on-ramps</h2>
 <table>
 <tr><th>Skill</th><th>用途</th><th>課程</th></tr>
-<tr><td><code>/ask-matt</code></td><td>不知道該走哪條路時，先請它選入口。</td><td><a href="../lessons/003-0002-ask-matt.html">03-02</a></td></tr>
-<tr><td><code>/grill-me</code></td><td>沒有 codebase 時，用逐題訪談壓測計劃或設計；不讀寫 repo 文件。</td><td><a href="../lessons/003-0004-grill-with-docs.html">03-04</a></td></tr>
-<tr><td><code>/grill-with-docs</code></td><td>已有 codebase 時，用 <code>grilling</code>＋<code>domain-modeling</code> 問清楚需求；已確認詞彙才寫 CONTEXT.md，decision 也須同時符合三項門檻才寫 ADR。</td><td><a href="../lessons/003-0004-grill-with-docs.html">03-04</a></td></tr>
-<tr><td><code>/prototype</code></td><td>用拋棄式原型回答單一設計或邏輯問題；主線用 <code>/handoff</code> 進出。答案寫進 issue／commit／ADR，完整原型留在不 merge 的 throwaway branch 作為 primary source。</td><td><a href="../lessons/003-0005-prototype.html">03-05</a></td></tr>
-<tr><td><code>/to-spec</code></td><td>把已對齊的對話凝結成 spec；你可以把它理解成 PRD 的現行 canonical 名稱。</td><td><a href="../lessons/003-0006-to-spec.html">03-06</a></td></tr>
+<tr><td><code>/ask-matt</code></td><td>不知道該走哪條路時，先請它選入口；到 phase boundary 時再依序判斷 Continue、<code>/clear</code>、<code>/handoff</code>、Subagent、<code>/compact</code>，第一個符合的選項就採用。</td><td><a href="../lessons/003-0002-ask-matt.html">03-02</a></td></tr>
+<tr><td><code>/grill-me</code></td><td>沒有 working directory 時，用 design tree 壓測計劃或設計；每輪詢問目前 frontier 上所有前置已確認的 decision，每題編號並附 recommended answer。Facts 由 agent 查，decisions 由使用者決定；不讀寫 repo 文件。</td><td><a href="../lessons/003-0004-grill-with-docs.html">03-04</a></td></tr>
+<tr><td><code>/grill-with-docs</code></td><td>已有 working directory 時，用同一套 frontier rounds 加上 <code>domain-modeling</code> 問清楚需求；已確認詞彙才寫 CONTEXT.md，decision 也須同時符合三項門檻才寫 ADR。</td><td><a href="../lessons/003-0004-grill-with-docs.html">03-04</a></td></tr>
+<tr><td><code>/prototype</code></td><td>用拋棄式原型回答單一設計或邏輯問題。LOGIC branch 產出可直接雙擊、能分享給非工程角色操作的 self-contained HTML，包含 free-play buttons 與分頁 guided walkthroughs；UI branch 則用多個可切換的視覺版本回答外觀問題。主線因原型位於新目錄而用 <code>/handoff</code> 進出；答案寫進 issue／commit／ADR，完整原型留在不 merge 的 throwaway branch 作為 primary source。</td><td><a href="../lessons/003-0005-prototype.html">03-05</a></td></tr>
+<tr><td><code>/to-spec</code></td><td>把已對齊的對話凝結成可實作的 spec，保留 context、目標、user stories、implementation／testing decisions 與 out-of-scope 邊界。</td><td><a href="../lessons/003-0006-to-spec.html">03-06</a></td></tr>
 <tr><td><code>/to-tickets</code></td><td>把 spec 切成帶 blocking edges、可獨立認領與驗收的 tickets；local tracker 使用 <code>.scratch/&lt;feature&gt;/issues/NN-slug.md</code>，一張一檔。</td><td><a href="../lessons/003-0007-to-tickets.html">03-07</a></td></tr>
 <tr><td><code>/implement</code></td><td>完成一個已對齊的有限切片（bounded slice）：同一工作階段的小需求可沿用已確認計畫；跨工作階段則依規格與單張工作項目冷啟動。兩者都包含 TDD、檢查與 <code>/code-review</code> 紀律。</td><td><a href="../lessons/003-0008-implement.html">03-08</a></td></tr>
 <tr><td><code>/triage</code></td><td>把外部回報分流成 needs-info、ready-for-agent、ready-for-human 或 wontfix；agent-ready issue 通常交 <code>/implement</code>，難解、間歇或回歸 bug 才改走 diagnosing-bugs。</td><td><a href="../lessons/003-0009-triage.html">03-09</a></td></tr>
 <tr><td><code>/wayfinder</code></td><td>工作巨大、模糊，而且無法在一個工作階段完成時，先建立共享地圖。一般情況下一個工作階段只處理一張待決工作項目；研究型工作是例外，可以在完成地圖後交給多個研究子代理平行調查。調查結果留在不合併的 <code>research/&lt;name&gt;</code> 分支，工作項目則註明需要讀取結果的時機。路徑清楚後回到 <code>/to-spec</code>。</td><td><a href="../lessons/003-0013-wayfinder-chart-map.html">03-13</a> · <a href="../lessons/003-0014-wayfinder-frontier.html">03-14</a> · <a href="wayfinder-map-workflow.html">速查</a></td></tr>
 <tr><td><code>/improve-codebase-architecture</code></td><td>掃描架構深化機會；挑一個候選後回 <code>/grill-with-docs</code>。同-session 小改直接接 bounded implement；跨 session 才先產生 spec 與 tickets。</td><td><a href="../lessons/003-0011-architecture.html">03-11</a></td></tr>
-<tr><td><code>/handoff</code></td><td>把脈絡寫成作業系統暫存文件，供本機新工作階段冷啟動。跨人或跨機器必須另用授權管道安全傳送；本機暫存路徑不會自動同步。</td><td><a href="../lessons/003-0012-handoff.html">03-12</a></td></tr>
+<tr><td><code>/handoff</code></td><td>只在需要 portability 時，把脈絡寫成作業系統暫存文件：切換新 harness、新目錄或 repo、交給同事，或在 phase 中途分出支線。若無內容需保留可用 <code>/clear</code>；同 harness、同目錄且仍需互動時通常落到 <code>/compact</code>，能 AFK 的窄任務則交 Subagent。跨人或跨機器仍須另用授權管道安全傳送；本機暫存路徑不會自動同步。</td><td><a href="../lessons/003-0012-handoff.html">03-12</a></td></tr>
 </table>
 
 <h2>流程內能力</h2>
@@ -62,7 +62,7 @@
 <tr><th>Skill／能力</th><th>定位</th><th>何時出現</th></tr>
 <tr><td><code>/tdd</code></td><td>用 RED → GREEN 保護行為；refactoring 歸 review 階段。</td><td>主要在 <code>/implement</code> 與除錯修復中出現。</td></tr>
 <tr><td><code>/code-review</code></td><td>先指定審查起點（fixed point），例如 commit、branch、tag 或 merge-base，再檢查 three-dot diff。一位審查者對照 repo 規則，另一位對照規格；兩份結果分開保留。</td><td>可作為 <code>/implement</code> 的收尾關卡，也可獨立審查 PR、分支或進行中的修改。</td></tr>
-<tr><td><code>diagnosing-bugs</code></td><td>先建立 red-capable feedback loop，再重現、最小化、列假說、埋點、修復與回歸。</td><td>難解、間歇或回歸 bug；repo 地圖只能服務回饋迴圈，不先代替它猜原因。</td></tr>
+<tr><td><code>diagnosing-bugs</code></td><td>先建立 red-capable feedback loop，再重現、最小化、列假說、埋點、修復與回歸。展示 command、output、HAR、trace 或 log 前，先把每個 secret 換成 <code>&lt;REDACTED&gt;</code>；credential 留在 environment，只引用 captured artifact 中帶 signal 的部分。</td><td>難解、間歇或回歸 bug；repo 地圖只能服務回饋迴圈，不先代替它猜原因。若 Redact 後的證據不足，明說並請使用者補充。</td></tr>
 <tr><td><code>domain-modeling</code></td><td>逐詞穩定專案的 implementation-free 領域語言；由人確認已釐清的詞彙後再寫進 CONTEXT.md。</td><td><code>/grill-with-docs</code> 與 CONTEXT.md 會反覆用到；ADR 仍須另外通過 foundation 的三項門檻。</td></tr>
 <tr><td><code>codebase-design</code></td><td>提供深模組、接縫與介面設計 vocabulary；Adapter 是在 seam 上滿足 interface 的具體角色，描述它填入哪個位置。</td><td><code>/improve-codebase-architecture</code> 與設計 review 時使用。</td></tr>
 </table>
@@ -71,12 +71,16 @@
 <table>
 <tr><th>Skill</th><th>使用時機</th><th>為什麼不獨立成課</th></tr>
 <tr><td><code>/research</code></td><td>需要外部 primary sources、官方文件或 API 事實時，讓背景 agent 留一份 cited Markdown。</td><td>它餵資料進 <code>/grill-with-docs</code> 或 spec，不直接替代需求對齊與交付主線。</td></tr>
+<tr><td><code>/to-questionnaire</code></td><td>阻塞資訊在別人手上時，先問清楚收件者與需要取回的 decisions／facts，再產出可非同步填寫的 questionnaire。</td><td>回收內容會餵進 <code>/grill-with-docs</code> 或 <code>/to-spec</code>，不是每個需求都要經過的主線。</td></tr>
+<tr><td><code>/wizard</code></td><td>遇到只有人能完成的 dashboard、credential、CI secret、migration 或 cutover 步驟時，產生帶確認關卡的互動式 bash wizard。</td><td>只處理 genuine human-in-the-loop procedures；agent 能自行完成的工作不該繞進這條路。</td></tr>
+<tr><td><code>/wait-what</code></td><td>上一段說明沒有講懂時，在原對話中補足背景、改用簡明英文，並沿用 CONTEXT.md 的 ubiquitous language 重講。</td><td>它是任何流程中的即時修正，不是需求到交付的獨立階段。</td></tr>
+<tr><td><code>/writing-for-agents</code></td><td>編寫 skills、AGENTS.md、CLAUDE.md 或由指標連到的 agent-facing 文件時，檢查 context pointers、information hierarchy、completion criteria 與 pruning。</td><td>Phase 2 只需知道這個現行名稱；完整的 skill／agent 文件設計留在 Phase 6。</td></tr>
 <tr><td><code>resolving-merge-conflicts</code></td><td>merge 或 rebase 已經進入 conflict，需要理解雙方意圖、解每個 hunk、重跑檢查並完成 merge/rebase。</td><td>它很重要，但只在衝突發生時使用；不屬於每個需求都會經過的主線。</td></tr>
 </table>
 
 <footer>
   對應課程：<a href="../lessons/003-0001-matt-pocock-skills-foundation.html">完成 mattpocock/skills 設定</a> · <a href="../lessons/003-0002-ask-matt.html">用 /ask-matt 選路</a> · <a href="../lessons/003-0013-wayfinder-chart-map.html">建立共享決策地圖</a> · <a href="../lessons/003-0014-wayfinder-frontier.html">處理一張決策工作項目</a><br>
-  主要來源（已審查 <code>2ab9580</code>）：<a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/ask-matt/SKILL.md">ask-matt</a> · <a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/domain-modeling/SKILL.md">domain-modeling</a> · <a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/codebase-design/SKILL.md">codebase-design</a> · <a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/wayfinder/SKILL.md">wayfinder</a> · <a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/resolving-merge-conflicts/SKILL.md">resolving-merge-conflicts</a> · <a href="https://github.com/mattpocock/skills/tree/main">current repository</a>
+  主要來源（已審查 <code>v1.2.3</code>／<code>6acc160</code>）：<a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/ask-matt/SKILL.md">ask-matt</a> · <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/ask-matt/PHASE-BOUNDARIES.md">phase-boundaries</a> · <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/productivity/grilling/SKILL.md">grilling</a> · <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/prototype/SKILL.md">prototype</a> · <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/prototype/LOGIC.md">LOGIC</a> · <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/diagnosing-bugs/SKILL.md">diagnosing-bugs</a> · <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/productivity/handoff/SKILL.md">handoff</a> · <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/domain-modeling/SKILL.md">domain-modeling</a> · <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/codebase-design/SKILL.md">codebase-design</a> · <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/wayfinder/SKILL.md">wayfinder</a> · <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/resolving-merge-conflicts/SKILL.md">resolving-merge-conflicts</a> · <a href="https://github.com/mattpocock/skills/tree/main">current repository</a>
 </footer>
 </body>
 </html>

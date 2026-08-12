@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>12：用 /handoff 做跨工作階段交接</title>
+<title>12：用 /handoff 做可攜式工作交接</title>
 <style>
   body { font-family: "Source Han Sans TC", "PingFang TC", -apple-system, sans-serif;
          max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.85; }
@@ -38,19 +38,31 @@
 </head>
 <body>
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
-<div class="kicker">Phase 2 · 第 12 課 · 約 20 分鐘 · 跨工作階段橋接</div>
-<h1>用 /handoff 做跨工作階段交接</h1>
-<p class="mission"><strong>本課成果：</strong>一份讓全新 Claude Code 工作階段可以直接接手的交接文件。</p>
-<div class="scope"><strong>本課只做：</strong>把下一個人或工作階段需要的脈絡打包。<br><strong>先不要做：</strong>把交接當成完整報告或長期文件庫。</div>
+<div class="kicker">Phase 2 · 第 12 課 · 約 20 分鐘 · 可攜式工作交接</div>
+<h1>用 /handoff 做可攜式工作交接</h1>
+<p class="mission"><strong>本課成果：</strong>一份能把工作帶到另一個 harness、目錄、程式庫或同事手上的可攜式交接文件。</p>
+<div class="scope"><strong>本課只做：</strong>工作真的需要移動時，用 <code>/handoff</code> 打包下一個環境需要的脈絡。<br><strong>先不要做：</strong>因為 context 快滿、準備收工或任意換 session，就把交接當成預設動作。</div>
 
 
 <h2>它解決的問題</h2>
-<p>Phase 1 第 12 課教過：對話脈絡塞滿就砍掉重練、乾淨工作階段贏過污染的長對話。但「重練」也有成本：<strong>原本的脈絡會一起消失</strong>。交接就是在按下重練之前，先把值錢的脈絡壓縮成文件帶走：</p>
-<pre>長對話（脈絡漸亂）→ /handoff 今天到此，明天繼續做 X
-                              ↓
-                  交接文件（存到作業系統暫存目錄）
-                              ↓
-新工作階段開場：「讀這份交接文件，繼續」 → 乾淨脈絡＋完整交接</pre>
+<p><code>/handoff</code> 解決的是<strong>可攜性（portability）</strong>：工作必須離開目前的 harness、目錄、程式庫或執行者時，把不能由既有產出還原的脈絡壓成一份可帶走的文件。它不是一般性的 context 整理工具。</p>
+<pre>目前工作階段 → /handoff [目的地要做什麼]
+                       ↓
+             可攜式交接文件（作業系統暫存目錄）
+                       ↓
+另一個 harness／目錄／程式庫／同事 → 讀文件後接手</pre>
+
+<h2>先走 phase-boundary decision tree</h2>
+<p>只有在一個 phase 結束、下一個 phase 要開始的邊界，才依序問下面五題；<strong>第一個「是」就是答案</strong>。不要在工作做到一半時為了整理 context 而切換。</p>
+<table>
+<tr><th>順序</th><th>問題</th><th>選擇</th></tr>
+<tr><td>1</td><td>下一階段需要目前對話作為 primary source，或剩餘 smart zone 足以完成嗎？</td><td><strong>Continue</strong>：留在目前工作階段，資訊零損失</td></tr>
+<tr><td>2</td><td>目前 context 對下一階段完全無關嗎？</td><td><code>/clear</code>：清空 context；舊工作階段仍可恢復</td></tr>
+<tr><td>3</td><td>工作需要移到新 harness、新目錄／程式庫、同事手上，或把 mid-phase 副線帶到別處嗎？</td><td><code>/handoff</code>：產生可攜式文件</td></tr>
+<tr><td>4</td><td>工作範圍已明確，可以讓你離席後獨立完成嗎？</td><td><strong>Subagent</strong>：另開 context 執行，主線不動</td></tr>
+<tr><td>5</td><td>以上都不是，但相關 context 要帶進同一環境的下一階段嗎？</td><td><code>/compact</code>：預設落點，帶著有方向的摘要繼續</td></tr>
+</table>
+<div class="tip"><strong>判斷核心：</strong>Continue 保留 primary source；<code>/clear</code> 丟掉無關 context；<code>/handoff</code> 買的是 portability；Subagent 適合 AFK；其餘 phase boundary 才落到 <code>/compact</code>。<code>/compact</code> 是預設落點，但因為摘要會有損，所以放在 decision tree 最後。</div>
 
 <h2>四個設計細節（SKILL.md 原文）</h2>
 <table>
@@ -62,56 +74,57 @@
 </table>
 <div class="tip"><strong>參數很重要：</strong>使用 <code>/handoff 下一個工作階段要做 X</code>，它會針對 X 裁剪內容。「為了繼續除錯」和「為了寫文件」需要的脈絡完全不同。</div>
 
-<h2>什麼時候用（四個真實程式庫情境）</h2>
+<h2>什麼時候真的需要 /handoff</h2>
 <ul>
-  <li><strong>中途分支</strong>：主線把一個問題交給全新的原型工作階段，完成後再用另一份交接把答案帶回主線。</li>
-  <li><strong>收工交接</strong>：下班前 <code>/handoff 明天繼續實作 ticket 5</code>，明早新工作階段直接接力。</li>
-  <li><strong>糾正兩次還不對</strong>（Phase 1 第 12 課的砍掉重練訊號）：先交接再重開，把「學到的教訓」帶進新工作階段的第一句提示。</li>
+  <li><strong>換 harness</strong>：例如從 Claude Code 移到 Codex，需要一份不綁定原對話的文件。</li>
+  <li><strong>換目錄或程式庫</strong>：下一階段要在另一個 workspace 工作，原環境的 context 不會跟著走。</li>
   <li><strong>跨人交接</strong>：需求追問到一半要請假，改由同事接手。先透過經授權的安全管道，把交接文件送到對方能讀取的路徑，再由他的 Claude Code 冷啟動。</li>
+  <li><strong>mid-phase 副線</strong>：主線中發現一個不該打斷當前工作的副任務，把它交給另一個環境處理，再將結論帶回。</li>
+  <li><strong>Prototype detour</strong>：prototype 會進入獨立目錄，因此 <code>handoff → prototype → handoff</code> 仍是正確案例；第一份把設計問題帶入原型，第二份把實測結論帶回主線。</li>
 </ul>
-<p>與相鄰機制的分工：<code>/compact</code> 是<strong>同一個工作階段內</strong>壓縮歷史；<code>claude -c</code> 是接續<strong>同一個對話</strong>；交接則產生一份本機暫存文件，供新的工作階段讀取。跨人或跨機器時，<strong>本機暫存路徑不會自動同步</strong>，必須先經授權管道安全傳送。</p>
+<p>「今天做到這裡」、「context 快滿」或「想換個乾淨 session」本身都不是 handoff 理由。若相關 context 還要留在同一個 harness 與目錄，而且無法直接 Continue，decision tree 通常會落到 <code>/compact</code>。只有某樣東西真的要<strong>移動</strong>時，才需要 handoff。跨人或跨機器時，<strong>本機暫存路徑不會自動同步</strong>，必須先經授權管道安全傳送。</p>
 <div class="tip"><strong>跨機器邊界：</strong>不要把 <code>/tmp/...</code> 或 <code>$TMPDIR/...</code> 路徑直接貼給另一台機器。先重新檢查敏感資訊是否已遮蔽（redaction），再用組織核准的安全管道傳送；確認接手方可讀後，依資料保留政策清理兩端暫存副本。</div>
 
 <h2>實作步驟（做完打勾）</h2>
 
 <div class="step">
-  <label><input type="checkbox"> 1. 挑一個進行中的真實工作階段</label>
-  <p>最好是已有一些歷史的工作，例如需求追問或除錯做到一半。</p>
+  <label><input type="checkbox"> 1. 挑一個真的需要 portability 的邊界</label>
+  <p>例如換 harness、移到另一個目錄／程式庫、交給同事，或把 mid-phase 副線帶到另一個環境。若只是收工或 context 快滿，改用 decision tree 選其他路線。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 2. 帶參數跑交接</label>
+  <label><input type="checkbox"> 2. 由上到下走 decision tree</label>
+  <p>先排除 Continue 與 <code>/clear</code>，確認「某樣東西需要移動」是第一個成立的條件，再選 <code>/handoff</code>。把目的地、要接續的 phase 與選擇理由記下來。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 3. 帶參數跑交接</label>
   <pre>/handoff 下一個工作階段要 [具體說明接下來做什麼]</pre>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 3. 用三個標準驗收文件</label>
+  <label><input type="checkbox"> 4. 用三個標準驗收文件</label>
   <p>打開暫存目錄的文件檢查：(a) 有沒有重複貼規格或工作項目內容（應引用路徑）？(b) 建議的下一個工作技能是否正確？(c) <strong>有沒有漏網的敏感資訊</strong>？</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 4. 實測冷啟動</label>
-  <p>先在同一台機器開全新工作階段：「讀 [文件路徑]，繼續這個工作」。觀察它需不需要再問你本該寫在文件裡的事；如果需要，表示交接文件還有漏洞，回頭補上。跨機器實測時，必須改用安全傳送後的目的端路徑。</p>
-</div>
-
-<div class="step">
-  <label><input type="checkbox"> 5. 養成習慣</label>
-  <p>給自己立一條規則：<strong>長工作階段收工或工作流程中途換工作階段，先交接</strong>。一週後回顧：接力的啟動時間少了多少？</p>
+  <label><input type="checkbox"> 5. 到真正的目的地實測接手</label>
+  <p>在目標 harness、目錄、程式庫或同事可用的工作階段輸入：「讀 [文件路徑]，繼續這個工作」。觀察它是否還要追問本該寫在文件裡的事；如果需要，表示交接文件有漏洞，回頭補上。跨機器實測時，必須改用安全傳送後的目的端路徑。</p>
 </div>
 
 <div class="done-banner" id="done">
-  <strong>完成條件：</strong>全新 Claude Code 工作階段已用交接文件成功接手，缺少的資訊也已補回文件。
+  <strong>完成條件：</strong>已記錄 decision tree 為何選到 <code>/handoff</code>，而且真正的目標環境已用交接文件成功接手；缺少的資訊也已補回文件。
 </div>
 
 <h2>Phase 2 驗收標準</h2>
-<p>不要用「12 課都看過」當結業證據。選一條真實路線，交出能讓新工作階段冷啟動的成果鏈：</p>
+<p>不要用「12 課都看過」當結業證據，也不要強迫每條成果鏈都以 handoff 結尾。選一條真實路線，交出可驗證成果，再在 phase boundary 走一次 decision tree：</p>
 <ul>
-  <li>新需求：對齊結論 → 規格／工作項目（若需要）→ 實作證據 → 程式碼審查 → 交接。</li>
-  <li>外部回報：議題 → 分類狀態 → 診斷證據 → 回歸驗證 → 交接。</li>
-  <li>維護改善：架構發現 → 被選定的接縫 → 規格／實作證據 → 交接。</li>
-  <li>巨大模糊工作：決策地圖 → 關聯決策 → 規格 → 工作項目 → 實作證據 → 交接。</li>
+  <li>新需求：對齊結論 → 規格／工作項目（若需要）→ 實作證據 → 程式碼審查 → phase-boundary route。</li>
+  <li>外部回報：議題 → 分類狀態 → 診斷證據 → 回歸驗證 → phase-boundary route。</li>
+  <li>維護改善：架構發現 → 被選定的接縫 → 規格／實作證據 → phase-boundary route。</li>
+  <li>巨大模糊工作：決策地圖 → 關聯決策 → 規格 → 工作項目 → 實作證據 → phase-boundary route。</li>
 </ul>
-<p>新的 Claude Code 工作階段只靠這些產出，就能說出「做了什麼、怎麼驗證、還剩什麼」，這才算留下可用的學習紀錄。</p>
+<p>驗收時要能說出為何選 Continue、<code>/clear</code>、<code>/handoff</code>、Subagent 或 <code>/compact</code>。只有 decision tree 選到 handoff 時，才額外要求新的目標環境只靠成果與交接文件，說出「做了什麼、怎麼驗證、還剩什麼」。</p>
 
 <h2>觀念檢查（憑記憶作答）</h2>
 
@@ -123,25 +136,33 @@
   <div class="why">工作技能原文：不重複既有產出，用路徑引用。複製會製造兩份會分岔的事實；交接文件的價值在「正本沒有的脈絡」（決策過程、卡點、下一步）。</div>
 </div>
 
-<div class="quiz" data-answer="0">
-  <p>2. /compact 和 /handoff 的本質差異是？</p>
-  <button>compact 留在原對話，交接交給新對話</button>
-  <button>compact 只限本機，交接會自動上傳</button>
-  <button>compact 產生檔案，交接只摘要訊息</button>
-  <div class="why"><code>/compact</code> 服務「這個對話繼續」；交接服務「新對話從文件冷啟動」。交接產生的是本機暫存檔，不會自動傳到另一台機器。</div>
+<div class="quiz" data-answer="2">
+  <p>2. Phase boundary 到了：相關 context 要留給下一階段、仍在同一個 harness 與目錄、需要你持續 steering，而且剩餘 smart zone 不足。decision tree 會落到哪裡？</p>
+  <button><code>/clear</code></button>
+  <button><code>/handoff</code></button>
+  <button><code>/compact</code></button>
+  <div class="why">context 相關，所以不能 clear；沒有任何東西要移動，所以不需 handoff；又不適合 AFK Subagent。排除前四個選項後，預設落點就是 <code>/compact</code>。</div>
+</div>
+
+<div class="quiz" data-answer="2">
+  <p>3. 哪個情境最符合 <code>/handoff</code> 的窄用途？</p>
+  <button>今天收工，明天仍在同一個程式庫繼續</button>
+  <button>context 快滿，但下一階段仍在同一個環境進行</button>
+  <button>要從 Claude Code 移到 Codex，並在另一個程式庫接手</button>
+  <div class="why"><code>/handoff</code> 買的是 portability。換 harness 且換程式庫需要一份能旅行的文件；收工或 context 快滿本身不是 handoff 理由。</div>
 </div>
 
 <div class="quiz" data-answer="1">
-  <p>3.（複習 Phase 1 第 12 課）糾正它兩次同一問題仍失敗，加上本課工具後的最佳流程是？</p>
-  <button>繼續加提示並留在原對話</button>
-  <button>先交接再開新對話</button>
-  <button>先 compact 再留在原對話</button>
-  <div class="why">（間隔複習）Phase 1 第 12 課說砍掉重練；本課補上「怎麼帶走學到的東西」。交接把失敗嘗試中值錢的部分（什麼不行、為什麼）變成新工作階段的起點。compact 留在原對話，污染還在。</div>
+  <p>4. 為什麼 <code>handoff → prototype → handoff</code> 仍是正確路線？</p>
+  <button>因為任何 prototype 都必須強制開新對話</button>
+  <button>因為 prototype 在獨立目錄工作，設計問題與實測結論都要跨邊界移動</button>
+  <button>因為 <code>/compact</code> 無法摘要 HTML</button>
+  <div class="why">這條路線符合 portability：第一份交接把問題帶進獨立 prototype 目錄，第二份把實測結論帶回主線。若 prototype 沒有跨環境，就仍應重新走 decision tree。</div>
 </div>
 
 <h2>下一步</h2>
-<p>完成後回對話視窗交<strong>階段回報</strong>：Claude Code 實戰與 mattpocock/skills 四條路線，在真實程式庫裡各自做到什麼程度？CONTEXT.md/ADR 累積了多少？下一個正式階段是 <a href="004-0001-choose-claude-design-surface.html">Phase 3 第 01 課</a>；若工作直接是簡報，也可按需進入 <a href="005-0001-choose-daily-visual-output.html">Phase 4 第 01 課</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/productivity/handoff/SKILL.md">已審查的 handoff 版本（2ab9580）</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/productivity/handoff/SKILL.md">目前的 handoff 說明</a>。</p>
+<p>完成後回對話視窗交<strong>階段回報</strong>：Claude Code 實戰與 mattpocock/skills 四條路線，在真實程式庫裡各自做到什麼程度？CONTEXT.md/ADR 累積了多少？phase-boundary decision tree 選了哪條 route，理由是什麼？下一個正式階段是 <a href="004-0001-choose-claude-design-surface.html">Phase 3 第 01 課</a>；若工作直接是簡報，也可按需進入 <a href="005-0001-choose-daily-visual-output.html">Phase 4 第 01 課</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/productivity/handoff/SKILL.md">已審查的 handoff 版本（v1.2.3）</a>，以及同版 <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/ask-matt/PHASE-BOUNDARIES.md">ask-matt phase-boundary decision tree</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/productivity/handoff/SKILL.md">目前的 handoff 說明</a>。</p>
 
 <footer>
   全新工作階段無法接手時，交出交接文件、新工作階段的追問與缺少資訊，請 Claude Code 修正文件。<br>

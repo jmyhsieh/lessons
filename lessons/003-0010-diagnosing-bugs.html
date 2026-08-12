@@ -40,7 +40,7 @@
 <div class="kicker">Phase 2 · 第 10 課 · 約 45 分鐘 · 缺陷修復</div>
 <h1>用 /diagnosing-bugs 做紀律除錯</h1>
 <p class="mission"><strong>本課成果：</strong>一份以可重現現象與驗證證據支持的錯誤診斷紀錄。</p>
-<div class="scope"><strong>本課只做：</strong>用可重現訊號推進除錯。<br><strong>先不要做：</strong>在沒有失敗案例（failing case）時只靠猜測改程式碼。</div>
+<div class="scope"><strong>本課只做：</strong>用已遮蔽敏感資訊的可重現訊號推進除錯。<br><strong>先不要做：</strong>在沒有失敗案例（failing case）時只靠猜測改程式碼，或直接貼出含有秘密的命令與捕獲資料。</div>
 
 
 <h2>整個工作技能就一句話</h2>
@@ -49,6 +49,7 @@
 <h2>六階段地圖</h2>
 <table>
 <tr><th>階段</th><th>做什麼</th><th>鐵律</th></tr>
+<tr><td><strong>全程：Redact</strong></td><td>展示命令、輸出或捕獲資料前先遮蔽敏感資訊</td><td>所有秘密改成 <code>&lt;REDACTED&gt;</code>；憑證從環境變數讀取</td></tr>
 <tr><td>1. <strong>建回饋迴圈</strong></td><td>用十種武器之一造出通過／失敗訊號</td><td>沒有迴圈不准進下一階段</td></tr>
 <tr><td>2. 重現並最小化</td><td>親眼看錯誤出現，再逐項刪除非必要輸入、呼叫端、設定、資料與步驟</td><td>必須是<strong>使用者描述的那個</strong>錯誤；最後每個剩餘元素都不可再刪</td></tr>
 <tr><td>3. 提出假說</td><td><strong>先列 3–5 個排序假說</strong>再測任何一個</td><td>每個假說要可否證（能說出預測）</td></tr>
@@ -56,6 +57,10 @@
 <tr><td>5. 修正並補回歸測試</td><td><strong>先寫回歸測試（看它失敗）再修</strong></td><td>只在「正確的接縫」寫；沒有正確接縫＝那本身就是發現</td></tr>
 <tr><td>6. 清理並回顧</td><td>搜尋前綴，清光除錯紀錄並記下學到的事</td><td>沒清乾淨不算完成</td></tr>
 </table>
+
+<h2>先 Redact，再展示證據</h2>
+<p><code>/diagnosing-bugs</code> 會展示 command、output，也可能處理 HAR、trace 或 log。每次貼給人或寫進診斷紀錄之前，先把 API key、密碼、session token、authorization header 與其他秘密全部換成 <code>&lt;REDACTED&gt;</code>。建立回饋迴圈時，讓命令從環境變數取得憑證，不要把值寫進命令列或腳本。</p>
+<div class="tip"><strong>捕獲資料的界線：</strong>HAR、trace 與 log 常夾帶 authorization header、cookie 或個資；不要整份貼出，只引用能證明症狀的 signal lines，而且引用前仍要遮蔽。若遮蔽後的內容不足以診斷，就明說缺少什麼並詢問使用者，不要要求對方公開秘密，也不要靠殘缺證據猜原因。</div>
 
 <h2>重現後一定要最小化</h2>
 <p>看見紅燈只是前半段。接著一次只移除一個輸入、呼叫端、設定、資料或操作步驟，每移除一次就重跑回饋迴圈；能維持紅燈就繼續刪，變綠則把該元素放回。最後留下的最小重現案例（minimal reproduction）會縮小假說空間，也能成為乾淨的回歸測試。</p>
@@ -80,7 +85,7 @@
 <div class="tip"><strong>三個對高風險錯誤特別重要的細則：</strong>
 (1) <strong>迴圈本身要迭代：</strong>「30 秒且會閃爍的迴圈只比沒有好一點；2 秒且確定性的迴圈是除錯超能力」。
 (2) <strong>非確定性錯誤：</strong>先把重現率拉高，不必等到每次都能乾淨重現。觸發 100 次、平行化、加壓、加入等待（sleep），50% 重現率就能除錯。
-(3) <strong>真的造不出迴圈時，它會停下來明說：</strong>向你要環境存取、捕獲資料（HAR 檔、執行紀錄傾印（log dump）或錄影）或臨時埋點的許可。它被禁止在沒有迴圈時瞎猜假說。</div>
+(3) <strong>真的造不出迴圈時，它會停下來明說：</strong>向你要環境存取、已遮蔽的捕獲資料（HAR 檔、執行紀錄傾印（log dump）或錄影）或臨時埋點的許可。若遮蔽後的資料不夠，它會說明缺口並詢問你；它被禁止在沒有迴圈時瞎猜假說。</div>
 
 <h2>你的角色：在假說階段補上人類脈絡</h2>
 <p>它列出排序假說後會先給你看。這時補一句「#3 那個模組我們上週才改過」，就可能重新排定調查順序。工作技能也明定你不在場時它會照自己的排序繼續，不會卡住。</p>
@@ -99,27 +104,32 @@
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 3. 最小化重現</label>
+  <label><input type="checkbox"> 3. 驗收 Redact 邊界</label>
+  <p>檢查準備展示的 command 與 output：所有秘密都已替換成 <code>&lt;REDACTED&gt;</code>，憑證由環境變數傳入。若使用 HAR、trace 或 log，只摘錄能證明症狀的 signal lines；遮蔽後仍不足以判讀時，先向使用者說明還缺什麼。</p>
+</div>
+
+<div class="step">
+  <label><input type="checkbox"> 4. 最小化重現</label>
   <p>逐一刪除輸入、呼叫端（caller）、設定、資料與步驟，每次都重跑同一個命令（command）。直到任何一項再刪都會讓訊號轉綠。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 4. 在第 3 階段注入人類脈絡</label>
+  <label><input type="checkbox"> 5. 在第 3 階段注入人類脈絡</label>
   <p>看到假說清單時認真讀，用你對系統、產品或近期變更的了解重排序或排除（「這個我們查過了」）。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 5. 盯第 5 階段的接縫判斷</label>
+  <label><input type="checkbox"> 6. 盯第 5 階段的接縫判斷</label>
   <p>確認：回歸測試先紅後綠了嗎？它寫測試的接縫真的能重現錯誤的觸發模式嗎？若它回報「沒有正確接縫」，把這個發現餵給 Phase 2 第 11 課的架構健檢。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 6. 驗收第 6 階段</label>
+  <label><input type="checkbox"> 7. 驗收第 6 階段</label>
   <p>搜尋除錯前綴，確認所有臨時紀錄已清除，再重跑原始情境。若修正釐清了領域術語，經人確認後才更新 CONTEXT.md；需要保存的重要取捨才寫 ADR，其餘留在議題或提交紀錄。</p>
 </div>
 
 <div class="done-banner" id="done">
-  <strong>完成條件：</strong>診斷紀錄包含最小重現案例、排序過的假說、推翻假說的證據與修正後驗證。
+  <strong>完成條件：</strong>診斷紀錄包含最小重現案例、排序過的假說、推翻假說的證據與修正後驗證；所有展示的命令、輸出與捕獲資料都已遮蔽秘密，且沒有把憑證值寫進命令或紀錄。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
@@ -156,12 +166,20 @@
   <div class="why">地圖可以協助找到呼叫路徑與測試接縫，但它服務的是能重現紅燈的命令；建立迴圈前，不能只靠閱讀程式碼猜原因。</div>
 </div>
 
+<div class="quiz" data-answer="1">
+  <p>5. 建立需要登入的回饋迴圈，還要引用 HAR 證明症狀時，哪個做法正確？</p>
+  <button>把 token 寫進重現命令，完整貼出 HAR 才方便判讀</button>
+  <button>從環境變數讀憑證，展示前遮蔽秘密，HAR 只引用 signal lines</button>
+  <button>先貼出原始資料，診斷完成後再刪除敏感段落</button>
+  <div class="why">秘密必須在展示前換成 <code>&lt;REDACTED&gt;</code>；憑證留在環境變數，捕獲資料只摘錄能證明症狀的行。若遮蔽後證據不足，就說明缺口並詢問使用者。</div>
+</div>
+
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。下一課：<a href="003-0011-architecture.html">Phase 2 第 11 課 — 用 /improve-codebase-architecture 找維護切入點</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/diagnosing-bugs/SKILL.md">已審查的 diagnosing-bugs 版本（2ab9580）</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnosing-bugs/SKILL.md">目前的 diagnosing-bugs 說明</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/diagnosing-bugs/SKILL.md">已審查的 diagnosing-bugs 版本（v1.2.3）</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnosing-bugs/SKILL.md">目前的 diagnosing-bugs 說明</a>。</p>
 
 <footer>
-  診斷停滯時，交出最小重現案例、完整錯誤與已排除的假說，請 Claude Code 提出下一個能推翻假說的檢查。<br>
+  診斷停滯時，交出最小重現案例、已遮蔽的錯誤證據與已排除的假說，請 Claude Code 提出下一個能推翻假說的檢查。<br>
   上一課：<a href="003-0009-triage.html">Phase 2 第 09 課 — /triage</a> · <a href="../reference/claude-product-picker.html">速查表</a>
 </footer>
 

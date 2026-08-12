@@ -39,20 +39,20 @@
 <p style="margin:0"><a href="../toc.html" style="font-size:.85rem">← 課目表</a></p>
 <div class="kicker">Phase 2 · 第 04 課 · 約 40 分鐘 · 實作課</div>
 <h1>用 /grill-with-docs 把需求問清楚</h1>
-<p class="mission"><strong>本課成果：</strong>一份經過逐題追問、能驗收的實作計畫。</p>
+<p class="mission"><strong>本課成果：</strong>一份沿 design tree 分輪追問、能驗收的實作計畫。</p>
 <div class="scope"><strong>本課只做：</strong>把模糊需求問到可以行動。<br><strong>先不要做：</strong>用 grill 取代產品決策，或把訪談拖成無限討論。</div>
 
 
 <h2>兩支 grill，怎麼選</h2>
 <table>
 <tr><th></th><th><code>/grill-me</code></th><th><code>/grill-with-docs</code></th></tr>
-<tr><td>做什麼</td><td>對計畫做結構化追問；沒有程式庫文件可讀寫</td><td>同樣逐題追問，並用 domain-modeling 對照程式碼、CONTEXT.md 與 ADR</td></tr>
+<tr><td>做什麼</td><td>對計畫做結構化、分輪追問；沒有程式庫文件可讀寫</td><td>同樣依 frontier 分輪追問，並用 domain-modeling 對照程式碼、CONTEXT.md 與 ADR</td></tr>
 <tr><td>適合</td><td><strong>沒有既有程式碼庫</strong>的計畫或設計</td><td><strong>已有程式碼庫</strong>的需求（本課情境）</td></tr>
 </table>
-<p><strong>選擇軸只有「有沒有既有程式碼庫」</strong>，不是快速或正式。兩者都使用 <code>grilling</code>：沿決策樹逐一解決依賴、一次只問一題並附建議答案；能從環境找到的<strong>事實</strong>由代理自己查，真正的<strong>決策</strong>則必須逐題交給你回答。你沒有確認「雙方已建立共同理解（shared understanding）」之前，它不得開始執行計畫。</p>
+<p><strong>選擇軸只有「有沒有既有程式碼庫」</strong>，不是快速或正式。兩者都使用 <code>grilling</code>：先把決策與依賴畫成 design tree，再分輪處理 frontier，也就是「前置決策已確定、現在就能回答」的所有問題。每輪會一次編號列出整個 frontier，並為每題附 recommended answer；仍依賴本輪其他答案的問題要留到下一輪。能從環境找到的<strong>事實</strong>由代理自己查，真正的<strong>決策</strong>則由你回答。你沒有確認「雙方已建立共同理解（shared understanding）」之前，它不得開始執行計畫。</p>
 
 <h2>domain-modeling 的五個維護動作</h2>
-<p><code>grill-with-docs/SKILL.md</code> 本身只負責一件事：呼叫 <code>domain-modeling</code>，依 <code>grilling</code> 的方式逐題追問。以下五項文件行為來自 <code>domain-modeling</code>，逐題訪談紀律則來自 <code>grilling</code>：</p>
+<p><code>grill-with-docs/SKILL.md</code> 本身只負責一件事：呼叫 <code>domain-modeling</code>，依 <code>grilling</code> 的 frontier rounds 追問。以下五項文件行為來自 <code>domain-modeling</code>，design tree 與分輪訪談紀律則來自 <code>grilling</code>：</p>
 <ol>
   <li><strong>對照詞彙表</strong>：「你的 CONTEXT.md 定義『取消』是 X，但你現在的意思是 Y — 哪個對？」</li>
   <li><strong>銳化模糊語言</strong>：「你說『帳號』，是 Customer 還是 User？這是兩個東西。」</li>
@@ -63,7 +63,7 @@
 <div class="tip"><strong>ADR 三條件（全滿足才寫）：</strong>決策很難回頭（hard to reverse）＋ 缺少背景就無法理解理由（surprising without context）＋ 決策確實涉及取捨（real trade-off）。缺一就不寫，避免讓不重要的紀錄淹沒真正需要保存的決策。</div>
 
 <h2>你在 grill 中的角色</h2>
-<p>grill 的品質取決於你的回答。三個原則：</p>
+<p>grill 的品質取決於你的回答。四個原則：</p>
 <ul>
   <li><strong>別敷衍</strong> — 「都可以」是需求錯位（misalignment）的溫床。不確定就說不確定，讓它幫你列選項。</li>
   <li><strong>善用它的建議答案</strong> — 每題附的建議是好的起點，但它不懂你的業務脈絡，該推翻就推翻。</li>
@@ -92,12 +92,12 @@
   <label><input type="checkbox"> 2. 開始追問</label>
   <p>在目標程式庫的工作階段裡：</p>
   <pre>/grill-with-docs 我想做：[一兩句描述你的需求]</pre>
-  <p>一次一題，認真答。預期 10–30 分鐘的來回。</p>
+  <p>每輪依編號回答整個 frontier；同一輪可能有多題，但不該出現答案仍依賴另一個未決問題的題目。預期 10–30 分鐘的來回。</p>
 </div>
 
 <div class="step">
-  <label><input type="checkbox"> 3. 過程中觀察三件事</label>
-  <p>(a) 哪一題讓你發現「我其實沒想清楚」？(b) 它有沒有抓到你的話和程式碼的矛盾？(c) CONTEXT.md 長出了哪些新詞條？</p>
+  <label><input type="checkbox"> 3. 過程中觀察四件事</label>
+  <p>(a) 哪一題讓你發現「我其實沒想清楚」？(b) 它有沒有抓到你的話和程式碼的矛盾？(c) CONTEXT.md 長出了哪些新詞條？(d) 它是否自行查清事實，只把真正的決策留給你？</p>
 </div>
 
 <div class="step">
@@ -106,7 +106,7 @@
 </div>
 
 <div class="done-banner" id="done">
-  <strong>完成條件：</strong>計畫中的每項工作都能驗收，新增到 <code>CONTEXT.md</code> 的詞彙也已逐條確認。
+  <strong>完成條件：</strong>design tree 的 frontier 已清空、計畫中的每項工作都能驗收，新增到 <code>CONTEXT.md</code> 的詞彙也已確認。
 </div>
 
 <h2>觀念檢查（憑記憶作答）</h2>
@@ -114,9 +114,9 @@
 <div class="quiz" data-answer="2">
   <p>1. grill 過程中它問「現在系統的逾時是怎麼算的？」你不太確定，最好的回應是？</p>
   <button>依印象直接回答再回頭修正</button>
-  <button>暫時跳過問題繼續下一題</button>
-  <button>探索程式碼確認後再回答</button>
-  <div class="why">工作技能設計原文：能從既有程式碼庫回答的問題就去探索程式碼庫。憑印象回答會把需求錯位重新引進來；跳過則會留下未解決的決策依賴。</div>
+  <button>由你先搜尋程式碼，再把結果整理給它</button>
+  <button>讓代理探索程式碼確認事實，再繼續相關決策</button>
+  <div class="why">工作技能設計原文：查事實是代理的工作。需要環境證據的問題先由代理探索；它可以繼續問 frontier 上其他不受影響的決策，不必把搜尋工作丟給你。</div>
 </div>
 
 <div class="quiz" data-answer="0">
@@ -134,10 +134,17 @@
   <button>CLAUDE.md，這是代理的工作規範</button>
   <div class="why">（間隔複習）術語定義 = CONTEXT.md（純詞彙表）。ADR 記「為什麼選這個設計」；CLAUDE.md 管工作規範。三份文件的職責別混在一起。</div>
 </div>
+<div class="quiz" data-answer="1">
+  <p>4. Frontier 上同時有三個互不依賴、現在都能回答的決策，正確問法是？</p>
+  <button>每輪只能問一題，其餘兩題排到後面</button>
+  <button>同一輪編號列出三題，並為每題附 recommended answer</button>
+  <button>連同依賴這三題答案的下游問題，也一次全部問完</button>
+  <div class="why">一輪要涵蓋當下完整 frontier。能立即回答的獨立問題同輪提出；答案尚有依賴的下游問題，等重算下一輪 frontier 再問。</div>
+</div>
 
 <h2>下一步</h2>
 <p>完成後回對話視窗回報。下一課：<a href="003-0005-prototype.html">Phase 2 第 05 課 — 用 /prototype 驗證講不清的問題</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/grill-with-docs/SKILL.md">已審查的 grill-with-docs 版本（2ab9580）</a>，以及同一版本的 <a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/productivity/grilling/SKILL.md">grilling</a> 與 <a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/domain-modeling/SKILL.md">domain-modeling</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/SKILL.md">目前的 grill-with-docs 說明</a>。補充：<a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/grill-with-docs/SKILL.md">已審查的 grill-with-docs 版本（v1.2.3）</a>，以及同一版本的 <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/productivity/grilling/SKILL.md">grilling</a> 與 <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/domain-modeling/SKILL.md">domain-modeling</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/SKILL.md">目前的 grill-with-docs 說明</a>。補充：<a href="../reference/claude-code-model-effort.html">模型與推理程度速查表</a>。</p>
 
 <footer>
   計畫仍無法驗收時，交出計畫與最模糊的條目，請 Claude Code 把它改成能用操作或測試判定的條件。<br>

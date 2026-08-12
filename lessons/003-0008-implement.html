@@ -64,7 +64,7 @@
 </div>
 <div class="step">
   <label><input type="checkbox"> 3. 看過測試從失敗到通過</label>
-  <p>用 <code>/tdd</code> 保留紅燈到綠燈（RED → GREEN）的證據。測試必須能在需求被破壞時失敗，才算保護到這次修改。</p>
+  <p>用 <code>/tdd</code> 保留紅燈到綠燈（RED → GREEN）的證據。測試必須能在需求被破壞時失敗，才算保護到這次修改；若連測試該落在哪個 interface 或 seam 都說不清，先用 <code>codebase-design</code> 的 vocabulary 把模組邊界釐清。</p>
 </div>
 <div class="step">
   <label><input type="checkbox"> 4. 審查程式差異與驗證結果</label>
@@ -105,7 +105,7 @@
 
 <h2>下一步</h2>
 <p>完成後回對話視窗交報告。下一課：<a href="003-0009-triage.html">Phase 2 第 09 課 — 用 /triage 處理外部回報</a>。</p>
-<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/implement/SKILL.md">已審查的 implement 版本（2ab9580）</a>，以及同一版本的 <a href="https://github.com/mattpocock/skills/blob/2ab958093e83e0ec752e6c1c5932da465bf23e0c/skills/engineering/tdd/SKILL.md">TDD 邊界</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/implement/SKILL.md">目前的 implement 說明</a>。</p>
+<p><strong>主要閱讀資源：</strong><a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/implement/SKILL.md">已審查的 implement 版本（v1.2.3）</a>，以及同一版本的 <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/tdd/SKILL.md">TDD 邊界</a>與 <a href="https://github.com/mattpocock/skills/blob/6acc160e4e0cd062dbbbd7a1b26ae92855edf07e/skills/engineering/codebase-design/SKILL.md">codebase-design vocabulary</a>；使用前再查 <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/implement/SKILL.md">目前的 implement 說明</a>。</p>
 
 <footer>
   有限切片尚未通過驗證時，交出工作項目、失敗命令與 <code>git diff</code>，請 Claude Code 只處理阻擋交付的問題。<br>
